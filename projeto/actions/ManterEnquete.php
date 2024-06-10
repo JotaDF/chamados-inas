@@ -3,6 +3,7 @@
 require_once('Model.php');
 //require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Enquete.php');
 require_once('dto/Enquete.php');
+require_once('dto/OpcaoEnquete.php');
 
 class ManterEnquete extends Model {
 
@@ -11,7 +12,7 @@ class ManterEnquete extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select e.id,e.descricao, status, (select count(*) from nota as n where n.id_enquete=e.id) as dep FROM enquete as e $filtro order by e.id";
+        $sql = "select e.id,e.descricao, status, (select count(*) from resposta_enquete as n where n.id_enquete=e.id) as dep FROM enquete as e $filtro order by e.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -66,6 +67,33 @@ class ManterEnquete extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function getOpcoesEnquete($id) {
+        $sql = "select op.id,op.opcao,op.id_enquete from enquete_opcoes as op where op.id_enquete=$id";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new OpcaoEnquete();
+            $dados->excluir = true;
+            $dados->id          = $registro["id"];
+            $dados->opcao       = $registro["opcao"];
+            $dados->id_enquete  = $registro["id_enquete"];
+            $array_dados[]      = $dados;
+        }
+        return $array_dados;
+    }
 
+    function addOpcao(OpcaoEnquete $dados) {
+        $sql = "insert into enquete_opcoes (opcao,id_enquete) values ('" . $dados->opcao . "','" . $dados->id_enquete . "')";
+        
+        $resultado = $this->db->Execute($sql);
+        $dados->id = $this->db->insert_Id();
+
+        return $resultado;
+    }
+    function delOpcao($id) {
+        $sql = "delete from enquete_opcoes where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
 }
 
