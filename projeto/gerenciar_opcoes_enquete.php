@@ -99,7 +99,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Enquete</div>
-                                            <div class="mb-0"><?= $enquete->descrição ?></div>
+                                            <div class="mb-0"><?= $enquete->descricao ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Status</div>

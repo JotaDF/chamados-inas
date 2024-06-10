@@ -16,6 +16,8 @@
         <span>Início</span>
     </a>
 </li>
+<!-- Divider -->
+<hr class="sidebar-divider">
     <?php
     if ($usuario_logado->perfil <= 2) {
         ?>
@@ -52,6 +54,13 @@
             <a class="nav-link collapsed" href="modulos.php">
                 <i class="fa fa-window-restore"></i>
                 <span>Módulos</span>
+            </a>
+        </li> 
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="enquetes.php">
+                <i class="fa fa-list-ul"></i>
+                <span>Enquetes</span>
             </a>
         </li> 
             <?php
