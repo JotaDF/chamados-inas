@@ -12,7 +12,7 @@ class ManterEnquete extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select e.id,e.descricao, status, (select count(*) from resposta_enquete as n where n.id_enquete=e.id) as dep FROM enquete as e $filtro order by e.id";
+        $sql = "select e.id,e.descricao, e.status, (select count(*) from enquete_resposta as n where n.id_enquete=e.id) as dep FROM enquete as e $filtro order by e.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -29,7 +29,7 @@ class ManterEnquete extends Model {
         return $array_dados;
     }
     function getEnquetePorId($id) {
-        $sql = "select e.id,e.descricao, status FROM enquete as e WHERE id=$id";
+        $sql = "select e.id,e.descricao, e.status FROM enquete as e WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Enquete();
@@ -38,6 +38,18 @@ class ManterEnquete extends Model {
             $dados->descricao = $registro["descricao"];
             $dados->status      = $registro["status"];
         }
+        return $dados;
+    }
+    function getEnqueteAtiva() {
+        $sql = "select e.id,e.descricao,e.status FROM enquete as e WHERE status=1";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Enquete();
+        if ($registro = $resultado->fetchRow()) {
+            $dados->id          = $registro["id"];
+            $dados->descricao = $registro["descricao"];
+            $dados->status      = $registro["status"];
+        } 
         return $dados;
     }
     function salvar(Enquete $dados) {
@@ -95,5 +107,12 @@ class ManterEnquete extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function salvarVoto($id_enquete, $id_usuario, $id_opcao) {
+        $sql = "insert into enquete_resposta (registro, id_enquete, id_usuario, id_enquete_opcoes) values (CURRENT_TIMESTAMP()," . $id_enquete . "," . $id_usuario . "," . $id_opcao . ")";
+        $resultado = $this->db->Execute($sql);
+        $dados->id = $this->db->insert_Id();
+        return $resultado;
+    }
+
 }
 

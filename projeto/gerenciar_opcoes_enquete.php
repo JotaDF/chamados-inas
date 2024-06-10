@@ -41,7 +41,7 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id, id_enquete, opcao) {
-                $('#delete').attr('href', 'remover_opcao_enquete.php?id_enquete' + id_enquete + '=id=' + id);
+                $('#delete').attr('href', 'remover_opcao_enquete.php?id_enquete=' + id_enquete + '&id=' + id);
                 $('#nome_excluir').text(opcao);
                 $('#confirm').modal({show: true});              
             }

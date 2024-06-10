@@ -168,6 +168,68 @@ and open the template in the editor.
             </div>
         </div>
         <!-- Fim Modal -->
+
+
+        <?php
+        require_once('./actions/ManterEnquete.php');
+        $db_enquete = new ManterEnquete();
+        $enquete = $db_enquete->getEnqueteAtiva();
+
+        if($enquete->id > 0){
+            $opcoes = $db_enquete->getOpcoesEnquete($enquete->id);
+        ?>
+        <!-- Modal -->
+        <div class="modal fade" style="max-width: 650px;" id="enquete" tabindex="-1" role="dialog" aria-labelledby="TituloEnquete" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloEnquete">Enquete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                                <div class="card-header"><?=$enquete->descricao ?></div>
+                                <div class="card-body text-dark">
+                                    <h6 class="card-title">Marque sua opção</h6>
+                                    <p class="card-text">
+                                    <form id="form_cadastro" action="save_categoria.php" method="post">
+                                        <input type="hidden" id="id_enquete" name="id_enquete" value="<?=$enquete->id ?>"/>
+                                        <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
+                                        <?php
+                                        //opçoes
+                                        foreach ($opcoes as $obj) {
+                                            ?>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="voto" value="<?=$obj->id ?>">
+                                                <label class="form-check-label" for="voto">
+                                                    <?=$obj->opcao ?>
+                                                </label>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                            <div class="form-group row float-right">
+                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Enviar</button>
+                                                &nbsp;&nbsp;&nbsp;
+                                            </div>
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal -->
+        <?php
+        }
+        ?>
     </body>
 
 </html>
