@@ -44,6 +44,11 @@ and open the template in the editor.
                 font-size: small;
             }
         </style>
+        <script type="text/javascript" class="init">
+            $(document).ready(function () {
+                $("#enquete").modal('show');
+            });
+        </script>
     </head>
 
     <body id="page-top">
@@ -196,7 +201,7 @@ and open the template in the editor.
                                 <div class="card-body text-dark">
                                     <h6 class="card-title">Marque sua opção</h6>
                                     <p class="card-text">
-                                    <form id="form_cadastro" action="save_categoria.php" method="post">
+                                    <form id="form_cadastro" action="save_voto_enquete.php" method="post">
                                         <input type="hidden" id="id_enquete" name="id_enquete" value="<?=$enquete->id ?>"/>
                                         <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <?php
