@@ -110,9 +110,19 @@ class ManterEnquete extends Model {
     function salvarVoto($id_enquete, $id_usuario, $id_opcao) {
         $sql = "insert into enquete_resposta (registro, id_enquete, id_usuario, id_enquete_opcoes) values (CURRENT_TIMESTAMP()," . $id_enquete . "," . $id_usuario . "," . $id_opcao . ")";
         $resultado = $this->db->Execute($sql);
-        $dados->id = $this->db->insert_Id();
         return $resultado;
     }
-
+    function jaVotou($id_enquete, $id_usuario) {
+        $sql = "select count(*) as total from enquete_resposta where id_enquete=$id_enquete AND id_usuario=$id_usuario";
+        $resultado = $this->db->Execute($sql);
+        $total = 0;
+        if ($registro = $resultado->fetchRow()) {
+            $total   = $registro["total"];
+        }
+        if($total > 0){
+            return true;
+        }
+        return false;
+    }
 }
 
