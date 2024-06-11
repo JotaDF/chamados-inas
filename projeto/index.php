@@ -181,6 +181,8 @@ and open the template in the editor.
         $enquete = $db_enquete->getEnqueteAtiva();
 
         if($enquete->id > 0){
+            if (!$db_enquete->jaVotou($enquete->id, $usuario_logado->id)) {
+
             $opcoes = $db_enquete->getOpcoesEnquete($enquete->id);
         ?>
         <!-- Modal -->
@@ -233,6 +235,7 @@ and open the template in the editor.
         </div>
         <!-- Fim Modal -->
         <?php
+            }
         }
         ?>
     </body>
