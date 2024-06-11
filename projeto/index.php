@@ -184,7 +184,7 @@ and open the template in the editor.
             $opcoes = $db_enquete->getOpcoesEnquete($enquete->id);
         ?>
         <!-- Modal -->
-        <div class="modal fade" style="max-width: 650px;" id="enquete" tabindex="-1" role="dialog" aria-labelledby="TituloEnquete" aria-hidden="true">
+        <div class="modal fade" style="" id="enquete" tabindex="-1" role="dialog" aria-labelledby="TituloEnquete" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -196,7 +196,7 @@ and open the template in the editor.
                 <div class="modal-body">
                     <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
                         <div class="row no-gutters align-items-center">
-                            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                            <div class="card border-dark mb-3" style="max-width: 100%;">
                                 <div class="card-header"><?=$enquete->descricao ?></div>
                                 <div class="card-body text-dark">
                                     <h6 class="card-title">Marque sua opção</h6>
