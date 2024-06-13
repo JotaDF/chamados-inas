@@ -93,7 +93,24 @@ class ManterEnquete extends Model {
         }
         return $array_dados;
     }
-
+    function getTotalVotosEnquete($id_enquete) {
+        $sql = "SELECT count(*) as total FROM enquete_resposta WHERE id_enquete=$id_enquete";
+        $resultado = $this->db->Execute($sql);
+        $total = 0;
+        if ($registro = $resultado->fetchRow()) { 
+            $total = $registro["total"];
+        }
+        return $total;
+    }
+    function getTotalVotosPorOpcao($id_enquete,$id_opcao) {
+        $sql = "SELECT count(*) as total FROM enquete_resposta WHERE id_enquete_opcoes=$id_opcao AND id_enquete=$id_enquete";
+        $resultado = $this->db->Execute($sql);
+        $total = 0;
+        if ($registro = $resultado->fetchRow()) { 
+            $total = $registro["total"];
+        }
+        return $total;
+    }
     function addOpcao(OpcaoEnquete $dados) {
         $sql = "insert into enquete_opcoes (opcao,id_enquete) values ('" . $dados->opcao . "','" . $dados->id_enquete . "')";
         
