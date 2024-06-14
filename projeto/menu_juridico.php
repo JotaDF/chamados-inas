@@ -9,6 +9,15 @@
 <br/>
 <!-- Divider -->
 <hr class="sidebar-divider">
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="index.php">
+        <i class="fa fa-home"></i>
+        <span>Início</span>
+    </a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
     <?php
     if ($usuario_logado->perfil >= 1) {
         ?>
@@ -51,10 +60,18 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="classes_judiciais.php">
-                    <i class="fa fa-university"></i>
+                    <i class="fa fa-retweet"></i>
                     <span>Classes Judiciais</span>
                 </a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="tipos_valores.php">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Tipo de valores</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">            
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="processos.php">
