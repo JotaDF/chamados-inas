@@ -157,9 +157,9 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="opcao" class="col-sm-2 col-form-label">Valor:</label>
+                                            <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
                                             <div class="col-sm-10">
-                                            <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_causa" id="valor_causa" placeholder="R$ 0,00" required>
+                                            <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
                                             </div>
                                         </div>
                                         <div class="form-group row float-right mr-1">

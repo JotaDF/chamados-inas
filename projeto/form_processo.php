@@ -77,39 +77,9 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-2.5">
-                <label for="valor_guia">Valor da Guia</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_guia" id="valor_guia" placeholder="R$ 0,00">
-                </div>
-                <div class="form-group col-md-2.5">
                 <label for="valor_causa">Valor da Causa</label>
                 <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_causa" id="valor_causa" placeholder="R$ 0,00">
                 </div> 
-                <div class="form-group col-md-2.5">
-                <label for="deposito_judicial">Depósito Judicial</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="deposito_judicial" id="deposito_judicial" placeholder="R$ 0,00">
-                </div>
-                <div class="form-group col-md-2.5">
-                <label for="reembolso">Reembolso</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="reembolso" id="reembolso" placeholder="R$ 0,00">
-                </div>            
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-2.5">
-                <label for="custas">Custas</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="custas" id="custas" placeholder="R$ 0,00">
-                </div>
-                <div class="form-group col-md-2.5">
-                <label for="honorarios">Honorários</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="honorarios" id="honorarios" placeholder="R$ 0,00">
-                </div> 
-                <div class="form-group col-md-2.5">
-                <label for="multa">Multa</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="multa" id="multa" placeholder="R$ 0,00">
-                </div>
-                <div class="form-group col-md-2.5">
-                <label for="danos_morais">Danos Morais</label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="danos_morais" id="danos_morais" placeholder="R$ 0,00">
-                </div>            
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
