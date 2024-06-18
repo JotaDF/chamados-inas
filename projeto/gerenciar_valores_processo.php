@@ -57,6 +57,14 @@ and open the template in the editor.
             const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
             event.target.value = maskCurrency(digitsFloat)
             }
+
+            const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+            return new Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency
+            }).format(valor)
+            }
+            
         </script>
         <style>
             body{
