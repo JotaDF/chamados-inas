@@ -8,14 +8,7 @@
       public $beneficiario;
       public $guia;
       public $senha;
-      public $valor_guia;
       public $valor_causa;
-      public $deposito_judicial;
-      public $reembolso;
-      public $custas;
-      public $honorarios;
-      public $multa;
-      public $danos_morais;
       public $assunto;
       public $situacao_processual;
       public $liminar;
