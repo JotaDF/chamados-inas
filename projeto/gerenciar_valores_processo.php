@@ -64,7 +64,7 @@ and open the template in the editor.
                 currency
             }).format(valor)
             }
-            
+
         </script>
         <style>
             body{
@@ -155,8 +155,6 @@ and open the template in the editor.
                                                 ?>
                                             </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="opcao" class="col-sm-2 col-form-label">Valor:</label>
                                             <div class="col-sm-10">
                                             <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_causa" id="valor_causa" placeholder="R$ 0,00" required>
@@ -182,7 +180,7 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:800px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fas fa-users fa-2x text-white"></i> 
+                                    <i class="fa fa-credit-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Valores cadastrados</span>
@@ -194,7 +192,7 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Tipo/th>
+                                            <th scope="col">Tipo</th>
                                             <th scope="col">Valor</th>        
                                             <th scope="col">REMOVER</th> 
                                         </tr>
