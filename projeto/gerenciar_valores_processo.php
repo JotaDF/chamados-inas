@@ -203,13 +203,22 @@ and open the template in the editor.
                                             <th scope="col">REMOVER</th> 
                                         </tr>
                                     </thead>
-                                    <tbody id="opcoes">
+                                    <tbody id="valores">
                                         <?php                                                 
-                                                $valor_causa = str_replace(",",".",str_replace(".","",str_replace("R$ ","",$processo->valor_causa)));
-                                                $soma = $valor_causa;
+                                                //$valor_causa = str_replace(".","",$processo->valor_causa);
+                                                //$valor_causa = str_replace((",",".",$valor_causa);
+                                                //$valor_causa = str_replace("R$","",$valor_causa);
+                                                //$valor_causa = str_replace(" ","",$valor_causa);
+                                                //$soma = $valor_causa;
+                                                //echo "#".$soma."#";
+                                                $soma = 0;
                                                 foreach ($valores_processo as $obj) {
-                                                    $valor = str_replace(",",".",str_replace(".","",str_replace("R$ ","",$obj->valor)));
-                                                    $soma += $valor;
+                                                    //$valor = str_replace(".","",$obj->valor);
+                                                    //$valor = str_replace((",",".",$valor_causa);
+                                                    //$valor = str_replace("R$","",$valor_causa);
+                                                    //$valor = str_replace(" ","",$valor_causa);
+                                                                                                                                                                                                                
+                                                    //$soma += $valor;
                                                     $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
