@@ -19,6 +19,7 @@
             echo "  <td>".$manterAssunto->getAssuntoPorId($obj->assunto)->assunto."</td>";
             echo "  <td>".$obj->valor_causa."</td>";
             $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
+            $btn_vinculos = '&nbsp;&nbsp;<a href="gerenciar_processos_vinculados.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-link"></i></a>';
             if($obj->excluir){
                 echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_vinculado."\",\"".$obj->classe_judicial."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores."</td>";
             } else {
