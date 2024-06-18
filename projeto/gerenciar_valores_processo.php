@@ -117,12 +117,16 @@ and open the template in the editor.
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="c1 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">ID</div>
                                             <div class="mb-0"><?= $processo->id ?></div>
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Processo</div>
                                             <div class="mb-0"><?= $processo->numero ?></div>
+                                        </div> 
+                                        <div class="c2 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Valor da causa</div>
+                                            <div class="mb-0"><?= $processo->valor_causa ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">CPF</div>
@@ -200,8 +204,12 @@ and open the template in the editor.
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
-                                        <?php 
+                                        <?php                                                 
+                                                $valor_causa = str_replace(",",".",str_replace(".","",str_replace("R$ ","",$processo->valor_causa)));
+                                                $soma = $valor_causa;
                                                 foreach ($valores_processo as $obj) {
+                                                    $valor = str_replace(",",".",str_replace(".","",str_replace("R$ ","",$obj->valor)));
+                                                    $soma += $valor;
                                                     $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
@@ -214,6 +222,12 @@ and open the template in the editor.
                                                     }
                                                     echo "</tr>";
                                                 }
+                                                //Imprime soma
+                                                echo "<tr>";
+                                                echo "  <td colspan='2'>Valor Total</td>";
+                                                echo "  <td>".$soma."</td>";
+                                                echo "  <td align='center'> - </td>";                
+                                                echo "</tr>";
                                         ?>
                                     </tbody>
                                 </table>
