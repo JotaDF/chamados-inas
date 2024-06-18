@@ -37,18 +37,17 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id, id_processo, opcao) {
-                $('#delete').attr('href', 'remover_opcao_processo.php?id_processo=' + id_processo + '&id=' + id);
-                $('#nome_excluir').text(opcao);
+            function excluir(id, tipo, valor) {
+                $('#delete').attr('href', 'remover_valor_processo.php?id=' + id);
+                $('#nome_excluir').text(tipo + " R$ " + valor);
                 $('#confirm').modal({show: true});              
             }
-            
+
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
                 .split("")
@@ -103,7 +102,7 @@ and open the template in the editor.
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de opções de processo</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-lock fa-3x text-white"></i>
+                                            <i class="fa fa-credit-card fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +118,7 @@ and open the template in the editor.
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">CPF</div>
-                                            <div class="mb-0"><?= $processo->cfp ?></div>
+                                            <div class="mb-0"><?= $processo->cpf ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Beneficiário</div>
@@ -178,7 +177,7 @@ and open the template in the editor.
                                     <i class="fas fa-users fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Opções cadastradas</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Valores cadastrados</span>
                                 </div>
                             </div>                            
 
@@ -187,17 +186,19 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">OPÇÃO</th>        
+                                            <th scope="col">Tipo/th>
+                                            <th scope="col">Valor</th>        
                                             <th scope="col">REMOVER</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
                                         <?php 
-                                                foreach ($opcoes as $obj) {
+                                                foreach ($valores_processo as $obj) {
+                                                    $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
-                                                    echo "  <td>".$obj->opcao."</td>";
-                                                    if($usuario_logado->perfil == 1){
+                                                    echo "  <td>".$obj->valor."</td>";
+                                                    if($usuario_logado->perfil <= 1){
                                                         echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_processo.",\"".$obj->opcao."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
