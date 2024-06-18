@@ -205,26 +205,20 @@ and open the template in the editor.
                                     </thead>
                                     <tbody id="valores">
                                         <?php                                                 
-                                                //$valor_causa = str_replace(".","",$processo->valor_causa);
-                                                //$valor_causa = str_replace((",",".",$valor_causa);
-                                                //$valor_causa = str_replace("R$","",$valor_causa);
-                                                //$valor_causa = str_replace(" ","",$valor_causa);
-                                                //$soma = $valor_causa;
-                                                //echo "#".$soma."#";
                                                 $soma = 0;
                                                 foreach ($valores_processo as $obj) {
-                                                    //$valor = str_replace(".","",$obj->valor);
-                                                    //$valor = str_replace((",",".",$valor_causa);
-                                                    //$valor = str_replace("R$","",$valor_causa);
-                                                    //$valor = str_replace(" ","",$valor_causa);
-                                                                                                                                                                                                                
-                                                    //$soma += $valor;
+                                                    $valor = str_replace(".","",$obj->valor);
+                                                    $valor = str_replace(",",".",$valor);
+                                                    $valor = str_replace("R$","",$valor);
+                                                    $valor = str_replace(" ","",$valor);                                                                                                                                                      
+                                                    $soma += $valor;
+
                                                     $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$tipo->tipo."</td>";
                                                     echo "  <td>".$obj->valor."</td>";
-                                                    if($usuario_logado->perfil <= 1){
+                                                    if($usuario_logado->perfil <= 2){
                                                         echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_processo.",\"".$obj->valor."\",\"".$tipo->tipo."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
@@ -234,7 +228,7 @@ and open the template in the editor.
                                                 //Imprime soma
                                                 echo "<tr>";
                                                 echo "  <td colspan='2'>Valor Total</td>";
-                                                echo "  <td>".$soma."</td>";
+                                                echo "  <td>". number_format($soma,2,",",".") ."</td>";
                                                 echo "  <td align='center'> - </td>";                
                                                 echo "</tr>";
                                         ?>
