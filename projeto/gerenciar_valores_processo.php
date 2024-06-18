@@ -42,8 +42,8 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id, tipo, valor) {
-                $('#delete').attr('href', 'remover_valor_processo.php?id=' + id);
+            function excluir(id, id_processo, valor, tipo) {
+                $('#delete').attr('href', 'remover_valor_processo.php?id=' + id + '&id_processo='+id_processo);
                 $('#nome_excluir').text(tipo + " R$ " + valor);
                 $('#confirm').modal({show: true});              
             }
@@ -139,7 +139,7 @@ and open the template in the editor.
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo valor</span>
-                                    <form id="form_cadastro" action="save_opcao_processo.php" method="post">
+                                    <form id="form_cadastro" action="save_valor_processo.php" method="post">
                                         <input type="hidden" id="id_processo" name="id_processo" value="<?=$processo->id ?>"/>
                                         <div class="form-group row">
                                             <label for="opcao" class="col-sm-2 col-form-label">Tipo:</label>
@@ -162,7 +162,7 @@ and open the template in the editor.
                                             <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_causa" id="valor_causa" placeholder="R$ 0,00" required>
                                             </div>
                                         </div>
-                                        <div class="form-group row float-right">
+                                        <div class="form-group row float-right mr-1">
                                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
                                         </div>
                                     </form>   
@@ -205,9 +205,10 @@ and open the template in the editor.
                                                     $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
+                                                    echo "  <td>".$tipo->tipo."</td>";
                                                     echo "  <td>".$obj->valor."</td>";
                                                     if($usuario_logado->perfil <= 1){
-                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_processo.",\"".$obj->opcao."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_processo.",\"".$obj->valor."\",\"".$tipo->tipo."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
                                                     }
