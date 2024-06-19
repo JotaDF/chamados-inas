@@ -16,7 +16,7 @@
       public $usuario;
       public $atualizacao;
       public $instancia;
-      public $processo_vinculado;
+      public $processo_principal;
       public $classe_judicial;
       public $observacao;
       

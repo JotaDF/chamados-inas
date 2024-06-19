@@ -9,9 +9,9 @@ class ManterProcesso extends Model {
         parent::__construct();
     }
 
-    function listar() {
+    function listar($filtro = "") {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
-        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_vinculado FROM processo ORDER BY autuacao";
+        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_vinculado FROM processo $filtro ORDER BY autuacao";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -45,6 +45,35 @@ class ManterProcesso extends Model {
     function getProcessoPorId($id) {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
                        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_vinculado FROM processo WHERE id=$id";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Processo();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->id                       = $registro["id"];
+            $dados->numero                   = $registro["numero"];
+            $dados->sei                      = $registro["sei"];
+            $dados->autuacao                 = $registro["autuacao"];
+            $dados->cpf                      = $registro["cpf"];
+            $dados->beneficiario             = $registro["beneficiario"];
+            $dados->guia                     = $registro["guia"];
+            $dados->senha                    = $registro["senha"];
+            $dados->valor_causa              = $registro["valor_causa"];
+            $dados->observacao               = $registro["observacao"];
+            $dados->assunto                  = $registro["id_assunto"];
+            $dados->classe_judicial          = $registro["id_classe_judicial"];
+            $dados->processo_vinculado       = $registro["processo_vinculado"];
+            $dados->situacao_processual      = $registro["id_situacao_processual"];
+            $dados->liminar                  = $registro["id_liminar"];
+            $dados->instancia                = $registro["id_instancia"];
+            $dados->data_cumprimento_liminar = $registro["data_cumprimento_liminar"];
+            $dados->usuario                  = $registro["id_usuario"];
+            $dados->atualizacao              = $registro["atualizacao"];
+        }
+        return $dados;
+    }
+    function getProcessoPorNumero($numero) {
+        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
+                       data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_vinculado FROM processo WHERE numero=$numero";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Processo();

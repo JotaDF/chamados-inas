@@ -40,14 +40,276 @@ and open the template in the editor.
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
+                     var assuntos = [];
+                     var tipos_liminar = [];
+                     var situacoes = [];
+                     var instancias = [];
+                     var classes_judiciais = [];
+<?php
+include_once('./actions/ManterAssunto.php');
+include_once('./actions/ManterLiminar.php');
+include_once('./actions/ManterSituacaoProcessual.php');
+include_once('./actions/ManterInstancia.php');
+include_once('./actions/ManterClasseJudicial.php');
+
+$manterAssunto = new ManterAssunto();
+$listaA = $manterAssunto->listar();
+
+$manterLiminar = new ManterLiminar();
+$listaL = $manterLiminar->listar();
+
+$manterSituacaoProcessual = new ManterSituacaoProcessual();
+$listaS = $manterSituacaoProcessual->listar();
+
+$manterInstancia = new ManterInstancia();
+$listaI = $manterInstancia->listar();
+
+$manterClasseJudicial = new ManterClasseJudicial();
+$listaCJ = $manterClasseJudicial->listar();
+
+
+foreach ($listaA as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", assunto: "<?= $obj->assunto ?>"};
+                assuntos.push(item);
+    <?php
+}
+foreach ($listaL as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", tipo: "<?= $obj->tipo ?>"};
+                tipos_liminar.push(item);
+    <?php
+}
+foreach ($listaS as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", situacao: "<?= $obj->situacao ?>"};
+                situacoes.push(item);
+    <?php
+}
+foreach ($listaI as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", instancia: "<?= $obj->instancia ?>"};
+                instancias.push(item);
+    <?php
+}
+foreach ($listaCJ as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", classe: "<?= $obj->classe ?>"};
+                classes_judiciais.push(item);
+    <?php
+}
+
+?>
+
             $(document).ready(function () {
+                $('#numeros').DataTable();
+                carregaAssuntos(0);
+                carregaTiposLiminar(0);
+                carregaSituacoes(0) ;
+                carregaInstancias(0);
+                carregaClassesJudiciais(0);
+                $('#processo_vinculado').prop("disabled", true);                                                                                                            
+                $('#data_cumprimento_liminar').prop("disabled", true);
             });
-            function excluir(id, id_processo, valor, tipo) {
-                $('#delete').attr('href', 'remover_valor_processo.php?id=' + id + '&id_processo='+id_processo);
-                $('#nome_excluir').text(tipo + " R$ " + valor);
+            var sei_t = "";
+            var sei = "";
+            var sei_html = "";
+            var sei_arr;
+            function addSei() {
+                sei_t = $('#sei_t').val();
+                sei = $('#sei').val();
+                
+                //alert(sei_t);
+                //alert(sei);
+                if($(sei_t !="")){
+                    sei_html = "";
+                    sei_arr = sei. split(";");
+                    var achou = false;
+                    for (let i = 0; i < sei_arr.length; i++) {
+                        if(sei_arr[i] == sei_t){
+                            achou = true;
+                        }
+                    }
+                    if(!achou) {
+                        sei += sei_t + ";";
+                    } else {
+                        alert("Processo SEI já adicionado!");
+                    }
+                    sei_arr = sei. split(";");
+                    for (let i = 0; i < sei_arr.length; i++) {
+                        if(sei_arr[i] !=""){
+                            sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
+                        }
+                    }
+                    $('#txt_sei').html(sei_html);
+                    $('#sei').val(sei);
+                    $('#sei_t').val("");
+                }
+                //alert(sei);    
+            }
+            function delSei(numero) {
+                sei_html = "";
+                sei = $('#sei').val();
+                sei = sei.replace(numero, '');
+                sei_arr = sei. split(";");
+                for (let i = 0; i < sei_arr.length; i++) {
+                    if(sei_arr[i] !=""){
+                        sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
+                    }
+                }
+                $('#txt_sei').html(sei_html);
+                $('#sei').val(sei);
+                //alert(sei);    
+            }
+            function carregarSei(numero) {
+                sei = numero;
+                sei_html = "";
+                sei_arr = numero.split(";");
+                for (let i = 0; i < sei_arr.length; i++) {
+                    if(sei_arr[i] !=""){
+                        sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
+                    }
+                }
+                $('#txt_sei').html(sei_html);
+                $('#sei').val(sei);
+                //alert(sei);    
+            }
+            function verificaClasse(classe) {
+                if (classe != "") {
+                    $('#processo_vinculado').prop("disabled", false);
+                } else {
+                    $('#processo_vinculado').prop("disabled", true);
+                }
+            }
+            function verificaLiminar(liminar) {
+                if (liminar != "") {
+                    $('#data_cumprimento_liminar').prop("disabled", false);
+                } else {
+                    $('#data_cumprimento_liminar').prop("disabled", true);
+                }
+            }
+            function novo() {
+                carregarSei("");
+                carregaAssuntos(0);
+                carregaTiposLiminar(0);
+                carregaSituacoes(0) ;
+                carregaInstancias(0);
+                carregaClassesJudiciais(0);
+                $('#processo_vinculado').prop("disabled", true);                                                                                                            
+                $('#data_cumprimento_liminar').prop("disabled", true);  
+                            
+            }
+            function excluir(id, numero, cpf, beneficiario) {
+                var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Beneficiário: " + beneficiario;
+                $('#delete').attr('href', 'del_processo.php?id=' + id);
+                $('#excluir').html(txt_excluir);
                 $('#confirm').modal({show: true});              
             }
+            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,situacao_processual,liminar,
+                            data_cumprimento_liminar,instancia,processo_vinculado,classe_judicial) {
+                $('#id').val(id);
+                $('#numero').val(numero);
+                $('#sei').val(sei);
+                $('#autuacao').val(autuacao);
+                $('#cpf').val(cpf);
+                $('#beneficiario').val(beneficiario);
+                $('#guia').val(guia);
+                $('#valor_causa').val(valor_causa);
+                if(liminar != "" && liminar != "0"){
+                    $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
+                }
+                $('#processo_vinculado').val(processo_vinculado);
+                
+                carregarSei(sei);
+                carregaAssuntos(assunto);
+                carregaTiposLiminar(liminar);
+                verificaLiminar(liminar);
+                carregaSituacoes(situacao_processual) ;
+                carregaInstancias(instancia);
+                carregaClassesJudiciais(classe_judicial);
 
+                $('#form_processo').collapse("show");
+            }
+
+            function selectByText(select, text) {
+                $(select).find('option:contains("' + text + '")').prop('selected', true);
+            }
+            function carregaAssuntos(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < assuntos.length; i++) {
+                    var option = assuntos[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.assunto + '</option>';
+                }
+                $('#assunto').html(html);
+            }
+            function carregaTiposLiminar(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < tipos_liminar.length; i++) {
+                    var option = tipos_liminar[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.tipo + '</option>';
+                }
+                $('#liminar').html(html);
+            }
+            function carregaSituacoes(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < situacoes.length; i++) {
+                    var option = situacoes[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.situacao + '</option>';
+                }
+                $('#situacao').html(html);
+            }
+            function carregaInstancias(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < instancias.length; i++) {
+                    var option = instancias[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.instancia + '</option>';
+                }
+                $('#instancia').html(html);
+            }
+            function carregaClassesJudiciais(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < classes_judiciais.length; i++) {
+                    var option = classes_judiciais[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.classe + '</option>';
+                }
+                $('#classe_judicial').html(html);
+            } 
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
                 .split("")
@@ -63,8 +325,52 @@ and open the template in the editor.
                 style: 'currency',
                 currency
             }).format(valor)
+            }    
+            function validarCPF() {
+                var cpf = $('#cpf').val();
+                if(!validarCPFX(cpf)){
+                    alert("Número de CPF inválido!");
+                    return false;
+                }
+                return true;
             }
-
+            function validarCPFX(cpf) {	
+                cpf = cpf.replace(/\D+/g, '');	
+                if(cpf == '') return false;	
+                // Elimina CPFs invalidos conhecidos	
+                if (cpf.length != 11 || 
+                    cpf == "00000000191" ||
+                    cpf == "00000000000" ||  
+                    cpf == "11111111111" || 
+                    cpf == "22222222222" || 
+                    cpf == "33333333333" || 
+                    cpf == "44444444444" || 
+                    cpf == "55555555555" || 
+                    cpf == "66666666666" || 
+                    cpf == "77777777777" || 
+                    cpf == "88888888888" || 
+                    cpf == "99999999999")
+                        return false;		
+                // Valida 1o digito	
+                add = 0;	
+                for (i=0; i < 9; i ++)		
+                    add += parseInt(cpf.charAt(i)) * (10 - i);	
+                    rev = 11 - (add % 11);	
+                    if (rev == 10 || rev == 11)		
+                        rev = 0;	
+                    if (rev != parseInt(cpf.charAt(9)))		
+                        return false;		
+                // Valida 2o digito	
+                add = 0;	
+                for (i = 0; i < 10; i ++)		
+                    add += parseInt(cpf.charAt(i)) * (11 - i);	
+                rev = 11 - (add % 11);	
+                if (rev == 10 || rev == 11)	
+                    rev = 0;	
+                if (rev != parseInt(cpf.charAt(10)))
+                    return false;		
+                return true;   
+            }
         </script>
         <style>
             body{
@@ -95,9 +401,11 @@ and open the template in the editor.
                     if (isset($_REQUEST['id'])) {
                         $id = $_REQUEST['id'];
                         $processo       = $manterProcesso->getProcessoPorId($id);
-                        $filtro = "WHERE id_processo=" . $id;
-                        $valores_processo = $manterValorProcesso->listar($filtro);
-                        $tipos_valores  = $manterTipoValor->listar();
+                        if ($processo->processo_principal != "") {
+                            $processo  = $manterProcesso->getProcessoPorNumero($processo->processo_principal);
+                        }
+                        $filtro = "WHERE processo_principal=" . $processo->id;
+                        $processos_vinvculados = $manterValorProcesso->listar($filtro);
                         $editar = false;
                         
                         ?>
@@ -142,34 +450,7 @@ and open the template in the editor.
                                         if($usuario_logado->perfil<=2){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Novo valor</span>
-                                    <form id="form_cadastro" action="save_valor_processo.php" method="post">
-                                        <input type="hidden" id="id_processo" name="id_processo" value="<?=$processo->id ?>"/>
-                                        <div class="form-group row">
-                                            <label for="opcao" class="col-sm-2 col-form-label">Tipo:</label>
-                                            <div class="col-sm-10">
-                                            <select id="tipo" name="id_tipo_valor" class="form-control form-control-sm" required>
-                                                <option value="">Selecione</option>    
-                                                <?php
-                                                foreach ($tipos_valores as $tv) {
-                                                ?> 
-                                                    <option value="<?=$tv->id ?>"><?=$tv->tipo ?></option> 
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
-                                            <div class="col-sm-10">
-                                            <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row float-right mr-1">
-                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
-                                        </div>
-                                    </form>   
+                                        <?php include './form_processo.php'; ?>  
 
                                     </p>
                                     <?php
@@ -189,7 +470,7 @@ and open the template in the editor.
                                     <i class="fa fa-link fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Valores cadastrados</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Processos Vinculados</span>
                                 </div>
                             </div>                            
 
@@ -197,40 +478,37 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Tipo</th>
-                                            <th scope="col">Valor</th>        
-                                            <th scope="col">REMOVER</th> 
+                                        <th scope="col">NÚMERO</th>
+                                            <th scope="col">CPF</th>
+                                            <th scope="col">BENEFICIÁRIO</th>
+                                            <th scope="col">AUTUAÇÃO</th>
+                                            <th scope="col">ASSUNTO</th>
+                                            <th scope="col">VALOR CAUSA</th>
+                                            <th scope="col" class="text-nowrap">OPÇÕES</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="valores">
-                                        <?php                                                 
-                                                $soma = 0;
-                                                foreach ($valores_processo as $obj) {
-                                                    $valor = str_replace(".","",$obj->valor);
-                                                    $valor = str_replace(",",".",$valor);
-                                                    $valor = str_replace("R$","",$valor);
-                                                    $valor = str_replace(" ","",$valor);                                                                                                                                                      
-                                                    $soma += $valor;
+                                    <tbody id="processos">
+                                        <?php     
+                                            include_once('actions/ManterAssunto.php'); 
+                                            $manterAssunto = new ManterAssunto();  
 
-                                                    $tipo = $manterTipoValor->getTipoValorPorId($obj->id_tipo_valor);
-                                                    echo "<tr>";
-                                                    echo "  <td>".$obj->id."</td>";
-                                                    echo "  <td>".$tipo->tipo."</td>";
-                                                    echo "  <td>".$obj->valor."</td>";
-                                                    if($usuario_logado->perfil <= 2){
-                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_processo.",\"".$obj->valor."\",\"".$tipo->tipo."\")'><i class='far fa-trash-alt'></i></button></td>";
-                                                    } else {
-                                                        echo "  <td align='center'> - </td>";                
-                                                    }
-                                                    echo "</tr>";
-                                                }
-                                                //Imprime soma
+                                            foreach ($processos_vinvculados as $obj) {
                                                 echo "<tr>";
-                                                echo "  <td colspan='2'>Valor Total</td>";
-                                                echo "  <td>". number_format($soma,2,",",".") ."</td>";
-                                                echo "  <td align='center'> - </td>";                
+                                                echo "  <td>".$obj->numero."</td>";
+                                                echo "  <td>".$obj->cpf."</td>";
+                                                echo "  <td>".$obj->beneficiario."</td>";
+                                                echo "  <td>".date('d/m/Y', $obj->autuacao)."</td>";
+                                                echo "  <td>".$manterAssunto->getAssuntoPorId($obj->assunto)->assunto."</td>";
+                                                echo "  <td>".$obj->valor_causa."</td>";
+                                                $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
+                                                $btn_desvincular = '&nbsp;&nbsp;<a href="desvincular_processo.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-random"></i></a>';
+                                                if($obj->excluir){
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_vinculado."\",\"".$obj->classe_judicial."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
+                                                } else {
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"".date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_vinculado."\",\"".$obj->classe_judicial."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
+                                                }
                                                 echo "</tr>";
+                                            }
                                         ?>
                                     </tbody>
                                 </table>
@@ -264,7 +542,7 @@ and open the template in the editor.
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
+                        <p>Deseja excluir <strong><br/><span id="excluir"></span></strong>?</p>
                     </div>
                     <div class="modal-footer">
                         <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
