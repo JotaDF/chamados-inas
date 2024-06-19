@@ -110,7 +110,7 @@ and open the template in the editor.
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de opções de processo</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-credit-card fa-3x text-white"></i>
+                                            <i class="fa fa-balance-scale fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:800px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-credit-card fa-2x text-white"></i> 
+                                    <i class="fa fa-link fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Valores cadastrados</span>
