@@ -103,7 +103,7 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
                 carregaClassesJudiciais(0);
-                $('#processo_vinculado').prop("disabled", true);                                                                                                            
+                $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
             });
             var sei_t = "";
@@ -171,9 +171,9 @@ foreach ($listaCJ as $obj) {
             }
             function verificaClasse(classe) {
                 if (classe != "") {
-                    $('#processo_vinculado').prop("disabled", false);
+                    $('#processo_principal').prop("disabled", false);
                 } else {
-                    $('#processo_vinculado').prop("disabled", true);
+                    $('#processo_principal').prop("disabled", true);
                 }
             }
             function verificaLiminar(liminar) {
@@ -190,7 +190,7 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
                 carregaClassesJudiciais(0);
-                $('#processo_vinculado').prop("disabled", true);                                                                                                            
+                $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);  
                             
             }
@@ -201,7 +201,7 @@ foreach ($listaCJ as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_vinculado,classe_judicial) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -213,7 +213,7 @@ foreach ($listaCJ as $obj) {
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
-                $('#processo_vinculado').val(processo_vinculado);
+                $('#processo_principal').val(processo_principal);
                 
                 carregarSei(sei);
                 carregaAssuntos(assunto);
