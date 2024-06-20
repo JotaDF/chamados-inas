@@ -197,7 +197,7 @@ foreach ($listaCJ as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,id_principal) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -210,6 +210,7 @@ foreach ($listaCJ as $obj) {
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
                 $('#processo_principal').val(processo_principal);
+                $('#id_principal').val(id_principal);
                 $('#assunto').val(assunto);
 
                 carregarSei(sei);
@@ -403,7 +404,7 @@ foreach ($listaCJ as $obj) {
                         if ($processo->processo_principal != "") {
                             $processo  = $manterProcesso->getProcessoPorNumero($processo->processo_principal);
                         }
-                        $filtro = " WHERE processo_principal=" . $processo->id;
+                        $filtro = " WHERE processo_principal='" . $processo->numero . "'";
                         
                         $processos_vinvculados = $manterProcesso->listar($filtro);
                         $editar = false;
@@ -517,9 +518,9 @@ foreach ($listaCJ as $obj) {
                                                 $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
                                                 $btn_desvincular = '&nbsp;&nbsp;<a href="desvincular_processo.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-random"></i></a>';
                                                 if($obj->excluir){
-                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
                                                 } else {
-                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"".date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"".date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
                                                 }
                                                 echo "</tr>";
                                             }
