@@ -183,14 +183,18 @@ foreach ($listaCJ as $obj) {
                     $('#data_cumprimento_liminar').prop("disabled", true);
                 }
             }
-            function novo() {
+            function novo(processo_principal, cpf, beneficiario, guia,valor_causa,assunto) {
+                $('#cpf').val(cpf);
+                $('#beneficiario').val(beneficiario);
+                $('#guia').val(guia);
+                $('#valor_causa').val(valor_causa);
+                $('#processo_principal').val(processo_principal);
+                $('#assunto').val(assunto);
                 carregarSei("");
-                carregaAssuntos(0);
                 carregaTiposLiminar(0);
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
-                carregaClassesJudiciais(0);
-                $('#processo_principal').prop("disabled", true);                                                                                                            
+                carregaClassesJudiciais(0);                                                                                                           
                 $('#data_cumprimento_liminar').prop("disabled", true);  
                             
             }
@@ -412,11 +416,11 @@ foreach ($listaCJ as $obj) {
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 800px;">
+                            <div class="card mb-3 border-primary" style="max-width: 1100px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
-                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de opções de processo</div>
+                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de processo vinculados</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa-balance-scale fa-3x text-white"></i>
@@ -430,7 +434,7 @@ foreach ($listaCJ as $obj) {
                                             <div class="mb-0"><?= $processo->id ?></div>
                                         </div>
                                         <div class="c2 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Processo</div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Processo Principal</div>
                                             <div class="mb-0"><?= $processo->numero ?></div>
                                         </div> 
                                         <div class="c2 ml-4">
@@ -464,7 +468,7 @@ foreach ($listaCJ as $obj) {
                         }
                         ?>
 
-                        <div class="card mb-4 border-primary" style="max-width:800px">
+                        <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-link fa-2x text-white"></i> 
