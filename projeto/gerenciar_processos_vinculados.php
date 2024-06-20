@@ -404,8 +404,9 @@ foreach ($listaCJ as $obj) {
                         if ($processo->processo_principal != "") {
                             $processo  = $manterProcesso->getProcessoPorNumero($processo->processo_principal);
                         }
-                        $filtro = "WHERE processo_principal=" . $processo->id;
-                        $processos_vinvculados = $manterValorProcesso->listar($filtro);
+                        $filtro = " WHERE processo_principal=" . $processo->id;
+                        
+                        $processos_vinvculados = $manterProcesso->listar($filtro);
                         $editar = false;
                         
                         ?>
@@ -463,7 +464,6 @@ foreach ($listaCJ as $obj) {
                         }
                         ?>
 
-
                         <div class="card mb-4 border-primary" style="max-width:800px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
@@ -472,19 +472,24 @@ foreach ($listaCJ as $obj) {
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Processos Vinculados</span>
                                 </div>
+                                <div class="col text-right" style="max-width:20%">
+                                    <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
+                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>                            
 
                             <div class="card-body">
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                        <th scope="col">NÚMERO</th>
+                                        <th scope="col">Número</th>
                                             <th scope="col">CPF</th>
-                                            <th scope="col">BENEFICIÁRIO</th>
-                                            <th scope="col">AUTUAÇÃO</th>
-                                            <th scope="col">ASSUNTO</th>
-                                            <th scope="col">VALOR CAUSA</th>
-                                            <th scope="col" class="text-nowrap">OPÇÕES</th>
+                                            <th scope="col">Beneficiário</th>
+                                            <th scope="col">Autuação</th>
+                                            <th scope="col">Assunto</th>
+                                            <th scope="col">Valor Causa</th>
+                                            <th scope="col" class="text-nowrap">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody id="processos">
