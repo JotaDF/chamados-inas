@@ -218,9 +218,9 @@ foreach ($listaCJ as $obj) {
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
                 $('#processo_principal').val(processo_principal);
-                
+                $('#assunto').val(assunto);
+
                 carregarSei(sei);
-                carregaAssuntos(assunto);
                 carregaTiposLiminar(liminar);
                 verificaLiminar(liminar);
                 carregaSituacoes(situacao_processual) ;
@@ -455,7 +455,7 @@ foreach ($listaCJ as $obj) {
                                         if($usuario_logado->perfil<=2){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                        <?php include './form_processo.php'; ?>  
+                                        <?php include './form_processo_vinculado.php'; ?>  
 
                                     </p>
                                     <?php
@@ -477,7 +477,7 @@ foreach ($listaCJ as $obj) {
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Processos Vinculados</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
+                                    <button id="btn_cadastrar" onclick="novo(<?=$processo->id ?>,'<?=$processo->cpf ?>','<?=$processo->beneficiario ?>','<?=$processo->guia ?>','<?=$processo->valor_causa ?>',<?=$processo->assunto ?>)" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
