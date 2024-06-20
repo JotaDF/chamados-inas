@@ -396,6 +396,9 @@ foreach ($listaCJ as $obj) {
                     include_once('actions/ManterProcesso.php');
                     include_once('actions/ManterValorProcesso.php');
                     include_once('actions/ManterTipoValor.php');
+                    include_once('actions/ManterAssunto.php'); 
+
+                    $manterAssunto = new ManterAssunto();
 
                     $manterProcesso = new ManterProcesso();
                     $manterValorProcesso = new ManterValorProcesso();
@@ -441,13 +444,23 @@ foreach ($listaCJ as $obj) {
                                             <div class="mb-0"><?= $processo->valor_causa ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">GUIA</div>
+                                            <div class="mb-0"><?= $processo->guia ?></div>
+                                        </div> 
+                                        <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">CPF</div>
                                             <div class="mb-0"><?= $processo->cpf ?></div>
                                         </div> 
-                                        <div class="c3 ml-4">
+                                        <div class="c4 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Beneficiário</div>
                                             <div class="mb-0"><?= $processo->beneficiario ?></div>
                                         </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="c1 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">ASSUNTO</div>
+                                            <div class="mb-0"><?= $manterAssunto->getAssuntoPorId($processo->assunto)->assunto ?></div>
+                                        </div>
                                     </div>
                                     <br/>
                                     <?php
@@ -497,8 +510,7 @@ foreach ($listaCJ as $obj) {
                                     </thead>
                                     <tbody id="processos">
                                         <?php     
-                                            include_once('actions/ManterAssunto.php'); 
-                                            $manterAssunto = new ManterAssunto();  
+                                              
 
                                             foreach ($processos_vinvculados as $obj) {
                                                 echo "<tr>";
