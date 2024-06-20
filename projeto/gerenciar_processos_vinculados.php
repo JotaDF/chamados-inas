@@ -101,8 +101,7 @@ foreach ($listaCJ as $obj) {
                 carregaTiposLiminar(0);
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
-                carregaClassesJudiciais(0);
-                $('#processo_principal').prop("disabled", true);                                                                                                            
+                carregaClassesJudiciais(0);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
             });
             var sei_t = "";
@@ -167,13 +166,6 @@ foreach ($listaCJ as $obj) {
                 $('#txt_sei').html(sei_html);
                 $('#sei').val(sei);
                 //alert(sei);    
-            }
-            function verificaClasse(classe) {
-                if (classe != "") {
-                    $('#processo_principal').prop("disabled", false);
-                } else {
-                    $('#processo_principal').prop("disabled", true);
-                }
             }
             function verificaLiminar(liminar) {
                 if (liminar != "") {
