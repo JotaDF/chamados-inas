@@ -10,6 +10,7 @@
     <div class="card-body">
         <form id="form_cadastro" action="save_processo.php" method="post">
             <input type="hidden" id="usuario" name="usuario" value="<?=$usuario_logado->id ?>"/>
+            <input type="hidden" id="id_principal" name="id_principal" />
             <input type="hidden" id="processo_principal" name="processo_principal" />
             <input type="hidden" id="cpf" name="cpf" />
             <input type="hidden" id="beneficiario" name="beneficiario" />

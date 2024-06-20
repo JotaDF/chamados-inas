@@ -182,12 +182,13 @@ foreach ($listaCJ as $obj) {
                     $('#data_cumprimento_liminar').prop("disabled", true);
                 }
             }
-            function novo(processo_principal, cpf, beneficiario, guia,valor_causa,assunto) {
+            function novo(id_principal,processo_principal, cpf, beneficiario, guia,valor_causa,assunto) {
                 $('#cpf').val(cpf);
                 $('#beneficiario').val(beneficiario);
                 $('#guia').val(guia);
                 $('#valor_causa').val(valor_causa);
                 $('#processo_principal').val(processo_principal);
+                $('#id_principal').val(id_principal);
                 $('#assunto').val(assunto);
                 carregarSei("");
                 carregaTiposLiminar(0);
@@ -490,7 +491,7 @@ foreach ($listaCJ as $obj) {
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Processos Vinculados</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" onclick="novo(<?=$processo->id ?>,'<?=$processo->cpf ?>','<?=$processo->beneficiario ?>','<?=$processo->guia ?>','<?=$processo->valor_causa ?>',<?=$processo->assunto ?>)" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
+                                    <button id="btn_cadastrar" onclick="novo(<?= $processo->id ?>,'<?=$processo->numero ?>','<?=$processo->cpf ?>','<?=$processo->beneficiario ?>','<?=$processo->guia ?>','<?=$processo->valor_causa ?>',<?=$processo->assunto ?>)" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
