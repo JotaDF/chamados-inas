@@ -456,6 +456,7 @@ foreach ($listaCJ as $obj) {
                                             <div class="mb-0"><?= $processo->beneficiario ?></div>
                                         </div>                                        
                                     </div>
+                                    <br/>
                                     <div class="row">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">ASSUNTO</div>
