@@ -142,8 +142,8 @@ and open the template in the editor.
 
                                     foreach ($files as $file) { ?>
                                         <div id='file-$file' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
-                                                <img src="img/pdf_icon.svg" width="30" height="30" /> <br/> <?=$file ?>
-                                                <br/><a  href="javascript:void(0);" onclick="deleteFile('<?=$file ?>', this.parentNode)">Excluir</a>
+                                                <img src="img/pdf_icon.svg" width="60" height="60" /> <?=$file ?>
+                                                <a  href="javascript:void(0);" onclick="deleteFile('<?=$file ?>', this.parentNode)"><i class='far fa-trash-alt'></i></a>
                                         </div>
                                    <?php
                                     }
