@@ -359,7 +359,9 @@ and open the template in the editor.
                 li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%';
                 li.querySelectorAll('span')[1].style.width = percent_complete + '%';
             };
-            http.open('GET', 'save_arquivo_ponto.php?ano=<?=$ano ?>&mes<?=$mes ?>', true);
+            data.append('ano', <?=$ano ?>);
+            data.append('mes', <?=$mes ?>);
+            http.open('POST', 'save_arquivo_ponto.php', true);
             http.send(data);
         }
 
