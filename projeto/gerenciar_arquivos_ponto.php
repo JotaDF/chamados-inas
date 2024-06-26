@@ -118,6 +118,38 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
 
                     <div class="container-fluid">
+                        <!-- form diretorios --> 
+                        <div class="card-body">
+                            <form id="form_cadastro" action="gerenciar_arquivos_ponto.php" method="post">
+                                <div class="form-group row">
+                                    <label for="ano" class="col-sm-2 col-form-label">Ano:</label>
+                                    <select id="ano" name="ano" class="form-control form-control-sm" required>
+                                        <option value="">...</option>   
+                                        <?php
+                                        $lista_ano = array("2024" , "2023");
+                                        foreach ($lista_ano as $an) {
+                                        ?> 
+                                            <option value="<?=$an ?>"><?=$an ?></option> 
+                                        <?php
+                                        }
+                                        ?>
+                                    </select> 
+                                    <label for="mes" class="col-sm-2 col-form-label">Mês:</label>
+                                    <select id="mes" name="mes" class="form-control form-control-sm" required>
+                                        <option value="">...</option>   
+                                        <?php
+                                        $lista_mes= array("01","02","03","04","05","06","07","08","09","10","11","12");
+                                        foreach ($lista_mes as $me) {
+                                        ?> 
+                                            <option value="<?=$me ?>"><?=$me ?></option> 
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-folder-open"></i> Visualizar </button>
+                                </div>
+                            </form>   
+                        </div>
                         <!-- Project Card Example -->
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
@@ -128,7 +160,7 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de ponto</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <a id="btn_cadastrar" class="btn btn-outline-light btn-sm" href="form_arquivos_ponto.php" >
+                                    <a id="btn_cadastrar" class="btn btn-outline-light btn-sm" href="form_arquivos_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>" >
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -137,7 +169,12 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="card-group">
                                     <?php
-                                    $uploadDir = 'ponto/2024/06/';
+
+                                    $ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : date("Y");
+                                    $mes = isset($_REQUEST['mes']) ? $_REQUEST['mes'] : date("m");
+
+                                    $uploadDir = 'ponto/$ano/$mes/';
+                                    echo $uploadDir;
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
 
                                     foreach ($files as $file) { ?>

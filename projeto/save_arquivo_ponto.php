@@ -12,4 +12,4 @@ if(!empty($_FILES['file'])){
     }
 }
 
-header('Location: gerenciar_arquivo_ponto.php');
+header('Location: gerenciar_arquivos_ponto.php');
