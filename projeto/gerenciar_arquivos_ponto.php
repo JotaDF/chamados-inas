@@ -55,7 +55,7 @@ and open the template in the editor.
                     }
                 };
                 xhr.send();
-                $('#confirm').modal({show: false});
+                $('#confirm').modal({hide: true});
             }
 
             function excluir(fileName) {
