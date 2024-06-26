@@ -55,7 +55,7 @@ and open the template in the editor.
                     }
                 };
                 xhr.send();
-                $('#confirm').modal({hide: true});
+                $('#confirm').modal('hide');
             }
 
             function excluir(fileName) {
@@ -160,7 +160,7 @@ and open the template in the editor.
                                         }
                                         ?>
                                     </select>
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-folder-open"></i> Visualizar </button>
+                                    <button type="submit" class="btn btn-primary btn-sm ml-2"><i class="fa fa-folder-open"></i> Visualizar </button>
                                 </div>
                             </form>   
                         </div>
