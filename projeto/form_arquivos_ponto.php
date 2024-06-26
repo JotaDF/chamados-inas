@@ -298,7 +298,7 @@ and open the template in the editor.
             li.classList.add('in-prog');
             li.innerHTML = `
                 <div class="col">
-                    <img src="imagens/${iconSelector(file.type)}" alt="">
+                    <img src="img/${iconSelector(file.type)}" alt="">
                 </div>
                 <div class="col">
                     <div class="file-name">
