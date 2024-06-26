@@ -163,13 +163,21 @@ and open the template in the editor.
                             </form>   
                         </div>
                         <!-- Project Card Example -->
+                        <?php
+
+                        $uploadDir = 'ponto/';
+                        $uploadDir .= $ano;
+                        $uploadDir .= '/';
+                        $uploadDir .= $mes;
+                        $uploadDir .= '/';
+                        ?>
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de ponto</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de ponto (<?=$ano . '/' . $mes ?>)</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <a id="btn_cadastrar" class="btn btn-outline-light btn-sm" href="form_arquivos_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>" >
@@ -181,13 +189,7 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="card-group">
                                     <?php
-
-                                    $uploadDir = 'ponto/';
-                                    $uploadDir .= $ano;
-                                    $uploadDir .= '/';
-                                    $uploadDir .= $mes;
-                                    $uploadDir .= '/';
-                                    echo $uploadDir;
+                           
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
 
                                     foreach ($files as $file) { ?>
