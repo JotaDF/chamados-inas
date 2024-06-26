@@ -201,7 +201,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_recepcao.php'; ?>
+            <?php include './menu_rh.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -217,11 +217,6 @@ and open the template in the editor.
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Enviar arquivos de ponto</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_recepcao" aria-expanded="false" aria-controls="form_recepcao">
-                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                    </button>
                                 </div>
                             </div>                            
 
