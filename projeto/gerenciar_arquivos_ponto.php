@@ -59,7 +59,7 @@ and open the template in the editor.
             }
 
             function excluir(fileName) {
-                $('#delete').attr('onclick', 'deleteFile('+fileName+')');
+                $('#delete').attr('onclick', 'deleteFile("'+fileName+'")');
                 $('#excluir').text(fileName);
                 $('#confirm').modal({show: true});              
             }
