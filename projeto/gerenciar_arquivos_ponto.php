@@ -2,6 +2,10 @@
 //RH
 $mod = 9;
 require_once('./verifica_login.php');
+
+$ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : date("Y");
+$mes = isset($_REQUEST['mes']) ? $_REQUEST['mes'] : date("m");
+
 ?> 
 <!DOCTYPE html>
 <!--
@@ -121,27 +125,35 @@ and open the template in the editor.
                         <!-- form diretorios --> 
                         <div class="card-body">
                             <form id="form_cadastro" action="gerenciar_arquivos_ponto.php" method="post">
-                                <div class="form-group row">
-                                    <label for="ano" class="col-sm-2 col-form-label">Ano:</label>
-                                    <select id="ano" name="ano" class="form-control form-control-sm" required>
+                                <div class="form-group row" style="width: 350px">
+                                    <label for="ano" class="col col-form-label">Ano:</label>
+                                    <select id="ano" name="ano" class="col form-control-sm" required>
                                         <option value="">...</option>   
                                         <?php
                                         $lista_ano = array("2024" , "2023");
                                         foreach ($lista_ano as $an) {
+                                            $selected = "";
+                                            if($an == $ano){
+                                                $selected = "selected";
+                                            }
                                         ?> 
-                                            <option value="<?=$an ?>"><?=$an ?></option> 
+                                            <option value="<?=$an ?>" <?=$selected ?>><?=$an ?></option> 
                                         <?php
                                         }
                                         ?>
                                     </select> 
-                                    <label for="mes" class="col-sm-2 col-form-label">Mês:</label>
-                                    <select id="mes" name="mes" class="form-control form-control-sm" required>
+                                    <label for="mes" class="col col-form-label">Mês:</label>
+                                    <select id="mes" name="mes" class="col form-control-sm" required>
                                         <option value="">...</option>   
                                         <?php
                                         $lista_mes= array("01","02","03","04","05","06","07","08","09","10","11","12");
                                         foreach ($lista_mes as $me) {
+                                            $selected = "";
+                                            if($me == $mes){
+                                                $selected = "selected";
+                                            }
                                         ?> 
-                                            <option value="<?=$me ?>"><?=$me ?></option> 
+                                            <option value="<?=$me ?>" <?=$selected ?>><?=$me ?></option> 
                                         <?php
                                         }
                                         ?>
@@ -170,10 +182,11 @@ and open the template in the editor.
                                 <div class="card-group">
                                     <?php
 
-                                    $ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : date("Y");
-                                    $mes = isset($_REQUEST['mes']) ? $_REQUEST['mes'] : date("m");
-
-                                    $uploadDir = 'ponto/$ano/$mes/';
+                                    $uploadDir = 'ponto/';
+                                    $uploadDir .= $ano;
+                                    $uploadDir .= '/';
+                                    $uploadDir .= $mes;
+                                    $uploadDir .= '/';
                                     echo $uploadDir;
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
 
