@@ -46,7 +46,7 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
              function deleteFile(fileName, listItem) {
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "del_arquivo_ponto.php?ano=<?=$ano ?>&mes=<?$mes ?>&file=" + fileName, true);
+                xhr.open("GET", "del_arquivo_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
@@ -56,9 +56,9 @@ and open the template in the editor.
                 xhr.send();
             }
 
-            function excluir(id, visitante) {
-                $('#delete').attr('href', 'del_recepcao.php?id=' + id);
-                $('#excluir').text(visitante);
+            function excluir(fileName, listItem) {
+                $('#delete').attr('onclick', 'deleteFile('+fileName+','+ listItem+')');
+                $('#excluir').text(fileName);
                 $('#confirm').modal({show: true});              
             }
 
@@ -193,7 +193,7 @@ and open the template in the editor.
                                     foreach ($files as $file) { ?>
                                         <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
                                                 <a href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /></a> <?=str_replace(".pdf","",$file) ?> 
-                                                <a  href="javascript:void(0);" onclick="deleteFile('<?=$file ?>', this.parentNode)"><i class='far fa-trash-alt text-danger'></i></a>
+                                                <a  href="javascript:void(0);" onclick="excluir('<?=$file ?>', this.parentNode)"><i class='far fa-trash-alt text-danger'></i></a>
                                         </div>
                                    <?php
                                     }
