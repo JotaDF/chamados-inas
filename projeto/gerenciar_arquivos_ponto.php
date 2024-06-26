@@ -44,20 +44,22 @@ and open the template in the editor.
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
-             function deleteFile(fileName, listItem) {
+             function deleteFile(fileName) {
                 var xhr = new XMLHttpRequest();
+                var item = document.getElementById("file-"+fileName);
                 xhr.open("GET", "del_arquivo_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
-                        listItem.remove();
+                        item.remove();
                     }
                 };
                 xhr.send();
+                $('#confirm').modal({show: false});
             }
 
-            function excluir(fileName, listItem) {
-                $('#delete').attr('onclick', 'deleteFile('+fileName+','+ listItem+')');
+            function excluir(fileName) {
+                $('#delete').attr('onclick', 'deleteFile('+fileName+')');
                 $('#excluir').text(fileName);
                 $('#confirm').modal({show: true});              
             }
@@ -195,7 +197,7 @@ and open the template in the editor.
                                     foreach ($files as $file) { ?>
                                         <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
                                                 <a href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /></a> <?=str_replace(".pdf","",$file) ?> 
-                                                <a  href="javascript:void(0);" onclick="excluir('<?=$file ?>', this.parentNode)"><i class='far fa-trash-alt text-danger'></i></a>
+                                                <a  href="javascript:void(0);" onclick="excluir('<?=$file ?>')"><i class='far fa-trash-alt text-danger'></i></a>
                                         </div>
                                    <?php
                                     }
