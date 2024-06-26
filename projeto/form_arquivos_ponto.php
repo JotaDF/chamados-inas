@@ -220,7 +220,12 @@ and open the template in the editor.
                                     <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Enviar arquivos de ponto</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Enviar arquivos de ponto (<?=$ano . '/' . $mes ?>)</span>
+                                </div>
+                                <div class="col text-right" style="max-width:20%">
+                                    <a id="btn_cadastrar" title="Visualizar diretório" class="btn btn-outline-light btn-sm" href="gerenciar_arquivos_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>" >
+                                        <i class="fa fa-list text-white" aria-hidden="true"></i>
+                                    </a>
                                 </div>
                             </div>                            
 
