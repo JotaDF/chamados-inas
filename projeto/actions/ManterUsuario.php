@@ -41,7 +41,7 @@ class ManterUsuario extends Model {
     }
 
     function getUsuarioPorId($id) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,,u.ativou.id_setor FROM usuario as u WHERE id=$id";
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor FROM usuario as u WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Usuario();
@@ -338,7 +338,6 @@ class ManterUsuario extends Model {
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new stdClass();
-
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
             $dados->setor = $registro["id_setor"];
@@ -347,8 +346,25 @@ class ManterUsuario extends Model {
 
             $array_dados[] = $dados;
         }
+
+        $sql70 = "SELECT id, nome, id_setor, nascimento FROM usuario WHERE ativo=1 AND nascimento <= 0 ORDER BY nascimento";
+        $resultado70 = $this->db->Execute($sql70);
+        while ($registro70 = $resultado70->fetchRow()) {
+            if (date('m', $registro["nascimento"]) === $mes) {
+                $dados = new stdClass();
+                $dados->id = $registro70["id"];
+                $dados->nome = $registro70["nome"];
+                $dados->setor = $registro70["id_setor"];
+                $dados->nascimento = $registro70["nascimento"];
+                $dados->dia =date('d', $registro["nascimento"]);
+                $dados->mes = date('m', $registro["nascimento"]);
+                $array_dados[] = $dados;
+            }
+        }
+
         return $array_dados;
     }
+
     function buscar($filtro = "") {
         $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla FROM usuario as u, setor as s WHERE u.id_setor=s.id ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
