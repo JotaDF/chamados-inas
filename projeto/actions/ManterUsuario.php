@@ -343,7 +343,7 @@ class ManterUsuario extends Model {
             $dados->setor = $registro["id_setor"];
             $dados->dia = $registro["dia"];
             $dados->mes = $registro["mes"];
-
+            $dados->nascimento = "";
             $array_dados[] = $dados;
         }
 
@@ -363,6 +363,7 @@ class ManterUsuario extends Model {
             $dados->setor = $registro["id_setor"];
             $dados->dia = $registro["dia"];
             $dados->mes = $registro["mes"];
+            $dados->nascimento = "";
 
             $array_dados[] = $dados;
         }
@@ -370,14 +371,14 @@ class ManterUsuario extends Model {
         $sql70 = "SELECT id, nome, id_setor, nascimento FROM usuario WHERE ativo=1 AND nascimento <= 0 ORDER BY nascimento";
         $resultado70 = $this->db->Execute($sql70);
         while ($registro70 = $resultado70->fetchRow()) {
-            if (date('m', $registro["nascimento"]) === $mes) {
+            if (date('m', $registro70["nascimento"]) === $mes) {
                 $dados = new stdClass();
                 $dados->id = $registro70["id"];
                 $dados->nome = $registro70["nome"];
                 $dados->setor = $registro70["id_setor"];
                 $dados->nascimento = $registro70["nascimento"];
-                $dados->dia =date('d', $registro["nascimento"]);
-                $dados->mes = date('m', $registro["nascimento"]);
+                $dados->dia =date('d', $registro70["nascimento"]);
+                $dados->mes = date('m', $registro70["nascimento"]);
                 $array_dados[] = $dados;
             }
         }
