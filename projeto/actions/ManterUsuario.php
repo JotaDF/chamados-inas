@@ -347,6 +347,26 @@ class ManterUsuario extends Model {
             $array_dados[] = $dados;
         }
 
+        return $array_dados;
+    }
+    function listarAniversariantesAll($mes = "") {
+        if ($mes == "") {
+            $mes = "" . date("m");
+        }
+        $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new stdClass();
+            $dados->id = $registro["id"];
+            $dados->nome = $registro["nome"];
+            $dados->setor = $registro["id_setor"];
+            $dados->dia = $registro["dia"];
+            $dados->mes = $registro["mes"];
+
+            $array_dados[] = $dados;
+        }
+
         $sql70 = "SELECT id, nome, id_setor, nascimento FROM usuario WHERE ativo=1 AND nascimento <= 0 ORDER BY nascimento";
         $resultado70 = $this->db->Execute($sql70);
         while ($registro70 = $resultado70->fetchRow()) {
@@ -364,7 +384,6 @@ class ManterUsuario extends Model {
 
         return $array_dados;
     }
-
     function buscar($filtro = "") {
         $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla FROM usuario as u, setor as s WHERE u.id_setor=s.id ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
