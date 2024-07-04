@@ -41,12 +41,16 @@ foreach ($acessos as $acesso) {
                 $icon_css = "fa fa-balance-scale";
                 break; 
             case 7:
-                $icon_css = "fa fa-id-badge";
+                $icon_css = "fa fa-id-badge"; 
                 break; 
             case 8:
                 $icon_css = "fa fa-calendar";
                 $agenda = true;
-                break;             
+                break;  
+            case 9:
+                $icon_css = "fa fa-address-book";
+                $agenda = true;
+                break;           
         }
 ?> 
             <!-- Nav Item - Pages Collapse Menu -->
