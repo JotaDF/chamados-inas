@@ -43,10 +43,10 @@ and open the template in the editor.
 include_once('./actions/ManterUsuario.php');
 $manterUsuario = new ManterUsuario();
 
-$listaU = $manterUsuario->getUsuariosPorEquipe(14);
+$listaU = $manterUsuario->getAtendentesBeneficiario();
 
 foreach ($listaU as $obj) {
-    ?>item = {id: "<?= $obj->id ?>", nome: "<?= strtoupper($obj->nome) ?>"};
+    ?>item = {id: "<?= $obj->id_usuario ?>", nome: "<?= strtoupper($obj->usuario) ?>"};
         usuarios.push(item);
     <?php
 }

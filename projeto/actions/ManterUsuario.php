@@ -309,6 +309,26 @@ class ManterUsuario extends Model {
         }
         return $array_dados;
     }
+    function getAtendentesBeneficiario() {
+        $sql = "SELECT a.id_modulo, a.id_usuario, u.nome as usuario, a.id_perfil 
+        FROM acesso as a, usuario as u
+        WHERE a.id_usuario = u.id
+        AND a.id_perfil = 9
+        AND a.id_modulo = 5";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Acesso();
+            $dados->id_modulo = $registro["id_modulo"];
+            $dados->id_usuario = $registro["id_usuario"];
+            $dados->usuario = $registro["usuario"];
+            $dados->id_perfil = $registro["id_perfil"];
+            
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function salvarEditor($id,$tarefa,$op="add"){
         $sql = "insert into editor (id_usuario, id_tarefa) values ('" . $id . "','" . $tarefa . "')";
         //echo $sql . "<BR/>";
