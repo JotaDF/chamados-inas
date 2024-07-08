@@ -39,53 +39,21 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">         
-            $(document).ready(function () {
-                //$('#fila').DataTable();
-            });
-            function excluir(id, nome) {
-                $('#delete').attr('href', 'del_fila.php?id=' + id);
-                $('#nome_excluir').text(nome);
-                $('#confirm').modal({show: true});              
-            }
-            function alterar(id, cpf, nome, id_servico) {
-                $('#id').val(id);
-                $('#cpf').val(cpf);
-                $('#nome').val(nome);
-                $('#form_fila').collapse("show");
-                $('#btn_cadastrar').hide();
-                carregaServicos(id_servico);
-            }
 
-            function selectByText(select, text) {
-                $(select).find('option:contains("' + text + '")').prop('selected', true);
-            }
-            function carregaServicos(id_atual) {
-            var html = '<option value="">Selecione </option>';
-            for (var i = 0; i < servicos.length; i++) {
-                var option = servicos[i];
-                var selected = "";
-                if (id_atual > 0) {
-                    if (option.id == id_atual) {
-                        selected = "selected";
-                    } else {
-                        selected = "";
-                    }
-                }
-                html += '<option value="' + option.id + '" ' + selected + '>' + option.nome + '</option>';
-            }
-            $('#servico').html(html);
-        }
-        function atualizarFila() {
-                $("#fila").html('Atualizando...');
-                $.get( "get_fila.php")
-                .done(function(data) {
-                    //var resp = JSON.parse(data);
-                    //console.log(resp);
-                    $("#fila").html(data);
+            $(document).ready(function () {
+                $("#checkall").click(function () {
+                    $(".cb-element").prop("checked", this.checked);
                 });
 
-            }
-            setInterval(atualizarFila, 5000);
+                $('.cb-element').click(function () {
+                    if ($('.cb-element:checked').length == $('.cb-element').length) {
+                        $('#checkall').prop('checked', true);
+                    } else {
+                        $('#checkall').prop('checked', false);
+                    }
+                });
+                
+            });
         </script>
         <style>
             body{
@@ -98,7 +66,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_atendimento.php'; ?>
+            <?php include './menu.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -110,7 +78,7 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fas fa-users fa-2x text-white"></i> 
+                                    <i class="fas fa-bell fa-fw text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Notificações</span>
@@ -125,7 +93,7 @@ and open the template in the editor.
                                             <th scope="col">Mensagem</th>
                                             <th scope="col">Tipo</th>                                            
                                             <th scope="col">Data</th>
-                                            <th scope="col">Ler</th>
+                                            <th scope="col">Ver</th>
                                             <th scope="col">Opção</th>
                                         </tr>
                                     </thead>
