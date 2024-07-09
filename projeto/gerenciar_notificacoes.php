@@ -84,7 +84,13 @@ and open the template in the editor.
                                     <i class="fas fa-bell fa-fw text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações</span>
+                                    <?php
+                                    $txt_lida = "Não lidas";
+                                    if ($lida === 1) {
+                                        $txt_lida = "Lidas";
+                                    }
+                                    ?>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações <?=$txt_lida ?></span>
                                 </div>
                                 <?php
                                 if ($lida === 0) {
