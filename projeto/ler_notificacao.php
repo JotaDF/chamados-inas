@@ -15,7 +15,7 @@ $n = $db_notificacao->getNotificacaoPorId($id);
 
 //print_r($notificacao);
 
-$db_notificacao->ler($n);
+$db_notificacao->ler($id);
 
 header('Location: ' . $n->link);
 

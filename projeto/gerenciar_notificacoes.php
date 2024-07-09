@@ -2,6 +2,8 @@
 //Atendimento
 $mod = 1;
 require_once('./verifica_login.php');
+
+$lida = isset($_REQUEST['lida']) ? $_REQUEST['lida'] : 0;
 ?> 
 <!DOCTYPE html>
 <!--
@@ -84,12 +86,18 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações</span>
                                 </div>
+                                <?php
+                                if ($lida === 0) {
+                                ?>
                                 <div class="col text-right" style="max-width:30%">
                                     <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">
                                         <i class="fas fa-save text-white" aria-hidden="true"></i> Salvar
                                     </button>&nbsp;&nbsp;
                                     <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas
                                 </div>
+                                <?php
+                                }
+                                ?>
                             </div>                            
 
                             <div class="card-body">
