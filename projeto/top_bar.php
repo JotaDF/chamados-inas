@@ -45,6 +45,7 @@ $mSetor = new ManterSetor();
                             <!-- Dropdown - Alerts -->
                             <div  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <span id="notifica"><?php include './get_notificacao.php';  ?></spam>
+                                <a class="dropdown-item text-center small text-gray-500" href="gerenciar_notificacoes.php">Ver todas</a>
                             </div>
                         </li>                                                                   
                             <div class="topbar-divider d-none d-sm-block"></div>
