@@ -22,7 +22,7 @@ if(count($lista) > 0){
         }
 
         echo "<tr>";
-        echo "  <td>".$obj->id."<sup>o</sup></td>";
+        echo "  <td>".$obj->id."</td>";
         echo "  <td>".$obj->texto."</td>";
         echo "  <td align='center'>".$icon."</td>";        
         echo "  <td>".date('d/m/Y h:m', strtotime($obj->data)) ."</td>";

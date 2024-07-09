@@ -83,6 +83,12 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Notificações</span>
                                 </div>
+                                <div class="col text-right" style="max-width:20%">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_recepcao" aria-expanded="false" aria-controls="form_recepcao">
+                                        Salvar <i class="fa fa-floppy text-white" aria-hidden="true"></i>
+                                    </button>
+                                    Marcar todas <input type="checkbox" name="all" id="checkall" style="margin-right: 10px !important;">
+                                </div>
                             </div>                            
 
                             <div class="card-body">
@@ -94,7 +100,7 @@ and open the template in the editor.
                                             <th scope="col">Tipo</th>                                            
                                             <th scope="col">Data</th>
                                             <th scope="col">Ver</th>
-                                            <th scope="col">Opção</th>
+                                            <th scope="col">Marcar como lida</th>
                                         </tr>
                                     </thead>
                                     <tbody>
