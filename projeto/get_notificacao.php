@@ -9,10 +9,6 @@ $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 $lista = $db_notificacao->listarPorUsuario($id);
 if(count($lista) > 0){
 ?>
-    
-        <h6 class="dropdown-header bg-danger border-0">
-            Notificações
-        </h6>
     <?php
     foreach ($lista as $obj) {
         $icon = " fas fa-exclamation-triangle ";
