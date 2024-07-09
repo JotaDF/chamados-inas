@@ -87,7 +87,7 @@ and open the template in the editor.
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_recepcao" aria-expanded="false" aria-controls="form_recepcao">
                                         <i class="fas fa-save text-white" aria-hidden="true"></i> Salvar
                                     </button>
-                                    Marcar todas <input type="checkbox" name="all" id="checkall" style="margin-right: 10px !important;">
+                                    <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 10px !important;">Marcar todas
                                 </div>
                             </div>                            
 
