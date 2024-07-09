@@ -47,8 +47,9 @@ $mSetor = new ManterSetor();
                                 <h6 class="dropdown-header bg-danger border-0">
                                     Notificações
                                 </h6>
+                                <a class="dropdown-item text-center small" href="gerenciar_notificacoes.php">Ver todas</a>
                                 <span id="notifica"><?php include './get_notificacao.php';  ?></spam>
-                                <a class="dropdown-item text-center small text-gray-500" href="gerenciar_notificacoes.php">Ver todas</a>
+                                
                             </div>
                         </li>                                                                   
                             <div class="topbar-divider d-none d-sm-block"></div>
