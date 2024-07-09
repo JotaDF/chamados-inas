@@ -43,6 +43,13 @@ and open the template in the editor.
         <script type="text/javascript" class="init">         
 
             $(document).ready(function () {
+                <?php
+                if ($lida == 1) {
+                ?>
+                $('#notificacoes').DataTable();
+                <?php
+                }
+                ?>
                 $("#checkall").click(function () {
                     $(".cb-element").prop("checked", this.checked);
                 });
@@ -86,14 +93,14 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <?php
                                     $txt_lida = "Não lidas";
-                                    if ($lida === 1) {
+                                    if ($lida == 1) {
                                         $txt_lida = "Lidas";
                                     }
                                     ?>
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações <?=$txt_lida ?></span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações (<?=$txt_lida ?>)</span>
                                 </div>
                                 <?php
-                                if ($lida === 0) {
+                                if ($lida == 0) {
                                 ?>
                                 <div class="col text-right" style="max-width:30%">
                                     <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">

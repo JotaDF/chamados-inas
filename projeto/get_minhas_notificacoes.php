@@ -27,7 +27,7 @@ if(count($lista) > 0){
         echo "  <td align='center'>".$icon."</td>";        
         echo "  <td>".date('d/m/Y h:m', strtotime($obj->data)) ."</td>";
         echo "  <td align='center'><a class='btn btn-sm' href='ler_notificacao.php?id=". $obj->id . "'><i class='fa fa-binoculars' aria-hidden='true'></i></a></td>";
-        echo "  <td align='center'><input type='checkbox' value='".$obj->id."' name='notificacao[]' class='cb-element'></td>";
+        echo "  <td align='center'>".$check."</td>";
         echo "</tr>";
 
     }
