@@ -66,7 +66,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu.php'; ?>
+            <?php include './menu_notificacoes.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -75,19 +75,20 @@ and open the template in the editor.
 
                     <div class="container-fluid">
                         <!-- Project Card Example -->
+                        <form id="form_notificacoes" action="ler_minhas_notificacoes.php" method="post">
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fas fa-bell fa-fw text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Notificações</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Minhas Notificações</span>
                                 </div>
                                 <div class="col text-right" style="max-width:30%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_recepcao" aria-expanded="false" aria-controls="form_recepcao">
+                                    <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">
                                         <i class="fas fa-save text-white" aria-hidden="true"></i> Salvar
-                                    </button>
-                                    <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 10px !important;">Marcar todas
+                                    </button>&nbsp;&nbsp;
+                                    <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas
                                 </div>
                             </div>                            
 
@@ -95,12 +96,12 @@ and open the template in the editor.
                                 <table id="notificacoes" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Mensagem</th>
-                                            <th scope="col">Tipo</th>                                            
-                                            <th scope="col">Data</th>
-                                            <th scope="col">Ver</th>
-                                            <th scope="col">Marcar como lida</th>
+                                            <th scope="col" class="text-center">ID</th>
+                                            <th scope="col" class="text-center">Mensagem</th>
+                                            <th scope="col" class="text-center">Tipo</th>                                            
+                                            <th scope="col" class="text-center">Data</th>
+                                            <th scope="col" class="text-center">Ver</th>
+                                            <th scope="col" class="text-center">Marcar como lida</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -109,6 +110,7 @@ and open the template in the editor.
                                 </table>
                             </div>
                         </div>
+                    </form>
                     </div>
                     <!-- End of Main Content -->
                 </div> 
