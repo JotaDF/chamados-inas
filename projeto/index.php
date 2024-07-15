@@ -165,44 +165,9 @@ and open the template in the editor.
                 <div class="modal-body">
                     <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
                         <div class="row no-gutters align-items-center">
-                            <img src="publicidade/festa_junina.jpg" width="100%"/>
-                        </div>
-                        <div class="row">
-                            <p>
-                            <b>Atenção, cumadis e cumpadis, agora é oficial!</b><br/>
-                            É com grande alegria que convidamos todos vocês para o <b>Arraiá do INAS</b>, que acontecerá no dia <b>5 de julho, das 18h às 22h, na área verde atrás do edifício Parque Cidade Corporate</b>, com acesso pela entrada de emergência, ao lado da loja do Instituto no térreo.
-                            E atendendo ao desejo da maioria, teremos um delicioso <b>buffet com salgados, doces e bebidas por apenas R$65. O chopp será cobrado à parte (lista com o Mateus Carvalho). <br/>Confira o cardápio abaixo!</b> 
-                            <b>Pix para o pagamento:</b> 72476028134 (Caixa Econômica – Aline Marques)<br/>
-                            Preparem seus trajes típicos, animem-se para dançar aquele forró arretado e venham aproveitar essa festa junina que promete ser inesquecível!<br/>
-                            Esperamos todos vocês para uma noite de muita diversão, música e confraternização.<br/><br/>
-                            Até lá! <br/>
-                            <b>CARDÁPIO<br/>
-                            Pratos doces<b>
-                            Amendoim caramelado<br/>
-                            Bolo de mandioca<br/>
-                            Bolo de milho<br/>
-                            Canjica de amendoim<br/>
-                            Canjica de coco<br/>
-                            Curau<br/>
-                            Cuscuz de tapioca com coco<br/><br/>
-
-                            <b>Pratos salgados</b><br/>
-                            Arroz Carreteiro<br/>
-                            Cachorro-quente<br/>
-                            Caldo de carne com mandioca ou caldo de frango ou caldo verde<br/>
-                            Galinhada<br/>
-                            Milho cozido<br/>
-                            Pastel de carne e de queijo<br/>
-                            Pipoca<br/><br/>
-
-                            <b>Bebidas</b><br/>
-                            Quentão tradicional<br/>
-                            Chocolate quente<br/>
-                            Coca cola normal ou zero<br/>
-                            Guaraná Antártica<br/>
-                            Suco de polpa – dois sabores<br/> 
-                            Chopp (cobrado à parte)<br/>
-                            </p>
+                            <img src="publicidade/publicidade_1.jpg" width="100%"/>
+                            <br/>
+                            <img src="publicidade/publicidade_2.jpg" width="100%"/>
                         </div>
                     </div>
                 </div>
