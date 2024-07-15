@@ -133,13 +133,6 @@ and open the template in the editor.
                         <?php include './get_aniversariantes.php'; ?>
                     </div>
                 </div>
-                    <!-- End of publicidade
-                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 410px;">
-                        <div class="row no-gutters align-items-center">
-                            <img src="publicidade/imagem3.jpg" width="100%" data-toggle="modal" data-target="#publicidade"/>
-                        </div>
-                    </div>
-                    -->
                 </div>
                 <!-- End of Main Content -->                
             </div>
@@ -153,26 +146,22 @@ and open the template in the editor.
             <i class="fas fa-angle-up"></i>
         </a>
         <!-- Modal -->
-        <div class="modal fade" style="max-width: 650px;" id="publicidade" tabindex="-1" role="dialog" aria-labelledby="TituloPublicidade" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+        <div class="modal fade" id="publicidade" tabindex="-1" role="dialog" aria-labelledby="Titulopublicidade" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="TituloPublicidade">Notícias</h5>
+                    <h5 class="modal-title" id="Titulopublicidade">Notícias</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
-                        <div class="row no-gutters align-items-center">
-                            <img src="publicidade/publicidade_1.jpg" width="100%"/>
-                            <br/>
-                            <img src="publicidade/publicidade_2.jpg" width="100%"/>
-                        </div>
-                    </div>
-                </div>
+                    <img src="publicidade/publicidade_1.png" width="100%"/>
+                    <br/>
+                    <img src="publicidade/publicidade_2.png" width="100%"/>
                 </div>
             </div>
+        </div>
         </div>
         <!-- Fim Modal -->
 
