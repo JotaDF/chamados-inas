@@ -29,7 +29,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="tipos_prestador.php">
-                    <i class="fa fa-id-badge"></i>
+                    <i class="fa fa-list"></i>
                     <span>Tipos Prestador</span>
                 </a>
             </li>
@@ -39,7 +39,7 @@
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="prestadores.php">
-                    <i class="fa fa-laptop"></i>
+                    <i class="fa fa-th-large"></i>
                     <span>Prestadores</span>
                 </a>
             </li>
