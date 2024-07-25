@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tipos de Valores - INAS</title>
+        <title>Tipos de Prestador - INAS</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,17 +41,17 @@ and open the template in the editor.
          
 
             $(document).ready(function () {
-                $('#tipos_valores').DataTable();
+                $('#tipos_prestador').DataTable();
             });
             function excluir(id, tipo) {
-                $('#delete').attr('href', 'del_tipo_valor.php?id=' + id);
+                $('#delete').attr('href', 'del_tipo_prestador.php?id=' + id);
                 $('#excluir').text(tipo);
                 $('#confirm').modal({show: true});              
             }
             function alterar(id, tipo) {
                 $('#id').val(id);
                 $('#tipo').val(tipo);
-                $('#form_tipo_valor').collapse("show");
+                $('#form_tipo_prestador').collapse("show");
                 $('#btn_cadastrar').hide();
             }
 
@@ -72,7 +72,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_juridico.php'; ?>
+            <?php include './menu_execucao.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -80,7 +80,7 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
 
                     <div class="container-fluid">
-                        <?php include './form_tipo_valor.php'; ?>
+                        <?php include './form_tipo_prestador.php'; ?>
                         <!-- Project Card Example -->
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
@@ -91,14 +91,14 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Tipos de Valores</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_tipo_valor" aria-expanded="false" aria-controls="form_tipo_valor">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_tipo_prestador" aria-expanded="false" aria-controls="form_tipo_prestador">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>                            
 
                             <div class="card-body">
-                                <table id="tipos_valores" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="tipos_prestador" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
@@ -107,7 +107,7 @@ and open the template in the editor.
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php include './get_tipo_valor.php'; ?>
+                                        <?php include './get_tipo_prestador.php'; ?>
                                     </tbody>
                                 </table>
                             </div>
