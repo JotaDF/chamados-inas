@@ -88,21 +88,16 @@ foreach ($listaS as $obj) {
         }
         function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,id_tipo_prestador) {
             $('#id').val(id);
-            $('#login').val(login);
-            $('#nome').val(nome);
-            $('#matricula').val(matricula);
-            $('#cargo').val(cargo);
-            $('#email').val(email);
-            $('#nascimento').val(nascimento);
-            $('#whatsapp').val(whatsapp);
-            $('#linkedin').val(linkedin);
+            $('#cnpj').val(cnpj);
+            $('#razao_social').val(razao_social);
+            $('#nome_fantasia').val(nome_fantasia);
+            $('#telefone').val(telefone);
             $('#credenciado').val(credenciado);
             if (credenciado == 1) {
                 $('#credenciado').prop('checked', true);
             } else {
                 $('#credenciado').prop('checked', false);
             }
-
             carregaTipoPrestadores(id_tipo_prestador);
             $('#form_prestador').collapse("show");
             $('#btn_cadastrar').hide();
