@@ -113,7 +113,7 @@ class ManterPrestador extends Model {
     }
 
     function listarPorExecutor($id_executor) {
-        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND fp.id_usuario= ".$id_executor." order by p.razao_social";
+        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, fp.editor FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND fp.id_usuario= ".$id_executor." order by p.razao_social";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -131,6 +131,7 @@ class ManterPrestador extends Model {
             $dados->telefone          = $registro["telefone"];
             $dados->ativo             = $registro["ativo"];
             $dados->tipo_prestador    = $registro["id_tipo_prestador"];
+            $dados->editor            = $registro["editor"];
 
             $array_dados[]      = $dados;
         }

@@ -18,10 +18,8 @@
 
             $opcoes = "  <td align='center'> - </td>";
             if($usuario_logado->perfil <= 2){
-                if($obj->excluir){
-                    $opcoes = '  <td align="center" valign="bottom" class="align-middle nowrap"><button class="btn btn-primary btn-sm" type="button" onclick="alterar(\''.$obj->id.'\',\'' .$obj->cnpj.'\',\''.addslashes($obj->razao_social).'\',\''.addslashes($obj->nome_fantasia).'\',\''.$obj->credenciado.'\',\''.$obj->telefone.'\',\''.$obj->ativo.'\',\''.$obj->tipo_prestador.'\')"><i class="fas fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-danger btn-sm" type="button" onclick="excluir('.$obj->id.',\''.addslashes($obj->razao_social).'\')"><i class="far fa-trash-alt"></i></button>&nbsp;&nbsp;<a href="gerenciar_executor_prestador.php?id='.$obj->id.'" title="Gerenciar executores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-users"></i></a></td>';
-                } else {
-                    $opcoes = '  <td align="center" valign="bottom" class="align-middle nowrap"><button class="btn btn-primary btn-sm" type="button" onclick="alterar(\''.$obj->id.'\',\'' .$obj->cnpj.'\',\''.addslashes($obj->razao_social).'\',\''.addslashes($obj->nome_fantasia).'\',\''.$obj->credenciado.'\',\''.$obj->telefone.'\',\''.$obj->ativo.'\',\''.$obj->tipo_prestador.'\')"><i class="fas fa-edit"></i></button>&nbsp;&nbsp;<button class="btn btn-secondary btn-sm" type="button"><i class="far fa-trash-alt"></i></button>&nbsp;&nbsp;<a href="gerenciar_executor_prestador.php?id='.$obj->id.'" title="Gerenciar executores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-users"></i></a></td>';
+                if($obj->editor){
+                    $opcoes = '  <td align="center" valign="bottom" class="align-middle nowrap"><a href="gerenciar_pagamentos_prestador.php?id='.$obj->id.'" title="Gerenciar pagamentos prestador" class="btn btn-success btn-sm" type="button"><i class="fa fa-plus-square"></i></a>&nbsp;&nbsp;<a href="gerenciar_glosas_prestador.php?id='.$obj->id.'" title="Gerenciar glosas" class="btn btn-danger btn-sm" type="button"><i class="fa fa-minus-square"></i></a></td>';
                 }
             }
             echo $opcoes;
