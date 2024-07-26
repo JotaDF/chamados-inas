@@ -65,9 +65,11 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
+                    include_once('actions/ManterTipoPrestador.php');
                     include_once('actions/ManterUsuario.php');
 
                     $manterPrestador = new ManterPrestador();
+                    $manterTipoPrestador = new ManterTipoPrestador();
                     $manterUsuario = new ManterUsuario();
 
                     if (isset($_REQUEST['id'])) {
@@ -105,8 +107,8 @@ and open the template in the editor.
                                             <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Ativo:</div>
-                                            <div class="mb-0"><?=($prestador->ativo > 0 ? 'Sim':'Não') ?></div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
+                                            <div class="mb-0"><?=$manterTipoPrestador->getTipoPrestadorPorId($prestador->tipo_prestador)->tipo ?></div>
                                         </div> 
                                     </div>
                                     <br/>
