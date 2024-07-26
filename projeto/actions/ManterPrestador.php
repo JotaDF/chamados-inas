@@ -112,5 +112,30 @@ class ManterPrestador extends Model {
         return $resultado;
     }
 
+    function listarPorExecutor($id_executor) {
+        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND fp.id_usuario= ".$id_executor." order by p.razao_social";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Prestador();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                = $registro["id"];
+            $dados->cnpj              = $registro["cnpj"];
+            $dados->razao_social      = $registro["razao_social"];
+            $dados->nome_fantasia     = $registro["nome_fantasia"];
+            $dados->credenciado       = $registro["credenciado"];
+            $dados->telefone          = $registro["telefone"];
+            $dados->ativo             = $registro["ativo"];
+            $dados->tipo_prestador    = $registro["id_tipo_prestador"];
+
+            $array_dados[]      = $dados;
+        }
+        return $array_dados;
+    }
+
 }
 

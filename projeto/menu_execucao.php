@@ -18,13 +18,13 @@
 </li>
 <!-- Divider -->
 <hr class="sidebar-divider">
-    <?php
-    if ($usuario_logado->perfil >= 1) {
+<?php
+    if ($usuario_logado->perfil <= 2) {
         ?>
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            VISITANTES
+            COORDENAÇÃO
         </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -41,6 +41,30 @@
                 <a class="nav-link collapsed" href="prestadores.php">
                     <i class="fa fa-th-large"></i>
                     <span>Prestadores</span>
+                </a>
+            </li>
+            <?php
+        }
+        ?>
+
+        <?php
+    }
+
+    if ($usuario_logado->perfil >= 1) {
+        ?>
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            EXECUÇÃO
+        </div>
+            <?php
+        if ($usuario_logado->perfil >= 2) {
+            ?>
+              <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="meus_prestadores.php">
+                    <i class="fa fa-th-large"></i>
+                    <span>Meus Prestadores</span>
                 </a>
             </li>
             <?php
