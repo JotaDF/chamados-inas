@@ -42,7 +42,7 @@ class ManterPrestador extends Model {
             $dados->id          = $registro["id"];
             $dados->cnpj              = $registro["cnpj"];
             $dados->razao_social      = $registro["razao_social"];
-            $dados->cnnome_fantasiapj = $registro["nome_fantasia"];
+            $dados->nome_fantasia     = $registro["nome_fantasia"];
             $dados->credenciado       = $registro["credenciado"];
             $dados->telefone          = $registro["telefone"];
             $dados->ativo             = $registro["ativo"];
