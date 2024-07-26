@@ -10,7 +10,7 @@ class ManterPrestador extends Model {
     }
 
     function listar() {
-        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.prestador";
+        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -23,7 +23,7 @@ class ManterPrestador extends Model {
             $dados->id                = $registro["id"];
             $dados->cnpj              = $registro["cnpj"];
             $dados->razao_social      = $registro["razao_social"];
-            $dados->cnnome_fantasiapj = $registro["nome_fantasia"];
+            $dados->nome_fantasia     = $registro["nome_fantasia"];
             $dados->credenciado       = $registro["credenciado"];
             $dados->telefone          = $registro["telefone"];
             $dados->ativo             = $registro["ativo"];
