@@ -31,7 +31,7 @@
             <div class="form-group row">
                 <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
                 <div class="col-sm-10">
-                    <input type="telefone" name="telefone" class="form-control form-control-sm" id="telefone" onkeypress="$(this).mask('(00)00000-0000');" placeholder="(00)00000-0000">
+                    <input type="telefone" name="telefone" class="form-control form-control-sm" id="telefone" placeholder="(00)0000-0000">
                 </div>
             </div>
             <div class="form-group row">
