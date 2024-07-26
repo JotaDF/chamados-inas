@@ -73,5 +73,44 @@ class ManterPrestador extends Model {
         return $resultado;
     }
 
+    function getExecutoresPorId($id) {
+        $sql = "select u.id,u.nome, u.matricula, fp.editor FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id." order by u.nome";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Usuario();
+            $dados->excluir = true;
+            $dados->id = $registro["id"];
+            $dados->nome = $registro["nome"];
+            $dados->matricula = $registro["matricula"];
+            $dados->editor = $registro["editor"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function getNaoExecutoresPorId($id) {
+        $sql = "select u.id,u.nome FROM usuario as u WHERE u.id NOT IN(SELECT id_usuario FROM fiscal_prestador as fp WHERE fp.id_prestador=".$id.") order by u.nome";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Usuario();
+            $dados->excluir = true;
+            $dados->id = $registro["id"];
+            $dados->nome = $registro["nome"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function add($id_prestador, $id_usuario, $editor = 0) {
+        $sql = "insert into fiscal_prestador (id_prestador,id_usuario, editor) values ('" . $id_prestador . "','" . $id_usuario . "'," . $editor . ")";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function del($id_prestador, $id_usuario) {
+        $sql = "delete from fiscal_prestador where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+
 }
 

@@ -8,6 +8,7 @@
             public $telefone;
             public $ativo;
             public $tipo_prestador;
+            public $executores = array();
 
             //variaveis de manipulação
             public $excluir;
