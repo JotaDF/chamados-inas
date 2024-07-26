@@ -102,16 +102,16 @@ and open the template in the editor.
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
-                                            <div class="mb-0"><?=$prestador->prestador ?></div>
+                                            <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Criador:</div>
-                                            <div class="mb-0"><?=$manterUsuario->getUsuarioPorId($prestador->criador)->nome ?></div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Ativo:</div>
+                                            <div class="mb-0"><?=($prestador->ativo > 0 ? 'Sim':'Não') ?></div>
                                         </div> 
                                     </div>
                                     <br/>
                                     <?php
-                                        if($usuario_logado->perfil < 2 || $usuario_logado->id == $prestador->criador){
+                                        if($usuario_logado->perfil <= 2){
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo executor</span>
