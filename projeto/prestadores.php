@@ -72,7 +72,7 @@ foreach ($listaS as $obj) {
                 }
                 html += '<option value="' + option.id + '" ' + selected + '>' + option.tipo + '</option>';
             }
-            $('#setor').html(html);
+            $('#tipo_prestador').html(html);
         }
         $(document).ready(function () {
             $('#prestadores').DataTable({
@@ -86,7 +86,7 @@ foreach ($listaS as $obj) {
             $('#nome_excluir').text(nome);
             $('#confirm').modal({show: true});
         }
-        function alterar(id, login, nome, matricula,cargo, email,nascimento,whatsapp,linkedin, ativo, id_setor, id_perfil) {
+        function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,id_tipo_prestador) {
             $('#id').val(id);
             $('#login').val(login);
             $('#nome').val(nome);
@@ -96,14 +96,14 @@ foreach ($listaS as $obj) {
             $('#nascimento').val(nascimento);
             $('#whatsapp').val(whatsapp);
             $('#linkedin').val(linkedin);
-            $('#ativo').val(ativo);
-            if (ativo == 1) {
-                $('#ativo').prop('checked', true);
+            $('#credenciado').val(credenciado);
+            if (credenciado == 1) {
+                $('#credenciado').prop('checked', true);
             } else {
-                $('#ativo').prop('checked', false);
+                $('#credenciado').prop('checked', false);
             }
 
-            carregaTipoPrestadores(id_setor);
+            carregaTipoPrestadores(id_tipo_prestador);
             $('#form_prestador').collapse("show");
             $('#btn_cadastrar').hide();
         }
@@ -134,10 +134,10 @@ foreach ($listaS as $obj) {
                         <div class="card mb-4 border-primary" style="max-width:1000px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fas fa-user fa-2x text-white"></i> 
+                                    <i class="fa fa-th-large fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Usuários</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Prestadores</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_prestador" aria-expanded="false" aria-controls="form_prestador">

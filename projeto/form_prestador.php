@@ -13,7 +13,7 @@
             <div class="form-group row">
                 <label for="cnpj" class="col-sm-2 col-form-label">CNPJ:</label>
                 <div class="col-sm-10 input-group">
-                    <input type="text" name="cnpj" class="form-control form-control-sm" id="cnpj" placeholder="00.000.000/0000-00" required>
+                    <input type="text" name="cnpj" class="form-control form-control-sm" id="cnpj" onkeypress="$(this).mask('00.000.000/0000-00');" placeholder="00.000.000/0000-00" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -31,7 +31,7 @@
             <div class="form-group row">
                 <label for="telefone" class="col-sm-2 col-form-label">Telefone:</label>
                 <div class="col-sm-10">
-                    <input type="telefone" name="telefone" class="form-control form-control-sm" id="telefone" placeholder="(00)00000-0000" required>
+                    <input type="telefone" name="telefone" class="form-control form-control-sm" id="telefone" onkeypress="$(this).mask('(00)00000-0000');" placeholder="(00)00000-0000">
                 </div>
             </div>
             <div class="form-group row">

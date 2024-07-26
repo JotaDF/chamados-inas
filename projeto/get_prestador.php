@@ -8,6 +8,7 @@
 	$lista = $manterPrestador->listar();
         
         foreach ($lista as $obj) {
+            
             echo "<tr>";
             echo "  <td>".$obj->id."</td>";
             echo "  <td>".$obj->cnpj."</td>";
