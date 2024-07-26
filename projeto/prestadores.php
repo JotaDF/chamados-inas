@@ -81,6 +81,13 @@ foreach ($listaS as $obj) {
             $('#id').val(0);
             carregaTipoPrestadores(0);
         });
+        function novo() {
+            $('#id').val(0);
+            carregaTipoPrestadores(0);
+
+            $('#form_prestador').collapse("show");
+            $('#btn_cadastrar').hide();
+        }
         function excluir(id, nome) {
             $('#delete').attr('href', 'del_prestador.php?id=' + id);
             $('#nome_excluir').text(nome);
@@ -135,7 +142,7 @@ foreach ($listaS as $obj) {
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Prestadores</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_prestador" aria-expanded="false" aria-controls="form_prestador">
+                                    <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_prestador" aria-expanded="false" aria-controls="form_prestador">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
