@@ -1,5 +1,5 @@
 <?php
-//Executor
+//Execucao
 $mod = 10;
 require_once('./verifica_login.php');
 ?> 
@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gerenciar executores</title>
+        <title>Usuários - Gerenciador de acessos</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,10 +40,10 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id_usuario, nome, id_prestador) {
-                $('#delete').attr('href', 'save_executor_prestador.php?op=2&id_usuario=' + id_usuario +"&id_prestador="+id_prestador);
-                $('#nome_excluir').text(nome);
-                $('#confirm').modal({show: true});              
+            function excluir(id, informativo, competencia) {
+                $('#delete').attr('href', 'remover_pagamento_prestador.php?id=' + id);
+                $('#nome_excluir').text(competencia . " - " . informativo);
+                $('#confirm').modal({show: true});
             }
         </script>
         <style>
@@ -66,17 +66,17 @@ and open the template in the editor.
                     <?php
                     include_once('actions/ManterPrestador.php');
                     include_once('actions/ManterTipoPrestador.php');
-                    include_once('actions/ManterUsuario.php');
+                    include_once('actions/ManterPagamento.php');
 
                     $manterPrestador = new ManterPrestador();
                     $manterTipoPrestador = new ManterTipoPrestador();
-                    $manterUsuario = new ManterUsuario();
+                    $manterPagamento = new ManterPagamento();
 
                     if (isset($_REQUEST['id'])) {
-                        $id_prestador = $_REQUEST['id'];                        
+                        $id_prestador = $_REQUEST['id'];
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
-                        $prestador->executores = $manterPrestador->getExecutoresPorId($id_prestador);
-                        $listaNaoExecutores = $manterPrestador->getNaoExecutoresPorId($id_prestador);
+                        $pagamentos   = $manterPagamento->getPagamentoPorId($id_prestador);
+                        //$notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
                         $editar = false;
                         
                         //if ($chamado->status == 1 || $chamado->status == 4) {
@@ -89,10 +89,10 @@ and open the template in the editor.
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
-                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de executores</div>
+                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de pagamentos</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa fa-users fa-3x text-white"></i>
+                                            <i class="fa fa-lock fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -100,11 +100,11 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">CNPJ:</div>
-                                            <div class="mb-0"><?=$prestador->cnpj ?></div>
+                                            <div class="mb-0"><?= $prestador->id ?></div>
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
-                                            <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
+                                            <div class="mb-0"><?= $prestador->nome_fantasia ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
@@ -113,37 +113,21 @@ and open the template in the editor.
                                     </div>
                                     <br/>
                                     <?php
-                                        if($usuario_logado->perfil <= 2){
+                                        if($usuario_logado->perfil==1){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Novo executor</span>
-                                    <form id="form_cadastro" action="save_executor_prestador.php" method="post">
-                                        <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
-                                        <input type="hidden" id="op" name="op" value="1"/>
+                                    <span class="mt-3 ml-2 h6 card-title">Nova opção</span>
+                                    <form id="form_cadastro" action="save_opcao_pagamento.php" method="post">
+                                        <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?=$pagamento->id ?>"/>
                                         <div class="form-group row">
-                                            <label for="sigla" class="col-sm-2 col-form-label">Executor:</label>
+                                            <label for="opcao" class="col-sm-2 col-form-label">Opção:</label>
                                             <div class="col-sm-10">
-                                            <select id="usuario" name="id_usuario" class="form-control form-control-sm" required>
-                                                <option value="">Selecione</option>   
-                                                <?php
-                                                foreach ($listaNaoExecutores as $usuario) {
-                                                ?> 
-                                                    <option value="<?=$usuario->id ?>"><?=$usuario->nome ?></option> 
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
+                                                <input type="text" id="opcao" name="opcao" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
-                                        <div class="form-group row"> 
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                            <div class="checkbox">
-                                                <label class="text-danger"><input type="checkbox" id="editor" name="editor" value="1"><b> Pode editar</b></label>
-                                            </div>
-                                            </div>
-                                        </div>
+
                                         <div class="form-group row float-right">
-                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Incluir </button>
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
                                         </div>
                                     </form>   
 
@@ -165,7 +149,7 @@ and open the template in the editor.
                                     <i class="fas fa-users fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Executores do prestador</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Opções cadastradas</span>
                                 </div>
                             </div>                            
 
@@ -173,14 +157,27 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">MATRÍCULA</th>
-                                            <th scope="col">NOME</th>
-                                            <th scope="col">EDITOR</th>
-                                            <th scope="col">REMOVER</th> 
+                                            <th scope="col">ID</th>
+                                            <th scope="col">INFORMATIVO</th>
+                                            <th scope="col">COMPETÊNCIA</th>         
+                                            <th scope="col">OPÇÕES</th> 
                                         </tr>
                                     </thead>
-                                    <tbody id="fila">
-                                        <?php include './get_executores_prestador.php'; ?>
+                                    <tbody id="opcoes">
+                                        <?php 
+                                                foreach ($pagamentos as $obj) {
+                                                    echo "<tr>";
+                                                    echo "  <td>".$obj->id."</td>";
+                                                    echo "  <td>".$obj->informativo."</td>";
+                                                    echo "  <td>".$obj->competencia."</td>";
+                                                    if($usuario_logado->perfil <= 2){
+                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->informativo.",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                    } else {
+                                                        echo "  <td align='center'> - </td>";                
+                                                    }
+                                                    echo "</tr>";
+                                                }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

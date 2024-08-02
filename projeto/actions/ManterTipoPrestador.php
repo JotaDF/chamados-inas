@@ -10,7 +10,7 @@ class ManterTipoPrestador extends Model {
     }
 
     function listar() {
-        $sql = "select tp.id,tp.tipo, (select count(*) from prestador as p where p.id_tipo_prestador=tp.id) as dep FROM tipo_prestador as tp order by tp.tipo_prestador";
+        $sql = "select tp.id,tp.tipo, (select count(*) from prestador as p where p.id_tipo_prestador=tp.id) as dep FROM tipo_prestador as tp order by tp.tipo";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
