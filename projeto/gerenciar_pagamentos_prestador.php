@@ -42,7 +42,7 @@ and open the template in the editor.
             });
             function excluir(id, informativo, competencia) {
                 $('#delete').attr('href', 'remover_pagamento_prestador.php?id=' + id);
-                $('#nome_excluir').text(competencia . " - " . informativo);
+                $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
         </script>
