@@ -71,17 +71,18 @@ and open the template in the editor.
                     $manterPrestador = new ManterPrestador();
                     $manterTipoPrestador = new ManterTipoPrestador();
                     $manterPagamento = new ManterPagamento();
+                    
 
                     if (isset($_REQUEST['id'])) {
                         $id_prestador = $_REQUEST['id'];
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
-                        $pagamentos   = $manterPagamento->getPagamentoPorId($id_prestador);
+                        $pagamentos   = $manterPagamento->getPagamentosPorPrestador($id_prestador);
+                        $executor = $manterPrestador->getExecutoresPorId($id_prestador, $usuario_logado->id);
                         //$notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
                         $editar = false;
-                        
-                        //if ($chamado->status == 1 || $chamado->status == 4) {
-                            //$editar = true;
-                        //}
+                        if ($executor->editor == 1) {
+                            $editar = true;
+                        }
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
@@ -113,16 +114,22 @@ and open the template in the editor.
                                     </div>
                                     <br/>
                                     <?php
-                                        if($usuario_logado->perfil==1){
+                                        if($editar){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Nova opção</span>
+                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
                                     <form id="form_cadastro" action="save_opcao_pagamento.php" method="post">
-                                        <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?=$pagamento->id ?>"/>
+                                        <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <div class="form-group row">
-                                            <label for="opcao" class="col-sm-2 col-form-label">Opção:</label>
+                                            <label for="competencia" class="col-sm-2 col-form-label">Competência:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" id="opcao" name="opcao" class="form-control form-control-sm" required />
+                                                <input type="text" id="competencia" name="competencia" class="form-control form-control-sm" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="informativo" class="col-sm-2 col-form-label">Informativo:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="informativo" name="informativo" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
 
@@ -149,7 +156,7 @@ and open the template in the editor.
                                     <i class="fas fa-users fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Opções cadastradas</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos cadastrados</span>
                                 </div>
                             </div>                            
 
