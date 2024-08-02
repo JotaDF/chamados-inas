@@ -93,7 +93,7 @@ and open the template in the editor.
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de pagamentos</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-lock fa-3x text-white"></i>
+                                            <i class="fa fa-credit-card fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@ and open the template in the editor.
                                         </div>
 
                                         <div class="form-group row float-right">
-                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
+                                            <button type="submit" class="btn btn-primary btn-sm mr-3"><i class="fas fa-save"></i> Adicionar</button>
                                         </div>
                                     </form>   
 
@@ -153,7 +153,7 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:800px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fas fa-users fa-2x text-white"></i> 
+                                    <i class="fa fa-credit-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos cadastrados</span>
