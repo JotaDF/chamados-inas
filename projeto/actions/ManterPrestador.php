@@ -73,12 +73,8 @@ class ManterPrestador extends Model {
         return $resultado;
     }
 
-    function getExecutoresPorId($id, $id_usuario = 0) {
-        $where_user = "";
-        if($id_usuario > 0){
-            $where_user = " AND u.id=".$id_usuario;
-        }
-        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id. $where_user ." order by u.nome";
+    function getExecutoresPorId($id) {
+        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -92,6 +88,20 @@ class ManterPrestador extends Model {
             $array_dados[] = $dados;
         }
         return $array_dados;
+    }
+    function getExecutorPorId($id, $id_usuario) {
+        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id. $where_user ." AND u.id=". $id_usuario ." order by u.nome";
+        $resultado = $this->db->Execute($sql);
+        $dados = new Usuario();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->excluir = true;
+            $dados->id = $registro["id"];
+            $dados->nome = $registro["nome"];
+            $dados->matricula = $registro["matricula"];
+            $dados->editor = $registro["editor"];
+            $dados->id_fiscal_prestador = $registro["id_fiscal_prestador"];
+        }
+        return $dados;
     }
     function getNaoExecutoresPorId($id) {
         $sql = "select u.id,u.nome FROM usuario as u WHERE u.id NOT IN(SELECT id_usuario FROM fiscal_prestador as fp WHERE fp.id_prestador=".$id.") order by u.nome";
