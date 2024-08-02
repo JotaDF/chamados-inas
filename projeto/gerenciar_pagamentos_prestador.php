@@ -77,7 +77,7 @@ and open the template in the editor.
                         $id_prestador = $_REQUEST['id'];
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
                         $pagamentos   = $manterPagamento->getPagamentosPorPrestador($id_prestador);
-                        $executor = $manterPrestador->getExecutoresPorId($id_prestador, $usuario_logado->id);
+                        $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
                         //$notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
                         $editar = false;
                         if ($executor->editor == 1) {
@@ -118,15 +118,16 @@ and open the template in the editor.
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
-                                    <form id="form_cadastro" action="save_opcao_pagamento.php" method="post">
+                                    <form id="form_cadastro" action="save_pagamento_prestador.php" method="post">
+                                        <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
-                                        <div class="form-group row">
+                                        <div class="form-group row ml-1">
                                             <label for="competencia" class="col-sm-2 col-form-label">Competência:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="competencia" name="competencia" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row ml-1">
                                             <label for="informativo" class="col-sm-2 col-form-label">Informativo:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="informativo" name="informativo" class="form-control form-control-sm" required />
