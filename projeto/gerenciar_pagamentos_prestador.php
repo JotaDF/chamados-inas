@@ -166,8 +166,8 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">INFORMATIVO</th>
-                                            <th scope="col">COMPETÊNCIA</th>         
+                                            <th scope="col">COMPETÊNCIA</th>
+                                            <th scope="col">INFORMATIVO</th>         
                                             <th scope="col">OPÇÕES</th> 
                                         </tr>
                                     </thead>
@@ -176,8 +176,8 @@ and open the template in the editor.
                                                 foreach ($pagamentos as $obj) {
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
-                                                    echo "  <td>".$obj->informativo."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
+                                                    echo "  <td>".$obj->informativo."</td>";
                                                     if($usuario_logado->perfil <= 2){
                                                         echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->informativo.",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
