@@ -29,7 +29,7 @@ class ManterPagamento extends Model {
         return $array_dados;
     }
     function getPagamentosPorPrestador($id_prestador) {
-        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador (select count(*) from nota_pagamento as np where np.id_pagamento=p.id) as dep FROM pagamento as p, fiscal_prestador as fp where p.id_fiscal_prestador = fp.id AND fp.id_prestador = ".$id_prestador."  order by p.id";
+        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador, (select count(*) from nota_pagamento as np where np.id_pagamento=p.id) as dep FROM pagamento as p, fiscal_prestador as fp where p.id_fiscal_prestador = fp.id AND fp.id_prestador = ".$id_prestador."  order by p.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -85,8 +85,6 @@ class ManterPagamento extends Model {
         return $array_dados;
     }
     function salvar(Pagamento $dados) {
-        $dados->pagamento = $dados->pagamento;
-        $dados->competencia = $dados->competencia;
         $sql = "insert into pagamento (informativo,competencia,id_fiscal_prestador) values ('" . $dados->informativo . "','" . $dados->competencia . "','" . $dados->fiscal_prestador . "')";
         if ($dados->id > 0) {
             $sql = "update pagamento set informativo='" . $dados->informativo . "', competencia='" . $dados->competencia . "', id_fiscal_prestador='" . $dados->fiscal_prestador . "' where id=" . $dados->id;

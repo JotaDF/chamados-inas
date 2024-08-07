@@ -90,7 +90,7 @@ class ManterPrestador extends Model {
         return $array_dados;
     }
     function getExecutorPorId($id, $id_usuario) {
-        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id. $where_user ." AND u.id=". $id_usuario ." order by u.nome";
+        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id ." AND u.id=". $id_usuario ." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $dados = new Usuario();
         while ($registro = $resultado->fetchRow()) {

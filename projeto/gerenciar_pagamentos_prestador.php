@@ -78,7 +78,7 @@ and open the template in the editor.
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
                         $pagamentos   = $manterPagamento->getPagamentosPorPrestador($id_prestador);
                         $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
-                        //$notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
+                        
                         $editar = false;
                         if ($executor->editor == 1) {
                             $editar = true;
@@ -151,7 +151,7 @@ and open the template in the editor.
                         ?>
 
 
-                        <div class="card mb-4 border-primary" style="max-width:800px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-credit-card fa-2x text-white"></i> 
@@ -168,21 +168,54 @@ and open the template in the editor.
                                             <th scope="col">ID</th>
                                             <th scope="col">COMPETÊNCIA</th>
                                             <th scope="col">INFORMATIVO</th>         
-                                            <th scope="col">OPÇÕES</th> 
+                                            <th scope="col">EXCLUIR</th> 
+                                            <th scope="col">NOTAS FISCAIS</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
                                         <?php 
                                                 foreach ($pagamentos as $obj) {
+                                                    $notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
+
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
                                                     echo "  <td>".$obj->informativo."</td>";
                                                     if($usuario_logado->perfil <= 2){
-                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->informativo.",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
                                                     }
+                                                    echo "  <td>";
+                                                    $tem_nota = false;
+                                                    $out_notas = "";
+                                                    foreach ($notas as $n) {
+                                                        $tem_nota = true;
+                                                        $out_notas .= "<tr>";
+                                                        $out_notas .= "  <td>".$obj->numero."</td>";
+                                                        $out_notas .= "  <td>".$obj->valor."</td>";
+                                                        $out_notas .= "  <td>".$obj->exercicio."</td>";
+                                                        $out_notas .= "  <td>".$obj->status."</td>";
+                                                        $out_notas .= "  <td> - </td>";
+                                                        $out_notas .= "</tr>";
+                                                    }
+                                                    if (!$tem_nota) {
+                                                        ?>
+                                                        <table id="notas" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">NOTA FISCAL</th> 
+                                                                    <th scope="col">VALOR</th> 
+                                                                    <th scope="col">EXERCÍCIO</th>
+                                                                    <th scope="col">SITUAÇÃO</th> 
+                                                                    <th scope="col">OPÇÕES</th> 
+                                                                </tr>
+                                                            </thead>
+                                                        <?php                                                        
+                                                        echo $out_notas;
+                                                        echo "</table>";
+                                                    }
+                                                    echo "  </td>";
                                                     echo "</tr>";
                                                 }
                                         ?>
