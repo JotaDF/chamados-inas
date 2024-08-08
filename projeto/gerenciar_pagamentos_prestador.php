@@ -150,7 +150,7 @@ and open the template in the editor.
                         }
                         ?>
 
-
+                        <?php include './form_nota_pagamento.php'; ?>
                         <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
@@ -158,6 +158,11 @@ and open the template in the editor.
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos cadastrados</span>
+                                </div>
+                                <div class="col text-right" style="max-width:20%">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_prestador" aria-expanded="false" aria-controls="form_prestador">
+                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>                            
 
@@ -169,13 +174,13 @@ and open the template in the editor.
                                             <th scope="col">COMPETÊNCIA</th>
                                             <th scope="col">INFORMATIVO</th>         
                                             <th scope="col">EXCLUIR</th> 
-                                            <th scope="col">NOTAS FISCAIS</th> 
+                                            <th scope="col" class="text-center">NOTAS FISCAIS</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
                                         <?php 
                                                 foreach ($pagamentos as $obj) {
-                                                    $notas     = $manterPagamento->getNotasPorPagamento($id_pagamento);
+                                                    $notas     = $manterPagamento->getNotasPorPagamento($obj->id);
 
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
@@ -199,7 +204,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td> - </td>";
                                                         $out_notas .= "</tr>";
                                                     }
-                                                    if (!$tem_nota) {
+                                                    if ($tem_nota) {
                                                         ?>
                                                         <table id="notas" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                                             <thead>
