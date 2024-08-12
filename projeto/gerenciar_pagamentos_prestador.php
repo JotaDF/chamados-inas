@@ -37,6 +37,8 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
@@ -160,7 +162,7 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos cadastrados</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_prestador" aria-expanded="false" aria-controls="form_prestador">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_nota" aria-expanded="false" aria-controls="form_nota">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -197,10 +199,10 @@ and open the template in the editor.
                                                     foreach ($notas as $n) {
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
-                                                        $out_notas .= "  <td>".$obj->numero."</td>";
-                                                        $out_notas .= "  <td>".$obj->valor."</td>";
-                                                        $out_notas .= "  <td>".$obj->exercicio."</td>";
-                                                        $out_notas .= "  <td>".$obj->status."</td>";
+                                                        $out_notas .= "  <td>".$n->numero."</td>";
+                                                        $out_notas .= "  <td>".$n->valor."</td>";
+                                                        $out_notas .= "  <td>".$n->exercicio."</td>";
+                                                        $out_notas .= "  <td>".$n->status."</td>";
                                                         $out_notas .= "  <td> - </td>";
                                                         $out_notas .= "</tr>";
                                                     }
