@@ -63,14 +63,6 @@ and open the template in the editor.
                 currency
             }).format(valor)
             }    
-            function validarCPF() {
-                var cpf = $('#cpf').val();
-                if(!validarCPFX(cpf)){
-                    alert("Número de CPF inválido!");
-                    return false;
-                }
-                return true;
-            }
 
         </script>
         <style>
