@@ -47,6 +47,31 @@ and open the template in the editor.
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
+            const mascaraMoeda = (event) => {
+            const onlyDigits = event.target.value
+                .split("")
+                .filter(s => /\d/.test(s))
+                .join("")
+                .padStart(3, "0")
+            const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+            event.target.value = maskCurrency(digitsFloat)
+            }
+
+            const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+            return new Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency
+            }).format(valor)
+            }    
+            function validarCPF() {
+                var cpf = $('#cpf').val();
+                if(!validarCPFX(cpf)){
+                    alert("Número de CPF inválido!");
+                    return false;
+                }
+                return true;
+            }
+
         </script>
         <style>
             body{
