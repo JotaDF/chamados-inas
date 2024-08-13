@@ -47,8 +47,11 @@ and open the template in the editor.
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
-            function novaNota(id_pagamento) {
+            function novaNota(id_pagamento, competencia, informativo) {
                 $('#id_pagamento').val(id_pagamento);
+                $('#txt_id_pagamento').val(id_pagamento);
+                $('#txt_competencia').val(competencia);
+                $('#txt_informativo').val(informativo);
                 $('#form_nota').collapse('show');
             }
             const mascaraMoeda = (event) => {
@@ -204,7 +207,7 @@ and open the template in the editor.
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
                                                     echo "  <td>".$obj->informativo."</td>";
-                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.",'".$obj->competencia."','".$obj->informativo."')' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
                                                     if($usuario_logado->perfil <= 2){

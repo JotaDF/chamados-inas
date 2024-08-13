@@ -13,6 +13,20 @@
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
+                <label for="txt_id_pagamento">ID Pagamento:<span class="text-danger font-weight-bold">*</span></label>
+                <b><spam id="txt_id_pagamento"></spam></b>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="txt_competencia">Competência:<span class="text-danger font-weight-bold">*</span></label>
+                <b><spam id="txt_competencia"></spam></b>
+                </div>  
+                <div class="form-group col-md-3">
+                <label for="txt_informativo">Informativo:<span class="text-danger font-weight-bold">*</span></label>
+                <b><spam id="txt_informativo"></spam></b>
+                </div>       
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
                 <label for="numero">Nota:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
                 </div>
