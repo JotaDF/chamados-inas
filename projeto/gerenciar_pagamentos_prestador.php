@@ -47,6 +47,11 @@ and open the template in the editor.
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
+            function excluirNota(id_prestador,id, numero, valor, exercicio) {
+                $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id);
+                $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
+                $('#confirm').modal({show: true});
+            }
             function novaNota(id_pagamento, competencia, informativo) {
                 $('#id_pagamento').val(id_pagamento);
                 $('#txt_id_pagamento').text(id_pagamento);
@@ -211,7 +216,12 @@ and open the template in the editor.
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
                                                     if($usuario_logado->perfil <= 2){
-                                                        echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        if ($obj->excluir) {
+                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        } else {
+                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
+
+                                                        }
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
                                                     }
@@ -225,7 +235,12 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
                                                         $out_notas .= "  <td>".$n->status."</td>";
-                                                        $out_notas .= "  <td> - </td>";
+                                                        if($usuario_logado->perfil <= 2){
+                                                            $out_notas .= "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        } else {
+                                                            $out_notas .= "  <td> - </td>";
+                                                        }
+                                                        
                                                         $out_notas .= "</tr>";
                                                     }
                                                     if ($tem_nota) {
