@@ -49,9 +49,9 @@ and open the template in the editor.
             }
             function novaNota(id_pagamento, competencia, informativo) {
                 $('#id_pagamento').val(id_pagamento);
-                $('#txt_id_pagamento').val(id_pagamento);
-                $('#txt_competencia').val(competencia);
-                $('#txt_informativo').val(informativo);
+                $('#txt_id_pagamento').text(id_pagamento);
+                $('#txt_competencia').text(competencia);
+                $('#txt_informativo').text(informativo);
                 $('#form_nota').collapse('show');
             }
             const mascaraMoeda = (event) => {
