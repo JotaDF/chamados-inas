@@ -49,6 +49,7 @@ and open the template in the editor.
             }
             function novaNota(id_pagamento) {
                 $('#id_pagamento').val(id_pagamento);
+                $('#form_nota').collapse('show');
             }
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
@@ -203,11 +204,11 @@ and open the template in the editor.
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
                                                     echo "  <td>".$obj->informativo."</td>";
-                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#form_nota' aria-expanded='false' aria-controls='form_nota'>
+                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
                                                     if($usuario_logado->perfil <= 2){
-                                                        echo "  <td align='center'>".$btn_nova."<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
                                                     }
