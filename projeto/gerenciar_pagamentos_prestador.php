@@ -42,8 +42,8 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id, informativo, competencia) {
-                $('#delete').attr('href', 'remover_pagamento_prestador.php?id=' + id);
+            function excluir(id_prestador,id, informativo, competencia) {
+                $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id);
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
@@ -217,7 +217,7 @@ and open the template in the editor.
                                                                 </button>";
                                                     if($usuario_logado->perfil <= 2){
                                                         if ($obj->excluir) {
-                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
                                                             echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
 
