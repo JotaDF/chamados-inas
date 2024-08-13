@@ -203,7 +203,7 @@ and open the template in the editor.
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
                                                     echo "  <td>".$obj->informativo."</td>";
-                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' class='btn btn-outline-light btn-sm' type='button' data-toggle='collapse' data-target='#form_nota' aria-expanded='false' aria-controls='form_nota'>
+                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#form_nota' aria-expanded='false' aria-controls='form_nota'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
                                                     if($usuario_logado->perfil <= 2){
