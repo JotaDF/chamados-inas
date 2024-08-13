@@ -64,7 +64,7 @@ and open the template in the editor.
             //    console.log('verifica nota');
                 jQuery.post('verifica_nota_pagamento.php',
                         {numero: numero,id_prestador:id_prestador}, function (res) {
-                    if (res > 0) {
+                    if (res == true) {
             //            console.log('res:'+res);
                         $("#msg_nota").html("Esta Nota já existe para este prestador!");
                         return false;
@@ -81,7 +81,7 @@ and open the template in the editor.
                 var informativo = $("#informativo").val;
                 jQuery.post('verifica_informativo_pagamento.php',
                         {informativo: informativo,id_prestador:id_prestador}, function (res) {
-                    if (res > 0) {
+                    if (res == true) {
             //            console.log('res:'+res);
                         $("#msg_informativo").html("Este Informativo já existe para este prestador!");
                         return false;
