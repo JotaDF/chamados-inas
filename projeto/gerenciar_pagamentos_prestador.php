@@ -59,6 +59,41 @@ and open the template in the editor.
                 $('#txt_informativo').text(informativo);
                 $('#form_nota').collapse('show');
             }
+
+            function verificaNotaExiste(id_prestador, numero) {
+            //    console.log('verifica nota');
+                jQuery.post('verifica_nota_pagamento.php',
+                        {numero: numero,id_prestador:id_prestador}, function (res) {
+                    if (res > 0) {
+            //            console.log('res:'+res);
+                        $("#msg_nota").html("Esta Nota já existe para este prestador!");
+                        return false;
+                    } else {
+                        $("#msg_nota").html("");
+                        return true;
+                    }
+
+                });
+                return true;
+            };
+            function verificaInformativoExiste(id_prestador) {
+            //    console.log('verifica nota');
+                var informativo = $("#informativo").val;
+                jQuery.post('verifica_informativo_pagamento.php',
+                        {informativo: informativo,id_prestador:id_prestador}, function (res) {
+                    if (res > 0) {
+            //            console.log('res:'+res);
+                        $("#msg_informativo").html("Este Informativo já existe para este prestador!");
+                        return false;
+                    } else {
+                        $("#msg_informativo").html("");
+                        return true;
+                    }
+
+                });
+                return true;
+            };
+
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
                 .split("")
@@ -148,7 +183,7 @@ and open the template in the editor.
                                         if($editar){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
+                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span> <span id="msg_informativo" class="text-danger font-weight-bold"></span>
                                     <form id="form_cadastro" action="save_pagamento_prestador.php" method="post">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>

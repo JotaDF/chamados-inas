@@ -27,7 +27,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                <label for="numero">Nota:<span class="text-danger font-weight-bold">*</span></label>
+                <label for="numero">Nota:<span class="text-danger font-weight-bold">*</span> <span id="msg_nota" class="text-danger font-weight-bold"></span></label>
                 <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
                 </div>
                 <div class="form-group col-md-3">

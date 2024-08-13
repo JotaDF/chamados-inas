@@ -1,8 +1,8 @@
 <?php
 
-require_once('./actions/ManterPagamentoPrestador.php');
+require_once('./actions/ManterPagamento.php');
 
-$db_pagamento = new ManterPagamentoPrestador();
+$db_pagamento = new ManterPagamento();
 
 $id = $_REQUEST['id'];
 $id_prestador = $_REQUEST['id_prestador'];
