@@ -47,6 +47,9 @@ and open the template in the editor.
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
+            function novaNota(id_pagamento) {
+                $('#id_pagamento').val(id_pagamento);
+            }
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
                 .split("")
@@ -178,11 +181,6 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos cadastrados</span>
                                 </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_nota" aria-expanded="false" aria-controls="form_nota">
-                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                    </button>
-                                </div>
                             </div>                            
 
                             <div class="card-body">
@@ -192,7 +190,7 @@ and open the template in the editor.
                                             <th scope="col">ID</th>
                                             <th scope="col">COMPETÊNCIA</th>
                                             <th scope="col">INFORMATIVO</th>         
-                                            <th scope="col">EXCLUIR</th> 
+                                            <th scope="col">OPÇÕES</th> 
                                             <th scope="col" class="text-center">NOTAS FISCAIS</th> 
                                         </tr>
                                     </thead>
@@ -205,8 +203,11 @@ and open the template in the editor.
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->competencia."</td>";
                                                     echo "  <td>".$obj->informativo."</td>";
+                                                    $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.")' class='btn btn-outline-light btn-sm' type='button' data-toggle='collapse' data-target='#form_nota' aria-expanded='false' aria-controls='form_nota'>
+                                                                    <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
+                                                                </button>";
                                                     if($usuario_logado->perfil <= 2){
-                                                        echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                        echo "  <td align='center'>".$btn_nova."<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                
                                                     }
