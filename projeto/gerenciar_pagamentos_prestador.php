@@ -184,7 +184,7 @@ and open the template in the editor.
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span> <span id="msg_informativo" class="text-danger font-weight-bold"></span>
-                                    <form id="form_cadastro" action="save_pagamento_prestador.php" method="post">
+                                    <form id="form_cadastro" action="save_pagamento_prestador.php" method="post" onsubmit="return verificaInformativoExiste(<?=$prestador->id ?>)">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <div class="form-group row ml-1">
