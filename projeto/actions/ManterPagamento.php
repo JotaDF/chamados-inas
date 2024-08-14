@@ -59,6 +59,16 @@ class ManterPagamento extends Model {
         }
         return $dados;
     }
+    function verificaInformativo($id, $informativo) {
+        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador FROM pagamento as p WHERE id=" . $id . " AND p.informativo = '" . $informativo . "'";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $resp = false;
+        while ($registro = $resultado->fetchRow()) {
+            $resp = true;
+        }
+        return $resp;
+    }
     function getNotasPorPagamento($id) {
         $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np where np.id_pagamento = ".$id." order by np.id";
         $resultado = $this->db->Execute($sql);

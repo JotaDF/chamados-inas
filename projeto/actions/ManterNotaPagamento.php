@@ -52,6 +52,17 @@ class ManterNotaPagamento extends Model {
         }
         return $dados;
     }
+    function verificaNotaPorPrestador($id_prestador, $numero) {
+        $sql = "select np.id, np.numero FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp 
+                WHERE np.id_pagamento = p.id AND p.id_fiscal_prestador AND fp.id_prestador=".$id_prestador." AND np.numero='".$numero."'" ;
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $resp = false;
+        while ($registro = $resultado->fetchRow()) {
+            $resp = true;
+        }
+        return $dados;
+    }
     function salvar(NotaPagamento $dados) {
         $sql = "insert into nota_pagamento (numero, valor, exercicio, data_emissao, data_validacao, id_pagamento, status) 
         values ('" . $dados->numero . "','" . $dados->valor . "','" . $dados->exercicio . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','" . $dados->pagamento . "','ATESTANDO')";
