@@ -64,7 +64,7 @@ and open the template in the editor.
             //    console.log('verifica nota');
                 jQuery.post('verifica_nota_pagamento.php',
                         {numero: numero,id_prestador:id_prestador}, function (res) {
-                    if (res == true) {
+                    if (res > 0) {
             //            console.log('res:'+res);
                         $("#msg_nota").html("Esta Nota já existe para este prestador!");
                         return false;
@@ -75,24 +75,25 @@ and open the template in the editor.
 
                 });
                 return true;
-            };
+            }
             function verificaInformativoExiste(id_prestador) {
             //    console.log('verifica nota');
-                var informativo = $("#informativo").val;
-                jQuery.post('verifica_informativo_pagamento.php',
-                        {informativo: informativo,id_prestador:id_prestador}, function (res) {
-                    if (res == true) {
-            //            console.log('res:'+res);
+                var informativo = $("#informativo").val();
+                    if (getInformativoBloolean(id_prestador, informativo) > 0) {
                         $("#msg_informativo").html("Este Informativo já existe para este prestador!");
                         return false;
                     } else {
                         $("#msg_informativo").html("");
                         return true;
                     }
-
+            }
+            function getInformativoBloolean(id_prestador,informativo) {
+                jQuery.post('verifica_informativo_pagamento.php',
+                        {informativo: informativo,id_prestador:id_prestador}, function (res) {
+                    return res;
                 });
-                return true;
-            };
+            }
+
 
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
