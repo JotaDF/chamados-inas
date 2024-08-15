@@ -208,7 +208,7 @@ and open the template in the editor.
                                         if($editar){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span> <span id="msg_informativo" class="text-danger font-weight-bold"></span>
+                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
                                     <form id="form_cadastro" action="save_pagamento_prestador.php" method="post" onsubmit="return verificaInformativoExiste(<?=$prestador->id ?>)">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
@@ -223,6 +223,7 @@ and open the template in the editor.
                                             <div class="col-sm-10">
                                                 <input type="text" id="informativo" name="informativo" class="form-control form-control-sm" required />
                                             </div>
+                                            <br/><span id="msg_informativo" class="text-danger font-weight-bold"></span>
                                         </div>
 
                                         <div class="form-group row float-right">
