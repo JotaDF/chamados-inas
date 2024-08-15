@@ -88,10 +88,27 @@ and open the template in the editor.
                     }
             }
             function getInformativoBloolean(id_prestador,informativo) {
-                jQuery.post('verifica_informativo_pagamento.php',
-                        {informativo: informativo,id_prestador:id_prestador}, function (res) {
-                    return res;
+                //jQuery.post('verifica_informativo_pagamento.php',
+                //        {informativo: informativo,id_prestador:id_prestador}, function (res) {
+                //    return res;
+                //});
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    url: 'verifica_informativo_pagamento.php',
+                    data:{
+                        'informativo': informativo,
+                        'id_prestador': id_prestador
+                    },
+                    erro: function () {
+                        alert('erro');
+                    },
+                    success: function (data) {
+                        return (data);
+                        alert('Validado com sucesso!');
+                    }
                 });
+
             }
 
 
