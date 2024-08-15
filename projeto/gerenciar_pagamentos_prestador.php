@@ -61,8 +61,9 @@ and open the template in the editor.
                 $('#form_nota').collapse('show');
             }
 
-            function verificaNotaExiste(id_prestador, numero) {
+            function verificaNotaExiste(id_prestador) {
                 duplicado = 0;
+                var numero = $("#numero").val();
                 var resp = getNotaBloolean(id_prestador, numero);
                 if (duplicado > 0) {
                     $("#msg_nota").html("Esta Nota já existe para este prestador!");
