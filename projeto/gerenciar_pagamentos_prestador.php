@@ -299,9 +299,9 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->status."</td>";
                                                         
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button>";
-                                                        $btn_nt_executar = "<a class='btn btn-info btn-sm' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
-                                                        $btn_nt_atestar = "<a class='btn btn-info btn-sm' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
-                                                        $btn_nt_pagar = "<a class='btn btn-info btn-sm' href='pagar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
+                                                        $btn_nt_executar = "<a class='btn btn-info btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
+                                                        $btn_nt_atestar = "<a class='btn btn-info btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
+                                                        $btn_nt_pagar = "<a class='btn btn-info btn-sm'title='Pagar nota!'  href='pagar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
                                                         if($usuario_logado->perfil <= 2){
                                                             $txt_btns = "";
                                                             switch ($n->status) {
