@@ -58,6 +58,7 @@ and open the template in the editor.
                 $('#txt_id_pagamento').text(id_pagamento);
                 $('#txt_competencia').text(competencia);
                 $('#txt_informativo').text(informativo);
+                $("#msg_nota").html("");
                 $('#form_nota').collapse('show');
             }
 
@@ -296,8 +297,28 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
                                                         $out_notas .= "  <td>".$n->status."</td>";
+                                                        
+                                                        $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button>";
+                                                        $btn_nt_executar = "<a class='btn btn-info btn-sm' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
+                                                        $btn_nt_atestar = "<a class='btn btn-info btn-sm' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
+                                                        $btn_nt_pagar = "<a class='btn btn-info btn-sm' href='pagar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
                                                         if($usuario_logado->perfil <= 2){
-                                                            $out_notas .= "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                            $txt_btns = "";
+                                                            switch ($n->status) {
+                                                                case 'Em análise':
+                                                                    $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
+                                                                    break;
+                                                                case 'Executado':
+                                                                    $txt_btns = $btn_nt_atestar;
+                                                                    break;
+                                                                case 'Atestado':
+                                                                    $txt_btns = $btn_nt_pagar;
+                                                                    break;
+                                                                case 'Pago':
+                                                                    $txt_btns = " - ";
+                                                                    break;
+                                                            }
+                                                            $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         } else {
                                                             $out_notas .= "  <td> - </td>";
                                                         }

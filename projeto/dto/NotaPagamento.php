@@ -6,6 +6,7 @@
       public $exercicio;
       public $data_emissao;
       public $data_validacao;
+      public $data_executado;
       public $data_atesto;
       public $data_pagamento;
       public $pagamento;

@@ -59,13 +59,13 @@ class ManterPagamento extends Model {
         }
         return $dados;
     }
-    function verificaInformativo($id, $informativo) {
-        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador FROM pagamento as p WHERE id=" . $id . " AND p.informativo = '" . $informativo . "'";
+    function verificaInformativo($id_prestador, $informativo) {
+        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador FROM pagamento as p, fiscal_prestador as fp WHERE fp.id=p.id_fiscal_prestador AND fp.id_prestador=".$id_prestador." AND p.informativo = '" . $informativo . "'";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
-        $resp = false;
+        $resp = 0;
         while ($registro = $resultado->fetchRow()) {
-            $resp = true;
+            $resp = 1;
         }
         return $resp;
     }

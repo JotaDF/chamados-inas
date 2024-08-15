@@ -10,7 +10,7 @@ class ManterNotaPagamento extends Model {
     }
 
     function listar() {
-        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np order by np.id";
+        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np order by np.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -25,6 +25,7 @@ class ManterNotaPagamento extends Model {
             $dados->exercicio       = $registro["exercicio"];
             $dados->data_emissao    = $registro["data_emissao"];
             $dados->data_validacao  = $registro["data_validacao"];
+            $dados->data_executado  = $registro["data_executado"];
             $dados->data_atesto     = $registro["data_atesto"];
             $dados->data_pagamento  = $registro["data_pagamento"];
             $dados->id_pagamento    = $registro["id_pagamento"];
@@ -35,7 +36,7 @@ class ManterNotaPagamento extends Model {
         return $array_dados;
     }
     function getNotaPagamentoPorId($id) {
-        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np WHERE id=$id";
+        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new NotaPagamento();
@@ -46,6 +47,7 @@ class ManterNotaPagamento extends Model {
             $dados->exercicio       = $registro["exercicio"];
             $dados->data_emissao    = $registro["data_emissao"];
             $dados->data_validacao  = $registro["data_validacao"];
+            $dados->data_executado  = $registro["data_executado"];
             $dados->data_atesto     = $registro["data_atesto"];
             $dados->data_pagamento  = $registro["data_pagamento"];
             $dados->id_pagamento    = $registro["id_pagamento"];
@@ -57,15 +59,15 @@ class ManterNotaPagamento extends Model {
                 WHERE np.id_pagamento = p.id AND p.id_fiscal_prestador AND fp.id_prestador=".$id_prestador." AND np.numero='".$numero."'" ;
         //echo $sql;
         $resultado = $this->db->Execute($sql);
-        $resp = false;
+        $resp = 0;
         while ($registro = $resultado->fetchRow()) {
-            $resp = true;
+            $resp = 1;
         }
-        return $dados;
+        return $resp;
     }
     function salvar(NotaPagamento $dados) {
         $sql = "insert into nota_pagamento (numero, valor, exercicio, data_emissao, data_validacao, id_pagamento, status) 
-        values ('" . $dados->numero . "','" . $dados->valor . "','" . $dados->exercicio . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','" . $dados->pagamento . "','ATESTANDO')";
+        values ('" . $dados->numero . "','" . $dados->valor . "','" . $dados->exercicio . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','" . $dados->pagamento . "','Em análise')";
         if ($dados->id > 0) {
             $sql = "update nota_pagamento set numero='" . $dados->numero . "', valor='" . $dados->valor . "', exercicio='" . $dados->exercicio
              . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "', id_pagamento='" . $dados->pagamento . "' where id=" . $dados->id;
@@ -82,14 +84,23 @@ class ManterNotaPagamento extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    
+    function executar($id) {
+        $sql = "update nota_pagamento set data_executado='now()', status='Executado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
     function atestar($id) {
-        $sql = "update nota_pagamento set data_atesto='now()' where id=" . $id;
+        $sql = "update nota_pagamento set data_atesto='now()', status='Atestado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function atestarLote($lista) {
+        $sql = "update nota_pagamento set data_atesto='now()', status='Atestado' where id IN (" . $lista . ")";
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function pagar($id) {
-        $sql = "update nota_pagamento set data_pagamento='now()' where id=" . $id;
+        $sql = "update nota_pagamento set data_pagamento='now()', status='Pago' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
