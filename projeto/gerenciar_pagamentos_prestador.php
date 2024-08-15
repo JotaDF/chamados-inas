@@ -40,6 +40,7 @@ and open the template in the editor.
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
+            var duplicado = 0;
             $(document).ready(function () {
             });
             function excluir(id_prestador,id, informativo, competencia) {
@@ -61,37 +62,46 @@ and open the template in the editor.
             }
 
             function verificaNotaExiste(id_prestador, numero) {
-            //    console.log('verifica nota');
-                jQuery.post('verifica_nota_pagamento.php',
-                        {numero: numero,id_prestador:id_prestador}, function (res) {
-                    if (res > 0) {
-            //            console.log('res:'+res);
-                        $("#msg_nota").html("Esta Nota já existe para este prestador!");
-                        return false;
-                    } else {
-                        $("#msg_nota").html("");
-                        return true;
-                    }
-
-                });
-                return true;
+                duplicado = 0;
+                var resp = getNotaBloolean(id_prestador, numero);
+                if (duplicado > 0) {
+                    $("#msg_nota").html("Esta Nota já existe para este prestador!");
+                    return false;
+                } else {
+                    $("#msg_nota").html("");
+                    return true;
+                }
             }
-            function verificaInformativoExiste(id_prestador) {
-            //    console.log('verifica nota');
-                var informativo = $("#informativo").val();
-                    if (getInformativoBloolean(id_prestador, informativo) > 0) {
-                        $("#msg_informativo").html("Este Informativo já existe para este prestador!");
-                        return false;
-                    } else {
-                        $("#msg_informativo").html("");
-                        return true;
+
+            function getNotaBloolean(id_prestador,numero) {
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    url: 'verifica_nota_pagamento.php',
+                    data:{
+                        'id_prestador': id_prestador,
+                        'numero': numero
+                    },
+                    success: function (data) {
+                        duplicado = data;
+                        return (data);
                     }
+                });
+            }
+
+            function verificaInformativoExiste(id_prestador) {
+                duplicado = 0;
+                var informativo = $("#informativo").val();
+                var resp = getInformativoBloolean(id_prestador, informativo);
+                if (duplicado > 0) {
+                    $("#msg_informativo").html("Este Informativo já existe para este prestador!");
+                    return false;
+                } else {
+                    $("#msg_informativo").html("");
+                    return true;
+                }
             }
             function getInformativoBloolean(id_prestador,informativo) {
-                //jQuery.post('verifica_informativo_pagamento.php',
-                //        {informativo: informativo,id_prestador:id_prestador}, function (res) {
-                //    return res;
-                //});
                 $.ajax({
                     type: 'post',
                     async: false,
@@ -100,15 +110,11 @@ and open the template in the editor.
                         'informativo': informativo,
                         'id_prestador': id_prestador
                     },
-                    erro: function () {
-                        alert('erro');
-                    },
                     success: function (data) {
+                        duplicado = data;
                         return (data);
-                        alert('Validado com sucesso!');
                     }
                 });
-
             }
 
 
