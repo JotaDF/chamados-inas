@@ -53,6 +53,12 @@ and open the template in the editor.
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
+            function pagarNota(id_prestador,id_nota, numero, valor, exercicio) {
+                $('#id_prestador_pg').val(id_prestador);
+                $('#id_nota_pg').val(id_nota);
+                $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
+                $('#confirm').modal({show: true});
+            }
             function novaNota(id_pagamento, competencia, informativo) {
                 $('#id_pagamento').val(id_pagamento);
                 $('#txt_id_pagamento').text(id_pagamento);
@@ -299,9 +305,9 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->status."</td>";
                                                         
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button>";
-                                                        $btn_nt_executar = "<a class='btn btn-info btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
-                                                        $btn_nt_atestar = "<a class='btn btn-info btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
-                                                        $btn_nt_pagar = "<a class='btn btn-info btn-sm'title='Pagar nota!'  href='pagar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";
+                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
+                                                        $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";                                                    
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='fa fa-credit-card'></i></button>";
                                                         if($usuario_logado->perfil <= 2){
                                                             $txt_btns = "";
                                                             switch ($n->status) {
@@ -365,6 +371,37 @@ and open the template in the editor.
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+        <!-- Modal pagamento -->
+        <div class="modal fade" id="confirm" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registrar Pagamento de Nota</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form id="form_cadastro" action="pagar_nota_pagamento.php" method="post">
+                        <input type="hidden" id="id_nota_pg" name="id_nota"/>
+                        <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
+                        <div class="form-row">
+                        <p><strong><span id="nome_pg"></span></strong></p>
+                            <div class="form-group col-md-3">
+                            <label for="data_pagamento">Data de pagamento:<span class="text-danger font-weight-bold">*</span></label>
+                            <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
+                            </div>     
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning" id="pagar">Pagar</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!-- Modal excluir -->
         <div class="modal fade" id="confirm" role="dialog">
             <div class="modal-dialog modal-sm">
