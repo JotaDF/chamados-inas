@@ -178,7 +178,7 @@ and open the template in the editor.
                         $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
                         
                         $editar = false;
-                        if ($executor->editor == 1) {
+                        if ($executor->editor == 1 || $usuario_logado->perfil <=2) {
                             $editar = true;
                         }
                         ?>
@@ -199,7 +199,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">CNPJ:</div>
-                                            <div class="mb-0"><?= $prestador->id ?></div>
+                                            <div class="mb-0"><?= $prestador->cnpj ?></div>
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
@@ -283,7 +283,7 @@ and open the template in the editor.
                                                     $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
-                                                    if($usuario_logado->perfil <= 2){
+                                                    if($editar){
                                                         if ($obj->excluir) {
                                                             echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
@@ -308,14 +308,18 @@ and open the template in the editor.
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='fa fa-credit-card'></i></button>";
-                                                        if($usuario_logado->perfil <= 2){
+                                                        if($editar){
                                                             $txt_btns = "";
                                                             switch ($n->status) {
                                                                 case 'Em análise':
                                                                     $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
                                                                     break;
                                                                 case 'Executado':
-                                                                    $txt_btns = $btn_nt_atestar;
+                                                                    if($usuario_logado->perfil <= 2){
+                                                                        $txt_btns = $btn_nt_atestar;
+                                                                    } else {
+                                                                        $txt_btns = " - ";
+                                                                    }
                                                                     break;
                                                                 case 'Atestado':
                                                                     $txt_btns = $btn_nt_pagar;
