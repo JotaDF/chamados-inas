@@ -11,6 +11,7 @@
         <form id="form_cadastro" action="save_nota_pagamento.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
             <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?=$obj->id ?>"/>
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
+            <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_id_pagamento">ID Pagamento:</label>
