@@ -57,7 +57,7 @@ and open the template in the editor.
                 $('#id_prestador_pg').val(id_prestador);
                 $('#id_nota_pg').val(id_nota);
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
-                $('#confirm').modal({show: true});
+                $('#pagar').modal({show: true});
             }
             function novaNota(id_pagamento, competencia, informativo) {
                 $('#id_pagamento').val(id_pagamento);
@@ -372,7 +372,7 @@ and open the template in the editor.
             <i class="fas fa-angle-up"></i>
         </a>
         <!-- Modal pagamento -->
-        <div class="modal fade" id="confirm" role="dialog">
+        <div class="modal fade" id="pagar" role="dialog">
             <div class="modal-dialog modal-sm">
 
                 <div class="modal-content">
@@ -388,7 +388,7 @@ and open the template in the editor.
                         <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
                         <div class="form-row">
                         <p><strong><span id="nome_pg"></span></strong></p>
-                            <div class="form-group col-md-3">
+                            <div class="form-group">
                             <label for="data_pagamento">Data de pagamento:<span class="text-danger font-weight-bold">*</span></label>
                             <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
                             </div>     
