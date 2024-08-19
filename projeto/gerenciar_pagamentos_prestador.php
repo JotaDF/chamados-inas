@@ -43,18 +43,19 @@ and open the template in the editor.
             var duplicado = 0;
             $(document).ready(function () {
             });
-            function excluir(id_prestador,id, informativo, competencia) {
-                $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id);
+            function excluir(id_prestador,id, informativo, competencia, usuario) {
+                $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
-            function excluirNota(id_prestador,id, numero, valor, exercicio) {
-                $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id);
+            function excluirNota(id_prestador,id, numero, valor, exercicio,usuario) {
+                $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
-            function pagarNota(id_prestador,id_nota, numero, valor, exercicio) {
+            function pagarNota(id_prestador,id_nota, numero, valor, exercicio,usuario) {
                 $('#id_prestador_pg').val(id_prestador);
+                $('#id_usuario_pg').val(usuario);
                 $('#id_nota_pg').val(id_nota);
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
                 $('#pagar').modal({show: true});
@@ -217,6 +218,7 @@ and open the template in the editor.
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
                                     <form id="form_cadastro" action="save_pagamento_prestador.php" method="post" onsubmit="return verificaInformativoExiste(<?=$prestador->id ?>)">
+                                        <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <div class="form-group row ml-1">
@@ -285,7 +287,7 @@ and open the template in the editor.
                                                                 </button>";
                                                     if($editar){
                                                         if ($obj->excluir) {
-                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\")'><i class='far fa-trash-alt'></i></button></td>";
+                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
                                                             echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
 
@@ -302,14 +304,15 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->numero."</td>";
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
-                                                        $out_notas .= "  <td>".$n->status."</td>";
                                                         
-                                                        $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button>";
-                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-play'></i></a>";
-                                                        $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";                                                    
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='fa fa-credit-card'></i></button>";
+                                                        
+                                                        $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
+                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
+                                                        $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
                                                         if($editar){
                                                             $txt_btns = "";
+                                                            $txt_status = "";
                                                             switch ($n->status) {
                                                                 case 'Em análise':
                                                                     $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
@@ -328,6 +331,7 @@ and open the template in the editor.
                                                                     $txt_btns = " - ";
                                                                     break;
                                                             }
+                                                            $out_notas .= "  <td><b>".$n->status."</b></td>";
                                                             $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         } else {
                                                             $out_notas .= "  <td> - </td>";
@@ -389,6 +393,7 @@ and open the template in the editor.
                     <div class="modal-body">
                     <form id="form_cadastro" action="pagar_nota_pagamento.php" method="post">
                         <input type="hidden" id="id_nota_pg" name="id_nota"/>
+                        <input type="hidden" id="id_usuario_pg" name="id_usuario"/>
                         <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
                         <div class="form-row">
                         <p><strong><span id="nome_pg"></span></strong></p>

@@ -7,4 +7,4 @@ $db_nota_pagamento = new ManterNotaPagamento();
 $numero = $_REQUEST['numero'];
 $id_prestador = $_REQUEST['id_prestador'];
 
-echo $db_pagamento->verificaNotaPorPrestador($id_prestador,$numero);
+echo $db_nota_pagamento->verificaNotaPorPrestador($id_prestador,$numero);
