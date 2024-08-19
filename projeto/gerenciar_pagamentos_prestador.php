@@ -305,7 +305,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->status."</td>";
                                                         
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='far fa-trash-alt'></i></button>";
-                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-cog'></i></a>";
+                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-play'></i></a>";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\")'><i class='fa fa-credit-card'></i></button>";
                                                         if($editar){
