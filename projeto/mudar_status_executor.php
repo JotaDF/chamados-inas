@@ -13,8 +13,8 @@ if ($id > 0) {
     } else {
         $db_prestador->ativarExecutor($id_usuario,$id_prestador);
     }
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_executor_prestador.php?id='.$id_prestador);
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_executor_prestador.php?id='.$id_prestador);
 }
