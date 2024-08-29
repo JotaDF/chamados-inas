@@ -176,6 +176,7 @@ and open the template in the editor.
                                             <th scope="col">MATRÍCULA</th>
                                             <th scope="col">NOME</th>
                                             <th scope="col">EDITOR</th>
+                                            <th scope="col">ATIVO</th>
                                             <th scope="col">REMOVER</th> 
                                         </tr>
                                     </thead>
