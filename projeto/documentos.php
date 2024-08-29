@@ -58,9 +58,9 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     
                     <!-- Links sistemas -->
-                    <div class="card-group">
+                    <div class="card" style="width: 900px;">
 
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
+                        <div class="ml-3 mb-4" style="max-width: 600px; max-height: 100px;">
                             <a class="text-decoration-none" href="documentos/planejamento_estrategico_final_13_03_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
@@ -74,7 +74,8 @@ and open the template in the editor.
                             </div>
                             </a>
                         </div>
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
+                    
+                        <div class="ml-3 mb-4" style="max-width: 280px; max-height: 100px;">
                             <a class="text-decoration-none" href="documentos/mapa_estrategico_inas.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
