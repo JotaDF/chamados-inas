@@ -9,9 +9,9 @@ $id_prestador = isset($_REQUEST['id_prestador']) ? $_REQUEST['id_prestador'] : 0
 $status = isset($_REQUEST['status']) ? $_REQUEST['status'] : 0;
 if ($id > 0) {
     if ($status == 0) {
-        $db_prestador->desativarExecutor($id_usuario,$id_prestador);
+        $db_prestador->desativarExecutor($id_prestador,$id_usuario);
     } else {
-        $db_prestador->ativarExecutor($id_usuario,$id_prestador);
+        $db_prestador->ativarExecutor($id_prestador,$id_usuario);
     }
     header('Location: gerenciar_executor_prestador.php?id='.$id_prestador);
 } else {
