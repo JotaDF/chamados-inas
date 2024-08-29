@@ -2,7 +2,7 @@
 
 require_once('Model.php');
 require_once('dto/Prestador.php');
-
+ 
 class ManterPrestador extends Model {
 
     function __construct() { //metodo construtor
@@ -73,24 +73,28 @@ class ManterPrestador extends Model {
         return $resultado;
     }
 
-    function getExecutoresPorId($id) {
-        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id." order by u.nome";
+    function getExecutoresPorId($id_prestador) {
+        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.ativo, fp.id as id_fiscal_prestador, (select count(*) from pagamento as p where p.id_fiscal_prestador=fp.id) as dep  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id_prestador." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new Usuario();
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
             $dados->excluir = true;
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
             $dados->matricula = $registro["matricula"];
             $dados->editor = $registro["editor"];
+            $dados->ativo = $registro["ativo"];
             $dados->id_fiscal_prestador = $registro["id_fiscal_prestador"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
     function getExecutorPorId($id, $id_usuario) {
-        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id ." AND u.id=". $id_usuario ." order by u.nome";
+        $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.ativo, fp.id as id_fiscal_prestador  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id ." AND u.id=". $id_usuario ." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $dados = new Usuario();
         while ($registro = $resultado->fetchRow()) {
@@ -99,6 +103,7 @@ class ManterPrestador extends Model {
             $dados->nome = $registro["nome"];
             $dados->matricula = $registro["matricula"];
             $dados->editor = $registro["editor"];
+            $dados->ativo = $registro["ativo"];
             $dados->id_fiscal_prestador = $registro["id_fiscal_prestador"];
         }
         return $dados;
@@ -126,7 +131,16 @@ class ManterPrestador extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-
+    function ativarExecutor($id_prestador, $id_usuario) {
+        $sql = "update fiscal_prestador set status = 1 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function desativarExecutor($id_prestador, $id_usuario) {
+        $sql = "update fiscal_prestador set status = 0 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
     function listarPorExecutor($id_executor) {
         $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, fp.editor FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND fp.id_usuario= ".$id_executor." order by p.razao_social";
         //echo $sql;
