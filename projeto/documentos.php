@@ -58,10 +58,10 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     
                     <!-- Links sistemas -->
-                    <div class="card" style="width: 900px;">
-
+                    <div style="width: 900px;">
+                        <p class="h5 ml-5">Documentos Institucionais</p>
                         <div class="ml-3 mb-4" style="max-width: 600px; max-height: 100px;">
-                            <a class="text-decoration-none" href="documentos/planejamento_estrategico_final_13_03_2024.pdf">
+                            <a class="text-decoration-none" target="_blank" href="documentos/planejamento_estrategico_final_13_03_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
@@ -75,8 +75,8 @@ and open the template in the editor.
                             </a>
                         </div>
                     
-                        <div class="ml-3 mb-4" style="max-width: 280px; max-height: 100px;">
-                            <a class="text-decoration-none" href="documentos/mapa_estrategico_inas.pdf">
+                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                            <a class="text-decoration-none" target="_blank" href="documentos/mapa_estrategico_inas.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
@@ -90,7 +90,6 @@ and open the template in the editor.
                             </a>
                         </div>
 
-                    </div>
                 </div>
                 <!-- End of Main Content -->                
             </div>
