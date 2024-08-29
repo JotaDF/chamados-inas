@@ -132,12 +132,12 @@ class ManterPrestador extends Model {
         return $resultado;
     }
     function ativarExecutor($id_prestador, $id_usuario) {
-        $sql = "update fiscal_prestador set status = 1 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+        $sql = "update fiscal_prestador set ativo = 1 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function desativarExecutor($id_prestador, $id_usuario) {
-        $sql = "update fiscal_prestador set status = 0 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+        $sql = "update fiscal_prestador set ativo = 0 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
