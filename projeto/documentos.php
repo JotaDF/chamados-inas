@@ -59,15 +59,15 @@ and open the template in the editor.
                     
                     <!-- Links sistemas -->
                     <div style="width: 900px;">
-                        <p class="h5 ml-5">Documentos Institucionais</p>
+                        <h1 class="h3 ml-3 mb-3 text-gray-800">Documentos Institucionais</h1>
                         <div class="ml-3 mb-4" style="max-width: 600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/planejamento_estrategico_final_13_03_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
                                     <div class="row no-gutters align-items-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="70">Planejamento Estratégico Institucional INAS 2024 - 2027
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="45">Planejamento Estratégico Institucional INAS 2024 - 2027
                                         </div>                                        
                                     </div>
                                 </div>
@@ -81,8 +81,8 @@ and open the template in the editor.
                                 <div class="card-body">
                                     
                                     <div class="row no-gutters align-items-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="70">Mapa Estratégico INAS 2024 - 2027
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="45">Mapa Estratégico INAS 2024 - 2027
                                         </div>                                        
                                     </div>
                                 </div>
@@ -90,6 +90,20 @@ and open the template in the editor.
                             </a>
                         </div>
 
+                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                            <a class="text-decoration-none" target="_blank" href="documentos/codigo_de_conduta_inas_30_04_2024.pdf">
+                            <div class="card border-left-primary h-100 shadow">
+                                <div class="card-body">
+                                    
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="45">Manual - Cartilha Ética e Conduta
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>                        
                 </div>
                 <!-- End of Main Content -->                
             </div>
