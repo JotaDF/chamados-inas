@@ -91,20 +91,35 @@ and open the template in the editor.
                         </div>
 
                         <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                            <a class="text-decoration-none" target="_blank" href="documentos/codigo_de_etica_e_conduta_dos_servidores_do_inas.pdf">
+                            <div class="card border-left-primary h-100 shadow">
+                                <div class="card-body">
+                                    
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="45">Código de Ética e Conduta dos Servidores do INAS
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>    
+                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/codigo_de_conduta_inas_30_04_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Manual - Cartilha Ética e Conduta
+                                            <img src="img/pdf.svg" width="45">Manual - Cartilha Ética e Conduta dos Servidores do INAS
                                         </div>                                        
                                     </div>
                                 </div>
                             </div>
                             </a>
                         </div>                        
-                </div>
+
+                    </div>
                 <!-- End of Main Content -->                
             </div>
             <!-- End of Content Wrapper -->
