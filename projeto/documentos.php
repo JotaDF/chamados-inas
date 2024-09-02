@@ -117,8 +117,22 @@ and open the template in the editor.
                                 </div>
                             </div>
                             </a>
-                        </div>                        
+                        </div>     
 
+                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                            <a class="text-decoration-none" target="_blank" href="documentos/politica_privacidade_portaria_77_22_de_julho_de_2024.pdf">
+                            <div class="card border-left-primary h-100 shadow">
+                                <div class="card-body">
+                                    
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="45">Política de Privacidade do INAS
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div> 
                     </div>
                 <!-- End of Main Content -->                
             </div>
