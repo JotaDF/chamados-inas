@@ -13,14 +13,15 @@ $contrato->ano = $_REQUEST['ano'];
 $contrato->vigente = isset($_REQUEST['vigente']) ? $_REQUEST['vigente'] : 0;
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 1;
 
+$caminho = __DIR__.'/contratos/'.$contrato->numero.'_'.$contrato->ano.'/';
 
 if ($op == 1) {
     $manterContrato->salvar($contrato);
-    $manterContrato->addPasta($contrato->numero.'_'.$contrato->ano);
+    $manterContrato->addPasta($caminho);
     header('Location: gerenciar_contratos_prestador.php?id='.$contrato->prestador);
 
 } else {
     $manterContrato->excluir($contrato->id);
-    $manterContrato->delPasta($contrato->numero.'_'.$contrato->ano);
+    $manterContrato->delPasta($caminho);
     header('Location: gerenciar_contratos_prestador.php?id='.$contrato->prestador);
 }

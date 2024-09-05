@@ -59,20 +59,18 @@ class ManterContrato extends Model {
         return $resultado;
     }
     public static function delPasta($dir) {
-
-        $files = array_diff(scandir($dir), array('.','..'));
-     
-         foreach ($files as $file) {
-     
-           (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
-     
-         }
-         return rmdir($dir);
+        if(is_dir($dir)){
+            $files = array_diff(scandir($dir), array('.','..'));
+            foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
+            }
+            return rmdir($dir);
+        }
+        return false;
     }
     public static function addPasta($dir) {
-
-        $caminho = __DIR__.'/contratos/'.$dir.'/';
-        if (mkdir($caminho, 0777, true)) {
+        if(!is_dir($dir)){
+            mkdir($dir, 0777, true);
             return true;
         }
         return false;
