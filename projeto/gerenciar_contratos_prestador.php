@@ -57,7 +57,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_execucao.php'; ?>
+            <?php include './menu_contratos.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -122,13 +122,13 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label for="numero" class="col-sm-2 col-form-label">Número:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
+                                                <input type="text" name="numero" style="width: 200px" class="form-control form-control-sm" id="numero" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="ano" class="col-sm-2 col-form-label">Ano:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="ano" class="form-control form-control-sm" id="ano" required>
+                                                <input type="text" name="ano" style="width: 200px" class="form-control form-control-sm" id="ano" required>
                                             </div>
                                         </div>
                                         <div class="form-group row"> 
