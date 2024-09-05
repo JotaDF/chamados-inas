@@ -2,6 +2,8 @@
 
 require_once('Model.php');
 require_once('dto/Prestador.php');
+require_once('dto/Usuario.php');
+require_once('dto/Contrato.php');
  
 class ManterPrestador extends Model {
 
@@ -73,6 +75,23 @@ class ManterPrestador extends Model {
         return $resultado;
     }
 
+    function getContratosPorId($id_prestador) {
+        $sql = "select c.id, c.numero, c.ano, c.vigente, c.id_prestador FROM contrato as c WHERE c.id_prestador=".$id_prestador." order by c.numero";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Contrato();
+            $dados->excluir = true;
+            $dados->id = $registro["id"];
+            $dados->numero = $registro["numero"];
+            $dados->ano = $registro["ano"];
+            $dados->vigente = $registro["vigente"];
+            $dados->prestador = $registro["id_prestador"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+
     function getExecutoresPorId($id_prestador) {
         $sql = "select u.id,u.nome, u.matricula, fp.editor, fp.ativo, fp.id as id_fiscal_prestador, (select count(*) from pagamento as p where p.id_fiscal_prestador=fp.id) as dep  FROM usuario as u, fiscal_prestador as fp WHERE u.id=fp.id_usuario AND fp.id_prestador=".$id_prestador." order by u.nome";
         $resultado = $this->db->Execute($sql);
@@ -108,6 +127,7 @@ class ManterPrestador extends Model {
         }
         return $dados;
     }
+    
     function getNaoExecutoresPorId($id) {
         $sql = "select u.id,u.nome FROM usuario as u WHERE u.id NOT IN(SELECT id_usuario FROM fiscal_prestador as fp WHERE fp.id_prestador=".$id.") order by u.nome";
         $resultado = $this->db->Execute($sql);
@@ -142,7 +162,7 @@ class ManterPrestador extends Model {
         return $resultado;
     }
     function listarPorExecutor($id_executor) {
-        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, fp.editor FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND p.ativo=1 AND fp.id_usuario= ".$id_executor." order by p.razao_social";
+        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.id_tipo_prestador, fp.editor FROM prestador as p, fiscal_prestador fp WHERE p.id=fp.id_prestador AND fp.ativo=1 AND fp.id_usuario= ".$id_executor." order by p.razao_social";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
