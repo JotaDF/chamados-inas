@@ -58,6 +58,24 @@ class ManterContrato extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    public static function delPasta($dir) {
 
+        $files = array_diff(scandir($dir), array('.','..'));
+     
+         foreach ($files as $file) {
+     
+           (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
+     
+         }
+         return rmdir($dir);
+    }
+    public static function addPasta($dir) {
+
+        $caminho = __DIR__.'/contratos/'.$dir.'/';
+        if (mkdir($caminho, 0777, true)) {
+            return true;
+        }
+        return false;
+    }
 }
 

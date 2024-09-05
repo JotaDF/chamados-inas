@@ -16,10 +16,11 @@ $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 1;
 
 if ($op == 1) {
     $manterContrato->salvar($contrato);
-    mkdir(__DIR__.'/sinas/contratos/'.$contrato->numero.'_'.$contrato->ano.'/', 0777, true);
+    $manterContrato->addPasta($contrato->numero.'_'.$contrato->ano);
     header('Location: gerenciar_contratos_prestador.php?id='.$contrato->prestador);
 
 } else {
     $manterContrato->excluir($contrato->id);
+    $manterContrato->delPasta($contrato->numero.'_'.$contrato->ano);
     header('Location: gerenciar_contratos_prestador.php?id='.$contrato->prestador);
 }
