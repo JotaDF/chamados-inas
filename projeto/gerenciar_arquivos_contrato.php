@@ -47,7 +47,7 @@ and open the template in the editor.
              function deleteFile(fileName) {
                 var xhr = new XMLHttpRequest();
                 var item = document.getElementById("file-"+fileName);
-                xhr.open("GET", "del_arquivo_contrato.php?ano=<?=$ano ?>&mes=<?=$mes ?>&file=" + fileName, true);
+                xhr.open("GET", "del_arquivo_contrato.php?numero=<?=$numero ?>&ano=<?=$ano ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
@@ -116,7 +116,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_rh.php'; ?>
+            <?php include './menu_contratos.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -141,7 +141,7 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de do contrato (<?=$numero . '/' . $ano ?>)</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <a id="btn_cadastrar" class="btn btn-outline-light btn-sm" href="form_arquivos_ponto.php?ano=<?=$ano ?>&mes=<?=$mes ?>" >
+                                    <a id="btn_cadastrar" class="btn btn-outline-light btn-sm" href="form_arquivos_contrato.php?numero=<?=$numero ?>&ano=<?=$ano ?>" >
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </a>
                                 </div>
