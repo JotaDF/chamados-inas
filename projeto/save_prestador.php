@@ -16,9 +16,13 @@ $prestador->tipo_prestador  = $_POST['tipo_prestador'];
 $prestador->credenciado     = $_POST['credenciado'];
 $prestador->ativo           = isset($_POST['ativo']) ? $_POST['ativo'] : 1;
 
-
+$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 0;
+$retorno = 'prestadores.php';
+if($op > 0){
+    $retorno = 'contratos.php';
+}
 //print_r($prestador);
 $db_prestador->salvar($prestador);
 
-header('Location: prestadores.php');
+header('Location: '. $retorno);
 

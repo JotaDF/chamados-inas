@@ -10,6 +10,7 @@
     <div class="card-body">
         <form id="form_cadastro" action="save_prestador.php" method="post">
             <input type="hidden" id="id" name="id"/>
+            <input type="hidden" id="op" name="op" value="0"/>
             <div class="form-group row">
                 <label for="cnpj" class="col-sm-2 col-form-label">CNPJ:</label>
                 <div class="col-sm-10 input-group">

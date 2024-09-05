@@ -89,11 +89,12 @@ foreach ($listaS as $obj) {
             $('#btn_cadastrar').hide();
         }
         function excluir(id, nome) {
-            $('#delete').attr('href', 'del_prestador.php?id=' + id);
+            $('#delete').attr('href', 'del_prestador.php?op=1&id=' + id);
             $('#nome_excluir').text(nome);
             $('#confirm').modal({show: true});
         }
         function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,id_tipo_prestador) {
+            $('#op').val(1);
             $('#id').val(id);
             $('#cnpj').val(cnpj);
             $('#razao_social').val(razao_social);

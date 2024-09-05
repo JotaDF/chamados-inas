@@ -7,8 +7,12 @@ $db_prestador = new ManterPrestador();
 $prestador = new Prestador();
 
 $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 0;
 
 $db_prestador->excluir($id);
-
-header('Location: prestadores.php');
+$retorno = 'prestadores.php';
+if($op > 0){
+    $retorno = 'contratos.php';
+}
+header('Location: '. $retorno);
 
