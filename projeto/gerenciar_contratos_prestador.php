@@ -119,19 +119,19 @@ and open the template in the editor.
                                     <form id="form_cadastro" action="save_contrato_prestador.php" method="post">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="op" name="op" value="1"/>
-                                        <div class="form-group row">
+                                        <div class="form-group row ml-1">
                                             <label for="numero" class="col-sm-2 col-form-label">Número:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="numero" style="width: 200px" class="form-control form-control-sm" id="numero" required>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row ml-1">
                                             <label for="ano" class="col-sm-2 col-form-label">Ano:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="ano" style="width: 200px" class="form-control form-control-sm" id="ano" required>
                                             </div>
                                         </div>
-                                        <div class="form-group row"> 
+                                        <div class="form-group row ml-1"> 
                                             <div class="col-sm-offset-2 col-sm-10">
                                             <div class="checkbox">
                                                 <label class="text-danger"><input type="checkbox" id="vigente" name="vigente" value="1"><b> Vigente</b></label>
