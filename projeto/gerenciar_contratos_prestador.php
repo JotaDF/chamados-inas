@@ -91,7 +91,7 @@ and open the template in the editor.
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de contratos</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa fa-users fa-3x text-white"></i>
+                                            <i class="fa fa-file-pdf fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ and open the template in the editor.
                                             </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row float-right">
+                                        <div class="form-group row float-right mr-3">
                                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Incluir </button>
                                         </div>
                                     </form>   
