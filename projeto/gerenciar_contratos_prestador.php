@@ -40,9 +40,9 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id_usuario, nome, id_prestador) {
-                $('#delete').attr('href', 'save_executor_prestador.php?op=2&id_usuario=' + id_usuario +"&id_prestador="+id_prestador);
-                $('#nome_excluir').text(nome);
+            function excluir(id, numero, ano, id_prestador) {
+                $('#delete').attr('href', 'save_contrato_prestador.php?op=2&id=' + id +"&id_prestador="+id_prestador);
+                $('#nome_excluir').text(numero+"/"+ano);
                 $('#confirm').modal({show: true});              
             }
         </script>
