@@ -64,6 +64,13 @@ and open the template in the editor.
                 $('#confirm').modal({show: true});              
             }
 
+            function atualizar(){
+                // Fazendo requisição AJAX
+                $.post('ajax/get_arquivos_contrato.php?numero=<?=$numero ?>&ano=<?=$ano ?>', function (arquivos) {
+                    // Exibindo frase
+                    $('#arquivos_contrato').html(arquivos);
+                }, 'html');
+            }
 
         </script>
         <style>
@@ -287,6 +294,7 @@ and open the template in the editor.
                                 <button type="reset" data-toggle="collapse" data-target="#form_arquivos_contrato" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                             </div>
                         </div>
+                        </div>
 
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
@@ -304,7 +312,7 @@ and open the template in the editor.
                             </div>                            
 
                             <div class="card-body">
-                                <div class="card-group">
+                                <div class="card-group" id="arquivos_contrato">
                                     <?php
                            
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
@@ -469,6 +477,7 @@ and open the template in the editor.
                 uploadFile(file, li);
             });
             filesToUpload = [];
+            atualizar();
         };
 
         function uploadFile(file, li) {
@@ -488,12 +497,15 @@ and open the template in the editor.
             data.append('ano', '<?=$ano ?>');
             http.open('POST', 'save_arquivo_contrato.php', true);
             http.send(data);
+            atualizar();
         }
 
         function iconSelector(type) {
             var splitType = (type.split('/')[0] == 'application') ? type.split('/')[1] : type.split('/')[0];
             return splitType + '.png';
         }
+
+
     </script>        
 
 
