@@ -66,10 +66,13 @@ and open the template in the editor.
 
             function atualizar(){
                 // Fazendo requisição AJAX
-                $.post('ajax/get_arquivos_contrato.php?numero=<?=$numero ?>&ano=<?=$ano ?>', function (arquivos) {
-                    // Exibindo frase
-                    $('#arquivos_contrato').html(arquivos);
-                }, 'html');
+                $.ajax({
+                    url: 'get_arquivos_contrato.php?numero=<?=$numero ?>&ano=<?=$ano ?>',
+                    dataType: 'html',
+                    success: function (html) {
+                        $('#arquivos_contrato').html(html);
+                    }
+                });
             }
 
         </script>
