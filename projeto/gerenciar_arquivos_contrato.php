@@ -266,11 +266,12 @@ and open the template in the editor.
                 <!-- Main Content -->
                 <div id="content">
                     <?php include './top_bar.php'; ?>
-
-                    <div class="row float-right" style="max-width:900px">
-                            <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
-                    </div>
                     <div class="container-fluid">
+                    <div style="max-width:900px" class="row float-none">
+                        <div class="ml-3 mb-2">
+                            <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                        </div>
+                    </div>
                         <?php
 
                         $uploadDir = 'contratos/';
