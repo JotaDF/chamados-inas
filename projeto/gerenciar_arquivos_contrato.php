@@ -267,6 +267,9 @@ and open the template in the editor.
                 <div id="content">
                     <?php include './top_bar.php'; ?>
 
+                    <div class="row float-right" style="max-width:900px">
+                            <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                    </div>
                     <div class="container-fluid">
                         <?php
 
@@ -276,11 +279,7 @@ and open the template in the editor.
                         $uploadDir .= $ano;
                         $uploadDir .= '/';
                         ?>
-                        <div class="card" style="max-width:900px">
-                        <div class="form-group row float-right">
-                                <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
-                            </div>
-                        </div>
+                        
                         <!-- Collapsable Form -->
                         <div class="card mb-4 collapse hide border-primary" id="form_arquivos_contrato" style="max-width:900px">
                             <!-- Card Header - Accordion -->
