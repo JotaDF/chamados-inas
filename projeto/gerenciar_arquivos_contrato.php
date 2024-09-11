@@ -5,6 +5,7 @@ require_once('./verifica_login.php');
 
 $numero = $_REQUEST['numero'];
 $ano = $_REQUEST['ano'];
+$id = $_REQUEST['id'];
 
 ?> 
 <!DOCTYPE html>
@@ -275,7 +276,11 @@ and open the template in the editor.
                         $uploadDir .= $ano;
                         $uploadDir .= '/';
                         ?>
-                        
+                        <div class="card" style="max-width:900px">
+                        <div class="form-group row float-right">
+                                <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                            </div>
+                        </div>
                         <!-- Collapsable Form -->
                         <div class="card mb-4 collapse hide border-primary" id="form_arquivos_contrato" style="max-width:900px">
                             <!-- Card Header - Accordion -->
@@ -305,7 +310,7 @@ and open the template in the editor.
                                     <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de do contrato (<?=$numero . '/' . $ano ?>)</span><button class='btn btn-primary btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de do contrato (<?=$numero . '/' . $ano ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_contrato" aria-expanded="false" aria-controls="form_arquivos_contrato">
