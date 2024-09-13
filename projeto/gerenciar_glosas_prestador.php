@@ -1,7 +1,7 @@
 <?php
 //Execucao
 $mod = 10;
-//require_once('./verifica_login.php');
+require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
 <!--
@@ -66,7 +66,7 @@ and open the template in the editor.
                 $('#txt_carta_recursada').text(carta_recursada);
                 $('#txt_valor_original').text(valor_original);
                 $("#msg_nota").html("");
-                $('#form_nota').collapse('show');
+                $('#form_nota_glosa').collapse('show');  
             }
 
             function verificaNotaExiste(id_prestador) {

@@ -50,6 +50,7 @@ class ManterNotaPagamento extends Model {
             $dados->data_executado  = $registro["data_executado"];
             $dados->data_atesto     = $registro["data_atesto"];
             $dados->data_pagamento  = $registro["data_pagamento"];
+            $dados->status          = $registro["status"];
             $dados->id_pagamento    = $registro["id_pagamento"];
         }
         return $dados;
