@@ -395,6 +395,7 @@ and open the template in the editor.
                                                     echo "  </td>";
                                                     echo "<td> - </td>";
                                                     echo "<td> - </td>";
+                                                    echo "<td> - </td>";
                                                     echo "</tr>";
 
                                                 }
