@@ -60,7 +60,7 @@ and open the template in the editor.
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
                 $('#pagar').modal({show: true});
             }
-            function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
+            function novaNotax(id_recurso_glosa, carta_recursada, valor_original) {
                 $('#id_recurso_glosa').val(id_recurso_glosa);
                 $('#txt_id_recurso_glosa').text(id_recurso_glosa);
                 $('#txt_carta_recursada').text(carta_recursada);
@@ -173,9 +173,9 @@ and open the template in the editor.
             if (isset($_REQUEST['id'])) {
                 $id_prestador = $_REQUEST['id'];
                 $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
-                $glosa = $manterCartaRecursada->getCartaPorPrestador($id_prestador);
+                $cartas_recursadas = $manterCartaRecursada->getCartaPorPrestador($id_prestador);
                 $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
-                $carta = $manterCartaRecurso->listar();
+                $carta_recurso = $manterCartaRecurso->listar();
                 $editar = false;
 
                         if ($executor->editor == 1 || $usuario_logado->perfil >= 2) {
@@ -285,8 +285,8 @@ and open the template in the editor.
                                     </thead>
                                     <tbody id="opcoes">
                                         <?php
-                                            foreach ($glosa as $obj) {
-                                            $notas =  $manterCartaRecursada->getNotaGlosaPorCarta($obj->id);
+                                            foreach ($cartas_recursadas as $obj) {
+                                            $notas =  $manterCartaRecursada->getNotasGlosaPorCarta($obj->id);
                                             echo "<tr>";
                                             echo "<td>".$obj->id."</td>";
                                             echo "<td>".$obj->carta_recursada."</td>";
@@ -318,7 +318,7 @@ and open the template in the editor.
 
                                                         $tem_info = false;
                                                         $out_info = "";
-                                                        $cartas =$manterNotaGlosa->getCartaPorGlosa($n->id);
+                                                        $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
                                                         $deferido_glosa =  $n->valor - $c->valor_deferido ;
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;

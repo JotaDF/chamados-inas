@@ -57,8 +57,8 @@ Class ManterNotaGlosa extends Model {
         }
         return $dados;
     }
-    function getCartaPorGlosa($id) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.id_nota_glosa, cr.data_atesto
+    function getCartasPorNotaGlosa($id) {
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.id_nota_glosa
                 FROM  carta_recurso as cr 
                 WHERE cr.id_nota_glosa = " . $id;
 
@@ -72,7 +72,6 @@ Class ManterNotaGlosa extends Model {
             $dados->valor_deferido         = $registro["valor_deferido"];
             $dados->id_nota_glosa          = $registro["id_nota_glosa"];
             $dados->exercicio              = $registro["exercicio"];
-            $dados->data_atesto            = $registro["data_atesto"];
             $array_dados[] = $dados;
         }
         return $array_dados;

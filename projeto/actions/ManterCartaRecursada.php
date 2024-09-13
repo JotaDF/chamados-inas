@@ -29,25 +29,10 @@ Class ManterCartaRecursada extends Model {
         }
 
     function getCartaPorPrestador($id_prestador) {
-        $sql = "SELECT 
-    cr.id, 
-    cr.carta_recursada, 
-    cr.valor_original, 
-    cr.id_fiscal_prestador,
-    (SELECT COUNT(*) 
-     FROM nota_glosa AS ng 
-     WHERE ng.id_recurso_glosa = cr.id) AS dep
-FROM 
-    carta_recursada_glosa AS cr
-JOIN 
-    fiscal_prestador AS fp
-ON 
-    cr.id_fiscal_prestador = fp.id
-WHERE 
-    fp.id_prestador = ".$id_prestador."
-ORDER BY 
-    cr.id;
-";
+        $sql = "SELECT cr.id, cr.carta_recursada, cr.valor_original, cr.id_fiscal_prestador,
+                (SELECT COUNT(*) FROM nota_glosa AS ng WHERE ng.id_recurso_glosa = cr.id) AS dep
+                FROM  carta_recursada_glosa AS cr, fiscal_prestador AS fp
+                WHERE cr.id_fiscal_prestador = fp.id AND fp.id_prestador = ".$id_prestador." ORDER BY cr.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -55,9 +40,9 @@ ORDER BY
             if($registro['dep'] > 0) {
                 $dados->excluir = true;
             }
-                $dados->id = $registro['id'];
-                $dados->carta_recursada = $registro['carta_recursada'];
-                $dados->valor_original = $registro['valor_original'];
+                $dados->id                  = $registro['id'];
+                $dados->carta_recursada     = $registro['carta_recursada'];
+                $dados->valor_original      = $registro['valor_original'];
                 $dados->id_fiscal_prestador =$registro['id_fiscal_prestador'];
                 $array_dados[] = $dados;
            }
@@ -77,82 +62,60 @@ ORDER BY
         return $dados;
     }
         
-
-
-function getNotaGlosaPorCarta($id) {
-    $sql = "SELECT 
-        ng.id, 
-        ng.numero, 
-        ng.lote, 
-        ng.valor, 
-        ng.id_recurso_glosa, 
-        ng.exercicio, 
-        ng.data_emissao, 
-        ng.data_validacao 
-        from nota_glosa as ng where id_recurso_glosa = '".$id."'";
-    
-    $resultado = $this->db->Execute($sql);
-    $array_dados = array();
-    
-    while ($registro = $resultado->fetchRow()) {
-        $dados = new NotaGlosa();
-        $dados->excluir = true;  // Manter a propriedade excluir como true por padrão, ou remover se não for mais necessária
+    function getNotasGlosaPorCarta($id) {
+        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao,
+                ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status
+                from nota_glosa as ng where id_recurso_glosa = ".$id;
         
-        // Preenchendo os dados
-        $dados->id = $registro["id"];
-        $dados->numero = $registro["numero"];
-        $dados->lote = $registro["lote"];
-        $dados->valor = $registro["valor"];
-        $dados->id_recurso_glosa = $registro["id_recurso_glosa"];
-        $dados->exercicio = $registro["exercicio"];
-        $dados->data_emissao = $registro["data_emissao"];
-        $dados->data_validacao = $registro["data_validacao"];
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new NotaGlosa();
+            $dados->excluir = true;  // Manter a propriedade excluir como true por padrão, ou remover se não for mais necessária
 
-        $array_dados[] = $dados;
+            // Preenchendo os dados
+            $dados->id               = $registro["id"];
+            $dados->numero           = $registro["numero"];
+            $dados->lote             = $registro["lote"];
+            $dados->valor            = $registro["valor"];
+            $dados->id_recurso_glosa = $registro["id_recurso_glosa"];
+            $dados->exercicio        = $registro["exercicio"];
+            $dados->data_emissao     = $registro["data_emissao"];
+            $dados->data_validacao   = $registro["data_validacao"];
+            $dados->data_executado   = $registro["data_executado"];
+            $dados->data_atesto      = $registro["data_atesto"];
+            $dados->data_pagamento   = $registro["data_pagamento"];
+            $dados->status           = $registro["status"];
+
+            $array_dados[] = $dados;
+        }
+        
+        return $array_dados;
     }
-    
-    return $array_dados;
-}
 
-function getRecursoPorNota($id) {
-    $sql = "SELECT 
-    cr.id, 
-    cr.carta_informativo, 
-    cr.exercicio, 
-    cr.valor_deferido, 
-    cr.id_nota_glosa, 
-    cr.data_atesto, 
-    cr.data_pagamento, 
-    ng.id_recurso_glosa
-FROM 
-    carta_recurso AS cr 
-INNER JOIN 
-    nota_glosa AS ng 
-ON 
-    cr.id_nota_glosa = ng.id_recurso_glosa
-WHERE 
-    ng.id = '".$id."' 
-ORDER BY 
-    cr.id";
-    $resultado = $this->db->Execute($sql);
-    $array_dados = array();
+    function getCartasRecursoPorNota($id) { 
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.id_nota_glosa  
+                FROM carta_recurso AS cr 
+                WHERE cr.id_nota_glosa = ".$id." ORDER BY cr.id";
 
-    while ($registro = $resultado->fetchRow()) {
-        $dados = new CartaRecurso();
-        $dados->excluir = true;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
 
-        $dados->id =$registro["id"];
-        $dados->carta_informativo =$registro["carta_informativo"];
-        $dados->exercicio =$registro["exercicio"];
-        $dados->valor_deferido =$registro["valor_deferido"];
-        $dados->id_nota_glosa =$registro["id_nota_glosa"];
-        $dados->data_atesto =$registro["data_atesto"];
-        $dados->data_pagamento =$registro["data_pagamento"];
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new CartaRecurso();
+            $dados->excluir = true;
 
-        $array_dados[] = $dados;
+            $dados->id                  = $registro["id"];
+            $dados->carta_informativo   = $registro["carta_informativo"];
+            $dados->exercicio           = $registro["exercicio"];
+            $dados->valor_deferido      = $registro["valor_deferido"];
+            $dados->id_nota_glosa       = $registro["id_nota_glosa"];
+
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
     }
-    return $array_dados;
-}
 
     function salvar(CartaRecursada $dados) {
         $sql = "insert into carta_recursada_glosa (carta_recursada, valor_original, id_fiscal_prestador) values('".$dados->carta_recursada."', '".$dados->valor_original."', '".$dados->id_fiscal_prestador."')";
@@ -163,7 +126,8 @@ ORDER BY
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id(); 
         }
-                    return $resultado;
-}}
+        return $resultado;
+    }
+}
 
 
