@@ -60,7 +60,7 @@ and open the template in the editor.
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
                 $('#pagar').modal({show: true});
             }
-            function novaNotax(id_recurso_glosa, carta_recursada, valor_original) {
+            function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
                 $('#id_recurso_glosa').val(id_recurso_glosa);
                 $('#txt_id_recurso_glosa').text(id_recurso_glosa);
                 $('#txt_carta_recursada').text(carta_recursada);
