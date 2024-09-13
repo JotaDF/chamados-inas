@@ -142,7 +142,7 @@ and open the template in the editor.
                 style: 'currency',
                 currency
             }).format(valor)
-            }    
+            }   
 
         </script>
         <style>
@@ -150,40 +150,44 @@ and open the template in the editor.
                 font-size: small;
             }
         </style>
-        </head>
+    </head>
 
     <body id="page-top">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php  include './menu_execucao.php'; ?>
+            <?php include './menu_execucao.php'; ?>
+            <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
-            <?php
-            include_once ('actions/ManterCartaRecursada.php');
-            include_once('actions/ManterPrestador.php');
-            include_once('actions/ManterTipoPrestador.php');
-            include_once('actions/ManterNotaGlosa.php');
-            include_once('actions/ManterCartaRecurso.php');
-            
-            $manterNotaGlosa = new ManterNotaGlosa ();
-            $manterPrestador = new ManterPrestador();
-            $manterTipoPrestador = new ManterTipoPrestador();    
-            $manterCartaRecursada = new ManterCartaRecursada();
-            $manterCartaRecurso = new ManterCartaRecurso();
-            if (isset($_REQUEST['id'])) {
-                $id_prestador = $_REQUEST['id'];
-                $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
-                $cartas_recursadas = $manterCartaRecursada->getCartaPorPrestador($id_prestador);
-                $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
-                $carta_recurso = $manterCartaRecurso->listar();
-                $editar = false;
-
-                        if ($executor->editor == 1 || $usuario_logado->perfil >= 2) {
-                            $editar = true;
-                        }
-            
-            ?>
-                <div class="container-fluid">
+                <!-- Main Content -->
+                <div id="content">
+                    <?php include './top_bar.php'; ?>
+                    <?php
+                    include_once ('actions/ManterCartaRecursada.php');
+                    include_once('actions/ManterPrestador.php');
+                    include_once('actions/ManterTipoPrestador.php');
+                    include_once('actions/ManterNotaGlosa.php');
+                    include_once('actions/ManterCartaRecurso.php');
+                    
+                    $manterNotaGlosa = new ManterNotaGlosa ();
+                    $manterPrestador = new ManterPrestador();
+                    $manterTipoPrestador = new ManterTipoPrestador();    
+                    $manterCartaRecursada = new ManterCartaRecursada();
+                    $manterCartaRecurso = new ManterCartaRecurso();
+                    
+                    if (isset($_REQUEST['id'])) {
+                        $id_prestador = $_REQUEST['id'];
+                        $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
+                        $cartas_recursadas = $manterCartaRecursada->getCartaPorPrestador($id_prestador);
+                        $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
+                        $carta_recurso = $manterCartaRecurso->listar();
+                        $editar = false;
+        
+                                if ($executor->editor == 1 || $usuario_logado->perfil >= 2) {
+                                    $editar = true;
+                                }
+                        ?>
+                        <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
                             <div class="card mb-3 border-primary" style="max-width: 800px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
@@ -222,17 +226,16 @@ and open the template in the editor.
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <div class="form-group row ml-1">
-                                            <label for="competencia" class="col-sm-2 col-form-label">Carta Recursada:</label>
+                                            <label for="carta_recursada" class="col-sm-2 col-form-label">Carta Recursada:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="carta_recursada" name="carta_recursada" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
                                         <div class="form-group row ml-1">
-                                            <label for="informativo" class="col-sm-2 col-form-label">Valor Original:</label>
+                                            <label for="valor_original" class="col-sm-2 col-form-label">Valor Original:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="valor_original" name="valor_original" class="form-control form-control-sm" required />
                                             </div>
-                                            <br/><span id="msg_informativo" class="text-danger font-weight-bold"></span>
                                         </div>
 
                                         <div class="form-group row float-right">
@@ -242,25 +245,23 @@ and open the template in the editor.
 
                                     </p>
                                     <?php
-                                     } 
+                                     }
                                     ?>
                                 </div>
                             </div>
-                                    <!-- fim da exibição -->
+                            <!-- fim da exibição -->
                             <?php
-            }
+                        }
                         ?>
-                    
-
 
                         <?php include './form_nota_glosa.php'; ?>
-                    <div class="card mb-4 border-primary" style="max-width:1200px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-credit-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Glosas</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos de glosas cadastrados</span>
                                 </div>
                             </div>                            
 
@@ -268,7 +269,7 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
+                                        <th scope="col">ID</th>
                                             <th scope="col">CARTA RECURSADA</th>          
                                             <th scope="col">VALOR</th> 
                                             <th scope="col">OPÇÕES</th>
@@ -276,13 +277,10 @@ and open the template in the editor.
                                             <th scope="col" class="text-center">TOTAL DEFERIDO</th>
                                             <th scope="col" class="text-center">DEFERIDO X GLOSA A ÉPOCA</th>
                                             <th scope="col" class="text-center">TOTAL GERAL</th>
-
-                                            
-                                            
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
-                                        <?php
+                                    <?php
                                             foreach ($cartas_recursadas as $obj) {
                                             $notas =  $manterCartaRecursada->getNotasGlosaPorCarta($obj->id);
                                             echo "<tr>";
@@ -399,29 +397,27 @@ and open the template in the editor.
 
                                                 }
                                             
-                                            
                                            ?>
                                            <?php
                                                         echo "</table>";
-                                                        
-                                                    
-                                            
-                                                
 
-
-                                                    
                                                     echo "  </td>";
                                                     echo "</tr>";
-                                                    
-                                                
-                                            
                         
                                         ?>
-                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Main Content -->
+
                 </div>
+                <?php include './rodape.php'; ?>
+
             </div>
             <!-- End of Content Wrapper -->
-            </div>
+
         </div>
         <!-- End of Page Wrapper -->
 
@@ -484,6 +480,6 @@ and open the template in the editor.
             </div>
         </div>
 
-       </body>
+    </body>
 
 </html>
