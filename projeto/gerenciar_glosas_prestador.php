@@ -183,8 +183,6 @@ and open the template in the editor.
                         }
             
             ?>
-            <div class="d-flexflex-column">
-                <div id="content">
                 <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
                             <div class="card mb-3 border-primary" style="max-width: 800px;">
@@ -252,7 +250,7 @@ and open the template in the editor.
                             <?php
             }
                         ?>
-                    </div>
+                    
 
 
                         <?php include './form_nota_glosa.php'; ?>
@@ -295,7 +293,7 @@ and open the template in the editor.
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
                                                     if($editar){
-                                                        if ($nota->excluir) {
+                                                        if ($obj->excluir) {
                                                             echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
                                                             echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
@@ -422,11 +420,8 @@ and open the template in the editor.
                                     
                 </div>
             </div>
-                
-            </div>
-            </div>
             <!-- End of Content Wrapper -->
-
+            </div>
         </div>
         <!-- End of Page Wrapper -->
 
