@@ -161,14 +161,16 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
+                                            <label for="valor" class="col-sm-2 col-form-label">Valor:<span class="text-danger font-weight-bold">*</span></label>
                                             <div class="col-sm-10">
                                             <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="data_pagamento">Data Pagamento: <span class="text-danger font-weight-bold">*</span></label>
+                                            <label for="valor" class="col-sm-2 col-form-label">Data Pagamento:<span class="text-danger font-weight-bold">*</span></label>
+                                            <div class="col-sm-10">
                                             <input type="date" class="form-control form-control-sm" name="data_pagamento" id="data_pagamento" required>
+                                            </div>
                                         </div>
                                         <div class="form-group row float-right mr-1">
                                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
