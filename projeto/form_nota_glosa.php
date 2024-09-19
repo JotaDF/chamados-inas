@@ -8,22 +8,22 @@
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_nota_glosa.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
-            <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?=$obj->id ?>"/>
+        <form id="form_cadastro" action="save_nota_glosa.php" method="POST" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
+            <input type="hidden" id="id_recurso_glosa" name="id_recurso_glosa" value="<?=$obj->id ?>"/>
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                <label for="txt_id_pagamento">ID Pagamento:</label>
-                <b><span id="txt_id_pagamento"></span></b>
+                <label for="txt_id_recurso_glosa">ID Carta Recursada:</label>
+                <b><span id="txt_id_recurso_glosa"></span></b>
                 </div>
                 <div class="form-group col-md-3">
-                <label for="txt_competencia">Competência:</label>
-                <b><span id="txt_competencia"></span></b>
+                <label for="txt_carta_recursada">Carta:</label>
+                <b><span id="txt_carta_recursada"></span></b>
                 </div>  
                 <div class="form-group col-md-3">
-                <label for="txt_informativo">Informativo:</label>
-                <b><span id="txt_informativo"></span></b>
+                <label for="txt_valor_original">VALOR:</label>
+                <b><span id="txt_valor_original"></span></b>
                 </div>       
             </div>
             <div class="form-row">
@@ -32,13 +32,17 @@
                 <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
                 </div>
                 <div class="form-group col-md-3">
+                <label for="exercicio">lote:<span class="text-danger font-weight-bold">*</span></label>
+                <input type="text" name="lote" class="form-control form-control-sm" id="lote" required>
+                </div>         
+                <div class="form-group col-md-3">
                 <label for="valor">Valor:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00">
                 </div>  
                 <div class="form-group col-md-3">
                 <label for="exercicio">Exercício:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio" required>
-                </div>       
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -48,6 +52,18 @@
                 <div class="form-group col-md-3">
                 <label for="data_validacao">Data validação:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="date" name="data_validacao" class="form-control form-control-sm" id="data_validacao" required>
+                </div>  
+                <div class="form-group col-md-3">
+                <label for="data_validacao">Data executado:<span class="text-danger font-weight-bold">*</span></label>
+                <input type="date" name="data_executado" class="form-control form-control-sm" id="data_executado" required>
+                </div>  
+                <div class="form-group col-md-3">
+                <label for="data_validacao">Data pagamento:<span class="text-danger font-weight-bold">*</span></label>
+                <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
+                </div>  
+                <div class="form-group col-md-3">
+                <label for="data_validacao">Data atesto:<span class="text-danger font-weight-bold">*</span></label>
+                <input type="date" name="data_atesto" class="form-control form-control-sm" id="data_atesto" required>
                 </div>  
                 <br/> <span id="msg_nota" class="text-danger font-weight-bold"></span>        
             </div>
