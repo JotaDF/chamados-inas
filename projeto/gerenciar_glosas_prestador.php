@@ -62,7 +62,6 @@ and open the template in the editor.
             }
             function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
                 $('#id_recurso_glosa').val(id_recurso_glosa);
-                $('#txt_id_recurso_glosa').text(id_recurso_glosa);
                 $('#txt_carta_recursada').text(carta_recursada);
                 $('#txt_valor_original').text(valor_original);
                 $("#msg_nota").html("");
@@ -71,7 +70,6 @@ and open the template in the editor.
 
            function novaNotaInfo(id_nota_glosa, numero, lote, valor) {
                 $('#id_nota_glosa').val(id_nota_glosa);
-                $('#txt_id_nota_glosa').text(id_nota_glosa);
                 $('#txt_numero').text(numero);
                 $('#txt_lote').text(lote);
                 $('#txt_valor').text(valor);

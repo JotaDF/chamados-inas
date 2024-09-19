@@ -14,10 +14,6 @@
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                <label for="txt_id_recurso_glosa">ID Carta Recursada:</label>
-                <b><span id="txt_id_recurso_glosa"></span></b>
-                </div>
-                <div class="form-group col-md-3">
                 <label for="txt_carta_recursada">Carta:</label>
                 <b><span id="txt_carta_recursada"></span></b>
                 </div>  
@@ -52,18 +48,6 @@
                 <div class="form-group col-md-3">
                 <label for="data_validacao">Data validação:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="date" name="data_validacao" class="form-control form-control-sm" id="data_validacao" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data executado:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_executado" class="form-control form-control-sm" id="data_executado" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data pagamento:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data atesto:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_atesto" class="form-control form-control-sm" id="data_atesto" required>
                 </div>  
                 <br/> <span id="msg_nota" class="text-danger font-weight-bold"></span>        
             </div>
