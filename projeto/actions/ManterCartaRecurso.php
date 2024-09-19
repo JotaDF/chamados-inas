@@ -40,5 +40,30 @@ Class ManterCartaRecurso extends Model {
         }
         return $array_dados;
     } 
-        }   
+
+    function salvar (CartaRecurso $dados) {
+        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa) 
+        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "')";
+        if ($dados->id > 0) {
+            $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->exercicio . "', exercicio='" . $dados->valor_deferido
+             . "' where id=" . $dados->id;
+            $resultado = $this->db->Execute($sql);
+        } else {
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
+        }
+        return $resultado;
+    }
+
+    function somarValorDeferidoPorNota($id) {
+        $sql = "SELECT SUM(valor_deferido) AS total FROM carta_recurso where id_nota_glosa =$id";
+        $resultado = $this->db->Execute($sql);
+        if ($resultado && $row = $resultado->FetchRow()) {
+            return $row['total'] ?? 0;
+        }
+        return 0;
+    }
+    
+
+ }   
 
