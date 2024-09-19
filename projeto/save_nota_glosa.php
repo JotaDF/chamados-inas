@@ -1,37 +1,31 @@
 <?php
 
-require_once('./actions/ManterNotaPagamento.php');
-require_once('./dto/NotaPagamento.php');
+require_once('./actions/ManterNotaGlosa.php');
+require_once('./dto/NotaGlosa.php');
 
 require_once('./actions/ManterAuditoria.php');
 require_once('./dto/Auditoria.php');
 
 $db_auditoria = new ManterAuditoria();
-$db_nota_pagamento = new ManterNotaPagamento();
-$np = new NotaPagamento();
+$db_nota_glosa = new ManterNotaGlosa();
+$ng = new NotaGlosa(); 
 
+//--------------------------------------------//
+$id_usuario             = $_REQUEST['id_usuario'];
+$id_prestador           = $_POST['id_prestador'];
+//-------------------------------------------------//
+$ng->numero             = $_POST['numero'];
+$ng->lote               = $_POST['lote'];
+$ng->valor              = $_POST['valor'];
+$ng->id_recurso_glosa   = $_POST['id_recurso_glosa'];
+$ng->exercicio          = $_POST['exercicio'];
+$ng->data_emissao       = isset($_POST['data_emissao']) ? strtotime($_POST['data_emissao']) : '';
+$ng->data_validacao     = isset($_POST['data_validacao']) ? strtotime($_POST['data_validacao']) : '';
+$ng->data_executado     = isset($_POST['data_executado']) ? strtotime($_POST['data_executado']) : '';
+$ng->data_atesto        = isset($_POST['data_atesto']) ? strtotime($_POST['data_atesto']) : '';
+$ng->data_pagamento     = isset($_POST['data_pagamento']) ? strtotime($_POST['data_pagamento']) : '';
 
-$id_usuario         = $_REQUEST['id_usuario'];
-$id_prestador       = $_POST['id_prestador'];
+$db_nota_glosa->salvar($ng);
 
-$np->pagamento       = $_POST['id_pagamento'];
-$np->numero             = $_POST['numero'];
-$np->valor              = $_POST['valor'];
-$np->exercicio          = $_POST['exercicio'];
-$np->data_emissao       = isset($_POST['data_emissao']) ? strtotime($_POST['data_emissao']) : '';
-$np->data_validacao     = isset($_POST['data_validacao']) ? strtotime($_POST['data_validacao']) : '';
-
-$db_nota_pagamento->salvar($np);
-
-//Auditando processo
-$a = new Auditoria();
-$a->acao = "Cadastrar Nota!";
-$a->objeto = "NotaPagameto";
-$a->informacao = "id_prestador= " . $id_prestador . " id_pagamento= " . $np->pagamento
-               . " numero= ".$np->numero . " valor= ".$np->valor . " exercicio= ".$np->exercicio
-               . " data_emissao= ".$np->data_emissao . " data_validacao= ".$np->data_validacao ;
-$a->autor = $id_usuario;
-$db_auditoria->salvar($a);
-
-header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+header('Location: gerenciar_glosas_prestador.php?id='.$id_prestador);
 
