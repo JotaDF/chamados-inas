@@ -19,6 +19,7 @@
       public $processo_principal;
       public $classe_judicial;
       public $observacao;
+      public $autor_inas;
       
 
       //variaveis de manipulação

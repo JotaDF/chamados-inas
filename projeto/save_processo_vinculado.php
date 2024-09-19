@@ -26,10 +26,10 @@ $processo->data_cumprimento_liminar = isset($_POST['data_cumprimento_liminar']) 
 $processo->situacao_processual      = $_POST['situacao'];
 $processo->observacoes              = addslashes($_POST['observacoes']);
 $processo->usuario                  = $_POST['usuario'];
+$processo->autor_inas               = isset($_POST['autor_inas']) ? $_POST['autor_inas'] : 0;
 
 
 //print_r($processo);
 $db_processo->salvar($processo);
 
 header('Location: gerenciar_processos_vinculados.php?id=' . $id_principal);
-

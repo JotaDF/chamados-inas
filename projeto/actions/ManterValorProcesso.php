@@ -11,7 +11,7 @@ class ManterValorProcesso extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select vp.id,vp.id_tipo_valor,vp.id_processo, vp.valor, vp.cadastro FROM valor_processo as vp $filtro order by vp.id";
+        $sql = "select vp.id,vp.id_tipo_valor,vp.id_processo, vp.valor, vp.data_pagamento, vp.cadastro FROM valor_processo as vp $filtro order by vp.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -23,6 +23,7 @@ class ManterValorProcesso extends Model {
             $dados->id_tipo_valor   = $registro["id_tipo_valor"];
             $dados->id_processo     = $registro["id_processo"];
             $dados->valor           = $registro["valor"];
+            $dados->data_pagamento  = $registro["data_pagamento"];
             $dados->cadastro        = $registro["cadastro"];
             
             $array_dados[]          = $dados;
@@ -31,7 +32,7 @@ class ManterValorProcesso extends Model {
     }
 
     function getValorProcessoPorId($id) {
-        $sql = "select vp.id,vp.id_tipo_valor,vp.id_processo, vp.valor, vp.cadastro FROM valor_processo as vp WHERE id=$id";
+        $sql = "select vp.id,vp.id_tipo_valor,vp.id_processo, vp.valor, vp.data_pagamento, vp.cadastro FROM valor_processo as vp WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new ValorProcesso();
@@ -40,15 +41,16 @@ class ManterValorProcesso extends Model {
             $dados->id_tipo_valor   = $registro["id_tipo_valor"];
             $dados->id_processo     = $registro["id_processo"];
             $dados->valor           = $registro["valor"];
+            $dados->data_pagamento  = $registro["data_pagamento"];
             $dados->cadastro        = $registro["cadastro"];
         }
         return $dados;
     }
     function salvar(ValorProcesso $dados) {
-        $sql = "insert into valor_processo (id_tipo_valor,id_processo,valor,cadastro) 
-                values ('" . $dados->id_tipo_valor . "','" . $dados->id_processo . "','" . $dados->valor . "',now())";
+        $sql = "insert into valor_processo (id_tipo_valor,id_processo,valor,data_pagamento,cadastro) 
+                values ('" . $dados->id_tipo_valor . "','" . $dados->id_processo . "','" . $dados->valor . "'," . $dados->data_pagamento . ",now())";
         if ($dados->id > 0) {
-            $sql = "update valor_processo set id_tipo_valor='" . $dados->id_tipo_valor . "',id_processo='" . $dados->id_processo . "',valor='" . $dados->valor . "',cadastro=now() where id=$dados->id";
+            $sql = "update valor_processo set id_tipo_valor='" . $dados->id_tipo_valor . "',id_processo='" . $dados->id_processo . "',valor='" . $dados->valor . "',data_pagamento='" . $dados->data_pagamento . "',cadastro=now() where id=$dados->id";
             $resultado = $this->db->Execute($sql);
             return $dados;
         } else {

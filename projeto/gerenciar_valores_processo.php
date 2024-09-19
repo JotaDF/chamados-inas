@@ -166,6 +166,10 @@ and open the template in the editor.
                                             <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="data_pagamento">Data Pagamento: <span class="text-danger font-weight-bold">*</span></label>
+                                            <input type="date" class="form-control form-control-sm" name="data_pagamento" id="data_pagamento" required>
+                                        </div>
                                         <div class="form-group row float-right mr-1">
                                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
                                         </div>

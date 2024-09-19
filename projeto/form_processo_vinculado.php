@@ -8,7 +8,7 @@
     </div>                  
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_processo.php" method="post">
+        <form id="form_cadastro" action="save_processo_vinculado.php" method="post">
             <input type="hidden" id="usuario" name="usuario" value="<?=$usuario_logado->id ?>"/>
             <input type="hidden" id="id_principal" name="id_principal" />
             <input type="hidden" id="processo_principal" name="processo_principal" />
@@ -18,6 +18,11 @@
             <input type="hidden" id="assunto" name="assunto" />
             <input type="hidden" id="valor_causa" name="valor_causa" />
             <input type="hidden" id="id" name="id"/>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <input type="checkbox" class="form-control form-control-sm" name="autor_inas" id="autor_inas"> Autor INAS                     
+                </div>               
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                 <label for="numero">Número <span class="text-danger font-weight-bold">*</span></label>
