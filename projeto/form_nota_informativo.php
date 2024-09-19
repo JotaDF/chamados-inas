@@ -13,7 +13,6 @@
             <input type="hidden" id="id_prestador"  name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario"    name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
-            <div class="form-group col-md-3">
                 <div class="form-group col-md-3">
                 <label for="txt_numero">numero</label>
                 <b><span id="txt_numero"></span></b>
