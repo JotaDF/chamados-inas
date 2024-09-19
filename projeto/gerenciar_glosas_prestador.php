@@ -1,7 +1,7 @@
 <?php
 //Execucao
 $mod = 10;
-require_once('./verifica_login.php');
+// require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
 <!--
@@ -66,8 +66,18 @@ and open the template in the editor.
                 $('#txt_carta_recursada').text(carta_recursada);
                 $('#txt_valor_original').text(valor_original);
                 $("#msg_nota").html("");
-                $('#form_nota_glosa').collapse('show');  
+                $('#form_nota').collapse('show');  
             }
+
+           function novaNotaInfo(id_nota_glosa, numero, lote, valor) {
+                $('#id_nota_glosa').val(id_nota_glosa);
+                $('#txt_id_nota_glosa').text(id_nota_glosa);
+                $('#txt_numero').text(numero);
+                $('#txt_lote').text(lote);
+                $('#txt_valor').text(valor);
+                 $("#msg_nota").html("");
+                $('#form_nota_informativo').collapse('show');
+           }
 
             function verificaNotaExiste(id_prestador) {
                 duplicado = 0;
@@ -156,12 +166,12 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_execucao.php'; ?>
+            <?php  include './menu_execucao.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
-                    <?php include './top_bar.php'; ?>
+                    <?php // include './top_bar.php'; ?>
                     <?php
                     include_once ('actions/ManterCartaRecursada.php');
                     include_once('actions/ManterPrestador.php');
@@ -255,7 +265,8 @@ and open the template in the editor.
                         ?>
 
                         <?php include './form_nota_glosa.php'; ?>
-                        <div class="card mb-4 border-primary" style="max-width:1500px">
+                        <?php include './form_nota_informativo.php'; ?>
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-credit-card fa-2x text-white"></i> 
@@ -285,10 +296,10 @@ and open the template in the editor.
                                             $notas =  $manterCartaRecursada->getNotasGlosaPorCarta($obj->id);
                                             echo "<tr>";
                                             echo "<td>".$obj->id."</td>";
-                                            echo "<td>".$obj->carta_recursada."</td>";
-                                            echo "<td>".$obj->valor_original."</td>";
-                                            $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
-                                                                    <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
+                                            echo "<td align='center'>".$obj->carta_recursada."</td>";
+                                            echo "<td align='center'>".$obj->valor_original."</td>";
+                                            $btn_nova = "<button id='btn_cadastrar' align='center' onclick='novaNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                                    <i class='fa fa-plus-circle text-white'  aria-hidden='true'></i>
                                                                 </button>";
                                                     if($editar){
                                                         if ($obj->excluir) {
@@ -304,25 +315,28 @@ and open the template in the editor.
                                                     $tem_nota = false;
                                                     $out_notas = "";
                                                     foreach ($notas as $n) {
+                                                        $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                                        <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>";
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
-                                                        $out_notas .= "  <td>".$n->numero."</td>";
-                                                        $out_notas .= "  <td>".$n->lote."</td>";
-                                                        $out_notas .= "  <td>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'>".$btn_nova."</td>";
+                                                        $out_notas .= "  <td align='center'>".$n->numero."</td>";
+                                                        $out_notas .= "  <td align='center'>".$n->lote."</td>";
+                                                        $out_notas .= "  <td align='center'>".$n->valor."</td>";
+                                                        $out_notas .= "  <td align='center'>".$btn_nova_info."</td>";
                                                         
 
                                                         $tem_info = false;
                                                         $out_info = "";
                                                         $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
-                                                        $deferido_glosa =  $n->valor - $c->valor_deferido ;
+                                                        $carta_recurso = $manterCartaRecurso->somarValorDeferidoPorNota($n->id);
+                                                        //$deferido_glosa =  $n->valor - $c->valor_deferido ;
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;
                                                             $out_info .= "<tr>";
-                                                            $out_info .= "  <td>".$c->carta_informativo."</td>";
-                                                            $out_info .= "  <td>".$c->exercicio."</td>";
-                                                            $out_info .= "  <td>".$c->valor_deferido."</td>";
-                                                            $out_info .= "  <td>".$deferido_glosa."</td>";
+                                                            $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
+                                                            $out_info .= "  <td align='center'>".$c->exercicio."</td>";
+                                                            $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
+                                                            $out_info .= "  <td align='center'>".$carta_recurso."</td>";
                                                             $out_info .= "</tr>";
             
 
@@ -337,7 +351,7 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVA</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
-                                                                        <th scope="col">DEFERIDO x GLOSA</th>
+                                                                        <th scope=col>TOTAL DEFERIDO</th>
                                                                     </tr>
                                                                 </thead>';
                                              
@@ -350,7 +364,7 @@ and open the template in the editor.
                                                         $out_notas .= "</tr>";
 
                                                      
-                                                        $total_deferido = $obj->valor_original - $n->valor;  
+                                                        //$total_deferido = $obj->valor_original - $n->valor;  
                                                     if ($tem_deferido) {
                                                         $out_def .="<td>";
                                                         
