@@ -21,9 +21,6 @@ $ng->id_recurso_glosa   = $_POST['id_recurso_glosa'];
 $ng->exercicio          = $_POST['exercicio'];
 $ng->data_emissao       = isset($_POST['data_emissao']) ? strtotime($_POST['data_emissao']) : '';
 $ng->data_validacao     = isset($_POST['data_validacao']) ? strtotime($_POST['data_validacao']) : '';
-$ng->data_executado     = isset($_POST['data_executado']) ? strtotime($_POST['data_executado']) : '';
-$ng->data_atesto        = isset($_POST['data_atesto']) ? strtotime($_POST['data_atesto']) : '';
-$ng->data_pagamento     = isset($_POST['data_pagamento']) ? strtotime($_POST['data_pagamento']) : '';
 
 $db_nota_glosa->salvar($ng);
 

@@ -52,19 +52,7 @@
                 <div class="form-group col-md-3">
                 <label for="data_validacao">Data validação:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="date" name="data_validacao" class="form-control form-control-sm" id="data_validacao" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data executado:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_executado" class="form-control form-control-sm" id="data_executado" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data pagamento:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
-                </div>  
-                <div class="form-group col-md-3">
-                <label for="data_validacao">Data atesto:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" name="data_atesto" class="form-control form-control-sm" id="data_atesto" required>
-                </div>  
+                </div>   
                 <br/> <span id="msg_nota" class="text-danger font-weight-bold"></span>        
             </div>
 
