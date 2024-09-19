@@ -146,8 +146,8 @@ and open the template in the editor.
                                     <form id="form_cadastro" action="save_valor_processo.php" method="post">
                                         <input type="hidden" id="id_processo" name="id_processo" value="<?=$processo->id ?>"/>
                                         <div class="form-group row">
-                                            <label for="opcao" class="col-sm-2 col-form-label">Tipo:</label>
-                                            <div class="col-sm-10">
+                                            <label for="opcao" class="col-sm-3 col-form-label">Tipo:</label>
+                                            <div class="col-sm-8">
                                             <select id="tipo" name="id_tipo_valor" class="form-control form-control-sm" required>
                                                 <option value="">Selecione</option>    
                                                 <?php
@@ -161,14 +161,14 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="valor" class="col-sm-2 col-form-label">Valor:<span class="text-danger font-weight-bold">*</span></label>
-                                            <div class="col-sm-10">
+                                            <label for="valor" class="col-sm-3 col-form-label">Valor:<span class="text-danger font-weight-bold">*</span></label>
+                                            <div class="col-sm-8">
                                             <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="valor" class="col-sm-2 col-form-label">Data Pagamento:<span class="text-danger font-weight-bold">*</span></label>
-                                            <div class="col-sm-10">
+                                            <label for="valor" class="col-sm-3 col-form-label">Data Pagamento:<span class="text-danger font-weight-bold">*</span></label>
+                                            <div class="col-sm-8">
                                             <input type="date" class="form-control form-control-sm" name="data_pagamento" id="data_pagamento" required>
                                             </div>
                                         </div>
