@@ -14,8 +14,11 @@
             <input type="hidden" id="id_usuario"    name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
             <div class="form-group col-md-3">
+                <label for="txt_id_nota_glosa">ID NOTA GLOSA</label>
+                <b><span id="txt_id_nota_glosa"></span></b>
+                </div>
                 <div class="form-group col-md-3">
-                <label for="txt_numero">Número Nota</label>
+                <label for="txt_numero">numero</label>
                 <b><span id="txt_numero"></span></b>
                 </div>
                 <div class="form-group col-md-3">
