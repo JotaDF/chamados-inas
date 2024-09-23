@@ -77,10 +77,10 @@ Class ManterNotaGlosa extends Model {
         return $array_dados;
     }
     function salvar(NotaGlosa $dados) {
-        $sql = "insert into nota_glosa (numero, valor, exercicio, data_emissao, data_validacao, id_recurso_glosa, status) 
-        values ('" . $dados->numero . "','" . $dados->valor . "','" . $dados->exercicio . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','" . $dados->id_recurso_glosa . "','Em análise')";
+        $sql = "insert into nota_glosa (numero, lote, valor, exercicio, data_emissao, data_validacao, id_recurso_glosa, status) 
+        values ('" . $dados->numero . "','" . $dados->lote . "','" . $dados->valor . "','" . $dados->exercicio . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','" . $dados->id_recurso_glosa . "','Em análise')";
         if ($dados->id > 0) {
-            $sql = "update nota_glosa set numero='" . $dados->numero . "', valor='" . $dados->valor . "', exercicio='" . $dados->exercicio
+            $sql = "update nota_glosa set numero='" . $dados->numero . "', lote='" . $dados->lote . "', valor='" . $dados->valor . "', exercicio='" . $dados->exercicio
              . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "', id_recurso_glosa='" . $dados->id_recurso_glosa . "' where id=" . $dados->id;
             $resultado = $this->db->Execute($sql);
         } else {
