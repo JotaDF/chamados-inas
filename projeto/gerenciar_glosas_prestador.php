@@ -331,7 +331,7 @@ and open the template in the editor.
                                                         $soma_valor_info = 0;
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;
-                                                            $vl = str_replace("R$ ",$c->valor_deferido);
+                                                            $vl = str_replace("R$ ","",$c->valor_deferido);
                                                             $soma_valor_info += $vl;
                                                             $out_info .= "<tr>";
                                                             $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
