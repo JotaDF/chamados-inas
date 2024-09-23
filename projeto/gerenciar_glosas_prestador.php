@@ -328,13 +328,15 @@ and open the template in the editor.
                                                         $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
                                                         $carta_recurso = $manterCartaRecurso->somarValorDeferidoPorNota($n->id);
                                                         //$deferido_glosa =  $n->valor - $c->valor_deferido ;
+                                                        $soma_valor_info = 0;
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;
+                                                            $vl = str_replace("R$ ",$c->valor_deferido);
+                                                            $soma_valor_info += $vl;
                                                             $out_info .= "<tr>";
                                                             $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
                                                             $out_info .= "  <td align='center'>".$c->exercicio."</td>";
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
-                                                            $out_info .= "  <td align='center'>".$carta_recurso."</td>";
                                                             $out_info .= "</tr>";
             
 
@@ -349,7 +351,6 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVA</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
-                                                                        <th scope=col>TOTAL DEFERIDO</th>
                                                                     </tr>
                                                                 </thead>';
                                              
@@ -372,7 +373,6 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVA</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
-                                                                        <th scope="col">TOTAL DEFERIDO</th>
                                                                     </tr>
                                                                 </thead>';
                                                                 $out_notas .= $out_def;
@@ -405,7 +405,7 @@ and open the template in the editor.
                                                     }
                                                     
                                                     echo "  </td>";
-                                                    echo "<td> - </td>";
+                                                    echo "<td> ".$soma_valor_info." </td>";
                                                     echo "<td> - </td>";
                                                     echo "<td> - </td>";
                                                     echo "</tr>";
