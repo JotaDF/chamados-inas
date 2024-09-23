@@ -285,12 +285,17 @@ and open the template in the editor.
                                             <th scope="col" class="text-center">NOTAS GLOSAS</th>
                                             <th scope="col" class="text-center">TOTAL DEFERIDO</th>
                                             <th scope="col" class="text-center">DEFERIDO X GLOSA A ÉPOCA</th>
-                                            <th scope="col" class="text-center">TOTAL GERAL</th>
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
                                     <?php
+                                            $valor_original = 0;
                                             foreach ($cartas_recursadas as $obj) {
+                                                $vlo = str_replace("R$","",$obj->valor_original);
+                                                $vlo= str_replace(" ","",$vlo); 
+                                                $vlo= str_replace(".","",$vlo);
+                                                $vlo= str_replace(",",".",$vlo); 
+                                                $valor_original = $vlo;
                                             $notas =  $manterCartaRecursada->getNotasGlosaPorCarta($obj->id);
                                             echo "<tr>";
                                             echo "<td>".$obj->id."</td>";
@@ -408,9 +413,8 @@ and open the template in the editor.
                                                     }
                                                     
                                                     echo "  </td>";
-                                                    echo "<td> ".$soma_valor_info." </td>";
-                                                    echo "<td> - </td>";
-                                                    echo "<td> - </td>";
+                                                    echo "<td> R$ ".number_format($soma_valor_info, 2, ',', '.')." </td>";
+                                                    echo "<td> R$ ".number_format(($valor_original - $soma_valor_info), 2, ',', '.')." </td>";
                                                     echo "</tr>";
 
                                                 }
