@@ -320,12 +320,39 @@ and open the template in the editor.
                                                     foreach ($notas as $n) {
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>";
+                                                        $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInfo(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
+                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
+                                                        $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
+                                                        $txt_btns = "";
+                                                        $txt_status = "";
+                                                        if($editar){
+                                                            switch ($n->status) {
+                                                                case 'Em análise':
+                                                                    $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
+                                                                    break;
+                                                                case 'Executado':
+                                                                    if($usuario_logado->perfil <= 2){
+                                                                        $txt_btns = $btn_nt_atestar;
+                                                                    } else {
+                                                                        $txt_btns = " - ";
+                                                                    }
+                                                                    break;
+                                                                case 'Atestado':
+                                                                    $txt_btns = $btn_nt_pagar;
+                                                                    break;
+                                                                case 'Pago':
+                                                                    $txt_btns = " - ";
+                                                                    break;
+                                                            }
+                                                        }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'>".$btn_nova_info."</td>";
+                                                        $out_notas .= "  <td align='center'>".$n->status."</td>";
+                                                        $out_notas .= "  <td align='center'>".$btn_nova_info . $txt_btns."</td>";
                                                         
 
                                                         $tem_info = false;
@@ -399,10 +426,9 @@ and open the template in the editor.
                                                                     <th scope="col">NOTA</th> 
                                                                     <th scope="col">LOTE</th> 
                                                                     <th scope="col">VALOR</th>
+                                                                    <th scope="col">STATUS</th>
                                                                     <th scope="col">OPÇÕES</th>
                                                                     <th scope="col" class="text-center">INFORMATIVOS</th>
-                                                                    
-                                                                    
                                                                 </tr>
                                                             </thead>
                                         

@@ -11,7 +11,7 @@ Class ManterCartaRecursada extends Model {
         
 
     function listar(){
-        $sql = "select id, carta_recursada, valor_original, id_fiscal_prestador from carta_recursada_glosa as dep";
+        $sql = "select crg.id, crg.carta_recursada, crg.valor_original, crg.id_fiscal_prestador, (select count(*) from nota_glosa as ng where ng.id_recurso_glosa=crg.id ) as dep from carta_recursada_glosa as crg";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
