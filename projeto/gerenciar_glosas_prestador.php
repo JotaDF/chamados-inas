@@ -279,12 +279,12 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                         <th scope="col">ID</th>
-                                            <th scope="col">CARTA RECURSADA</th>          
+                                            <th scope="col" style="width: 20px;">CARTA RECURSADA</th>          
                                             <th scope="col">VALOR</th> 
                                             <th scope="col">OPÇÕES</th>
                                             <th scope="col" class="text-center">NOTAS GLOSAS</th>
-                                            <th scope="col" class="text-center">TOTAL DEFERIDO</th>
-                                            <th scope="col" class="text-center">DEFERIDO X GLOSA A ÉPOCA</th>
+                                            <th scope="col" style="width: 100px;" class="text-center">TOTAL DEFERIDO</th>
+                                            <th scope="col" style="width: 110px;" class="text-center">DEFERIDO X GLOSA A ÉPOCA</th>
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
