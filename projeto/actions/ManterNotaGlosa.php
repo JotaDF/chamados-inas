@@ -1,4 +1,5 @@
-<?php 
+<?php
+date_default_timezone_set('America/Sao_Paulo');
 require_once('Model.php');
 require_once('dto/NotaGlosa.php');
 require_once('dto/CartaRecurso.php');
@@ -96,22 +97,25 @@ Class ManterNotaGlosa extends Model {
         return $resultado;
     }
     function executar($id) {
-        $sql = "update nota_glosa set data_executado='now()', status='Executado' where id=" . $id;
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update nota_glosa set data_executado=". $timestamp.", status='Executado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function atestar($id) {
-        $sql = "update nota_glosa set data_atesto='now()', status='Atestado' where id=" . $id;
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update nota_glosa set data_atesto=". $timestamp.", status='Atestado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function atestarLote($lista) {
-        $sql = "update nota_glosa set data_atesto='now()', status='Atestado' where id IN (" . $lista . ")";
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update nota_glosa set data_atesto=". $timestamp.", status='Atestado' where id IN (" . $lista . ")";
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    function pagar($id) {
-        $sql = "update nota_glosa set data_pagamento='now()', status='Pago' where id=" . $id;
+    function pagar($id, $data) {
+        $sql = "update nota_glosa set data_pagamento=". $data.", status='Pago' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
