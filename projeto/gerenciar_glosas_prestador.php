@@ -282,8 +282,7 @@ and open the template in the editor.
                                             <th scope="col" style="width: 20px;">INFORMATIVO DE ORIGEM</th>          
                                             <th scope="col">VALOR</th> 
                                             <th scope="col">OPÇÕES</th>
-                                            <th scope="col" class="text-center">NOTAS GLOSAS</th>
-                                            <th scope="col" style="width: 100px;" class="text-center">TOTAL DEFERIDO</th>
+                                            <th scope="col" class="text-center">NOTAS GLOSAS</th> 
                                             <th scope="col" style="width: 110px;" class="text-center">SALDO REMANECENTE</th>
                                         </tr>
                                     </thead>
@@ -367,7 +366,7 @@ and open the template in the editor.
                                                         $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
                                                         $carta_recurso = $manterCartaRecurso->somarValorDeferidoPorNota($n->id);
                                                         //$deferido_glosa =  $n->valor - $c->valor_deferido ;
-                                                        
+                                                        $soma_valor_info = 0;
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;
                                                             $vl = str_replace("R$","",$c->valor_deferido);
