@@ -291,6 +291,7 @@ and open the template in the editor.
                                     <?php
                                             $valor_original = 0;
                                             foreach ($cartas_recursadas as $obj) {
+                                                $soma_valor_info = 0;
                                                 $vlo = str_replace("R$","",$obj->valor_original);
                                                 $vlo= str_replace(" ","",$vlo); 
                                                 $vlo= str_replace(".","",$vlo);
@@ -360,7 +361,7 @@ and open the template in the editor.
                                                         $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
                                                         $carta_recurso = $manterCartaRecurso->somarValorDeferidoPorNota($n->id);
                                                         //$deferido_glosa =  $n->valor - $c->valor_deferido ;
-                                                        $soma_valor_info = 0;
+                                                        
                                                         foreach($cartas as $c) {                                
                                                             $tem_info = true;
                                                             $vl = str_replace("R$","",$c->valor_deferido);
