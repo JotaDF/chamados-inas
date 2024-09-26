@@ -8,7 +8,7 @@
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_nota_glosa.php" method="POST" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
+        <form id="form_cadastro" action="save_nota_glosa.php" method="POST">
             <input type="hidden" id="id_recurso_glosa" name="id_recurso_glosa" value="<?=$obj->id ?>"/>
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
