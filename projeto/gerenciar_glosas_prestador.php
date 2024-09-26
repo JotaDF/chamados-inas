@@ -44,12 +44,12 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id_prestador,id, informativo, competencia, usuario) {
-                $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
+                $('#delete').attr('href', 'remover_glosa_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
             function excluirNota(id_prestador,id, numero, valor, exercicio,usuario) {
-                $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
+                $('#delete').attr('href', 'remover_nota_glosa.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
@@ -487,7 +487,7 @@ and open the template in the editor.
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form id="form_cadastro" action="pagar_nota_pagamento.php" method="post">
+                    <form id="form_cadastro" action="pagar_nota_glosa.php" method="post">
                         <input type="hidden" id="id_nota_pg" name="id_nota"/>
                         <input type="hidden" id="id_usuario_pg" name="id_usuario"/>
                         <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
