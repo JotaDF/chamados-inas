@@ -229,7 +229,7 @@ and open the template in the editor.
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
-                                    <form id="form_cadastro" action="save_glosas_prestador.php" method="post">
+                                    <form id="form_cadastro" action="save_glosas_prestador.php" method="post" onsubmit="return verificaInformativoExiste(<?=$prestador->id ?>)">
                                         <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
@@ -357,7 +357,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'>".$n->status."</td>";
+                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b></td>";
                                                         $out_notas .= "  <td align='center'>".$btn_nova_info . $txt_btns."</td>";
                                                         
 
