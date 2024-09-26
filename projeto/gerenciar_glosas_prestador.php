@@ -453,7 +453,7 @@ and open the template in the editor.
                                                     }
                                                     
                                                     echo "  </td>";
-                                                    echo "<td> R$ ".number_format(($valor_original - $soma_valor_info_total), 2, ',', '.')." </td>";
+                                                    echo "<td><b> R$ ".number_format(($valor_original - $soma_valor_info_total), 2, ',', '.')."</b> </td>";
                                                     echo "</tr>";
 
                                                 }
