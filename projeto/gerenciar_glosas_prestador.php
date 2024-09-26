@@ -279,19 +279,19 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                         <th scope="col">ID</th>
-                                            <th scope="col" style="width: 20px;">CARTA RECURSADA</th>          
+                                            <th scope="col" style="width: 20px;">INFORMATIVO DE ORIGEM</th>          
                                             <th scope="col">VALOR</th> 
                                             <th scope="col">OPÇÕES</th>
                                             <th scope="col" class="text-center">NOTAS GLOSAS</th>
                                             <th scope="col" style="width: 100px;" class="text-center">TOTAL DEFERIDO</th>
-                                            <th scope="col" style="width: 110px;" class="text-center">DEFERIDO X GLOSA A ÉPOCA</th>
+                                            <th scope="col" style="width: 110px;" class="text-center">SALDO REMANECENTE</th>
                                         </tr>
                                     </thead>
                                     <tbody id="opcoes">
                                     <?php
                                             $valor_original = 0;
                                             foreach ($cartas_recursadas as $obj) {
-                                                $soma_valor_info = 0;
+                                                $soma_valor_info_total = 0;
                                                 $vlo = str_replace("R$","",$obj->valor_original);
                                                 $vlo= str_replace(" ","",$vlo); 
                                                 $vlo= str_replace(".","",$vlo);
@@ -319,6 +319,12 @@ and open the template in the editor.
                                                     $tem_nota = false;
                                                     $out_notas = "";
                                                     foreach ($notas as $n) {
+                                                        $vln = str_replace("R$","",$n->valor);
+                                                        $vln= str_replace(" ","",$vln); 
+                                                        $vln= str_replace(".","",$vln);
+                                                        $vln= str_replace(",",".",$vln); 
+                                                        
+
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInfo(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
@@ -384,7 +390,7 @@ and open the template in the editor.
                                                             $out_notas .= '<table id="notas" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th scope="col">INFORMATIVA</th>
+                                                                        <th scope="col">INFORMATIVO</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
                                                                     </tr>
@@ -394,6 +400,9 @@ and open the template in the editor.
                                                                 $out_notas .= $out_info;
                                                                 $out_notas .= "</table>";
                                                                 $out_notas .= "  </td>";
+                                                                $soma_valor_info_total += $soma_valor_info;
+                                                                $out_notas .="<td> R$ ".number_format($soma_valor_info, 2, ',', '.')." </td>";
+                                                                $out_notas .="<td> R$ ".number_format(($vln - $soma_valor_info), 2, ',', '.')." </td>";
                                                         }
 
                                                         $out_notas .= "</tr>";
@@ -414,6 +423,9 @@ and open the template in the editor.
                                                                 $out_notas .= $out_def;
                                                                 $out_notas .= "</table>";
                                                                 $out_notas .= "  </td>";
+                                                                $soma_valor_info_total += $soma_valor_info;
+                                                                $out_notas .="<td> R$ ".number_format($soma_valor_info, 2, ',', '.')." </td>";
+                                                                $out_notas .="<td> R$ ".number_format(($vln - $soma_valor_info), 2, ',', '.')." </td>";
                                                     }
                                                     $out_def .= "</tr>";
                                                 }
@@ -430,6 +442,8 @@ and open the template in the editor.
                                                                     <th scope="col">STATUS</th>
                                                                     <th scope="col">OPÇÕES</th>
                                                                     <th scope="col" class="text-center">INFORMATIVOS</th>
+                                                                    <th scope="col">TOTAL DEFERIDO</th>
+                                                                    <th scope="col">SALDO NOTA</th>
                                                                 </tr>
                                                             </thead>
                                         
@@ -440,8 +454,7 @@ and open the template in the editor.
                                                     }
                                                     
                                                     echo "  </td>";
-                                                    echo "<td> R$ ".number_format($soma_valor_info, 2, ',', '.')." </td>";
-                                                    echo "<td> R$ ".number_format(($valor_original - $soma_valor_info), 2, ',', '.')." </td>";
+                                                    echo "<td> R$ ".number_format(($valor_original - $soma_valor_info_total), 2, ',', '.')." </td>";
                                                     echo "</tr>";
 
                                                 }
