@@ -242,7 +242,7 @@ and open the template in the editor.
                                         <div class="form-group row ml-1">
                                             <label for="valor_original" class="col-sm-2 col-form-label">Valor Original:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" id="valor_original" name="valor_original" class="form-control form-control-sm" required />
+                                                <input type="text" id="valor_original" onInput="mascaraMoeda(event);" placeholder="R$ 0,00" name="valor_original" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
 
