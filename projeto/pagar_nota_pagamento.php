@@ -10,10 +10,11 @@ $db_auditoria = new ManterAuditoria();
 $id_usuario = $_REQUEST['id_usuario'];
 $id = $_REQUEST['id_nota'];
 $id_prestador = $_REQUEST['id_prestador'];
-$data = isset($_POST['data_pagamento']) ? new Date($_POST['data_pagamento']) : '';
+$data = isset($_POST['data_pagamento']) ? new DateTime($_POST['data_pagamento']) : '';
 $data_pagamento = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
+
 if ($id > 0) {
-    $db_nota_pagamento->pagar($id);
+    $db_nota_pagamento->pagar($id, $data_pagamento);
     //Auditando processo
     $a = new Auditoria();
     $a->acao = "Pagar Nota!";
