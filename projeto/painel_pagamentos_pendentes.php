@@ -169,7 +169,7 @@ and open the template in the editor.
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
-                    <?php // include './top_bar.php'; ?>
+                    <?php  include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
                     include_once('actions/ManterNotaGlosa.php');
@@ -223,11 +223,11 @@ and open the template in the editor.
                                     <tbody id="prestadores">
                                     <?php
                                             $valor_original = 0;
-                                            foreach ($prestadores as $prestador) {
-                                                $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($prestador->id);
-                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($prestador->id);
+                                            $out_notas = "";
+                                            foreach ($prestadores as $p) {
+                                                $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
+                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
 
-                                                $out_notas = "";
                                                 foreach ($notas_pagamento as $np) {
                                                     $vln = str_replace("R$","",$np->valor);
                                                     $vln= str_replace(" ","",$vln); 
@@ -235,19 +235,19 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
-                                                    $out_notas .= "  <td>".$prestador->cnpj."</td>";
-                                                    $out_notas .= "  <td>".$prestador->razao_social."</td>";
+                                                    $out_notas .= "  <td>".$p->cnpj."</td>";
+                                                    $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
                                                     $out_notas .= "  <td>".$np->valor."</td>";
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->emissao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->validacao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->validacao))."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td> - </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
-                                                    $dias = $hoje - strtotime('+30 days', $np->validacao);
+                                                    $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
                                                     $out_notas .= "  <td>".$dias."</td>";
                                                     $txt_situacao = "NO PRAZO";
                                                     if($dias > 0){
@@ -263,19 +263,19 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
-                                                    $out_notas .= "  <td>".$prestador->cnpj."</td>";
-                                                    $out_notas .= "  <td>".$prestador->razao_social."</td>";
+                                                    $out_notas .= "  <td>".$p->cnpj."</td>";
+                                                    $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
                                                     $out_notas .= "  <td>".$np->valor."</td>";
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->emissao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->validacao))."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td> - </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
-                                                    $dias = $hoje - strtotime('+30 days', $np->validacao);
+                                                    $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
                                                     $out_notas .= "  <td>".$dias."</td>";
                                                     $txt_situacao = "NO PRAZO";
                                                     if($dias > 0){
@@ -292,7 +292,6 @@ and open the template in the editor.
                                 </table>
                             </div>
                         </div>
-                    </div>
                     <!-- End of Main Content -->
 
                 </div>
