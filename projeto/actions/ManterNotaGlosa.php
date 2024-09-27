@@ -120,7 +120,7 @@ Class ManterNotaGlosa extends Model {
         return $resultado;
     }
     function getPagamentosPentendesPrestador($id_prestador) {
-        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.id_recurso_glosa
+        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.status, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.id_recurso_glosa
                 FROM nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
                 WHERE ng.id_recurso_glosa=crg.id 
                 AND crg.id_fiscal_prestador = fp.id
