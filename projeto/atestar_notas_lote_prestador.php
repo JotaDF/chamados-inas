@@ -9,8 +9,7 @@ $db_nota_glosa = new ManterNotaGlosa();
 $dados = $_REQUEST['atesto'];
 $id_prestador = $_REQUEST['id_prestador'];
 
-$dados[] = $_REQUEST['atesto'];
-
+$dados = $_REQUEST['atesto'];
 foreach($dados as $dado){
     $reg = explode("#", $dado);
     if ($reg[0] == "np") {

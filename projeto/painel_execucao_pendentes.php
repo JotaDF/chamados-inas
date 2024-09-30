@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Painel de ececução pendentes</title>
+        <title>Painel de execuções pendentes</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -197,7 +197,7 @@ and open the template in the editor.
                                     <i class="fa fa-check-square fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Execuções pendentes</span>
                                 </div>
                             </div>                            
 
@@ -212,7 +212,6 @@ and open the template in the editor.
                                             <th scope="col">EXERCÍCIO</th> 
                                             <th scope="col">EMISSÃO</th>
                                             <th scope="col">VALIDAÇÃO</th>
-                                            <th scope="col">ATESTO</th>
                                             <th scope="col">LIMITI PG</th>
                                             <th scope="col">STATUS</th>
                                             <th scope="col">TIPO</th>
@@ -242,7 +241,6 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
@@ -270,7 +268,6 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
