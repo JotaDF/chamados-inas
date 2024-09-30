@@ -211,10 +211,12 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
                                 </div>
                                 <div class="col text-right text-white" style="max-width:30%">
-                                    <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">
+                                <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas 
+                                &nbsp;&nbsp;    
+                                <button id="btn_cadastrar" class="btn btn-sm btn-primary text-white border" type="submit">
                                         <i class="fa fa-check-square text-white" aria-hidden="true"></i> Atestar
-                                    </button>&nbsp;&nbsp;
-                                    <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas
+                                    </button>
+                                    
                                 </div>
                             </div>                            
 
@@ -259,7 +261,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td><input type='checkbox' value='np#".$np->id."' name='atesto[]' class='cb-element'></td>";
+                                                    $out_notas .= "  <td><input type='checkbox' value='np#".$np->id."#".$usuario_logado->id."' name='atesto[]' class='cb-element'></td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
@@ -287,7 +289,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td><input type='checkbox' value='ng#".$np->id."' name='atesto[]' class='cb-element'></td>";
+                                                    $out_notas .= "  <td><input type='checkbox' value='ng#".$np->id."#".$usuario_logado->id."' name='atesto[]' class='cb-element'></td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
