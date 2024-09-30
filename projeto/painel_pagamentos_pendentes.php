@@ -191,13 +191,13 @@ and open the template in the editor.
                         ?>
 
                         
-                        <div class="card mb-4 border-primary" style="max-width:1500px">
+                        <div class="card mb-4 ml-2 border-primary" style="max-width:1500px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-credit-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos de glosas cadastrados</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos pendentes</span>
                                 </div>
                             </div>                            
 
@@ -215,7 +215,7 @@ and open the template in the editor.
                                             <th scope="col">ATESTO</th>
                                             <th scope="col">LIMITI PG</th>
                                             <th scope="col">STATUS</th>
-                                            <th scope="col">SALDO À PG</th>
+                                            <th scope="col">TIPO</th>
                                             <th scope="col">ATRASO</th>
                                             <th scope="col">SITUAÇÃO</th>
                                         </tr>
@@ -245,7 +245,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
-                                                    $out_notas .= "  <td> - </td>";
+                                                    $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
                                                     $out_notas .= "  <td>".$dias."</td>";
@@ -273,7 +273,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
-                                                    $out_notas .= "  <td> - </td>";
+                                                    $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
                                                     $out_notas .= "  <td>".$dias."</td>";
