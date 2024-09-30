@@ -42,6 +42,17 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             var duplicado = 0;
             $(document).ready(function () {
+                $("#checkall").click(function () {
+                    $(".cb-element").prop("checked", this.checked);
+                });
+
+                $('.cb-element').click(function () {
+                    if ($('.cb-element:checked').length == $('.cb-element').length) {
+                        $('#checkall').prop('checked', true);
+                    } else {
+                        $('#checkall').prop('checked', false);
+                    }
+                });
             });
             function excluir(id_prestador,id, informativo, competencia, usuario) {
                 $('#delete').attr('href', 'remover_glosa_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
@@ -190,7 +201,7 @@ and open the template in the editor.
                         }
                         ?>
 
-                        
+                        <form id="form_atestos" action="atestar_notas_lote_prestador.php" method="post">
                         <div class="card mb-4 ml-2 border-primary" style="max-width:1500px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
@@ -198,6 +209,12 @@ and open the template in the editor.
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
+                                </div>
+                                <div class="col text-right" style="max-width:30%">
+                                    <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">
+                                        <i class="fas fa-save text-white" aria-hidden="true"></i> Salvar
+                                    </button>&nbsp;&nbsp;
+                                    <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas
                                 </div>
                             </div>                            
 
@@ -242,7 +259,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
+                                                    $out_notas .= "  <td><input type='checkbox' value='np#".$np->id."' name='atesto[]' class='cb-element'></td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
@@ -270,7 +287,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
+                                                    $out_notas .= "  <td><input type='checkbox' value='ng#".$np->id."' name='atesto[]' class='cb-element'></td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
@@ -292,6 +309,7 @@ and open the template in the editor.
                                 </table>
                             </div>
                         </div>
+                        </form>
                     <!-- End of Main Content -->
 
                 </div>
