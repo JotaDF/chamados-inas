@@ -40,14 +40,20 @@
                     <span>Prestadores</span>
                 </a>
             </li>
-              <!-- Nav Item - Pages Collapse Menu -->
-              <li class="nav-item">
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="painel_pagamentos_pendentes.php">
                     <i class="fa fa-th-large"></i>
                     <span>Pagamentos Pendentes</span>
                 </a>
             </li>
-            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="painel_atestos_pendentes.php">
+                    <i class="fa fa-th-large"></i>
+                    <span>Atestos Pendentes</span>
+                </a>
+            </li>            
         <?php
     }
 
