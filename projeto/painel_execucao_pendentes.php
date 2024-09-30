@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Painel de pagamentos pendentes</title>
+        <title>Painel de ececução pendentes</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -194,10 +194,10 @@ and open the template in the editor.
                         <div class="card mb-4 ml-2 border-primary" style="max-width:1500px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-credit-card fa-2x text-white"></i> 
+                                    <i class="fa fa-check-square fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Pagamentos pendentes</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
                                 </div>
                             </div>                            
 
@@ -225,8 +225,8 @@ and open the template in the editor.
                                             $valor_original = 0;
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
-                                                $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
-                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
+                                                $notas_pagamento = $manterNotaPagamento->getExecucaoPentendesPrestador($p->id);
+                                                $notas_glosa = $manterNotaGlosa->getExecucaoPentendesPrestador($p->id);
 
                                                 foreach ($notas_pagamento as $np) {
                                                     $vln = str_replace("R$","",$np->valor);

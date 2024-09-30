@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Usuários - Gerenciador de acessos</title>
+        <title>Painel de atestos pendentes</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

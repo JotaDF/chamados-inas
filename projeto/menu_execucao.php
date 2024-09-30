@@ -42,18 +42,26 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="painel_pagamentos_pendentes.php">
-                    <i class="fa fa-credit-card"></i>
-                    <span>Pagamentos Pendentes</span>
+                <a class="nav-link collapsed" href="painel_execucao_pendentes.php">
+                    <i class="fa fa-check-square"></i>
+                    <span>Execução Pendentes</span>
                 </a>
-            </li>
+            </li> 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="painel_atestos_pendentes.php">
                     <i class="fa fa-check-square"></i>
                     <span>Atestos Pendentes</span>
                 </a>
-            </li>            
+            </li>                         
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="painel_pagamentos_pendentes.php">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Pagamentos Pendentes</span>
+                </a>
+            </li>
+           
         <?php
     }
 

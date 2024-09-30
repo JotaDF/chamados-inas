@@ -125,6 +125,7 @@ Class ManterNotaGlosa extends Model {
                 WHERE ng.id_recurso_glosa=crg.id 
                 AND crg.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
+                AND ng.data_atesto is not null
                 AND ng.data_pagamento is null";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -159,6 +160,38 @@ Class ManterNotaGlosa extends Model {
                 AND fp.id_prestador = ".$id_prestador." 
                 AND ng.data_executado is not null
                 AND ng.data_atesto is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchrow()) {
+            $dados = new NotaGlosa();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                  = $registro["id"];
+            $dados->numero              = $registro["numero"];
+            $dados->lote                = $registro["lote"];
+            $dados->valor               = $registro["valor"];
+            $dados->exercicio           = $registro["exercicio"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
+            $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
+
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function getExecucaoPentendesPrestador($id_prestador) {
+        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.status, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.id_recurso_glosa
+                FROM nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
+                WHERE ng.id_recurso_glosa=crg.id 
+                AND crg.id_fiscal_prestador = fp.id
+                AND fp.id_prestador = ".$id_prestador." 
+                AND ng.data_executado is null";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {

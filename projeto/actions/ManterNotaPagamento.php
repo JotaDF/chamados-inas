@@ -114,6 +114,7 @@ class ManterNotaPagamento extends Model {
                 WHERE np.id_pagamento=p.id 
                 AND p.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
+                AND np.data_atesto is not null
                 AND np.data_pagamento is null";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -171,6 +172,36 @@ class ManterNotaPagamento extends Model {
         }
         return $array_dados;
     }
+    function getExecucaoPentendesPrestador($id_prestador) {
+        $sql = "SELECT np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, np.data_pagamento, np.id_pagamento
+                FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp 
+                WHERE np.id_pagamento=p.id 
+                AND p.id_fiscal_prestador = fp.id
+                AND fp.id_prestador = ".$id_prestador."
+                AND np.data_executado is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new NotaPagamento();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id              = $registro["id"];
+            $dados->numero          = $registro["numero"];
+            $dados->valor           = $registro["valor"];
+            $dados->exercicio       = $registro["exercicio"];
+            $dados->data_emissao    = $registro["data_emissao"];
+            $dados->data_validacao  = $registro["data_validacao"];
+            $dados->data_executado  = $registro["data_executado"];
+            $dados->data_atesto     = $registro["data_atesto"];
+            $dados->data_pagamento  = $registro["data_pagamento"];
+            $dados->id_pagamento    = $registro["id_pagamento"];
+            $dados->status = $registro["status"];
 
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
 }
 
