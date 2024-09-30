@@ -210,9 +210,9 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
                                 </div>
-                                <div class="col text-right" style="max-width:30%">
+                                <div class="col text-right text-white" style="max-width:30%">
                                     <button id="btn_cadastrar" class="btn btn-sm text-white border" type="submit">
-                                        <i class="fas fa-save text-white" aria-hidden="true"></i> Salvar
+                                        <i class="fa fa-check-square text-white" aria-hidden="true"></i> Atestar
                                     </button>&nbsp;&nbsp;
                                     <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas
                                 </div>
