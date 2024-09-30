@@ -225,8 +225,8 @@ and open the template in the editor.
                                             $valor_original = 0;
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
-                                                $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
-                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
+                                                $notas_pagamento = $manterNotaPagamento->getAtestosPentendesPrestador($p->id);
+                                                $notas_glosa = $manterNotaGlosa->getAtestosPentendesPrestador($p->id);
 
                                                 foreach ($notas_pagamento as $np) {
                                                     $vln = str_replace("R$","",$np->valor);
