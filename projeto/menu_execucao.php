@@ -82,6 +82,13 @@
                     <span>Meus Prestadores</span>
                 </a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="painel_minha_execucao_pendentes.php">
+                    <i class="fa fa-check-square"></i>
+                    <span>Execução Pendentes</span>
+                </a>
+            </li>
             <?php
         }
         ?>

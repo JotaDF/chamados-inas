@@ -10,6 +10,11 @@ $db_auditoria = new ManterAuditoria();
 $id_usuario = $_REQUEST['id_usuario'];
 $id = $_REQUEST['id'];
 $id_prestador = $_REQUEST['id_prestador'];
+$painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
+$url = 'gerenciar_pagamentos_prestador.php?id='.$id_prestador;
+if($painel > 0){
+    $url = 'painel_minha_execucao_pendentes.php';
+}
 if ($id > 0) {
     $db_nota_pagamento->executar($id);
     //Auditando processo
@@ -20,8 +25,8 @@ if ($id > 0) {
     $a->autor = $id_usuario;
     $db_auditoria->salvar($a);
 
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 }
