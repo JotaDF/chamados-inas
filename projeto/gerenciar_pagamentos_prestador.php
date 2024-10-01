@@ -304,12 +304,12 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->numero."</td>";
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
-                                                        
-                                                        
+                                                                                                                
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
+                                                        $txt_btns = " - ";
                                                         if($editar){
                                                             $txt_btns = "";
                                                             $txt_status = "";
@@ -331,12 +331,10 @@ and open the template in the editor.
                                                                     $txt_btns = " - ";
                                                                     break;
                                                             }
-                                                            $out_notas .= "  <td><b>".$n->status."</b></td>";
-                                                            $out_notas .= "  <td align='center'>".$txt_btns."</td>";
-                                                        } else {
-                                                            $out_notas .= "  <td> - </td>";
+                                                            
                                                         }
-                                                        
+                                                        $out_notas .= "  <td><b>".$n->status."</b></td>";
+                                                        $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         $out_notas .= "</tr>";
                                                     }
                                                     if ($tem_nota) {
