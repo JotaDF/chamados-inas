@@ -18,9 +18,7 @@
 
             $opcoes = "  <td align='center'> - </td>";
             if($usuario_logado->perfil >= 2){
-                if($obj->editor){
-                    $opcoes = '  <td align="center" valign="bottom" class="align-middle nowrap"><a href="gerenciar_pagamentos_prestador.php?id='.$obj->id.'" title="Gerenciar pagamentos prestador" class="btn btn-success btn-sm" type="button">Pag. <i class="fa fa-plus-square"></i></a>&nbsp;&nbsp;<a href="gerenciar_glosas_prestador.php?id='.$obj->id.'" title="Gerenciar pagamentos de recursos de glosas" class="btn btn-danger btn-sm" type="button">Glos. <i class="fa fa-plus-square"></i></a></td>';
-                }
+                $opcoes = '  <td align="center" valign="bottom" class="align-middle nowrap"><a href="gerenciar_pagamentos_prestador.php?id='.$obj->id.'" title="Gerenciar pagamentos prestador" class="btn btn-success btn-sm" type="button">Pag. <i class="fa fa-plus-square"></i></a>&nbsp;&nbsp;<a href="gerenciar_glosas_prestador.php?id='.$obj->id.'" title="Gerenciar pagamentos de recursos de glosas" class="btn btn-danger btn-sm" type="button">Glos. <i class="fa fa-plus-square"></i></a></td>';
             }
             echo $opcoes;
             echo "</tr>";

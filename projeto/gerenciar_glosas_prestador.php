@@ -169,7 +169,7 @@ and open the template in the editor.
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
-                    <?php // include './top_bar.php'; ?>
+                    <?php include './top_bar.php'; ?>
                     <?php
                     include_once ('actions/ManterCartaRecursada.php');
                     include_once('actions/ManterPrestador.php');
@@ -190,10 +190,9 @@ and open the template in the editor.
                         $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
                         $carta_recurso = $manterCartaRecurso->listar();
                         $editar = false;
-        
-                                if ($executor->editor == 1 || $usuario_logado->perfil >= 2) {
-                                    $editar = true;
-                                }
+                        if ($executor->editor == 1 || $usuario_logado->perfil <= 2) {
+                            $editar = true;
+                        }
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
