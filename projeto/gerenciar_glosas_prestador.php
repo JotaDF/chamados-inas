@@ -510,7 +510,11 @@ and open the template in the editor.
                             <div class="form-group">
                             <label for="data_pagamento">Data de pagamento:<span class="text-danger font-weight-bold">*</span></label>
                             <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
-                            </div>     
+                            </div>  
+                            <div class="form-group">
+                                <label for="doc_sei">Doc. SEI:</label>
+                                <input type="text" name="doc_sei" class="form-control form-control-sm" id="doc_sei" required>
+                            </div>   
                         </div>
                     </div>
                     <div class="modal-footer">

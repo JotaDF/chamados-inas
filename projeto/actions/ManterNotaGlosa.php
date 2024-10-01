@@ -114,8 +114,8 @@ Class ManterNotaGlosa extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    function pagar($id, $data) {
-        $sql = "update nota_glosa set data_pagamento=". $data.", status='Pago' where id=" . $id;
+    function pagar($id, $data, $doc_sei) {
+        $sql = "update nota_glosa set data_pagamento=". $data.", doc_sei='".$doc_sei."' status='Pago' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
