@@ -332,6 +332,7 @@ and open the template in the editor.
                                                         $txt_btns = "";
                                                         $txt_status = "";
                                                         if($editar){
+                                                            
                                                             switch ($n->status) {
                                                                 case 'Em análise':
                                                                     $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
@@ -350,6 +351,7 @@ and open the template in the editor.
                                                                     $txt_btns = " - ";
                                                                     break;
                                                             }
+                                                            $txt_btns = $btn_nova_info . $txt_btns;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
@@ -357,7 +359,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
                                                         $out_notas .= "  <td align='center'><b>".$n->status."</b></td>";
-                                                        $out_notas .= "  <td align='center'>".$btn_nova_info . $txt_btns."</td>";
+                                                        $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         
 
                                                         $tem_info = false;
