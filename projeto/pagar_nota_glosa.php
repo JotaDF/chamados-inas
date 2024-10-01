@@ -13,6 +13,13 @@ $id_prestador = $_REQUEST['id_prestador'];
 $doc_sei = $_REQUEST['doc_sei'];
 $data = isset($_POST['data_pagamento']) ? new DateTime($_POST['data_pagamento']) : '';
 $data_glosa = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
+
+$painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
+$url = 'gerenciar_glosas_prestador.php?id='.$id_prestador;
+if($painel > 0){
+    $url = 'painel_meus_pagamentos_pendentes.php';
+}
+
 if ($id > 0) {
     $db_nota_glosa->pagar($id, $data_glosa, $doc_sei);
     //Auditando processo

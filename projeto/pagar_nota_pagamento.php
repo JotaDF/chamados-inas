@@ -14,6 +14,12 @@ $doc_sei = $_REQUEST['doc_sei'];
 $data = isset($_POST['data_pagamento']) ? new DateTime($_POST['data_pagamento']) : '';
 $data_pagamento = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
 
+$painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
+$url = 'gerenciar_glosas_prestador.php?id='.$id_prestador;
+if($painel > 0){
+    $url = 'painel_meus_pagamentos_pendentes.php';
+}
+
 if ($id > 0) {
     $db_nota_pagamento->pagar($id, $data_pagamento, $doc_sei);
     //Auditando processo
@@ -24,8 +30,8 @@ if ($id > 0) {
     $a->autor = $id_usuario;
     $db_auditoria->salvar($a);
 
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 }
