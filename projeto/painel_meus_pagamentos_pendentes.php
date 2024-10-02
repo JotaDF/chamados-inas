@@ -55,7 +55,7 @@ and open the template in the editor.
             }
             function pagarNota(id_prestador,id_nota, numero, valor, exercicio,usuario,tipo) {
                 $url = 'pagar_nota_pagamento.php';
-                if(tipo == "ng"){
+                if(tipo == 1){
                     $url = 'pagar_nota_glosa.php';
                 }
                 $('#form_cadastro').attr('action', $url);
@@ -254,7 +254,7 @@ and open the template in the editor.
                                                     
                                                     $btn_nt_pagar = " - ";
                                                     if($editar){
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",\'np\')'><i class='fa fa-credit-card'></i></button>";
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",0)'><i class='fa fa-credit-card'></i></button>";
                                                     }
                                                     $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
@@ -287,7 +287,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $btn_nt_pagar = " - ";
                                                     if($editar){
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",\'ng\')'><i class='fa fa-credit-card'></i></button>";
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
                                                     }
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
