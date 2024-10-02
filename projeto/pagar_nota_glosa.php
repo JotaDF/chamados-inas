@@ -11,7 +11,7 @@ $id_usuario = $_REQUEST['id_usuario'];
 $id = $_REQUEST['id_nota'];
 $id_prestador = $_REQUEST['id_prestador'];
 $doc_sei = $_REQUEST['doc_sei'];
-$data = isset($_POST['data_pagamento']) ? new DateTime($_POST['data_pagamento']) : '';
+$data = isset($_REQUEST['data_pagamento']) ? new DateTime($_REQUEST['data_pagamento']) : '';
 $data_glosa = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
 
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
@@ -30,8 +30,8 @@ if ($id > 0) {
     $a->autor = $id_usuario;
     $db_auditoria->salvar($a);
 
-    header('Location: gerenciar_glosas_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_glosas_prestador.php?id='.$id_prestador);
+    header('Location: '.$url);
 }

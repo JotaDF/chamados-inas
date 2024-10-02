@@ -16,8 +16,9 @@ Class ManterCartaRecursada extends Model {
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new CartaRecursada;
+            $dados->excluir = true;
             if($registro['dep'] > 0) {
-                $dados->excluir = true;
+                $dados->excluir = false;
             }
                 $dados->id = $registro['id'];
                 $dados->carta_recursada = $registro['carta_recursada'];
@@ -37,8 +38,9 @@ Class ManterCartaRecursada extends Model {
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new CartaRecursada();
+            $dados->excluir = true;
             if($registro['dep'] > 0) {
-                $dados->excluir = true;
+                $dados->excluir = false;
             }
                 $dados->id                  = $registro['id'];
                 $dados->carta_recursada     = $registro['carta_recursada'];

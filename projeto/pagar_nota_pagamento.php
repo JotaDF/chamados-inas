@@ -11,7 +11,7 @@ $id_usuario = $_REQUEST['id_usuario'];
 $id = $_REQUEST['id_nota'];
 $id_prestador = $_REQUEST['id_prestador'];
 $doc_sei = $_REQUEST['doc_sei'];
-$data = isset($_POST['data_pagamento']) ? new DateTime($_POST['data_pagamento']) : '';
+$data = isset($_REQUEST['data_pagamento']) ? new DateTime($_REQUEST['data_pagamento']) : '';
 $data_pagamento = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
 
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
