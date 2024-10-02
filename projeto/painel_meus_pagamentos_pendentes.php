@@ -212,6 +212,7 @@ and open the template in the editor.
                                             <th scope="col">ATESTO</th>
                                             <th scope="col">LIMITI PG</th>
                                             <th scope="col">STATUS</th>
+                                            <th scope="col">PAGAR</th>
                                             <th scope="col">TIPO</th>
                                             <th scope="col">ATRASO</th>
                                             <th scope="col">SITUAÇÃO</th>
@@ -250,6 +251,12 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                    
+                                                    $btn_nt_pagar = " - ";
+                                                    if($editar){
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",\'np\')'><i class='fa fa-credit-card'></i></button>";
+                                                    }
+                                                    $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
@@ -278,6 +285,10 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                    $btn_nt_pagar = " - ";
+                                                    if($editar){
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",\'ng\')'><i class='fa fa-credit-card'></i></button>";
+                                                    }
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
