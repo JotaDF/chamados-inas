@@ -287,7 +287,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
                                                     $btn_nt_pagar = " - ";
                                                     if($editar){
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
                                                     }
                                                     $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
