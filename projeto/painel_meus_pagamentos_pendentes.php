@@ -289,6 +289,7 @@ and open the template in the editor.
                                                     if($editar){
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
                                                     }
+                                                    $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
