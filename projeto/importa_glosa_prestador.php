@@ -184,6 +184,7 @@ foreach ($dados as $reg) {
         $cr->carta_recursada = $carta;
         $cr->valor_original = $valor;
         $cr = $db_cartaRecursada->salvar($cr);
+        echo "Carta Recursada: " . $cr->id ."<hr/><br/>";
     } 
     if($cr->id > 0){
         if($reg[2] != ""){
@@ -199,6 +200,7 @@ foreach ($dados as $reg) {
             $ng->data_validacao     = $data_atual;
 
             $ng = $db_nota_glosa->salvar($ng);
+            echo "Nota Glosa: " . $ng->id ."<br/>";
         }
         if($ng->id > 0){
             $cre = new CartaRecurso();
@@ -206,7 +208,8 @@ foreach ($dados as $reg) {
             $cre->carta_informativo         = $reg[5];
             $cre->exercicio                 = $reg[6];
             $cre->valor_deferido            = $reg[7];
-            $db_carta_recurso->salvar($cre);  
+            $cre = $db_carta_recurso->salvar($cre);  
+            echo "Carta Recurso: " . $cre->id ."<br/>";
         }
     }
 }
