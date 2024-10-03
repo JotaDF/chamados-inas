@@ -66,6 +66,7 @@ and open the template in the editor.
                 $('#txt_valor_original').text(valor_original);
                 $("#msg_nota").html("");
                 $('#form_nota').collapse('show');  
+                $('#numero').focus();
             }
 
            function novaNotaInfo(id_nota_glosa, numero, lote, valor) {
@@ -73,8 +74,9 @@ and open the template in the editor.
                 $('#txt_numero').text(numero);
                 $('#txt_lote').text(lote);
                 $('#txt_valor').text(valor);
-                 $("#msg_nota").html("");
+                $("#msg_nota").html("");
                 $('#form_nota_informativo').collapse('show');
+                $('#carta_informativo').focus();
            }
 
             function verificaNotaExiste(id_prestador) {
