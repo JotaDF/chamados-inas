@@ -88,7 +88,7 @@ Class ManterNotaGlosa extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
-        return $resultado;
+        return $dados;
     }
 
     function excluir($id) {
@@ -115,7 +115,7 @@ Class ManterNotaGlosa extends Model {
         return $resultado;
     }
     function pagar($id, $data, $doc_sei) {
-        $sql = "update nota_glosa set data_pagamento=". $data.", doc_sei='".$doc_sei."' status='Pago' where id=" . $id;
+        $sql = "update nota_glosa set data_pagamento=". $data.", doc_sei='".$doc_sei."', status='Pago' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }

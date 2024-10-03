@@ -1,11 +1,5 @@
 <?php
 
-require_once('./actions/ManterNotaGlosa.php');
-require_once('./actions/ManterAuditoria.php');
-require_once('./dto/Auditoria.php');
-
-$db_nota_glosa = new ManterNotaGlosa();
-
 $dados = array(
     array('1411/2023','R$ 476,83','7','85594','R$ 399,43','5347/2023','2022','R$ 391,07'),
     array('','','188','85639','R$ 68,40','5347/2023','2022','R$ 65,63'),
@@ -161,9 +155,59 @@ $dados = array(
     array('','','6521','163807','R$ 762,80','3299/2024','2024','R$ 0,00'),
     array('','','6431','162599','R$ 858,15','3299/2024','2024','R$ 0,00'),
     array('','','6661','164482','R$ 602,83','3299/2024','2024','R$ 359,07'));
-    
 
+require_once('./actions/ManterCartaRecursada.php');
+require_once('./dto/CartaRecursada.php');
+
+require_once('./actions/ManterNotaGlosa.php');
+require_once('./dto/NotaGlosa.php');
+
+require_once('./actions/ManterCartaRecurso.php');
+require_once('./dto/CartaRecurso.php');
+
+$db_cartaRecursada = new ManterCartaRecursada();
+$db_nota_glosa = new ManterNotaGlosa();
+$db_carta_recurso = new ManterCartaRecurso();
+
+$ng = new NotaGlosa();
+$carta = "";
+$valor = "";
+$cr = new CartaRecursada();
+$ng = new NotaGlosa();
 foreach ($dados as $reg) {
-    print_r($reg);
+    //print_r($reg);
+    if($reg[0] != ""){
+        $cr = new CartaRecursada();
+        $carta = $reg[0];
+        $valor = $reg[1];
+        $cr->id_fiscal_prestador = 1011;
+        $cr->carta_recursada = $carta;
+        $cr->valor_original = $valor;
+        $cr = $db_cartaRecursada->salvar($cr);
+    } 
+    if($cr->id > 0){
+        if($reg[2] != ""){
+            $ng = new NotaGlosa();
+            $ng->numero             = $reg[2];
+            $ng->lote               = $reg[3];
+            $ng->valor              = $reg[4];
+            $ng->id_recurso_glosa   = $cr->id;
+            $ng->exercicio          = $reg[6];
+            $data = new DateTime();
+            $data_atual = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
+            $ng->data_emissao       = $data_atual;
+            $ng->data_validacao     = $data_atual;
+
+            $ng = $db_nota_glosa->salvar($ng);
+        }
+        if($ng->id > 0){
+            $cre = new CartaRecurso();
+            $cre->id_nota_glosa             = $ng->id;
+            $cre->carta_informativo         = $reg[5];
+            $cre->exercicio                 = $reg[6];
+            $cre->valor_deferido            = $reg[7];
+            $db_carta_recurso->salvar($cre);  
+        }
+    }
 }
 

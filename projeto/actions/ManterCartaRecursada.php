@@ -128,7 +128,7 @@ Class ManterCartaRecursada extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id(); 
         }
-        return $resultado;
+        return $dados;
     }
     function excluir($id) {
         $sql = "delete from carta_recursada_glosa where id=" . $id;
