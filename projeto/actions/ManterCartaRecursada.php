@@ -66,7 +66,8 @@ Class ManterCartaRecursada extends Model {
         
     function getNotasGlosaPorCarta($id) {
         $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao,
-                ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status
+                ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status, 
+                (select count(*) from carta_recurso as cr where cr.id_nota_glosa=ng.id ) as dep
                 from nota_glosa as ng where id_recurso_glosa = ".$id;
         
         $resultado = $this->db->Execute($sql);
@@ -75,7 +76,9 @@ Class ManterCartaRecursada extends Model {
         while ($registro = $resultado->fetchRow()) {
             $dados = new NotaGlosa();
             $dados->excluir = true;  // Manter a propriedade excluir como true por padrão, ou remover se não for mais necessária
-
+            if($registro['dep'] > 0) {
+                $dados->excluir = false;
+            }
             // Preenchendo os dados
             $dados->id               = $registro["id"];
             $dados->numero           = $registro["numero"];
