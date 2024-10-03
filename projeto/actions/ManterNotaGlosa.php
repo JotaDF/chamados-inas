@@ -36,6 +36,7 @@ Class ManterNotaGlosa extends Model {
 
             $array_dados[] = $dados;
         }
+        $this->db->close();
         return $array_dados;
     }
     function getNotaGlosaPorId($id) {
@@ -56,6 +57,7 @@ Class ManterNotaGlosa extends Model {
             $dados->status              = $registro["status"];
             $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
         }
+        $this->db->close();
         return $dados;
     }
     function getCartasPorNotaGlosa($id) {
@@ -75,6 +77,7 @@ Class ManterNotaGlosa extends Model {
             $dados->exercicio              = $registro["exercicio"];
             $array_dados[] = $dados;
         }
+        $this->db->close();
         return $array_dados;
     }
     function salvar(NotaGlosa $dados) {
@@ -88,35 +91,41 @@ Class ManterNotaGlosa extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
+        $this->db->close();
         return $dados;
     }
 
     function excluir($id) {
         $sql = "delete from nota_glosa where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        $this->db->close();
         return $resultado;
     }
     function executar($id) {
         $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
         $sql = "update nota_glosa set data_executado=". $timestamp.", status='Executado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        $this->db->close();
         return $resultado;
     }
     function atestar($id) {
         $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
         $sql = "update nota_glosa set data_atesto=". $timestamp.", status='Atestado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        $this->db->close();
         return $resultado;
     }
     function atestarLote($lista) {
         $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
         $sql = "update nota_glosa set data_atesto=". $timestamp.", status='Atestado' where id IN (" . $lista . ")";
         $resultado = $this->db->Execute($sql);
+        $this->db->close();
         return $resultado;
     }
     function pagar($id, $data, $doc_sei) {
         $sql = "update nota_glosa set data_pagamento=". $data.", doc_sei='".$doc_sei."', status='Pago' where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        $this->db->close();
         return $resultado;
     }
     function getPagamentosPentendesPrestador($id_prestador) {
@@ -150,6 +159,7 @@ Class ManterNotaGlosa extends Model {
 
             $array_dados[] = $dados;
         }
+        $this->db->close();
         return $array_dados;
     }
     function getAtestosPentendesPrestador($id_prestador) {
@@ -183,6 +193,7 @@ Class ManterNotaGlosa extends Model {
 
             $array_dados[] = $dados;
         }
+        $this->db->close();
         return $array_dados;
     }
     function getExecucaoPentendesPrestador($id_prestador) {
@@ -215,6 +226,7 @@ Class ManterNotaGlosa extends Model {
 
             $array_dados[] = $dados;
         }
+        $this->db->close();
         return $array_dados;
     }
 }
