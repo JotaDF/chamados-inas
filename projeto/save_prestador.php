@@ -13,6 +13,7 @@ $prestador->nome_fantasia   = addslashes($_POST['nome_fantasia']);
 $prestador->razao_social    = addslashes($_POST['razao_social']);
 $prestador->telefone        = isset($_POST['telefone']) ? $_POST['telefone'] : '';
 $prestador->tipo_prestador  = $_POST['tipo_prestador'];
+$prestador->processo_sei    = isset($_POST['processo_sei']) ? $_POST['processo_sei'] : '';
 $prestador->credenciado     = $_POST['credenciado'];
 $prestador->ativo           = isset($_POST['ativo']) ? $_POST['ativo'] : 1;
 
