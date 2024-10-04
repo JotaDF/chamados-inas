@@ -83,6 +83,20 @@
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed" href="meus_prestadores.php?tp=1">
+                    <i class="fa fa-th-large"></i>
+                    <span>Fiscal</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed" href="meus_prestadores.php?tp=2">
+                    <i class="fa fa-th-large"></i>
+                    <span>Gestor</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="painel_minha_execucao_pendentes.php">
                     <i class="fa fa-check-square"></i>

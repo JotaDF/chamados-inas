@@ -2,6 +2,7 @@
 //Execucao
 $mod = 10;
 require_once('./verifica_login.php');
+$tp = isset($_REQUEST['tp']) ? $_REQUEST['tp'] : 0;
 ?>  
 <!DOCTYPE html>
 <!--
