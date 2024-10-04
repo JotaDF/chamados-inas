@@ -14,7 +14,7 @@ $prestador->razao_social    = addslashes($_POST['razao_social']);
 $prestador->telefone        = isset($_POST['telefone']) ? $_POST['telefone'] : '';
 $prestador->tipo_prestador  = $_POST['tipo_prestador'];
 $prestador->processo_sei    = isset($_POST['processo_sei']) ? $_POST['processo_sei'] : '';
-$prestador->credenciado     = $_POST['credenciado'];
+$prestador->credenciado     = isset($_POST['credenciado']) ? $_POST['credenciado'] : 1;
 $prestador->ativo           = isset($_POST['ativo']) ? $_POST['ativo'] : 1;
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 0;
