@@ -93,12 +93,13 @@ foreach ($listaS as $obj) {
             $('#nome_excluir').text(nome);
             $('#confirm').modal({show: true});
         }
-        function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,id_tipo_prestador) {
+        function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,processo_sei,id_tipo_prestador) {
             $('#id').val(id);
             $('#cnpj').val(cnpj);
             $('#razao_social').val(razao_social);
             $('#nome_fantasia').val(nome_fantasia);
             $('#telefone').val(telefone);
+            ('#processo_sei').val(processo_sei);
             $('#credenciado').val(credenciado);
             if (credenciado == 1) {
                 $('#credenciado').prop('checked', true);

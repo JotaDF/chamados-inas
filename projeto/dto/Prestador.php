@@ -7,6 +7,7 @@
             public $credenciado;
             public $telefone;
             public $ativo;
+            public $processo_sei;
             public $tipo_prestador;
             public $executores = array();
 

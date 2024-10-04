@@ -43,6 +43,12 @@
                     </select>
                 </div>
             </div> 
+            <div class="form-group row">
+                <label for="processo_sei" class="col-sm-2 col-form-label">Processo SEI:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="processo_sei" class="form-control form-control-sm" id="processo_sei" placeholder="00000-00000000/0000-00">
+                </div>
+            </div>
 
             <div class="form-group row">
                 <div class="col-sm-2">Credenciado</div>

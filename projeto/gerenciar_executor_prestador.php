@@ -110,6 +110,10 @@ and open the template in the editor.
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
                                             <div class="mb-0"><?=$manterTipoPrestador->getTipoPrestadorPorId($prestador->tipo_prestador)->tipo ?></div>
                                         </div> 
+                                        <div class="c4 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">PROCESSO SEI:</div>
+                                            <div class="mb-0"><?= $prestador->processo_sei ?></div>
+                                        </div>
                                     </div>
                                     <br/>
                                     <?php
