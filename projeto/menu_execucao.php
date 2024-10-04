@@ -77,14 +77,14 @@
             ?>
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="meus_prestadores.php">
+                <a class="nav-link collapsed mt-2" style="padding: 5px;" href="meus_prestadores.php">
                     <i class="fa fa-th-large"></i>
                     <span>Meus Prestadores</span>
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item ml-3">
-                <a class="nav-link collapsed ml-3"style="padding: 0px;" href="meus_prestadores.php?tp=1">
+                <a class="nav-link collapsed ml-3" style="padding: 0px;" href="meus_prestadores.php?tp=1">
                     <i class="fa fa-search"></i>
                     <span>Fiscal</span>
                 </a>
