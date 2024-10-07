@@ -20,7 +20,7 @@
                 echo "<tr>";
                 echo "  <td>".$obj->id."</td>";
                 echo "  <td>".$obj->cnpj."</td>";
-                echo "  <td>".$obj->nome_fantasia ."</td>";
+                echo "  <td>".$obj->razao_social ."</td>";
                 echo "  <td>".$manterTipoPrestador->getTipoPrestadorPorId($obj->tipo_prestador)->tipo."</td>";
                 echo "  <td>".($obj->ativo > 0 ? 'Sim':'Não')."</td>";
 

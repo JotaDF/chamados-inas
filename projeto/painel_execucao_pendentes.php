@@ -205,7 +205,8 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                        <th scope="col">CNPJ</th>
+                                            <th scope="col">PPROCESSO MÃE</th>
+                                            <th scope="col">CNPJ</th>
                                             <th scope="col">RAZÃO SOCIAL</th>          
                                             <th scope="col">NF</th> 
                                             <th scope="col">VALOR</th>
@@ -234,6 +235,7 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
+                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
@@ -261,6 +263,7 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
+                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";

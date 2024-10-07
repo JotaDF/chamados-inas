@@ -179,18 +179,8 @@ and open the template in the editor.
                     $manterNotaPagamento = new ManterNotaPagamento ();
                     $manterPrestador = new ManterPrestador();   
                     
-                    if ($usuario_logado->perfil >= 2) {
-                        
-                        $prestadores    = $manterPrestador->listar();
-                        $editar = false;
-                        if ($executor->editor == 1 || $usuario_logado->perfil <= 2) {
-                            $editar = true;
-                        }
-                        
-                        }
+                    if ($usuario_logado->perfil >= 2) {                                                                        
                         ?>
-
-                        
                         <div class="card mb-4 ml-2 border-primary" style="max-width:1500px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
@@ -205,7 +195,8 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                        <th scope="col">CNPJ</th>
+                                            <th scope="col">PPROCESSO MÃE</th>
+                                            <th scope="col">CNPJ</th>
                                             <th scope="col">RAZÃO SOCIAL</th>          
                                             <th scope="col">NF</th> 
                                             <th scope="col">VALOR</th>
@@ -222,6 +213,7 @@ and open the template in the editor.
                                     </thead>
                                     <tbody id="prestadores">
                                     <?php
+                                            $prestadores    = $manterPrestador->listar();
                                             $valor_original = 0;
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
@@ -235,6 +227,7 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
+                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
@@ -263,6 +256,7 @@ and open the template in the editor.
                                                     $vln= str_replace(",",".",$vln); 
                                                     
                                                     $out_notas .= "<tr>";
+                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
@@ -292,6 +286,9 @@ and open the template in the editor.
                                 </table>
                             </div>
                         </div>
+                        <?php
+                    }
+                        ?>
                     <!-- End of Main Content -->
 
                 </div>
