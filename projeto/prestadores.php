@@ -99,7 +99,7 @@ foreach ($listaS as $obj) {
             $('#razao_social').val(razao_social);
             $('#nome_fantasia').val(nome_fantasia);
             $('#telefone').val(telefone);
-            ('#processo_sei').val(processo_sei);
+            $('#processo_sei').val(processo_sei);
             $('#credenciado').val(credenciado);
             if (credenciado == 1) {
                 $('#credenciado').prop('checked', true);
@@ -154,7 +154,7 @@ foreach ($listaS as $obj) {
                                         <tr>
                                             <th scope="col" style="width:5%;">ID</th>
                                             <th scope="col" style="width:20%;">CNPJ</th>
-                                            <th scope="col" style="width:35%;">Nome Fantasia</th>
+                                            <th scope="col" style="width:35%;">Razão Social</th>
                                             <th scope="col">Tipo Prestador</th>
                                             <th scope="col">Ativo</th>
                                             <th scope="col" class="align-middle nowrap" style="width:25%;">Opções</th>
