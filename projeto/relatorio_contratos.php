@@ -95,7 +95,7 @@ and open the template in the editor.
             if (count($contratos) > 0) {
                 ?>
 
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos (<?=count($contratos) ?>)</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="thead-dark">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
