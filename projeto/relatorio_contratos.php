@@ -98,10 +98,10 @@ and open the template in the editor.
             <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" scope="col" style="width:100px;"> CNPJ </th>
+                            <th class="header c0 text-nowrap text-center" scope="col" style="width:150px;"> CNPJ </th>
                             <th class="header c1 text-nowrap text-center" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
-                            <th class="header c2 text-nowrap text-center" scope="col"> NÚMERO </th>
-                            <th class="header c3 text-nowrap text-center" scope="col"> ANO </th>
+                            <th class="header c2 text-nowrap text-center" scope="col" style="width:80px;"> NÚMERO </th>
+                            <th class="header c3 text-nowrap text-center" scope="col" style="width:60px;"> ANO </th>
                             <th class="header c3 text-nowrap text-center" scope="col" style="width:30%"> ARQUIVOS </th>
                         </tr>
                         <?php
