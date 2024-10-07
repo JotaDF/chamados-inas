@@ -45,36 +45,8 @@ and open the template in the editor.
             body{
                 font-size: small;
             }
-            .nao-ver{
-                display:none;
-            }
         </style>
-        <script type="text/javascript" class="init">
-            function naover(classe) {
-                $("." + classe).css("display", "none");
-                //$('#btn_editar').toggleClass('fa-lock fa-unlock');
-            }
-            $(document).ready(function () {
-                $("#btnExport").click(function () {
-                    let table = $("#contratos");
-                    TableToExcel.convert(table[0], {// html code may contain multiple tables so here we are refering to 1st table tag
-                        name: 'export.xlsx', // fileName you could use any name
-                        sheet: {
-                            name: 'Sheet 1' // sheetName
-                        }
-                    });
-                });
 
-                $("#btnPDF").click(function () {
-                    savePDF();
-                });
-
-            });
-
-
-
-
-        </script>
     </head>
 
     <body id="page-top">
@@ -95,9 +67,9 @@ and open the template in the editor.
             if (count($contratos) > 0) {
                 ?>
 
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos (<?=count($contratos) ?>)</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h5 class="text-center">Contratos (<?=count($contratos) ?>)</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
-                        <tr class="thead-dark">
+                        <tr class="text-white" style="background-color: #4d78bb;">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
                             <th class="header c1 text-nowrap text-center" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
                             <th class="header c2 text-nowrap text-center" scope="col" style="width:15%;"> CONTRATO </th>
