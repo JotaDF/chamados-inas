@@ -100,9 +100,8 @@ and open the template in the editor.
                         <tr class="thead-dark">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
                             <th class="header c1 text-nowrap text-center" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
-                            <th class="header c2 text-nowrap text-center" scope="col" style="width:10%;"> NÚMERO </th>
-                            <th class="header c3 text-nowrap text-center" scope="col" style="width:10%;"> ANO </th>
-                            <th class="header c3 text-nowrap text-center" scope="col" style="width:35%"> ARQUIVOS </th>
+                            <th class="header c2 text-nowrap text-center" scope="col" style="width:15%;"> CONTRATO </th>
+                            <th class="header c3 text-nowrap text-center" scope="col" style="width:40%"> ARQUIVOS </th>
                         </tr>
                         <?php
                         foreach ($contratos as $obj) {
@@ -110,8 +109,7 @@ and open the template in the editor.
                             <tr class="">
                                 <td class="cell c0 text-dark " ><?= $obj->cnpj ?></td>
                                 <td class="cell c1 text-dark " ><?= $obj->razao_social ?></td>
-                                <td class="cell c2 text-dark " ><?= $obj->numero ?></td>
-                                <td class="cell c2 text-dark " ><?= $obj->ano ?></td>
+                                <td class="cell c2 text-dark " ><?= $obj->numero ?>/<?= $obj->ano ?></td>
                                 <td class="cell c2 text-dark " >
                                     <div class="card-body">
                                         <div class="card-group" id="arquivos_contrato">
