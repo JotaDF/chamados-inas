@@ -98,10 +98,11 @@ and open the template in the editor.
             <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
                     <table class="table table-striped" id="contratos">
                         <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> CNPJ </th>
-                            <th class="header c1 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c1" onclick="naover('c1');" aria-hidden="true" title="Remover coluna"></i> RAZÃO SOCIAL </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c2" onclick="naover('c2');" aria-hidden="true" title="Remover coluna"></i> NÚMERO </th>
-                            <th class="header c3 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c3" onclick="naover('c3');" aria-hidden="true" title="Remover coluna"></i> ANO </th>
+                            <th class="header c0 text-nowrap text-center" style="" scope="col"> CNPJ </th>
+                            <th class="header c1 text-nowrap text-center" style="" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col"> NÚMERO </th>
+                            <th class="header c3 text-nowrap text-center" style="" scope="col"> ANO </th>
+                            <th class="header c3 text-nowrap text-center" style="" scope="col" style="width:30%"> ARQUIVOS </th>
                         </tr>
                         <?php
                         foreach ($contratos as $obj) {
@@ -111,8 +112,31 @@ and open the template in the editor.
                                 <td class="cell c1 text-dark " style=""><?= $obj->razao_social ?></td>
                                 <td class="cell c2 text-dark " style=""><?= $obj->numero ?></td>
                                 <td class="cell c2 text-dark " style=""><?= $obj->ano ?></td>
+                                <td class="cell c2 text-dark " style="">
+                                    <div class="card-body">
+                                        <div class="card-group" id="arquivos_contrato">
+                                            <?php
+                                            $uploadDir = 'contratos/';
+                                            $uploadDir .= $obj->numero;
+                                            $uploadDir .= '_';
+                                            $uploadDir .= $obj->ano;
+                                            $uploadDir .= '/';
+                                            $files = array_diff(scandir($uploadDir), array('.', '..'));
+
+                                            foreach ($files as $file) { ?>
+                                                <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
+                                                        <a href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /></a> <?=str_replace(".pdf","",$file) ?><br/>                                                         
+                                                </div>
+                                        <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>   
+
                             <?php
+                            
                         }
                         ?>
                         </tbody>
