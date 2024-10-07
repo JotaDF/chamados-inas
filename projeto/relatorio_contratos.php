@@ -95,10 +95,10 @@ and open the template in the editor.
             if (count($contratos) > 0) {
                 ?>
 
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Contratos</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" style="" scope="col"> CNPJ </th>
+                            <th class="header c0 text-nowrap text-center" style="" scope="col" style="width:100px;"> CNPJ </th>
                             <th class="header c1 text-nowrap text-center" style="" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col"> NÚMERO </th>
                             <th class="header c3 text-nowrap text-center" style="" scope="col"> ANO </th>
@@ -125,8 +125,8 @@ and open the template in the editor.
 
                                             foreach ($files as $file) { ?>
                                                 <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
-                                                        <a href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /></a> <?=str_replace(".pdf","",$file) ?><br/>                                                         
-                                                </div>
+                                                        <a class="link-dark" href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /> <?=str_replace(".pdf","",$file) ?> </a>                                                      
+                                                </div><br/>
                                         <?php
                                             }
                                             ?>
