@@ -66,18 +66,18 @@ and open the template in the editor.
             <?php
             if (count($contratos) > 0) {
                 ?>
-            <div class="row ml-0" style="width:100%">
+            <div class="row ml-0 mt-3" style="width:100%">
                 <div class="col-sm ml-0" style="max-width:50px;">
-                    <img src="img/logo_oficial.png" />
+                    <img src="img/logo_oficial.png" width="400">
                 </div>
                 <div class="col mb-0">
                      
                 </div>
                 <div class="col text-right" style="max-width:30%">
-                    <img src="img/logogdfsaude.png" />
+                    <img src="img/logogdfsaude.png" width="150">
                 </div>
             </div>
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h5 class="text-center">Contratos (<?=count($contratos) ?>)</h2><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="text-color: #4d78bb;">Contratos</h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="text-white" style="background-color: #4d78bb;">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
