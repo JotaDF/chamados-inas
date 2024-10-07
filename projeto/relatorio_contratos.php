@@ -122,8 +122,8 @@ and open the template in the editor.
                                             $files = array_diff(scandir($uploadDir), array('.', '..'));
 
                                             foreach ($files as $file) { ?>
-                                                <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
-                                                        <a class="link-dark" href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /> <?=str_replace(".pdf","",$file) ?> </a>                                                      
+                                                <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 300px; max-height: 100px;'>
+                                                        <a class="link-dark" href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="40" height="40" /> <?=str_replace(".pdf","",$file) ?> </a>                                                      
                                                 </div><br/>
                                         <?php
                                             }
