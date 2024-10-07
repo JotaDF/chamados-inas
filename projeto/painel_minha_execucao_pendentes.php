@@ -221,7 +221,7 @@ and open the template in the editor.
                                             $valor_original = 0;
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
-
+                                                $executor = $manterPrestador->getExecutorPorId($p->id, $usuario_logado->id);
                                                 $editar = false;
                                                 if ($executor->editor == 1 || $usuario_logado->perfil <= 2) {
                                                     $editar = true;
