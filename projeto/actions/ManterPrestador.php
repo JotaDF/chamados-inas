@@ -189,6 +189,32 @@ class ManterPrestador extends Model {
         }
         return $array_dados;
     }
+    function getContratosPrestadores($id = 0) {
+        //$sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
+        $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id";
+        if($id > 0){
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id=".$id;
+        }
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                = $registro["id"];
+            $dados->cnpj              = $registro["cnpj"];
+            $dados->razao_social      = $registro["razao_social"];
+            $dados->id_contrato       = $registro["id_contrato"];
+            $dados->numero            = $registro["numero"];
+            $dados->ano               = $registro["ano"];
+            $dados->vigente           = $registro["vigente"];
+
+            $array_dados[]      = $dados;
+        }
+        return $array_dados;
+    }
 
 }
 
