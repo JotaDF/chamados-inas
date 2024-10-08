@@ -124,7 +124,7 @@ and open the template in the editor.
                 $.ajax({
                     type: 'post',
                     async: false,
-                    url: 'verifica_informativo_pagamento.php',
+                    url: 'verifica_informativo_glosa.php',
                     data:{
                         'informativo': informativo,
                         'id_prestador': id_prestador
@@ -249,6 +249,7 @@ and open the template in the editor.
                                             <div class="col-sm-10">
                                                 <input type="text" id="valor_original" onInput="mascaraMoeda(event);" placeholder="R$ 0,00" name="valor_original" class="form-control form-control-sm" required />
                                             </div>
+                                            <br/><span id="msg_informativo" class="text-danger font-weight-bold"></span>
                                         </div>
 
                                         <div class="form-group row float-right">

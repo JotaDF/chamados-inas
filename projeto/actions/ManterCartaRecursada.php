@@ -138,6 +138,16 @@ Class ManterCartaRecursada extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function verificaInformativo($id_prestador, $informativo) {
+        $sql = "select cr.id,cr.carta_recursada,cr.valor_original, cr.id_fiscal_prestador FROM carta_recursada_glosa as cr, fiscal_prestador as fp WHERE fp.id=cr.id_fiscal_prestador AND fp.id_prestador=".$id_prestador." AND cr.carta_recursada = '" . $informativo . "'";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $resp = 0;
+        while ($registro = $resultado->fetchRow()) {
+            $resp = 1;
+        }
+        return $resp;
+    }
 }
 
 
