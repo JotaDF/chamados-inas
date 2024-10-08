@@ -110,16 +110,21 @@ and open the template in the editor.
 
             function verificaInformativoExiste(id_prestador) {
                 duplicado = 0;
-                var informativo = $("#informativo").val();
+                var informativo = $("#carta_recursada").val();
                 var resp = getInformativoBloolean(id_prestador, informativo);
                 if (duplicado > 0) {
-                    $("#msg_informativo").html("Este Informativo já existe para este prestador!");
+                    var id_info = informativo.replace("/", "_");
+                    var link = '<a href="#info_'+id_info+'"> <i title="Ir até lá!" class="fa fa-arrow-down"></i></a>';
+                    $('.seta_info').html("");
+                    $("#info_"+id_info).html("<i class='text-danger fa fa-arrow-left'></i>");
+                    $("#msg_informativo").html("Este Informativo já existe para este prestador!" + link);
                     return false;
                 } else {
                     $("#msg_informativo").html("");
                     return true;
                 }
             }
+
             function getInformativoBloolean(id_prestador,informativo) {
                 $.ajax({
                     type: 'post',
@@ -305,7 +310,8 @@ and open the template in the editor.
                                             $notas =  $manterCartaRecursada->getNotasGlosaPorCarta($obj->id);
                                             echo "<tr>";
                                             echo "<td>".$obj->id."</td>";
-                                            echo "<td align='center'>".$obj->carta_recursada."</td>";
+                                            $id_info = str_replace("/","_",$obj->carta_recursada);
+                                            echo "<td align='center'>".$obj->carta_recursada."<span class='seta_info' id='info_".$id_info."'> </span></td>";
                                             echo "<td align='center'>".$obj->valor_original."</td>";
                                             $btn_nova = "<button id='btn_cadastrar' align='center' onclick='novaNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white'  aria-hidden='true'></i>
@@ -337,6 +343,7 @@ and open the template in the editor.
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         }
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
+                                                        $btn_nt_reverter_exec = "<a class='btn btn-success btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
                                                         $txt_btns = "";
@@ -349,7 +356,7 @@ and open the template in the editor.
                                                                     break;
                                                                 case 'Executado':
                                                                     if($usuario_logado->perfil <= 2){
-                                                                        $txt_btns = $btn_nt_atestar;
+                                                                        $txt_btns = $btn_nt_reverter_exec . " " . $btn_nt_atestar;
                                                                     } else {
                                                                         $txt_btns = " - ";
                                                                     }

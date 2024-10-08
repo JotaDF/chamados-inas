@@ -102,6 +102,11 @@ Class ManterNotaGlosa extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function reverterExecucao($id) {
+        $sql = "update nota_glosa set data_executado=null, status='Em análise' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
     function atestar($id) {
         $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
         $sql = "update nota_glosa set data_atesto=". $timestamp.", status='Atestado' where id=" . $id;

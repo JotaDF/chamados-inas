@@ -97,7 +97,7 @@ and open the template in the editor.
                     }
                 });
             }
-
+ 
             function verificaInformativoExiste(id_prestador) {
                 duplicado = 0;
                 var informativo = $("#informativo").val();
@@ -311,6 +311,7 @@ and open the template in the editor.
                                                                                                                 
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
+                                                        $btn_nt_reverter_exec = "<a class='btn btn-success btn-sm' title='Reverter execução!' href='reverter_execucao_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
                                                         $txt_btns = " - ";
@@ -323,7 +324,7 @@ and open the template in the editor.
                                                                     break;
                                                                 case 'Executado':
                                                                     if($usuario_logado->perfil <= 2){
-                                                                        $txt_btns = $btn_nt_atestar;
+                                                                        $txt_btns =  $btn_nt_reverter_exec . " " . $btn_nt_atestar;
                                                                     } else {
                                                                         $txt_btns = " - ";
                                                                     }
