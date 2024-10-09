@@ -66,7 +66,7 @@ Class ManterCartaRecursada extends Model {
         
     function getNotasGlosaPorCarta($id) {
         $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao,
-                ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status, 
+                ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.doc_sei, ng.status, 
                 (select count(*) from carta_recurso as cr where cr.id_nota_glosa=ng.id ) as dep
                 from nota_glosa as ng where id_recurso_glosa = ".$id;
         
@@ -86,6 +86,7 @@ Class ManterCartaRecursada extends Model {
             $dados->valor            = $registro["valor"];
             $dados->id_recurso_glosa = $registro["id_recurso_glosa"];
             $dados->exercicio        = $registro["exercicio"];
+            $dados->doc_sei          = $registro["doc_sei"];
             $dados->data_emissao     = $registro["data_emissao"];
             $dados->data_validacao   = $registro["data_validacao"];
             $dados->data_executado   = $registro["data_executado"];

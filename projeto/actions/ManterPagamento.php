@@ -70,7 +70,7 @@ class ManterPagamento extends Model {
         return $resp;
     }
     function getNotasPorPagamento($id) {
-        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np where np.id_pagamento = ".$id." order by np.id";
+        $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.doc_sei, np.data_emissao, np.data_validacao, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np where np.id_pagamento = ".$id." order by np.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -83,6 +83,7 @@ class ManterPagamento extends Model {
             $dados->numero          = $registro["numero"];
             $dados->valor           = $registro["valor"];
             $dados->exercicio       = $registro["exercicio"];
+            $dados->doc_sei         = $registro["doc_sei"];
             $dados->data_emissao    = $registro["data_emissao"];
             $dados->data_validacao  = $registro["data_validacao"];
             $dados->data_atesto     = $registro["data_atesto"];

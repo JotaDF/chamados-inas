@@ -12,6 +12,7 @@ Class NotaGlosa {
     public $data_executado;
     public $data_atesto;
     public $data_pagamento;
+    public $doc_sei;
     public $status; 
     
     public $excluir;

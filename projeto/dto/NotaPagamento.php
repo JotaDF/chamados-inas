@@ -9,6 +9,7 @@
       public $data_executado;
       public $data_atesto;
       public $data_pagamento;
+      public $doc_sei;
       public $pagamento;
       public $status;
 
