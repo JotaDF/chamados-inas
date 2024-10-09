@@ -65,14 +65,18 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
+                    include_once('actions/ManterNotaGlosa.php');
+                    include_once('actions/ManterNotaPagamento.php');
                     include_once('actions/ManterTipoPrestador.php');
                     include_once('actions/ManterUsuario.php');
                     include_once('actions/ManterOcorrenciaNota.php');
 
                     $manterPrestador = new ManterPrestador();
+                    $manterNotaGlosa = new ManterNotaGlosa();
+                    $manterNotaPagamento = new ManterNotaPagamento();
                     $manterTipoPrestador = new ManterTipoPrestador();
                     $manterUsuario = new ManterUsuario();
-                    $manterOcorrenciaNota = new OcorrenciaNota();
+                    $manterOcorrenciaNota = new ManterOcorrenciaNota();
 
                     if (isset($_REQUEST['id'])) {
                         $id_prestador = $_REQUEST['id_prestador'];   
@@ -84,8 +88,10 @@ and open the template in the editor.
                         
                         if ($tp == 1) {
                             $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaPagamento($id_nota);
+                            $nota = $manterNotaPagamento->getNotaPagamentoPorId($id_nota);
                         } else {
                             $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($id_nota);
+                            $nota = $manterNotaPagamento->getNotaGlosaPorId($id_nota);
                         }
                         ?>
                         <div class="container-fluid">
@@ -118,6 +124,24 @@ and open the template in the editor.
                                         <div class="c4 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PROCESSO SEI:</div>
                                             <div class="mb-0"><?= $prestador->processo_sei ?></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="c1 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">NOTA:</div>
+                                            <div class="mb-0"><?=$nota->numero ?></div>
+                                        </div>
+                                        <div class="c2 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">LOTE:</div>
+                                            <div class="mb-0"><?=$nota->lote ?></div>
+                                        </div> 
+                                        <div class="c3 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">VALOR:</div>
+                                            <div class="mb-0"><?=$nota->valor ?></div>
+                                        </div> 
+                                        <div class="c4 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
+                                            <div class="mb-0"><?= $nota->status ?></div>
                                         </div>
                                     </div>
                                     <br/>
