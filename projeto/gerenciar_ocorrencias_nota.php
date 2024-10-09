@@ -129,7 +129,7 @@ and open the template in the editor.
                                     <div class="row">
                                         </br>
                                     </div>
-                                    <div class="row">
+                                    <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">NOTA:</div>
                                             <div class="mb-0"><?=$nota->numero ?></div>
@@ -144,7 +144,7 @@ and open the template in the editor.
                                         </div> 
                                         <div class="c4 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
-                                            <div class="mb-0"><?= $nota->status ?></div>
+                                            <div class="mb-0"><?=$nota->status ?></div>
                                         </div>
                                     </div>
                                     <br/>
@@ -155,18 +155,19 @@ and open the template in the editor.
                                     <span class="mt-3 ml-2 h6 card-title">Nova ocorrência</span>
                                     <form id="form_cadastro" action="save_ocorrencia_nota.php" method="post">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
-                                        <input type="hidden" id="tp" name="tp" value="1<?=$tp ?>"/>
-                                        <input type="hidden" id="op" name="op" value="1"/>
+                                        <input type="hidden" id="tp" name="tp" value="<?=$tp ?>"/>
+                                        <input type="hidden" id="id" name="id" value=""/>
+                                        <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_nota" name="id_nota" value="<?=$id_nota ?>"/>
                                         <div class="form-group row">
-                                            <label for="sigla" class="col-sm-2 col-form-label">Descrição:</label>
+                                            <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
                                             <div class="col-sm-10">
-                                            <textarea name="id_usuario" class="form-control" size="5" required>                    
+                                            <textarea name="descricao" class="form-control" size="5" required>                    
                                             </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row float-right">
-                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar </button>
+                                            <button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
                                         </div>
                                     </form>   
 
