@@ -1,7 +1,7 @@
 <?php
 
 require_once('Model.php');
-require_once('dto/OcorrenciaNota.php');
+require_once('dto/OcorrenciaNoto.php');
 
 
 class ManterOcorrenciaNota extends Model {
@@ -11,7 +11,7 @@ class ManterOcorrenciaNota extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select on.id, on.descricao,	on.resolvido, on.id_nota_glosa, on.id_nota_pagamento, on.data, on.autor FROM ocorrencia_nota as on $filtro order by a.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o $filtro order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -31,7 +31,7 @@ class ManterOcorrenciaNota extends Model {
     }
     
     function getOcorrenciaNotaPorId($id) {
-        $sql = "select on.id, on.descricao,	on.resolvido, on.id_nota_glosa, on.id_nota_pagamento, on.data, on.autor FROM ocorrencia_nota as on WHERE on.id=$id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new OcorrenciaNota();
@@ -47,7 +47,7 @@ class ManterOcorrenciaNota extends Model {
         return $dados;
     }
     function getOcorrenciasPorIdNotaGlosa($id_nota_glosa) {
-        $sql = "select on.id, on.descricao,	on.resolvido, on.id_nota_glosa, on.id_nota_pagamento, on.data, on.autor FROM ocorrencia_nota as on WHERE on.id_nota_glosa=".$id_nota_glosa." order by a.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_nota_gloso." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -66,7 +66,7 @@ class ManterOcorrenciaNota extends Model {
         return $array_dados;
     }
     function getOcorrenciasPorIdNotaPagamento($id_nota_pagamento) {
-        $sql = "select on.id, on.descricao,	on.resolvido, on.id_nota_glosa, on.id_nota_pagamento, on.data, on.autor FROM ocorrencia_nota as on WHERE on.id_nota_pagamento=".$id_nota_pagamento." order by a.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_pagamento=".$id_nota_pagamento." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
