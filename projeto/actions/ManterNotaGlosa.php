@@ -12,7 +12,7 @@ Class ManterNotaGlosa extends Model {
     }   
 
     function listar() {
-        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.doc_sei, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao (select count(*) from carta_recurso as cr where cr.id_nota_glosa = ng.id) as dep from nota_glosa as ng order by id";
+        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.doc_sei, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao, ng.status, (select count(*) from carta_recurso as cr where cr.id_nota_glosa = ng.id) as dep from nota_glosa as ng order by id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
@@ -40,7 +40,7 @@ Class ManterNotaGlosa extends Model {
         return $array_dados;
     }
     function getNotaGlosaPorId($id) {
-        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.doc_sei, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao from nota_glosa as ng WHERE id=$id";
+        $sql = "SELECT ng.id, ng.numero, ng.lote, ng.valor, ng.doc_sei, ng.id_recurso_glosa, ng.exercicio, ng.data_emissao, ng.data_validacao, ng.status from nota_glosa as ng WHERE id=$id";
         $resultado = $this->db->Execute($sql);
         $dados = new NotaGlosa();
         while ($registro = $resultado->fetchrow()) {   
