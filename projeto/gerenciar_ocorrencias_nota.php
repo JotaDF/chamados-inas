@@ -91,7 +91,7 @@ and open the template in the editor.
                             $nota = $manterNotaPagamento->getNotaPagamentoPorId($id_nota);
                         } else {
                             $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($id_nota);
-                            $nota = $manterNotaPagamento->getNotaGlosaPorId($id_nota);
+                            $nota = $manterNotaGlosa->getNotaGlosaPorId($id_nota);
                         }
                         ?>
                         <div class="container-fluid">
@@ -125,6 +125,9 @@ and open the template in the editor.
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PROCESSO SEI:</div>
                                             <div class="mb-0"><?= $prestador->processo_sei ?></div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        </br>
                                     </div>
                                     <div class="row">
                                         <div class="c1 ml-4">
