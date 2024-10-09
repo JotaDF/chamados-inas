@@ -343,11 +343,12 @@ and open the template in the editor.
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         }
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
-                                                        $btn_nt_reverter_exec = "<a class='btn btn-success btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
+                                                        $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
                                                         $txt_btns = "";
                                                         $txt_status = "";
+                                                        $txt_doc_sei = "";
                                                         if($editar){
                                                             
                                                             switch ($n->status) {
@@ -366,6 +367,7 @@ and open the template in the editor.
                                                                     break;
                                                                 case 'Pago':
                                                                     $txt_btns = " - ";
+                                                                    $txt_doc_sei = "</br>(" . $n->numero . ")";
                                                                     break;
                                                             }
                                                             $txt_btns = $btn_nova_info . $txt_btns;
@@ -375,7 +377,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b></td>";
+                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei.")</td>";
                                                         $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         
 
