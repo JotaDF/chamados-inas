@@ -85,10 +85,12 @@ and open the template in the editor.
                 var txt_ocorrencia = "";
                 var i = 0;
                 for (const ocorrencia of vet_ocorrencias) {
+                    if (ocorrencia != "") {
                     i++;
-                    txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
+                    txt_ocorrencia += i+" - "+ ocorrencia + "<hr/>";
+                    }
                 }
-                if (i > 0) {
+                if (txt_ocorrencia != "") {
                     $("#txt_ocorrencias").html(txt_ocorrencia); 
                 } else {
                     $("#txt_ocorrencias").html("Não existem ocorrências para essa nota!");
