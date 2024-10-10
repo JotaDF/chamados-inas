@@ -20,10 +20,10 @@ $o->autor = $id_usuario;
 $o->descricao = $descricao;
 if ($tp == 1) {
     $o->nota_pagamento = $id_nota;
-    $o->nota_glosa = null;
+    $o->nota_glosa = 0;
 } else {
     $o->nota_glosa = $id_nota;
-    $o->nota_pagamento = null;
+    $o->nota_pagamento = 0;
 }
 $manterOcorrenciaNota->salvar($o);
 header('Location: gerenciar_ocorrencias_nota.php?id_prestador='.$id_prestador.'&id='.$id_nota.'&tp='.$tp);

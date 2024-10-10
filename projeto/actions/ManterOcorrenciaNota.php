@@ -86,8 +86,12 @@ class ManterOcorrenciaNota extends Model {
     }
     function salvar(OcorrenciaNota $dados) {
 
-        $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_glosa,id_nota_pagamento,data,autor)
-                values ('" . $dados->descricao . "',1," . $dados->nota_glosa . "," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
+        $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_pagamento,data,autor)
+                values ('" . $dados->descricao . "',1," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
+        if($dados->nota_glosa > 0){
+            $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_glosa,data,autor)
+                values ('" . $dados->descricao . "',1," . $dados->nota_glosa . ",now()," . $dados->autor . ")";
+        }       
         if ($dados->id > 0) {
             $sql = "update ocorrencia_nota set descricao='" . $dados->descricao . "',data=now(),autor='" . $dados->autor . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
