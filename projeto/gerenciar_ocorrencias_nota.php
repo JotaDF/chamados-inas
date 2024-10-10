@@ -195,11 +195,11 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">DESCRIÇÃO</th>
-                                            <th scope="col">RESOLVIDO</th>
-                                            <th scope="col">ATUALIZAÇÃO</th>
-                                            <th scope="col">OPÇÕES</th> 
+                                            <th scope="col" style="width:10%;">ID</th>
+                                            <th scope="col" style="width:60%;">DESCRIÇÃO</th>
+                                            <th scope="col" style="width:10%;">RESOLVIDO</th>
+                                            <th scope="col" style="width:10%;">ATUALIZAÇÃO</th>
+                                            <th scope="col" style="width:20%;">OPÇÕES</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="fila">
