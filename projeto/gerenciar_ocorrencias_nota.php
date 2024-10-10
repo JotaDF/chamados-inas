@@ -165,7 +165,7 @@ and open the template in the editor.
                                             <textarea name="descricao" class="form-control" size="5" required> </textarea>
                                             </div>
                                         </div>
-                                        <div class="form-group row float-right">
+                                        <div class="form-group row float-right pr-3">
                                             <button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
                                         </div>
                                     </form>   
@@ -195,11 +195,11 @@ and open the template in the editor.
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:10%;">ID</th>
-                                            <th scope="col" style="width:60%;">DESCRIÇÃO</th>
+                                            <th scope="col" style="width:5%;">ID</th>
+                                            <th scope="col" style="width:55%;">DESCRIÇÃO</th>
                                             <th scope="col" style="width:10%;">RESOLVIDO</th>
-                                            <th scope="col" style="width:10%;">ATUALIZAÇÃO</th>
-                                            <th scope="col" style="width:20%;">OPÇÕES</th> 
+                                            <th scope="col" style="width:15%;">ATUALIZAÇÃO</th>
+                                            <th scope="col" style="width:15%;">OPÇÕES</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="fila">
