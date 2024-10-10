@@ -17,7 +17,7 @@
                     $btn_resolver =  "&nbsp;&nbsp;" . $txt_status;
                 }
                 if($obj->resolvido == 0){
-                    echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;<button title='Excluir' class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->descricao."\",".$prestador->id.")'><i class='far fa-trash-alt'></i></button>".$btn_resolver."</td>";
+                    echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;<button title='Excluir' class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$usuario_logado->id.",\"".$obj->descricao."\",".$prestador->id.",".$id_nota.")'><i class='far fa-trash-alt'></i></button>".$btn_resolver."</td>";
                 } else {
                     echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;<button title='Ocorrência já resolvida' class='btn btn-secondary btn-sm' type='button'><i class='far fa-trash-alt'></i></button>".$btn_ativar."</td>";
                 }
