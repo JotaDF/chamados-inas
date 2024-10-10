@@ -79,7 +79,9 @@ and open the template in the editor.
                 $('#carta_informativo').focus();
            }
 
-           function mostrarOcorrencias() {
+           function mostrarOcorrencias(id_nota) {
+                var ocorrencias = $('#ocorrencia_'+id_nota).val();
+                $("#txt_ocorrencias").html(ocorrencias);
                 $('#modal_ocorrencias').modal({show: true});
             }
 
@@ -344,7 +346,16 @@ and open the template in the editor.
                                                         
                                                         $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
                                                         $total_ocorrencias = count($ocorrencias);
-                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias()' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
+                                                        $txt_dados_ocorrencia = "";
+                                                        foreach ($ocorrencias as $o) {
+                                                            if($txt_dados_ocorrencia == ""){
+                                                                $txt_dados_ocorrencia = $o->descricao;
+                                                            } else {
+                                                                $txt_dados_ocorrencia .= "###" .$o->descricao;
+                                                            }
+                                                        }
+                                                        $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
+                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
@@ -379,7 +390,7 @@ and open the template in the editor.
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias;
+                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias . $campo_ocorrencia;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
@@ -588,7 +599,7 @@ and open the template in the editor.
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <span id="txt_ocorrencias"></span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
