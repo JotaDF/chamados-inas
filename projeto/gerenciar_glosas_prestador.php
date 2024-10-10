@@ -79,6 +79,10 @@ and open the template in the editor.
                 $('#carta_informativo').focus();
            }
 
+           function mostraOcorrencias() {
+                $('#modal_ocorrencias').modal({show: true});
+            }
+
             function verificaNotaExiste(id_prestador) {
                 duplicado = 0;
                 var numero = $("#numero").val();
@@ -107,6 +111,7 @@ and open the template in the editor.
                     }
                 });
             }
+
 
             function verificaInformativoExiste(id_prestador) {
                 duplicado = 0;
@@ -335,7 +340,7 @@ and open the template in the editor.
                                                         $vln= str_replace(".","",$vln);
                                                         $vln= str_replace(",",".",$vln); 
                                                         
-
+                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias()' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>0</button>&nbsp;";
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
@@ -367,17 +372,17 @@ and open the template in the editor.
                                                                     break;
                                                                 case 'Pago':
                                                                     $txt_btns = " - ";
-                                                                    $txt_doc_sei = "</br>(" . $n->numero . ")";
+                                                                    $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            $txt_btns = $btn_nova_info . $txt_btns;
+                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei.")</td>";
+                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
                                                         $out_notas .= "  <td align='center'>".$txt_btns."</td>";
                                                         
 
@@ -566,6 +571,28 @@ and open the template in the editor.
 
             </div>
         </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_ocorrencias" tabindex="-1" role="dialog" aria-labelledby="TituloModalOcorrencias" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalOcorrencias">Ocorrências Nota</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Editar ocorrências</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     </body>
 
