@@ -243,6 +243,7 @@ and open the template in the editor.
             const c_descricao = ''
             const c_id_prestador = <?=$prestador->id ?>;
             const c_id_nota = <?=$id_nota ?>;
+            const c_tp = <?=$tp ?>;
             $(document).ready(function () {
             });
             function excluir(id,id_usuario, descricao, id_prestador,id_nota) {
@@ -256,7 +257,7 @@ and open the template in the editor.
                 $('#descricao').val(descricao);
                 $('#id_usuario').val(id_usuario);
                 $('#id_nota').val(id_nota);
-                $('#tp').val(2);
+                $('#tp').val(c_tp);
             }
             function resetForm(){
                 $('#id').val('');
@@ -264,7 +265,7 @@ and open the template in the editor.
                 $('#descricao').val(c_descricao);
                 $('#id_usuario').val(c_id_usuario);
                 $('#id_nota').val(c_id_nota);
-                $('#tp').val(1);
+                $('#tp').val(c_tp);
             }
         </script>
     </body>
