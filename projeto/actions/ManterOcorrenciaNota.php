@@ -87,10 +87,10 @@ class ManterOcorrenciaNota extends Model {
     function salvar(OcorrenciaNota $dados) {
 
         $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_pagamento,data,autor)
-                values ('" . $dados->descricao . "',1," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
+                values ('" . $dados->descricao . "',0," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
         if($dados->nota_glosa > 0){
             $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_glosa,data,autor)
-                values ('" . $dados->descricao . "',1," . $dados->nota_glosa . ",now()," . $dados->autor . ")";
+                values ('" . $dados->descricao . "',0," . $dados->nota_glosa . ",now()," . $dados->autor . ")";
         }       
         if ($dados->id > 0) {
             $sql = "update ocorrencia_nota set descricao='" . $dados->descricao . "',data=now(),autor='" . $dados->autor . "' where id=$dados->id";
@@ -106,6 +106,16 @@ class ManterOcorrenciaNota extends Model {
 
     function excluir($id) {
         $sql = "delete from ocorrencia_nota where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function resolver($id) {
+        $sql = "update ocorrencia_nota set resolvido = 1 where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function desresolver($id_prestador, $id_usuario) {
+        $sql = "update fiscal_prestador set ativo = 0 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
