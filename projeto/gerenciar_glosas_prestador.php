@@ -398,7 +398,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
                                                         $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
-                                                        $out_notas .= "  <td align='center'>".$txt_btns . $campo_ocorrencia."</td>";
+                                                        $out_notas .= "  <td align='center'>".$txt_btns . $campo_ocorrencias."</td>";
                                                         
 
                                                         $tem_info = false;
