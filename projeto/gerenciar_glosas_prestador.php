@@ -82,9 +82,11 @@ and open the template in the editor.
            function mostrarOcorrencias(id_nota) {
                 var ocorrencias = $('#ocorrencia_'+id_nota).val();
                 const vet_ocorrencias = ocorrencias.split("###");
-                var txt_ocorrencia = "<h5>Ocorrências</h5><br/>";
+                var txt_ocorrencia = "";
+                var i = 1;
                 for (const ocorrencia of vet_ocorrencias) {
-                    txt_ocorrencia += "<br/>"+ocorrencia;
+                    txt_ocorrencia += i+" - "ocorrencia + "<hr/>";
+                    i++;
                 }
                 $("#txt_ocorrencias").html(txt_ocorrencia);
                 $('#modal_ocorrencias').modal({show: true});
