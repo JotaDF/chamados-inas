@@ -390,7 +390,7 @@ and open the template in the editor.
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias . $campo_ocorrencia;
+                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias ;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
@@ -398,7 +398,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
                                                         $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
-                                                        $out_notas .= "  <td align='center'>".$txt_btns."</td>";
+                                                        $out_notas .= "  <td align='center'>".$txt_btns . $campo_ocorrencia."</td>";
                                                         
 
                                                         $tem_info = false;
