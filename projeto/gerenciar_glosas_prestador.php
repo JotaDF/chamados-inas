@@ -79,7 +79,7 @@ and open the template in the editor.
                 $('#carta_informativo').focus();
            }
 
-           function mostrarOcorrencias(id_nota) {
+           function mostrarOcorrencias(id_nota,id_prestador) {
                 var ocorrencias = $('#ocorrencia_'+id_nota).val();
                 const vet_ocorrencias = ocorrencias.split("###");
                 var txt_ocorrencia = "";
@@ -88,7 +88,8 @@ and open the template in the editor.
                     txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
                     i++;
                 }
-                $("#txt_ocorrencias").html(txt_ocorrencia);
+                $("#txt_ocorrencias").html(txt_ocorrencia);                
+                $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?id_prestador='+id_prestador+'&id='+id_nota+'&tp=2');
                 $('#modal_ocorrencias').modal({show: true});
             }
 
@@ -362,7 +363,7 @@ and open the template in the editor.
                                                             }
                                                         }
                                                         $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
-                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
+                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
@@ -610,7 +611,7 @@ and open the template in the editor.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Editar ocorrências</button>
+        <a id="link_ocorrencia" href="" class="btn btn-primary">Editar ocorrências</button>
       </div>
     </div>
   </div>
