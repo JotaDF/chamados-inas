@@ -611,7 +611,7 @@ and open the template in the editor.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <a id="link_ocorrencia" href="" class="btn btn-primary">Editar ocorrências</button>
+        <a id="link_ocorrencia" href="" class="btn btn-primary">Editar ocorrências</a>
       </div>
     </div>
   </div>
