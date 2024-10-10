@@ -79,7 +79,7 @@ and open the template in the editor.
                 $('#carta_informativo').focus();
            }
 
-           function mostraOcorrencias() {
+           function mostrarOcorrencias() {
                 $('#modal_ocorrencias').modal({show: true});
             }
 
@@ -188,12 +188,14 @@ and open the template in the editor.
                     include_once('actions/ManterTipoPrestador.php');
                     include_once('actions/ManterNotaGlosa.php');
                     include_once('actions/ManterCartaRecurso.php');
+                    include_once('actions/ManterOcorrenciaNota.php');
                     
                     $manterNotaGlosa = new ManterNotaGlosa ();
                     $manterPrestador = new ManterPrestador();
                     $manterTipoPrestador = new ManterTipoPrestador();    
                     $manterCartaRecursada = new ManterCartaRecursada();
                     $manterCartaRecurso = new ManterCartaRecurso();
+                    $manterOcorrenciaNota = new ManterOcorrenciaNota();
                     
                     if (isset($_REQUEST['id'])) {
                         $id_prestador = $_REQUEST['id'];
@@ -340,7 +342,9 @@ and open the template in the editor.
                                                         $vln= str_replace(".","",$vln);
                                                         $vln= str_replace(",",".",$vln); 
                                                         
-                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias()' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>0</button>&nbsp;";
+                                                        $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
+                                                        $total_ocorrencias = count($ocorrencias);
+                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias()' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                         <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
