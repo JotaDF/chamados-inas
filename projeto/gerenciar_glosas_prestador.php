@@ -83,14 +83,16 @@ and open the template in the editor.
                 var ocorrencias = $('#ocorrencia_'+id_nota).val();
                 const vet_ocorrencias = ocorrencias.split("###");
                 var txt_ocorrencia = "";
-                if (vet_ocorrencias.length > 0) {
-                    var i = 0;
-                    for (const ocorrencia of vet_ocorrencias) {
-                        txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
-                        i++;
-                    }
+                var i = 0;
+                for (const ocorrencia of vet_ocorrencias) {
+                    i++;
+                    txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
                 }
-                $("#txt_ocorrencias").html(txt_ocorrencia);                
+                if (i > 0) {
+                    $("#txt_ocorrencias").html(txt_ocorrencia); 
+                } else {
+                    $("#txt_ocorrencias").html("Não existem ocorrências para essa nota!");
+                }
                 $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?id_prestador='+id_prestador+'&id='+id_nota+'&tp=2');
                 $('#modal_ocorrencias').modal({show: true});
             }
