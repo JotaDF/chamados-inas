@@ -96,7 +96,7 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 1200px;">
+                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
@@ -181,10 +181,10 @@ and open the template in the editor.
                         }
                         ?>
 
-                        <div class="card mb-4 border-primary" style="max-width:1200px">
+                        <div class="card mb-4 border-primary" style="max-width:1000px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fas fa-users fa-2x text-white"></i> 
+                                    <i class="fas fa-flag fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Ocorrências da nota</span>
