@@ -153,7 +153,7 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
                                             <div class="col-sm-10">
-                                            <textarea name="descricao" class="form-control" size="5" required> </textarea>
+                                            <textarea name="descricao" id="descricao" class="form-control" size="5" required> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row float-right pr-3">
@@ -260,7 +260,7 @@ and open the template in the editor.
             }
             function resetForm(){
                 $('#id').val('');
-                $('#id_prestado').val(c_id_prestado);
+                $('#id_prestado').val(c_id_prestador);
                 $('#descricao').val(c_descricao);
                 $('#id_usuario').val(c_id_usuario);
                 $('#id_nota').val(c_id_nota);
