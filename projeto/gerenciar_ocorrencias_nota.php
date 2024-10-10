@@ -157,7 +157,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row float-right pr-3">
-                                        <button type="button" onclick="resetForm()" class="btn btn-danger btn-sm pr-3"><i class="fa fa-minus"></i> Limpar </button> <button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
+                                        <button type="button" onclick="resetForm()" class="btn btn-danger btn-sm pr-3"><i class="fa fa-minus"></i> Limpar </button> &nbsp;&nbsp;<button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
                                         </div>
                                     </form>   
 
