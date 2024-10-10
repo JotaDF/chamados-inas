@@ -96,14 +96,14 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 800px;">
+                            <div class="card mb-3 border-primary" style="max-width: 1200px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de ocorrências em nota fiscal</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa fa-users fa-3x text-white"></i>
+                                            <i class="fa fa-flag fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@ and open the template in the editor.
                         }
                         ?>
 
-                        <div class="card mb-4 border-primary" style="max-width:800px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fas fa-users fa-2x text-white"></i> 
@@ -198,7 +198,7 @@ and open the template in the editor.
                                             <th scope="col">ID</th>
                                             <th scope="col">DESCRIÇÃO</th>
                                             <th scope="col">RESOLVIDO</th>
-                                            <th scope="col">DATA</th>
+                                            <th scope="col">ATUALIZAÇÃO</th>
                                             <th scope="col">OPÇÕES</th> 
                                         </tr>
                                     </thead>
