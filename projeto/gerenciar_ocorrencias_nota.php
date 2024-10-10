@@ -37,15 +37,6 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        <script type="text/javascript" class="init">
-            $(document).ready(function () {
-            });
-            function excluir(id_usuario, nome, id_prestador) {
-                $('#delete').attr('href', 'save_executor_prestador.php?op=2&id_usuario=' + id_usuario +"&id_prestador="+id_prestador);
-                $('#nome_excluir').text(nome);
-                $('#confirm').modal({show: true});              
-            }
-        </script>
         <style>
             body{
                 font-size: small;
@@ -166,7 +157,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row float-right pr-3">
-                                            <button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
+                                        <button type="button" onclick="resetForm()" class="btn btn-danger btn-sm pr-3"><i class="fa fa-minus"></i> Limpar </button> <button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
                                         </div>
                                     </form>   
 
@@ -247,6 +238,35 @@ and open the template in the editor.
             </div>
         </div>
 
+        <script type="text/javascript" class="init">
+            const c_id_usuario = <?=$usuario_logado->id ?>;
+            const c_descricao = ''
+            const c_id_prestador = <?=$prestador->id ?>;
+            const c_id_nota = <?=$id_nota ?>;
+            $(document).ready(function () {
+            });
+            function excluir(id,id_usuario, descricao, id_prestador,id_nota) {
+                $('#delete').attr('href', 'excluir_ocorrencia_nota.php?id=' + id +'&id_usuario=' + id_usuario +'&id_prestador='+id_prestador+'&id_nota='+id_nota);
+                $('#nome_excluir').text(descricao);
+                $('#confirm').modal({show: true});              
+            }
+            function alterar(id,id_usuario, descricao, id_prestador,id_nota) {
+                $('#id').val(id);
+                $('#id_prestado').val(id_prestado);
+                $('#descricao').val(descricao);
+                $('#id_usuario').val(id_usuario);
+                $('#id_nota').val(id_nota);
+                $('#tp').val(2);
+            }
+            function resetForm(){
+                $('#id').val('');
+                $('#id_prestado').val(c_id_prestado);
+                $('#descricao').val(c_descricao);
+                $('#id_usuario').val(c_id_usuario);
+                $('#id_nota').val(c_id_nota);
+                $('#tp').val(1);
+            }
+        </script>
     </body>
 
 </html>
