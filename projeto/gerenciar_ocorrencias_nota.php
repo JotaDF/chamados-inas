@@ -247,7 +247,7 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id,id_usuario, descricao, id_prestador,id_nota) {
-                $('#delete').attr('href', 'del_ocorrencia_nota.php?id=' + id +'&id_usuario=' + id_usuario +'&id_prestador='+id_prestador+'&id_nota='+id_nota);
+                $('#delete').attr('href', 'del_ocorrencia_nota.php?id=' + id +'&id_usuario=' + id_usuario +'&id_prestador='+id_prestador+'&id_nota='+id_nota+'&tp='+c_tp);
                 $('#nome_excluir').text(descricao);
                 $('#confirm').modal({show: true});              
             }
