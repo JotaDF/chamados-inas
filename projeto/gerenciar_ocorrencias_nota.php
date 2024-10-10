@@ -157,7 +157,7 @@ and open the template in the editor.
                                             </div>
                                         </div>
                                         <div class="form-group row float-right pr-3">
-                                        <button type="button" onclick="resetForm()" class="btn btn-danger btn-sm pr-3"><i class="fa fa-minus"></i> Limpar </button> &nbsp;&nbsp;<button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
+                                        <button type="button" onclick="resetForm()" class="btn btn-danger btn-sm pr-3"><i class="fa fa-asterisk"></i> Limpar </button> &nbsp;&nbsp;<button type="submit" class="btn btn-primary btn-sm pr-3"><i class="fas fa-save"></i> Salvar </button>
                                         </div>
                                     </form>   
 
@@ -246,13 +246,13 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id,id_usuario, descricao, id_prestador,id_nota) {
-                $('#delete').attr('href', 'excluir_ocorrencia_nota.php?id=' + id +'&id_usuario=' + id_usuario +'&id_prestador='+id_prestador+'&id_nota='+id_nota);
+                $('#delete').attr('href', 'del_ocorrencia_nota.php?id=' + id +'&id_usuario=' + id_usuario +'&id_prestador='+id_prestador+'&id_nota='+id_nota);
                 $('#nome_excluir').text(descricao);
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,id_usuario, descricao, id_prestador,id_nota) {
                 $('#id').val(id);
-                $('#id_prestado').val(id_prestado);
+                $('#id_prestado').val(id_prestador);
                 $('#descricao').val(descricao);
                 $('#id_usuario').val(id_usuario);
                 $('#id_nota').val(id_nota);
