@@ -76,10 +76,11 @@ and open the template in the editor.
 
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
                         $editar = false;
-                        
+                        $link_voltar = "gerenciar_glosas_prestador.php?id=".$id_prestador;
                         if ($tp == 1) {
                             $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaPagamento($id_nota);
                             $nota = $manterNotaPagamento->getNotaPagamentoPorId($id_nota);
+                            $link_voltar = "gerenciar_pagamentos_prestador.php?id=".$id_prestador;
                         } else {
                             $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($id_nota);
                             $nota = $manterNotaGlosa->getNotaGlosaPorId($id_nota);
@@ -115,6 +116,12 @@ and open the template in the editor.
                                         <div class="c4 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PROCESSO SEI:</div>
                                             <div class="mb-0"><?= $prestador->processo_sei ?></div>
+                                        </div>
+                                        <div class="c5 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1"></div>
+                                            <div class="mb-0">
+                                                <a href="<?=$link_voltar ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="row">
