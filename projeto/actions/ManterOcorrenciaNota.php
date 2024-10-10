@@ -114,8 +114,8 @@ class ManterOcorrenciaNota extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    function desresolver($id_prestador, $id_usuario) {
-        $sql = "update fiscal_prestador set ativo = 0 where id_prestador=" . $id_prestador . " AND id_usuario=" . $id_usuario;
+    function desresolver($id) {
+        $sql = "update ocorrencia_nota set resolvido = 0 where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
