@@ -85,7 +85,7 @@ and open the template in the editor.
                 var txt_ocorrencia = "";
                 var i = 1;
                 for (const ocorrencia of vet_ocorrencias) {
-                    txt_ocorrencia += i+" - "ocorrencia + "<hr/>";
+                    txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
                     i++;
                 }
                 $("#txt_ocorrencias").html(txt_ocorrencia);
