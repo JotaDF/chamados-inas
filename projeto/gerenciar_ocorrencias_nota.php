@@ -162,8 +162,7 @@ and open the template in the editor.
                                         <div class="form-group row">
                                             <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
                                             <div class="col-sm-10">
-                                            <textarea name="descricao" class="form-control" size="5" required>                    
-                                            </textarea>
+                                            <textarea name="descricao" class="form-control" size="5" required> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row float-right">

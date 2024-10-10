@@ -1,7 +1,7 @@
 <?php
 
 require_once('Model.php');
-require_once('dto/OcorrenciaNoto.php');
+require_once('dto/OcorrenciaNota.php');
 
 
 class ManterOcorrenciaNota extends Model {
@@ -47,7 +47,7 @@ class ManterOcorrenciaNota extends Model {
         return $dados;
     }
     function getOcorrenciasPorIdNotaGlosa($id_nota_glosa) {
-        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_nota_gloso." order by o.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_nota_glosa." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -85,10 +85,11 @@ class ManterOcorrenciaNota extends Model {
         return $array_dados;
     }
     function salvar(OcorrenciaNota $dados) {
-        $sql = "insert into ocorrencia_nota (descricao,data,resolvido,id_nota_glosa,id_nota_pagamento,autor)
-                values ('" . $dados->descricao . "','" . $dados->resolvido . "','" . $dados->nota_glosa . "','" . $dados->nota_pagamento . "',now(),'" . $dados->autor . "')";
+
+        $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_glosa,id_nota_pagamento,data,autor)
+                values ('" . $dados->descricao . "',1," . $dados->nota_glosa . "," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
         if ($dados->id > 0) {
-            $sql = "update ocorrencia_nota set descricao='" . $dados->descricao . "',resolvido='" . $dados->resolvido . "',id_nota_glosa='" . $dados->nota_glosa . "',id_nota_pagamento='" . $dados->nota_pagamento . "',data=now(),autor='" . $dados->autor . "' where id=$dados->id";
+            $sql = "update ocorrencia_nota set descricao='" . $dados->descricao . "',data=now(),autor='" . $dados->autor . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
             return $dados;
         } else {
