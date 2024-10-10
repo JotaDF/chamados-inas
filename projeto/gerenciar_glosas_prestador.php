@@ -83,10 +83,12 @@ and open the template in the editor.
                 var ocorrencias = $('#ocorrencia_'+id_nota).val();
                 const vet_ocorrencias = ocorrencias.split("###");
                 var txt_ocorrencia = "";
-                var i = 1;
-                for (const ocorrencia of vet_ocorrencias) {
-                    txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
-                    i++;
+                if (vet_ocorrencias.length > 0) {
+                    var i = 0;
+                    for (const ocorrencia of vet_ocorrencias) {
+                        txt_ocorrencia += i+" - "+ocorrencia + "<hr/>";
+                        i++;
+                    }
                 }
                 $("#txt_ocorrencias").html(txt_ocorrencia);                
                 $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?id_prestador='+id_prestador+'&id='+id_nota+'&tp=2');
