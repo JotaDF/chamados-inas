@@ -117,7 +117,7 @@ and open the template in the editor.
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PROCESSO SEI:</div>
                                             <div class="mb-0"><?= $prestador->processo_sei ?></div>
                                         </div>
-                                        <div class="c5 ml-4" style="min-width: 200px;">
+                                        <div class="c5 ml-4 float-right pr-3" style="min-width: 200px;">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1"></div>
                                             <div class="mb-0">
                                                 <a href="<?=$link_voltar ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
