@@ -9,8 +9,8 @@ class ManterAssunto extends Model {
         parent::__construct();
     }
 
-    function listar() {
-        $sql = "select a.id,a.assunto, (select count(*) from processo as p where p.id_assunto=a.id) as dep FROM assunto as s order by a.assunto";
+    function listar($filtro="") {
+        $sql = "select a.id,a.assunto, (select count(*) from processo as p where p.id_assunto=a.id) as dep FROM assunto as a $filtro order by a.assunto";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -27,7 +27,7 @@ class ManterAssunto extends Model {
         return $array_dados;
     }
     function getAssuntoPorId($id) {
-        $sql = "select a.id,a.assunto FROM assunto as s WHERE id=$id";
+        $sql = "select a.id,a.assunto FROM assunto as a WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Assunto();
