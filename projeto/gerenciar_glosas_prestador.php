@@ -53,6 +53,11 @@ and open the template in the editor.
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
+            function excluirNotaInformativo(id_prestador,id,usuario,informativo,exercicio,valor) {
+                $('#delete').attr('href', 'remover_nota_informativo.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
+                $('#nome_excluir').text(informativo + " - " + valor + " - " + exercicio);
+                $('#confirm').modal({show: true});
+            }
             function pagarNota(id_prestador,id_nota, numero, valor, exercicio,usuario) {
                 $('#id_prestador_pg').val(id_prestador);
                 $('#id_usuario_pg').val(usuario);
@@ -368,6 +373,7 @@ and open the template in the editor.
                                                                 $txt_dados_ocorrencia .= "###" .$o->descricao;
                                                             }
                                                         }
+                                                                                                                
                                                         $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
                                                         $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
@@ -404,7 +410,7 @@ and open the template in the editor.
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias;
+                                                            $txt_btns = $btn_nova_info . $txt_btns ."&nbsp;". $btn_ocorrencias;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
@@ -432,6 +438,8 @@ and open the template in the editor.
                                                             $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
                                                             $out_info .= "  <td align='center'>".$c->exercicio."</td>";
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
+                                                            $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            $out_info .= "  <td align='center'>".$btn_nt_excluir."</td>";
                                                             $out_info .= "</tr>";
             
 
@@ -446,6 +454,7 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVO</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
+                                                                        <th scope="col">EXCLUIR</th>
                                                                     </tr>
                                                                 </thead>';
                                              
