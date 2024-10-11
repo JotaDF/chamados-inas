@@ -53,7 +53,7 @@ and open the template in the editor.
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
-            function excluirNotaInformativo(id_prestador,id,usuario,informativo,exercicio,valor) {
+            function excluirNotaInformativo(id_prestador,id,informativo,valor,exercicio,usuario) {
                 $('#delete').attr('href', 'remover_nota_informativo.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(informativo + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
@@ -438,7 +438,7 @@ and open the template in the editor.
                                                             $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
                                                             $out_info .= "  <td align='center'>".$c->exercicio."</td>";
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
-                                                            $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                             $out_info .= "  <td align='center'>".$btn_nt_excluir."</td>";
                                                             $out_info .= "</tr>";
             
