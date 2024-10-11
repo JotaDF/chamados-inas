@@ -404,7 +404,7 @@ and open the template in the editor.
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias ;
+                                                            $txt_btns = $btn_nova_info . $txt_btns . $btn_ocorrencias;
                                                         }
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
@@ -602,7 +602,7 @@ and open the template in the editor.
         </div>
 
 
-<!-- Modal -->
+<!-- Modal Ocorrencias -->
 <div class="modal fade" id="modal_ocorrencias" tabindex="-1" role="dialog" aria-labelledby="TituloModalOcorrencias" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">

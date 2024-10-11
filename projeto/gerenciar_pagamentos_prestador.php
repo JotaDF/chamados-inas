@@ -68,7 +68,25 @@ and open the template in the editor.
                 $("#msg_nota").html("");
                 $('#form_nota').collapse('show');
             }
-
+            function mostrarOcorrencias(id_nota,id_prestador) {
+                var ocorrencias = $('#ocorrencia_'+id_nota).val();
+                const vet_ocorrencias = ocorrencias.split("###");
+                var txt_ocorrencia = "";
+                var i = 0;
+                for (const ocorrencia of vet_ocorrencias) {
+                    if (ocorrencia != "") {
+                    i++;
+                    txt_ocorrencia += i+" - "+ ocorrencia + "<hr/>";
+                    }
+                }
+                if (txt_ocorrencia != "") {
+                    $("#txt_ocorrencias").html(txt_ocorrencia); 
+                } else {
+                    $("#txt_ocorrencias").html("Não existem ocorrências para essa nota!");
+                }
+                $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?id_prestador='+id_prestador+'&id='+id_nota+'&tp=1');
+                $('#modal_ocorrencias').modal({show: true});
+            }
             function verificaNotaExiste(id_prestador) {
                 duplicado = 0;
                 var numero = $("#numero").val();
@@ -166,10 +184,12 @@ and open the template in the editor.
                     include_once('actions/ManterPrestador.php');
                     include_once('actions/ManterTipoPrestador.php');
                     include_once('actions/ManterPagamento.php');
+                    include_once('actions/ManterOcorrenciaNota.php');
 
                     $manterPrestador = new ManterPrestador();
                     $manterTipoPrestador = new ManterTipoPrestador();
                     $manterPagamento = new ManterPagamento();
+                    $manterOcorrenciaNota = new ManterOcorrenciaNota();
                     
 
                     if (isset($_REQUEST['id'])) {
@@ -308,7 +328,20 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->numero."</td>";
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
-                                                                                                                
+
+                                                        $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
+                                                        $total_ocorrencias = count($ocorrencias);
+                                                        $txt_dados_ocorrencia = "";
+                                                        foreach ($ocorrencias as $o) {
+                                                            if($txt_dados_ocorrencia == ""){
+                                                                $txt_dados_ocorrencia = $o->descricao;
+                                                            } else {
+                                                                $txt_dados_ocorrencia .= "###" .$o->descricao;
+                                                            }
+                                                        }
+                                                        $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
+                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
+
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
                                                         $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
@@ -341,7 +374,7 @@ and open the template in the editor.
                                                             
                                                         }
                                                         $out_notas .= "  <td><b>".$n->status."</b>".$txt_doc_sei."</td>";
-                                                        $out_notas .= "  <td align='center'>".$txt_btns."</td>";
+                                                        $out_notas .= "  <td align='center'>".$txt_btns . $btn_ocorrencias . $campo_ocorrencias ."</td>";
                                                         $out_notas .= "</tr>";
                                                     }
                                                     if ($tem_nota) {
@@ -442,6 +475,27 @@ and open the template in the editor.
 
             </div>
         </div>
+
+ <!-- Modal Ocorrencias -->
+<div class="modal fade" id="modal_ocorrencias" tabindex="-1" role="dialog" aria-labelledby="TituloModalOcorrencias" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalOcorrencias">Ocorrências Nota</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span id="txt_ocorrencias"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <a id="link_ocorrencia" href="" class="btn btn-primary">Editar ocorrências</a>
+      </div>
+    </div>
+  </div>
+</div>
 
     </body>
 
