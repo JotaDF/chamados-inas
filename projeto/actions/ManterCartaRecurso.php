@@ -54,6 +54,11 @@ Class ManterCartaRecurso extends Model {
         }
         return $dados;
     }
+    function excluir($id) {
+        $sql = "delete from carta_recurso where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
 
     function somarValorDeferidoPorNota($id) {
         $sql = "SELECT SUM(valor_deferido) AS total FROM carta_recurso where id_nota_glosa =$id";
