@@ -331,8 +331,8 @@ foreach ($dados as $registro) {
         $dados->autuacao                 = $data_auto->getTimestamp();
         $dados->cpf                      = $registro[6];
         $dados->beneficiario             = $registro[3];
-        $dados->guia                     = $registro[8];
-        $dados->valor_causa              = $registro[7];
+        $dados->guia                     = $registro[7];
+        $dados->valor_causa              = $registro[9];
 
         $filtro = " WHERE UPPER(assunto) = UPPER('".$registro[4]."') ";
         $assuntos_encontrado = $db_assunto->listar($filtro);
@@ -349,7 +349,7 @@ foreach ($dados as $registro) {
         }
         $dados->assunto                  = $id_assunto;
         $dados->situacao_processual      = $registro[5]!='' ? $registro[5] : 1;
-        $dados->liminar                  = $registro[9];
+        $dados->liminar                  = $registro[8];
         $dados->instancia                = 1;
         $dados->usuario                  = 1;
         $dados->autor_inas               = 0;
