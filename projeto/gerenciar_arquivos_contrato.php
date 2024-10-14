@@ -304,6 +304,46 @@ and open the template in the editor.
                         </div>
                         </div>
 
+                        <?php
+                            include_once('actions/ManterPrestador.php');
+                            include_once('actions/ManterTipoPrestador.php');
+        
+                            $manterPrestador = new ManterPrestador();
+                            $manterTipoPrestador = new ManterTipoPrestador();
+                            if (isset($_REQUEST['id'])) {
+                                $prestador    = $manterPrestador->getPrestadorPorId($_REQUEST['id']);
+                            }
+                            ?>
+                        <!-- Exibe dados da  tarefa -->
+                        <div class="card mb-3 border-primary" style="max-width: 900px;">
+                            <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
+                                <div class="row">
+                                    <div class="col c2 ml-2">
+                                        <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de contratos</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-file-pdf fa-3x text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="c1 ml-4">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">CNPJ:</div>
+                                        <div class="mb-0"><?=$prestador->cnpj ?></div>
+                                    </div>
+                                    <div class="c2 ml-4">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
+                                        <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
+                                    </div> 
+                                    <div class="c3 ml-4">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
+                                        <div class="mb-0"><?=$manterTipoPrestador->getTipoPrestadorPorId($prestador->tipo_prestador)->tipo ?></div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- gestão de arquivos -->
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
@@ -318,7 +358,6 @@ and open the template in the editor.
                                     </button>
                                 </div>
                             </div>                            
-
                             <div class="card-body">
                                 <div class="card-group" id="arquivos_contrato">
                                     <?php
