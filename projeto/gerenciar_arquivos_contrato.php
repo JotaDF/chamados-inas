@@ -350,7 +350,7 @@ and open the template in the editor.
                                     <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos de do contrato (<?=$numero . '/' . $ano ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos do contrato (<?=$numero . '/' . $ano ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_contrato" aria-expanded="false" aria-controls="form_arquivos_contrato">
