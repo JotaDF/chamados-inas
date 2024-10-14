@@ -339,7 +339,7 @@ foreach ($dados as $registro) {
             $id_assunto = $a->id;
         }
         $dados->assunto                  = $id_assunto;
-        $dados->situacao_processual      = isset($registro[5]) ? $registro[5] : 1;
+        $dados->situacao_processual      = $registro[5]!='' ? $registro[5] : 1;
         $dados->liminar                  = $registro[9];
         $dados->instancia                = 1;
         $dados->usuario                  = 1;
