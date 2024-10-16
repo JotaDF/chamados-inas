@@ -191,7 +191,7 @@ and open the template in the editor.
                         ?>
 
                         
-                        <div class="card mb-4 ml-2 border-primary" style="max-width:1500px">
+                        <div class="card mb-4 ml-2 border-primary" style="max-width:98%">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-check-square fa-2x text-white"></i> 
