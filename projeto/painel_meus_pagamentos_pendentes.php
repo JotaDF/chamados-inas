@@ -221,6 +221,7 @@ and open the template in the editor.
                                     </thead>
                                     <tbody id="prestadores">
                                     <?php
+                                            $tp = isset($_REQUEST['tp']) ? $_REQUEST['tp'] : 0;
                                             $prestadores    = $manterPrestador->listarPorExecutor($usuario_logado->id);
                                             
                                             $valor_original = 0;
@@ -228,83 +229,91 @@ and open the template in the editor.
                                             foreach ($prestadores as $p) {
                                                 $executor = $manterPrestador->getExecutorPorId($p->id, $usuario_logado->id);
                                                 $editar = false;
+                                                
                                                 if ($executor->editor == 1 || $usuario_logado->perfil <= 2) {
                                                     $editar = true;
                                                 }
-
-                                                $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
-                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
-
-                                                foreach ($notas_pagamento as $np) {
-                                                    $vln = str_replace("R$","",$np->valor);
-                                                    $vln= str_replace(" ","",$vln); 
-                                                    $vln= str_replace(".","",$vln);
-                                                    $vln= str_replace(",",".",$vln); 
-                                                    
-                                                    $out_notas .= "<tr>";
-                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
-                                                    $out_notas .= "  <td>".$p->cnpj."</td>";
-                                                    $out_notas .= "  <td>".$p->razao_social."</td>";
-                                                    $out_notas .= "  <td>".$np->numero."</td>";
-                                                    $out_notas .= "  <td>".$np->valor."</td>";
-                                                    $out_notas .= "  <td>".$np->exercicio."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
-                                                    $out_notas .= "  <td><b>".$np->status."</b></td>";
-                                                    
-                                                    $btn_nt_pagar = " - ";
-                                                    if($editar){
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",0)'><i class='fa fa-credit-card'></i></button>";
-                                                    }
-                                                    $out_notas .= "  <td>".$btn_nt_pagar."</td>";
-                                                    $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
-                                                    $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
-                                                    $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
-                                                    $out_notas .= "  <td>".$dias."</td>";
-                                                    $txt_situacao = "NO PRAZO";
-                                                    if($dias > 0){
-                                                        $txt_situacao = "EM ATRASO";
-                                                    }
-                                                    $out_notas .= "  <td> ".$txt_situacao ." </td>";
-                                                    $out_notas .= "</tr>";
+                                                
+                                                $mostrar = true;
+                                                if ($tp == 2 && $editar) {
+                                                    $mostrar = false;
+                                                } else if ($tp == 1 && !$editar) {
+                                                    $mostrar = false;
                                                 }
-                                                foreach ($notas_glosa as $np) {
-                                                    $vln = str_replace("R$","",$np->valor);
-                                                    $vln= str_replace(" ","",$vln); 
-                                                    $vln= str_replace(".","",$vln);
-                                                    $vln= str_replace(",",".",$vln); 
-                                                    
-                                                    $out_notas .= "<tr>";
-                                                    $out_notas .= "  <td>".$p->processo_sei."</td>";
-                                                    $out_notas .= "  <td>".$p->cnpj."</td>";
-                                                    $out_notas .= "  <td>".$p->razao_social."</td>";
-                                                    $out_notas .= "  <td>".$np->numero."</td>";
-                                                    $out_notas .= "  <td>".$np->valor."</td>";
-                                                    $out_notas .= "  <td>".$np->exercicio."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
-                                                    $out_notas .= "  <td><b>".$np->status."</b></td>";
-                                                    $btn_nt_pagar = " - ";
-                                                    if($editar){
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
-                                                    }
-                                                    $out_notas .= "  <td>".$btn_nt_pagar."</td>";
-                                                    $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
-                                                    $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
-                                                    $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
-                                                    $out_notas .= "  <td>".$dias."</td>";
-                                                    $txt_situacao = "NO PRAZO";
-                                                    if($dias > 0){
-                                                        $txt_situacao = "EM ATRASO";
-                                                    }
-                                                    $out_notas .= "  <td> ".$txt_situacao ." </td>";
-                                                    $out_notas .= "</tr>";
-                                                }
+                                                if ($mostrar) {
+                                                    $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
+                                                    $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
 
+                                                    foreach ($notas_pagamento as $np) {
+                                                        $vln = str_replace("R$","",$np->valor);
+                                                        $vln= str_replace(" ","",$vln); 
+                                                        $vln= str_replace(".","",$vln);
+                                                        $vln= str_replace(",",".",$vln); 
+                                                        
+                                                        $out_notas .= "<tr>";
+                                                        $out_notas .= "  <td>".$p->processo_sei."</td>";
+                                                        $out_notas .= "  <td>".$p->cnpj."</td>";
+                                                        $out_notas .= "  <td>".$p->razao_social."</td>";
+                                                        $out_notas .= "  <td>".$np->numero."</td>";
+                                                        $out_notas .= "  <td>".$np->valor."</td>";
+                                                        $out_notas .= "  <td>".$np->exercicio."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
+                                                        $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                        
+                                                        $btn_nt_pagar = " - ";
+                                                        if($editar){
+                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",0)'><i class='fa fa-credit-card'></i></button>";
+                                                        }
+                                                        $out_notas .= "  <td>".$btn_nt_pagar."</td>";
+                                                        $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
+                                                        $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+                                                        $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
+                                                        $out_notas .= "  <td>".$dias."</td>";
+                                                        $txt_situacao = "NO PRAZO";
+                                                        if($dias > 0){
+                                                            $txt_situacao = "EM ATRASO";
+                                                        }
+                                                        $out_notas .= "  <td> ".$txt_situacao ." </td>";
+                                                        $out_notas .= "</tr>";
+                                                    }
+                                                    foreach ($notas_glosa as $np) {
+                                                        $vln = str_replace("R$","",$np->valor);
+                                                        $vln= str_replace(" ","",$vln); 
+                                                        $vln= str_replace(".","",$vln);
+                                                        $vln= str_replace(",",".",$vln); 
+                                                        
+                                                        $out_notas .= "<tr>";
+                                                        $out_notas .= "  <td>".$p->processo_sei."</td>";
+                                                        $out_notas .= "  <td>".$p->cnpj."</td>";
+                                                        $out_notas .= "  <td>".$p->razao_social."</td>";
+                                                        $out_notas .= "  <td>".$np->numero."</td>";
+                                                        $out_notas .= "  <td>".$np->valor."</td>";
+                                                        $out_notas .= "  <td>".$np->exercicio."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
+                                                        $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
+                                                        $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                        $btn_nt_pagar = " - ";
+                                                        if($editar){
+                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
+                                                        }
+                                                        $out_notas .= "  <td>".$btn_nt_pagar."</td>";
+                                                        $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
+                                                        $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+                                                        $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
+                                                        $out_notas .= "  <td>".$dias."</td>";
+                                                        $txt_situacao = "NO PRAZO";
+                                                        if($dias > 0){
+                                                            $txt_situacao = "EM ATRASO";
+                                                        }
+                                                        $out_notas .= "  <td> ".$txt_situacao ." </td>";
+                                                        $out_notas .= "</tr>";
+                                                    }
+                                                }
                                             }
                                             echo $out_notas;
                                            ?>
