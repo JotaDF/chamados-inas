@@ -205,7 +205,7 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 800px;">
+                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
