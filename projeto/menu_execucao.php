@@ -112,7 +112,7 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item ml-3">
-                <a class="nav-link collapsed ml-3 mt-2" style="padding: 0px;" href="painel_minha_execucao_pendentes.phps.php?tp=2">
+                <a class="nav-link collapsed ml-3 mt-2" style="padding: 0px;" href="painel_minha_execucao_pendentes.php?tp=2">
                     <i class="fa fa-search"></i>
                     <span>Gestor</span>
                 </a>
