@@ -46,7 +46,7 @@ class ManterAssunto extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
-        return $resultado;
+        return $dados;
     }
 
     function excluir($id) {

@@ -205,7 +205,7 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 800px;">
+                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
@@ -224,7 +224,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
-                                            <div class="mb-0"><?= $prestador->nome_fantasia ?></div>
+                                            <div class="mb-0"><?= $prestador->razao_social ?></div>
                                         </div> 
                                         <div class="c3 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>

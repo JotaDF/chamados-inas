@@ -104,10 +104,38 @@
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed ml-3" style="padding: 0px;" href="painel_minha_execucao_pendentes.php?tp=1">
+                    <i class="fa fa-search"></i>
+                    <span>Fiscal</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed ml-3 mt-2" style="padding: 0px;" href="painel_minha_execucao_pendentes.php?tp=2">
+                    <i class="fa fa-search"></i>
+                    <span>Gestor</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="painel_meus_pagamentos_pendentes.php">
                     <i class="fa fa-check-square"></i>
                     <span>Pagamentos Pendentes</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed ml-3" style="padding: 0px;" href="painel_meus_pagamentos_pendentes.php?tp=1">
+                    <i class="fa fa-search"></i>
+                    <span>Fiscal</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ml-3">
+                <a class="nav-link collapsed ml-3 mt-2" style="padding: 0px;" href="painel_meus_pagamentos_pendentes.php?tp=2">
+                    <i class="fa fa-search"></i>
+                    <span>Gestor</span>
                 </a>
             </li>
             <?php
