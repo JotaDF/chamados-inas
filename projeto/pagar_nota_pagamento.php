@@ -15,7 +15,7 @@ $data = isset($_REQUEST['data_pagamento']) ? new DateTime($_REQUEST['data_pagame
 $data_pagamento = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $data->format("Y"));
 
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
-$url = 'gerenciar_glosas_prestador.php?id='.$id_prestador;
+$url = 'gerenciar_pagamentos_prestador.php?id='.$id_prestador;
 if($painel > 0){
     $url = 'painel_meus_pagamentos_pendentes.php';
 }
