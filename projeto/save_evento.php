@@ -11,7 +11,7 @@ $titulo     = isset($_POST['titulo']) ? $_POST['titulo'] : '';
 $descricao  = isset($_POST['descricao']) ? $_POST['descricao'] : '';
 $data       = isset($_POST['data']) ? $_POST['data'] : '';
 $hora       = isset($_POST['hora']) ? $_POST['hora'] : '';
-$inscreve   = isset($_POST['inscreve']) ? $_POST['inscreve'] : '';
+$inscreve   = isset($_POST['inscreve']) ? $_POST['inscreve'] : '0';
 
 $e->id          = $id;
 $e->titulo      = $titulo;

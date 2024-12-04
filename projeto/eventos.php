@@ -111,6 +111,8 @@ and open the template in the editor.
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Titulo</th>
+                                            <th scope="col">Permite Inscrição</th>
+                                            <th scope="col">Total Inscritos</th>
                                             <th scope="col">Status</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>

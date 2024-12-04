@@ -9,6 +9,8 @@
             echo "<tr>";
             echo "  <td>".$obj->id."</td>";
             echo "  <td>".$obj->titulo."</td>";
+            echo "  <td>". $obj->inscreve == 1 ? "SIM" : "NÃO" ."</td>";
+            echo "  <td>".$manterEvento->getTotalInscritos($obj->id)."</td>";
             $txt_status = "<a href='mudar_status_evento.php?id=".$obj->id."&status=1' ><img src='./img/nao_visivel.svg' width='30'/></a>";
             if($obj->status == 1){
                 $txt_status = "<a href='mudar_status_evento.php?id=".$obj->id."&status=0' ><img src='./img/visivel.svg' width='30'/></a>";
