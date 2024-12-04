@@ -27,11 +27,11 @@
                     <legend class="col c1 col-form-label pt-0">Realização</legend>
                     <div class="input-group">
                         <label for="data" class="col c0 col-form-label">Data:</label>
-                        <input type="date" name="data" class="col c1 form-control form-control-sm" id="data" required>
+                        <input type="date" name="data" class="col c1 form-control form-control-sm" id="data" style="width: 120px;" required>
                     </div>
                     <div class="input-group">
                         <label for="hora" class=" col c2 col-form-label">Hora:</label>
-                        <input type="time" name="hora" class="col c3 form-control form-control-sm" id="hora" required>
+                        <input type="time" name="hora" class="col c3 form-control form-control-sm" id="hora" style="width: 80px;" required>
                     </div>
                 </fieldset>  
             </div>
