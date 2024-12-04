@@ -36,9 +36,8 @@
                 </fieldset>  
             </div>
             <div class="form-group row">
-                <label for="inscreve" class="col-sm-2 col-form-label">Inscrição:</label>
                 <div class="col-sm-10">
-                <input type="checkbox" name="inscreve" id="inscreve">
+                Permitir inscrição: <input type="checkbox" name="inscreve" id="inscreve">
                 </div>
             </div>
             <div class="form-group row float-right">
