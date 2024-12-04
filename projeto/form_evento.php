@@ -38,7 +38,7 @@
             <br/>
             <div class="form-group row">
                 <div class="col-sm-10">
-                Permitir inscrição: <input type="checkbox" name="inscreve" id="inscreve">
+                Permitir inscrição: <input type="checkbox" name="inscreve" id="inscreve" value="1">
                 </div>
             </div>
             <div class="form-group row float-right">
