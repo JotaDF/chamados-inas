@@ -300,7 +300,7 @@ and open the template in the editor.
                         </div>
 
                         <?php
-                            include_once('actions/Evento.php');
+                            include_once('actions/ManterEvento.php');
         
                             $manterEvento = new ManterEvento();
                             if (isset($_REQUEST['id'])) {

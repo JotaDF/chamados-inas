@@ -21,5 +21,6 @@ $e->hora        = $hora;
 $e->inscreve    = $inscreve;
 
 $db_evento->salvar($e);
+
 header('Location: eventos.php');
 

@@ -72,7 +72,10 @@ class ManterEvento extends Model {
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
+            $caminho = __DIR__.'/eventos/folder_'. $dados->id .'/';
+            $this->addPasta($caminho);
         }
+        
         return $resultado;
     }
     function publicar($id) {
@@ -91,15 +94,17 @@ class ManterEvento extends Model {
     function excluir($id) {
         $sql = "delete from evento where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        $caminho = __DIR__.'/eventos/folder_'. $id .'/';
+        $this->delPasta($caminho);
         return $resultado;
     }
     function salvarInscricao($id_evento, $id_usuario) {
-        $sql = "insert into inscricao (registro, id_enquete, id_usuario) values (CURRENT_TIMESTAMP()," . $id_enquete . "," . $id_usuario . ")";
+        $sql = "insert into inscricao (registro, id_evento, id_usuario) values (now()," . $id_evento. "," . $id_usuario . ")";
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function cancelarInscricao($id_evento, $id_usuario) {
-        $sql = "delete inscricao where id_enquete=" . $id_enquete . " and id_usuario=" . $id_usuario;
+        $sql = "delete from inscricao where id_evento=" . $id_evento. " and id_usuario=" . $id_usuario;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
@@ -123,6 +128,23 @@ class ManterEvento extends Model {
             $total = $registro["total"];
         }
         return $total;
+    }
+    public static function delPasta($dir) {
+        if(is_dir($dir)){
+            $files = array_diff(scandir($dir), array('.','..'));
+            foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
+            }
+            return rmdir($dir);
+        }
+        return false;
+    }
+    public static function addPasta($dir) {
+        if(!is_dir($dir)){
+            mkdir($dir, 0777, true);
+            return true;
+        }
+        return false;
     }
 }
 
