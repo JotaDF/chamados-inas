@@ -76,6 +76,8 @@ class ManterEvento extends Model {
         return $resultado;
     }
     function publicar($id) {
+        $sql = "update evento set status=0 where status=1";
+        $resultado = $this->db->Execute($sql);
         $sql = "update evento set status=1 where id=$id";
         $resultado = $this->db->Execute($sql);
         return $resultado;
@@ -114,7 +116,7 @@ class ManterEvento extends Model {
         return false;
     }
     function getTotalInscritos($id_evento) {
-        $sql = "select count(*) as total from inscricao where id_enquete=$id_enquete";
+        $sql = "select count(*) as total from inscricao where id_evento=$id_evento";
         $resultado = $this->db->Execute($sql);
         $total = 0;
         if ($registro = $resultado->fetchRow()) { 

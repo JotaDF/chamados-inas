@@ -90,7 +90,7 @@ and open the template in the editor.
                 ?>
                     <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
                         <a class="text-decoration-none" href="agendas.php">
-                        <div class="card border-left-primary h-100 shadow">
+                        <div class="card border-left-success h-100 shadow">
                             <div class="card-body">
                                 
                                 <div class="row no-gutters align-items-center">
@@ -110,7 +110,7 @@ and open the template in the editor.
                         ?>
                         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
                             <a class="text-decoration-none" href="agendas.php">
-                            <div class="card border-left-primary h-100 shadow">
+                            <div class="card border-left-success h-100 shadow">
                                 <div class="card-body">
                                     
                                     <div class="row no-gutters align-items-center">
@@ -153,7 +153,7 @@ and open the template in the editor.
             <i class="fas fa-angle-up"></i>
         </a>
         <!-- Modal -->
-        <div class="modal fade" style="max-width: 100%" id="publicidade" tabindex="-1" role="dialog" aria-labelledby="TituloPublicidade" aria-hidden="true">
+        <div class="modal fade" style="max-width: 650px;" id="publicidade" tabindex="-1" role="dialog" aria-labelledby="TituloPublicidade" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -165,7 +165,26 @@ and open the template in the editor.
                 <div class="modal-body">
                     <div class="col-xl-3 col-md-2 mb-4">
                         <div class="row no-gutters align-items-center">
-                            <img src="publicidade/festa_junina.jpg" width="100%"/>
+                            <img src="publicidade/imagen.jpg" width="100%"/>
+                            <br/>
+                            <img src="publicidade/imagen1.jpg" width="100%"/>
+                            <p>
+                            Olá, equipe INAS,<br/><br/>
+
+Queremos convidar vocês para um momento muito importante: a nossa Celebração dos 4 Anos do GDF Saúde e a Inauguração da Galeria dos Diretores-Presidentes do INAS! 
+🎉🎁🎈🎂
+
+Uma ótima oportunidade para celebrarmos tudo o que já construímos juntos e reconhecer quem faz parte dessa história — como você! 
+
+Vai ser uma ocasião cheia de memórias, homenagens e, claro, uma chance de estarmos todos juntos para relembrar cada conquista e sonhar com o que ainda está por vir. 
+
+🗓️ Data: 31/10/24
+🕒 Horário: 16h
+📍Local: Hall do INAS, 10º andar.
+
+Esperamos todos para comemorarem com a gente. 
+Sua presença vai tornar este momento ainda mais especial!  ❤️
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -240,6 +259,70 @@ and open the template in the editor.
             }
         }
         ?>
-    </body>
+
+<?php
+        require_once('./actions/ManterEvento.php');
+        $db_evento = new ManterEvento();
+        $evento = $db_evento->getEventoAtivo();
+
+        if($evento->id > 0){
+            $inscrito = false;
+            if ($db_evento->inscreve == 1) {
+                $inscrito = $db_evento->jaInscreveu($evento->id, $usuario_logado->id);
+            }
+        ?>
+        <!-- Modal -->
+        <div class="modal fade" style="" id="evento" tabindex="-1" role="dialog" aria-labelledby="TituloEvento" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloEvento">Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="card border-dark mb-3" style="max-width: 100%;">
+                                <div class="card-body text-dark">
+                                    <?php
+                                    if ($db_evento->inscreve == 1) {
+                                    ?>
+                                    <h6 class="card-title"><?=$evento->titulo ?></h6>
+                                    <p class="card-text">
+                                        <?php
+                                        echo $evento->descricao . "<br/><br/>";
+                                        if ($inscrito) {
+                                            echo "<a href='cancelar_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=<?=$usuario_logado->id ?>' ><i class='far fa-trash-alt'></i> Cancelar inscrição</a>";
+                                        } else {
+                                            echo "<a href='save_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=<?=$usuario_logado->id ?>' ><i class='fa fa-check'></i> Realizar inscrição</a>";
+                                        }
+                                        ?>
+                                    </p>
+                                    <?php
+                                    } else {
+                                        ?>
+                                        <h6 class="card-title"><?=$evento->titulo ?></h6>
+                                        <p class="card-text">
+                                        <?=$evento->descricao ?>
+                                        </p>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal -->
+        <?php
+            }
+        ?>
+
+</body>
 
 </html>
