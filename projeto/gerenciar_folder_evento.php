@@ -46,7 +46,7 @@ and open the template in the editor.
              function deleteFile(fileName) {
                 var xhr = new XMLHttpRequest();
                 var item = document.getElementById("file-"+fileName);
-                xhr.open("GET", "del_arquivo_evento.php?numero=<?=$numero ?>&ano=<?=$ano ?>&file=" + fileName, true);
+                xhr.open("GET", "del_arquivo_evento.php?id=<?=$id ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
