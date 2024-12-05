@@ -72,11 +72,8 @@ class ManterEvento extends Model {
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
-            $caminho = __DIR__.'/eventos/folder_'. $dados->id .'/';
-            $this->addPasta($caminho);
         }
-        
-        return $resultado;
+        return $dados;
     }
     function publicar($id) {
         $sql = "update evento set status=0 where status=1";
@@ -94,8 +91,6 @@ class ManterEvento extends Model {
     function excluir($id) {
         $sql = "delete from evento where id=" . $id;
         $resultado = $this->db->Execute($sql);
-        $caminho = __DIR__.'/eventos/folder_'. $id .'/';
-        $this->delPasta($caminho);
         return $resultado;
     }
     function salvarInscricao($id_evento, $id_usuario) {

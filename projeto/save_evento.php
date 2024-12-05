@@ -19,8 +19,15 @@ $e->descricao   = $descricao;
 $e->data        = $data;
 $e->hora        = $hora;
 $e->inscreve    = $inscreve;
-
+$criar_pasta = false;
+if($id == 0){
+    $criar_pasta = true;
+}
 $db_evento->salvar($e);
+if ($criar_pasta) {
+    $caminho = __DIR__.'/eventos/folder_'. $id .'/';
+    $db_evento->addPasta($caminho);
+}
 
 header('Location: eventos.php');
 
