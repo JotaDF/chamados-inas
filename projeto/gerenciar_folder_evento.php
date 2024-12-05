@@ -458,7 +458,7 @@ and open the template in the editor.
 
         function typeValidation(type) {
             var splitType = type.split('/')[0];
-            return type === 'image/jpg' || splitType === 'image' || splitType === 'video';
+            return type === 'application/pdf' || splitType === 'image' || splitType === 'video';
         }
 
         function addFileToList(file) {
