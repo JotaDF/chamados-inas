@@ -45,9 +45,15 @@ and open the template in the editor.
             }
         </style>
         <script type="text/javascript" class="init">
+            <?php
+            if (isset($usuario_logado->cargo) && $usuario_logado->cargo != "Assessor Especial" && $usuario_logado->cargo != "Assessor" && $usuario_logado->cargo != "Analista em Políticas Públicas e Gestão Governamental" && $usuario_logado->cargo != "Estagiária" && $usuario_logado->cargo != "Estagiário") {
+                ?>
             $(document).ready(function () {
                 $("#evento").modal('show');
             });
+            <?php
+            }
+            ?>
         </script>
     </head>
 
