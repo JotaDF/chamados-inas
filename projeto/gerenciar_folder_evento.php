@@ -354,8 +354,8 @@ and open the template in the editor.
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
 
                                     foreach ($files as $file) { ?>
-                                        <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
-                                                <img src="<?=$uploadDir . $file ?>" height="200" width="200"> 
+                                        <div id='file-<?=$file ?>' class='text-center' style='max-width: 400px; max-height: 400px;'>
+                                                <img src="<?=$uploadDir . $file ?>" height="400" width="400"> 
                                                 <a  href="javascript:void(0);" onclick="excluir('<?=$file ?>')"><i class='far fa-trash-alt text-danger'></i></a>
                                         </div>
                                    <?php
@@ -529,7 +529,7 @@ and open the template in the editor.
                 li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%';
                 li.querySelectorAll('span')[1].style.width = percent_complete + '%';
             };
-            data.append('id', '<?=$id ?>');id
+            data.append('id', '<?=$id ?>');
             http.open('POST', 'save_arquivo_evento.php', true);
             http.send(data);
             atualizar();
