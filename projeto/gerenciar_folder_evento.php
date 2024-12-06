@@ -315,7 +315,7 @@ and open the template in the editor.
                                         <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de folder do evento</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-file-pdf fa-3x text-white"></i>
+                                        <i class="fa fa-file-image fa-3x text-white"></i>
                                     </div>
                                 </div>
                             </div>
