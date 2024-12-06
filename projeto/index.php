@@ -46,7 +46,7 @@ and open the template in the editor.
         </style>
         <script type="text/javascript" class="init">
             $(document).ready(function () {
-                $("#publicidade").modal('show');
+                $("#evento").modal('show');
             });
         </script>
     </head>
@@ -294,7 +294,7 @@ Sua presença vai tornar este momento ainda mais especial!  ❤️
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
                                     
                                     foreach ($files as $file) { ?>
-                                    <img src="<?=$uploadDir . $file ?>" height="400" width="400"> 
+                                    <img src="<?=$uploadDir . $file ?>" height="400" width="400"> <br/>
                                     <?php
                                     }
                                     
