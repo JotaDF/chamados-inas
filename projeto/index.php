@@ -267,7 +267,7 @@ Sua presença vai tornar este momento ainda mais especial!  ❤️
 
         if($evento->id > 0){
             $inscrito = false;
-            if ($db_evento->inscreve == 1) {
+            if ($evento->inscreve == 1) {
                 $inscrito = $db_evento->jaInscreveu($evento->id, $usuario_logado->id);
             }
         ?>
@@ -287,6 +287,18 @@ Sua presença vai tornar este momento ainda mais especial!  ❤️
                             <div class="card border-dark mb-3" style="max-width: 100%;">
                                 <div class="card-body text-dark">
                                     <?php
+                                    $uploadDir = 'eventos/folder_';
+                                    $uploadDir .= $evento->id;
+                                    $uploadDir .= '/';
+                                                               
+                                    $files = array_diff(scandir($uploadDir), array('.', '..'));
+                                    
+                                    foreach ($files as $file) { ?>
+                                    <img src="<?=$uploadDir . $file ?>" height="400" width="400"> 
+                                    <?php
+                                    }
+                                    
+
                                     if ($evento->inscreve == 1) {
                                     ?>
                                     <h6 class="card-title"><?=$evento->titulo ?></h6>
@@ -296,7 +308,7 @@ Sua presença vai tornar este momento ainda mais especial!  ❤️
                                         if ($inscrito) {
                                             echo "<a class='btn btn-danger btn-sm' href='cancelar_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=".$usuario_logado->id ."' ><i class='far fa-trash-alt'></i> Cancelar minha inscrição</a>";
                                         } else {
-                                            echo "<a class='btn btn-danger btn-sm' href='save_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=".$usuario_logado->id ."' ><i class='fa fa-check'></i> Realizar minha inscrição</a>";
+                                            echo "<a class='btn btn-primary btn-sm' href='save_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=".$usuario_logado->id ."' ><i class='fa fa-check'></i> Me inscrever</a>";
                                         }
                                         ?>
                                     </p>
