@@ -1,7 +1,7 @@
 <?php
 
 $id = $_REQUEST['id'];
-
+echo "ID: " . $id ;
 if(!empty($_FILES['file'])){
     $caminho = "eventos/folder_" . $id . "/";
     $arquivo = basename($_FILES['file']['name']);
@@ -12,4 +12,4 @@ if(!empty($_FILES['file'])){
     }
 }
 
-header('Location: gerenciar_folder_evento.php?id='.$id);
+//header('Location: gerenciar_folder_evento.php?id='.$id);
