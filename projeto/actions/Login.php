@@ -10,7 +10,7 @@ class Login extends Model {
     }
 
     function logar($login, $senha) {
-        $sql = "SELECT id, nome, login, matricula, id_perfil, id_equipe, id_setor, agenda FROM usuario   WHERE login='" . $login . "' AND ativo=1";
+        $sql = "SELECT id, nome, cargo, login, matricula, id_perfil, id_equipe, id_setor, agenda FROM usuario   WHERE login='" . $login . "' AND ativo=1";
         //echo 'SQL:'.$sql;
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
@@ -34,6 +34,7 @@ class Login extends Model {
             $dados = new Usuario();
             $dados->id          = $registro["id"];
             $dados->nome        = $registro["nome"];
+            $dados->cargo       = $registro["cargo"];
             $dados->login       = $registro["login"];
             $dados->matricula   = $registro["matricula"];
             $dados->senha       = $senha;
