@@ -435,7 +435,7 @@ class ManterUsuario extends Model {
         return $resultado;
     }
     function getInscritosEvento($id_evento) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla, i.geristro FROM usuario as u, setor as s, inscricao as i WHERE u.id_setor=s.id AND u.id=i.id_usuario AND i.id_evento = ".$id_evento." order by u.nome";
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla, i.registro FROM usuario as u, setor as s, inscricao as i WHERE u.id_setor=s.id AND u.id=i.id_usuario AND i.id_evento = ".$id_evento." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -449,6 +449,7 @@ class ManterUsuario extends Model {
             $dados->ativo = $registro["ativo"];
             $dados->setor = $registro["id_setor"];
             $dados->sigla = $registro["sigla"];
+            $dados->registro = $registro["registro"];
             $array_dados[] = $dados;
         }
         return $array_dados;
