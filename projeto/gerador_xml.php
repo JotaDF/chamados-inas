@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel'])) {
         $namespace = 'http://www.reinf.esocial.gov.br/schemas/evt4020PagtoBeneficiarioPJ/v2_01_02';
         $xml->registerXPathNamespace('ns', $namespace);
         // colocar sua conexão aqui 
-        $conn = new mysqli('db', 'root', '.inas@2023', 'inas');
+        $conn = new mysqli('localhost', 'root', '.inas@2023', 'inas');
 
 
         if ($conn->connect_error) {
