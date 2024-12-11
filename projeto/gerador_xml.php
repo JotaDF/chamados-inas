@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel'])) {
 
 
         $dom->save('arquivos_xml/saida.xml');
-        header('Location: arquivos_xml/saida.xml');
+        header('Location: form_excel_xml.php');
         exit;
     } catch (Exception $e) {
         echo 'Erro ao processar o arquivo: ' . $e->getMessage();
