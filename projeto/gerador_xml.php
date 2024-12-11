@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel'])) {
             }
         }
 
-        $xml = simplexml_load_file('saida.xml');
+        $xml = simplexml_load_file('arquivos_xml/saida.xml');
 
         $namespace = 'http://www.reinf.esocial.gov.br/schemas/evt4020PagtoBeneficiarioPJ/v2_01_02';
         $xml->registerXPathNamespace('ns', $namespace);
@@ -206,8 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel'])) {
         }
 
 
-        $dom->save('saida.xml');
-        header('Location: saida.xml');
+        $dom->save('arquivos_xml/saida.xml');
+        header('Location: arquivos_xml/saida.xml');
         exit;
     } catch (Exception $e) {
         echo 'Erro ao processar o arquivo: ' . $e->getMessage();
