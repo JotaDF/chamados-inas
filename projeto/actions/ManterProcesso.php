@@ -140,6 +140,52 @@ class ManterProcesso extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function relatorioTotalPorAssunto($ano = '0') {
+        $filtro = " ";
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='".$ano."'";
+        }
+        $sql = "SELECT a.id, a.assunto, (SELECT COUNT(*) FROM processo as p WHERE p.id_assunto=a.id ".$filtro.") as total FROM assunto as a ORDER BY total;";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            if ($registro["total"] > 0) {
+                $dados = new stdClass();
+                $dados->id                       = $registro["id"];
+                $dados->assunto                  = $registro["assunto"];
+                $dados->total                    = $registro["total"];
+
+                $array_dados[]      = $dados;
+            }
+        }
+        return $array_dados;
+    }
+    function relatorioTotais($ano = '0') {
+        $filtro = " ";
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='".$ano."'";
+        }
+        $sql =  "SELECT 
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=1 ".$filtro.") as total_deferido,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=2 ".$filtro.") as total_indeferido,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_situacao_processual=3 ".$filtro.") as total_arquivado,
+                (SELECT COUNT(*) FROM processo as p, valor_processo as vp WHERE vp.id_processo = p.id AND vp.id_tipo_valor=7 ".$filtro.") as total_danos_moraes,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id > 0 ".$filtro.") as total_processos
+                FROM processo 
+                LIMIT 1";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new stdClass();
+        if ($registro = $resultado->fetchRow()) {
+            $dados->total_deferido      = $registro["total_deferido"];
+            $dados->total_indeferido    = $registro["total_indeferido"];
+            $dados->total_arquivado     = $registro["total_arquivado"];
+            $dados->total_danos_moraes  = $registro["total_danos_moraes"];
+            $dados->total_processos     = $registro["total_processos"];
+        }
+        return $dados;
+    }
 
 }
 
