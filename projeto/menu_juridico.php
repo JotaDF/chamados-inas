@@ -95,6 +95,13 @@
         ?>
              <!-- Nav Item - Pages Collapse Menu -->
              <li class="nav-item">
+                <a class="nav-link collapsed" target="_black" href="gerar_relatorio_processos.php">
+                    <i class="fa fa-window-maximize"></i>
+                    <span>Relatório Por Ano</span>
+                </a>
+            </li>
+                         <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" target="_black" href="painel_juridico.php">
                     <i class="fa fa-window-maximize"></i>
                     <span>Painel Jurídico</span>

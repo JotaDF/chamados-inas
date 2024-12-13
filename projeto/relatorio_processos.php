@@ -96,7 +96,7 @@ and open the template in the editor.
         <!-- Begin Page Content -->
         <div id="containerProcesso" class="container-fluid align-items-center" style="width:95%">
             <!-- Content Row -->
-            <div id="totaisProcesso" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Total de processos</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
+            <div id="totaisProcesso" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Total de processos</h2>
             Ano: <b><?=$ano ?></b><br/>
             Total de processos: <b><?=$totais->total_processos ?></b><br/>
             Total de processos com liminares deferidas: <b><?=$totais->total_deferido ?></b><br/>
