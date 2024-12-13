@@ -77,12 +77,12 @@ and open the template in the editor.
                     <img src="img/logogdfsaude.png" width="150">
                 </div>
             </div>
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="text-color: #4d78bb;">Contratos</h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="color: #4d78bb;">Contratos e Termos de Credenciamento</h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="text-white" style="background-color: #4d78bb;">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
                             <th class="header c1 text-nowrap text-center" scope="col" style="width:30%"> RAZÃO SOCIAL </th>
-                            <th class="header c2 text-nowrap text-center" scope="col" style="width:15%;"> CONTRATO </th>
+                            <th class="header c2 text-nowrap text-center" scope="col" style="width:15%;"> CONTRATOS / TC </th>
                             <th class="header c3 text-nowrap text-center" scope="col" style="width:40%"> ARQUIVOS </th>
                         </tr>
                         <?php
