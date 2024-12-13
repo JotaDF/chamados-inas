@@ -64,13 +64,13 @@ and open the template in the editor.
                             </div>                
                             <!-- Card Content - Collapse -->
                             <div class="card-body">
-                                <form id="form_relatorio" action="relatorio_visitas.php" method="post">                       
+                                <form id="form_relatorio" action="relatorio_processos.php" method="post">                       
                                     <div class="col border">
                                         <fieldset class="form-group form-inline">
                                             <legend class="col c1 col-form-label pt-0">Período</legend>
                                             <div class="input-group" style="width: 300px">
                                                 <label for="inicio" class="col c0 col-form-label">Ano:</label>
-                                                <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm" onChange="verificaClasse(this.options[this.selectedIndex].value)" >
+                                                <select id="ano" name="ano" class="form-control form-control-sm" >
                                                     <option value="">Selecione</option>
                                                     <option value="2021">2021</option>
                                                     <option value="2022">2022</option>
