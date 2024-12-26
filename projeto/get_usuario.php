@@ -15,9 +15,9 @@
             echo "  <td>".$obj->matricula."</td>";
             echo "  <td>".$obj->nome ."</td>";
             echo "  <td>".$manterSetor->getSetorPorId($obj->setor)->sigla."</td>";
-            $txt_ativo = "<a href='mudar_ativo_usuario.php?id=".$obj->id."&ativo=1' ><img src='./img/nao_visivel.svg' width='30'/></a>";
+            $txt_ativo = "<a href='mudar_status_usuario.php?id=".$obj->id."&ativo=1' ><img src='./img/nao_visivel.svg' width='30'/></a>";
             if($obj->ativo == 1){
-                $txt_ativo = "<a href='mudar_ativo_usuario.php?id=".$obj->id."&ativo=0' ><img src='./img/visivel.svg' width='30'/></a>";
+                $txt_ativo = "<a href='mudar_status_usuario.php?id=".$obj->id."&ativo=0' ><img src='./img/visivel.svg' width='30'/></a>";
             }
             echo "  <td>".$txt_ativo."</td>";
 
