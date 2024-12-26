@@ -1,7 +1,8 @@
 <?php
-//Administraçao
-$mod = 2;
+//Gestão de Pessoas
+$mod = 9;
 require_once('./verifica_login.php');
+
 ?>  
 <!DOCTYPE html>
 <!--
@@ -17,7 +18,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>GERENTE - Gerenciador de tarefas</title>
+        <title>Gerenciamento de usuários</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

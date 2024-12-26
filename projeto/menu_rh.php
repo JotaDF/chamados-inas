@@ -24,8 +24,14 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            VISITANTES
+            Gestão de pessoas
         </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="usuarios.php">
+                    <i class="fa fa-user"></i>
+                    <span>Usuários</span>
+                </a>
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="gerenciar_arquivos_ponto.php">
@@ -33,6 +39,7 @@
                     <span>Arquivos de ponto</span>
                 </a>
             </li>
+
         <?php
     }
     ?>
