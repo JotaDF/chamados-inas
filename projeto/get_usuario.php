@@ -10,12 +10,16 @@
 	$lista = $manterUsuario->listar();
         
         foreach ($lista as $obj) {
-            echo "<tr>";
+            echo "<tr>"; 
             echo "  <td>".$obj->id."</td>";
             echo "  <td>".$obj->matricula."</td>";
             echo "  <td>".$obj->nome ."</td>";
             echo "  <td>".$manterSetor->getSetorPorId($obj->setor)->sigla."</td>";
-            echo "  <td>".($obj->ativo > 0 ? 'Sim':'Não')."</td>";
+            $txt_status = "<a href='mudar_status_usuario.php?id=".$obj->id."&status=1' ><img src='./img/nao_visivel.svg' width='30'/></a>";
+            if($obj->status == 1){
+                $txt_status = "<a href='mudar_status_usuario.php?id=".$obj->id."&status=0' ><img src='./img/visivel.svg' width='30'/></a>";
+            }
+            echo "  <td>".$txt_status."</td>";
 
             $btn_agenda = '&nbsp;&nbsp;<a href="save_usuario_agenda.php?id='.$obj->id.'&agenda=1" title="Habilitar agenda!" class="btn btn-info btn-sm" type="button"><i class="fa fa-calendar-plus"></i></a>';
             if($obj->agenda > 0){

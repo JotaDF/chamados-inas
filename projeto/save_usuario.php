@@ -17,7 +17,6 @@ $usuario->nascimento    = isset($_POST['nascimento']) ? strtotime($_POST['nascim
 $usuario->whatsapp      = $_POST['whatsapp'];
 $usuario->linkedin      = $_POST['linkedin'];
 $usuario->setor         = $_POST['setor'];
-$usuario->ativo         = isset($_POST['ativo']) ? $_POST['ativo'] : 1;
 
 
 //print_r($usuario);

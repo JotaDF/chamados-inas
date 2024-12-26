@@ -66,18 +66,6 @@
                     </select>
                 </div>
             </div> 
-
-            <div class="form-group row">
-                <div class="col-sm-2">Ativo</div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" name="ativo" type="checkbox" id="ativo" value="1" checked>
-                        <label class="form-check-label" for="ativo">
-                            Sim
-                        </label>
-                    </div>
-                </div>
-            </div>
             <div class="form-group row float-right">
                 <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_usuario" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

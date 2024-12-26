@@ -96,12 +96,6 @@ foreach ($listaS as $obj) {
             $('#nascimento').val(nascimento);
             $('#whatsapp').val(whatsapp);
             $('#linkedin').val(linkedin);
-            $('#ativo').val(ativo);
-            if (ativo == 1) {
-                $('#ativo').prop('checked', true);
-            } else {
-                $('#ativo').prop('checked', false);
-            }
 
             carregaSetores(id_setor);
             $('#form_usuario').collapse("show");
