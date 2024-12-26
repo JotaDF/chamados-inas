@@ -87,7 +87,7 @@ class ManterUsuario extends Model {
 //        echo $sql . "<BR/>";
 //        exit;
         if ($dados->id > 0) {
-            $sql = "update usuario set nome='" . $dados->nome . "',login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',id_setor='" . $dados->setor . "' where id=$dados->id";
+            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',id_setor='" . $dados->setor . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
