@@ -1,6 +1,6 @@
 <?php
-//Administração
-$mod = 2;
+//Gestão de pessoas
+$mod = 9;
 require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
@@ -57,7 +57,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_admin.php'; ?>
+            <?php include './menu_rh.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -186,7 +186,7 @@ and open the template in the editor.
                                             <th scope="col">ID</th>
                                             <th scope="col">MÓDULO</th>
                                             <th scope="col">PERFIL</th>
-                                            <th scope="col">REMOVER</th>
+                                            <th scope="col">REMOVER</th> 
                                         </tr>
                                     </thead>
                                     <tbody id="fila">
