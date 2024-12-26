@@ -300,11 +300,11 @@ and open the template in the editor.
                         </div>
 
                         <?php
-                            include_once('actions/ManterEvento.php');
+                            include_once('actions/ManterEnquete.php');
         
-                            $manterEvento = new ManterEvento();
+                            $manterEnquete = new ManterEnquete();
                             if (isset($_REQUEST['id'])) {
-                                $enquete    = $manterEvento->getEventoPorId($_REQUEST['id']);
+                                $enquete    = $manterEnquete->getEnquetePorId($_REQUEST['id']);
                             }
                             ?>
                         <!-- Exibe dados da  tarefa -->
