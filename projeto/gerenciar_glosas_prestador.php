@@ -368,15 +368,16 @@ and open the template in the editor.
                                                         if($n->excluir){
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         }
+                                                        $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                                            <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'>".$btn_nt_excluir ."</td>";
+                                                        $out_notas .= "  <td align='center'>".$btn_nova_info . $btn_nt_excluir ."</td>";
                                                         
-
                                                         $tem_info = false;
                                                         $out_info = "";
                                                         $cartas =$manterNotaGlosa->getCartasPorNotaGlosa($n->id);
@@ -402,18 +403,15 @@ and open the template in the editor.
                                                                 }
                                                             }
                                                                                                                     
-                                                            $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
-                                                            $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
-                                                            $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
-                                                                            <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
-                                                            $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
-                                                            if($n->excluir){
-                                                                $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
-                                                            }
-                                                            $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
-                                                            $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
-                                                            $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
-                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
+                                                            $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$c->id."' name='ocorrencia_".$c->id."' value='". $txt_dados_ocorrencia ."'/>";
+                                                            $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$c->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
+                                                            
+                                                            
+                                                            $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem dependências!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
+                                                            $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
+                                                            $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
+                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$c->id.",\"".$c->numero."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
                                                             $txt_btns = "";
                                                             $txt_status = "";
                                                             $txt_doc_sei = "";
@@ -446,8 +444,8 @@ and open the template in the editor.
                                                             $out_info .= "  <td align='center'>".$c->exercicio."</td>";
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
-                                                            $out_info .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
-                                                            $out_info .= "  <td align='center'>" . $btn_nt_excluir . $txt_btns . $campo_ocorrencias."</td>";
+                                                            $out_info .= "  <td align='center'><b>".$c->status."</b>".$txt_doc_sei."</td>";
+                                                            $out_info .= "  <td align='center'>" . $txt_btns . $campo_ocorrencias."</td>";
                                                             $out_info .= "</tr>";
             
 
