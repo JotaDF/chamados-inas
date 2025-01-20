@@ -11,7 +11,7 @@ Class ManterCartaRecurso extends Model {
 
 
     function listar () {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, ng.doc_sei, cr.id_nota_glosa, ng.data_emissao, ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status from carta_recurso as cr";
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.doc_sei, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from carta_recurso as cr";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -34,7 +34,7 @@ Class ManterCartaRecurso extends Model {
     }
 
     function getRecursoPorNotaGlosa ($id) {
-        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, nd.id as id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
+        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
         $resultado = $this->db->Execute($sql);
         $dados = new CartaRecurso();
         while($registro = $resultado->fetchRow()) {
@@ -210,6 +210,13 @@ Class ManterCartaRecurso extends Model {
             $array_dados[] = $dados;
         }
         return $array_dados;
+    }
+    function migrar(CartaRecurso $dados) {
+        $sql = "update carta_recurso set data_emissao='". $dados->data_emissao."', data_validacao='". $dados->data_validacao."',
+        data_executado='". $dados->data_executado."',data_atesto='". $dados->data_atesto."',data_pagamento='". $dados->data_pagamento."',
+        doc_sei='".$dados->doc_sei."', status='".$dados->status."' where id_recurso_glosa=" . $dados->id_recurso_glosa;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
  }   
 
