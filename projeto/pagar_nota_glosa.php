@@ -1,10 +1,10 @@
 <?php
 
-require_once('./actions/ManterNotaGlosa.php');
+require_once('./actions/ManterCartaRecurso.php');
 require_once('./actions/ManterAuditoria.php');
 require_once('./dto/Auditoria.php');
 
-$db_nota_glosa = new ManterNotaGlosa();
+$db_carta_recurso = new ManterCartaRecurso();
 $db_auditoria = new ManterAuditoria();
 
 $id_usuario = $_REQUEST['id_usuario'];
@@ -21,12 +21,12 @@ if($painel > 0){
 }
 
 if ($id > 0) {
-    $db_nota_glosa->pagar($id, $data_glosa, $doc_sei);
+    $db_carta_recurso->pagar($id, $data_glosa, $doc_sei);
     //Auditando processo
     $a = new Auditoria();
     $a->acao = "Pagar Nota!";
-    $a->objeto = "NotaGlosa";
-    $a->informacao = "id_prestador= " . $id_prestador . " id_nota_glosa= " . $id . " data_glosa= ".$data_glosa. " doc_sei= ".$doc_sei;
+    $a->objeto = "CartaRecurso";
+    $a->informacao = "id_prestador= " . $id_prestador . " id_carta_recurso= " . $id . " data_glosa= ".$data_glosa. " doc_sei= ".$doc_sei;
     $a->autor = $id_usuario;
     $db_auditoria->salvar($a);
 

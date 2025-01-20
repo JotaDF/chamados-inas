@@ -231,7 +231,7 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
+                            <div class="card mb-3 border-primary" style="max-width: 950px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
@@ -363,62 +363,18 @@ and open the template in the editor.
                                                         $vln= str_replace(".","",$vln);
                                                         $vln= str_replace(",",".",$vln); 
                                                         
-                                                        $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
-                                                        $total_ocorrencias = count($ocorrencias);
-                                                        $txt_dados_ocorrencia = "";
-                                                        foreach ($ocorrencias as $o) {
-                                                            if($txt_dados_ocorrencia == ""){
-                                                                $txt_dados_ocorrencia = $o->descricao;
-                                                            } else {
-                                                                $txt_dados_ocorrencia .= "###" .$o->descricao;
-                                                            }
-                                                        }
-                                                                                                                
-                                                        $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
-                                                        $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
-                                                        $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
-                                                                        <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
+                                                        
                                                         $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         if($n->excluir){
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         }
-                                                        $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
-                                                        $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
-                                                        $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
-                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
-                                                        $txt_btns = "";
-                                                        $txt_status = "";
-                                                        $txt_doc_sei = "";
-                                                        if($editar){
-                                                            
-                                                            switch ($n->status) {
-                                                                case 'Em análise':
-                                                                    $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
-                                                                    break;
-                                                                case 'Executado':
-                                                                    if($usuario_logado->perfil <= 2){
-                                                                        $txt_btns = $btn_nt_reverter_exec . " " . $btn_nt_atestar;
-                                                                    } else {
-                                                                        $txt_btns = " - ";
-                                                                    }
-                                                                    break;
-                                                                case 'Atestado':
-                                                                    $txt_btns = $btn_nt_pagar;
-                                                                    break;
-                                                                case 'Pago':
-                                                                    $txt_btns = " - ";
-                                                                    $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
-                                                                    break;
-                                                            }
-                                                            $txt_btns = $btn_nova_info . $txt_btns ."&nbsp;". $btn_ocorrencias;
-                                                        }
+
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
-                                                        $out_notas .= "  <td align='center'>".$txt_btns . $campo_ocorrencias."</td>";
+                                                        $out_notas .= "  <td align='center'>".$btn_nt_excluir ."</td>";
                                                         
 
                                                         $tem_info = false;
@@ -434,12 +390,64 @@ and open the template in the editor.
                                                             $vl= str_replace(".","",$vl);
                                                             $vl= str_replace(",",".",$vl); 
                                                             $soma_valor_info += $vl;
+
+                                                            $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
+                                                            $total_ocorrencias = count($ocorrencias);
+                                                            $txt_dados_ocorrencia = "";
+                                                            foreach ($ocorrencias as $o) {
+                                                                if($txt_dados_ocorrencia == ""){
+                                                                    $txt_dados_ocorrencia = $o->descricao;
+                                                                } else {
+                                                                    $txt_dados_ocorrencia .= "###" .$o->descricao;
+                                                                }
+                                                            }
+                                                                                                                    
+                                                            $campo_ocorrencias = "<input type='hidden' id='ocorrencia_".$n->id."' name='ocorrencia_".$n->id."' value='". $txt_dados_ocorrencia ."'/>";
+                                                            $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$n->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
+                                                            $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                                            <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
+                                                            $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem informativos!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            if($n->excluir){
+                                                                $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            }
+                                                            $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
+                                                            $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
+                                                            $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
+                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
+                                                            $txt_btns = "";
+                                                            $txt_status = "";
+                                                            $txt_doc_sei = "";
+                                                            if($editar){
+                                                                
+                                                                switch ($n->status) {
+                                                                    case 'Em análise':
+                                                                        $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
+                                                                        break;
+                                                                    case 'Executado':
+                                                                        if($usuario_logado->perfil <= 2){
+                                                                            $txt_btns = $btn_nt_reverter_exec . " " . $btn_nt_atestar;
+                                                                        } else {
+                                                                            $txt_btns = " - ";
+                                                                        }
+                                                                        break;
+                                                                    case 'Atestado':
+                                                                        $txt_btns = $btn_nt_pagar;
+                                                                        break;
+                                                                    case 'Pago':
+                                                                        $txt_btns = " - ";
+                                                                        $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
+                                                                        break;
+                                                                }
+                                                                $txt_btns = $btn_nova_info . $txt_btns ."&nbsp;". $btn_ocorrencias;
+                                                            }
+
                                                             $out_info .= "<tr>";
                                                             $out_info .= "  <td align='center'>".$c->carta_informativo."</td>";
                                                             $out_info .= "  <td align='center'>".$c->exercicio."</td>";
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
-                                                            $out_info .= "  <td align='center'>".$btn_nt_excluir."</td>";
+                                                            $out_info .= "  <td align='center'><b>".$n->status."</b>".$txt_doc_sei."</td>";
+                                                            $out_info .= "  <td align='center'>" . $btn_nt_excluir . $txt_btns . $campo_ocorrencias."</td>";
                                                             $out_info .= "</tr>";
             
 
@@ -454,7 +462,8 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVO</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
-                                                                        <th scope="col">EXCLUIR</th>
+                                                                        <th scope="col">STATUS</th>
+                                                                        <th scope="col">OPÇÕES</th>
                                                                     </tr>
                                                                 </thead>';
                                              
@@ -480,6 +489,9 @@ and open the template in the editor.
                                                                         <th scope="col">INFORMATIVA</th>
                                                                         <th scope="col">EXERCICIO</th>
                                                                         <th scope="col">VALOR DEFERIDO</th>
+                                                                        <th scope="col">STATUS</th>
+                                                                        <th scope="col">OPÇÕES</th>
+
                                                                     </tr>
                                                                 </thead>';
                                                                 $out_notas .= $out_def;
@@ -501,7 +513,6 @@ and open the template in the editor.
                                                                     <th scope="col">NOTA</th> 
                                                                     <th scope="col">LOTE</th> 
                                                                     <th scope="col">VALOR</th>
-                                                                    <th scope="col">STATUS</th>
                                                                     <th scope="col">OPÇÕES</th>
                                                                     <th scope="col" class="text-center">INFORMATIVOS</th>
                                                                     <th scope="col">TOTAL DEFERIDO</th>

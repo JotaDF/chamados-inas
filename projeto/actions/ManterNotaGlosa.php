@@ -32,7 +32,7 @@ Class ManterNotaGlosa extends Model {
             $dados->data_executado      = $registro["data_executado"];
             $dados->data_atesto         = $registro["data_atesto"];
             $dados->data_pagamento      = $registro["data_pagamento"];
-            $dados->status              = $registro["status"];
+            $dados->status              = $registro["status"]; 
             $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
 
             $array_dados[] = $dados;

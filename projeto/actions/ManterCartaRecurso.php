@@ -11,7 +11,7 @@ Class ManterCartaRecurso extends Model {
 
 
     function listar () {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.id_nota_glosa from carta_recurso as cr";
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, ng.doc_sei, cr.id_nota_glosa, ng.data_emissao, ng.data_validacao, ng.data_executado, ng.data_atesto, ng.data_pagamento, ng.status from carta_recurso as cr";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -21,13 +21,20 @@ Class ManterCartaRecurso extends Model {
             $dados->exercicio = $registro['exercicio'];
             $dados->valor_deferido =$registro['valor_deferido'];
             $dados->id_nota_glosa =$registro['id_nota_glosa'];
+            $dados->doc_sei             = $registro["doc_sei"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
 
     function getRecursoPorNotaGlosa ($id) {
-        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, nd.id from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
+        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, nd.id as id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
         $resultado = $this->db->Execute($sql);
         $dados = new CartaRecurso();
         while($registro = $resultado->fetchRow()) {
@@ -36,17 +43,24 @@ Class ManterCartaRecurso extends Model {
             $dados->exercicio = $registro['exercicio'];
             $dados->valor_deferido =$registro['valor_deferido'];
             $dados->id_nota_glosa =$registro['id_nota_glosa'];
+            $dados->doc_sei             = $registro["doc_sei"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     } 
 
     function salvar (CartaRecurso $dados) {
-        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa) 
-        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "')";
+        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa, data_emissao, data_validacao) 
+        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "')";
         if ($dados->id > 0) {
             $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->exercicio . "', exercicio='" . $dados->valor_deferido
-             . "' where id=" . $dados->id;
+             . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "' where id=" . $dados->id;
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
@@ -68,7 +82,134 @@ Class ManterCartaRecurso extends Model {
         }
         return 0;
     }
-    
+    function executar($id) {
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update carta_recurso set data_executado=". $timestamp.", status='Executado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function reverterExecucao($id) {
+        $sql = "update carta_recurso set data_executado=null, status='Em análise' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function atestar($id) {
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update carta_recurso set data_atesto=". $timestamp.", status='Atestado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function atestarLote($lista) {
+        $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
+        $sql = "update carta_recurso set data_atesto=". $timestamp.", status='Atestado' where id IN (" . $lista . ")";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function pagar($id, $data, $doc_sei) {
+        $sql = "update carta_recurso set data_pagamento=". $data.", doc_sei='".$doc_sei."', status='Pago' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function getPagamentosPentendesPrestador($id_prestador) {
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+                FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
+                WHERE cr.id_nota_glosa = ng.id
+                AND ng.id_recurso_glosa=crg.id 
+                AND crg.id_fiscal_prestador = fp.id
+                AND fp.id_prestador = ".$id_prestador."
+                AND cr.data_atesto is not null
+                AND cr.data_pagamento is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchrow()) {
+            $dados = new NotaGlosa();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                  = $registro["id"];
+            $dados->numero              = $registro["numero"];
+            $dados->lote                = $registro["lote"];
+            $dados->valor               = $registro["valor"];
+            $dados->exercicio           = $registro["exercicio"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
+            $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
 
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function getAtestosPentendesPrestador($id_prestador) {
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+                FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
+                WHERE cr.id_nota_glosa = ng.id
+                AND ng.id_recurso_glosa=crg.id
+                AND crg.id_fiscal_prestador = fp.id
+                AND fp.id_prestador = ".$id_prestador." 
+                AND cr.data_executado is not null
+                AND cr.data_atesto is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchrow()) {
+            $dados = new NotaGlosa();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                  = $registro["id"];
+            $dados->numero              = $registro["numero"];
+            $dados->lote                = $registro["lote"];
+            $dados->valor               = $registro["valor"];
+            $dados->exercicio           = $registro["exercicio"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
+            $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
+
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function getExecucaoPentendesPrestador($id_prestador) {
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+                FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
+                WHERE cr.id_nota_glosa = ng.id
+                AND ng.id_recurso_glosa=crg.id 
+                AND crg.id_fiscal_prestador = fp.id
+                AND fp.id_prestador = ".$id_prestador." 
+                AND cr.data_executado is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchrow()) {
+            $dados = new NotaGlosa();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id                  = $registro["id"];
+            $dados->numero              = $registro["numero"];
+            $dados->lote                = $registro["lote"];
+            $dados->valor               = $registro["valor"];
+            $dados->exercicio           = $registro["exercicio"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
+            $dados->id_recurso_glosa    = $registro["id_recurso_glosa"];            
+
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
  }   
 
