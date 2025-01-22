@@ -172,10 +172,10 @@ and open the template in the editor.
                     <?php  include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
-                    include_once('actions/ManterNotaGlosa.php');
+                    include_once('actions/ManterCartaRecurso.php');
                     include_once('actions/ManterNotaPagamento.php');
                     
-                    $manterNotaGlosa = new ManterNotaGlosa ();
+                    $manterCartaRecurso = new ManterCartaRecurso ();
                     $manterNotaPagamento = new ManterNotaPagamento ();
                     $manterPrestador = new ManterPrestador();   
                     
@@ -226,7 +226,7 @@ and open the template in the editor.
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
                                                 $notas_pagamento = $manterNotaPagamento->getExecucaoPentendesPrestador($p->id);
-                                                $notas_glosa = $manterNotaGlosa->getExecucaoPentendesPrestador($p->id);
+                                                $notas_glosa = $manterCartaRecurso->getExecucaoPentendesPrestador($p->id);
 
                                                 foreach ($notas_pagamento as $np) {
                                                     $vln = str_replace("R$","",$np->valor);
@@ -256,8 +256,8 @@ and open the template in the editor.
                                                     $out_notas .= "  <td> ".$txt_situacao ." </td>";
                                                     $out_notas .= "</tr>";
                                                 }
-                                                foreach ($notas_glosa as $np) {
-                                                    $vln = str_replace("R$","",$np->valor);
+                                                foreach ($notas_glosa as $ng) {
+                                                    $vln = str_replace("R$","",$ng->valor_deferido);
                                                     $vln= str_replace(" ","",$vln); 
                                                     $vln= str_replace(".","",$vln);
                                                     $vln= str_replace(",",".",$vln); 
@@ -266,16 +266,16 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$p->processo_sei."</td>";
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
-                                                    $out_notas .= "  <td>".$np->numero."</td>";
-                                                    $out_notas .= "  <td>".$np->valor."</td>";
-                                                    $out_notas .= "  <td>".$np->exercicio."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
-                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
-                                                    $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                    $out_notas .= "  <td>".$ng->numero."</td>";
+                                                    $out_notas .= "  <td>".$ng->valor_deferido."</td>";
+                                                    $out_notas .= "  <td>".$ng->exercicio."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $ng->data_emissao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', $ng->data_validacao)."</td>";
+                                                    $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $ng->data_validacao))."</td>";
+                                                    $out_notas .= "  <td><b>".$ng->status."</b></td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
-                                                    $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
+                                                    $dias = ($hoje - strtotime('+30 days', $ng->data_validacao))/(60*60*24);
                                                     $out_notas .= "  <td>".$dias."</td>";
                                                     $txt_situacao = "NO PRAZO";
                                                     if($dias > 0){
