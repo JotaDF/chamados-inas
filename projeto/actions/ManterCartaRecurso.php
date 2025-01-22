@@ -122,11 +122,8 @@ Class ManterCartaRecurso extends Model {
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
-            $dados = new NotaGlosa();
+            $dados = new CartaRecurso();
             $dados->excluir = true;
-            if ($registro["dep"] > 0) {
-                $dados->excluir = false;
-            }
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
@@ -156,11 +153,8 @@ Class ManterCartaRecurso extends Model {
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
-            $dados = new NotaGlosa();
+            $dados = new CartaRecurso();
             $dados->excluir = true;
-            if ($registro["dep"] > 0) {
-                $dados->excluir = false;
-            }
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
@@ -189,11 +183,8 @@ Class ManterCartaRecurso extends Model {
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
-            $dados = new NotaGlosa();
+            $dados = new CartaRecurso();
             $dados->excluir = true;
-            if ($registro["dep"] > 0) {
-                $dados->excluir = false;
-            }
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
