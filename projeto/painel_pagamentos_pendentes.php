@@ -172,10 +172,10 @@ and open the template in the editor.
                     <?php  include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
-                    include_once('actions/ManterNotaGlosa.php');
+                    include_once('actions/ManterCartaRecurso.php');
                     include_once('actions/ManterNotaPagamento.php');
                     
-                    $manterNotaGlosa = new ManterNotaGlosa ();
+                    $manterCartaRecurso = new ManterCartaRecurso ();
                     $manterNotaPagamento = new ManterNotaPagamento ();
                     $manterPrestador = new ManterPrestador();   
                     
@@ -218,7 +218,7 @@ and open the template in the editor.
                                             $out_notas = "";
                                             foreach ($prestadores as $p) {
                                                 $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
-                                                $notas_glosa = $manterNotaGlosa->getPagamentosPentendesPrestador($p->id);
+                                                $notas_glosa = $manterCartaRecurso->getPagamentosPentendesPrestador($p->id);
 
                                                 foreach ($notas_pagamento as $np) {
                                                     $vln = str_replace("R$","",$np->valor);
@@ -250,7 +250,7 @@ and open the template in the editor.
                                                     $out_notas .= "</tr>";
                                                 }
                                                 foreach ($notas_glosa as $np) {
-                                                    $vln = str_replace("R$","",$np->valor);
+                                                    $vln = str_replace("R$","",$np->valor_deferido);
                                                     $vln= str_replace(" ","",$vln); 
                                                     $vln= str_replace(".","",$vln);
                                                     $vln= str_replace(",",".",$vln); 
@@ -260,7 +260,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$p->cnpj."</td>";
                                                     $out_notas .= "  <td>".$p->razao_social."</td>";
                                                     $out_notas .= "  <td>".$np->numero."</td>";
-                                                    $out_notas .= "  <td>".$np->valor."</td>";
+                                                    $out_notas .= "  <td>".$np->valor_deferido."</td>";
                                                     $out_notas .= "  <td>".$np->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_validacao)."</td>";
