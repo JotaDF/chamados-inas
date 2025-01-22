@@ -74,8 +74,10 @@ and open the template in the editor.
                 $('#numero').focus();
             }
 
-           function novaNotaInfo(id_nota_glosa, numero, lote, valor) {
+           function novaNotaInfo(id_nota_glosa, numero, lote, valor,emissao, validacao) {
                 $('#id_nota_glosa').val(id_nota_glosa);
+                $('#id_data_emissao').val(emissao);
+                $('#id_data_validacao').val(validacao);
                 $('#txt_numero').text(numero);
                 $('#txt_lote').text(lote);
                 $('#txt_valor').text(valor);
@@ -368,7 +370,7 @@ and open the template in the editor.
                                                         if($n->excluir){
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                         }
-                                                        $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                        $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                         $tem_nota = true;
@@ -436,7 +438,7 @@ and open the template in the editor.
                                                                         $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                         break;
                                                                 }
-                                                                $txt_btns = $btn_nova_info . $txt_btns ."&nbsp;". $btn_ocorrencias;
+                                                                $txt_btns =  $txt_btns ."&nbsp;". $btn_ocorrencias;
                                                             }
 
                                                             $out_info .= "<tr>";
