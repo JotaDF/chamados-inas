@@ -12,6 +12,8 @@
             <input type="hidden" id="id_nota_glosa" name="id_nota_glosa" value="<?=$n->id ?>"/>
             <input type="hidden" id="id_prestador"  name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario"    name="id_usuario" value="<?=$usuario_logado->id ?>"/>
+            <input type="hidden" id="data_emissao" name="data_emissao" value="<?=$n->data_emissao ?>"/>
+            <input type="hidden" id="data_validacao" name="data_validacao" value="<?=$n->data_validacao ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_numero">numero</label>
