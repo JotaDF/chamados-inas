@@ -56,8 +56,8 @@ Class ManterCartaRecurso extends Model {
     } 
 
     function salvar (CartaRecurso $dados) {
-        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa, data_emissao, data_validacao) 
-        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "')";
+        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa, data_emissao, data_validacao, status) 
+        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','Em análise')";
         if ($dados->id > 0) {
             $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->exercicio . "', exercicio='" . $dados->valor_deferido
              . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "' where id=" . $dados->id;
@@ -214,7 +214,7 @@ Class ManterCartaRecurso extends Model {
     function migrar(CartaRecurso $dados) {
         $sql = "update carta_recurso set data_emissao='". $dados->data_emissao."', data_validacao='". $dados->data_validacao."',
         data_executado='". $dados->data_executado."',data_atesto='". $dados->data_atesto."',data_pagamento='". $dados->data_pagamento."',
-        doc_sei='".$dados->doc_sei."', status='".$dados->status."' where id_recurso_glosa=" . $dados->id_recurso_glosa;
+        doc_sei='".$dados->doc_sei."', status='".$dados->status."' where id_nota_glosa=" . $dados->id_nota_glosa;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
