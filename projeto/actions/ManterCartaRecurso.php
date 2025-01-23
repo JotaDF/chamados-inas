@@ -127,7 +127,7 @@ Class ManterCartaRecurso extends Model {
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
-            $dados->valor               = $registro["valor"];
+            $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
@@ -158,7 +158,7 @@ Class ManterCartaRecurso extends Model {
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
-            $dados->valor               = $registro["valor"];
+            $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
@@ -188,7 +188,7 @@ Class ManterCartaRecurso extends Model {
             $dados->id                  = $registro["id"];
             $dados->numero              = $registro["numero"];
             $dados->lote                = $registro["lote"];
-            $dados->valor               = $registro["valor"];
+            $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
