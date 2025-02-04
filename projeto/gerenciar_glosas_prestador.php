@@ -409,7 +409,7 @@ and open the template in the editor.
                                                             $btn_ocorrencias = "<button id='btn_ocorrencias' onclick='mostrarOcorrencias(".$c->id.",".$prestador->id.")' title='Mostrar Ocorrências' class='btn btn-info btn-sm' type='button'>".$total_ocorrencias."</button>&nbsp;";
                                                             
                                                             
-                                                            $btn_nt_excluir = "<button class='btn btn-secondary btn-sm' type='button' title='Existem dependências!' ><i class='far fa-trash-alt'></i></button>&nbsp;";
+                                                            $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' title='Excluir!'  onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                             $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>&nbsp;";
                                                             $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";                                                    
                                                             $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
@@ -419,7 +419,7 @@ and open the template in the editor.
                                                             $txt_doc_sei = "";
                                                             if($editar){
                                                                 
-                                                                switch ($n->status) {
+                                                                switch ($c->status) {
                                                                     case 'Em análise':
                                                                         $txt_btns = $btn_nt_executar . " " . $btn_nt_excluir;
                                                                         break;
@@ -435,7 +435,7 @@ and open the template in the editor.
                                                                         break;
                                                                     case 'Pago':
                                                                         $txt_btns = " - ";
-                                                                        $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
+                                                                        $txt_doc_sei = "</br>(" . $c->doc_sei . ")";
                                                                         break;
                                                                 }
                                                                 $txt_btns =  $txt_btns ."&nbsp;". $btn_ocorrencias;
