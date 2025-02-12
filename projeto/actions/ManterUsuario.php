@@ -82,7 +82,7 @@ class ManterUsuario extends Model {
         }
         return $dados;
     }
-    function salvar(Usuario $dados) {
+    function salvar(Usuario $dados) { 
         $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "')";
 //        echo $sql . "<BR/>";
 //        exit;
@@ -201,8 +201,8 @@ class ManterUsuario extends Model {
         }
         return $array_dados;
     }
-    function getUsuariosPorEquipe($id_equipe) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin, u.ativo,u.id_equipe,u.id_setor,u.id_perfil FROM usuario as u WHERE u.id_equipe=$id_equipe order by u.nome";
+    function getUsuariosPorEquipe($id_equipe) { 
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin, u.ativo,eu.id_equipe,u.id_setor,u.id_perfil FROM usuario as u, equipe_usuario as eu WHERE eu.id_usuario=u.id AND eu.id_equipe=$id_equipe order by u.nome";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
