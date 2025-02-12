@@ -3,13 +3,16 @@
 require_once('Model.php');
 require_once('dto/Processo.php');
 
-class ManterProcesso extends Model {
+class ManterProcesso extends Model
+{
 
-    function __construct() { //metodo construtor
+    function __construct()
+    { //metodo construtor
         parent::__construct();
     }
 
-    function listar($filtro = "") {
+    function listar($filtro = "")
+    {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo $filtro ORDER BY autuacao";
         //echo $sql;
@@ -18,103 +21,106 @@ class ManterProcesso extends Model {
         while ($registro = $resultado->fetchRow()) {
             $dados = new Processo();
             $dados->excluir = true;
-            $dados->id                       = $registro["id"];
-            $dados->numero                   = $registro["numero"];
-            $dados->sei                      = $registro["sei"];
-            $dados->autuacao                 = $registro["autuacao"];
-            $dados->cpf                      = $registro["cpf"];
-            $dados->beneficiario             = $registro["beneficiario"];
-            $dados->guia                     = $registro["guia"];
-            $dados->senha                    = $registro["senha"];
-            $dados->valor_causa              = $registro["valor_causa"];
-            $dados->observacao               = $registro["observacao"];
-            $dados->assunto                  = $registro["id_assunto"];
-            $dados->classe_judicial          = $registro["id_classe_judicial"];
-            $dados->processo_principal       = $registro["processo_principal"];
-            $dados->situacao_processual      = $registro["id_situacao_processual"];
-            $dados->liminar                  = $registro["id_liminar"];
-            $dados->instancia                = $registro["id_instancia"];
+            $dados->id = $registro["id"];
+            $dados->numero = $registro["numero"];
+            $dados->sei = $registro["sei"];
+            $dados->autuacao = $registro["autuacao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->beneficiario = $registro["beneficiario"];
+            $dados->guia = $registro["guia"];
+            $dados->senha = $registro["senha"];
+            $dados->valor_causa = $registro["valor_causa"];
+            $dados->observacao = $registro["observacao"];
+            $dados->assunto = $registro["id_assunto"];
+            $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->processo_principal = $registro["processo_principal"];
+            $dados->situacao_processual = $registro["id_situacao_processual"];
+            $dados->liminar = $registro["id_liminar"];
+            $dados->instancia = $registro["id_instancia"];
             $dados->data_cumprimento_liminar = $registro["data_cumprimento_liminar"];
-            $dados->usuario                  = $registro["id_usuario"];
-            $dados->atualizacao              = $registro["atualizacao"];
-            $dados->autor_inas               = $registro["autor_inas"];
+            $dados->usuario = $registro["id_usuario"];
+            $dados->atualizacao = $registro["atualizacao"];
+            $dados->autor_inas = $registro["autor_inas"];
 
-            $array_dados[]      = $dados;
+            $array_dados[] = $dados;
         }
         return $array_dados;
     }
-    function getProcessoPorId($id) {
+    function getProcessoPorId($id)
+    {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
                        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Processo();
         while ($registro = $resultado->fetchRow()) {
-            $dados->id                       = $registro["id"];
-            $dados->numero                   = $registro["numero"];
-            $dados->sei                      = $registro["sei"];
-            $dados->autuacao                 = $registro["autuacao"];
-            $dados->cpf                      = $registro["cpf"];
-            $dados->beneficiario             = $registro["beneficiario"];
-            $dados->guia                     = $registro["guia"];
-            $dados->senha                    = $registro["senha"];
-            $dados->valor_causa              = $registro["valor_causa"];
-            $dados->observacao               = $registro["observacao"];
-            $dados->assunto                  = $registro["id_assunto"];
-            $dados->classe_judicial          = $registro["id_classe_judicial"];
-            $dados->processo_principal       = $registro["processo_principal"];
-            $dados->situacao_processual      = $registro["id_situacao_processual"];
-            $dados->liminar                  = $registro["id_liminar"];
-            $dados->instancia                = $registro["id_instancia"];
+            $dados->id = $registro["id"];
+            $dados->numero = $registro["numero"];
+            $dados->sei = $registro["sei"];
+            $dados->autuacao = $registro["autuacao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->beneficiario = $registro["beneficiario"];
+            $dados->guia = $registro["guia"];
+            $dados->senha = $registro["senha"];
+            $dados->valor_causa = $registro["valor_causa"];
+            $dados->observacao = $registro["observacao"];
+            $dados->assunto = $registro["id_assunto"];
+            $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->processo_principal = $registro["processo_principal"];
+            $dados->situacao_processual = $registro["id_situacao_processual"];
+            $dados->liminar = $registro["id_liminar"];
+            $dados->instancia = $registro["id_instancia"];
             $dados->data_cumprimento_liminar = $registro["data_cumprimento_liminar"];
-            $dados->usuario                  = $registro["id_usuario"];
-            $dados->atualizacao              = $registro["atualizacao"];
-            $dados->autor_inas               = $registro["autor_inas"];
+            $dados->usuario = $registro["id_usuario"];
+            $dados->atualizacao = $registro["atualizacao"];
+            $dados->autor_inas = $registro["autor_inas"];
         }
         return $dados;
     }
-    function getProcessoPorNumero($numero) {
+    function getProcessoPorNumero($numero)
+    {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
                        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo WHERE numero=$numero";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Processo();
         while ($registro = $resultado->fetchRow()) {
-            $dados->id                       = $registro["id"];
-            $dados->numero                   = $registro["numero"];
-            $dados->sei                      = $registro["sei"];
-            $dados->autuacao                 = $registro["autuacao"];
-            $dados->cpf                      = $registro["cpf"];
-            $dados->beneficiario             = $registro["beneficiario"];
-            $dados->guia                     = $registro["guia"];
-            $dados->senha                    = $registro["senha"];
-            $dados->valor_causa              = $registro["valor_causa"];
-            $dados->observacao               = $registro["observacao"];
-            $dados->assunto                  = $registro["id_assunto"];
-            $dados->classe_judicial          = $registro["id_classe_judicial"];
-            $dados->processo_principal       = $registro["processo_principal"];
-            $dados->situacao_processual      = $registro["id_situacao_processual"];
-            $dados->liminar                  = $registro["id_liminar"];
-            $dados->instancia                = $registro["id_instancia"];
+            $dados->id = $registro["id"];
+            $dados->numero = $registro["numero"];
+            $dados->sei = $registro["sei"];
+            $dados->autuacao = $registro["autuacao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->beneficiario = $registro["beneficiario"];
+            $dados->guia = $registro["guia"];
+            $dados->senha = $registro["senha"];
+            $dados->valor_causa = $registro["valor_causa"];
+            $dados->observacao = $registro["observacao"];
+            $dados->assunto = $registro["id_assunto"];
+            $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->processo_principal = $registro["processo_principal"];
+            $dados->situacao_processual = $registro["id_situacao_processual"];
+            $dados->liminar = $registro["id_liminar"];
+            $dados->instancia = $registro["id_instancia"];
             $dados->data_cumprimento_liminar = $registro["data_cumprimento_liminar"];
-            $dados->usuario                  = $registro["id_usuario"];
-            $dados->atualizacao              = $registro["atualizacao"];
-            $dados->autor_inas               = $registro["autor_inas"];
+            $dados->usuario = $registro["id_usuario"];
+            $dados->atualizacao = $registro["atualizacao"];
+            $dados->autor_inas = $registro["autor_inas"];
         }
         return $dados;
     }
-    function salvar(Processo $dados) {
-        if($dados->classe_judicial==""){
+    function salvar(Processo $dados)
+    {
+        if ($dados->classe_judicial == "") {
             $dados->classe_judicial = "null";
         }
-        if($dados->liminar==""){
+        if ($dados->liminar == "") {
             $dados->liminar = "null";
             $dados->data_cumprimento_liminar = 0;
         }
-        if($dados->data_cumprimento_liminar==""){
+        if ($dados->data_cumprimento_liminar == "") {
             $dados->data_cumprimento_liminar = 0;
         }
-        if($dados->autor_inas==""){
+        if ($dados->autor_inas == "") {
             $dados->autor_inas = 0;
         }
         $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
@@ -135,28 +141,30 @@ class ManterProcesso extends Model {
         return $resultado;
     }
 
-    function excluir($id) {
+    function excluir($id)
+    {
         $sql = "delete from processo where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    function relatorioTotalPorAssunto($ano = '0') {
+    function relatorioTotalPorAssunto($ano = '0')
+    {
         $filtro = " ";
         if ($ano != '0') {
-            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='".$ano."'";
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
         }
-        $sql = "SELECT a.id, a.assunto, (SELECT COUNT(*) FROM processo as p WHERE p.id_assunto=a.id ".$filtro.") as total FROM assunto as a ORDER BY total;";
+        $sql = "SELECT a.id, a.assunto, (SELECT COUNT(*) FROM processo as p WHERE p.id_assunto=a.id " . $filtro . ") as total FROM assunto as a ORDER BY total;";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             if ($registro["total"] > 0) {
                 $dados = new stdClass();
-                $dados->id                       = $registro["id"];
-                $dados->assunto                  = $registro["assunto"];
-                $dados->total                    = $registro["total"];
+                $dados->id = $registro["id"];
+                $dados->assunto = $registro["assunto"];
+                $dados->total = $registro["total"];
 
-                $array_dados[]      = $dados;
+                $array_dados[] = $dados;
             }
         }
         return $array_dados;
@@ -187,5 +195,71 @@ class ManterProcesso extends Model {
         return $dados;
     }
 
-}
+    function relatorioTotaisPorMes($ano = '0')
+    {
+        $filtro = " ";
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
+        }
 
+        $sql = "SELECT 
+                MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
+                COUNT(*) AS total
+                FROM processo AS p
+                WHERE p.id_liminar IN (1, 2) " . $filtro . "
+                GROUP BY mes
+                ORDER BY mes";
+
+        $resultado = $this->db->Execute($sql);
+        $dados = array_fill(1, 12, 0); // Inicializa um array com 12 zeros (para os meses)
+        while ($registro = $resultado->fetchRow()) {
+            $dados[(int) $registro['mes']] = $registro['total'];
+        }
+        return $dados;
+    }
+
+    function getAnos()
+    {
+        $sql = "SELECT YEAR(FROM_UNIXTIME(P.autuacao)) AS ano FROM processo AS p 
+                WHERE p.id_liminar IN (1, 2) GROUP BY ano ORDER BY ano desc";
+
+        $resultado = $this->db->Execute($sql);
+        if ($resultado) {
+            $anos = [];
+            while ($row = $resultado->FetchRow()) {
+                $anos[] = $row['ano'];
+            }
+        }
+        return $anos;
+
+    }
+
+    function relatoriosTotaisPorAno($anos)
+    {
+        if (is_array($anos)) {
+            $anos = implode(",", $anos);
+        }
+        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, 
+                   MONTH(FROM_UNIXTIME(p.autuacao)) AS mes, 
+                   COUNT(*) AS total_processos 
+            FROM processo AS p 
+            WHERE p.id_liminar IN (1, 2) 
+            AND YEAR(FROM_UNIXTIME(p.autuacao)) IN ($anos) 
+            GROUP BY ano, mes 
+            ORDER BY ano, mes";
+        $resultado = $this->db->Execute($sql);
+        $totaisPorAno = [];
+
+        /
+        while ($registro = $resultado->fetchRow()) {
+            if (!isset($totaisPorAno[$registro['ano']])) {
+                $totaisPorAno[$registro['ano']] = [];
+            }
+            $totaisPorAno[$registro['ano']][$registro['mes']] = $registro['total_processos'];
+        }
+
+        return $totaisPorAno;
+    }
+
+
+}
