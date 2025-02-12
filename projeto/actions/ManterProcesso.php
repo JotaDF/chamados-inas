@@ -250,7 +250,6 @@ class ManterProcesso extends Model
         $resultado = $this->db->Execute($sql);
         $totaisPorAno = [];
 
-        /
         while ($registro = $resultado->fetchRow()) {
             if (!isset($totaisPorAno[$registro['ano']])) {
                 $totaisPorAno[$registro['ano']] = [];
