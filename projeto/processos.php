@@ -201,7 +201,7 @@ foreach ($listaCJ as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -210,6 +210,7 @@ foreach ($listaCJ as $obj) {
                 $('#beneficiario').val(beneficiario);
                 $('#guia').val(guia);
                 $('#valor_causa').val(valor_causa);
+                $('#observacoes').val(observacao);
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
@@ -253,7 +254,6 @@ foreach ($listaCJ as $obj) {
                     if (id_atual > 0) {
                         if (option.id == id_atual) {
                             selected = "selected";
-
                         } else {
                             selected = "";
                         }

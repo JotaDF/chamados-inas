@@ -22,12 +22,12 @@ $processo->valor_causa              = isset($_POST['valor_causa']) ? $_POST['val
 $processo->liminar                  = isset($_POST['liminar']) ? $_POST['liminar'] : '';
 $processo->data_cumprimento_liminar = isset($_POST['data_cumprimento_liminar']) ? strtotime($_POST['data_cumprimento_liminar']) : '';
 $processo->situacao_processual      = $_POST['situacao'];
-$processo->observacoes              = addslashes($_POST['observacoes']);
+$processo->observacao               = addslashes($_POST['observacoes']);
 $processo->usuario                  = $_POST['usuario'];
 
 
 //print_r($processo);
-$db_processo->salvar($processo);
+$db_processo->salvar($processo); 
 
 header('Location: processos.php');
 
