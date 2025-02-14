@@ -2,6 +2,7 @@
 include_once('actions/ManterProcesso.php');
 $p = new ManterProcesso();
 $resposta = [];
+$anos = $p->getAnos();
 if (isset($_POST['ano'])) {
     $ano = $_POST['ano'];
     $dados = $p->relatorioTotaisPorMes($ano);

@@ -4,8 +4,6 @@
             e.preventDefault(); // Evita o recarregamento da página
             var ano = $('#ano').val();
             var url = (ano == 'todos') ? 'obter_dados_ano.php' : 'obter_dados.php';
-
-            // Requisição AJAX para obter os dados
             $.ajax({
                 url: url,
                 method: 'POST',
@@ -33,7 +31,6 @@
         function atualizarGrafico(dados, ano) {
             var ctx = document.getElementById('meuGrafico').getContext('2d');
 
-            
             if (window.meuGrafico instanceof Chart) {
                 window.meuGrafico.destroy(); 
             }
@@ -50,10 +47,10 @@
 
             
             const coresPorAno = {
-                '2021': { backgroundColor: 'rgba(60, 120, 216, 0.3)', borderColor: 'rgba(60, 120, 216, 1)' },
-                '2022': { backgroundColor: 'rgba(0, 204, 153, 0.3)', borderColor: 'rgba(0, 204, 153, 1)' },
-                '2023': { backgroundColor: 'rgba(255, 133, 27, 0.3)', borderColor: 'rgba(255, 133, 27, 1)' },
-                '2024': { backgroundColor: 'rgba(156, 89, 210, 0.3)', borderColor: 'rgba(156, 89, 210, 1)' },
+                '2021': { backgroundColor: 'rgba(60, 120, 216, 0.3)', borderColor: 'rgba(60, 120, 216, 1)'},
+                '2022': { backgroundColor: 'rgba(0, 204, 153, 0.3)', borderColor: 'rgba(0, 204, 153, 1)'},
+                '2023': { backgroundColor: 'rgba(255, 133, 27, 0.3)', borderColor: 'rgba(255, 133, 27, 1)'},
+                '2024': { backgroundColor: 'rgba(156, 89, 210, 0.3)', borderColor: 'rgba(156, 89, 210, 1)'},
             };
 
             // Preparar os dados para o gráfico

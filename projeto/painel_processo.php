@@ -31,7 +31,7 @@ $anos = $p->getAnos();
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-    <!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0">
     </script>
 </head>
@@ -49,10 +49,10 @@ $anos = $p->getAnos();
                     <div class="card mb-4 border-primary" style="max-width:900px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
-                                <i class="fas fa-users fa-2x text-white"></i>
+                            <i class="fi fi-rs-chart-pie-alt"></i>
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Painel</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de Barras</span>
                             </div>
                             <div class="col text-right" style="max-width:20%"></div>
                         </div>
@@ -71,23 +71,58 @@ $anos = $p->getAnos();
                                 </div>
                                 <div class="form-group row float-right">
                                     <button type="submit" name="enviar" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-save"></i> Salvar
+                                         Gerar
                                     </button>
                                 </div>
                             </form>
-                            <div class="card-body">
-                                <canvas id="meuGrafico" width="400" height="200">
+                                <canvas id="meuGrafico" width="200" height="100">
                                     <?php
                                     include('dashboard_bar.php');
                                     ?>
                                 </canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                    <div class="card mb-4 border-primary" style="max-width:900px">
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                            <div class="col-sm ml-0" style="max-width:50px;">
+                            <i class="fi fi-rs-chart-pie-alt"></i>
+                            </div>
+                            <div class="col mb-0">
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de Barras</span>
+                            </div>
+                            <div class="col text-right" style="max-width:20%"></div>
+                        </div>
+                        <div class="card-body">
+                            <form id="form_painel_pie">
+                                <div class="form-group row">
+                                    <label for="ano" class="col-sm-2 col-form-label">Ano</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control form-control-sm" id="ano2" name="[]">
+                                                <option value="todos">Todos</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row float-right">
+                                    <button type="submit" name="enviar" class="btn btn-primary btn-sm">
+                                         Gerar
+                                    </button>
+                                </div>
+                            </form>
+                                <canvas id="dashboardpie" width="200" height="100"> </canvas>
+                                    <?php
+                                    include('dashboard_pie.php');
+                                    ?>
+                               
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <?php include './rodape.php'; ?>
                 </div>
             </div>
             <!-- End of Main Content -->
-            <?php include './rodape.php'; ?>
         </div>
         <!-- End of Content Wrapper -->
     </div>
