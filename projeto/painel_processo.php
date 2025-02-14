@@ -34,6 +34,14 @@ $anos = $p->getAnos();
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0">
     </script>
+    <style>
+        #dashboardpie {
+            width: 100px;
+            /* Largura do gráfico */
+            height: 100px;
+            /* Altura do gráfico */
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -46,85 +54,90 @@ $anos = $p->getAnos();
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <div class="container-fluid">
-                    <div class="card mb-4 border-primary" style="max-width:900px">
-                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                            <div class="col-sm ml-0" style="max-width:50px;">
-                            <i class="fi fi-rs-chart-pie-alt"></i>
-                            </div>
-                            <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de Barras</span>
-                            </div>
-                            <div class="col text-right" style="max-width:20%"></div>
-                        </div>
-                        <div class="card-body">
-                            <form id="form_painel">
-                                <div class="form-group row">
-                                    <label for="ano" class="col-sm-2 col-form-label">Ano</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control form-control-sm" id="ano" name="[]">
-                                            <?php foreach ($anos as $ano): ?>
-                                                <option value="<?= $ano ?>"><?= $ano?></option>
-                                                <?php endforeach; ?>
-                                                <option value="todos">Todos</option>
-                                        </select>
+                    <!-- Linha para organizar os cards lado a lado -->
+                    <div class="row">
+                        <!-- Primeiro Card (Gráfico de Barras) -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-primary">
+                                <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                                    <div class="col-sm ml-0" style="max-width:50px;">
+                                        <i class="fi fi-rs-chart-pie-alt"></i>
                                     </div>
-                                </div>
-                                <div class="form-group row float-right">
-                                    <button type="submit" name="enviar" class="btn btn-primary btn-sm">
-                                         Gerar
-                                    </button>
-                                </div>
-                            </form>
-                                <canvas id="meuGrafico" width="200" height="100">
-                                    <?php
-                                    include('dashboard_bar.php');
-                                    ?>
-                                </canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-fluid">
-                    <div class="card mb-4 border-primary" style="max-width:900px">
-                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                            <div class="col-sm ml-0" style="max-width:50px;">
-                            <i class="fi fi-rs-chart-pie-alt"></i>
-                            </div>
-                            <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de Barras</span>
-                            </div>
-                            <div class="col text-right" style="max-width:20%"></div>
-                        </div>
-                        <div class="card-body">
-                            <form id="form_painel_pie">
-                                <div class="form-group row">
-                                    <label for="ano" class="col-sm-2 col-form-label">Ano</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control form-control-sm" id="ano2" name="[]">
-                                                <option value="todos">Todos</option>
-                                        </select>
+                                    <div class="col mb-0">
+                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de
+                                            Barras</span>
                                     </div>
+                                    <div class="col text-right" style="max-width:20%"></div>
                                 </div>
-                                <div class="form-group row float-right">
-                                    <button type="submit" name="enviar" class="btn btn-primary btn-sm">
-                                         Gerar
-                                    </button>
+                                <div class="card-body">
+                                    <form id="form_painel">
+                                        <div class="form-group row">
+                                            <label for="ano" class="col-sm-2 col-form-label">Ano</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control form-control-sm" id="ano" name="[]">
+                                                    <?php foreach ($anos as $ano): ?>
+                                                        <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                    <?php endforeach; ?>
+                                                    <option value="todos">Todos</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row float-right">
+                                            <button type="submit" name="enviar"
+                                                class="btn btn-primary btn-sm">Gerar</button>
+                                        </div>
+                                    </form>
+                                    <canvas id="meuGrafico" width="200" height="100">
+                                        <?php include('dashboard_bar.php'); ?>
+                                    </canvas>
                                 </div>
-                            </form>
-                                <canvas id="dashboardpie" width="200" height="100"> </canvas>
-                                    <?php
-                                    include('dashboard_pie.php');
-                                    ?>
-                               
+                            </div>
+                        </div>
+
+                        <!-- Segundo Card (Gráfico de Pizza) -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-primary">
+                                <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                                    <div class="col-sm ml-0" style="max-width:50px;">
+                                        <i class="fi fi-rs-chart-pie-alt"></i>
+                                    </div>
+                                    <div class="col mb-0">
+                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de
+                                            Pizza</span>
+                                    </div>
+                                    <div class="col text-right" style="max-width:20%"></div>
+                                </div>
+                                <div class="card-body">
+                                    <form id="form_painel_pie">
+                                        <div class="form-group row">
+                                            <label for="ano" class="col-sm-2 col-form-label">Ano</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control form-control-sm" id="ano2" name="[]">
+                                                    <option value="todos">Todos</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row float-right">
+                                            <button type="submit" name="enviar"
+                                                class="btn btn-primary btn-sm">Gerar</button>
+                                        </div>
+                                    </form>
+                                    <canvas id="dashboardpie" width="200" height="100">
+                                        <?php include('dashboard_pie.php'); ?>
+                                    </canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php include './rodape.php'; ?>
                 </div>
+
             </div>
-            <!-- End of Main Content -->
+            <?php include './rodape.php'; ?>
         </div>
-        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Main Content -->
+    </div>
+    <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
