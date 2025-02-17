@@ -163,38 +163,54 @@ class ManterProcesso extends Model
                 $dados->id = $registro["id"];
                 $dados->assunto = $registro["assunto"];
                 $dados->total = $registro["total"];
-
+                
                 $array_dados[] = $dados;
             }
         }
         return $array_dados;
     }
-    function relatorioTotais($ano = '0') {
+    function relatorioTotais($ano = '0')
+    {
         $filtro = " ";
         if ($ano != '0') {
-            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='".$ano."'";
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
         }
-        $sql =  "SELECT 
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=1 ".$filtro.") as total_deferido,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=2 ".$filtro.") as total_indeferido,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_situacao_processual=3 ".$filtro.") as total_arquivado,
-                (SELECT COUNT(*) FROM processo as p, valor_processo as vp WHERE vp.id_processo = p.id AND vp.id_tipo_valor=7 ".$filtro.") as total_danos_moraes,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id > 0 ".$filtro.") as total_processos
+        $sql = "SELECT 
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=1 " . $filtro . ") as total_deferido,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=2 " . $filtro . ") as total_indeferido,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id_situacao_processual=3 " . $filtro . ") as total_arquivado,
+                (SELECT COUNT(*) FROM processo as p, valor_processo as vp WHERE vp.id_processo = p.id AND vp.id_tipo_valor=7 " . $filtro . ") as total_danos_moraes,
+                (SELECT COUNT(*) FROM processo as p WHERE p.id > 0 " . $filtro . ") as total_processos
                 FROM processo 
                 LIMIT 1";
-        //echo $sql;
+                //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new stdClass();
         if ($registro = $resultado->fetchRow()) {
-            $dados->total_deferido      = $registro["total_deferido"];
-            $dados->total_indeferido    = $registro["total_indeferido"];
-            $dados->total_arquivado     = $registro["total_arquivado"];
-            $dados->total_danos_moraes  = $registro["total_danos_moraes"];
-            $dados->total_processos     = $registro["total_processos"];
+            $dados->total_deferido = $registro["total_deferido"];
+            $dados->total_indeferido = $registro["total_indeferido"];
+            $dados->total_arquivado = $registro["total_arquivado"];
+            $dados->total_danos_moraes = $registro["total_danos_moraes"];
+            $dados->total_processos = $registro["total_processos"];
         }
         return $dados;
     }
+    
+    function getAnos()
+    {
+        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano FROM processo AS p 
+                WHERE p.id_liminar IN (1, 2) GROUP BY ano ORDER BY ano desc";
 
+        $resultado = $this->db->Execute($sql);
+        if ($resultado) {
+            $anos = [];
+            while ($row = $resultado->FetchRow()) {
+                $anos[] = $row['ano'];
+            }
+        }
+        return $anos;
+
+    }
     function relatorioTotaisPorMes($ano = '0')
     {
         $filtro = " ";
@@ -218,21 +234,6 @@ class ManterProcesso extends Model
         return $dados;
     }
 
-    function getAnos()
-    {
-        $sql = "SELECT YEAR(FROM_UNIXTIME(P.autuacao)) AS ano FROM processo AS p 
-                WHERE p.id_liminar IN (1, 2) GROUP BY ano ORDER BY ano desc";
-
-        $resultado = $this->db->Execute($sql);
-        if ($resultado) {
-            $anos = [];
-            while ($row = $resultado->FetchRow()) {
-                $anos[] = $row['ano'];
-            }
-        }
-        return $anos;
-
-    }
 
     function relatoriosTotaisPorAno($anos)
     {
@@ -242,11 +243,11 @@ class ManterProcesso extends Model
         $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, 
                    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes, 
                    COUNT(*) AS total_processos 
-            FROM processo AS p 
-            WHERE p.id_liminar IN (1, 2) 
-            AND YEAR(FROM_UNIXTIME(p.autuacao)) IN ($anos) 
-            GROUP BY ano, mes 
-            ORDER BY ano, mes";
+                   FROM processo AS p 
+                   WHERE p.id_liminar IN (1, 2) 
+                   AND YEAR(FROM_UNIXTIME(p.autuacao)) IN ($anos) 
+                   GROUP BY ano, mes 
+                   ORDER BY ano, mes";
         $resultado = $this->db->Execute($sql);
         $totaisPorAno = [];
 
@@ -260,5 +261,20 @@ class ManterProcesso extends Model
         return $totaisPorAno;
     }
 
+    function relatoriosPorAno()
+    {
+        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, COUNT(*) AS total 
+                FROM processo AS p WHERE p.id_liminar IN (1, 2) 
+                GROUP BY YEAR(FROM_UNIXTIME(p.autuacao))";
+        $resultado = $this->db->Execute($sql);
+        $dados = [];
+        while ($registro = $resultado->fetchRow()) {
+            $dado = new stdClass;
+            $dado->ano = $registro['ano'];
+            $dado->total = $registro['total'];
+            $dados[] = $dado;
+        }
+        return $dados;
+    }
 
 }
