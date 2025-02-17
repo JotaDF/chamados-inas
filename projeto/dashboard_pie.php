@@ -1,23 +1,24 @@
-
 <script>
     $(document).ready(function () {
-        $('#form_painel_pie').on('submit', function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
-            var ano = $('#ano2').val(); // Pegando o valor do ano selecionado
-            var url = 'obter_dados_pie.php'; // URL da requisição
+        // Chama a função para carregar os dados e atualizar o gráfico automaticamente
+        carregarGraficoPizza();
+
+        function carregarGraficoPizza() {
+            // URL da requisição AJAX
+            var url = 'obter_dados_pie.php';
 
             // Requisição AJAX
             $.ajax({
                 url: url,
-                method: 'POST',
-                data: { ano2: ano }, // Enviando o ano como parâmetro
-                dataType: 'json',
+                method: 'POST', 
+                dataType: 'json', 
                 success: function (dados) {
-                    if (dados.dados) {
-                        // Atualizando o gráfico com os dados retornados
+                    console.log(dados); 
+                    if (dados.dados && Array.isArray(dados.dados)) {
+                        // Atualiza o gráfico com os dados retornados
                         atualizarGrafico(dados.dados);
                     } else {
-                        alert(dados.error); // Caso haja erro
+                        alert('Erro nos dados retornados ou nenhum dado encontrado.');
                     }
                 },
                 error: function (xhr, status, error) {
@@ -25,8 +26,10 @@
                     alert('Erro ao carregar os dados. Verifique o console para mais detalhes.');
                 }
             });
-        });
 
+        }
+
+        // Função para atualizar o gráfico de pizza
         function atualizarGrafico(dados) {
             var ctx = document.getElementById('dashboardpie').getContext('2d');
 
@@ -50,6 +53,7 @@
                 '2022': { backgroundColor: 'rgba(0, 204, 153, 0.3)', borderColor: 'rgba(0, 204, 153, 1)' },
                 '2023': { backgroundColor: 'rgba(255, 133, 27, 0.3)', borderColor: 'rgba(255, 133, 27, 1)' },
                 '2024': { backgroundColor: 'rgba(156, 89, 210, 0.3)', borderColor: 'rgba(156, 89, 210, 1)' },
+                '2025': { backgroundColor: 'rgba(128, 0, 128, 0.3)', borderColor: 'rgba(128, 0, 128, 1)' },
             };
 
             // Preparando os datasets para o gráfico
@@ -64,6 +68,7 @@
                 }),
                 borderWidth: 1
             }];
+
             // Criando o gráfico
             window.dashboardpie = new Chart(ctx, {
                 type: 'pie', // Tipo do gráfico
@@ -72,10 +77,16 @@
                     datasets: datasets // Dados para o gráfico
                 },
                 options: {
-                    responsive: true,
+                    responsive: false,
                     plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Processos por Ano' }
+                        legend: { position: 'top', 
+                            labels: {
+                                font: {
+                                    size: 15,
+                                }
+                            }
+                        },
+                        title: { display: true, text: 'PROCESSOS POR ANO'}
                     },
                     scales: {
                         y: {
@@ -86,5 +97,6 @@
             });
         }
     });
+
 
 </script>

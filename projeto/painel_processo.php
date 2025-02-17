@@ -5,7 +5,6 @@ require_once('./verifica_login.php');
 include('actions/ManterProcesso.php');
 $p = new ManterProcesso();
 $anos = $p->getAnos();
-;
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,11 +34,49 @@ $anos = $p->getAnos();
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0">
     </script>
     <style>
+        #bar {
+            width: 100%;
+            max-width: 650px;
+            /* Limitar a largura do card-body */
+            height: 400px;
+            /* Limitar a largura do card-body */
+            margin: 0 auto;
+            /* Limitar a largura do card-body */
+        }
+
+        #pie {
+            width: 100%;
+            max-width: 650px;
+            /* Limitar a largura do gráfico de pizza */
+            height: 420px;
+            /* Limitar a largura do gráfico de pizza */
+            margin: 0 auto;
+            /* Limitar a largura do gráfico de pizza */
+        }
+
+
+        #barra {
+            width: 100%;
+            max-width: 500px;
+            /* Largura ajustada para o gráfico de barras */
+            height: 250px;
+            /* Altura ajustada para o gráfico de barras */
+            display: block;
+            /* Certificar que o gráfico de barras é um bloco */
+            margin: 0 auto;
+            /* Centralizar o gráfico de barras horizontalmente */
+        }
+
         #dashboardpie {
-            width: 100px;
-            /* Largura do gráfico */
-            height: 100px;
-            /* Altura do gráfico */
+            width: 100%;
+            max-width: 600px;
+            /* Largura ajustada para o gráfico de pizza */
+            height: 150px;
+            /* Altura ajustada para o gráfico de pizza */
+            display: block;
+            /* Certificar que o gráfico de pizza é um bloco */
+            margin: 0 auto;
+            /* Centralizar o gráfico de pizza horizontalmente */
         }
     </style>
 </head>
@@ -58,7 +95,7 @@ $anos = $p->getAnos();
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="col-md-6 mb-4">
-                            <div class="card border-primary">
+                            <div class="card border-primary" id="bar">
                                 <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                     <div class="col-sm ml-0" style="max-width:50px;">
                                         <i class="fi fi-rs-chart-pie-alt"></i>
@@ -72,8 +109,9 @@ $anos = $p->getAnos();
                                 <div class="card-body">
                                     <form id="form_painel">
                                         <div class="form-group row">
-                                            <label for="ano" class="col-sm-2 col-form-label">Ano</label>
-                                            <div class="col-sm-10">
+                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
+                                            <!-- Ajustei o padding-right do label -->
+                                            <div class="col-sm-8 pl-0">
                                                 <select class="form-control form-control-sm" id="ano" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
@@ -81,22 +119,24 @@ $anos = $p->getAnos();
                                                     <option value="todos">Todos</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row float-right">
-                                            <button type="submit" name="enviar"
-                                                class="btn btn-primary btn-sm">Gerar</button>
+                                            <div class="col-sm-2 pl-0">
+                                                <button type="submit" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100">Gerar</button>
+                                            </div>
                                         </div>
                                     </form>
-                                    <canvas id="meuGrafico" width="200" height="100">
-                                        <?php include('dashboard_bar.php'); ?>
-                                    </canvas>
+
+
+                                    <canvas id="barra" width="500" height="250"></canvas>
+                                    <?php include('dashboard_bar.php'); ?>
+
                                 </div>
                             </div>
                         </div>
 
                         <!-- Segundo Card (Gráfico de Pizza) -->
                         <div class="col-md-6 mb-4">
-                            <div class="card border-primary">
+                            <div class="card border-primary" id="pie">
                                 <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                     <div class="col-sm ml-0" style="max-width:50px;">
                                         <i class="fi fi-rs-chart-pie-alt"></i>
@@ -107,22 +147,9 @@ $anos = $p->getAnos();
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
-                                <div class="card-body">
-                                    <form id="form_painel_pie">
-                                        <div class="form-group row">
-                                            <label for="ano" class="col-sm-2 col-form-label">Ano</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control form-control-sm" id="ano2" name="[]">
-                                                    <option value="todos">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row float-right">
-                                            <button type="submit" name="enviar"
-                                                class="btn btn-primary btn-sm">Gerar</button>
-                                        </div>
-                                    </form>
-                                    <canvas id="dashboardpie" width="200" height="100">
+                                <div class="container-fluid">
+
+                                    <canvas id="dashboardpie" width="550" height="370">
                                         <?php include('dashboard_pie.php'); ?>
                                     </canvas>
                                 </div>
@@ -138,7 +165,6 @@ $anos = $p->getAnos();
     <!-- End of Main Content -->
     </div>
     <!-- End of Content Wrapper -->
-    </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
