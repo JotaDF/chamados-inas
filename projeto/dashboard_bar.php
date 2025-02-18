@@ -78,7 +78,7 @@
 
             // Ternário para verificar se o ano for 'todos', usar os anos. Se não, usamos os meses.
             var labels = meses;
-
+            var title = (ano === 'todos') ? { display: true, text: 'QUANTIDADE DE PROCESSOS POR ANO'} : { display: true, text: 'QUANTIDADE DE PROCESSOS POR MÊS'}
             // Cores diferentes para cada ano
             const coresPorAno = {
                 '2021': { backgroundColor: 'rgba(60, 120, 216, 0.3)', borderColor: 'rgba(60, 120, 216, 1)' },
@@ -129,6 +129,7 @@
                                 }
                             }
                         },
+                        title: title
                     },
                     scales: {
                         y: {
