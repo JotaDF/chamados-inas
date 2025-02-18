@@ -265,7 +265,8 @@ class ManterProcesso extends Model
     {
         $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, COUNT(*) AS total 
                 FROM processo AS p WHERE p.id_liminar IN (1, 2) 
-                GROUP BY YEAR(FROM_UNIXTIME(p.autuacao))";
+                GROUP BY YEAR(FROM_UNIXTIME(p.autuacao)) 
+                ORDER BY ano";
         $resultado = $this->db->Execute($sql);
         $dados = [];
         while ($registro = $resultado->fetchRow()) {
