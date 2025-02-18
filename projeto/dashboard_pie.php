@@ -86,7 +86,7 @@
                                 }
                             }
                         },
-                        title: { display: true, text: 'PROCESSOS POR ANO'}
+                        title: { display: true, text: 'QUANTIDADE DE PROCESSOS POR ANO'}
                     },
                     scales: {
                         y: {
