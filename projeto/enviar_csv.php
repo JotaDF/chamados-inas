@@ -68,7 +68,6 @@ if (isset($_REQUEST['msg'])) {
                                                 <div class="alert alert-info fade " role="alert" id="alerta">
                                                     <?php echo $msg; ?>
                                                 </div>
-
                                                 <script>
                                                     document.addEventListener("DOMContentLoaded", function () {
                                                         // Exibir o alerta ao carregar a página
@@ -79,23 +78,6 @@ if (isset($_REQUEST['msg'])) {
                                                         setTimeout(function () {
                                                             alerta.classList.remove("show");
                                                         }, 2000);
-                                                    });
-                                                </script>
-                                            <?php else: ?>
-                                                <div class="alert alert-danger " role="alert" id="alerta">
-                                                    <?php echo $msg; ?>
-                                                </div>
-
-                                                <script>
-                                                    document.addEventListener("DOMContentLoaded", function () {
-                                                        // Exibe o alerta ao carregar a página
-                                                        var alerta = document.getElementById("alerta");
-                                                        alerta.classList.add("show");
-
-                                                        // tira o alerta após 2 segundos
-                                                        setTimeout(function () {
-                                                            alerta.classList.remove("show");
-                                                        }, 2500);
                                                     });
                                                 </script>
                                             <?php endif; ?>
