@@ -3,11 +3,18 @@ $mod = 6;
 require_once('./verifica_login.php');
 // Verificar se há uma mensagem armazenada na sessão
 
+$msg = "";
+
+if (isset($_REQUEST['msg'])) {
+    $id_msg = $_REQUEST['msg'];
+
+    if ($id_msg == 1) {
+        $msg = "Arquivo processado com sucesso!";
+    } else if ($id_msg == 2) {
+        $msg = "Erro ao processar arquivo!";
+    }
+}
 ?>
-
-<!-- O restante do código HTML da página aqui -->
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,31 +36,6 @@ require_once('./verifica_login.php');
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" />
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-    <style>
-        .centralizado {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* Ajuste conforme necessário */
-        }
-    </style>
 </head>
 
 <body id="page-top">
@@ -63,7 +45,7 @@ require_once('./verifica_login.php');
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <div class="conainer-fluid">
-                    <div class="card-body mt-4"> <!-- Adicionando a classe mt-4 para a margem superior -->
+                    <div class="card-body mt-4">
                         <div class="card mb-4 border-primary" style="max-width:1000px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0 text-right" style="max-width:50px;">
@@ -77,15 +59,48 @@ require_once('./verifica_login.php');
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Upload</span>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column ">
-                                <div class="row ">
-                                    <div class="card-body ">
-                                        <?php include './form_csv.php'; 
-                                        if (isset($_SESSION['message'])) {
-                                            echo "<p style='color: green;'>" . $_SESSION['message'] . "</p>";
-                                            // Limpar a mensagem da sessão após exibir
-                                        }
-                                        ?>
+                            <div class="d-flex flex-column">
+                                <div class="row">
+                                    <div class="card-body">
+                                        <?php include './form_csv.php'; ?>
+                                        <div class="alerta">
+                                            <?php if ($msg): ?>
+                                                <div class="alert alert-info fade " role="alert" id="alerta">
+                                                    <?php echo $msg; ?>
+                                                </div>
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        // Exibir o alerta ao carregar a página
+                                                        var alerta = document.getElementById("alerta");
+                                                        alerta.classList.add("show");
+
+                                                        // Ocultar o alerta após 2 segundos
+                                                        setTimeout(function () {
+                                                            alerta.classList.remove("show");
+                                                        }, 2000);
+                                                    });
+                                                </script>
+                                            <?php else: ?>
+                                                <div class="alert alert-danger " role="alert" id="alerta">
+                                                    <?php echo $msg; ?>
+                                                </div>
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        // Exibe o alerta ao carregar a página
+                                                        var alerta = document.getElementById("alerta");
+                                                        alerta.classList.add("show");
+
+                                                        // tira o alerta após 2 segundos
+                                                        setTimeout(function () {
+                                                            alerta.classList.remove("show");
+                                                        }, 2500);
+                                                    });
+                                                </script>
+                                            <?php endif; ?>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

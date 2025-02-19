@@ -10,12 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv'])) {
         $mCsv->insereCsv();
 
         // Verificar se a inserção foi bem-sucedida e definir a mensagem
-        $_SESSION['message'] = "Arquivo salvo com sucesso!";
-        header('Location: enviar_csv.php');
+        //$_SESSION['messagem'] = "Arquivo salvo com sucesso!";
+        header('Location: enviar_csv.php?msg=1');
         exit(); // Não esquecer o exit() após redirecionamento
     } else {
-        $_SESSION['message'] = "Erro: " . $resultado['message'];
-        header('Location: enviar_csv.php');
+        $_SESSION['messagem'] = "Erro: " . $resultado['messagem'];
+        header('Location: enviar_csv.php?msg=2');
         exit(); // Não esquecer o exit() após redirecionamento
     }
 }
