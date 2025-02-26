@@ -46,6 +46,24 @@ class ManterSlaRegulacao extends Model
         return $array_dados;
     }
 
+    function getTotaisPrazo()
+    {
+        $sql = ('SELECT fila, COUNT(CASE WHEN atraso = 0 THEN 1 END) AS atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) AS atraso_1 
+        FROM sla_regulacao WHERE atraso IN (0, 1) GROUP BY fila');
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new stdClass;
+            $dados->fila  = $registro['fila'];
+            $dados->atraso_0 = $registro['atraso_0'];
+            $dados->atraso_1 = $registro['atraso_1'];
+            $array_dados[]  = $dados;
+        }
+
+        return $array_dados;
+
+    }
+
     function getPrazoGuia($tipo_guia, $fila)
     {
         $sql = "SELECT p.prazo_segundos FROM sla_prazo as p WHERE p.tipo_guia = '" . $tipo_guia . "' AND p.fila = '" . $fila . "'";
@@ -64,13 +82,13 @@ class ManterSlaRegulacao extends Model
 
         }
     }
-
     function atualizaAtraso($autorizacao, $tempo)
     {
         $sql = "UPDATE sla_regulacao SET atraso = " . $tempo . " WHERE autorizacao=" . $autorizacao;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+
     function uploadCsv($file)
     {
         // Define o diretório de upload
@@ -113,8 +131,8 @@ class ManterSlaRegulacao extends Model
                 fgetcsv($handle, 9000, ',');
 
                 // Definir a consulta SQL com placeholders
-                $sql = "INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
                 // Ler o arquivo CSV linha por linha
@@ -127,8 +145,6 @@ class ManterSlaRegulacao extends Model
                     $encaminhamento_manual = $data[4];
                     $data_solicitacao_t = $data[5];
                     $data_solicitacao_d = $data[5];
-
-
                     // Converter a data solicitacão para timestamp
                     $date_t = DateTime::createFromFormat('d/m/Y H:i', $data_solicitacao_t); // Formato completo com hora e minuto
                     $data_solicitacao_convertida = $date_t ? $date_t->getTimestamp() : null; // Verifica se a data foi convertida corretamente
@@ -136,13 +152,11 @@ class ManterSlaRegulacao extends Model
                     // Converter a data solicitacão para Datetime
                     $date_d = DateTime::createFromFormat('d/m/Y H:i', $data_solicitacao_d);
                     $data_solicitacao_d = $date_d->format('Y-m-d H:i:s');
-
+                    $atraso = 0;
                     // Converter o valor "SIM" para 1 e "NAO" para 0
                     $encaminhamento_manual_convertido = ($encaminhamento_manual == "SIM") ? 1 : 0;
-
                     // fazendo a condificação para utf8
                     $this->db->Execute("SET NAMES 'utf8mb4'");
-
                     $result = $this->db->Execute($sql, [
                         $autorizacao,
                         $tipo_guia,
@@ -150,20 +164,19 @@ class ManterSlaRegulacao extends Model
                         $fila,
                         $encaminhamento_manual_convertido,
                         $data_solicitacao_convertida,
-                        $data_solicitacao_d
+                        $data_solicitacao_d,
+                        $atraso
                     ]);
 
-                    // Verifica se a execução foi bem-sucedida
                     if (!$result) {
                         echo "Erro ao inserir dados: " . $this->db->ErrorMsg();
+                    } else {
                     }
                 }
 
                 // Fechar o arquivo após a leitura
                 fclose($handle);
-
                 echo "Dados importados com sucesso!";
-
             } else {
                 echo "Erro ao abrir o arquivo CSV.";
             }
@@ -188,25 +201,21 @@ class ManterSlaRegulacao extends Model
         $m = floor(($a + 11 * $h + 22 * $l) / 451);
         $month = floor(($h + $l - 7 * $m + 114) / 31);
         $day = (($h + $l - 7 * $m + 114) % 31) + 1;
-    
+
         return mktime(0, 0, 0, $month, $day, $ano);
     }
-    
-    // Exemplo de uso:
-    
-    
     function getListaDiasFeriado($ano = null)
     {
-    
+
         if ($ano === null) {
             $ano = intval(date('Y'));
         }
-    
+
         $pascoa = $this->calcularDataPascoa($ano); // retorna data da pascoa do ano especificado
         $diaPascoa = date('j', $pascoa);
         $mesPacoa = date('n', $pascoa);
         $anoPascoa = date('Y', $pascoa);
-    
+
         $feriados = [
             // Feriados nacionais fixos
             mktime(0, 0, 0, 1, 1, $ano),   // Confraternização Universal
@@ -225,47 +234,43 @@ class ManterSlaRegulacao extends Model
             mktime(0, 0, 0, $mesPacoa, $diaPascoa, $anoPascoa),      // Pascoa
             mktime(0, 0, 0, $mesPacoa, $diaPascoa + 60, $anoPascoa), // Corpus Christ
         ];
-    
+
         sort($feriados);
-    
+
         $listaDiasFeriado = [];
         foreach ($feriados as $feriado) {
             $data = date('Y-m-d', $feriado);
             $listaDiasFeriado[$data] = $data;
         }
-    
+
         return $listaDiasFeriado;
     }
-    
+
     function isFeriado($data)
     {
         $listaFeriado = $this->getListaDiasFeriado(date('Y', strtotime($data)));
         if (isset($listaFeriado[$data])) {
             return true;
         }
-    
+
         return false;
     }
-    
+
     function getDiasUteis($data_inicial, $data_final)
     {
         $dias_uteis = 0;
-    
+
         // Enquanto a data inicial for menor ou igual à data final
         while ($data_inicial <= $data_final) {
             // Verifica se o dia é útil (não é sábado nem domingo)
             if (date('N', $data_inicial) <= 5) {  // 'N' retorna 1 para segunda-feira até 7 para domingo
                 $dias_uteis++;
             }
-    
+
             // Avançar para o próximo dia (em timestamp)
             $data_inicial = strtotime("+1 day", $data_inicial);
         }
-    
+
         return $dias_uteis;
     }
 }
-
-
-// Exemplo de datas de solicitação e de hoje
-
