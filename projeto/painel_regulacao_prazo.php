@@ -43,6 +43,8 @@ require_once('./verifica_login.php');
     <script>
         $(document).ready(function () {
             $('#acessos').DataTable({
+                paging: false,
+                searching: true
             });
         });
 
@@ -52,8 +54,8 @@ require_once('./verifica_login.php');
     <div id="wrapper">
         <?php include './menu_admin.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
+            <?php include './top_bar.php'; ?>
             <div id="content">
-                <?php include './top_bar.php'; ?>
                 <div class="card mb-4 ml-2 border-primary" style="max-width:98%">
                     <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                         <div class="col-sm ml-0" style="max-width:50px;">
@@ -61,6 +63,12 @@ require_once('./verifica_login.php');
                         </div>
                         <div class="col mb-0">
                             <span style="align:left;" class="h5 m-0 font-weight text-white">Regualizações</span>
+                        </div>
+                        <div class="col text-right" style="max-width:30%">
+                            <form id="update" method="POST">
+                            <button id="atualiza" name="atualiza" class="btn btn-sm text-white border" type="submit">
+                                Atualizar Prazos
+                            </button>&nbsp;&nbsp;</form>
                         </div>
                     </div>
 
@@ -76,10 +84,18 @@ require_once('./verifica_login.php');
                             </thead>
                             <tbody>
                                 <?php
+                                include("get_regulacao_prazo.php");
                                 ?>
                             </tbody>
                         </table>
                     </div>
+                    <script>
+                        document.getElementById('atualiza').addEventListener('click', function () {
+                            const form = document.getElementById('update');
+                            form.action = "processa_prazo_regulacao.php"; // Alterando a ação do formulário para outro controller
+                            form.submit();
+                        });
+                    </script>
                 </div>
             </div>
         </div>
