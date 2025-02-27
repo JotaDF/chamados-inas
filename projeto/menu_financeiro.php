@@ -33,6 +33,13 @@
                     <span>Gerar Arquivo XML</span>
                 </a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" target="_black" href="consulta_irrf.php">
+                    <i class="fa fa-window-maximize"></i>
+                    <span>Consultar IRRF Beneficiário</span>
+                </a>
+            </li>
         <?php
     }
     ?>
