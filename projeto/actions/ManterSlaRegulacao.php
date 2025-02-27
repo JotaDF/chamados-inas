@@ -48,22 +48,29 @@ class ManterSlaRegulacao extends Model
 
     function getTotaisPrazo()
     {
-        $sql = ('SELECT fila, COUNT(CASE WHEN atraso = 0 THEN 1 END) AS atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) AS atraso_1 
-        FROM sla_regulacao WHERE atraso IN (0, 1) GROUP BY fila');
+        $sql = 'SELECT fila, COUNT(CASE WHEN atraso = 0 THEN 1 END) AS atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) AS atraso_1
+        FROM sla_regulacao WHERE atraso IN (0, 1) GROUP BY fila';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
-        while($registro = $resultado->fetchRow()) {
+        while ($registro = $resultado->fetchRow()) {
             $dados = new stdClass;
-            $dados->fila  = $registro['fila'];
+            $dados->fila = $registro['fila'];
             $dados->atraso_0 = $registro['atraso_0'];
             $dados->atraso_1 = $registro['atraso_1'];
-            $array_dados[]  = $dados;
+            $array_dados[] = $dados;
         }
-
         return $array_dados;
-
     }
 
+    function getTotalGuias()
+    {
+        $sql = "SELECT COUNT(*) as total FROM sla_regulacao";
+        $resultado = $this->db-> Execute($sql);
+        if ($registro = $resultado->fetchRow()) {
+            return $registro['total'];
+        }
+        return 0;
+    }
     function getPrazoGuia($tipo_guia, $fila)
     {
         $sql = "SELECT p.prazo_segundos FROM sla_prazo as p WHERE p.tipo_guia = '" . $tipo_guia . "' AND p.fila = '" . $fila . "'";
@@ -74,14 +81,21 @@ class ManterSlaRegulacao extends Model
         return 0;
     }
 
-    function listaPrazoGuia()
-    {
-        $sql = "SELECT p.fila, p.atraso WHERE p.atraso = 0 as no_prazo AND p.atraso = 1 as atrasado GROUP BY p.atraso";
-        $resultado = $this->db->Executo($sql);
-        while ($registro = $resultado->fetchRow()) {
 
+    function getTotaisAtraso()
+    {
+        $sql = "SELECT COUNT(CASE WHEN atraso = 0 THEN 1 END) as atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) as atraso_1 FROM sla_regulacao WHERE atraso IN (0,1)";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        if ($registro = $resultado->fetchRow()) {
+            return array(
+                'atraso_0' => $registro['atraso_0'],
+                'atraso_1' => $registro['atraso_1']
+            );
         }
+        return 0;
     }
+
     function atualizaAtraso($autorizacao, $tempo)
     {
         $sql = "UPDATE sla_regulacao SET atraso = " . $tempo . " WHERE autorizacao=" . $autorizacao;

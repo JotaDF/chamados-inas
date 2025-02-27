@@ -1,9 +1,6 @@
 <?php
 $mod = 6;
 require_once('./verifica_login.php');
-// Verificar se há uma mensagem armazenada na sessão
-
-
 ?>
 
 <!DOCTYPE html>
