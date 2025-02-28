@@ -96,12 +96,29 @@ class ManterSlaRegulacao extends Model
         return 0;
     }
 
-    function atualizaAtraso($autorizacao, $tempo)
-    {
+    function atualizaAtraso($autorizacao, $tempo) {
         $sql = "UPDATE sla_regulacao SET atraso = " . $tempo . " WHERE autorizacao=" . $autorizacao;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function atualizaAutorizados()
+    {
+        $sql = 'UPDATE sla_regulacao SET autorizado = NOW() WHERE autorizacao NOT IN (SELECT autorizacao  FROM sla_regulacao_tmp  WHERE autorizacao IS NOT NULL)'; 
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function atualizaNovosSla()
+    {
+        $sql = 'INSERT INTO sla_regulacao ( autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT * FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))'; 
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    
+    function limpaSlaTemporaria() {
+        $sql = 'DELETE FROM sla_regulacao_tmp';
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    } 
 
     function uploadCsv($file)
     {
@@ -132,6 +149,9 @@ class ManterSlaRegulacao extends Model
         }
     }
 
+
+
+
     function insereCsv()
     {
         // Caminho do arquivo CSV
@@ -145,7 +165,7 @@ class ManterSlaRegulacao extends Model
                 fgetcsv($handle, 9000, ',');
 
                 // Definir a consulta SQL com placeholders
-                $sql = "INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso) 
+                $sql = "INSERT INTO sla_regulacao_tmp (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 

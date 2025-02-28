@@ -55,7 +55,7 @@
                     datasets: [{
                         label: 'Processos por Fila', // Nome da série
                         data: atraso_0.concat(atraso_1), // Dados (totais) para o gráfico (processos dentro e fora do prazo)
-                        backgroundColor: ['#36A2EB', '#FF6384'], // Cor para cada pedaço do gráfico
+                        backgroundColor: ['#FF6384', '#36A2EB'], // Cor para cada pedaço do gráfico
                         hoverOffset: 4
                     }]
                 },

@@ -1,11 +1,12 @@
 <?php
 require_once('actions/ManterSlaRegulacao.php');
-
 if (isset($_POST['update']) || isset($_POST['update_painel'])) {
     $manterSlaRegulacao = new ManterSlaRegulacao;
     $regulacao = $manterSlaRegulacao->listarSlaRegulacao();
     $hoje = time();
-
+    $manterSlaRegulacao->atualizaAutorizados();
+    $manterSlaRegulacao->atualizaNovosSla();
+    $manterSlaRegulacao->limpaSlaTemporaria();
     foreach ($regulacao as $r) {
         $quantidadeDiasUteis = $manterSlaRegulacao->getDiasUteis($r->data_solicitacao_t, $hoje);
         $tempo_util = $quantidadeDiasUteis * 86400; // Converte dias úteis para segundos
@@ -14,13 +15,13 @@ if (isset($_POST['update']) || isset($_POST['update_painel'])) {
 
         // Verifica se o prazo foi cumprido
         if ($data_final > 0) {
-            $manterSlaRegulacao->atualizaAtraso($r->autorizacao, 0); // Atualiza como dentro do prazo
+            $manterSlaRegulacao->atualizaAtraso($r->autorizacao, 0); // Atualiza como fora do prazo
         } else {
-            $manterSlaRegulacao->atualizaAtraso($r->autorizacao, 1); // Atualiza como fora do prazo
+            $manterSlaRegulacao->atualizaAtraso($r->autorizacao, 1); // Atualiza como dentro do prazo
         }
     }
 
-    // Redireciona de volta para a página correta, dependendo do botão pressionado
+   
     if (isset($_POST['update_painel'])) {
         header('Location: painel_regulacao_prazo.php'); // Página do painel
     } else {

@@ -7,7 +7,11 @@ $prazo = $manterSlaRegulacao->getTotaisPrazo();
 foreach ($prazo as $p) {
     echo "<tr>";
     echo "<td>" .$p->fila . "</td>";
-    echo "<td>" .$p->atraso_1 . "</td>";
-    echo "<td>" .$p->atraso_0 . "</td>";
+    if($p->atraso_1 == 0) {
+        echo "<td><strong>" .$p->atraso_1 . "</strong></td>";
+    } else {
+        echo "<td style='color: #36A2EB'><strong>" .$p->atraso_1 . "</strong></td>";
+    }
+    echo "<td style='color: #FF6384'><strong>" .$p->atraso_0 . "</strong></td>";
     echo "</tr>";
 }

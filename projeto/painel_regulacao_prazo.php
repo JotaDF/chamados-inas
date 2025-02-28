@@ -117,7 +117,7 @@ require_once('./verifica_login.php');
         <div id="content-wrapper" class="d-flex flex-column">
             <?php include './top_bar.php'; ?>
             <?php
-                $msg = "";
+            $msg = "";
             if (isset($_REQUEST['msg'])) {
                 $id_msg = $_REQUEST['msg'];
                 if ($id_msg == 1) {
@@ -182,8 +182,9 @@ require_once('./verifica_login.php');
 
                             if ($regulacao) {
                                 echo "<p><strong>Total de Guias:</strong> " . $total . "</p>";
-                                echo "<p><strong>Dentro do Prazo:</strong>  " . $regulacao['atraso_1'] . "</p>";
-                                echo "<p><strong>Fora do Prazo:</strong> " . $regulacao['atraso_0'] . "</p>";
+                                echo "<p style='color: #36A2EB'><strong>Dentro do Prazo:</strong><strong>  " . $regulacao['atraso_1'] . "</strong></p>";
+                                echo "<p  style='color: #FF6384'><strong>Fora do Prazo:</strong><strong> " . $regulacao['atraso_0'] . "</strong></p>";
+
                             }
 
                             ?>
