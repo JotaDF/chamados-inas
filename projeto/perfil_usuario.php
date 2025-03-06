@@ -157,11 +157,11 @@ and open the template in the editor.
                                             $check_nao = "checked";
                                         }
                                     ?>
-                                    <span class="editar">Exibir nos aniversáriantes do mês:</span> 
-                                    <input class="editar" type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
-                                    <label class="editar" for="sim">Sim</label><br>
-                                    <input class="editar" type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
-                                    <label class="editar" for="nao">Não</label><br>
+                                    <span class="editar" style="display: none;">Exibir nos aniversáriantes do mês:</span> 
+                                    <input class="editar" style="display: none;" type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
+                                    <label class="editar" style="display: none;" for="sim">Sim</label> 
+                                    <input class="editar" style="display: none;" type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
+                                    <label class="editar" style="display: none;" for="nao">Não</label> 
                                     <br/>
                                     <button type="submit" class="btn btn-primary btn-sm editar" style="display: none;"><i class="fas fa-save"></i> Salvar</button>
                                 </form>
