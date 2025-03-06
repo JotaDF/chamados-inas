@@ -157,7 +157,7 @@ and open the template in the editor.
                                             $check_nao = "checked";
                                         }
                                     ?>
-                                    Exibir nos aniversáriantes do mês: 
+                                    <span class="editar">Exibir nos aniversáriantes do mês:</span> 
                                     <input class="editar" type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
                                     <label class="editar" for="sim">Sim</label><br>
                                     <input class="editar" type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
