@@ -9,11 +9,9 @@ class ManterSlaRegulacao extends Model
         parent::__construct();
     }
 
-    function listarSlaRegulacao()
+    function listaSlaRegulacao($fila)
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d FROM sla_regulacao as s
-                ORDER BY autorizacao
-        ";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is not null AND  s.fila ='" . $fila . "'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -25,6 +23,28 @@ class ManterSlaRegulacao extends Model
             $dados->encaminhamento_manual = $registro["encaminhamento_manual"];
             $dados->data_solicitacao_t = $registro["data_solicitacao_t"];
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
+            $dados->atraso = $registro["atraso"];
+            $dados->autorizado = $registro["autorizado"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function listarSlaRegulacao()
+    {
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new SlaRegulacao();
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->tipo_guia = $registro["tipo_guia"];
+            $dados->area = $registro["area"];
+            $dados->fila = $registro["fila"];
+            $dados->encaminhamento_manual = $registro["encaminhamento_manual"];
+            $dados->data_solicitacao_t = $registro["data_solicitacao_t"];
+            $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
+            $dados->atraso = $registro["atraso"];
+            $dados->autorizado = $registro["autorizado"];
             $array_dados[] = $dados;
         }
         return $array_dados;
@@ -48,24 +68,33 @@ class ManterSlaRegulacao extends Model
 
     function getTotaisPrazo()
     {
-        $sql = 'SELECT fila, COUNT(CASE WHEN atraso = 0 THEN 1 END) AS atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) AS atraso_1
-        FROM sla_regulacao WHERE atraso IN (0, 1) GROUP BY fila';
+        $sql = 'SELECT fila, 
+                   SUM(CASE WHEN atraso > 0 THEN atraso ELSE 0 END) AS total_atraso,  -- Soma dos atrasos
+                   COUNT(CASE WHEN atraso > 0 THEN 1 END) AS atraso_count,               -- Contagem de registros com atraso
+                   COUNT(CASE WHEN atraso = 0 THEN 1 END) AS no_atraso_count            -- Contagem de registros sem atraso
+            FROM sla_regulacao
+            GROUP BY fila';
+
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
+
         while ($registro = $resultado->fetchRow()) {
             $dados = new stdClass;
-            $dados->fila = $registro['fila'];
-            $dados->atraso_0 = $registro['atraso_0'];
-            $dados->atraso_1 = $registro['atraso_1'];
+            $dados->fila = $registro['fila'];  // Nome da fila
+            $dados->total_atraso = $registro['total_atraso'];  // Soma dos dias de atraso
+            $dados->atraso_count = $registro['atraso_count'];  // Quantidade de registros com atraso
+            $dados->no_atraso_count = $registro['no_atraso_count'];  // Quantidade de registros sem atraso
             $array_dados[] = $dados;
         }
+
         return $array_dados;
     }
+
 
     function getTotalGuias()
     {
         $sql = "SELECT COUNT(*) as total FROM sla_regulacao";
-        $resultado = $this->db-> Execute($sql);
+        $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             return $registro['total'];
         }
@@ -84,41 +113,51 @@ class ManterSlaRegulacao extends Model
 
     function getTotaisAtraso()
     {
-        $sql = "SELECT COUNT(CASE WHEN atraso = 0 THEN 1 END) as atraso_0, COUNT(CASE WHEN atraso = 1 THEN 1 END) as atraso_1 FROM sla_regulacao WHERE atraso IN (0,1)";
+        $sql = 'SELECT 
+        COUNT(CASE WHEN atraso = 0 THEN 1 END) as atraso_0,  -- Contagem dos registros sem atraso
+        COUNT(CASE WHEN atraso > 0 THEN 1 END) as atraso_1,  -- Contagem dos registros com atraso
+        SUM(CASE WHEN atraso > 0 THEN atraso ELSE 0 END) as total_atraso  -- Soma dos dias de atraso
+    FROM sla_regulacao 
+    WHERE atraso >= 0';  // Considera todos os registros onde atraso é maior ou igual a zero
+
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         if ($registro = $resultado->fetchRow()) {
             return array(
-                'atraso_0' => $registro['atraso_0'],
-                'atraso_1' => $registro['atraso_1']
+                'atraso_0' => $registro['atraso_0'],      // Registros sem atraso
+                'atraso_1' => $registro['atraso_1'],      // Registros com atraso
+                'total_atraso' => $registro['total_atraso']  // Total de dias de atraso
             );
         }
+
         return 0;
     }
 
-    function atualizaAtraso($autorizacao, $tempo) {
+    function atualizaAtraso($autorizacao, $tempo)
+    {
         $sql = "UPDATE sla_regulacao SET atraso = " . $tempo . " WHERE autorizacao=" . $autorizacao;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function atualizaAutorizados()
     {
-        $sql = 'UPDATE sla_regulacao SET autorizado = NOW() WHERE autorizacao NOT IN (SELECT autorizacao  FROM sla_regulacao_tmp  WHERE autorizacao IS NOT NULL)'; 
+        $sql = 'UPDATE sla_regulacao SET autorizado = NOW() WHERE autorizacao NOT IN (SELECT autorizacao  FROM sla_regulacao_tmp  WHERE autorizacao IS NOT NULL)';
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
     function atualizaNovosSla()
     {
-        $sql = 'INSERT INTO sla_regulacao ( autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT * FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))'; 
+        $sql = 'INSERT INTO sla_regulacao ( autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT * FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    
-    function limpaSlaTemporaria() {
+
+    function limpaSlaTemporaria()
+    {
         $sql = 'DELETE FROM sla_regulacao_tmp';
         $resultado = $this->db->Execute($sql);
         return $resultado;
-    } 
+    }
 
     function uploadCsv($file)
     {
@@ -148,8 +187,6 @@ class ManterSlaRegulacao extends Model
             return ['success' => false, 'message' => 'Erro ao enviar o arquivo.'];
         }
     }
-
-
 
 
     function insereCsv()

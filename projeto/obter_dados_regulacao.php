@@ -12,8 +12,8 @@ if ($dados['atraso_0'] > 0 || $dados['atraso_1'] > 0) {
     $response['dados'] = array(
         array(
             'fila' => 'Fila 1', // Substitua por sua lógica para cada fila
-            'atraso_0' => $dados['atraso_0'],
-            'atraso_1' => $dados['atraso_1']
+            'atraso_1' => $dados['atraso_1'],
+            'atraso_0' => $dados['atraso_0']
         )
     );
 } else {

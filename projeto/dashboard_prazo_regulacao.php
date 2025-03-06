@@ -51,11 +51,11 @@
             window.dashboardpie = new Chart(ctx, {
                 type: 'pie', // Tipo do gráfico
                 data: {
-                    labels: ["Fora do Prazo", "Dentro do Prazo"], // Labels são as filas
+                    labels: [ "Dentro do Prazo", "Fora do Prazo",], // Labels são as filas
                     datasets: [{
                         label: 'Processos por Fila', // Nome da série
                         data: atraso_0.concat(atraso_1), // Dados (totais) para o gráfico (processos dentro e fora do prazo)
-                        backgroundColor: ['#FF6384', '#36A2EB'], // Cor para cada pedaço do gráfico
+                        backgroundColor: [ '#36A2EB', '#FF6384'], // Cor para cada pedaço do gráfico
                         hoverOffset: 4
                     }]
                 },
