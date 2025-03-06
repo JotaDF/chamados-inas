@@ -98,7 +98,7 @@ class ManterUsuario extends Model {
     }
 
     function salvarPerfil(Usuario $dados) {
-        $sql = "update usuario set whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "' where id=$dados->id";
+        $sql = "update usuario set whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',aniversariantes='" . $dados->aniversariantes . "' where id=$dados->id";
         $resultado = $this->db->Execute($sql);
         //echo $sql . "<BR/>";
         return $resultado;
@@ -364,7 +364,7 @@ class ManterUsuario extends Model {
         if ($mes == "") {
             $mes = "" . date("m");
         }
-        $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
+        $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND aniversariantes=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -384,7 +384,7 @@ class ManterUsuario extends Model {
         if ($mes == "") {
             $mes = "" . date("m");
         }
-        $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
+        $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND aniversariantes=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -399,7 +399,7 @@ class ManterUsuario extends Model {
             $array_dados[] = $dados;
         }
 
-        $sql70 = "SELECT id, nome, id_setor, nascimento FROM usuario WHERE ativo=1 AND nascimento <= 0 ORDER BY nascimento";
+        $sql70 = "SELECT id, nome, id_setor, nascimento FROM usuario WHERE ativo=1 AND aniversariantes=1 AND nascimento <= 0 ORDER BY nascimento";
         $resultado70 = $this->db->Execute($sql70);
         while ($registro70 = $resultado70->fetchRow()) {
             if (date('m', $registro70["nascimento"]) === $mes) {

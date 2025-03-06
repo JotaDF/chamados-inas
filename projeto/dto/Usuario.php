@@ -11,6 +11,7 @@
       public $linkedin;
       public $setor;
       public $agenda;
+      public $aniversariantes;
       public $ativo;
       public $acessos = array();
       public $equipes = array();

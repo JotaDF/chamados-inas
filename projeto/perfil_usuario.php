@@ -146,6 +146,23 @@ and open the template in the editor.
                                     <img class="editar" src="img/linkedin.svg" width="37" style="display: none;">
                                     <input type="text" class="editar form-control form-control-sm" style="display: none;" name="linkedin" id="linkedin" value="<?=$usuario->linkedin ?>"/>
                                     <br/>
+                                    <?php
+                                        $check_sim = "";
+                                        $check_nao = "";
+                                        if ($usuario->aniversariantes == 1) {
+                                            $check_sim = "checked";
+                                            $check_nao = "";
+                                        } else {
+                                            $check_sim = "";
+                                            $check_nao = "checked";
+                                        }
+                                    ?>
+                                    Exibir nos aniversáriantes do mês: 
+                                    <input type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
+                                    <label for="sim">Sim</label><br>
+                                    <input type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
+                                    <label for="nao">Não</label><br>
+                                    <br/>
                                     <button type="submit" class="btn btn-primary btn-sm editar" style="display: none;"><i class="fas fa-save"></i> Salvar</button>
                                 </form>
                             </p>
