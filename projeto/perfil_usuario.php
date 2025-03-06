@@ -158,10 +158,10 @@ and open the template in the editor.
                                         }
                                     ?>
                                     Exibir nos aniversáriantes do mês: 
-                                    <input type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
-                                    <label for="sim">Sim</label><br>
-                                    <input type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
-                                    <label for="nao">Não</label><br>
+                                    <input class="editar" type="radio" id="sim" name="aniversariantes" value="1" <?=$check_sim ?>>
+                                    <label class="editar" for="sim">Sim</label><br>
+                                    <input class="editar" type="radio" id="nao" name="aniversariantes" value="0" <?=$check_nao ?>>
+                                    <label class="editar" for="nao">Não</label><br>
                                     <br/>
                                     <button type="submit" class="btn btn-primary btn-sm editar" style="display: none;"><i class="fas fa-save"></i> Salvar</button>
                                 </form>
