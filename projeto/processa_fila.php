@@ -1,10 +1,32 @@
 <?php
 include_once('actions/ManterSlaRegulacao.php');
 $manterRegulacao = new ManterSlaRegulacao;
-if (isset($_GET['fila_a'])) {
+$atraso = isset($_GET['fila_a']);
+$noprazo = isset($_GET['fila']);
+if ($atraso) {
     $fila = $_GET['fila_a'];
     echo "Você está vendo: " . $fila;
     $regulacao = $manterRegulacao->listaSlaRegulacao($fila);
+    foreach ($regulacao as $r) {
+        echo "<tr>";
+        echo "<td>" . $r->tipo_guia . "</td>";
+        echo "<td>" . $r->area . "</td>";
+        echo "<td>" . $r->fila . "</td>";
+
+        if ($r->encaminhamento_manual == 1) {
+            echo "<td> SIM </td>";
+        } else {
+            echo "<td> NÃO</td>";
+        }
+        echo "<td>" . $r->data_solicitacao_d . "</td>";
+        echo "<td>" . $r->atraso . "</td>";
+        echo "</tr>";
+    }
+
+} else if ($noprazo) {
+    $prazo = $_GET['fila'];
+    echo "Você está vendo: " . $prazo;
+    $regulacao = $manterRegulacao->listaSlaRegulacaoNoPrazo($prazo);
     foreach ($regulacao as $r) {
         echo "<tr>";
         echo "<td>" . $r->tipo_guia . "</td>";

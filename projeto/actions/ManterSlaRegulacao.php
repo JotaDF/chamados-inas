@@ -11,7 +11,7 @@ class ManterSlaRegulacao extends Model
 
     function listaSlaRegulacao($fila)
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is not null AND  s.fila ='" . $fila . "'";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is  null AND  s.fila ='" . $fila . "'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -29,6 +29,28 @@ class ManterSlaRegulacao extends Model
         }
         return $array_dados;
     }
+    function listaSlaRegulacaoNoPrazo($fila)
+    {
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao AS s WHERE s.autorizado IS NULL AND s.fila = '".$fila ."' AND s.atraso = 0";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new SlaRegulacao();
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->tipo_guia = $registro["tipo_guia"];
+            $dados->area = $registro["area"];
+            $dados->fila = $registro["fila"];
+            $dados->encaminhamento_manual = $registro["encaminhamento_manual"];
+            $dados->data_solicitacao_t = $registro["data_solicitacao_t"];
+            $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
+            $dados->atraso = $registro["atraso"];
+            $dados->autorizado = $registro["autorizado"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+
+
     function listarSlaRegulacao()
     {
         $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s";
@@ -145,11 +167,11 @@ class ManterSlaRegulacao extends Model
         $rs = $this->db->Execute($sql_count);
         $processa = false;
         if ($registro = $rs->fetchRow()) {
-            if($registro['total'] > 0){
+            if ($registro['total'] > 0) {
                 $processa = true;
             }
         }
-        if($processa){
+        if ($processa) {
             $sql = 'UPDATE sla_regulacao SET sla_regulacao.autorizado = NOW() WHERE sla_regulacao.autorizacao NOT IN (SELECT sla_regulacao_tmp.autorizacao  FROM sla_regulacao_tmp  WHERE sla_regulacao_tmp.autorizacao IS NOT NULL)';
             $resultado = $this->db->Execute($sql);
             return $resultado;
@@ -172,7 +194,9 @@ class ManterSlaRegulacao extends Model
 
     function uploadCsv($file)
     {
-        // Define o diretório de upload
+        // Define o diretório de upload CAUÊ
+       // $uploadDir = "/var/www/html/inas/chamados-inas/projeto/csv_teste/";  // Caminho relativo ao diretório do script PHP
+        //  Define o diretório de upload INAS
         $uploadDir = "/var/www/html/sinas/csv_sla/";  // Caminho relativo ao diretório do script PHP
 
 
@@ -202,8 +226,10 @@ class ManterSlaRegulacao extends Model
 
     function insereCsv()
     {
-        // Caminho do arquivo CSV
-        $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_csv-relatorio.csv";
+        // Caminho do arquivo CSV CAUÊ
+        //$caminho_csv = "/var/www/html/inas/chamados-inas/projeto/csv_teste/relatorio_csv-relatorio_sla.csv";
+        // CAMINHO INAS
+         $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_csv-relatorio.csv";
 
         try {
             // Verificar se o arquivo pode ser aberto
