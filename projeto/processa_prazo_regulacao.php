@@ -26,3 +26,4 @@ if (isset($_POST['update']) || isset($_POST['update_painel'])) {
         }
     }
 }
+header('Location: painel_regulacao_prazo.php');
