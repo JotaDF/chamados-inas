@@ -72,7 +72,7 @@ class ManterSlaRegulacao extends Model
                    SUM(CASE WHEN atraso > 0 THEN atraso ELSE 0 END) AS total_atraso,  -- Soma dos atrasos
                    COUNT(CASE WHEN atraso > 0 THEN 1 END) AS atraso_count,               -- Contagem de registros com atraso
                    COUNT(CASE WHEN atraso = 0 THEN 1 END) AS no_atraso_count            -- Contagem de registros sem atraso
-            FROM sla_regulacao
+            FROM sla_regulacao WHERE autorizado IS NULL
             GROUP BY fila';
 
         $resultado = $this->db->Execute($sql);
@@ -93,7 +93,7 @@ class ManterSlaRegulacao extends Model
 
     function getTotalGuias()
     {
-        $sql = "SELECT COUNT(*) as total FROM sla_regulacao";
+        $sql = "SELECT COUNT(*) as total FROM sla_regulacao  WHERE autorizado IS NULL";
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             return $registro['total'];
@@ -118,7 +118,7 @@ class ManterSlaRegulacao extends Model
         COUNT(CASE WHEN atraso > 0 THEN 1 END) as atraso_1,  -- Contagem dos registros com atraso
         SUM(CASE WHEN atraso > 0 THEN atraso ELSE 0 END) as total_atraso  -- Soma dos dias de atraso
     FROM sla_regulacao 
-    WHERE atraso >= 0';  // Considera todos os registros onde atraso é maior ou igual a zero
+    WHERE atraso >= 0 AND autorizado IS NULL';  // Considera todos os registros onde atraso é maior ou igual a zero
 
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -145,7 +145,7 @@ class ManterSlaRegulacao extends Model
         $rs = $this->db->Execute($sql_count);
         $processa = false;
         if ($registro = $rs->fetchRow()) {
-            if($rs->total > 0){
+            if($registro['total'] > 0){
                 $processa = true;
             }
         }
