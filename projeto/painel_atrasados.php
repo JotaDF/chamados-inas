@@ -43,9 +43,14 @@ require_once('./verifica_login.php');
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
     <script>
-            $(document).ready(function () {
-                $('#filas').DataTable();
-            });
+        $(document).ready(function () {
+            $('#filas').DataTable(
+                {
+                pageLength: 25, // Define a quantidade padrão de registros por página
+                lengthMenu: [25, 50, 100], // Define as opções de quantidade de registros
+             }
+            );
+        });
 
     </script>
 
@@ -99,7 +104,7 @@ require_once('./verifica_login.php');
                                 <div class="col text-right" style="max-width:30%">
                                     <button id="atualiza" name="atualiza" class="btn btn-sm text-white border"
                                         type="button">
-                                        Atualizar Prazos
+                                        Voltar
                                     </button>&nbsp;&nbsp;
                                 </div>
                         </div>
