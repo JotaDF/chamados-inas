@@ -93,6 +93,16 @@ Class ManterCartaRecurso extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function reverterAtesto($id) {
+        $sql = "update carta_recurso set data_atesto=null, status='Executado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function reverterPagamento($id) {
+        $sql = "update carta_recurso set data_pagamento=null, doc_sei=null, status='Atestado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
     function atestar($id) {
         $timestamp = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
         $sql = "update carta_recurso set data_atesto=". $timestamp.", status='Atestado' where id=" . $id;

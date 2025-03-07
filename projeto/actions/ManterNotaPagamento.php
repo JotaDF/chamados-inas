@@ -59,7 +59,7 @@ class ManterNotaPagamento extends Model {
     }
     function verificaNotaPorPrestador($id_prestador, $numero) {
         $sql = "select np.id, np.numero FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp 
-                WHERE np.id_pagamento = p.id AND p.id_fiscal_prestador AND fp.id_prestador=".$id_prestador." AND np.numero='".$numero."'" ;
+                WHERE np.id_pagamento = p.id AND p.id_fiscal_prestador=fp.id AND fp.id_prestador=".$id_prestador." AND np.numero='".$numero."'" ;
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $resp = 0;
@@ -95,6 +95,16 @@ class ManterNotaPagamento extends Model {
     }
     function reverterExecucao($id) {
         $sql = "update nota_pagamento set data_executado=null, status='Em análise' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function reverterAtesto($id) {
+        $sql = "update nota_pagamento set data_atesto=null, status='Executado' where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function reverterPagamento($id) {
+        $sql = "update nota_pagamento set data_pagamento=null, doc_sei=null, status='Atestado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }

@@ -205,7 +205,7 @@ and open the template in the editor.
                         ?>
                         <div class="container-fluid">
                             <!-- Exibe dados da  tarefa -->
-                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
+                            <div class="card mb-3 border-primary" style="max-width: 950px;">
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
@@ -329,7 +329,7 @@ and open the template in the editor.
                                                         $out_notas .= "  <td>".$n->valor."</td>";
                                                         $out_notas .= "  <td>".$n->exercicio."</td>";
 
-                                                        $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
+                                                        $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaPagamento($n->id);
                                                         $total_ocorrencias = count($ocorrencias);
                                                         $txt_dados_ocorrencia = "";
                                                         foreach ($ocorrencias as $o) {
@@ -345,6 +345,8 @@ and open the template in the editor.
                                                         $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>";
                                                         $btn_nt_executar = "<a class='btn btn-primary btn-sm' title='Executar nota!' href='executar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-play'></i></a>";
                                                         $btn_nt_reverter_exec = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_execucao_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
+                                                        $btn_nt_reverter_atst = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_atesto_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
+                                                        $btn_nt_reverter_pag = "<a class='btn btn-danger btn-sm' title='Reverter execução!' href='reverter_pagamento_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
                                                         $txt_btns = " - ";
@@ -364,10 +366,18 @@ and open the template in the editor.
                                                                     }
                                                                     break;
                                                                 case 'Atestado':
-                                                                    $txt_btns = $btn_nt_pagar;
+                                                                    if($usuario_logado->perfil <= 2){
+                                                                        $txt_btns =  $btn_nt_reverter_atst . " " . $btn_nt_pagar;
+                                                                    } else {
+                                                                        $txt_btns = $btn_nt_pagar;
+                                                                    }
                                                                     break;
                                                                 case 'Pago':
-                                                                    $txt_btns = " - ";
+                                                                    if($usuario_logado->perfil <= 2){
+                                                                        $txt_btns =  $btn_nt_reverter_pag ;
+                                                                    } else {
+                                                                        $txt_btns = " - ";
+                                                                    }
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
