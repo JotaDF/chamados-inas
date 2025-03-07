@@ -141,9 +141,20 @@ class ManterSlaRegulacao extends Model
     }
     function atualizaAutorizados()
     {
-        $sql = 'UPDATE sla_regulacao SET autorizado = NOW() WHERE autorizacao NOT IN (SELECT autorizacao  FROM sla_regulacao_tmp  WHERE autorizacao IS NOT NULL)';
-        $resultado = $this->db->Execute($sql);
-        return $resultado;
+        $sql_count = "SELECT COUNT(*) as total FROM sla_regulacao_tmp";
+        $rs = $this->db->Execute($sql_count);
+        $processa = false;
+        if ($registro = $rs->fetchRow()) {
+            if($rs->total > 0){
+                $processa = true;
+            }
+        }
+        if($processa){
+            $sql = 'UPDATE sla_regulacao SET sla_regulacao.autorizado = NOW() WHERE sla_regulacao.autorizacao NOT IN (SELECT sla_regulacao_tmp.autorizacao  FROM sla_regulacao_tmp  WHERE sla_regulacao_tmp.autorizacao IS NOT NULL)';
+            $resultado = $this->db->Execute($sql);
+            return $resultado;
+        }
+        return false;
     }
     function atualizaNovosSla()
     {
