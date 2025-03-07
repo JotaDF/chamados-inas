@@ -173,7 +173,7 @@ class ManterSlaRegulacao extends Model
     function uploadCsv($file)
     {
         // Define o diretório de upload
-        $uploadDir = "/var/www/html/inas/chamados-inas/projeto/csv_teste/";  // Caminho relativo ao diretório do script PHP
+        $uploadDir = "/var/www/html/sinas/csv_sla/";  // Caminho relativo ao diretório do script PHP
 
 
         // Verifica se ocorreu algum erro no envio do arquivo
@@ -203,7 +203,7 @@ class ManterSlaRegulacao extends Model
     function insereCsv()
     {
         // Caminho do arquivo CSV
-        $caminho_csv = "/var/www/html/inas/chamados-inas/projeto/csv_teste/relatorio_csv-relatorio_sla.csv";
+        $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_csv-relatorio.csv";
 
         try {
             // Verificar se o arquivo pode ser aberto
