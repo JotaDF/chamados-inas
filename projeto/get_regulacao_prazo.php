@@ -6,7 +6,7 @@ $prazo = $manterSlaRegulacao->getTotaisPrazo();
 
 foreach ($prazo as $p) {
     echo "<tr>";
-    echo "<td><a href='painel_atrasados.php?fila=" . urlencode($p->fila) . "'>" . $p->fila . "</a></td>";
+    echo "<td><a href='painel_atrasados.php?fila_todos=" . urlencode($p->fila) . "'>" . $p->fila . "</a></td>";
     if($p->no_atraso_count == 0) {
         echo "<td><a href='painel_atrasados.php?fila=" . urlencode($p->fila) . "'<strong>" .$p->no_atraso_count . "</strong></td>";
     } else {

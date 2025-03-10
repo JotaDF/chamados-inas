@@ -1,6 +1,9 @@
 <?php
 $mod = 14;
 require_once('./verifica_login.php');
+$atraso = isset($_GET['fila_a']);
+$noprazo = isset($_GET['fila']);
+$todos = isset($_GET['fila_todos']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,9 +49,9 @@ require_once('./verifica_login.php');
         $(document).ready(function () {
             $('#filas').DataTable(
                 {
-                pageLength: 25, // Define a quantidade padrão de registros por página
-                lengthMenu: [25, 50, 100], // Define as opções de quantidade de registros
-             }
+                    pageLength: 25, // Define a quantidade padrão de registros por página
+                    lengthMenu: [25, 50, 100], // Define as opções de quantidade de registros
+                }
             );
         });
 
@@ -97,7 +100,32 @@ require_once('./verifica_login.php');
                                 <i class="fa fa-check-square fa-2x text-white"></i>
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Painel</span>
+                                <div class="col mb-0">
+                                    <?php
+                                    if ($atraso) {
+                                        $atraso = $_GET['fila_a'];
+                                        ?>
+                                        <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
+                                            <?php echo 'Você está vendo: ' . $atraso . ' | Atrasados'; ?>
+                                        </span>
+                                        <?php
+                                    } else if ($noprazo) {
+                                        $noprazo = $_GET['fila'];
+                                        ?>
+                                            <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
+                                            <?php echo 'Você está vendo: ' . $noprazo . ' | No Prazo'; ?>
+                                            </span>
+                                        <?php } else if ($todos) {
+                                            $todos = $_GET['fila_todos'];
+                                             ?>
+                                             <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
+                                             <?php echo 'Você está vendo: ' . $todos . ' | Todos'; ?>
+                                             </span>
+                                        <?php } 
+                                        ?>
+                                </div>
+
+
                             </div>
                             <form id="form_atualiza" style="height: 10px;">
                                 <input type="hidden" name="update_painel">

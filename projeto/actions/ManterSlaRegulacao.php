@@ -9,9 +9,9 @@ class ManterSlaRegulacao extends Model
         parent::__construct();
     }
 
-    function listaSlaRegulacao($fila)
+    function listaSlaRegulacaoAtrasado($fila)
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is  null AND  s.fila ='" . $fila . "'";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is  null AND s.atraso > 0 AND  s.fila ='" . $fila . "'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -51,9 +51,9 @@ class ManterSlaRegulacao extends Model
     }
 
 
-    function listarSlaRegulacao()
+    function listarSlaRegulacao($fila)
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.fila = '" . $fila . "'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
