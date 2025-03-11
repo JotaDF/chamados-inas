@@ -127,16 +127,24 @@ $todos = isset($_GET['fila_todos']);
 
 
                             </div>
-                            <form id="form_atualiza" style="height: 10px;">
+                            <form id="form_voltar" style="height: 10px;">
                                 <input type="hidden" name="update_painel">
                                 <div class="col text-right" style="max-width:30%">
-                                    <button id="atualiza" name="atualiza" class="btn btn-sm text-white border"
+                                    <button id="voltar" name="voltar" class="btn btn-sm text-white border"
                                         type="button">
                                         Voltar
                                     </button>&nbsp;&nbsp;
                                 </div>
                         </div>
                         </form>
+                        <script>
+                            document.getElementById('voltar').addEventListener('click', function () {
+                                const form = document.getElementById('form_voltar');
+                                form.action = "painel_regulacao_prazo.php"; // Define a ação para o processo
+                                form.method = "POST"; // Garantir que o método POST seja usado
+                                form.submit(); // Submete o formulário
+                            });
+                        </script>
                         <div class="card-body">
 
                             <div class="table-responsive">
@@ -144,6 +152,7 @@ $todos = isset($_GET['fila_todos']);
                                     style="width:100%">
                                     <thead>
                                         <tr>
+                                            <th scope="col">Autorização</th>
                                             <th scope="col">Tipo de Guia</th>
                                             <th scope="col">Área</th>
                                             <th scope="col">Fila</th>
