@@ -116,22 +116,22 @@ class ManterSlaRegulacao extends Model
 
         return $array_dados;
     }
-    function getTotaisPrazoZerado($listaFilas = array())
-    {
-        $sql = "SELECT DISTINCT fila FROM sla_regulacao WHERE fila NOT IN(".$listaFilas.") ORDER BY fila";
-
-        $resultado = $this->db->Execute($sql);
+    function getTotaisPrazoZerado($listaFilas = "")	// Lista de filas a serem excluídas
+    {   
         $array_dados = array();
-
-        while ($registro = $resultado->fetchRow()) {
-            $dados = new stdClass;
-            $dados->fila = $registro['fila'];  // Nome da fila
-            $dados->total_atraso = 0;  // Soma dos dias de atraso
-            $dados->atraso_count = 0;  // Quantidade de registros com atraso
-            $dados->no_atraso_count = 0;  // Quantidade de registros sem atraso
-            $array_dados[] = $dados;
+        if($listaFilas != "") {
+            $sql = "SELECT DISTINCT fila FROM sla_regulacao WHERE fila NOT IN(".$listaFilas.") ORDER BY fila";
+            $resultado = $this->db->Execute($sql);
+            
+            while ($registro = $resultado->fetchRow()) {
+                $dados = new stdClass;
+                $dados->fila = $registro['fila'];  // Nome da fila
+                $dados->total_atraso = 0;  // Soma dos dias de atraso
+                $dados->atraso_count = 0;  // Quantidade de registros com atraso
+                $dados->no_atraso_count = 0;  // Quantidade de registros sem atraso
+                $array_dados[] = $dados;
+            }
         }
-
         return $array_dados;
     }
 

@@ -3,11 +3,15 @@ require_once('actions/ManterSlaRegulacao.php');
 
 $manterSlaRegulacao = new ManterSlaRegulacao;
 $prazo = $manterSlaRegulacao->getTotaisPrazo();
-$array_filas = array();
+$filas = "";
 foreach ($prazo as $p) {
-    $array_filas[] = $p->fila;
+    if($filas == "") {
+        $filas = "'" . $p->fila . "'";
+    } else {
+        $filas .= ",'" .$filas . "'";
+    }
 }
-$prazoZerado = $manterSlaRegulacao->getTotaisPrazoZerado($array_filas);
+$prazoZerado = $manterSlaRegulacao->getTotaisPrazoZerado($filas);
 
 $resultado = array_merge($prazo, $prazoZerado);
 $TodasFilas = array_values($resultado);
