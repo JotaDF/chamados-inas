@@ -8,7 +8,7 @@ foreach ($prazo as $p) {
     if($filas == "") {
         $filas = "'" . $p->fila . "'";
     } else {
-        $filas .= ",'" .$filas . "'";
+        $filas .= ",'" . $p->fila . "'";
     }
 }
 $prazoZerado = $manterSlaRegulacao->getTotaisPrazoZerado($filas);
