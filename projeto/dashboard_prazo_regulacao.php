@@ -47,8 +47,10 @@
             dados.forEach(function (item) {
                 atraso_0.push(item.atraso_0); // Adiciona o número de processos dentro do prazo
                 atraso_1.push(item.atraso_1); // Adiciona o número de processos fora do prazo
-                atraso_0_p.push(Math.round(item.atraso_0*100/(parseInt(item.atraso_0)+parseInt(item.atraso_1)))); // Adiciona o percentual de processos dentro do prazo
-                atraso_1_p.push(Math.round(item.atraso_1*100/(parseInt(item.atraso_0)+parseInt(item.atraso_1)))); // Adiciona o percentual de processos fora do prazo
+                var total = parseInt(item.atraso_0) + parseInt(item.atraso_1);
+
+                atraso_0_p.push(Math.round(item.atraso_0 * 100 / total)); // Adiciona o percentual de processos dentro do prazo
+                atraso_1_p.push(Math.round(item.atraso_1 * 100 / total)); // Adiciona o percentual de processos fora do prazo
             });
 
             // Criando o gráfico
@@ -56,8 +58,8 @@
                 type: 'pie', // Tipo do gráfico
                 data: {
                     labels: [
-                        "Dentro do Prazo " + atraso_0_p[0] + "%",
-                        "Fora do Prazo " + atraso_1_p[0] + "%"
+                        "Dentro do Prazo " + atraso_0_p[0] + "%", // Label com a porcentagem calculada
+                        "Fora do Prazo " + atraso_1_p[0] + "%"  // Label com a porcentagem calculada
                     ], // Labels com os percentuais calculados
                     datasets: [{
                         label: 'Processos por Fila', // Nome da série
@@ -82,18 +84,29 @@
                             text: 'Dentro vs Fora do Prazo'
                         },
                         datalabels: {
-                            // Exibindo as porcentagens diretamente no gráfico
-                            formatter: function(value, context) {
-                                let percentage = Math.round(value * 100 / context.dataset.data.reduce((a, b) => a + b, 0));
-                                return percentage + '%'; // Exibe a porcentagem de cada parte do gráfico
+                            // Exibindo o valor real (dados reais do gráfico) no rótulo
+                            formatter: function (value, context) {
+                                // Verifica o índice da partição atual
+                                const index = context.dataIndex;
+
+                                // Retorna a porcentagem de acordo com o índice
+                                if (index === 0) {
+                                    return atraso_0_p[0] + "%"; // Mostra a porcentagem de atraso_0
+                                } else if (index === 1) {
+                                    return atraso_1_p[0] + "%"; // Mostra a porcentagem de atraso_1
+                                }
                             },
-                            color: 'black', // Cor do texto dos rótulos
+                            color: '#ffff', // Cor do texto dos rótulos
                             font: {
-                                size: 12
-                            }
+                                size: 22 // Tamanho da fonte
+                            },
+                            align: 'center', // Alinhamento central dos rótulos
+                            anchor: 'center' // Ancorar os rótulos no centro
                         }
+
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
         }
     });
