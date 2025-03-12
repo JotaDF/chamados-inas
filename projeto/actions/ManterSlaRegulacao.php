@@ -51,9 +51,14 @@ class ManterSlaRegulacao extends Model
     }
 
 
-    function listarSlaRegulacao($fila)
+    function listarSlaRegulacao($fila="")
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.fila = '" . $fila . "'";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s";
+        
+        if($fila!=""){
+            $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.fila = '" . $fila . "'";
+        }
+        
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -111,7 +116,24 @@ class ManterSlaRegulacao extends Model
 
         return $array_dados;
     }
+    function getTotaisPrazoZerado($listaFilas = array())
+    {
+        $sql = "SELECT DISTINCT fila FROM sla_regulacao WHERE fila NOT IN(".$listaFilas.") ORDER BY fila";
 
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new stdClass;
+            $dados->fila = $registro['fila'];  // Nome da fila
+            $dados->total_atraso = 0;  // Soma dos dias de atraso
+            $dados->atraso_count = 0;  // Quantidade de registros com atraso
+            $dados->no_atraso_count = 0;  // Quantidade de registros sem atraso
+            $array_dados[] = $dados;
+        }
+
+        return $array_dados;
+    }
 
     function getTotalGuias()
     {

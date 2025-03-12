@@ -40,18 +40,22 @@
             // Preparando os datasets para o gráfico
             var atraso_0 = [];
             var atraso_1 = [];
+            var atraso_0_p = [];
+            var atraso_1_p = [];
 
             // Preenchendo os dados com base na resposta
             dados.forEach(function (item) {
                 atraso_0.push(item.atraso_0); // Adiciona o número de processos dentro do prazo
                 atraso_1.push(item.atraso_1); // Adiciona o número de processos fora do prazo
-            });
+                atraso_0_p.push(Math.round(item.atraso_0*100/(parseInt(item.atraso_0)+parseInt(item.atraso_1)))); // Adiciona o percentual de processos
+                atraso_1_p.push(Math.round(item.atraso_1*100/(parseInt(item.atraso_0)+parseInt(item.atraso_1)))); // Adiciona o percentual de processos
+            });  
 
             // Criando o gráfico
             window.dashboardpie = new Chart(ctx, {
                 type: 'pie', // Tipo do gráfico
                 data: {
-                    labels: [ "Dentro do Prazo", "Fora do Prazo",], // Labels são as filas
+                    labels: [  "Dentro do Prazo "+atraso_0_p+"%", "Fora do Prazo "+atraso_1_p+"%",], // Labels são as filas
                     datasets: [{
                         label: 'Processos por Fila', // Nome da série
                         data: atraso_0.concat(atraso_1), // Dados (totais) para o gráfico (processos dentro e fora do prazo)
@@ -74,7 +78,7 @@
                             display: true,
                             text: 'Dentro vs Fora do Prazo'
                         }
-                    }
+                        datalabels: { atraso_0_p, atraso_1_p }
                 }
             });
         }
