@@ -255,7 +255,7 @@ class ManterSlaRegulacao extends Model
         }
 
         // Garante que o nome do arquivo seja único para evitar sobreposição
-        $fileName = 'relatorio_csv-' . basename($file['name']);
+        $fileName = 'relatorio_sla.csv';
         $uploadFilePath = $uploadDir . $fileName;
 
         // Move o arquivo para o diretório de upload
