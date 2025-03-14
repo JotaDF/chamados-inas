@@ -33,6 +33,49 @@ Class ManterCartaRecurso extends Model {
         return $array_dados;
     }
 
+    function listarExercicio () {
+        $sql = ('SELECT DISTINCT cr.exercicio FROM carta_recurso as cr order by cr.exercicio DESC');
+        $resultado = $this->db->Execute($sql);
+        if($resultado) {
+            $anos = [];
+            while ($registro = $resultado->fetchRow()) {
+                $anos[] = $registro['exercicio'];
+            }
+        }
+        return $anos;
+    }
+
+    function listarCartaPorExercicio($exercicio) {
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, p.cnpj, p.razao_social, p.id, p.cnpj, u.nome FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as p, usuario as u
+WHERE cr.id_nota_glosa = ng.id
+AND ng.id_recurso_glosa = crg.id 
+AND crg.id_fiscal_prestador = fp.id
+AND fp.id_prestador = p.id
+AND u.id = fp.id_usuario
+AND cr.exercicio = '".$exercicio."'";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new stdClass;
+            $dados->informativo                 = $registro["carta_informativo"];
+            $dados->status                      = $registro["status"];
+            $dados->exercicio                   = $registro["exercicio"];
+            $dados->data_emissao                = $registro["data_emissao"];
+            $dados->data_validacao              = $registro["data_validacao"];
+            $dados->data_executado              = $registro["data_executado"];
+            $dados->data_atesto                 = $registro["data_atesto"];
+            $dados->data_pagamento              = $registro["data_pagamento"];
+            $dados->doc_sei                     = $registro["doc_sei"];
+            $dados->numero                      = $registro["numero"];
+            $dados->valor                       = $registro["valor"];
+            $dados->cnpj                        = $registro["cnpj"];
+            $dados->razao_social                = $registro["razao_social"];
+            $dados->nome                        = $registro["nome"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+
     function getRecursoPorNotaGlosa ($id) {
         $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
         $resultado = $this->db->Execute($sql);
@@ -90,16 +133,6 @@ Class ManterCartaRecurso extends Model {
     }
     function reverterExecucao($id) {
         $sql = "update carta_recurso set data_executado=null, status='Em análise' where id=" . $id;
-        $resultado = $this->db->Execute($sql);
-        return $resultado;
-    }
-    function reverterAtesto($id) {
-        $sql = "update carta_recurso set data_atesto=null, status='Executado' where id=" . $id;
-        $resultado = $this->db->Execute($sql);
-        return $resultado;
-    }
-    function reverterPagamento($id) {
-        $sql = "update carta_recurso set data_pagamento=null, doc_sei=null, status='Atestado' where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
