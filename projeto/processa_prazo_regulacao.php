@@ -2,7 +2,7 @@
 require_once('actions/ManterSlaRegulacao.php');
 if (isset($_POST['update']) || isset($_POST['update_painel'])) {
     $manterSlaRegulacao = new ManterSlaRegulacao;
-    $regulacao = $manterSlaRegulacao->listarSlaRegulacao();
+    
     $hoje = time();
     
     // Chama os métodos para atualizar as informações
@@ -10,6 +10,7 @@ if (isset($_POST['update']) || isset($_POST['update_painel'])) {
     $manterSlaRegulacao->atualizaNovosSla();
     $manterSlaRegulacao->limpaSlaTemporaria();
 
+    $regulacao = $manterSlaRegulacao->listarSlaRegulacaoNaoAutorizados();
     // Processa cada regulacao
     foreach ($regulacao as $r) {
         $quantidadeDiasUteis = $manterSlaRegulacao->getDiasUteis($r->data_solicitacao_t, $hoje);

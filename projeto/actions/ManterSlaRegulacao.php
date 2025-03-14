@@ -29,7 +29,7 @@ class ManterSlaRegulacao extends Model
         }
         return $array_dados;
     }
-    function listaSlaRegulacaoNoPrazo($fila)
+    function listaSlaRegulacaoNoPrazo($fila) 
     {
         $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao AS s WHERE s.autorizado IS NULL AND s.fila = '".$fila ."' AND s.atraso = 0";
         $resultado = $this->db->Execute($sql);
@@ -77,6 +77,27 @@ class ManterSlaRegulacao extends Model
         return $array_dados;
     }
 
+    function listarSlaRegulacaoNaoAutorizados()
+    {
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is null";
+         
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new SlaRegulacao();
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->tipo_guia = $registro["tipo_guia"];
+            $dados->area = $registro["area"];
+            $dados->fila = $registro["fila"];
+            $dados->encaminhamento_manual = $registro["encaminhamento_manual"];
+            $dados->data_solicitacao_t = $registro["data_solicitacao_t"];
+            $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
+            $dados->atraso = $registro["atraso"];
+            $dados->autorizado = $registro["autorizado"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function listarSlaPrazo()
     {
         $sql = "SELECT s.id, s.tipo_guia, s.fila, s.prazo_dias, s.prazo_segundos FROM sla_prazo as s ORDER BY s.tipo_guia";
@@ -251,7 +272,7 @@ class ManterSlaRegulacao extends Model
         // Caminho do arquivo CSV CAUÊ
         //$caminho_csv = "/var/www/html/inas/chamados-inas/projeto/csv_teste/relatorio_csv-relatorio_sla.csv";
         // CAMINHO INAS
-         $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_csv-relatorio.csv";
+         $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_sla.csv";
 
         try {
             // Verificar se o arquivo pode ser aberto
