@@ -115,23 +115,26 @@ and open the template in the editor.
             <div id="containerNotaGlosa" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Relatório da Execução: Nota Glosa</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
                     <table class="table table-striped" id="registros">
                     <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> STATUS </th>
-                            <th class="header c1 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c1" onclick="naover('c1');" aria-hidden="true" title="Remover coluna"></i> CREDENCIADO </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c2" onclick="naover('c2');" aria-hidden="true" title="Remover coluna"></i> CNPJ </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c3" onclick="naover('c3');" aria-hidden="true" title="Remover coluna"></i> NF </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c4" onclick="naover('c4');" aria-hidden="true" title="Remover coluna"></i> VALOR NF </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c5" onclick="naover('c5');" aria-hidden="true" title="Remover coluna"></i> INFORMATIVO </th>
-                            <th class="header c3 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c7" onclick="naover('c7');" aria-hidden="true" title="Remover coluna"></i> EMISSAO DA NF </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c8');" aria-hidden="true" title="Remover coluna"></i> DATA RECEBIMENTO </th>
-                            <th class="header c5 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c9" onclick="naover('c9');" aria-hidden="true" title="Remover coluna"></i> DATA ATESTO </th>
-                            <th class="header c6 lastcol text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c10" onclick="naover('c10');" aria-hidden="true" title="Remover coluna"></i> FISCAL </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c11');" aria-hidden="true" title="Remover coluna"></i> DATA LIMITE PAGAMENTO </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c11');" aria-hidden="true" title="Remover coluna"></i> DATA PAGAMENTO </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c12');" aria-hidden="true" title="Remover coluna"></i>LINK SEI ORDEM BANCARIA </th>
+                            <th class="header c0 text-nowrap text-center" style="" scope="col">STATUS </th>
+                            <th class="header c1 text-nowrap text-center" style="" scope="col">CREDENCIADO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">CNPJ </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">NF </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">VALOR NF </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">INFORMATIVO </th>
+                            <th class="header c3 text-nowrap text-center" style="" scope="col">EMISSAO DA NF </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA RECEBIMENTO </th>
+                            <th class="header c5 text-nowrap text-center" style="" scope="col">DATA ATESTO </th>
+                            <th class="header c6 lastcol text-nowrap text-center" style="" scope="col">FISCAL </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA LIMITE PAGAMENTO </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA PAGAMENTO </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">LINK SEI ORDEM BANCARIA </th>
                         </tr>
                         <?php
                             foreach ($nota_glosa as $obj) {
                                 $data_limite = strtotime("+30 day", $obj->data_validacao);
+                                $data_executado = isset($obj->data_executado) ? date('d/m/Y', $obj->data_executado) : "-";
+                                $data_atesto = isset($obj->data_atesto) ? date('d/m/Y', $obj->data_atesto) : "-";
+                                $data_pagamento = isset($obj->data_pagamento) ? date('d/m/Y', $obj->data_pagamento) : "-";
                             ?>
                             <tbody>
                                 <tr class=" ">
@@ -141,12 +144,12 @@ and open the template in the editor.
                                     <td class="cell c2 text-dark"><?= $obj->numero ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->valor ?></td>
                                     <td class="cell c0 text-dark"><?= $obj->informativo ?></td>
-                                    <td class="cell c2 text-dark"><?= date('d/m/Y h:i', $obj->data_emissao) ?></td>
-                                    <td class="cell c2 text-dark"><?= date('d/m/Y h:i', $obj->data_validacao) ?></td>
-                                    <td class="cell c2 text-dark"><?= date('d/m/Y h:i', $obj->data_atesto) ?></td>
+                                    <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_emissao) ?></td>
+                                    <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_validacao) ?></td>
+                                    <td class="cell c2 text-dark"><?= $data_atesto ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->nome ?></td>
-                                    <td class="cell c2 text-dark"><?= date('d/m/Y h:i', $data_limite) ?></td>
-                                    <td class="cell c2 text-dark"><?= date('d/m/Y h:i', $obj->data_pagamento) ?></td>
+                                    <td class="cell c2 text-dark"><?= date('d/m/Y', $data_limite) ?></td>
+                                    <td class="cell c2 text-dark"><?= $data_pagamento ?></td>
                                     <td class="cell c3 text-dark"><?= $obj->doc_sei ?></td>
                                 </tr>
                                 <?php
@@ -161,26 +164,28 @@ and open the template in the editor.
                     <table class="table table-striped" id="registros">
                         
                         <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> STATUS </th>
-                            <th class="header c1 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c1" onclick="naover('c1');" aria-hidden="true" title="Remover coluna"></i> CREDENCIADO </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c2" onclick="naover('c2');" aria-hidden="true" title="Remover coluna"></i> CNPJ </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c3" onclick="naover('c3');" aria-hidden="true" title="Remover coluna"></i> NF </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c4" onclick="naover('c4');" aria-hidden="true" title="Remover coluna"></i> VALOR NF </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c5" onclick="naover('c5');" aria-hidden="true" title="Remover coluna"></i> INFORMATIVO </th>
-                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c6" onclick="naover('c6');" aria-hidden="true" title="Remover coluna"></i> COMPETENCIA </th>
-                            <th class="header c3 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c7" onclick="naover('c7');" aria-hidden="true" title="Remover coluna"></i> EMISSAO DA NF </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c8');" aria-hidden="true" title="Remover coluna"></i> DATA RECEBIMENTO </th>
-                            <th class="header c5 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c9" onclick="naover('c9');" aria-hidden="true" title="Remover coluna"></i> DATA ATESTO </th>
-                            <th class="header c6 lastcol text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c10" onclick="naover('c10');" aria-hidden="true" title="Remover coluna"></i> FISCAL </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c11');" aria-hidden="true" title="Remover coluna"></i> DATA LIMITE PAGAMENTO </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c11');" aria-hidden="true" title="Remover coluna"></i> DATA PAGAMENTO </th>
-                            <th class="header c4 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c8" onclick="naover('c12');" aria-hidden="true" title="Remover coluna"></i>LINK SEI ORDEM BANCARIA </th>
+                            <th class="header c0 text-nowrap text-center" style="" scope="col">STATUS </th>
+                            <th class="header c1 text-nowrap text-center" style="" scope="col">CREDENCIADO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">CNPJ </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">NF </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">VALOR NF </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">INFORMATIVO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">COMPETENCIA </th>
+                            <th class="header c3 text-nowrap text-center" style="" scope="col">EMISSAO DA NF </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA RECEBIMENTO </th>
+                            <th class="header c5 text-nowrap text-center" style="" scope="col">DATA ATESTO </th>
+                            <th class="header c6 lastcol text-nowrap text-center" style="" scope="col">FISCAL </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA LIMITE PAGAMENTO </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">DATA PAGAMENTO </th>
+                            <th class="header c4 text-nowrap text-center" style="" scope="col">LINK SEI ORDEM BANCARIA </th>
                         </tr>
                         
                         <?php
 
                             foreach ($nota_pagamento as $obj) {
-                                $data_limite = strtotime("+30 day", $obj->data_validacao)
+                                $data_limite = strtotime("+30 day", $obj->data_validacao);
+                                $data_atesto = isset($obj->data_atesto) ? date('d/m/Y', $obj->data_atesto) : "-";
+                                $data_pagamento = isset($obj->data_pagamento) ? date('d/m/Y', $obj->data_pagamento) : "-";
                                 ?>
                                 <tbody>
                                    <tr class="">
@@ -190,13 +195,12 @@ and open the template in the editor.
                                        <td class="cell c2 text-dark " style=""><?= $obj->numero ?></td>
                                        <td class="cell c2 text-dark " style=""><?= $obj->valor ?></td>
                                        <td class="cell c0 text-dark " style=""><?= $obj->informativo ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i',($obj->data_emissao)) ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i', $obj->data_validacao) ?></td>
+                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $obj->data_emissao) ?></td>
+                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $obj->data_validacao) ?></td>
                                        <td class="cell c2 text-dark " style=""><?= $obj->nome?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i', $obj->data_atesto) ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i', $obj->data_executado) ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i',($data_limite)) ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y h:i',($obj->data_pagamento)) ?></td>
+                                       <td class="cell c2 text-dark " style=""><?= $data_atesto ?></td>
+                                       <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $data_limite) ?></td>
+                                       <td class="cell c2 text-dark " style=""><?= $data_pagamento ?></td>
                                        <td class="cell c3 text-dark " style=""><?= $obj->doc_sei ?></td>
                                        </tr>
                                    <?php
