@@ -2,13 +2,14 @@
 require_once('actions/ManterSlaRegulacao.php');
 if (isset($_POST['update']) || isset($_POST['update_painel'])) {
     $manterSlaRegulacao = new ManterSlaRegulacao;
-    
+    $id_usuario = $_POST['id_usuario'];
     $hoje = time();
     
     // Chama os métodos para atualizar as informações
     $manterSlaRegulacao->atualizaAutorizados();
     $manterSlaRegulacao->atualizaNovosSla();
     $manterSlaRegulacao->limpaSlaTemporaria();
+    $manterSlaRegulacao->registraAtualizacao($id_usuario);
 
     $regulacao = $manterSlaRegulacao->listarSlaRegulacaoNaoAutorizados();
     // Processa cada regulacao

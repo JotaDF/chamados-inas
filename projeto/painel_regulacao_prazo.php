@@ -42,7 +42,12 @@ require_once('./verifica_login.php');
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script type="text/javascript" class="init"></script>
     <script src="vendor/chart.js/Chart.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
     <script>
         $(document).ready(function () {
             $('#acessos').DataTable({
@@ -155,17 +160,21 @@ require_once('./verifica_login.php');
                                 <i class="fa fa-check-square fa-2x text-white"></i>
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Painel</span>
+                                <span class="h5 m-0 font-weight text-white">Painel</span>
                             </div>
                             <form id="form_atualiza" style="height: 10px;">
                                 <input type="hidden" name="update_painel">
+                                <input type="hidden" id="id_usuario" name="id_usuario"
+                                    value="<?= $usuario_logado->id ?>">
                                 <div class="col text-right" style="max-width:30%">
                                     <button id="atualiza" name="atualiza" class="btn btn-sm text-white border"
                                         type="button">
                                         Atualizar Prazos
                                     </button>&nbsp;&nbsp;
                                 </div>
+                            </form>
                         </div>
+
                         </form>
                         <script>
                             document.getElementById('atualiza').addEventListener('click', function () {
@@ -181,15 +190,34 @@ require_once('./verifica_login.php');
                             $manterSlaregulacao = new ManterSlaRegulacao;
                             $regulacao = $manterSlaregulacao->getTotaisAtraso();
                             $total = $manterSlaregulacao->getTotalGuias();
-
-                            if ($regulacao) {
-                                echo "<p><strong>Total de Guias:</strong> " . $total . "</p>";
-                                echo "<p style='color: #36A2EB'><strong>Dentro do Prazo:</strong><strong>  " . $regulacao['atraso_0'] . "</strong></p>";
-                                echo "<p  style='color: #FF6384'><strong>Fora do Prazo:</strong><strong> " . $regulacao['atraso_1'] . "</strong></p>";
-
-                            }
-
+                            $atualizacao = $manterSlaregulacao->getUltimaAtualizacao();
                             ?>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <!-- Seção de "Regulação" -->
+                                <?php if ($regulacao) { ?>
+                                    <div style="text-align: left; margin-left: 20px;">
+                                        <p><strong>Total de Guias:</strong> <?php echo $total; ?></p>
+                                        <p style="color: #36A2EB"><strong>Dentro do Prazo:</strong><strong>
+                                                <?php echo $regulacao['atraso_0']; ?></strong></p>
+                                        <p style="color: #FF6384"><strong>Fora do Prazo:</strong><strong>
+                                                <?php echo $regulacao['atraso_1']; ?></strong></p>
+                                    </div>
+                                <?php } ?>
+                                <!-- Seção de "Última Atualização"-->
+                                <?php if ($atualizacao) {
+                                    $atualizado = $atualizacao['atualizacao'];
+                                    $nome = $atualizacao['nome'];
+                                    $data = new DateTime($atualizado);
+                                    
+                                    $data_atualizada_formatada = $data->format('d/m/Y H:i:s');
+                                    ?>
+                                    <div style="text-align: right; margin-right: 20px;">
+                                        <p style="font-size: 15px"><strong>Atualizado Em:
+                                            </strong><?php echo $data_atualizada_formatada; ?></p>
+                                        <p style="font-size: 15px"><strong>Por: </strong><?php echo $nome; ?></p>
+                                    </div>
+                                <?php } ?>
+                            </div>
                             <div class="table-responsive">
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap"
                                     style="width:100%">
