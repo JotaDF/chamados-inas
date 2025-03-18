@@ -182,8 +182,8 @@ class ManterSlaRegulacao extends Model
         COUNT(CASE WHEN atraso = 0 THEN 1 END) as atraso_0,  -- Contagem dos registros sem atraso
         COUNT(CASE WHEN atraso > 0 THEN 1 END) as atraso_1,  -- Contagem dos registros com atraso
         SUM(CASE WHEN atraso > 0 THEN atraso ELSE 0 END) as total_atraso  -- Soma dos dias de atraso
-    FROM sla_regulacao 
-    WHERE atraso >= 0 AND autorizado IS NULL';  // Considera todos os registros onde atraso é maior ou igual a zero
+        FROM sla_regulacao 
+        WHERE atraso >= 0 AND autorizado IS NULL';  // Considera todos os registros onde atraso é maior ou igual a zero
 
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -226,6 +226,28 @@ class ManterSlaRegulacao extends Model
         $sql = 'INSERT INTO sla_regulacao ( autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT * FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
         $resultado = $this->db->Execute($sql);
         return $resultado;
+    }
+
+    function registraAtualizacao($id) {
+        $sql = "INSERT INTO sla_atualizacao (atualizacao, id_usuario)  VALUES (NOW(), $id)";
+        $resultado = $this->db->Execute($sql);
+        if($resultado) {
+            return $resultado;
+        } else {
+            return false;
+        }
+    }
+
+    function getUltimaAtualizacao() {
+        $sql = "SELECT a.atualizacao, a.id_usuario, u.nome, u.id FROM sla_atualizacao as a, usuario as u WHERE a.id = (SELECT MAX(id) FROM sla_atualizacao) AND a.id_usuario = u.id";
+        $resultado = $this->db->Execute($sql);
+        if($registro = $resultado->fetchRow()) {
+            $atualizacao = $registro['atualizacao'];
+            $nome = $registro['nome'];
+            return array('atualizacao' => $atualizacao, 'nome' => $nome);
+        } else {
+            return false;
+        }
     }
 
     function limpaSlaTemporaria()
