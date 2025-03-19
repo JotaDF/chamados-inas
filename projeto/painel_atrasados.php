@@ -15,7 +15,7 @@ $todos = isset($_GET['fila_todos']);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Chamados - INAS</title>
+    <title>Painel de Atrasados - INAS</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
