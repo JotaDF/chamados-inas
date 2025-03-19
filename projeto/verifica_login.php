@@ -12,8 +12,11 @@ date_default_timezone_set('America/Sao_Paulo');
 include_once('./actions/ManterUsuario.php');
 require_once('./dto/Usuario.php');
 
+$url_atual = 'http://' . $_SERVER['HTTP_HOST'] . filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
+
 $usuario_logado = new Usuario;
 if (!isset($_SESSION["usuario"])) {
+    $_SESSION['url_tmp'] = $url_atual;
     // Usuario nao logado! Redireciona para a pagina de login
     header('Location: form_login.php');
     //echo "Não Logou!!";
