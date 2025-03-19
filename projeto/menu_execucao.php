@@ -61,6 +61,14 @@
                     <span>Pagamentos Pendentes</span>
                 </a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="gerar_relatorio_execucao.php">
+                    <i class="fa fa-laptop"></i>
+                    <span>Gerar Relatório</span>
+                </a>
+            </li>
+            
            
         <?php
     }
