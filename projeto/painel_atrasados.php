@@ -19,8 +19,7 @@ $todos = isset($_GET['fila_todos']);
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -34,6 +33,8 @@ $todos = isset($_GET['fila_todos']);
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 
+    <!-- Include the required libraries for DataTables Buttons and JSZip -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript"
@@ -42,55 +43,41 @@ $todos = isset($_GET['fila_todos']);
         src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" language="javascript"
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-    <script type="text/javascript" class="init"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+
+    <!-- Include the DataTables Buttons JS plugin -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
     <script>
         $(document).ready(function () {
-            $('#filas').DataTable(
-                {
-                    pageLength: 25, // Define a quantidade padrão de registros por página
-                    lengthMenu: [25, 50, 100], // Define as opções de quantidade de registros
-                }
-            );
+            $('#filas').DataTable({
+                pageLength: 25, // Define a quantidade padrão de registros por página
+                lengthMenu: [25, 50, 100], // Define as opções de quantidade de registros
+                dom: 'Bfrtip', // Posiciona os botões (B = Buttons)
+                buttons: [
+                    {
+                        extend: 'excelHtml5', // Exporte para Excel
+                        text: 'Exportar para Excel', // Texto do botão
+                        className: 'btn btn-sm btn-primary', // Classe do botão
+                        title: 'Dados da Fila', // Título do arquivo Excel
+                        exportOptions: {
+                            // Configuração para exportar apenas dados da tabela, excluindo cabeçalhos extras
+                            columns: ':visible'
+                        }
+                    }
+                ]
+            });
         });
-
     </script>
-
+</head>
 
 <body id="page-top">
     <div id="wrapper">
         <?php include './menu_sla.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <?php include './top_bar.php'; ?>
-            <?php
-            $msg = "";
-            if (isset($_REQUEST['msg'])) {
-                $id_msg = $_REQUEST['msg'];
-                if ($id_msg == 1) {
-                    $msg = "Prazos atualizados com sucesso!";
-                }
-            }
-            ?>
-            <div class="alerta">
-                <?php if ($msg) { ?>
-                    <div class="alert alert-info fade " role="alert" id="alerta" style="width: 1000px; margin: 20px">
-                        <?php echo $msg; ?>
-                    </div>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            // Exibir o alerta ao carregar a página
-                            var alerta = document.getElementById("alerta");
-                            alerta.classList.add("show");
-
-                            // Ocultar o alerta após 2 segundos
-                            setTimeout(function () {
-                                alerta.classList.remove("show");
-                            }, 2000);
-                        });
-                    </script>
-                <?php } ?>
-            </div>
             <div id="content">
                 <div class="d-flex justify-content-center flex-wrap">
 
@@ -115,25 +102,24 @@ $todos = isset($_GET['fila_todos']);
                                             <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
                                             <?php echo 'Você está vendo: ' . $noprazo . ' | No Prazo'; ?>
                                             </span>
-                                        <?php } else if ($todos) {
-                                            $todos = $_GET['fila_todos'];
-                                             ?>
-                                             <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
-                                             <?php echo 'Você está vendo: ' . $todos . ' | Todos'; ?>
-                                             </span>
-                                        <?php } 
+                                    <?php } else if ($todos) {
+                                        $todos = $_GET['fila_todos'];
                                         ?>
+                                                <span style='text-align:left;' class='h5 m-0 font-weight text-white'>
+                                            <?php echo 'Você está vendo: ' . $todos . ' | Todos'; ?>
+                                                </span>
+                                    <?php }
+                                    ?>
                                 </div>
-
-
                             </div>
                             <form id="form_voltar" style="height: 10px;">
                                 <input type="hidden" name="update_painel">
-                                <div class="col text-right" style="max-width:30%">
+                                <div class="col text-right"
+                                    style="max-width:30%; display: flex; justify-content: flex-end; gap: 10px;">
                                     <button id="voltar" name="voltar" class="btn btn-sm text-white border"
                                         type="button">
                                         Voltar
-                                    </button>&nbsp;&nbsp;
+                                    </button>
                                 </div>
                         </div>
                         </form>
@@ -174,3 +160,5 @@ $todos = isset($_GET['fila_todos']);
             </div>
             <?php include './rodape.php'; ?>
 </body>
+
+</html>

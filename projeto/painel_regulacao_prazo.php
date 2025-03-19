@@ -1,7 +1,6 @@
 <?php
 $mod = 14;
 require_once('./verifica_login.php');
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,7 +12,7 @@ require_once('./verifica_login.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Chamados - INAS</title>
+    <title>Relatorio Execução</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -46,26 +45,42 @@ require_once('./verifica_login.php');
         src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
 
 
     <script>
         $(document).ready(function () {
-            $('#acessos').DataTable({
-                paging: false, // Desativa a paginação
-                searching: true, // Habilita a pesquisa
-                ordering: true, // Habilita a ordenação
-                pageLength: -1, // Exibe todos os registros sem paginação
-                language: {
-                    search: "Buscar:",
-                    paginate: {
-                        previous: "Anterior",
-                        next: "Próximo"
-                    },
-                    lengthMenu: "Exibir _MENU_ registros por página",
-                    info: "Exibindo _START_ a _END_ de _TOTAL_ registros"
+    $('#acessos').DataTable({
+        paging: false, // Desativa a paginação
+        searching: true, // Habilita a pesquisa
+        ordering: true, // Habilita a ordenação
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5', // Exporte para Excel
+                text: 'Exportar para Excel', // Texto do botão
+                className: 'btn btn-sm btn-primary', // Classe do botão
+                title: 'Dados da Fila', // Título do arquivo Excel
+                exportOptions: {
+                    // Configuração para exportar apenas dados da tabela, excluindo cabeçalhos extras
+                    columns: ':visible'
                 }
-            });
-        });
+            }
+        ],
+        pageLength: -1, // Exibe todos os registros sem paginação
+        language: {
+            search: "Buscar:",
+            paginate: {
+                previous: "Anterior",
+                next: "Próximo"
+            },
+            lengthMenu: "Exibir _MENU_ registros por página",
+            info: "Exibindo _START_ a _END_ de _TOTAL_ registros"
+        }
+    });
+});
+
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'processa_fila.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -166,11 +181,14 @@ require_once('./verifica_login.php');
                                 <input type="hidden" name="update_painel">
                                 <input type="hidden" id="id_usuario" name="id_usuario"
                                     value="<?= $usuario_logado->id ?>">
-                                <div class="col text-right" style="max-width:30%">
+                                <div class="col text-right"
+                                    style="max-width:30%; display: flex; justify-content: space-between;">
                                     <button id="atualiza" name="atualiza" class="btn btn-sm text-white border"
                                         type="button">
                                         Atualizar Prazos
                                     </button>&nbsp;&nbsp;
+                                    <button id="exportButton" class="btn btn-sm text-white border"
+                                        type="button">Exportar para Excel</button>
                                 </div>
                             </form>
                         </div>
@@ -183,6 +201,7 @@ require_once('./verifica_login.php');
                                 form.method = "POST"; // Garantir que o método POST seja usado
                                 form.submit(); // Submete o formulário
                             });
+                        </script>
                         </script>
                         <div class="card-body">
                             <?php
@@ -208,7 +227,6 @@ require_once('./verifica_login.php');
                                     $atualizado = $atualizacao['atualizacao'];
                                     $nome = $atualizacao['nome'];
                                     $data = new DateTime($atualizado);
-                                    
                                     $data_atualizada_formatada = $data->format('d/m/Y H:i:s');
                                     ?>
                                     <div style="text-align: right; margin-right: 20px;">
@@ -256,6 +274,12 @@ require_once('./verifica_login.php');
                         </div>
                     </div>
                 </div>
+                <script>
+                    document.getElementById('exportButton').addEventListener('click', function () {
+                        var wb = XLSX.utils.table_to_book(document.getElementById('acessos'), { sheet: "Sheet 1" });
+                        XLSX.writeFile(wb, "dados_fila.xlsx");
+                    });
+                </script>
             </div>
             <?php include './rodape.php'; ?>
 </body>
