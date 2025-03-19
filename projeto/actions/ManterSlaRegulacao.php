@@ -141,7 +141,7 @@ class ManterSlaRegulacao extends Model
     {   
         $array_dados = array();
         if($listaFilas != "") {
-            $sql = "SELECT DISTINCT fila FROM sla_regulacao WHERE fila NOT IN(".$listaFilas.") ORDER BY fila";
+            $sql = "SELECT DISTINCT fila, autorizado FROM sla_regulacao WHERE fila NOT IN(".$listaFilas.") AND autorizado is null  ORDER BY fila";
             $resultado = $this->db->Execute($sql);
             
             while ($registro = $resultado->fetchRow()) {
