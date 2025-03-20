@@ -12,7 +12,7 @@ require_once('./verifica_login.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Relatorio Execução</title>
+    <title>Relatorio SLA Regulação</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -51,40 +51,53 @@ require_once('./verifica_login.php');
 
     <script>
         $(document).ready(function () {
-    $('#acessos').DataTable({
-        paging: false, // Desativa a paginação
-        searching: true, // Habilita a pesquisa
-        ordering: true, // Habilita a ordenação
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5', // Exporte para Excel
-                text: 'Exportar para Excel', // Texto do botão
-                className: 'btn btn-sm btn-primary', // Classe do botão
-                title: 'Dados da Fila', // Título do arquivo Excel
-                exportOptions: {
-                    // Configuração para exportar apenas dados da tabela, excluindo cabeçalhos extras
-                    columns: ':visible'
+            $('#acessos').DataTable({
+                paging: false, // Desativa a paginação
+                searching: true, // Habilita a pesquisa
+                ordering: true, // Habilita a ordenação
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5', // Exporte para Excel
+                        text: 'Exportar para Excel', // Texto do botão
+                        className: 'btn btn-sm btn-primary', // Classe do botão
+                        title: 'Dados da Fila', // Título do arquivo Excel
+                        exportOptions: {
+                            // Configuração para exportar apenas dados da tabela, excluindo cabeçalhos extras
+                            columns: ':visible'
+                        }
+                    }
+                ],
+                pageLength: -1, // Exibe todos os registros sem paginação
+                language: {
+                    search: "Buscar:",
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Próximo"
+                    },
+                    lengthMenu: "Exibir _MENU_ registros por página",
+                    info: "Exibindo _START_ a _END_ de _TOTAL_ registros"
                 }
-            }
-        ],
-        pageLength: -1, // Exibe todos os registros sem paginação
-        language: {
-            search: "Buscar:",
-            paginate: {
-                previous: "Anterior",
-                next: "Próximo"
-            },
-            lengthMenu: "Exibir _MENU_ registros por página",
-            info: "Exibindo _START_ a _END_ de _TOTAL_ registros"
-        }
-    });
-});
+            });
+        });
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'processa_fila.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send('action=processarFila&fila=' + encodeURIComponent(fila));
+
+        let atualizaFoiChamado = false;
+        function gifLoading() {
+            var div = document.getElementById("atualiza_botao");
+            div.style.display = 'none';
+            let gif = document.createElement('img')
+            gif.src = './img/loading_sla_regulacao.gif';
+            gif.className = 'rounded mx-auto d-block';
+            document.getElementById('conteudo').appendChild(gif)
+            let carregamento = document.createElement('p')
+            carregamento.id = 'texto';
+            texto.innerText = 'Processando...';
+        }
     </script>
     <style>
         #bar {
@@ -131,6 +144,13 @@ require_once('./verifica_login.php');
             margin: 0 auto;
             /* Centralizar o gráfico de pizza horizontalmente */
         }
+
+        .desabilitada {
+            pointer-events: none; /* Desabilita a interação com a div */
+            opacity: 0.5;  
+        }
+    </style>
+
     </style>
 
 <body id="page-top">
@@ -163,6 +183,7 @@ require_once('./verifica_login.php');
                                 alerta.classList.remove("show");
                             }, 2000);
                         });
+
                     </script>
                 <?php } ?>
             </div>
@@ -181,10 +202,9 @@ require_once('./verifica_login.php');
                                 <input type="hidden" name="update_painel">
                                 <input type="hidden" id="id_usuario" name="id_usuario"
                                     value="<?= $usuario_logado->id ?>">
-                                <div class="col text-right"
-                                    style="max-width:30%; display: flex; justify-content: space-between;">
+                                <div class="col text-right" style="max-width:30%; display: flex; justify-content: space-between;" id="atualiza_botao">
                                     <button id="atualiza" name="atualiza" class="btn btn-sm text-white border"
-                                        type="button">
+                                        type="button" onclick="gifLoading()">
                                         Atualizar Prazos
                                     </button>&nbsp;&nbsp;
                                     <button id="exportButton" class="btn btn-sm text-white border"
@@ -201,6 +221,7 @@ require_once('./verifica_login.php');
                                 form.method = "POST"; // Garantir que o método POST seja usado
                                 form.submit(); // Submete o formulário
                             });
+
                         </script>
                         </script>
                         <div class="card-body">
@@ -220,6 +241,12 @@ require_once('./verifica_login.php');
                                                 <?php echo $regulacao['atraso_0']; ?></strong></p>
                                         <p style="color: #FF6384"><strong>Fora do Prazo:</strong><strong>
                                                 <?php echo $regulacao['atraso_1']; ?></strong></p>
+                                    </div>
+                                    <div>
+                                        <div id="conteudo">
+                                            <div id="texto">
+                                            </div>
+                                        </div>
                                     </div>
                                 <?php } ?>
                                 <!-- Seção de "Última Atualização"-->
