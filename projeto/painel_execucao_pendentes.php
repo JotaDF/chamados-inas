@@ -38,6 +38,7 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
             var duplicado = 0;
@@ -199,8 +200,9 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Execuções pendentes</span>
                                 </div>
+                                <button id="exportButton" class="btn btn-sm text-white border"
+                                type="button">Exportar para Excel</button>
                             </div>                            
-
                             <div class="card-body">
                                 <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
@@ -358,7 +360,12 @@ and open the template in the editor.
                         <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
                     </div>
                 </div>
-
+                <script>
+                document.getElementById('exportButton').addEventListener('click', function () {
+                    var wb = XLSX.utils.table_to_book(document.getElementById('acessos'), { sheet: "Sheet 1" });
+                    XLSX.writeFile(wb, "execucao_pendentes.xlsx");
+                });
+            </script>
             </div>
         </div>
 

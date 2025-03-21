@@ -38,6 +38,7 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
             var duplicado = 0;
@@ -210,13 +211,15 @@ and open the template in the editor.
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Atestos pendentes</span>
                                 </div>
+                                <button id="exportButton" class="btn btn-sm text-white border"
+                                type="button">Exportar para Excel</button>
                                 <div class="col text-right text-white" style="max-width:30%">
                                 <input class="text-right" type="checkbox" name="all" id="checkall" style="margin-right: 5px !important;">Marcar todas 
                                 &nbsp;&nbsp;    
                                 <button id="btn_cadastrar" class="btn btn-sm btn-primary text-white border" type="submit">
                                         <i class="fa fa-check-square text-white" aria-hidden="true"></i> Atestar
                                     </button>
-                                    
+
                                 </div>
                             </div>                            
 
@@ -381,7 +384,12 @@ and open the template in the editor.
                         <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
                     </div>
                 </div>
-
+                <script>
+                document.getElementById('exportButton').addEventListener('click', function () {
+                    var wb = XLSX.utils.table_to_book(document.getElementById('acessos'), { sheet: "Sheet 1" });
+                    XLSX.writeFile(wb, "execucao_atestos_pendentes.xlsx");
+                });
+            </script>
             </div>
         </div>
 
