@@ -11,7 +11,7 @@ Class ManterCartaRecurso extends Model {
 
 
     function listar () {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.valor_deferido, cr.doc_sei, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from carta_recurso as cr";
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.exercicio, cr.competencia, cr.valor_deferido, cr.doc_sei, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from carta_recurso as cr";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -19,6 +19,7 @@ Class ManterCartaRecurso extends Model {
             $dados->id = $registro['id'];
             $dados->carta_informativo = $registro['carta_informativo'];
             $dados->exercicio = $registro['exercicio'];
+            $dados->competencia = $registro['competencia'];
             $dados->valor_deferido =$registro['valor_deferido'];
             $dados->id_nota_glosa =$registro['id_nota_glosa'];
             $dados->doc_sei             = $registro["doc_sei"];
@@ -46,7 +47,7 @@ Class ManterCartaRecurso extends Model {
     }
 
     function listarCartaPorExercicio($exercicio) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, p.cnpj, p.razao_social, p.id, p.cnpj, u.nome FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as p, usuario as u
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, p.cnpj, p.razao_social, p.id, p.cnpj, u.nome FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as p, usuario as u
 WHERE cr.id_nota_glosa = ng.id
 AND ng.id_recurso_glosa = crg.id 
 AND crg.id_fiscal_prestador = fp.id
@@ -57,33 +58,35 @@ AND cr.exercicio = '".$exercicio."'";
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados = new stdClass;
-            $dados->informativo                 = $registro["carta_informativo"];
-            $dados->status                      = $registro["status"];
-            $dados->exercicio                   = $registro["exercicio"];
-            $dados->data_emissao                = $registro["data_emissao"];
-            $dados->data_validacao              = $registro["data_validacao"];
-            $dados->data_executado              = $registro["data_executado"];
-            $dados->data_atesto                 = $registro["data_atesto"];
-            $dados->data_pagamento              = $registro["data_pagamento"];
-            $dados->doc_sei                     = $registro["doc_sei"];
-            $dados->numero                      = $registro["numero"];
-            $dados->valor                       = $registro["valor"];
-            $dados->cnpj                        = $registro["cnpj"];
-            $dados->razao_social                = $registro["razao_social"];
-            $dados->nome                        = $registro["nome"];
+            $dados->informativo       = $registro["carta_informativo"];
+            $dados->status            = $registro["status"];
+            $dados->exercicio         = $registro["exercicio"];
+            $dados->competencia       = $registro['competencia'];
+            $dados->data_emissao      = $registro["data_emissao"];
+            $dados->data_validacao    = $registro["data_validacao"];
+            $dados->data_executado    = $registro["data_executado"];
+            $dados->data_atesto       = $registro["data_atesto"];
+            $dados->data_pagamento    = $registro["data_pagamento"];
+            $dados->doc_sei           = $registro["doc_sei"];
+            $dados->numero            = $registro["numero"];
+            $dados->valor             = $registro["valor"];
+            $dados->cnpj              = $registro["cnpj"];
+            $dados->razao_social      = $registro["razao_social"];
+            $dados->nome              = $registro["nome"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
 
     function getRecursoPorNotaGlosa ($id) {
-        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
+        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.competencia, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
         $resultado = $this->db->Execute($sql);
         $dados = new CartaRecurso();
         while($registro = $resultado->fetchRow()) {
             $dados->id = $registro['id'];
             $dados->carta_informativo = $registro['carta_informativo'];
             $dados->exercicio = $registro['exercicio'];
+            $dados->competencia = $registro['competencia'];
             $dados->valor_deferido =$registro['valor_deferido'];
             $dados->id_nota_glosa =$registro['id_nota_glosa'];
             $dados->doc_sei             = $registro["doc_sei"];
@@ -99,10 +102,10 @@ AND cr.exercicio = '".$exercicio."'";
     } 
 
     function salvar (CartaRecurso $dados) {
-        $sql = "insert into carta_recurso (carta_informativo, exercicio, valor_deferido, id_nota_glosa, data_emissao, data_validacao, status) 
-        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','Em análise')";
+        $sql = "insert into carta_recurso (carta_informativo, exercicio, competencia, valor_deferido, id_nota_glosa, data_emissao, data_validacao, status) 
+        values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '".$dados->competencia."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','Em análise')";
         if ($dados->id > 0) {
-            $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->exercicio . "', exercicio='" . $dados->valor_deferido
+            $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->valor_deferido . "', exercicio='" . $dados->valor_deferido . "', competencia='" . $dados->competencia
              . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "' where id=" . $dados->id;
             $resultado = $this->db->Execute($sql);
         } else {
@@ -164,7 +167,7 @@ AND cr.exercicio = '".$exercicio."'";
         return $resultado;
     }
     function getPagamentosPentendesPrestador($id_prestador) {
-        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
                 FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
                 WHERE cr.id_nota_glosa = ng.id
                 AND ng.id_recurso_glosa=crg.id 
@@ -182,6 +185,7 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->lote                = $registro["lote"];
             $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
+            $dados->competencia         = $registro["competencia"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
             $dados->data_executado      = $registro["data_executado"];
@@ -195,7 +199,7 @@ AND cr.exercicio = '".$exercicio."'";
         return $array_dados;
     }
     function getAtestosPentendesPrestador($id_prestador) {
-        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
                 FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
                 WHERE cr.id_nota_glosa = ng.id
                 AND ng.id_recurso_glosa=crg.id
@@ -213,6 +217,7 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->lote                = $registro["lote"];
             $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
+            $dados->competencia         = $registro["competencia"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
             $dados->data_executado      = $registro["data_executado"];
@@ -226,7 +231,7 @@ AND cr.exercicio = '".$exercicio."'";
         return $array_dados;
     }
     function getExecucaoPentendesPrestador($id_prestador) {
-        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
+        $sql = "SELECT cr.id, ng.numero, ng.lote, cr.valor_deferido, cr.status, cr.id_nota_glosa, ng.id_recurso_glosa, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento
                 FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp 
                 WHERE cr.id_nota_glosa = ng.id
                 AND ng.id_recurso_glosa=crg.id 
@@ -243,6 +248,7 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->lote                = $registro["lote"];
             $dados->valor_deferido      = $registro["valor_deferido"];
             $dados->exercicio           = $registro["exercicio"];
+            $dados->competencia         = $registro["competencia"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
             $dados->data_executado      = $registro["data_executado"];

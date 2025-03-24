@@ -38,6 +38,10 @@
                 <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio" required>
                 </div>       
                 <div class="form-group col-md-3">
+                <label for="competencia">Competência:<span class="text-danger font-weight-bold">*</span></label>
+                <input type="text" name="competencia" class="form-control form-control-sm" id="competencia" required>
+                </div>  
+                <div class="form-group col-md-3">
                 <label for="valor">Valor Deferido:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_deferido" id="valor_deferido" placeholder="R$ 0,00">
                 </div>  

@@ -17,6 +17,7 @@ $id_prestador                  = $_POST['id_prestador'];
 $cr->id_nota_glosa             = $_POST['id_nota_glosa'];
 $cr->carta_informativo         = $_POST['carta_informativo'];
 $cr->exercicio                 = $_POST['exercicio'];
+$cr->competencia               = $_POST['competencia'];
 $cr->valor_deferido            = $_POST['valor_deferido'];
 $db_carta_recurso->salvar($cr);
 
