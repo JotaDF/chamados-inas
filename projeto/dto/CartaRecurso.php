@@ -4,6 +4,7 @@ Class CartaRecurso extends Model {
     public $id;
     public $carta_informativo;
     public $exercicio;
+    public $competencia;
     public $valor_deferido;
     public $id_nota_glosa;
     public $data_emissao; 
