@@ -19,6 +19,8 @@ $cr->carta_informativo         = $_POST['carta_informativo'];
 $cr->exercicio                 = $_POST['exercicio'];
 $cr->competencia               = $_POST['competencia'];
 $cr->valor_deferido            = $_POST['valor_deferido'];
+$cr->data_emissao              = $_POST['data_emissao'];
+$cr->data_validacao            = $_POST['data_validacao'];
 $db_carta_recurso->salvar($cr);
 
 
