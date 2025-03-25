@@ -39,7 +39,13 @@
                     <span>Importar arquivo SLA</span>
                 </a>
             </li>
-
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="gerenciar_sla_prazo.php">
+                    <i class="fa fa-hourglass-half"></i>
+                    <span>Gerenciar Prazos SLA</span>
+                </a>
+            </li>
         <?php
     }
     ?>
