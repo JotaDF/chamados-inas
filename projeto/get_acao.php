@@ -20,10 +20,8 @@ $total_acoes = count($lista_acoes);
                             <div class="row no-gutters align-items-center" style="width:100%">
                                 <div class="col mr-2" style="width:80%">
                                     <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">
-                                        <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1" checked>
-                                        <label for="tipo_acao_a<?= $id_etapa ?>">AÇÃO</label>
-                                        <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">
-                                        <label for="tipo_acao_p<?= $id_etapa ?>">PENDÊNCIA</label> 
+                                        <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1" checked>AÇÃO 
+                                        <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">PENDÊNCIA
                                     </div>
                                     <input style="width:100%" type="text" name="acao" class=" mw-100 form-control form-control-sm" id="acao<?= $id_etapa ?>" placeholder="Detalhamento" required>
                                 </div>
