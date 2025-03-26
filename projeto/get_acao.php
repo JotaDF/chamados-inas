@@ -20,7 +20,7 @@ $total_acoes = count($lista_acoes);
                             <div class="row no-gutters align-items-center" style="width:100%">
                                 <div class="col mr-2" style="width:80%">
                                     <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">
-                                        <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1">
+                                        <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1" checked>
                                         <label for="tipo_acao_a<?= $id_etapa ?>">AÇÃO</label>
                                         <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">
                                         <label for="tipo_acao_p<?= $id_etapa ?>">PENDÊNCIA</label> 
@@ -140,7 +140,7 @@ foreach ($lista_acoes as $obj) {
                 }
                 ?>
                 &nbsp;&nbsp;&nbsp;
-                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>','<?= $obj->data_prevista ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
+                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->tipo ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>','<?= $obj->data_prevista ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
                 &nbsp;
                 <span class="text-primary" onclick="excluirAcao('<?= $obj->id ?>', '<?= $obj->acao ?>')"><i class="far fa-trash-alt"></i></span>
             </div>

@@ -106,11 +106,18 @@ and open the template in the editor.
 
             function excluirAcao(id, nome) {
                 $('#delete').attr('href', 'del_acao.php?id=' + id);
-                $('#nome_excluir').text('AÇÃO: ' + nome);
+                $('#nome_excluir').text('Detalhamento: ' + nome);
                 $('#confirm').modal({show: true});
             }
-            function alterarAcao(id, acao, ordem, dias, data_prevista, etapa) {
+            function alterarAcao(id, tipo, acao, ordem, dias, data_prevista, etapa) {
                 $('#id_acao' + etapa).val(id);
+                if(tipo==1){
+                    $('#tipo_acao_p' + etapa).prop('checked', false);
+                    $('#tipo_acao_a' + etapa).prop('checked', true);
+                } else {
+                    $('#tipo_acao_a' + etapa).prop('checked', false);
+                    $('#tipo_acao_p' + etapa).prop('checked', true);
+                }
                 $('#acao' + etapa).val(acao);
                 if (dias == 0)
                     dias = '';
