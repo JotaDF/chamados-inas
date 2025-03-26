@@ -6,8 +6,8 @@ $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 
 if($id > 0) {
     $manterSlaPrazo->excluir($id);
-    header('Location: gerenciar_sla_prazo.php');
+    header('Location: prazos.php');
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_sla_prazo.php');
+    header('Location: prazos.php');
 }

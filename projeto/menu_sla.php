@@ -41,7 +41,7 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="gerenciar_sla_prazo.php">
+                <a class="nav-link collapsed" href="prazos.php">
                     <i class="fa fa-hourglass-half"></i>
                     <span>Gerenciar Prazos SLA</span>
                 </a>
