@@ -1,6 +1,7 @@
 <?php
   class Acao{
 	    public $id;
+            public $tipo;
             public $acao;
             public $ordem;
             public $data_check;

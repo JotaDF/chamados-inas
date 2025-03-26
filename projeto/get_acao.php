@@ -19,14 +19,19 @@ $total_acoes = count($lista_acoes);
                             <input type="hidden" id="ordem_acao<?= $id_etapa ?>" name="ordem" value="<?= ($total_acoes + 1) ?>"/>                            
                             <div class="row no-gutters align-items-center" style="width:100%">
                                 <div class="col mr-2" style="width:80%">
-                                    <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">AÇÃO</div>
-                                    <input style="width:100%" type="text" name="acao" class=" mw-100 form-control form-control-sm" id="acao<?= $id_etapa ?>" placeholder="ação" required>
+                                    <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">
+                                        <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1">
+                                        <label for="tipo_acao_a<?= $id_etapa ?>">AÇÃO</label>
+                                        <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">
+                                        <label for="tipo_acao_p<?= $id_etapa ?>">PENDÊNCIA</label> 
+                                    </div>
+                                    <input style="width:100%" type="text" name="acao" class=" mw-100 form-control form-control-sm" id="acao<?= $id_etapa ?>" placeholder="Detalhamento" required>
                                 </div>
                                 <div class="col mr-2" style="max-width:20%">
-                                    <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">QTD. Dias <small><sup>(Opcional)</sup></small></div>
-                                    <input  style="width:60px;" type="number" name="dias" class="form-control form-control-sm" id="dias<?= $id_etapa ?>" placeholder="dias">
+                                <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">DATA LIMITE <small><sup>(Opcional)</sup></small></div>
+                                <input  style="width:160px;" type="date" name="data_prevista" class="form-control form-control-sm" id="data_prevista_acao<?= $id_etapa ?>">
                                 </div>
-                                <div class="float-right align-bottom">
+                                <div class="float-right align-bottom"> 
                                     <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i></button>
                                 </div>
                             </div>
@@ -60,7 +65,7 @@ foreach ($lista_acoes as $obj) {
                 <?php
                     $data_prevista_txt="";
                     $data_check_txt="";
-                    if ($obj->dias > 0) {
+                    if ($obj->dias > 0 && $obj->data_prevista == 0) {
                         if ($obj->data_check > 0) {
                             //$data_prevista = $obj->data_check;
                             $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
@@ -79,8 +84,10 @@ foreach ($lista_acoes as $obj) {
                         }
                         
                         
-                    }else {
-                    echo '-';
+                    } else if ($obj->data_prevista != 0){
+                        $data_prevista_txt = date('Y-m-d', $obj->data_prevista);
+                    } else {
+                        echo '-';
                     }
                     ?>
             </div>            
@@ -133,7 +140,7 @@ foreach ($lista_acoes as $obj) {
                 }
                 ?>
                 &nbsp;&nbsp;&nbsp;
-                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
+                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>','<?= $obj->data_prevista ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
                 &nbsp;
                 <span class="text-primary" onclick="excluirAcao('<?= $obj->id ?>', '<?= $obj->acao ?>')"><i class="far fa-trash-alt"></i></span>
             </div>

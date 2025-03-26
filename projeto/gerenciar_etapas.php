@@ -109,12 +109,13 @@ and open the template in the editor.
                 $('#nome_excluir').text('AÇÃO: ' + nome);
                 $('#confirm').modal({show: true});
             }
-            function alterarAcao(id, acao, ordem, dias, etapa) {
+            function alterarAcao(id, acao, ordem, dias, data_prevista, etapa) {
                 $('#id_acao' + etapa).val(id);
                 $('#acao' + etapa).val(acao);
                 if (dias == 0)
                     dias = '';
                 $('#dias' + etapa).val(dias);
+                $('#data_prevista_acao' + etapa).val(data_prevista);
                 $('#ordem_acao' + etapa).val(ordem);
                 $('#acao' + etapa).focus();
             }

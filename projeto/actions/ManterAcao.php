@@ -15,9 +15,9 @@ class ManterAcao extends Model {
 
     function listar($id_etapa = 0) {
 
-        $sql = "select a.id,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a order by a.ordem";
+        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a order by a.ordem";
         if ($id_etapa > 0) {
-            $sql = "select a.id,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE id_etapa=" . $id_etapa . " order by a.ordem";
+            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE id_etapa=" . $id_etapa . " order by a.ordem";
         }
 
         $resultado = $this->db->Execute($sql);
@@ -29,6 +29,7 @@ class ManterAcao extends Model {
                 $dados->excluir = false;
             }
             $dados->id = $registro["id"];
+            $dados->tipo = $registro["tipo"];
             $dados->acao = $registro["acao"];
             $dados->ordem = $registro["ordem"];
             $dados->data_check = $registro["data_check"];
@@ -42,12 +43,13 @@ class ManterAcao extends Model {
     }
 
     function getAcaoPorId($id) {
-        $sql = "select a.id,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario FROM acao as a WHERE id=$id";
+        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario FROM acao as a WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Acao();
         while ($registro = $resultado->fetchRow()) {
             $dados->id = $registro["id"];
+            $dados->tipo = $registro["tipo"];
             $dados->acao = $registro["acao"];
             $dados->ordem = $registro["ordem"];
             $dados->data_check = $registro["data_check"];
@@ -60,15 +62,14 @@ class ManterAcao extends Model {
     }
 
     function salvar(Acao $dados, $id_tarefa = 0) {
-        $dados->acao = $dados->acao;
-        if($dados->dias == ''){
+        if($dados->data_prevista == ''){
             $dados->dias = 0;
         }
 
-        $sql = "insert into acao (acao, ordem, qtd_dias, id_etapa) values ('" . $dados->acao . "','" . $dados->ordem . "','" . $dados->dias . "','" . $dados->etapa . "')";
+        $sql = "insert into acao (tipo, acao, ordem, qtd_dias, data_prevista, id_etapa) values (" . $dados->tipo . ",'" . $dados->acao . "','" . $dados->ordem . "','" . $dados->dias . "','" . $dados->data_prevista . "','" . $dados->etapa . "')";
         //echo $sql . "<BR/>";
         if ($dados->id > 0) {
-            $sql = "update acao set acao='" . $dados->acao . "',ordem='" . $dados->ordem . "',qtd_dias='" . $dados->dias . "',id_etapa='" . $dados->etapa . "' where id=$dados->id";
+            $sql = "update acao set tipo=" . $dados->tipo . ",acao='" . $dados->acao . "',ordem='" . $dados->ordem . "',qtd_dias='" . $dados->dias . "',data_prevista='" . $dados->data_prevista . "',id_etapa='" . $dados->etapa . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
