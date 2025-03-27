@@ -150,6 +150,8 @@ foreach ($lista_acoes as $obj) {
     </div>
     <?php
 }
+echo "</div>";
+echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
     ?>
