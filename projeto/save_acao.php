@@ -10,17 +10,22 @@ $a = new Acao();
 //echo 'ID:' .$_POST['id'] . ' ACAO: '.$_POST['acao'] . ' ORDEM: '.$_POST['ordem'] . ' ETAPA: '.$_POST['etapa'] ;
 
 $id     = isset($_POST['id']) ? $_POST['id'] : 0;
-$tipo   = $_POST['tipo'];
+$tipo   = $_POST['tipo_acao'];
 $acao   = $_POST['acao'];
-$ordem  = $_POST['ordem'];
+$ordem_acao  = $_POST['ordem_acao'];
+$ordem_nota  = $_POST['ordem_nota'];
 $etapa  = $_POST['etapa'];
 $tarefa = $_POST['tarefa'];
-$data_prevista  = isset($_POST['data_prevista']) ? $_POST['data_prevista'] : 0; 
+$data_prevista  = isset($_POST['data_prevista']) ? strtotime($_POST['data_prevista']) : 0; 
 
 $a->id              = $id;
-$a->tipo            = $tipo;
 $a->acao            = $acao;
-$a->ordem           = $ordem;   
+$a->tipo            = $tipo;
+if($tipo==1){
+    $a->ordem = $ordem_acao;
+} else {
+    $a->ordem =  $ordem_nota;
+}   
 $a->etapa           = $etapa;
 $a->data_prevista   = $data_prevista;
 

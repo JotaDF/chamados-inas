@@ -41,6 +41,62 @@ class ManterAcao extends Model {
         }
         return $array_dados;
     }
+    function listarAcoes($id_etapa = 0) {
+
+        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=1 order by a.ordem";
+        if ($id_etapa > 0) {
+            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=1 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
+        }
+
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Acao();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id = $registro["id"];
+            $dados->tipo = $registro["tipo"];
+            $dados->acao = $registro["acao"];
+            $dados->ordem = $registro["ordem"];
+            $dados->data_check = $registro["data_check"];
+            $dados->data_prevista = $registro["data_prevista"];
+            $dados->etapa = $registro["id_etapa"];
+            $dados->dias = $registro["qtd_dias"];
+            $dados->usuario = $registro["id_usuario"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function listarNotas($id_etapa = 0) {
+
+        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=2 order by a.ordem";
+        if ($id_etapa > 0) {
+            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=2 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
+        }
+
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Acao();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
+            }
+            $dados->id = $registro["id"];
+            $dados->tipo = $registro["tipo"];
+            $dados->acao = $registro["acao"];
+            $dados->ordem = $registro["ordem"];
+            $dados->data_check = $registro["data_check"];
+            $dados->data_prevista = $registro["data_prevista"];
+            $dados->etapa = $registro["id_etapa"];
+            $dados->dias = $registro["qtd_dias"];
+            $dados->usuario = $registro["id_usuario"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
 
     function getAcaoPorId($id) {
         $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario FROM acao as a WHERE id=$id";
@@ -63,6 +119,9 @@ class ManterAcao extends Model {
 
     function salvar(Acao $dados, $id_tarefa = 0) {
         if($dados->data_prevista == ''){
+            $dados->data_prevista = 0;
+        }
+        if($dados->dias == ''){
             $dados->dias = 0;
         }
 
