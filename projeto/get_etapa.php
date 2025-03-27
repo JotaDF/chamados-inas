@@ -6,7 +6,7 @@ $manterEtapa = new ManterEtapa();
 $lista = $manterEtapa->listar($id_tarefa);
 $total_etapas = count($lista);
 ?>
-<div class="editar mb-4" style="max-width:800px">
+<div class="editar mb-4" style="max-width:100%">
     <div class="card border-left-primary shadow pb-0 py-0">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -39,7 +39,7 @@ $total_etapas = count($lista);
 </div>   
 
 <?php
-echo '<div class="accordion border-bottom border-info" style="max-width:800px">';
+echo '<div class="accordion border-bottom border-info" style="max-width:100%">';
 foreach ($lista as $obj) {
     $id_etapa = $obj->id;
     if ($obj->data_base > 0) {

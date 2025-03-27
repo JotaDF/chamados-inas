@@ -7,7 +7,7 @@ $total_acoes = count($lista_acoes);
 $total_notas = count($lista_notas);
 ?>
 
-<div class="editar mb-4" style="max-width:790px">
+<div class="editar mb-4" style="max-width:100%">
     <div class="card border-left-secondary shadow pb-0 py-0">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -54,7 +54,7 @@ echo '<div class="accordion" style="max-width:50%">';
 foreach ($lista_acoes as $obj) {
     $data_prevista = 0;
     ?>
-    <div class="card border" style="max-width:50%">
+    <div class="card border">
         <div class="card-header row bg-light" id="acao<?= $obj->ordem ?>">
             <div class="col-sm mb-0 col-xs-4 col-md-4 col-sm-4" style="min-width: 3%; max-width: 3%">
                 <?= $obj->ordem ?>
@@ -156,11 +156,11 @@ foreach ($lista_acoes as $obj) {
 echo "</div>";
 echo "</div>
     <div class='col'>";
-echo '<div class="accordion" style="max-width:100%">';
+echo '<div class="accordion" style="max-width:50%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
     ?>
-    <div class="card border" style="max-width:50%">
+    <div class="card border">
         <div class="card-header row bg-light" id="acao<?= $obj->ordem ?>">
             <div class="col-sm mb-0 col-xs-4 col-md-4 col-sm-4" style="min-width: 3%; max-width: 3%">
                 <?= $obj->ordem ?>
