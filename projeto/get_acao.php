@@ -135,12 +135,12 @@ foreach ($lista_acoes as $obj) {
                 <?php
                 if($obj->ordem >= 1 && $obj->ordem < $total_acoes ){
                 ?>
-                <a class="text-primary" href="muda_ordem_acao.php?op=d&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
+                <a class="text-primary" href="muda_ordem_acao.php?op=d&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
                 <?php
                 } 
                 if($obj->ordem > 1 && $obj->ordem <= $total_acoes ){
                 ?>
-                <a class="text-primary" href="muda_ordem_acao.php?op=s&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                <a class="text-primary" href="muda_ordem_acao.php?op=s&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
                 <?php
                 }
                 ?>
@@ -241,12 +241,12 @@ foreach ($lista_notas as $obj) {
                 <?php
                 if($obj->ordem >= 1 && $obj->ordem < $total_notas ){
                 ?>
-                <a class="text-primary" href="muda_ordem_acao.php?op=d&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
+                <a class="text-primary" href="muda_ordem_acao.php?op=d&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
                 <?php
                 } 
                 if($obj->ordem > 1 && $obj->ordem <= $total_notas ){
                 ?>
-                <a class="text-primary" href="muda_ordem_acao.php?op=s&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                <a class="text-primary" href="muda_ordem_acao.php?op=s&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
                 <?php
                 }
                 ?>
