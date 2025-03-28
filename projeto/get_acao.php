@@ -23,7 +23,7 @@ $total_notas = count($lista_notas);
                                 <div class="col mr-2" style="width:80%">
                                     <div class="text-xs font-weight-bold text-uppercase ml-1 mb-2">
                                         <input type="radio" id="tipo_acao_a<?= $id_etapa ?>" name="tipo_acao" value="1" checked>AÇÃO &nbsp;&nbsp;
-                                        <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">PENDÊNCIA
+                                        <input type="radio" id="tipo_acao_p<?= $id_etapa ?>" name="tipo_acao" value="2">NOTA
                                     </div>
                                     <input style="width:100%" type="text" name="acao" class=" mw-100 form-control form-control-sm" id="acao<?= $id_etapa ?>" placeholder="Detalhamento" required>
                                 </div>
@@ -46,10 +46,10 @@ $total_notas = count($lista_notas);
 </div>  
 
 <?php
-echo '<div class="container" style="max-width:100%">>
+echo '<div class="container" style="max-width:100%">
   <div class="row">
     <div class="col">';
-echo '<div class="accordion" style="max-width:50%">';
+echo '<div class="accordion" style="max-width:100%">';
 
 foreach ($lista_acoes as $obj) {
     $data_prevista = 0;
@@ -156,7 +156,7 @@ foreach ($lista_acoes as $obj) {
 echo "</div>";
 echo "</div>
     <div class='col'>";
-echo '<div class="accordion" style="max-width:50%">';
+echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
     ?>
@@ -239,12 +239,12 @@ foreach ($lista_notas as $obj) {
                             </div></div>
             <div class="editar col float-right" style="max-width:30%">
                 <?php
-                if($obj->ordem >= 1 && $obj->ordem < $total_acoes ){
+                if($obj->ordem >= 1 && $obj->ordem < $total_notas ){
                 ?>
                 <a class="text-primary" href="muda_ordem_acao.php?op=d&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
                 <?php
                 } 
-                if($obj->ordem > 1 && $obj->ordem <= $total_acoes ){
+                if($obj->ordem > 1 && $obj->ordem <= $total_notas ){
                 ?>
                 <a class="text-primary" href="muda_ordem_acao.php?op=s&id=<?= $obj->id ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
                 <?php

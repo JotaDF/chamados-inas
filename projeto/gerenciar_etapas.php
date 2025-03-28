@@ -103,7 +103,6 @@ and open the template in the editor.
                 $('#nome_etapa').focus();
             }
 
-
             function excluirAcao(id, nome) {
                 $('#delete').attr('href', 'del_acao.php?id=' + id);
                 $('#nome_excluir').text('Detalhamento: ' + nome);
