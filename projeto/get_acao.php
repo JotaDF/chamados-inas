@@ -48,7 +48,7 @@ $total_notas = count($lista_notas);
 <?php
 echo '<div class="container" style="max-width:100%">
   <div class="row">
-    <div class="col">';
+    <div class="col"><b>Ações</b>';
 echo '<div class="accordion" style="max-width:100%">';
 
 foreach ($lista_acoes as $obj) {
@@ -155,7 +155,7 @@ foreach ($lista_acoes as $obj) {
 }
 echo "</div>";
 echo "</div>
-    <div class='col'>";
+    <div class='col'><b>Notas</b>";
 echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
