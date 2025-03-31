@@ -242,7 +242,7 @@ class ManterSlaRegulacao extends Model
             }
         }
         if ($processa) {
-            $sql = 'UPDATE sla_regulacao SET sla_regulacao.autorizado = NOW() WHERE sla_regulacao.autorizacao NOT IN (SELECT sla_regulacao_tmp.autorizacao  FROM sla_regulacao_tmp  WHERE sla_regulacao_tmp.autorizacao IS NOT NULL)';
+            $sql = 'UPDATE sla_regulacao SET sla_regulacao.autorizado = NOW() WHERE sla_regulacao.autorizacao IS NULL AND sla_regulacao.autorizacao NOT IN (SELECT sla_regulacao_tmp.autorizacao  FROM sla_regulacao_tmp  WHERE sla_regulacao_tmp.autorizacao IS NOT NULL)';
             $resultado = $this->db->Execute($sql);
             return $resultado;
         }
@@ -287,9 +287,9 @@ class ManterSlaRegulacao extends Model
     function uploadCsv($file)
     {
         // Define o diretório de upload CAUÊ
-       $uploadDir = "/var/www/html/inas/chamados-inas/projeto/csv_teste/";  // Caminho relativo ao diretório do script PHP
+       //$uploadDir = "/var/www/html/inas/chamados-inas/projeto/csv_teste/";  // Caminho relativo ao diretório do script PHP
         //  Define o diretório de upload INAS
-       // $uploadDir = "/var/www/html/sinas/csv_sla/";  // Caminho relativo ao diretório do script PHP
+        $uploadDir = "/var/www/html/sinas/csv_sla/";  // Caminho relativo ao diretório do script PHP
 
 
         // Verifica se ocorreu algum erro no envio do arquivo
@@ -319,9 +319,9 @@ class ManterSlaRegulacao extends Model
     function insereCsv()
     {
         // Caminho do arquivo CSV CAUÊ
-        $caminho_csv = "/var/www/html/inas/chamados-inas/projeto/csv_teste/relatorio_csv-relatorio_sla.csv";
+        //$caminho_csv = "/var/www/html/inas/chamados-inas/projeto/csv_teste/relatorio_csv-relatorio_sla.csv";
         // CAMINHO INAS
-        // $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_sla.csv";
+         $caminho_csv = "/var/www/html/sinas/csv_sla/relatorio_sla.csv";
 
         try {
             // Verificar se o arquivo pode ser aberto
