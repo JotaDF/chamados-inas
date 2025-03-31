@@ -48,7 +48,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="sla_regulacao_temporaria.php">
-                    <i class="fa fa-hourglass-half"></i>
+                <i class="fa fa-clock"></i>
                     <span>Regulação Temporaria</span>
                 </a>
             </li>
