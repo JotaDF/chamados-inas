@@ -9,12 +9,13 @@ $db_etapa = new ManterEtapa();
 $db_acao = new ManterAcao();
 $acao = new Acao();
 
-$id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
+$id = $_REQUEST['id'];
+
 $acao = $db_acao->getAcaoPorId($id);
 
-$tarefa = $db_etapa->getEtapaPorId($acao->etapa)->tarefa;
+$tarefa = $db_etapa->getEtapaPorId($etapa)->tarefa;
 
-$db_acao->excluir($id);
+$db_acao->excluir($id, $acao->tipo, $acao->etapa, $acao->ordem);
 
 header('Location: gerenciar_etapas.php?tarefa='.$tarefa);
 

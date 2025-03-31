@@ -175,9 +175,11 @@ class ManterAcao extends Model {
         return true;
     }
 
-    function excluir($id) {
-        $sql = "delete from acao where id=" . $id;
-        $resultado = $this->db->Execute($sql);
+    function excluir($id, $tipo, $id_etapa, $ordem) {
+        $sql_sobe = "update acao set ordem=(ordem-1) where ordem > " . $ordem. " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
+        $resultado_sobe = $this->db->Execute($sql_sobe); // sobe a ordem das acoes que estão após a excluida
+        $sql = "delete from acao where id=" . $id; 
+        $resultado = $this->db->Execute($sql); // exclui a acao
         return $resultado;
     }
 
