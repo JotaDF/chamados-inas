@@ -9,7 +9,7 @@ $regulacao = $manterSlaregulacao->listaSlaRegulacaoTemporaria();
 
 <div  id="form_sla_prazo" style="max-width: 100%">
     <!-- Card Header - Accordion -->
-    <div class="card-header py-2 card-body bg-gradient-primary " style="min-height: 2.5rem;">
+    <div class="card-header py-1 card-body bg-gradient-primary " style="min-height: 0.8rem;">
         <span class="h6 m-0 font-weight text-white"></span>
     </div>
 
@@ -33,16 +33,5 @@ $regulacao = $manterSlaregulacao->listaSlaRegulacaoTemporaria();
             </div>
         </form>
     </div>
-    <script>
-    function Mudarestado(form_sla_prazo) {
-        // Captura o elemento pelo ID
-        var elemento = document.getElementById(form_sla_prazo);
 
-        // Verifica se a variável PHP $regulacao é menor que 0
-        <?php if (count($regulacao) < 0) { ?>
-            // Se for, oculta o elemento
-            elemento.style.display = 'none';
-        <?php }  ?>
-    }
-</script>
 </div>
