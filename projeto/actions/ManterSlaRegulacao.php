@@ -1,7 +1,7 @@
 <?php
 require_once('Model.php');
 require_once('dto/SlaRegulacao.php');
-
+$teste = 'oi';
 class ManterSlaRegulacao extends Model
 {
     function __construct()
