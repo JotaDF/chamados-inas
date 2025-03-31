@@ -138,18 +138,18 @@ class ManterAcao extends Model {
         return $resultado;
     }
 
-    function sobeOrdem($id, $id_etapa, $ordem_atual) {
-        $sql_desc = "update acao set ordem=(ordem+1) where ordem=" . ($ordem_atual - 1) . " AND id_etapa=" . $id_etapa;
-        $sql_sobe = "update acao set ordem=" . ($ordem_atual - 1) . " where id=$id";
+    function sobeOrdem($id, $tipo, $id_etapa, $ordem_atual) {
+        $sql_desc = "update acao set ordem=(ordem+1) where ordem=" . ($ordem_atual - 1) . " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
+        $sql_sobe = "update acao set ordem=" . ($ordem_atual - 1) . " where  tipo=" . $tipo . " AND id=$id";
         
         $resultado = $this->db->Execute($sql_desc);
         $resultado = $this->db->Execute($sql_sobe);
         //echo $sql . "<BR/>";
         return $resultado;
     }
-    function desceOrdem($id, $id_etapa, $ordem_atual) {
-        $sql_sobe = "update acao set ordem=(ordem-1) where ordem=" . ($ordem_atual + 1) . " AND id_etapa=" . $id_etapa;
-        $sql_desc = "update acao set ordem=" . ($ordem_atual + 1) . " where id=$id";
+    function desceOrdem($id, $tipo, $id_etapa, $ordem_atual) {
+        $sql_sobe = "update acao set ordem=(ordem-1) where ordem=" . ($ordem_atual + 1) . " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
+        $sql_desc = "update acao set ordem=" . ($ordem_atual + 1) . " where  tipo=" . $tipo . " AND id=$id";
 
         $resultado = $this->db->Execute($sql_sobe);
         $resultado = $this->db->Execute($sql_desc);
