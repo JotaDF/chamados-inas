@@ -113,16 +113,17 @@ and open the template in the editor.
                 if(tipo==1){
                     $('#tipo_acao_p' + etapa).prop('checked', false);
                     $('#tipo_acao_a' + etapa).prop('checked', true);
+                    $('#ordem_acao' + etapa).val(ordem);
                 } else {
                     $('#tipo_acao_a' + etapa).prop('checked', false);
                     $('#tipo_acao_p' + etapa).prop('checked', true);
+                    $('#ordem_nota' + etapa).val(ordem);
                 }
                 $('#acao' + etapa).val(acao);
                 if (dias == 0)
                     dias = '';
                 $('#dias' + etapa).val(dias);
                 $('#data_prevista_acao' + etapa).val(data_prevista);
-                $('#ordem_acao' + etapa).val(ordem);
                 $('#acao' + etapa).focus();
             }
             function checkAcao(id, data_prevista) {
