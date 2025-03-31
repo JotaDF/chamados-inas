@@ -251,7 +251,7 @@ foreach ($lista_notas as $obj) {
                 }
                 ?>
                 &nbsp;&nbsp;&nbsp;
-                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->tipo ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>','<?= date('Y-m-d',$obj->data_prevista) ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
+                <span class="text-primary" onclick="alterarAcao('<?= $obj->id ?>', '<?= $obj->tipo ?>', '<?= $obj->acao ?>', '<?= $obj->ordem ?>','<?= $obj->dias ?>','<?= isset($obj->data_prevista) ? date('Y-m-d',$obj->data_prevista) : ''  ?>', '<?= $id_etapa ?>')"><i class="fas fa-edit"></i></span>
                 &nbsp;
                 <span class="text-primary" onclick="excluirAcao('<?= $obj->id ?>', '<?= $obj->acao ?>')"><i class="far fa-trash-alt"></i></span>
             </div>
