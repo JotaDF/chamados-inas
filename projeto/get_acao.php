@@ -94,6 +94,9 @@ foreach ($lista_acoes as $obj) {
                     } else {
                         echo '-';
                     }
+                    if ($obj->data_check > 0) {
+                        echo '<br/> (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
+                    }
                     ?>
             </div>            
             <div class="col text-right col-xs-4 col-md-4 col-sm-4" id="btn_<?= $obj->id ?>">
@@ -201,6 +204,10 @@ foreach ($lista_notas as $obj) {
                     } else {
                         echo '-';
                     }
+                    if ($obj->data_check > 0) {
+                        echo '<br/> (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
+                    }
+                    
                     ?>
             </div>            
             <div class="col text-right col-xs-4 col-md-4 col-sm-4" id="btn_<?= $obj->id ?>">
