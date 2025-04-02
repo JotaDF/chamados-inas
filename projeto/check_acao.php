@@ -27,16 +27,16 @@ if($prevista > 0){
  //echo 'RED: '.$red . ' OP:' .$op  . 'ID:'.$id . ' PREVISTA:'.$prevista. ' Usuario:'.$usuario_logado->id;
  
  $tarefa = $db_etapa->getEtapaPorId($acao->etapa)->tarefa;
- $date_check = "";
+ 
  if($op > 0){
      $res = $db_acao->checkAcao($id, $usuario_logado->id,$prevista);
-     $date_check = new DateTime();
+     $date = new DateTime();
  }else {
      $res =  $db_acao->removeCheckAcao($id, $usuario_logado->id,$prevista);
  }
 if ($red==0) {
     $percentual = round($db_tarefa->getPercentualTarefaPorId($tarefa), 1);
-    echo $percentual."#".$date_check->format('d/m/Y H:i:s');
+    echo $percentual;
 }else{
     $tarefa = $db_etapa->getEtapaPorId($acao->etapa)->tarefa;
     header('Location: gerenciar_etapas.php?tarefa='.$tarefa);
