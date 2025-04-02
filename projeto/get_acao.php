@@ -160,8 +160,8 @@ echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
     ?>
-    <div class="card border">
-        <div class="card-header row bg-light" id="acao<?= $obj->ordem ?>">
+    <div class="card pb-1 border-0">
+        <div class="card-header alert-warning row" id="acao<?= $obj->ordem ?>">
             <div class="col-sm mb-0 col-xs-4 col-md-4 col-sm-4" style="min-width: 3%; max-width: 3%">
                 <?= $obj->ordem ?>
             </div>
