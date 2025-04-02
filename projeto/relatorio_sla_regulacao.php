@@ -177,7 +177,7 @@ if ($filtro == "vazio") {
                         <?php 
                         foreach($todos as $obj) {
                             $encaminhamento_manual = ($obj->encaminhamento_manual == "1") ? "SIM" :  "NÃO";
-                            $autorizado = ($obj->autorizado == NULL) ? " NÃO AUTORIZADO " : $obj->autorizado;
+                            $autorizado = ($obj->autorizado == NULL) ? " NÃO AUTORIZADO " : date('d/m/Y h:i', strtotime($obj->autorizado));
                             // $data_solicitacao = date('d/m/y H:i:s', intval($obj->data_solicitacao_d));
 
                         ?>
@@ -190,7 +190,7 @@ if ($filtro == "vazio") {
                                     <td class="cell c2 text-dark"><?= $encaminhamento_manual?></td>
                                     <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
-                                    <td class="cell c3 text-dark"><?= date('d/m/Y h:i', strtotime($obj->autorizado)) ?></td>
+                                    <td class="cell c3 text-dark"><?= $autorizado ?></td>
                                 </tr>
                                 </tbody>
                                 <?php
