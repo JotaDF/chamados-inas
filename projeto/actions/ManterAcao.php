@@ -169,7 +169,6 @@ class ManterAcao extends Model {
     }
 
     function removeCheckAcao($id, $id_usuario, $prevista) {
-        $date = new DateTime();
         $sql = "update acao set data_check=0 ,data_prevista='" . $prevista . "' ,id_usuario='" . $id_usuario . "' where id=$id";
         $resultado = $this->db->Execute($sql);
         return true;

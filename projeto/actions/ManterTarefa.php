@@ -138,8 +138,8 @@ class ManterTarefa extends Model {
 
     function getPercentualTarefaPorId($id) {
         $sql = "SELECT
-(SELECT count(*) FROM acao as a, etapa as e WHERE a.id_etapa=e.id AND e.id_tarefa=$id) as total,
-(SELECT count(*) FROM acao as a, etapa as e WHERE a.id_etapa=e.id AND e.id_tarefa=$id AND a.data_check > 0) as concluido
+(SELECT count(*) FROM acao as a, etapa as e WHERE a.tipo=1 AND a.id_etapa=e.id AND e.id_tarefa=$id) as total,
+(SELECT count(*) FROM acao as a, etapa as e WHERE a.tipo=1 AND a.id_etapa=e.id AND e.id_tarefa=$id AND a.data_check > 0) as concluido
 FROM etapa 
 GROUP BY total, concluido";
         //echo $sql;

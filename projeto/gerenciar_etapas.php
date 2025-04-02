@@ -137,6 +137,7 @@ and open the template in the editor.
                             $("#progressbar").removeAttr("aria-valuenow");
                             $("#progressbar").attr("aria-valuenow", res);
                             $("#progressbar").text(res+"%");
+                            window.location.reload();
                         }
                     });
                 } else {
@@ -155,6 +156,7 @@ and open the template in the editor.
                             $("#progressbar").removeAttr("aria-valuenow");
                             $("#progressbar").attr("aria-valuenow", res);
                             $("#progressbar").text(res+"%");
+                            window.location.reload();
                         }
                     });
                 } else {
