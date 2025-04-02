@@ -112,10 +112,12 @@ and open the template in the editor.
                 $('#id_acao' + etapa).val(id);
                 if(tipo==1){
                     $('#tipo_acao_p' + etapa).prop('checked', false);
+                    $('#tipo_acao_p' + etapa).prop('disabled ', true);
                     $('#tipo_acao_a' + etapa).prop('checked', true);
                     $('#ordem_acao' + etapa).val(ordem);
                 } else {
                     $('#tipo_acao_a' + etapa).prop('checked', false);
+                    $('#tipo_acao_a' + etapa).prop('disabled', true);
                     $('#tipo_acao_p' + etapa).prop('checked', true);
                     $('#ordem_nota' + etapa).val(ordem);
                 }
