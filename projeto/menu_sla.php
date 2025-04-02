@@ -52,6 +52,12 @@
                     <span>Regulação Temporaria</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="gerar_relatorio_sla.php">
+                <i class="fa fa-laptop"></i>
+                    <span>Gerar Relatório SLA</span>
+                </a>
+            </li>
             
         <?php
     }

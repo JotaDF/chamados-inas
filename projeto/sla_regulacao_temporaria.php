@@ -22,6 +22,11 @@ and open the template in the editor.
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -84,7 +89,7 @@ and open the template in the editor.
                             form.action = "confirma_regulacao_tmp.php"; // Define o arquivo de processamento para salvar CSV
                             form.submit(); // Envia o formulário
                         });
-                        </script>
+                    </script>
                     <div class="card mb-4 border-primary" style="max-width:75%">
                         <?php include './form_confirma_sla_regulacao.php'; ?>
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
@@ -100,32 +105,59 @@ and open the template in the editor.
                                 aria-controls="form_sla_prazo">
                                 <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                             </button> -->
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="table-responsive"> <!-- Adicionando a classe table-responsive aqui -->
-                            <table id="sla_regulacao"
-                            class="table-sm table-striped table-bordered dt-responsive nowrap"
-                            style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col" style="text-align: center;">Autorização</th>
-                                    <th scope="col" style="text-align: center;">Tipo de Guia</th>
-                                    <th scope="col" style="text-align: center;">Área</th>
-                                    <th scope="col" style="width:50px;">Encaminhamento Manual</th>
-                                    <th scope="col" style="width:50px;">Data de Solicitação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php include('get_sla_regulacao_tmp.php') ?>
-                            </tbody>
+
+                        <div class="card-body">
+                            <div class="table-responsive"> <!-- Adicionando a classe table-responsive aqui -->
+                                <table id="sla_regulacao"
+                                    class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="text-align: center;">Autorização</th>
+                                            <th scope="col" style="text-align: center;">Tipo de Guia</th>
+                                            <th scope="col" style="text-align: center;">Área</th>
+                                            <th scope="col" style="width:50px;">Encaminhamento Manual</th>
+                                            <th scope="col" style="width:50px;">Data de Solicitação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include('get_sla_regulacao_tmp.php') ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
-                        
-                        <?php include './form_confirma_sla_regulacao.php'; ?>
+
+                        <div id="form_sla_2">
+                            <?php include './form_confirma_sla_regulacao.php'; ?>
+                        </div>
                     </div>
+                    <script>
+                        function Mudarestado(form_sla_prazo, form_sla_2) {
+                            var elemento = document.getElementById(form_sla_prazo);
+                            var elemento2 = document.getElementById(form_sla_2);
+                            var countRegulacao = <?php echo count($regulacao); ?>;
+                            if (countRegulacao === 0) {
+                                elemento.style.display = 'none';
+                                elemento2.style.display = 'none';
+                            }
+                        }
+
+                        Mudarestado('form_sla_prazo', 'form_sla_2');
+
+                        function gifLoading() {
+                            var div = document.getElementById("atualiza_botao");
+                            div.style.display = 'none';
+                            let gif = document.createElement('img')
+                            gif.src = './img/loading_sla_regulacao.gif';
+                            gif.className = 'rounded mx-auto d-block';
+                            document.getElementById('conteudo').appendChild(gif)
+                            let carregamento = document.createElement('p')
+                            carregamento.id = 'texto';
+                            texto.innerText = 'Processando...';
+                        }
+                    </script>
                 </div>
                 <!-- End of Main Content -->
             </div>
