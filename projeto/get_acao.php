@@ -54,7 +54,7 @@ echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_acoes as $obj) {
     $data_prevista = 0;
     ?>
-    <div class="card border">
+    <div class="card pb-1 border-0">
         <div class="card-header row bg-light" id="acao<?= $obj->ordem ?>">
             <div class="col-sm mb-0 col-xs-4 col-md-4 col-sm-4" style="min-width: 3%; max-width: 3%">
                 <?= $obj->ordem ?>
@@ -94,6 +94,9 @@ foreach ($lista_acoes as $obj) {
                     } else {
                         echo '-';
                     }
+                    if ($obj->data_check > 0) {
+                        echo '<br/> (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
+                    }
                     ?>
             </div>            
             <div class="col text-right col-xs-4 col-md-4 col-sm-4" id="btn_<?= $obj->id ?>">
@@ -101,6 +104,7 @@ foreach ($lista_acoes as $obj) {
                     //echo 'DATA: '.$obj->data_check . '#' . $obj->data_prevista;
 
                 if ($obj->data_check > 0) {
+                    $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
                     $icon_check = 'fa fa-check';
                     $btn_check = 'btn-success  text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
@@ -160,8 +164,8 @@ echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
     ?>
-    <div class="card border">
-        <div class="card-header row bg-light" id="acao<?= $obj->ordem ?>">
+    <div class="card pb-1 border-0">
+        <div class="card-header alert-warning row" id="acao<?= $obj->ordem ?>">
             <div class="col-sm mb-0 col-xs-4 col-md-4 col-sm-4" style="min-width: 3%; max-width: 3%">
                 <?= $obj->ordem ?>
             </div>
@@ -200,6 +204,10 @@ foreach ($lista_notas as $obj) {
                     } else {
                         echo '-';
                     }
+                    if ($obj->data_check > 0) {
+                        echo '<br/> (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
+                    }
+                    
                     ?>
             </div>            
             <div class="col text-right col-xs-4 col-md-4 col-sm-4" id="btn_<?= $obj->id ?>">
@@ -207,6 +215,7 @@ foreach ($lista_notas as $obj) {
                     //echo 'DATA: '.$obj->data_check . '#' . $obj->data_prevista;
 
                 if ($obj->data_check > 0) {
+                    $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
                     $icon_check = 'fa fa-check';
                     $btn_check = 'btn-success  text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
