@@ -113,9 +113,9 @@ if ($filtro == "vazio") {
                                     <td class="cell c2 text-dark"><?= $obj->area ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->fila ?></td>
                                     <td class="cell c2 text-dark"><?= $encaminhamento_manual?></td>
-                                    <td class="cell c0 text-dark"><?= $obj->data_solicitacao_d ?></td>
+                                    <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
-                                    <td class="cell c3 text-dark"><?= $obj->autorizado ?></td>
+                                    <td class="cell c3 text-dark"><?= date('d/m/Y h:i', strtotime($obj->autorizado)) ?></td>
                                 </tr>
                                 </tbody>
                             <?php
@@ -149,9 +149,9 @@ if ($filtro == "vazio") {
                                     <td class="cell c2 text-dark"><?= $obj->area ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->fila ?></td>
                                     <td class="cell c2 text-dark"><?= $encaminhamento_manual?></td>
-                                    <td class="cell c0 text-dark"><?= $obj->data_solicitacao_d ?></td>
+                                    <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
-                                    <td class="cell c3 text-dark"> - </td>
+                                    <td class="cell c3 text-dark"> NÃO AUTORIZADO </td>
                                 </tr>
                                 </tbody>
                             <?php
@@ -178,6 +178,8 @@ if ($filtro == "vazio") {
                         foreach($todos as $obj) {
                             $encaminhamento_manual = ($obj->encaminhamento_manual == "1") ? "SIM" :  "NÃO";
                             $autorizado = ($obj->autorizado == NULL) ? " NÃO AUTORIZADO " : $obj->autorizado;
+                            // $data_solicitacao = date('d/m/y H:i:s', intval($obj->data_solicitacao_d));
+
                         ?>
                         <tbody>
                                 <tr class=" ">
@@ -186,9 +188,9 @@ if ($filtro == "vazio") {
                                     <td class="cell c2 text-dark"><?= $obj->area ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->fila ?></td>
                                     <td class="cell c2 text-dark"><?= $encaminhamento_manual?></td>
-                                    <td class="cell c0 text-dark"><?= $obj->data_solicitacao_d ?></td>
+                                    <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
-                                    <td class="cell c3 text-dark"><?= $autorizado ?></td>
+                                    <td class="cell c3 text-dark"><?= date('d/m/Y h:i', strtotime($obj->autorizado)) ?></td>
                                 </tr>
                                 </tbody>
                                 <?php
