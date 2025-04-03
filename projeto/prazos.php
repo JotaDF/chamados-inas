@@ -86,11 +86,6 @@ function cadastrar() {
 }
 
     </script>
-    <style>
-        body {
-            font-size: small;
-        }
-    </style>
 </head>
 
 <body id="page-top">

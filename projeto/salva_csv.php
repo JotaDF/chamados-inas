@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['csv'])) {
         exit(); // Não esquecer o exit() após redirecionamento
     } else {
         $_SESSION['messagem'] = "Erro: " . $resultado['messagem'];
-        header('Location: enviar_csv.php?msg=2');
-        exit(); // Não esquecer o exit() após redirecionamento
+        header('Location: enviar_arquivo_sla_regulacao.php?msg=2');
     }
 }

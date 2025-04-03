@@ -1,7 +1,7 @@
 <?php
 $mod = 14;
-require_once('./verifica_login.php');
 require_once('actions/ManterSlaRegulacao.php');
+require_once('./verifica_login.php');
 ?>
 <!DOCTYPE html>
 <!--
@@ -22,11 +22,6 @@ and open the template in the editor.
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
-
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -50,7 +45,14 @@ and open the template in the editor.
         src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" language="javascript"
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-    <script type="text/javascript" class="init">
+    <script type="text/javascript" class="init"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
         $(document).ready(function () {
             $('#sla_regulacao').DataTable({
                 paging: false
@@ -58,15 +60,8 @@ and open the template in the editor.
         });
 
     </script>
-    <style>
-        body {
-            font-size: small;
-        }
-    </style>
 </head>
-
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
         <?php include './menu_sla.php'; ?>
@@ -146,17 +141,7 @@ and open the template in the editor.
 
                         Mudarestado('form_sla_prazo', 'form_sla_2');
 
-                        function gifLoading() {
-                            var div = document.getElementById("atualiza_botao");
-                            div.style.display = 'none';
-                            let gif = document.createElement('img')
-                            gif.src = './img/loading_sla_regulacao.gif';
-                            gif.className = 'rounded mx-auto d-block';
-                            document.getElementById('conteudo').appendChild(gif)
-                            let carregamento = document.createElement('p')
-                            carregamento.id = 'texto';
-                            texto.innerText = 'Processando...';
-                        }
+
                     </script>
                 </div>
                 <!-- End of Main Content -->
