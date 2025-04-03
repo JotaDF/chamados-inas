@@ -50,15 +50,15 @@ foreach ($lista as $obj) {
     <div class="card border-primary">
         <div class="card-header row bg-gradient-primary" id="etapa<?= $obj->ordem ?>">
             <div class="col mb-0  align-top" style="max-width:10%">
-                <span class="align-middle btn btn-link" data-toggle="collapse" data-target="#collapse<?= $obj->ordem ?>" aria-expanded="true" aria-controls="collapse<?= $obj->ordem ?>">
+                <span class="align-middle btn btn-link" onclick="mostrarEtapa(<?= $obj->id ?>,<?= $obj->mostrar ?>)" data-toggle="collapse" data-target="#collapse<?= $obj->ordem ?>" aria-expanded="true" aria-controls="collapse<?= $obj->ordem ?>">
                     <i class="fas fa-random text-white"></i>
                 </span>               
             </div>
             <div class="col mb-0 align-top" style="max-width:55%">
-                <span class="text-white"><?= $obj->nome ?></span>
+                <span class="text-white"><b><?= $obj->nome ?></b></span>
             </div>
             <div class="col mb-0 align-top" style="max-width:35%">
-                <span class="text-white"><?= ($obj->data_base > 0 ? date('d/m/Y',$obj->data_base) : ' - ') ?></span>
+                <span class="text-white"><b><?= ($obj->data_base > 0 ? date('d/m/Y',$obj->data_base) : ' - ') ?></b></span>
             </div>
             <div class="editar col align-top text-right" style="max-width:15%">
                <?php
@@ -84,8 +84,13 @@ foreach ($lista as $obj) {
                 ?>
             </div>
         </div>
-
-        <div id="collapse<?= $obj->ordem ?>" class="collapse show" aria-labelledby="etapa<?= $obj->ordem ?>">
+        <?php
+        $txt_mostrar = 'show';
+        if($obj->mostrar == 0) {
+            $txt_mostrar = 'hide';
+        }
+        ?>
+        <div id="collapse<?= $obj->ordem ?>" class="collapse <?=$txt_mostrar ?>" aria-labelledby="etapa<?= $obj->ordem ?>">
             <div class="card-body border-info">
                 <!-- ETAPAS -->
                 <?php include './get_acao.php'; ?>
