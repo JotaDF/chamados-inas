@@ -11,9 +11,9 @@ class ManterEtapa extends Model {
 
     function listar($id_tarefa = 0) {
 
-        $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,(SELECT SUM(aa.qtd_dias) FROM acao as aa WHERE aa.id_etapa=e.id ) as total_dias,(select count(*) from acao as a where a.id_etapa=e.id) as dep FROM etapa as e order by e.ordem";
+        $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,e.mostrar,(SELECT SUM(aa.qtd_dias) FROM acao as aa WHERE aa.id_etapa=e.id ) as total_dias,(select count(*) from acao as a where a.id_etapa=e.id) as dep FROM etapa as e order by e.ordem";
         if ($id_tarefa > 0) {
-            $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,(SELECT SUM(aa.qtd_dias) FROM acao as aa WHERE aa.id_etapa=e.id ) as total_dias,(select count(*) from acao as a where a.id_etapa=e.id) as dep FROM etapa as e WHERE id_tarefa=" . $id_tarefa . " order by e.ordem";
+            $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,e.mostrar,(SELECT SUM(aa.qtd_dias) FROM acao as aa WHERE aa.id_etapa=e.id ) as total_dias,(select count(*) from acao as a where a.id_etapa=e.id) as dep FROM etapa as e WHERE id_tarefa=" . $id_tarefa . " order by e.ordem";
         }
 
         $resultado = $this->db->Execute($sql);
@@ -29,6 +29,7 @@ class ManterEtapa extends Model {
             $dados->ordem = $registro["ordem"];
             $dados->data_base = $registro["data_base"];
             $dados->tarefa = $registro["id_tarefa"];
+            $dados->mostrar = $registro["mostrar"];
             $dados->total_dias = $registro["total_dias"];
 
             $array_dados[] = $dados;
@@ -37,7 +38,7 @@ class ManterEtapa extends Model {
     }
 
     function getEtapaPorId($id) {
-        $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,(SELECT SUM(aa.qtd_dias) FROM acao as aa, etapa as ee WHERE aa.id_etapa=e.id ) as total_dias FROM etapa as e WHERE id=$id";
+        $sql = "select e.id,e.nome,e.ordem,e.data_base,e.id_tarefa,e.mostrar,(SELECT SUM(aa.qtd_dias) FROM acao as aa, etapa as ee WHERE aa.id_etapa=e.id ) as total_dias FROM etapa as e WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Etapa();
@@ -47,6 +48,7 @@ class ManterEtapa extends Model {
             $dados->ordem = $registro["ordem"];
             $dados->data_base = $registro["data_base"];
             $dados->tarefa = $registro["id_tarefa"];
+            $dados->mostrar = $registro["mostrar"];
             $dados->total_dias = $registro["total_dias"];
         }
         return $dados;
@@ -72,6 +74,12 @@ class ManterEtapa extends Model {
     function excluir($id) {
         $sql = "delete from etapa where id=" . $id;
         $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function mudaMostrar($id, $mostrar = 1) {
+        $sql = "update etapa set mostrar=" . $mostrar  . " where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        //echo $sql . "<BR/>";
         return $resultado;
     }
 

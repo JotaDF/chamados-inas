@@ -102,7 +102,15 @@ and open the template in the editor.
                 $('#data_base_etapa').val(data_base);
                 $('#nome_etapa').focus();
             }
-
+            function mostrarEtapa(id, mostrar) {
+                jQuery.post('altera_mostrar_etapa.php',
+                            {id: id, mostrar: mostrar}, function (res) {
+                        if (res) {
+                            //window.location.reload();
+                            alert('Etapa ocultada/exibida com sucesso!');
+                        }
+                    });
+            }
             function excluirAcao(id, nome) {
                 $('#delete').attr('href', 'del_acao.php?id=' + id);
                 $('#nome_excluir').text('Detalhamento: ' + nome);
