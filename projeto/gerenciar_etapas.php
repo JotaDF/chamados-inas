@@ -143,8 +143,20 @@ and open the template in the editor.
                         }
                     });
                 } else {
-                    url = "check_acao.php?red=1&op=1&id=" + id + '&prevista=' + data_prevista;
-                    window.open(url, "_self");
+                    //url = "check_acao.php?red=1&op=1&id=" + id + '&prevista=' + data_prevista;
+                    //window.open(url, "_self");
+                    jQuery.post('check_acao.php',
+                            {id: id, prevista: data_prevista, op: 1, red: 0}, function (res) {
+                        if (res) {
+                            $("#btn_" + id).html('<button type="button" class="btn btn-success text-white" onclick="retiraCheckAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-check"></i></button>');
+                            $("#progressbar").removeAttr("style");
+                            $("#progressbar").attr("style", "width: "+res+"%;");
+                            $("#progressbar").removeAttr("aria-valuenow");
+                            $("#progressbar").attr("aria-valuenow", res);
+                            $("#progressbar").text(res+"%");
+                            window.location.reload();
+                        }
+                    });
                 }
             }
             function retiraCheckAcao(id, data_prevista) {
@@ -162,8 +174,20 @@ and open the template in the editor.
                         }
                     });
                 } else {
-                    url = "check_acao.php?red=1&op=0&id=" + id + '&prevista=' + data_prevista;
-                    window.open(url, "_self");
+                    //url = "check_acao.php?red=1&op=0&id=" + id + '&prevista=' + data_prevista;
+                    //window.open(url, "_self");
+                    jQuery.post('check_acao.php',
+                            {id: id, prevista: data_prevista, op: 0, red: 0}, function (res) {
+                        if (res) {
+                            $("#btn_" + id).html('<button type="button" class="btn btn-danger text-white" onclick="checkAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-cog"></i></button>');
+                            $("#progressbar").removeAttr("style");
+                            $("#progressbar").attr("style", "width: "+res+"%;");
+                            $("#progressbar").removeAttr("aria-valuenow");
+                            $("#progressbar").attr("aria-valuenow", res);
+                            $("#progressbar").text(res+"%");
+                            window.location.reload();
+                        }
+                    });
                 }
             }
 
