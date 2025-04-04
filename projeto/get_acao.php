@@ -109,7 +109,7 @@ foreach ($lista_acoes as $obj) {
                     $btn_check = 'btn-success  btn-sm text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
                         $icon_check = 'fa fa-exclamation-triangle';
-                        $btn_check = 'btn-warning text-white';                        
+                        $btn_check = 'btn-warning btn-sm text-white';                        
                     }
                     if ($executar || $editar) {
                         
@@ -220,7 +220,7 @@ foreach ($lista_notas as $obj) {
                     $btn_check = 'btn-success btn-sm text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
                         $icon_check = 'fa fa-exclamation-triangle';
-                        $btn_check = 'btn-warning text-white';                        
+                        $btn_check = 'btn-warning btn-sm text-white';                        
                     }
                     if ($executar || $editar) {
                         
