@@ -106,7 +106,7 @@ foreach ($lista_acoes as $obj) {
                 if ($obj->data_check > 0) {
                     $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
                     $icon_check = 'fa fa-check';
-                    $btn_check = 'btn-success  text-white';
+                    $btn_check = 'btn-success  btn-sm text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
                         $icon_check = 'fa fa-exclamation-triangle';
                         $btn_check = 'btn-warning text-white';                        
@@ -118,17 +118,17 @@ foreach ($lista_acoes as $obj) {
                         <?php
                     } else {
                         ?>
-                        <button type="button" class="btn btn-success text-white"><i class="fa fa-check"></i></button>                
+                        <button type="button" class="btn btn-success btn-sm text-white"><i class="fa fa-check"></i></button>                
                         <?php
                     }
                 } else {
                     if ($executar || $editar) {
                         ?>
-                        <button type="button" class="btn btn-danger text-white" onclick="checkAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="fa fa-cog"></i></button>                
+                        <button type="button" class="btn btn-danger btn-sm text-white" onclick="checkAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="fa fa-cog"></i></button>                
                         <?php
                        } else {
                         ?>
-                        <button type="button" class="btn btn-danger text-white"><i class="fa fa-cog"></i></button>                
+                        <button type="button" class="btn btn-danger btn-sm text-white"><i class="fa fa-cog"></i></button>                
                         <?php                           
                        } 
                 }
@@ -217,7 +217,7 @@ foreach ($lista_notas as $obj) {
                 if ($obj->data_check > 0) {
                     $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
                     $icon_check = 'fa fa-check';
-                    $btn_check = 'btn-success  text-white';
+                    $btn_check = 'btn-success btn-sm text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
                         $icon_check = 'fa fa-exclamation-triangle';
                         $btn_check = 'btn-warning text-white';                        
@@ -229,17 +229,17 @@ foreach ($lista_notas as $obj) {
                         <?php
                     } else {
                         ?>
-                        <button type="button" class="btn btn-success text-white"><i class="fa fa-check"></i></button>                
+                        <button type="button" class="btn btn-success btn-sm text-white"><i class="fa fa-check"></i></button>                
                         <?php
                     }
                 } else {
                     if ($executar || $editar) {
                         ?>
-                        <button type="button" class="btn btn-danger text-white" onclick="checkAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="fa fa-cog"></i></button>                
+                        <button type="button" class="btn btn-danger btn-sm text-white" onclick="checkAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="fa fa-cog"></i></button>                
                         <?php
                        } else {
                         ?>
-                        <button type="button" class="btn btn-danger text-white"><i class="fa fa-cog"></i></button>                
+                        <button type="button" class="btn btn-danger btn-sm text-white"><i class="fa fa-cog"></i></button>                
                         <?php                           
                        } 
                 }
