@@ -106,7 +106,7 @@ foreach ($lista_acoes as $obj) {
                 if ($obj->data_check > 0) {
                     $data_check_txt= ' (' .date('d/m/Y',$obj->data_check).')<i class="text-success fas fa-check"></i>';
                     $icon_check = 'fa fa-check';
-                    $btn_check = 'btn-success  btn-sm text-white';
+                    $btn_check = 'btn-success btn-sm text-white';
                     if ($obj->data_prevista > 0 && $obj->data_check > $data_prevista) {
                         $icon_check = 'fa fa-exclamation-triangle';
                         $btn_check = 'btn-warning btn-sm text-white';                        
@@ -114,7 +114,7 @@ foreach ($lista_acoes as $obj) {
                     if ($executar || $editar) {
                         
                         ?>
-                        <button type="button" class="btn <?=$btn_check ?>" onclick="retiraCheckAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="<?=$icon_check ?>"></i></button>
+                        <button type="button" class="btn btn-sm <?=$btn_check ?>" onclick="retiraCheckAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="<?=$icon_check ?>"></i></button>
                         <?php
                     } else {
                         ?>
