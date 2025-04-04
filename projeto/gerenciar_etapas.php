@@ -107,7 +107,6 @@ and open the template in the editor.
                             {id: id, mostrar: mostrar}, function (res) {
                         if (res) {
                             //window.location.reload();
-                            alert('Etapa ocultada/exibida com sucesso!');
                         }
                     });
             }
@@ -141,7 +140,7 @@ and open the template in the editor.
                     jQuery.post('check_acao.php',
                             {id: id, prevista: 0, op: 1, red: 0}, function (res) {
                         if (res) {
-                            $("#btn_" + id).html('<button type="button" class="btn btn-success text-white" onclick="retiraCheckAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-check"></i></button>');
+                            $("#btn_" + id).html('<button type="button" class="btn btn-sm btn-success text-white" onclick="retiraCheckAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-check"></i></button>');
                             $("#progressbar").removeAttr("style");
                             $("#progressbar").attr("style", "width: "+res+"%;");
                             $("#progressbar").removeAttr("aria-valuenow");
@@ -156,7 +155,7 @@ and open the template in the editor.
                     jQuery.post('check_acao.php',
                             {id: id, prevista: data_prevista, op: 1, red: 0}, function (res) {
                         if (res) {
-                            $("#btn_" + id).html('<button type="button" class="btn btn-success text-white" onclick="retiraCheckAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-check"></i></button>');
+                            $("#btn_" + id).html('<button type="button" class="btn btn-sm btn-success text-white" onclick="retiraCheckAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-check"></i></button>');
                             $("#progressbar").removeAttr("style");
                             $("#progressbar").attr("style", "width: "+res+"%;");
                             $("#progressbar").removeAttr("aria-valuenow");
@@ -172,7 +171,7 @@ and open the template in the editor.
                     jQuery.post('check_acao.php',
                             {id: id, prevista: 0, op: 0, red: 0}, function (res) {
                         if (res) {
-                            $("#btn_" + id).html('<button type="button" class="btn btn-danger text-white" onclick="checkAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-cog"></i></button>');
+                            $("#btn_" + id).html('<button type="button" class="btn btn-sm btn-danger text-white" onclick="checkAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-cog"></i></button>');
                             $("#progressbar").removeAttr("style");
                             $("#progressbar").attr("style", "width: "+res+"%;");
                             $("#progressbar").removeAttr("aria-valuenow");
@@ -187,7 +186,7 @@ and open the template in the editor.
                     jQuery.post('check_acao.php',
                             {id: id, prevista: data_prevista, op: 0, red: 0}, function (res) {
                         if (res) {
-                            $("#btn_" + id).html('<button type="button" class="btn btn-danger text-white" onclick="checkAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-cog"></i></button>');
+                            $("#btn_" + id).html('<button type="button" class="btn btn-sm btn-danger text-white" onclick="checkAcao(' + id + ',\'' + data_prevista + '\')"><i class="fa fa-cog"></i></button>');
                             $("#progressbar").removeAttr("style");
                             $("#progressbar").attr("style", "width: "+res+"%;");
                             $("#progressbar").removeAttr("aria-valuenow");
