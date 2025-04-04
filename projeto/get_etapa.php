@@ -47,8 +47,8 @@ foreach ($lista as $obj) {
     }
     
     ?>
-    <div class="card border-primary">
-        <div class="card-header row bg-gradient-primary" id="etapa<?= $obj->ordem ?>">
+    <div class="card border-secondary">
+        <div class="card-header row bg-gradient-secondary" id="etapa<?= $obj->ordem ?>">
             <div class="col mb-0  align-top" style="max-width:10%">
                 <span class="align-middle btn btn-link" onclick="mostrarEtapa(<?= $obj->id ?>,<?= $obj->mostrar ?>)" data-toggle="collapse" data-target="#collapse<?= $obj->ordem ?>" aria-expanded="true" aria-controls="collapse<?= $obj->ordem ?>">
                     <i class="fas fa-random text-white"></i>
