@@ -16,11 +16,10 @@ $login = isset($_POST["login"]) ? addslashes(trim($_POST["login"])) : FALSE;
 // Recupera a senha
 $senha = isset($_POST["senha"]) ? trim($_POST["senha"]) : FALSE;
 
-;
 if($usuario = $db_login->logar($login, $senha)){
-    echo true;    
+    $res = array("res" => true);   
 }  else {
-    echo false;
+    $res = array("res" => false);
 }
-
+echo json_encode($res);
 
