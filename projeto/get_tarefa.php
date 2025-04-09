@@ -34,8 +34,8 @@ foreach ($lista as $obj) {
     if ($usuario_logado->perfil <= 2 || $usuario_logado->id == $obj->criador) {
         $clonar = true;
     }
-
     echo "  <td align='center'>";
+    echo "<a href='relatorio_etapas.php?tarefa=" . $obj->id . " 'class='btn btn-light btn-sm'  title='Relatório'><img src='img/pdf.svg' width='23'></a>&nbsp;&nbsp;";
     if ($obj->excluir) {
         echo "  <a href='gerenciar_etapas.php?tarefa=" . $obj->id . "' class='btn btn-warning btn-sm' title='Gerenciar etapas'><i class='fa fa-bars'></i></a>";
         if ($editar || $clonar) {
