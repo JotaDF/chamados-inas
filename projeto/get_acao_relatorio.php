@@ -100,7 +100,20 @@ foreach ($lista_acoes as $obj) {
                 ?>
             </div>
                             </div></div>
-
+                            <div class="editar col float-right" style="max-width:30%">
+                <?php
+                if($obj->ordem >= 1 && $obj->ordem < $total_acoes ){
+                ?>
+                <a class="text-primary" href="muda_ordem_acao_relatorio.php?op=d&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
+                <?php
+                } 
+                if($obj->ordem > 1 && $obj->ordem <= $total_acoes ){
+                ?>
+                <a class="text-primary" href="muda_ordem_acao_relatorio.php?op=s&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                <?php
+                }
+                ?> 
+            </div>
         </div>
     </div>
     <?php
@@ -194,7 +207,20 @@ foreach ($lista_notas as $obj) {
                 ?>
             </div>
                             </div></div>
-
+                            <div class="editar col float-right" style="max-width:30%">
+                <?php
+                if($obj->ordem >= 1 && $obj->ordem < $total_acoes ){
+                ?>
+                <a class="text-primary" href="muda_ordem_acao_relatorio.php?op=d&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
+                <?php
+                } 
+                if($obj->ordem > 1 && $obj->ordem <= $total_acoes ){
+                ?>
+                <a class="text-primary" href="muda_ordem_acao_relatorio.php?op=s&id=<?= $obj->id ?>&tipo=<?= $obj->tipo ?>&etapa=<?= $id_etapa ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                <?php
+                }
+                ?> 
+            </div>
         </div>
     </div>
     <?php
