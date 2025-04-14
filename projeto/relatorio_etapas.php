@@ -182,8 +182,7 @@ and open the template in the editor.
                                         echo '<input type="hidden" id="editor" value="1"/><input type="hidden" id="op" value="1"/>';
                                         ?>
                                         <div class="c3 ml-4 text-right">
-                                            <i id="btn_editar" onclick="editar(); save_editar();"
-                                                value="<?= $_SESSION['editar'] ?>" class="fa fa-unlock"></i>
+                                            
                                         </div>
                                         <?php
                                     }
