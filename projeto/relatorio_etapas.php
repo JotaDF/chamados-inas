@@ -177,17 +177,6 @@ and open the template in the editor.
                                         <div class="text-xs font-weight-bold text-uppercase mb-1">Fim</div>
                                         <div class="mb-0"><?= date('d/m/Y', strtotime($tarefa->fim)) ?></div>
                                     </div>
-                                    <?php
-                                    if ($editar) {
-                                        echo '<input type="hidden" id="editor" value="1"/><input type="hidden" id="op" value="1"/>';
-                                        ?>
-                                        <div class="c3 ml-4 text-right">
-                                            <i id="btn_editar" onclick="editar(); save_editar();"
-                                                value="<?= $_SESSION['editar'] ?>" class="fa fa-unlock"></i>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
                                 </div>
                                 <h6 class="mt-3 ml-2 card-title">Descrição</h6>
                                 <p class=" ml-2 card-text"><?= $tarefa->descricao ?></p>
