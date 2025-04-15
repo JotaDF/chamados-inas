@@ -185,7 +185,7 @@ and open the template in the editor.
                                             
                                         </div>
                                         <?php
-                                    }
+                                    } 
                                     ?>
                                 </div>
                                 <h6 class="mt-3 ml-2 card-title">Descrição</h6>
