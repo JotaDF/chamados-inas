@@ -160,6 +160,7 @@ foreach ($lista_acoes as $obj) {
 echo "</div>";
 echo "</div>
     <div class='col'><b>Notas</b>";
+    if ($total_notas > 0) {
 echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
@@ -269,6 +270,7 @@ foreach ($lista_notas as $obj) {
     <?php
 }
 echo "</div>
-    </div>
-  </div>
+    </div>";
+    }
+  echo "</div>
   </div>";

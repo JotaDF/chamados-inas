@@ -6,10 +6,6 @@ $lista_notas = $manterAcao->listarNotas($id_etapa);
 $total_acoes = count($lista_acoes);
 $total_notas = count($lista_notas);
 ?>
-
-<div class="editar mb-4" style="max-width:100%">
-</div>  
-
 <?php
 echo '<div class="container" style="max-width:100%">
   <div class="row">
@@ -89,7 +85,7 @@ foreach ($lista_acoes as $obj) {
                 } else {
                     if ($executar || $editar) {
                         ?>
-                        <button type="button" class="btn btn-danger btn-sm text-white" onclick="checkAcao('<?= $obj->id ?>','<?= $data_prevista_txt ?>')"><i class="fa fa-cog"></i></button>                
+                        <button type="button" class="btn btn-danger btn-sm text-white"><i class="fa fa-cog"></i></button>                
                         <?php
                        } else {
                         ?>
@@ -100,14 +96,17 @@ foreach ($lista_acoes as $obj) {
                 ?>
             </div>
                             </div></div>
-                        
+                            <div class="editar col float-right" style="max-width:30%">
+            </div>
+
         </div>
     </div>
     <?php
 }
 echo "</div>";
-echo "</div>
-    <div class='col'><b>Notas</b>";
+echo "</div>"; 
+if($total_notas > 0) {
+echo  "<div class='col'><b>Notas</b>";
 echo '<div class="accordion" style="max-width:100%">';
 foreach ($lista_notas as $obj) {
     $data_prevista = 0;
@@ -194,11 +193,15 @@ foreach ($lista_notas as $obj) {
                 ?>
             </div>
                             </div></div>
+                            <div class="editar col float-right" style="max-width:30%">
+            </div>
+
         </div>
     </div>
     <?php
 }
 echo "</div>
-    </div>
-  </div>
+    </div>";
+}
+echo "</div>
   </div>";
