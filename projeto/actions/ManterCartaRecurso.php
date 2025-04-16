@@ -35,7 +35,7 @@ Class ManterCartaRecurso extends Model {
     }
 
     function listarExercicio () {
-        $sql = ('SELECT DISTINCT cr.exercicio FROM carta_recurso as cr order by cr.exercicio DESC');
+        $sql = 'SELECT DISTINCT TMP.* FROM (SELECT DISTINCT cr.exercicio FROM carta_recurso as cr UNION SELECT DISTINCT p.exercicio FROM nota_pagamento as p ) TMP ORDER BY exercicio DESC';
         $resultado = $this->db->Execute($sql);
         if($resultado) {
             $anos = [];
