@@ -2,7 +2,7 @@
 //Gerente
 $mod = 3;
 require_once('./verifica_login.php');
-?> 
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -10,146 +10,160 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>INAS - Gerente de Tarefas</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <!-- Custom fonts for this template-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <title>INAS - Gerente de Tarefas</title>
 
-        <!-- Custom styles for this template-->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <link rel="shortcut icon" href="favicon.ico" />
-        <!------ Include the above in your HEAD tag ---------->
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
-        
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!------ Include the above in your HEAD tag ---------->
 
-        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-        
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-               
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        <script type="text/javascript" class="init">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
 
-            <?php 
-            if ($usuario_logado->perfil == 3) {
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" class="init">
+
+        <?php
+        if ($usuario_logado->perfil == 3) {
             ?>
-               var categorias = [{id: "Pessoal", nome: "Pessoal"}];
+            var categorias = [{ id: "Pessoal", nome: "Pessoal" }];
             <?php
-            } else {
+        } else {
             ?>
-               var categorias = [{id: "Pessoal", nome: "Pessoal"}, {id: "INAS", nome: "INAS"}, {id: "DIAD", nome: "DIAD"}, {id: "UTIC", nome: "UTIC"}];
-            <?php    
-            }
-            ?>
-            var tipos = [{id: "Desenvolvimento", nome: "Desenvolvimento"}, {id: "Suporte", nome: "Suporte"}, {id: "SEI", nome: "SEI"}, {id: "Serviços", nome: "Serviços"}, {id: "Outro", nome: "Outro"}];
-            var equipes = [];
-            var responsaveis = [];
-            
-<?php
-include_once('actions/ManterEquipe.php');
-include_once('actions/ManterUsuario.php');
-
-$manterEquipe = new ManterEquipe();
-$manterUsuario = new ManterUsuario();
-
-$pesquisa = '';
-if ($usuario_logado->perfil <= 1) {
-    $pesquisa= isset($_REQUEST['filtro']) ? $_REQUEST['filtro'] : '';
-} else {
-    $pesquisa= isset($_REQUEST['filtro']) ? $_REQUEST['filtro'] : 'equipe'; 
-}
-$filtro = '';
-$titulo = 'Tarefas';
-switch ($pesquisa) {
-    case 'equipe':
-        $equipesUsuario  = $manterUsuario->getEquipesUsuarioParticipante($usuario_logado->id);
-        $equipesCriador  = $manterUsuario->getEquipesUsuarioCriador($usuario_logado->id);
-        $filtro_equipes = "";
-        $txt_equipes = "";
-        foreach ($equipesUsuario as $eq) {
-            if ($txt_equipes === "") {
-                $filtro_equipes .=  $eq->id;
-                $txt_equipes .= $eq->equipe;
-            } else {
-                $filtro_equipes .= ", ". $eq->id;
-                $txt_equipes .= ", ". $eq->equipe;
-            }
+            var categorias = [{ id: "Pessoal", nome: "Pessoal" }, { id: "INAS", nome: "INAS" }, { id: "DIAD", nome: "DIAD" }, { id: "UTIC", nome: "UTIC" }];
+            <?php
         }
-        foreach ($equipesCriador as $eq) {
-            if ($txt_equipes === "") {
-                $filtro_equipes .=  $eq->id;
-                $txt_equipes .= $eq->equipe;
-            } else {
-                $filtro_equipes .= ", ". $eq->id;
-                $txt_equipes .= ", ". $eq->equipe;
-            }
+        ?>
+        var tipos = [{ id: "Desenvolvimento", nome: "Desenvolvimento" }, { id: "Suporte", nome: "Suporte" }, { id: "SEI", nome: "SEI" }, { id: "Serviços", nome: "Serviços" }, { id: "Outro", nome: "Outro" }];
+        var equipes = [];
+        var responsaveis = [];
+
+        <?php
+        include_once('actions/ManterEquipe.php');
+        include_once('actions/ManterUsuario.php');
+
+        $manterEquipe = new ManterEquipe();
+        $manterUsuario = new ManterUsuario();
+
+        $pesquisa = '';
+        if ($usuario_logado->perfil <= 1) {
+            $pesquisa = isset($_REQUEST['filtro']) ? $_REQUEST['filtro'] : '';
+        } else {
+            $pesquisa = isset($_REQUEST['filtro']) ? $_REQUEST['filtro'] : 'equipe';
         }
-        $filtro = ' WHERE t.id_equipe IN (' . $filtro_equipes . ') ';
-        $titulo = 'Tarefas da equipe (' . $txt_equipes . ')';
-        break;
-    case 'responsavel':
-        $filtro = ' WHERE t.id_responsavel=' . $usuario_logado->id;
-        $titulo = 'Tarefas que realizo';
-        break;
-    case 'criador':
-        $filtro = ' WHERE t.id_criador=' . $usuario_logado->id;
-        $titulo = 'Tarefas que criei';
-        break;
-}
+        $filtro = '';
+        $titulo = 'Tarefas';
+        switch ($pesquisa) {
+            case 'equipe':
+                $equipesUsuario = $manterUsuario->getEquipesUsuarioParticipante($usuario_logado->id);
+                $equipesCriador = $manterUsuario->getEquipesUsuarioCriador($usuario_logado->id);
+                $filtro_equipes = "";
+                $txt_equipes = "";
+                foreach ($equipesUsuario as $eq) {
+                    if ($txt_equipes === "") {
+                        $filtro_equipes .= $eq->id;
+                        $txt_equipes .= $eq->equipe;
+                    } else {
+                        $filtro_equipes .= ", " . $eq->id;
+                        $txt_equipes .= ", " . $eq->equipe;
+                    }
+                }
+                foreach ($equipesCriador as $eq) {
+                    if ($txt_equipes === "") {
+                        $filtro_equipes .= $eq->id;
+                        $txt_equipes .= $eq->equipe;
+                    } else {
+                        $filtro_equipes .= ", " . $eq->id;
+                        $txt_equipes .= ", " . $eq->equipe;
+                    }
+                }
+                $filtro = ' WHERE t.id_equipe IN (' . $filtro_equipes . ') ';
+                $titulo = 'Tarefas da equipe (' . $txt_equipes . ')';
+                break;
+            case 'responsavel':
+                $filtro = ' WHERE t.id_responsavel=' . $usuario_logado->id;
+                $titulo = 'Tarefas que realizo';
+                break;
+            case 'criador':
+                $filtro = ' WHERE t.id_criador=' . $usuario_logado->id;
+                $titulo = 'Tarefas que criei';
+                break;
+        }
 
 
 
-$listaEquipe = $manterEquipe->listar();
-if ($usuario_logado->perfil >= 2) {
-    $filtroE = ' WHERE criador='.$usuario_logado->id;
-    $listaEquipe = $manterEquipe->listar($filtroE);
-}
-$listaUsuario = $manterUsuario->listar();
-if ($usuario_logado->perfil > 2) {
-    $listaUsuario = $manterUsuario->getUsuariosPorEquipe($usuario_logado->equipe);
-} else {
-    $listaUsuario = $manterEquipe->getParticimantesPorId($usuario_logado->equipe);
-}
+        $listaEquipe = $manterEquipe->listar();
+        if ($usuario_logado->perfil >= 2) {
+            $filtroE = ' WHERE criador=' . $usuario_logado->id;
+            $listaEquipe = $manterEquipe->listar($filtroE);
+        }
+        $listaUsuario = $manterUsuario->listar();
+        if ($usuario_logado->perfil > 2) {
+            $listaUsuario = $manterUsuario->getUsuariosPorEquipe($usuario_logado->equipe);
+        } else {
+            $listaUsuario = $manterEquipe->getParticimantesPorId($usuario_logado->equipe);
+        }
 
 
-foreach ($listaEquipe as $obj) {
-    ?>item = {id: "<?= $obj->id ?>", nome: "<?= $obj->equipe ?>"};
-                equipes.push(item);
-    <?php
-}
+        foreach ($listaEquipe as $obj) {
+            ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->equipe ?>" };
+            equipes.push(item);
+            <?php
+        }
 
-foreach ($listaUsuario as $obj) {
-    if ($usuario_logado->perfil == 3 && $obj->id == $usuario_logado->id) {
-        ?>item2 = {id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>", equipe: "<?= $obj->equipe ?>"};
-        responsaveis.push(item2);
-        <?php
-        break;
-    } else if ($usuario_logado->perfil != 3) {
-        ?>item2 = {id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>", equipe: "<?= $obj->equipe ?>"};
-        responsaveis.push(item2);
-        <?php
-    }         
-    
-}
-?>
+        foreach ($listaUsuario as $obj) {
+            if ($usuario_logado->perfil == 3 && $obj->id == $usuario_logado->id) {
+                ?>item2 = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>", equipe: "<?= $obj->equipe ?>" };
+                responsaveis.push(item2);
+                <?php
+                break;
+            } else if ($usuario_logado->perfil != 3) {
+                ?>item2 = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>", equipe: "<?= $obj->equipe ?>" };
+                    responsaveis.push(item2);
+                <?php
+            }
+
+        }
+        ?>
         function carregaEquipes(id_atual) {
             var html = '<option value="0"> Todos </option>';
             for (var i = 0; i < equipes.length; i++) {
@@ -167,8 +181,8 @@ foreach ($listaUsuario as $obj) {
             $('#equipe').html(html);
         }
 
-        function atualizaUsuarios(equipe,responsavel) {
-            $('#responsavel').load('get_responsavel.php?id_equipe='+equipe+'&id_usuario='+responsavel);
+        function atualizaUsuarios(equipe, responsavel) {
+            $('#responsavel').load('get_responsavel.php?id_equipe=' + equipe + '&id_usuario=' + responsavel);
         }
 
         function carregaUsuarios(id_atual, equipe) {
@@ -224,22 +238,28 @@ foreach ($listaUsuario as $obj) {
         }
 
         $(document).ready(function () {
-            $('#tarefas').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'excelHtml5'
-                ]
-            });
-            carregaEquipes(0);
+    $('#tarefas').DataTable({
+        dom: '<"d-flex justify-content-between align-items-center flex-wrap mb-1"<"d-flex align-items-center gap-2"B><"d-flex align-items-center gap-3"l><"d-flex align-items-center gap-3"f>>t<"mt-2 d-flex justify-content-between"i p>',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport">',
+                attr: {
+                    style: 'margin-right: 10px;' // Mantém o espaço à direita do botão
+                }
+            }
+        ],
+    });
+  carregaEquipes(0);
             carregaCategorias("0");
-            atualizaUsuarios(0,0);
+            atualizaUsuarios(0, 0);
             carregaTipos(0);
             $("#equipes").show();
         });
         function excluir(id, nome) {
             $('#delete').attr('href', 'del_tarefa.php?id=' + id);
             $('#nome_excluir').text(nome);
-            $('#confirm').modal({show: true});
+            $('#confirm').modal({ show: true });
         }
         function alterar(id, nome, descricao, categoria, inicio, fim, tipo, criador, responsavel, equipe) {
             //alert('Tipo: '+tipo);
@@ -250,7 +270,7 @@ foreach ($listaUsuario as $obj) {
             $('#termino').val(fim);
 
             carregaEquipes(equipe);
-            atualizaUsuarios(equipe,responsavel);
+            atualizaUsuarios(equipe, responsavel);
             carregaCategorias(categoria);
             carregaTipos(tipo);
             verificaCategoria(tipo);
@@ -281,7 +301,7 @@ foreach ($listaUsuario as $obj) {
             $('#btn_cadastrar').show();
 
             carregaEquipes(0);
-            atualizaUsuarios(0,0);
+            atualizaUsuarios(0, 0);
             carregaCategorias("0");
 
             $('#form_cadastro')[0].reset();
@@ -289,120 +309,128 @@ foreach ($listaUsuario as $obj) {
         function verificaCategoria(tipo) {
             if (tipo == "Pessoal") {
                 $("#equipes").hide();
-                $('#responsavel').html('<option value="<?=$usuario_logado->id ?>"> <?=$usuario_logado->nome ?> </option>');
+                $('#responsavel').html('<option value="<?= $usuario_logado->id ?>"> <?= $usuario_logado->nome ?> </option>');
             } else {
                 $("#equipes").show();
             }
         }
 
-        </script>
-        <style>
-            body{
-                font-size: small;
-            }
-        </style>
-    </head>
+    </script>
+    <style>
+        body {
+            font-size: small;
+        }
 
-    <body id="page-top">
+        .dt-button {
+            all: unset !important;
+            /* remove todos os estilos */
+        }
+    </style>
+</head>
 
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-            <?php include './menu_gerente.php'; ?>
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
-                    <?php include './top_bar.php'; ?>
+<body id="page-top">
 
-                    <div class="container-fluid">
-                        <?php
-                        if ($usuario_logado->perfil >= 1) {
-                            include './form_tarefa.php';
-                        }
-                        ?>
-                        <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:1250px">
-                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-tasks fa-2x text-white"></i> 
-                                </div>
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white"><?= $titulo ?></span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <?php
-                                    if ($usuario_logado->perfil >= 1) {
-                                        if($pesquisa != 'equipe' || $usuario_logado->perfil == 1 || $usuario_logado->perfil == 2 || $usuario_logado->perfil == 11 ){
-                                        ?>
-                                        <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_tarefa" aria-expanded="false" aria-controls="form_tarefa">
-                                            <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                        </button>                            
-                                        <?php
-                                        }
-                                    }
-                                    ?>                                    
-                                </div>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <?php include './menu_gerente.php'; ?>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <?php include './top_bar.php'; ?>
+
+                <div class="container-fluid">
+                    <?php
+                    if ($usuario_logado->perfil >= 1) {
+                        include './form_tarefa.php';
+                    }
+                    ?>
+                    <!-- Project Card Example -->
+                    <div class="card mb-4 border-primary" style="max-width:1250px">
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                            <div class="col-sm ml-0" style="max-width:50px;">
+                                <i class="fa fa-tasks fa-2x text-white"></i>
                             </div>
-                            <div class="card-body">
-                                <table id="tarefas" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <!--th scope="col">ID</th -->
-                                            <th scope="col" style="width:20px;">Categoria</th>
-                                            <th scope="col" style="width:20px;">Tipo</th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col" style="width:20px;">Início</th>
-                                            <th scope="col" style="width:20px;">Fim</th>
-                                            <!--th scope="col">Equipe</th>
-                                            <th scope="col">Responsável</th-->
-                                            <th scope="col" style="width:20px;">Situação</th>
-                                            <th scope="col" style="width:30px;">Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include './get_tarefa.php'; ?>
-                                    </tbody>
-                                </table>
+                            <div class="col mb-0">
+                                <span style="align:left;" class="h5 m-0 font-weight text-white"><?= $titulo ?></span>
+                            </div>
+                            <div class="col text-right" style="max-width:20%">
+                                <?php
+                                if ($usuario_logado->perfil >= 1) {
+                                    if ($pesquisa != 'equipe' || $usuario_logado->perfil == 1 || $usuario_logado->perfil == 2 || $usuario_logado->perfil == 11) {
+                                        ?>
+                                        <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button"
+                                            data-toggle="collapse" data-target="#form_tarefa" aria-expanded="false"
+                                            aria-controls="form_tarefa">
+                                            <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
+                                        </button>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
-                    </div>
-                    <!-- End of Main Content -->
-                </div> 
-                <?php include './rodape.php'; ?>
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Modal excluir -->
-        <div class="modal fade" id="confirm" role="dialog">
-            <div class="modal-dialog modal-sm">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirmação</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                        <div class="card-body">
+                            <table id="tarefas" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <!--th scope="col">ID</th -->
+                                        <th scope="col" style="width:20px;">Categoria</th>
+                                        <th scope="col" style="width:20px;">Tipo</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col" style="width:20px;">Início</th>
+                                        <th scope="col" style="width:20px;">Fim</th>
+                                        <!--th scope="col">Equipe</th>
+                                            <th scope="col">Responsável</th-->
+                                        <th scope="col" style="width:20px;">Situação</th>
+                                        <th scope="col" style="width:30px;">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include './get_tarefa.php'; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-
+                <!-- End of Main Content -->
             </div>
-        </div>
+            <?php include './rodape.php'; ?>
 
-    </body>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Modal excluir -->
+    <div class="modal fade" id="confirm" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
 
 </html>

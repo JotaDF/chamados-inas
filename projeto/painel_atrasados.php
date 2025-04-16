@@ -58,8 +58,8 @@ $todos = isset($_GET['fila_todos']);
                 dom: 'Bfrtip', // Posiciona os botões (B = Buttons)
                 buttons: [
                     {
-                        extend: 'excelHtml5', // Exporte para Excel
-                        text: 'Exportar para Excel', // Texto do botão
+                        extend: 'excelHtml5',
+                        text: '<img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport">', // Texto do botão
                         className: 'btn btn-sm btn-primary', // Classe do botão
                         title: 'Dados da Fila', // Título do arquivo Excel
                         exportOptions: {
@@ -71,6 +71,11 @@ $todos = isset($_GET['fila_todos']);
             });
         });
     </script>
+    <style>
+                .dt-button {
+  all: unset !important; /* remove todos os estilos */
+}
+    </style>
 </head>
 
 <body id="page-top">
