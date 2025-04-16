@@ -35,7 +35,7 @@ foreach ($lista as $obj) {
         $clonar = true;
     }
     echo "  <td align='center'>";
-    echo "<a href='relatorio_etapas.php?tarefa=" . $obj->id . " 'class='btn btn-light btn-sm'  title='Relatório'><img src='img/pdf.svg' width='23'></a>&nbsp;&nbsp;";
+    echo "<a href='relatorio_etapas.php?tarefa=" . $obj->id . " 'class='btn btn-dark btn-sm'  title='Relatório' target='_blank'><i class='fa fa-file-pdf'></i></a>&nbsp;&nbsp;";
     if ($obj->excluir) {
         echo "  <a href='gerenciar_etapas.php?tarefa=" . $obj->id . "' class='btn btn-warning btn-sm' title='Gerenciar etapas'><i class='fa fa-bars'></i></a>";
         if ($editar || $clonar) {
