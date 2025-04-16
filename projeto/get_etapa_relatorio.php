@@ -33,12 +33,12 @@ foreach ($lista as $obj) {
                <?php
                 if($obj->ordem >= 1 && $obj->ordem < $total_etapas){
                 ?>
-                <a class="text-white" href="muda_ordem_etapa_relatorio.php?op=d&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
+                <a class="text-dark" href="muda_ordem_etapa_relatorio.php?op=d&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
                 <?php
                 } 
                 if($obj->ordem > 1 && $obj->ordem <= $total_etapas){
                 ?>
-                <a class="text-white" href="muda_ordem_etapa_relatorio.php?op=s&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                <a class="text-dark" href="muda_ordem_etapa_relatorio.php?op=s&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
                 <?php
                 }
                 ?>
@@ -46,7 +46,7 @@ foreach ($lista as $obj) {
                 <?php
                 if ($obj->excluir) {
                     ?>
-                   &nbsp;<span class="text-white"><i class="far fa-trash-alt"></i></span>                
+                   &nbsp;<span class="text-dark"><i class="far fa-trash-alt"></i></span>                
                     <?php
                 }
                 ?>

@@ -153,17 +153,17 @@ and open the template in the editor.
                     ?>
                     <div class="container-fluid">
                         <!-- Exibe dados da  tarefa -->
-                        <div class="card mb-3 border-primary" style="max-width: 100%;">
-                            <div class="card-body bg-gradient-primary" style="min-height: 2.0rem;">
+                        <div class="card mb-3" style="max-width: 100%; border-color: #949494">
+                            <div class="card-body text-dark" style="min-height: 2.0rem; background-color: #d3d3d3;">
                                 <div class="row">
                                     <div class="col c2 ml-2">
-                                        <div class="h6 text-xs text-white font-weight-bold text-uppercase mb-1">
+                                        <div class="h6 text-xs text-dark font-weight-bold text-uppercase mb-1">
                                             <?= $tarefa->categoria ?></div>
-                                        <div class="h5 mb-0 text-white font-weight-bold">[<small><?= $tarefa->id ?></small>]
+                                        <div class="h5 mb-0 text-dark font-weight-bold">[<small><?= $tarefa->id ?></small>]
                                             <?= $tarefa->nome ?></div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fa fa-tasks fa-3x text-white"></i>
+                                        <i class="fa fa-tasks fa-3x text-dark"></i>
                                     </div>
                                 </div>
                             </div>
