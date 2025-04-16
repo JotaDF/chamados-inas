@@ -30,18 +30,6 @@ foreach ($lista as $obj) {
                 <span class="text-dark"><b><?= ($obj->data_base > 0 ? date('d/m/Y',$obj->data_base) : ' - ') ?></b></span>
             </div>
             <div class="editar col align-top text-right" style="max-width:15%">
-               <?php
-                if($obj->ordem >= 1 && $obj->ordem < $total_etapas){
-                ?>
-                <a class="text-dark" href="muda_ordem_etapa_relatorio.php?op=d&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>&nbsp;
-                <?php
-                } 
-                if($obj->ordem > 1 && $obj->ordem <= $total_etapas){
-                ?>
-                <a class="text-dark" href="muda_ordem_etapa_relatorio.php?op=s&id=<?= $obj->id ?>&ordem=<?= $obj->ordem ?>&tarefa=<?= $id_tarefa ?>"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-                <?php
-                }
-                ?>
                 &nbsp;&nbsp;&nbsp;
                 <?php
                 if ($obj->excluir) {
