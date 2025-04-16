@@ -225,7 +225,7 @@ and open the template in the editor.
     <body id="page-top">
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_execucao.php'; ?>
+            <?php include './menu_gerente.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
