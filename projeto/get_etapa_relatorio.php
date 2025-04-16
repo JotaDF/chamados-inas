@@ -8,7 +8,7 @@ $total_etapas = count($lista);
 ?>
 
 <?php
-echo '<div class="accordion border-bottom border-info" style="max-width:100%">';
+echo '<div class="accordion border-bottom" style="max-width:100%">';
 foreach ($lista as $obj) {
     $id_etapa = $obj->id;
     if ($obj->data_base > 0) {
