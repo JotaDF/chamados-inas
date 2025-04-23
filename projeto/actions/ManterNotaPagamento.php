@@ -71,6 +71,41 @@ class ManterNotaPagamento extends Model {
         }
         return $array_dados;
     }
+
+    function listarNotaPorFiltro($filtro) {
+        $sql = "SELECT np.status, pr.cnpj, pr.razao_social,np.id, np.numero, np.valor, p.informativo, p.competencia, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, u.nome, np.data_pagamento, np.id_pagamento, np.doc_sei
+        FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp, prestador as pr, usuario as u
+        WHERE np.id_pagamento=p.id 
+        AND p.id_fiscal_prestador = fp.id
+        AND fp.id_prestador = pr.id
+        AND u.id = fp.id_usuario " . $filtro;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new stdClass();
+            $dados->tipo                 ='nota';
+            $dados->id                   = $registro["id"];
+            $dados->numero               = $registro["numero"];
+            $dados->cnpj                 = $registro["cnpj"];
+            $dados->razao_social         = $registro["razao_social"];
+            $dados->informativo          = $registro["informativo"];
+            $dados->competencia          = $registro["competencia"];
+            $dados->nome                 = $registro["nome"];
+            $dados->valor                = $registro["valor"];
+            $dados->exercicio            = $registro["exercicio"];
+            $dados->doc_sei              = $registro["doc_sei"];
+            $dados->data_emissao         = $registro["data_emissao"];
+            $dados->data_validacao       = $registro["data_validacao"];
+            $dados->data_executado       = $registro["data_executado"];
+            $dados->data_atesto          = $registro["data_atesto"];
+            $dados->data_pagamento       = $registro["data_pagamento"];
+            $dados->id_pagamento         = $registro["id_pagamento"];
+            $dados->status               = $registro["status"];
+
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function getNotaPagamentoPorId($id) {
         $sql = "select np.id, np.numero, np.valor, np.exercicio, np.status, np.doc_sei, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, np.data_pagamento, np.id_pagamento FROM nota_pagamento as np WHERE id=$id";
         //echo $sql;
