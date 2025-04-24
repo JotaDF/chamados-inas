@@ -17,7 +17,7 @@ $login = isset($_POST["login"]) ? addslashes(trim($_POST["login"])) : FALSE;
 $senha = isset($_POST["senha"]) ? trim($_POST["senha"]) : FALSE;
 
 if($usuario = $db_login->logar($login, $senha)){
-    $res = array("res" => true);   
+    $res = array("res" => true, "nome" => $usuario->nome, "matricula" => $usuario->matricula);   
 }  else {
     $res = array("res" => false);
 }
