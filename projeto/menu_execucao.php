@@ -68,7 +68,12 @@
                     <span>Gerar Relatório</span>
                 </a>
             </li>
-            
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="gerar_busca_execucao.php">
+                    <i class="fa fa-search"></i>
+                    <span>Buscas</span>
+                </a>
+            </li>
            
         <?php
     }
