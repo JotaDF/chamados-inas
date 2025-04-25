@@ -61,23 +61,30 @@
                     <span>Pagamentos Pendentes</span>
                 </a>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="gerar_relatorio_execucao.php">
-                    <i class="fa fa-laptop"></i>
-                    <span>Gerar Relatório</span>
-                </a>
-            </li>
-            <li class="nav-item">
+            
+        <?php
+    }
+if ($usuario_logado->perfil == 4 || $usuario_logado->perfil <= 2) {
+       ?>
+           <!-- Nav Item - Pages Collapse Menu -->
+           <li class="nav-item">
                 <a class="nav-link collapsed" href="gerar_busca_execucao.php">
                     <i class="fa fa-search"></i>
                     <span>Buscas</span>
                 </a>
-            </li>
-           
-        <?php
-    }
+           </li>
+           <!-- Nav Item - Pages Collapse Menu -->
+           <li class="nav-item">
+               <a class="nav-link collapsed" href="gerar_relatorio_execucao.php">
+                   <i class="fa fa-laptop"></i>
+                   <span>Gerar Relatório</span>
+               </a>
+           </li>
 
+
+       <?php
+   }
+   
     if ($usuario_logado->perfil >= 1) {
         ?>
 
