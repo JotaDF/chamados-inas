@@ -13,25 +13,25 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                 <div class="row row-cols-lg-auto g-3 align-items-center">
                     <div class="col-md-4">
                         <label for="cnpj" class="form-label"><strong>CNPJ</strong></label>
-                        <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o CNPJ">
+                        <input type="text" class="form-control form-control-sm " id="cnpj" name="cnpj" placeholder="Digite o CNPJ">
                     </div>
                     <div class="col-md-4">
                         <label for="nf" class="form-label"><strong>NF</strong></label>
-                        <input type="text" class="form-control" id="nota_fiscal" name="nota_fiscal" placeholder="Número da NF">
+                        <input type="text" class="form-control form-control-sm" id="nota_fiscal" name="nota_fiscal" placeholder="Número da NF">
                     </div>
                     <div class="col-md-4">
                         <label for="informativo" class="form-label"><strong>Informativo</strong></label>
-                        <input type="text" class="form-control" id="informativo" name="informativo"
+                        <input type="text" class="form-control form-control-sm" id="informativo" name="informativo"
                             placeholder="Informativo">
                     </div>
                     <div class="col-md-5">
                         <label for="competencia" class="form-label"><strong>Competência</strong></label>
-                        <input type="text" class="form-control" id="competencia" name="competencia"
+                        <input type="text" class="form-control form-control-sm" id="competencia" name="competencia"
                             placeholder="MM/AAAA">
                     </div>
                     <div class="col-md-5">
                         <label for="emissao" class="form-label"><strong>Emissão da NF</strong></label>
-                        <input type="date" class="form-control" id="data_emissao" name="data_emissao"
+                        <input type="date" class="form-control form-control-sm" id="data_emissao" name="data_emissao"
                             placeholder="Data de Emissão">
                     </div>
                 </div>

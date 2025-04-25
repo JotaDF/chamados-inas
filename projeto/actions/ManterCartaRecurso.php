@@ -79,13 +79,13 @@ AND cr.exercicio = '".$exercicio."'";
     }
 
     function listarCartaPorFiltro($filtro) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, pr.cnpj, pr.razao_social, pr.id, u.nome 
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.competencia, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, pr.cnpj, pr.razao_social, pr.id, u.nome 
         FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as pr, usuario as u
         WHERE cr.id_nota_glosa = ng.id
         AND ng.id_recurso_glosa = crg.id 
         AND crg.id_fiscal_prestador = fp.id
         AND fp.id_prestador = pr.id
-        AND u.id = fp.id_usuario " . $filtro;
+        AND u.id = fp.id_usuario" . $filtro;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -99,6 +99,7 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->data_executado    = $registro["data_executado"];
             $dados->data_atesto       = $registro["data_atesto"];
             $dados->data_pagamento    = $registro["data_pagamento"];
+            $dados->informativo       = $registro["carta_informativo"];
             $dados->doc_sei           = $registro["doc_sei"];
             $dados->numero            = $registro["numero"];
             $dados->valor             = $registro["valor"];

@@ -78,7 +78,7 @@ class ManterNotaPagamento extends Model {
         WHERE np.id_pagamento=p.id 
         AND p.id_fiscal_prestador = fp.id
         AND fp.id_prestador = pr.id
-        AND u.id = fp.id_usuario " . $filtro;
+        AND u.id = fp.id_usuario" . $filtro;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {

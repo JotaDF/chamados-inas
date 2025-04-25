@@ -93,22 +93,36 @@ and open the template in the editor.
         $nota_fiscal = isset($_POST['nota_fiscal'])   ? $_POST['nota_fiscal'] : '';
         $data_emissao = isset($_POST['data_emissao']) ? $_POST['data_emissao'] : '';
         $data = strtotime($data_emissao);
-        $filtros = [
+    
+        $filtros_carta = [
             'pr.cnpj' => $cnpj,
             'cr.carta_informativo' => $informativo,
             'cr.competencia' => $competencia,
             'cr.data_emissao' => $data,
             'ng.numero' => $nota_fiscal
         ];
-        $where = '';
-        foreach ($filtros as $campo => $valor) {
+        $filtros_nota = [
+            'pr.cnpj' => $cnpj,
+            'p.informativo' => $informativo,
+            'p.competencia' => $competencia,
+            'np.data_emissao' => $data,
+            'np.numero ' => $nota_fiscal  
+        ];
+
+        $where_carta = '';
+        foreach ($filtros_carta as $campo => $valor) {
         if (!empty($valor)) {
-            $where .= " AND $campo = '" . $valor . "'";
+            $where_carta .= " AND $campo = '" . $valor . "'";
         }
     }
-        echo $where;
-        $carta = $mCartaRecurso->listarCartaPorFiltro($where);
-        $nota = $mNotaPagamento->listarNotaPorFiltro($where);
+        $where_nota = '';
+        foreach ($filtros_nota as $campo => $valor) {
+        if (!empty($valor)) {
+            $where_nota .= " AND $campo = '" . $valor . "'";
+        }
+    }
+        $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
+        $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
         $total = array_merge($carta, $nota);
         echo "<br> Quantidade de linhas retornadas de notas: " .count($nota);
         echo "<br> Quantidade de linhas retornadas de cartas: " . count($carta);
