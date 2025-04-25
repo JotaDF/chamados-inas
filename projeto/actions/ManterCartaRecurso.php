@@ -101,6 +101,7 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->data_pagamento    = $registro["data_pagamento"];
             $dados->informativo       = $registro["carta_informativo"];
             $dados->doc_sei           = $registro["doc_sei"];
+            $dados->competencia       = $registro['competencia'];
             $dados->numero            = $registro["numero"];
             $dados->valor             = $registro["valor"];
             $dados->cnpj              = $registro["cnpj"];

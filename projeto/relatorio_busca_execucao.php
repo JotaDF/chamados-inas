@@ -169,7 +169,7 @@ and open the template in the editor.
                                     <td class="cell c2 text-dark"><?= $obj->numero ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->valor ?></td>
                                     <td class="cell c0 text-dark"><?= $obj->informativo ?></td>
-                                    <td class="cell c0 text-dark"> - </td> <!-- Está sem competencia pois no meu banco não está atualizado com a coluna competencia e, por motivos de desenvolvimento e debug, desenvolvi sem trazer a competencia mesmo. -->
+                                    <td class="cell c0 text-dark"><?= $obj->competencia ?> </td> <!-- Está sem competencia pois no meu banco não está atualizado com a coluna competencia e, por motivos de desenvolvimento e debug, desenvolvi sem trazer a competencia mesmo. -->
                                     <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_emissao) ?></td>
                                     <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_validacao) ?></td>
                                     <td class="cell c2 text-dark"><?= $data_atesto ?></td>
