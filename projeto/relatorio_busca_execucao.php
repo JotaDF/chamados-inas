@@ -124,9 +124,6 @@ and open the template in the editor.
         $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
         $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
         $total = array_merge($carta, $nota);
-        echo "<br> Quantidade de linhas retornadas de notas: " .count($nota);
-        echo "<br> Quantidade de linhas retornadas de cartas: " . count($carta);
-        echo  "<br> Total de linhas retornadas: " . count( $total);
         ?>
         <div id="containerNotaGlosa" class="container-fluid align-items-center" style="width:95%">
             <?php
