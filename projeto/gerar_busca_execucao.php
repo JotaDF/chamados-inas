@@ -57,7 +57,7 @@ require_once('./verifica_login.php');
                             <div class="col-sm ml-0" style="max-width:50px;">
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Formulário</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Informe os filtros para Busca</span>
                             </div>
                         </div>
                         <?php include ('./form_busca_execucao.php')?>

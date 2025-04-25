@@ -79,7 +79,7 @@ AND cr.exercicio = '".$exercicio."'";
     }
 
     function listarCartaPorFiltro($filtro) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.competencia, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, pr.cnpj, pr.razao_social, pr.id, u.nome 
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.competencia, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, pr.cnpj,  pr.razao_social, pr.id, u.nome, fp.id_prestador 
         FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as pr, usuario as u
         WHERE cr.id_nota_glosa = ng.id
         AND ng.id_recurso_glosa = crg.id 
@@ -91,6 +91,7 @@ AND cr.exercicio = '".$exercicio."'";
         while($registro = $resultado->fetchRow()) {
             $dados = new stdClass;
             $dados->tipo                 ='carta';
+            $dados->id_prestador      = $registro["id_prestador"];
             $dados->informativo       = $registro["carta_informativo"];
             $dados->status            = $registro["status"];
             $dados->exercicio         = $registro["exercicio"];

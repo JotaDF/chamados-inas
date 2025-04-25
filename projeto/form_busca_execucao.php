@@ -2,17 +2,18 @@
 include_once('actions/ManterCartaRecurso.php');
 $manterCartaRecurso = new ManterCartaRecurso();
 $exercicio = $manterCartaRecurso->listarExercicio();
+echo $usuario_logado->perfil;
 ?>
 
 <!-- Card Content - Collapse -->
 <div class="card-body">
     <form id="form_relatorio" action="relatorio_busca_execucao.php" method="post">
+        <input type="hidden" name="usuario_perfil" id="usuario_perfil" value="<?php echo $usuario_logado->perfil?>">
         <div class="col border p-4">
             <fieldset class="form-group">
-                <legend class="col-form-label h5" style="font-size: 22px;">Informe os filtros para Busca</legend>
                 <div class="row row-cols-lg-auto g-3 align-items-center">
                     <div class="col-md-4">
-                        <label for="cnpj" class="form-label"><strong>CNPJ</strong></label>
+                        <label for="cnpj" class="form-label">CNPJ</label>
                         <input type="text" class="form-control form-control-sm " id="cnpj" name="cnpj" placeholder="Digite o CNPJ">
                     </div>
                     <div class="col-md-4">
@@ -24,12 +25,12 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                         <input type="text" class="form-control form-control-sm" id="informativo" name="informativo"
                             placeholder="Informativo">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label for="competencia" class="form-label"><strong>Competência</strong></label>
                         <input type="text" class="form-control form-control-sm" id="competencia" name="competencia"
                             placeholder="MM/AAAA">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label for="emissao" class="form-label"><strong>Emissão da NF</strong></label>
                         <input type="date" class="form-control form-control-sm" id="data_emissao" name="data_emissao"
                             placeholder="Data de Emissão">

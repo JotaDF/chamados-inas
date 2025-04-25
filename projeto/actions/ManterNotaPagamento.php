@@ -73,7 +73,7 @@ class ManterNotaPagamento extends Model {
     }
 
     function listarNotaPorFiltro($filtro) {
-        $sql = "SELECT np.status, pr.cnpj, pr.razao_social,np.id, np.numero, np.valor, p.informativo, p.competencia, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, u.nome, np.data_pagamento, np.id_pagamento, np.doc_sei
+        $sql = "SELECT np.status, pr.cnpj, pr.razao_social,np.id, np.numero, np.valor, p.informativo, p.competencia, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, u.nome, np.data_pagamento, np.id_pagamento, np.doc_sei, fp.id_prestador
         FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp, prestador as pr, usuario as u
         WHERE np.id_pagamento=p.id 
         AND p.id_fiscal_prestador = fp.id
@@ -87,6 +87,7 @@ class ManterNotaPagamento extends Model {
             $dados->id                   = $registro["id"];
             $dados->numero               = $registro["numero"];
             $dados->cnpj                 = $registro["cnpj"];
+            $dados->id_prestador         = $registro['id_prestador'];
             $dados->razao_social         = $registro["razao_social"];
             $dados->informativo          = $registro["informativo"];
             $dados->competencia          = $registro["competencia"];
