@@ -49,7 +49,8 @@ require_once('./verifica_login.php');
     <div id="wrapper">
         <?php include './menu_execucao.php' ?>
         <div id="content-wrapper" class="d-flex flex-column">
-            <?php include './top_bar.php' ?>
+            <?php include './top_bar.php'; ?>
+
             <div id="content">
                 <div class="d-flex justify-content-center flex-wrap">
                     <div class="card mb-4 border-primay" style="width: 100%; max-width: 45%; margin-right: 25px;">
@@ -57,10 +58,35 @@ require_once('./verifica_login.php');
                             <div class="col-sm ml-0" style="max-width:50px;">
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Informe os filtros para Busca</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Informe os filtros para
+                                    Busca</span>
                             </div>
                         </div>
-                        <?php include ('./form_busca_execucao.php')?>
+                    <?php 
+                    
+                    $msg = "";
+                    if (isset($_REQUEST['msg'])) {
+                        $id_msg = $_REQUEST['msg'];
+
+                        if ($id_msg == 1) {
+                            $msg = "SELECIONE UM FILTRO VÁLIDO!";
+                        }
+                    }
+                    ?>
+                        <?php include('./form_busca_execucao.php')?>
+                        <div class="alerta">
+                            <?php if ($msg) {?>
+                                <div class="alert alert-info fade " role="alert" id="alerta" style="width: 1000px; margin: 20px">
+                                    <?php echo $msg; ?>
+                                </div>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        var alerta = document.getElementById("alerta");
+                                        alerta.classList.add("show");
+                                    });
+                                </script>
+                                <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,84 +94,4 @@ require_once('./verifica_login.php');
     </div>
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <body>
-    <form id="multiStepForm">
-        <div class="step active">
-            <h2>Passo 1</h2>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <button type="button" onclick="nextStep()">Próximo</button>
-        </div>
-        <div class="step">
-            <h2>Passo 2</h2>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <button type="button" onclick="nextStep()">Próximo</button>
-        </div>
-        <div class="step">
-            <h2>Passo 3</h2>
-            <label for="address">Endereço:</label>
-            <input type="text" id="address" name="address" required>
-            <button type="submit">Enviar</button>
-        </div>
-    </form> -->
-
-<!-- <script>
-        let currentStep = 0;
-
-        function nextStep() {
-            const steps = document.querySelectorAll('.step');
-            steps[currentStep].classList.remove('active');
-            currentStep++;
-            if (currentStep < steps.length) {
-                steps[currentStep].classList.add('active');
-            }
-        }
-    </script> -->
-</body>
-
 </html>

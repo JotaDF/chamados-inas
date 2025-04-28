@@ -145,7 +145,7 @@ and open the template in the editor.
     $total = array_merge($carta, $nota);
     $opcoes = ($usuario_logado->perfil >= $perfil) ? "<th class='header c4 text-nowrap text-center' scope='col'>OPÇÕES</th>" : " ";
 
-
+        
     ?>
     <div id="containerNotaGlosa" class="container-fluid align-items-center" style="width:95%">
         <?php
@@ -174,7 +174,7 @@ and open the template in the editor.
                         <th class="header c4 text-nowrap text-center" style="" scope="col">DATA LIMITE PAGAMENTO </th>
                         <th class="header c4 text-nowrap text-center" style="" scope="col">DATA PAGAMENTO </th>
                         <th class="header c4 text-nowrap text-center" style="" scope="col">LINK SEI ORDEM BANCARIA </th>
-                        <?php echo $opcoes ?>;
+                        <?php echo $opcoes ?>
 
                     </tr>
                     <?php
@@ -183,11 +183,15 @@ and open the template in the editor.
                             $data_executado = isset($obj->data_executado) ? date('d/m/Y', $obj->data_executado) : "-";
                             $data_atesto = isset($obj->data_atesto) ? date('d/m/Y', $obj->data_atesto) : "-";
                             $data_pagamento = isset($obj->data_pagamento) ? date('d/m/Y', $obj->data_pagamento) : "-";
-                            $tipo = ($obj->tipo == 'carta') ? 'Carta' : "Nota";
-                            $link_carta = '<a href="gerenciar_glosas_prestador.php?id=' . $obj->id_prestador . '"class="btn btn-sm text-white">Editar</a>';
-                            $link_nota ='<a href="gerenciar_pagamentos_prestador.php?id=' .$obj->id_prestador .'"class="btn btn-sm text-white">Editar</a>';
+                            $tipo = ($obj->tipo == 'carta') ? 'Carta' : 'Nota';
+                            $url_carta = 'gerenciar_glosas_prestador.php';
+                            $url_nota  = 'gerenciar_pagamentos_prestador.php';
+                            $link_carta = '<a href="gerenciar_glosas_prestador.php?id=' . $obj->id_prestador . '"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
+                            $link_nota ='<a href="gerenciar_pagamentos_prestador.php?id=' .$obj->id_prestador .'"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
                             $btn_opcoes = ($obj->tipo == 'carta') ? $link_carta : $link_nota ;
-                            $btn_editar = "<td align='center' valign='bottom' class='align-middle nowrap'><button class='btn btn-dark btn-sm' type='button'> <i class=\"fas fa-edit\"></i>$btn_opcoes</button></td>";
+                            $btn_editar = "<td align='center' valign='bottom' class='align-middle nowrap'>
+                      <button class='btn btn-dark btn-sm text-white' type='button'>$btn_opcoes</button>
+                   </td>";
                         ?>
                         <tbody>
                             <tr class="">
@@ -215,10 +219,13 @@ and open the template in the editor.
                     </tbody>
                 </table>
                 <?php
+        } else {
+            $_SESSION['msg'] = 'Erro';
+    header('Location: gerar_busca_execucao.php?msg=1');
+    exit();
         }
-        ?>
 
-
+?>
 </body>
 
 </html>
