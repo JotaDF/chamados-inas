@@ -139,11 +139,10 @@ and open the template in the editor.
             $where_nota .= " AND $campo = '" . $valor . "'";
         }
     }
-    $perfil = 1;
     $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
     $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
     $total = array_merge($carta, $nota);
-    $opcoes = ($usuario_logado->perfil >= $perfil) ? "<th class='header c4 text-nowrap text-center' scope='col'>OPÇÕES</th>" : " ";
+    $opcoes = ($usuario_logado->perfil != 4) ? "<th class='header c4 text-nowrap text-center' scope='col'>OPÇÕES</th>" : " ";
 
         
     ?>
@@ -189,9 +188,9 @@ and open the template in the editor.
                             $link_carta = '<a href="gerenciar_glosas_prestador.php?id=' . $obj->id_prestador . '"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
                             $link_nota ='<a href="gerenciar_pagamentos_prestador.php?id=' .$obj->id_prestador .'"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
                             $btn_opcoes = ($obj->tipo == 'carta') ? $link_carta : $link_nota ;
-                            $btn_editar = "<td align='center' valign='bottom' class='align-middle nowrap'>
+                            $btn_editar =  ($usuario_logado->perfil != 4) ? "<td align='center' valign='bottom' class='align-middle nowrap'>
                       <button class='btn btn-dark btn-sm text-white' type='button'>$btn_opcoes</button>
-                   </td>";
+                   </td>" : "";
                         ?>
                         <tbody>
                             <tr class="">
