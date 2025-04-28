@@ -2,7 +2,6 @@
 include_once('actions/ManterCartaRecurso.php');
 $manterCartaRecurso = new ManterCartaRecurso();
 $exercicio = $manterCartaRecurso->listarExercicio();
-echo $usuario_logado->perfil;
 ?>
 
 <!-- Card Content - Collapse -->
@@ -43,7 +42,7 @@ echo $usuario_logado->perfil;
         <div class="form-group row float-right">
             <button type="reset" class="btn btn-danger btn-sm" ><i class="fa fa-refresh"></i> Limpar </button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="submit" target="_blank" class="btn btn-primary btn-sm" ><i class="fa fa-file"></i>Gerar</button>
+            <button type="submit" class="btn btn-primary btn-sm" ><i class="fa fa-file"></i>Gerar</button>
             &nbsp;&nbsp;&nbsp;
         </div>
     </form>
