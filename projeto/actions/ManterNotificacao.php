@@ -126,6 +126,19 @@ class ManterNotificacao extends Model {
 
         return $total;
     }
+    // Retorna o total de notificações de um usuário específico
+    function getTotalNotificacaoNaoLidasUsuario($id) {
+        $sql = "select count(*) total FROM notificacao as n WHERE n.lida = 0 AND n.id_usuario=$id";
+        $resultado = $this->db->Execute($sql);
+        $total = 0;
+
+        // Se houver resultado, armazena o valor da contagem
+        if ($registro = $resultado->fetchRow()) {
+            $total = $registro["total"];
+        }
+
+        return $total;
+    }
 
     // Salva uma nova notificação no banco de dados
     function salvar(Notificacao $dados) {
