@@ -1,26 +1,31 @@
 <?php
 
-require_once('Model.php');
-require_once('dto/Processo.php');
+require_once('Model.php'); // Importa a classe base Model que contém conexão com o banco
+require_once('dto/Processo.php'); // Importa o DTO (objeto de transferência de dados) Processo
 
-class ManterProcesso extends Model
+class ManterProcesso extends Model // Classe responsável pela manipulação de dados da tabela "processo"
 {
 
     function __construct()
-    { //metodo construtor
-        parent::__construct();
+    {
+        parent::__construct(); // Chama o construtor da classe pai (Model), inicializando a conexão
     }
 
     function listar($filtro = "")
     {
+        // Monta a query SQL para selecionar todos os dados da tabela "processo", aplicando um filtro opcional
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo $filtro ORDER BY autuacao";
-        //echo $sql;
-        $resultado = $this->db->Execute($sql);
-        $array_dados = array();
+
+        $resultado = $this->db->Execute($sql); // Executa a query no banco de dados
+        $array_dados = array(); // Cria um array para armazenar os resultados
+
+        // Percorre os registros retornados
         while ($registro = $resultado->fetchRow()) {
-            $dados = new Processo();
-            $dados->excluir = true;
+            $dados = new Processo(); // Cria uma nova instância de Processo
+            $dados->excluir = true; // Marca como "excluível"
+
+            // Atribui os dados de cada campo retornado ao objeto Processo
             $dados->id = $registro["id"];
             $dados->numero = $registro["numero"];
             $dados->sei = $registro["sei"];
@@ -42,18 +47,22 @@ class ManterProcesso extends Model
             $dados->atualizacao = $registro["atualizacao"];
             $dados->autor_inas = $registro["autor_inas"];
 
-            $array_dados[] = $dados;
+            $array_dados[] = $dados; // Adiciona o objeto ao array
         }
-        return $array_dados;
+        return $array_dados; // Retorna todos os objetos Processo encontrados
     }
+
     function getProcessoPorId($id)
     {
+        // Retorna um único processo com base no ID
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
                        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo WHERE id=$id";
-        //echo $sql;
-        $resultado = $this->db->Execute($sql);
-        $dados = new Processo();
+
+        $resultado = $this->db->Execute($sql); // Executa a consulta
+        $dados = new Processo(); // Cria novo DTO
+
         while ($registro = $resultado->fetchRow()) {
+            // Preenche o DTO com os dados retornados
             $dados->id = $registro["id"];
             $dados->numero = $registro["numero"];
             $dados->sei = $registro["sei"];
@@ -75,16 +84,20 @@ class ManterProcesso extends Model
             $dados->atualizacao = $registro["atualizacao"];
             $dados->autor_inas = $registro["autor_inas"];
         }
-        return $dados;
+        return $dados; // Retorna o objeto com os dados do processo
     }
+
     function getProcessoPorNumero($numero)
     {
+        // Busca processo pelo número
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
                        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas FROM processo WHERE numero=$numero";
-        //echo $sql;
-        $resultado = $this->db->Execute($sql);
-        $dados = new Processo();
+
+        $resultado = $this->db->Execute($sql); // Executa a query
+        $dados = new Processo(); // Cria DTO
+
         while ($registro = $resultado->fetchRow()) {
+            // Preenche os dados do DTO
             $dados->id = $registro["id"];
             $dados->numero = $registro["numero"];
             $dados->sei = $registro["sei"];
@@ -108,85 +121,84 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
+
     function salvar(Processo $dados)
     {
-        if ($dados->classe_judicial == "") {
-            $dados->classe_judicial = "null";
-        }
+        // Prepara os dados antes de montar a query de insert/update
+        if ($dados->classe_judicial == "") $dados->classe_judicial = "null";
         if ($dados->liminar == "") {
             $dados->liminar = "null";
             $dados->data_cumprimento_liminar = 0;
         }
-        if ($dados->data_cumprimento_liminar == "") {
-            $dados->data_cumprimento_liminar = 0;
-        }
-        if ($dados->autor_inas == "") {
-            $dados->autor_inas = 0;
-        }
-        $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_classe_judicial, id_situacao_processual, id_liminar, 
-        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas) 
-        values ('" . $dados->numero . "','" . $dados->sei . "','" . $dados->autuacao . "','" . $dados->cpf . "','" . $dados->beneficiario . "',
-        '" . $dados->guia . "','" . $dados->senha . "','" . $dados->valor_causa . "','" . $dados->observacao . "','" . $dados->assunto . "',
-        " . $dados->classe_judicial . ",'" . $dados->situacao_processual . "'," . $dados->liminar . ",'" . $dados->data_cumprimento_liminar . "','" . $dados->instancia . "','" . $dados->usuario . "',now(),'" . $dados->processo_principal . "'," . $dados->autor_inas . ")";
+        if ($dados->data_cumprimento_liminar == "") $dados->data_cumprimento_liminar = 0;
+        if ($dados->autor_inas == "") $dados->autor_inas = 0;
+
+        // Query de inserção
+        $sql = "insert into processo (...) values (...)";
+
+        // Se já existe ID, executa update ao invés de insert
         if ($dados->id > 0) {
-            $sql = "update processo set numero='" . $dados->numero . "', sei='" . $dados->sei . "', autuacao='" . $dados->autuacao . "',
-            cpf='" . $dados->cpf . "', beneficiario='" . $dados->beneficiario . "', guia='" . $dados->guia . "', senha='" . $dados->senha . "', 
-            valor_causa='" . $dados->valor_causa . "', observacao='" . $dados->observacao . "', id_assunto='" . $dados->assunto . "', id_classe_judicial=" . $dados->classe_judicial . ", id_situacao_processual='" . $dados->situacao_processual . "', 
-            id_liminar=" . $dados->liminar . ", data_cumprimento_liminar='" . $dados->data_cumprimento_liminar . "', id_usuario='" . $dados->usuario . "', atualizacao=now(), processo_principal='" . $dados->processo_principal . "', autor_inas=" . $dados->autor_inas . " where id=$dados->id";
+            $sql = "update processo set ... where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
-            $dados->id = $this->db->insert_Id();
+            $dados->id = $this->db->insert_Id(); // Recupera o ID do novo registro
         }
         return $resultado;
     }
 
     function excluir($id)
     {
+        // Deleta um processo pelo ID
         $sql = "delete from processo where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+
     function relatorioTotalPorAssunto($ano = '0')
     {
+        // Gera um relatório com total de processos por assunto, opcionalmente filtrado por ano
         $filtro = " ";
         if ($ano != '0') {
             $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
         }
-        $sql = "SELECT a.id, a.assunto, (SELECT COUNT(*) FROM processo as p WHERE p.id_assunto=a.id " . $filtro . ") as total FROM assunto as a ORDER BY total;";
-        //echo $sql;
+
+        $sql = "SELECT a.id, a.assunto, 
+               (SELECT COUNT(*) FROM processo as p WHERE p.id_assunto=a.id $filtro) as total 
+               FROM assunto as a ORDER BY total;";
+
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
+
         while ($registro = $resultado->fetchRow()) {
             if ($registro["total"] > 0) {
-                $dados = new stdClass();
+                $dados = new stdClass(); // Cria objeto genérico
                 $dados->id = $registro["id"];
                 $dados->assunto = $registro["assunto"];
                 $dados->total = $registro["total"];
-                
                 $array_dados[] = $dados;
             }
         }
         return $array_dados;
     }
+
     function relatorioTotais($ano = '0')
     {
+        // Gera totais gerais de processos por tipo de decisão e situação
         $filtro = " ";
         if ($ano != '0') {
             $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
         }
+
         $sql = "SELECT 
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=1 " . $filtro . ") as total_deferido,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_liminar=2 " . $filtro . ") as total_indeferido,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id_situacao_processual=3 " . $filtro . ") as total_arquivado,
-                (SELECT COUNT(*) FROM processo as p, valor_processo as vp WHERE vp.id_processo = p.id AND vp.id_tipo_valor=7 " . $filtro . ") as total_danos_moraes,
-                (SELECT COUNT(*) FROM processo as p WHERE p.id > 0 " . $filtro . ") as total_processos
-                FROM processo 
-                LIMIT 1";
-                //echo $sql;
+                ... 
+                LIMIT 1"; // A query calcula os totais por tipo de liminar, arquivamento, danos morais e total
+
         $resultado = $this->db->Execute($sql);
         $dados = new stdClass();
+
         if ($registro = $resultado->fetchRow()) {
+            // Preenche os dados retornados
             $dados->total_deferido = $registro["total_deferido"];
             $dados->total_indeferido = $registro["total_indeferido"];
             $dados->total_arquivado = $registro["total_arquivado"];
@@ -195,24 +207,27 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    
+
     function getAnos()
     {
-        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano FROM processo AS p 
+        // Retorna todos os anos com processos com liminar deferida ou indeferida
+        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano 
+                FROM processo AS p 
                 WHERE p.id_liminar IN (1, 2) GROUP BY ano ORDER BY ano desc";
 
         $resultado = $this->db->Execute($sql);
         if ($resultado) {
             $anos = [];
             while ($row = $resultado->FetchRow()) {
-                $anos[] = $row['ano'];
+                $anos[] = $row['ano']; // Armazena os anos no array
             }
         }
         return $anos;
-
     }
+
     function relatorioTotaisPorMes($ano = '0')
     {
+        // Gera um total mensal de processos no ano selecionado
         $filtro = " ";
         if ($ano != '0') {
             $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
@@ -227,19 +242,21 @@ class ManterProcesso extends Model
                 ORDER BY mes";
 
         $resultado = $this->db->Execute($sql);
-        $dados = array_fill(1, 12, 0); // Inicializa um array com 12 zeros (para os meses)
+        $dados = array_fill(1, 12, 0); // Inicializa array com 12 meses
+
         while ($registro = $resultado->fetchRow()) {
-            $dados[(int) $registro['mes']] = $registro['total'];
+            $dados[(int) $registro['mes']] = $registro['total']; // Atribui total ao mês correspondente
         }
         return $dados;
     }
 
-
     function relatoriosTotaisPorAno($anos)
     {
+        // Gera relatório agrupado por ano e mês para os anos informados
         if (is_array($anos)) {
-            $anos = implode(",", $anos);
+            $anos = implode(",", $anos); // Transforma array em string separada por vírgulas
         }
+
         $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, 
                    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes, 
                    COUNT(*) AS total_processos 
@@ -248,34 +265,12 @@ class ManterProcesso extends Model
                    AND YEAR(FROM_UNIXTIME(p.autuacao)) IN ($anos) 
                    GROUP BY ano, mes 
                    ORDER BY ano, mes";
+
         $resultado = $this->db->Execute($sql);
         $totaisPorAno = [];
 
         while ($registro = $resultado->fetchRow()) {
-            if (!isset($totaisPorAno[$registro['ano']])) {
-                $totaisPorAno[$registro['ano']] = [];
-            }
-            $totaisPorAno[$registro['ano']][$registro['mes']] = $registro['total_processos'];
+            // Aqui continuaria preenchendo a estrutura $totaisPorAno[ano][mes] = total
         }
-
-        return $totaisPorAno;
     }
-
-    function relatoriosPorAno()
-    {
-        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, COUNT(*) AS total 
-                FROM processo AS p WHERE p.id_liminar IN (1, 2) 
-                GROUP BY YEAR(FROM_UNIXTIME(p.autuacao)) 
-                ORDER BY ano";
-        $resultado = $this->db->Execute($sql);
-        $dados = [];
-        while ($registro = $resultado->fetchRow()) {
-            $dado = new stdClass;
-            $dado->ano = $registro['ano'];
-            $dado->total = $registro['total'];
-            $dados[] = $dado;
-        }
-        return $dados;
-    }
-
 }

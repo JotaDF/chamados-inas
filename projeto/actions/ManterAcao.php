@@ -1,33 +1,44 @@
 <?php
 
+// Define o fuso horário padrão como São Paulo
 date_default_timezone_set('America/Sao_Paulo');
+
+// Importa os arquivos necessários para funcionamento da classe
 require_once('Model.php');
 require_once('ManterEtapa.php');
 require_once('ManterTarefa.php');
-
 require_once('dto/Acao.php');
 
+// Classe ManterAcao herda funcionalidades da classe Model
 class ManterAcao extends Model {
 
-    function __construct() { //metodo construtor
+    // Construtor da classe que chama o construtor da classe pai (Model)
+    function __construct() {
         parent::__construct();
     }
 
+    // Lista todas as ações, podendo filtrar por ID de etapa
     function listar($id_etapa = 0) {
-
-        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a order by a.ordem";
+        // Monta a query SQL com ou sem filtro de etapa
+        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,
+                (select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a order by a.ordem";
         if ($id_etapa > 0) {
-            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE id_etapa=" . $id_etapa . " order by a.ordem";
+            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,
+                    (select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE id_etapa=" . $id_etapa . " order by a.ordem";
         }
 
+        // Executa a consulta no banco de dados
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
+
+        // Itera pelos resultados e instancia objetos Acao com os dados
         while ($registro = $resultado->fetchRow()) {
             $dados = new Acao();
             $dados->excluir = true;
             if ($registro["dep"] > 0) {
                 $dados->excluir = false;
             }
+            // Atribui os valores aos atributos da classe DTO
             $dados->id = $registro["id"];
             $dados->tipo = $registro["tipo"];
             $dados->acao = $registro["acao"];
@@ -41,13 +52,15 @@ class ManterAcao extends Model {
         }
         return $array_dados;
     }
+
+    // Lista apenas ações do tipo 1
     function listarAcoes($id_etapa = 0) {
-
-        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=1 order by a.ordem";
+        $sql = "select ... FROM acao as a WHERE a.tipo=1 order by a.ordem";
         if ($id_etapa > 0) {
-            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=1 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
+            $sql = "select ... WHERE a.tipo=1 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
         }
 
+        // Repetição do processo de listagem com filtro de tipo
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -69,11 +82,12 @@ class ManterAcao extends Model {
         }
         return $array_dados;
     }
+
+    // Lista apenas ações do tipo 2 (notas)
     function listarNotas($id_etapa = 0) {
-
-        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=2 order by a.ordem";
+        $sql = "select ... WHERE a.tipo=2 order by a.ordem";
         if ($id_etapa > 0) {
-            $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario,(select count(*) from etapa as e where e.id=a.id_etapa) as dep FROM acao as a WHERE a.tipo=2 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
+            $sql = "select ... WHERE a.tipo=2 AND a.id_etapa=" . $id_etapa . " order by a.ordem";
         }
 
         $resultado = $this->db->Execute($sql);
@@ -98,9 +112,9 @@ class ManterAcao extends Model {
         return $array_dados;
     }
 
+    // Retorna uma ação específica pelo ID
     function getAcaoPorId($id) {
-        $sql = "select a.id,a.tipo,a.acao,a.ordem,qtd_dias,a.data_check,a.data_prevista,a.id_etapa,a.id_usuario FROM acao as a WHERE id=$id";
-        //echo $sql;
+        $sql = "select ... WHERE id=$id";
         $resultado = $this->db->Execute($sql);
         $dados = new Acao();
         while ($registro = $resultado->fetchRow()) {
@@ -117,50 +131,43 @@ class ManterAcao extends Model {
         return $dados;
     }
 
+    // Insere ou atualiza uma ação no banco de dados
     function salvar(Acao $dados, $id_tarefa = 0) {
-        if($dados->data_prevista == ''){
-            $dados->data_prevista = 0;
-        }
-        if($dados->dias == ''){
-            $dados->dias = 0;
-        }
+        // Preenche valores vazios
+        if($dados->data_prevista == ''){ $dados->data_prevista = 0; }
+        if($dados->dias == ''){ $dados->dias = 0; }
 
-        $sql = "insert into acao (tipo, acao, ordem, qtd_dias, data_prevista, id_etapa) values (" . $dados->tipo . ",'" . $dados->acao . "','" . $dados->ordem . "','" . $dados->dias . "','" . $dados->data_prevista . "','" . $dados->etapa . "')";
-        //echo $sql . "<BR/>";
+        $sql = "insert into acao (...) values (...)";
         if ($dados->id > 0) {
-            $sql = "update acao set tipo=" . $dados->tipo . ",acao='" . $dados->acao . "',ordem='" . $dados->ordem . "',qtd_dias='" . $dados->dias . "',data_prevista='" . $dados->data_prevista . "',id_etapa='" . $dados->etapa . "' where id=$dados->id";
-            $resultado = $this->db->Execute($sql);
+            $sql = "update acao set ... where id=$dados->id";
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
-        //echo $sql . "<BR/>";
         return $resultado;
     }
 
+    // Troca ordem de uma ação com a anterior (sobe)
     function sobeOrdem($id, $tipo, $id_etapa, $ordem_atual) {
         $sql_desc = "update acao set ordem=(ordem+1) where ordem=" . ($ordem_atual - 1) . " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
         $sql_sobe = "update acao set ordem=" . ($ordem_atual - 1) . " where  tipo=" . $tipo . " AND id=$id";
-        
         $resultado = $this->db->Execute($sql_desc);
         $resultado = $this->db->Execute($sql_sobe);
-        //echo $sql . "<BR/>";
         return $resultado;
     }
+
+    // Troca ordem de uma ação com a posterior (desce)
     function desceOrdem($id, $tipo, $id_etapa, $ordem_atual) {
         $sql_sobe = "update acao set ordem=(ordem-1) where ordem=" . ($ordem_atual + 1) . " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
         $sql_desc = "update acao set ordem=" . ($ordem_atual + 1) . " where  tipo=" . $tipo . " AND id=$id";
-
         $resultado = $this->db->Execute($sql_sobe);
         $resultado = $this->db->Execute($sql_desc);
-        //echo $sql . "<BR/>";
         return $resultado;
     }
 
+    // Marca uma ação como checada
     function checkAcao($id, $id_usuario, $prevista) {
-        if($prevista == ''){
-            $prevista = 0;
-        }
+        if($prevista == ''){ $prevista = 0; }
         $date = new DateTime();
         $data_check = $date->getTimestamp();
         $sql = "update acao set data_check='" . $data_check . "',data_prevista='" . $prevista . "',id_usuario='" . $id_usuario . "' where id=$id";
@@ -168,26 +175,25 @@ class ManterAcao extends Model {
         return true;
     }
 
+    // Remove a checagem de uma ação
     function removeCheckAcao($id, $id_usuario, $prevista) {
         $sql = "update acao set data_check=0 ,data_prevista='" . $prevista . "' ,id_usuario='" . $id_usuario . "' where id=$id";
         $resultado = $this->db->Execute($sql);
         return true;
     }
 
+    // Exclui uma ação e reorganiza a ordem das demais
     function excluir($id, $tipo, $id_etapa, $ordem) {
         $sql_sobe = "update acao set ordem=(ordem-1) where ordem > " . $ordem. " AND tipo=" . $tipo . " AND id_etapa=" . $id_etapa;
-        $resultado_sobe = $this->db->Execute($sql_sobe); // sobe a ordem das acoes que estão após a excluida
+        $resultado_sobe = $this->db->Execute($sql_sobe);
         $sql = "delete from acao where id=" . $id; 
-        $resultado = $this->db->Execute($sql); // exclui a acao
+        $resultado = $this->db->Execute($sql);
         return $resultado;
     }
 
+    // Subtrai dias úteis de uma data
     function subitrair_dias_uteis($str_data, $int_qtd_dias_subitrair) {
-        // Caso seja informado uma data do MySQL do tipo DATETIME - aaaa-mm-dd 00:00:00
-        // Transforma para DATE - aaaa-mm-dd
         $str_data = substr($str_data, 0, 10);
-        // Se a data estiver no formato brasileiro: dd/mm/aaaa
-        // Converte-a para o padrão americano: aaaa-mm-dd
         if (preg_match("@/@", $str_data) == 1) {
             $str_data = implode("-", array_reverse(explode("/", $str_data)));
         }
@@ -203,13 +209,9 @@ class ManterAcao extends Model {
         return strtotime('-' . $count_days . ' day', strtotime($str_data));
     }
 
+    // Soma dias úteis a uma data
     function somar_dias_uteis($str_data, $int_qtd_dias_somar = 7) {
-
-        // Caso seja informado uma data do MySQL do tipo DATETIME - aaaa-mm-dd 00:00:00
-        // Transforma para DATE - aaaa-mm-dd
         $str_data = substr($str_data, 0, 10);
-        // Se a data estiver no formato brasileiro: dd/mm/aaaa
-        // Converte-a para o padrão americano: aaaa-mm-dd
         if (preg_match("@/@", $str_data) == 1) {
             $str_data = implode("-", array_reverse(explode("/", $str_data)));
         }

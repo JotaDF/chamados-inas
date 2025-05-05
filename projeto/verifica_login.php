@@ -25,7 +25,7 @@ if (!isset($_SESSION["usuario"])) {
     $usuario_logado = unserialize($_SESSION['usuario']);
     $db_usuario = New ManterUsuario();
     $acessos = $db_usuario->getAcessosUsuario($usuario_logado->id);
-    $usuario_logado->perfil = 100;
+    $usuario_logado->perfil = 4;
     foreach ($acessos as $acesso) {
         if ($acesso->id_modulo == $mod) {
             $usuario_logado->perfil = $acesso->id_perfil;
