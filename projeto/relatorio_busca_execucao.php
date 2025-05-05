@@ -139,6 +139,7 @@ and open the template in the editor.
             $where_nota .= " AND $campo = '" . $valor . "'";
         }
     }
+    $soma_total = 0;
     $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
     $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
     $total = array_merge($carta, $nota);
@@ -212,9 +213,18 @@ and open the template in the editor.
                                 <?php echo $btn_editar ?>
                             </tr>
                             <?php
+                            $valor = str_replace(".","",$obj->valor);
+                            $valor = str_replace(",",".",$valor);
+                            $valor = str_replace("R$","",$valor);
+                            $valor = str_replace(" ","",$valor);                                                                                                                                                      
+                            $soma_total += $valor;
                     }
-
                     ?>
+                            <tr>
+                                <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                                <td colspan="2" class="text-left"><strong>R$ <?= number_format($soma_total, 2, ',', '.') ?></strong></td>
+                                <td colspan="9" class="text-right"> </td>
+                            </tr>
                     </tbody>
                 </table>
                 <?php
