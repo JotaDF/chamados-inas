@@ -110,13 +110,17 @@ and open the template in the editor.
     $data_inicio = strtotime($inicio);
     $termino = strtotime($termino);
 
-    $where = '';
+    $where_carta = '';
     if (!empty($filtro)) {
-        $where .= " AND $filtro >= $inicio AND $filtro <= $termino";
+        $where_carta .= " AND cr.$filtro >= $inicio AND cr.$filtro <= $termino";
+    }
+    $where_nota = '';
+    if (!empty($filtro)) {
+        $where_nota .= " AND np.$filtro >= $inicio AND np.$filtro <= $termino";
     }
 
-    $carta = $mCartaRecurso->listarCartaPorFiltro($where);
-    $nota = $mNotaPagamento->listarNotaPorFiltro($where);
+    $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
+    $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
     $total = array_merge($carta, $nota);
     $opcoes = ($usuario_logado->perfil != 4) ? "<th class='header c4 text-nowrap text-center' scope='col'>OPÇÕES</th>" : " ";
 
