@@ -9,15 +9,31 @@
 <br/>
 <!-- Divider -->
 <hr class="sidebar-divider">
-    <?php
-    if ($usuario_logado->perfil <= 2) {
-        ?>
-        <!-- Heading -->
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="index.php">
+        <i class="fa fa-home"></i>
+        <span>Início</span>
+    </a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+ <!-- Heading -->
         <div class="sidebar-heading">
         Gestão de Tarefas
         </div>
-        <?php
-        if ($usuario_logado->perfil <= 1) {
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="index_gerente.php">
+        <i class="fa fa-id-card"></i>
+        <span>Home Gerente</span>
+    </a>
+</li>
+
+    <?php
+    if ($usuario_logado->perfil <= 2) {
+
+        if ($usuario_logado->perfil == 1) {
             ?>        
 
         <li class="nav-item">

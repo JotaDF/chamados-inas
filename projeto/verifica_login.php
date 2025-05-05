@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +7,7 @@
 
 session_start();
 date_default_timezone_set('America/Sao_Paulo'); 
-
+//echo "TESTE: " . __DIR__;
 include_once('./actions/ManterUsuario.php');
 require_once('./dto/Usuario.php');
 
@@ -25,10 +24,11 @@ if (!isset($_SESSION["usuario"])) {
     $usuario_logado = unserialize($_SESSION['usuario']);
     $db_usuario = New ManterUsuario();
     $acessos = $db_usuario->getAcessosUsuario($usuario_logado->id);
-    $usuario_logado->perfil = 4;
+    $usuario_logado->perfil = 100;
     foreach ($acessos as $acesso) {
         if ($acesso->id_modulo == $mod) {
             $usuario_logado->perfil = $acesso->id_perfil;
+	    //echo "Perfil: " . $usuario_logado->perfil;
             break;
         }
     }

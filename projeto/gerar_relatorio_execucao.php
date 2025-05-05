@@ -1,5 +1,5 @@
 <?php
-$mod = 14;
+$mod = 10;
 require_once('./verifica_login.php');
 ?>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ require_once('./verifica_login.php');
 
 <body id="page-top">
     <div id="wrapper">
-        <?php include './menu.php' ?>
+        <?php include './menu_execucao.php' ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <?php include './top_bar.php' ?>
             <div id="content">

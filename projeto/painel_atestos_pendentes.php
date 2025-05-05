@@ -295,7 +295,7 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".$ng->exercicio."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $ng->data_emissao)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', $ng->data_validacao)."</td>";
-                                                    $out_notas .= "  <td><input type='checkbox' value='ng#".$np->id."#".$usuario_logado->id."' name='atesto[]' class='cb-element'></td>";
+                                                    $out_notas .= "  <td><input type='checkbox' value='ng#".$ng->id."#".$usuario_logado->id."' name='atesto[]' class='cb-element'></td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $ng->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$ng->status."</b></td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";

@@ -106,7 +106,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Aberto em:</div>
-                                            <div class="mb-0"><?= date('d/m/Y h:m', strtotime($chamado->data_abertura)) ?></div>
+                                            <div class="mb-0"><?= date('d/m/Y H:i', strtotime($chamado->data_abertura)) ?></div>
                                         </div>
                                         <div class="c2 ml-4">
                                             <?php

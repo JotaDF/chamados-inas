@@ -1,41 +1,42 @@
 <?php
 
-require_once('Model.php');  // Requer o arquivo Model.php para herdar funcionalidades
-require_once('dto/Evento.php');  // Requer o arquivo Evento.php, que contém a definição do DTO (Data Transfer Object) Evento
+require_once('Model.php');
+//require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Evento.php');
+require_once('dto/Evento.php');
 
 class ManterEvento extends Model {
 
-    function __construct() { // Método construtor da classe
-        parent::__construct();  // Chama o construtor da classe pai (Model)
+    function __construct() { //metodo construtor
+        parent::__construct();
     }
 
-    function listar($filtro = "") { // Método para listar eventos com base no filtro fornecido
+    function listar($filtro = "") {
         $sql = "select e.id,e.descricao, e.titulo, e.inscreve, e.data, e.hora, e.status, (select count(*) from inscricao as n where n.id_evento=e.id) as dep FROM evento as e $filtro order by e.id";
-        $resultado = $this->db->Execute($sql);  // Executa a consulta SQL
-        $array_dados = array();  // Cria um array para armazenar os eventos
-        while ($registro = $resultado->fetchRow()) {  // Loop para pegar os registros do resultado
-            $dados = new Evento();  // Cria um novo objeto Evento
-            $dados->excluir = true;  // Define a propriedade excluir como verdadeira por padrão
-            if ($registro["dep"] > 0) {  // Se houver dependências (inscrições), não pode excluir
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Evento();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
                 $dados->excluir = false;
             }
-            $dados->id          = $registro["id"];  // Atribui os valores dos campos do banco ao objeto
+            $dados->id          = $registro["id"];
             $dados->descricao   = $registro["descricao"];
             $dados->titulo      = $registro["titulo"];
             $dados->inscreve    = $registro["inscreve"];
             $dados->data        = $registro["data"];
             $dados->hora        = $registro["hora"];
             $dados->status      = $registro["status"];
-            $array_dados[]      = $dados;  // Adiciona o objeto ao array de dados
+            $array_dados[]      = $dados;
         }
-        return $array_dados;  // Retorna o array com os eventos
+        return $array_dados;
     }
-
-    function getEventoPorId($id) {  // Método para obter um evento específico pelo ID
+    function getEventoPorId($id) {
         $sql = "select e.id,e.descricao, e.titulo, e.inscreve, e.data, e.hora, e.status FROM evento as e WHERE id=$id";
-        $resultado = $this->db->Execute($sql);  // Executa a consulta SQL
-        $dados = new Evento();  // Cria um novo objeto Evento
-        while ($registro = $resultado->fetchRow()) {  // Loop para pegar o registro do resultado
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Evento();
+        while ($registro = $resultado->fetchRow()) {
             $dados->id          = $registro["id"];
             $dados->descricao   = $registro["descricao"];
             $dados->titulo      = $registro["titulo"];
@@ -44,14 +45,14 @@ class ManterEvento extends Model {
             $dados->hora        = $registro["hora"];
             $dados->status      = $registro["status"];
         }
-        return $dados;  // Retorna o objeto Evento com os dados
+        return $dados;
     }
-
-    function getEventoAtivo() {  // Método para obter o evento ativo
+    function getEventoAtivo() {
         $sql = "select e.id, e.descricao, e.titulo, e.inscreve, e.data, e.hora,e.status FROM evento as e WHERE status=1";
-        $resultado = $this->db->Execute($sql);  // Executa a consulta SQL
-        $dados = new Evento();  // Cria um novo objeto Evento
-        if ($registro = $resultado->fetchRow()) {  // Se encontrar um evento ativo
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Evento();
+        if ($registro = $resultado->fetchRow()) {
             $dados->id          = $registro["id"];
             $dados->descricao   = $registro["descricao"];
             $dados->titulo      = $registro["titulo"];
@@ -60,90 +61,85 @@ class ManterEvento extends Model {
             $dados->hora        = $registro["hora"];
             $dados->status      = $registro["status"];
         } 
-        return $dados;  // Retorna o evento ativo
+        return $dados;
     }
-
-    function salvar(Evento $dados) {  // Método para salvar ou atualizar um evento
+    function salvar(Evento $dados) {
         $sql = "insert into evento (titulo, descricao, inscreve, data, hora) 
                 values ('" . $dados->titulo . "','" . $dados->descricao . "'," . $dados->inscreve . ",'" . $dados->data . "','" . $dados->hora . "')";
-        if ($dados->id > 0) {  // Se o evento já existir (id > 0), faz um update
+        if ($dados->id > 0) {
             $sql = "update evento set titulo='" . $dados->titulo . "',descricao='" . $dados->descricao . "',inscreve='" . $dados->inscreve . "',data='" . $dados->data . "',hora='" . $dados->hora . "' where id=$dados->id";
-            $resultado = $this->db->Execute($sql);  // Executa o update
-        } else {  // Se o evento não existir, faz um insert
             $resultado = $this->db->Execute($sql);
-            $dados->id = $this->db->insert_Id();  // Pega o ID do evento inserido
+        } else {
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
         }
-        return $dados;  // Retorna o objeto evento (com o id atualizado, se necessário)
+        return $dados;
+    }
+    function publicar($id) {
+        $sql = "update evento set status=0 where status=1";
+        $resultado = $this->db->Execute($sql);
+        $sql = "update evento set status=1 where id=$id";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function despublicar($id) {
+        $sql = "update evento set status=0 where id=$id";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
 
-    function publicar($id) {  // Método para publicar um evento (alterar status para 1)
-        $sql = "update evento set status=0 where status=1";  // Despublica todos os eventos
+    function excluir($id) {
+        $sql = "delete from evento where id=" . $id;
         $resultado = $this->db->Execute($sql);
-        $sql = "update evento set status=1 where id=$id";  // Publica o evento com o ID passado
-        $resultado = $this->db->Execute($sql);
-        return $resultado;  // Retorna o resultado da execução do SQL
+        return $resultado;
     }
-
-    function despublicar($id) {  // Método para despublicar um evento (alterar status para 0)
-        $sql = "update evento set status=0 where id=$id";  // Despublica o evento com o ID passado
-        $resultado = $this->db->Execute($sql);
-        return $resultado;  // Retorna o resultado da execução do SQL
-    }
-
-    function excluir($id) {  // Método para excluir um evento
-        $sql = "delete from evento where id=" . $id;  // SQL para excluir o evento
-        $resultado = $this->db->Execute($sql);
-        return $resultado;  // Retorna o resultado da execução do SQL
-    }
-
-    function salvarInscricao($id_evento, $id_usuario) {  // Método para salvar uma inscrição de um usuário em um evento
+    function salvarInscricao($id_evento, $id_usuario) {
         $sql = "insert into inscricao (registro, id_evento, id_usuario) values (now()," . $id_evento. "," . $id_usuario . ")";
-        $resultado = $this->db->Execute($sql);  // Executa o SQL para salvar a inscrição
-        return $resultado;  // Retorna o resultado da execução do SQL
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
-
-    function cancelarInscricao($id_evento, $id_usuario) {  // Método para cancelar a inscrição de um usuário em um evento
+    function cancelarInscricao($id_evento, $id_usuario) {
         $sql = "delete from inscricao where id_evento=" . $id_evento. " and id_usuario=" . $id_usuario;
-        $resultado = $this->db->Execute($sql);  // Executa o SQL para excluir a inscrição
-        return $resultado;  // Retorna o resultado da execução do SQL
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
-
-    function jaInscreveu($id_evento, $id_usuario) {  // Método para verificar se o usuário já está inscrito no evento
+    function jaInscreveu($id_evento, $id_usuario) {
         $sql = "select count(*) as total from inscricao where id_evento=$id_evento AND id_usuario=$id_usuario";
-        $resultado = $this->db->Execute($sql);  // Executa o SQL
+        $resultado = $this->db->Execute($sql);
         $total = 0;
         if ($registro = $resultado->fetchRow()) {
-            $total   = $registro["total"];  // Conta o número de inscrições
+            $total   = $registro["total"];
         }
-        return $total > 0;  // Retorna true se o usuário já estiver inscrito, senão false
+        if($total > 0){
+            return true;
+        }
+        return false;
     }
-
-    function getTotalInscritos($id_evento) {  // Método para contar o total de inscritos em um evento
+    function getTotalInscritos($id_evento) {
         $sql = "select count(*) as total from inscricao where id_evento=$id_evento";
-        $resultado = $this->db->Execute($sql);  // Executa o SQL
+        $resultado = $this->db->Execute($sql);
         $total = 0;
-        if ($registro = $resultado->fetchRow()) {
-            $total = $registro["total"];  // Conta o número total de inscritos
+        if ($registro = $resultado->fetchRow()) { 
+            $total = $registro["total"];
         }
-        return $total;  // Retorna o total de inscritos
+        return $total;
     }
-
-    public static function delPasta($dir) {  // Função estática para excluir uma pasta e seu conteúdo
+    public static function delPasta($dir) {
         if(is_dir($dir)){
-            $files = array_diff(scandir($dir), array('.','..'));  // Obtém os arquivos dentro da pasta
+            $files = array_diff(scandir($dir), array('.','..'));
             foreach ($files as $file) {
-            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");  // Exclui recursivamente arquivos e subpastas
+            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
             }
-            return rmdir($dir);  // Exclui a pasta vazia
+            return rmdir($dir);
         }
-        return false;  // Retorna false se não for uma pasta
+        return false;
     }
-
-    public static function addPasta($dir) {  // Função estática para criar uma nova pasta
+    public static function addPasta($dir) {
         if(!is_dir($dir)){
-            mkdir($dir, 0777, true);  // Cria a pasta com permissão total
-            return true;  // Retorna true se a pasta foi criada
+            mkdir($dir, 0777, true);
+            return true;
         }
-        return false;  // Retorna false se a pasta já existir
+        return false;
     }
 }
+

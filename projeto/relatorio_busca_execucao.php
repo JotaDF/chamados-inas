@@ -146,7 +146,7 @@ and open the template in the editor.
 
         
     ?>
-    <div id="containerNotaGlosa" class="container-fluid align-items-center" style="width:95%">
+    <div id="containerNotaGlosa" class="container-fluid align-items-center" style="width:100%">
         <?php
         if (count($total) > 0) {
             ?>
@@ -185,11 +185,11 @@ and open the template in the editor.
                             $tipo = ($obj->tipo == 'carta') ? 'Carta' : 'Nota';
                             $url_carta = 'gerenciar_glosas_prestador.php';
                             $url_nota  = 'gerenciar_pagamentos_prestador.php';
-                            $link_carta = '<a href="gerenciar_glosas_prestador.php?id=' . $obj->id_prestador . '"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
-                            $link_nota ='<a href="gerenciar_pagamentos_prestador.php?id=' .$obj->id_prestador .'"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
+                            $link_carta = '<a class="btn btn-dark btn-sm text-white" href="gerenciar_glosas_prestador.php?id=' . $obj->id_prestador . '"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
+                            $link_nota ='<a class="btn btn-dark btn-sm text-white" href="gerenciar_pagamentos_prestador.php?id=' .$obj->id_prestador .'"class="text-white bg-dark" target="_blank"><i class="fas fa-edit"></i></a>';
                             $btn_opcoes = ($obj->tipo == 'carta') ? $link_carta : $link_nota ;
                             $btn_editar =  ($usuario_logado->perfil != 4) ? "<td align='center' valign='bottom' class='align-middle nowrap'>
-                      <button class='btn btn-dark btn-sm text-white' type='button'>$btn_opcoes</button>
+                      		$btn_opcoes
                    </td>" : "";
                         ?>
                         <tbody>

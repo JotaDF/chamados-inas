@@ -21,12 +21,12 @@ if($usuario = $db_login->logar($login, $senha)){
     $_SESSION['usuario'] = serialize($usuario);
     $_SESSION['editar'] = 1;
     if(isset($_SESSION['url_tmp'])){
-        $url = $_SESSION['url_tmp'];
-        $_SESSION['url_tmp'] = null;
-        header('Location: '.$url);
+	$url = $_SESSION['url_tmp'];
+	$_SESSION['url_tmp'] = null;
+	header('Location: '.$url);
     } else {
-        header('Location: index.php');
-    }    
+    	header('Location: index.php');
+    }
 }  else {
     header('Location: form_login.php?error=1'); 
 }

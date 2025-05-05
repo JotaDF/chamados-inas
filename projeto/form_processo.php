@@ -49,8 +49,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-5">
-                <label for="processo_vinculado">Processo Vinculado</label>
-                <input type="text" class="form-control form-control-sm" name="processo_vinculado" id="processo_vinculado" placeholder="00000">
+                <label for="processo_vinculado">Processo Principal</label>
+                <input type="text" class="form-control form-control-sm" name="processo_principal" id="processo_principal" placeholder="00000">
                 </div>            
             </div>
             <div class="form-row">

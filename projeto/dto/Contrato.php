@@ -1,6 +1,6 @@
 <?php
-  class Pagamento{
-	    public $id;
+  class Contrato{
+	public $id;
       public $numero;
       public $ano;
       public $vigente;

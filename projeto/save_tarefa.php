@@ -50,6 +50,9 @@ $db_notificacao = new ManterNotificacao();
 $db_usuario = new ManterUsuario();
 $n = new Notificacao();
 $n->texto   = "Uma nova tarefa foi criada para sua equipe!";
+if($id > 0){
+    $n->texto   = "Uma tarefa da sua equipe, foi alterada!";
+}
 $n->link = 'tarefas.php?filtro=equipe';
 $n->tipo = 'tarefa';
 

@@ -40,7 +40,6 @@ if($finalizar > 0){
     // Registrando notificação
     $n->usuario = $c->usuario;
     $n->texto   = "Seu chamado foi concluído!";
-    $n->usuario = $c->usuario;
     $n->link = 'gerenciar_interacoes.php?id=' . $id_chamado;
     $n->tipo = 'interacao';
     $db_notificacao->salvar($n);
@@ -48,11 +47,10 @@ if($finalizar > 0){
 }
 if (!$notificado) {
     // Registrando notificação
-    $n->usuario = $id_usuario;
+    $n->usuario = $c->usuario;
+    //echo "ID_USER: " . $id_usuario . " # " . $c->usuario; 
     if($id_usuario == $c->usuario){
         $n->usuario = $c->atendente;
-    } else {
-        
     }
     $n->texto   = "Nova interação no chamado!";
     $n->link = 'gerenciar_interacoes.php?id=' . $id_chamado;

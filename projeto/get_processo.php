@@ -15,7 +15,7 @@
             echo "  <td>".$obj->numero."</td>";            
             echo "  <td>".mb_strimwidth($obj->beneficiario, 0, 60, "...")."</td>";
             echo "  <td>".date('d/m/Y', $obj->autuacao)."</td>";
-            echo "  <td>".date('d/m/Y', $obj->atualizacao)."</td>";
+            echo "  <td>".date('d/m/Y h:i', strtotime($obj->atualizacao))."</td>";
             echo "  <td>".mb_strimwidth($manterAssunto->getAssuntoPorId($obj->assunto)->assunto, 0, 80, "...")."</td>";
             $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
             $btn_vinculos = '&nbsp;&nbsp;<a href="gerenciar_processos_vinculados.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-link"></i></a>';

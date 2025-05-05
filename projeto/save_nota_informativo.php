@@ -1,4 +1,6 @@
 <?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
 
 require_once('./actions/ManterCartaRecurso.php');
 require_once('./dto/CartaRecurso.php');
@@ -19,8 +21,9 @@ $cr->carta_informativo         = $_POST['carta_informativo'];
 $cr->exercicio                 = $_POST['exercicio'];
 $cr->competencia               = $_POST['competencia'];
 $cr->valor_deferido            = $_POST['valor_deferido'];
-$cr->data_emissao              = $_POST['data_emissao'];
-$cr->data_validacao            = $_POST['data_validacao'];
+$cr->data_emissao              = $_REQUEST['data_emissao'];
+$cr->data_validacao            = $_REQUEST['data_validacao'];
+//print_r($cr);
 $db_carta_recurso->salvar($cr);
 
 

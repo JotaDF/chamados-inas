@@ -28,7 +28,7 @@ $mSetor = new ManterSetor();
                             <!-- Nav Item - User Information -->
                             <li class="nav-item no-arrow">
                                 <a class="nav-link" href="index.php" role="button">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600"><?=$usuario_logado->nome ?>( <?=$mSetor->getSetorPorId($usuario_logado->setor)->sigla ?> )</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600" style="font-size: small;"><?=$usuario_logado->nome ?>( <?=$mSetor->getSetorPorId($usuario_logado->setor)->sigla ?> )</span>
                                     <?php
                                     $dir = './ft/';
                                     $imagem = '<i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>';

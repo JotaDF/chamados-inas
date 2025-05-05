@@ -7,7 +7,7 @@ $tipo     = isset($_REQUEST['s']) ? $_REQUEST['s'] : 0;
 $txt_tipo = "Pendentes";
 $filtro     = " WHERE status IN (0,1,4) ";
 if($tipo == 1){
-    $txt_tipo = "Concluídas";
+    $txt_tipo = "Concluídos";
     $filtro   = " WHERE status IN (2,3) ";
 } 
 ?> 

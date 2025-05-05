@@ -9,6 +9,15 @@
 <br/>
 <!-- Divider -->
 <hr class="sidebar-divider" style="color:white;">
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="index.php">
+        <i class="fa fa-home"></i>
+        <span>Início</span>
+    </a>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider" style="color:white;">
         <!-- Heading -->
         <div class="sidebar-heading">
             AGENDA

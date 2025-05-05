@@ -32,7 +32,7 @@ if ($op == 1) {
 
     // Registrando notificação
     $n->texto   = "Foi removido o seu acesso uma agenda!";
-    $n->usuario = $id_usuario;
+    $n->usuario = $id_visitante;
     $n->link = 'index.php';
     $n->tipo = 'agenda';
     $db_notificacao->salvar($n);

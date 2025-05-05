@@ -12,7 +12,7 @@ $exercicio = $manterCartaRecurso->listarExercicio();
             <fieldset class="form-group">
                 <div class="row row-cols-lg-auto g-3 align-items-center">
                     <div class="col-md-4">
-                        <label for="cnpj" class="form-label">CNPJ</label>
+                        <label for="cnpj" class="form-label"><strong>CNPJ</strong></label>
                         <input type="text" class="form-control form-control-sm " id="cnpj" name="cnpj" placeholder="Digite o CNPJ">
                     </div>
                     <div class="col-md-4">

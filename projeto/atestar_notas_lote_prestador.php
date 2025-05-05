@@ -1,4 +1,7 @@
+
 <?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
 
 require_once('./actions/ManterNotaPagamento.php');
 require_once('./actions/ManterCartaRecurso.php');
@@ -10,9 +13,12 @@ $db_nota_glosa = new ManterCartaRecurso();
 $db_auditoria = new ManterAuditoria();
 
 $dados = $_REQUEST['atesto'];
-$id_prestador = $_REQUEST['id_prestador'];
+//$id_prestador = $_REQUEST['id_prestador'];
 
 $dados = $_REQUEST['atesto'];
+//print_r($dados);
+//exit();
+
 foreach($dados as $dado){
     $reg = explode("#", $dado);
     // verifica se é nota pagamento

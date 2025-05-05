@@ -46,13 +46,14 @@ and open the template in the editor.
         </style>
         <script type="text/javascript" class="init">
             <?php
-            if (isset($usuario_logado->cargo) && $usuario_logado->cargo != "Assessor Especial" && $usuario_logado->cargo != "Assessor" && $usuario_logado->cargo != "Analista em Políticas Públicas e Gestão Governamental" && $usuario_logado->cargo != "Estagiária" && $usuario_logado->cargo != "Estagiário") {
+	   //print_r($usuario_logado);
+            //if (isset($usuario_logado->cargo) && $usuario_logado->cargo != "Assessor Especial" && $usuario_logado->cargo != "Assessor" && $usuario_logado->cargo != "Analista em Políticas Públicas e Gestão Governamental" && $usuario_logado->cargo != "Estagiária" && $usuario_logado->cargo != "Estagiário") {
                 ?>
             $(document).ready(function () {
                 $("#evento").modal('show');
             });
             <?php
-            }
+            //}
             ?>
         </script>
     </head>
@@ -282,7 +283,7 @@ Sua presença vai tornar este momento ainda mais especial!  ❤️
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="TituloEvento">Evento</h5>
+                    <h5 class="modal-title" id="TituloEvento"><?=$evento->titulo ?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                     </button>

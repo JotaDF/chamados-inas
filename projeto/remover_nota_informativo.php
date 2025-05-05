@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 require_once('./actions/ManterCartaRecurso.php');
 require_once('./dto/CartaRecurso.php');
@@ -12,7 +15,7 @@ $cr = new CartaRecurso();
 
 
 $id            = $_REQUEST['id'];
-$id_prestador  = $_POST['id_prestador'];
+$id_prestador  = $_REQUEST['id_prestador'];
 
 $db_carta_recurso->excluir($id);
 

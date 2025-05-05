@@ -64,7 +64,7 @@ and open the template in the editor.
         calendar.unselect()
       },
       eventClick: function(info) {
-        const reserva = new bootstrap.Modal(document.getElementById("reserva"));
+        const reserva = new bootstrap.Modal(document.getElementById("confirm"));
         reserva.show();
       },
       editable: false,
@@ -75,25 +75,6 @@ and open the template in the editor.
 
     calendar.render();
   });
-
-
-            function excluir(id, visitante) {
-                $('#delete').attr('href', 'del_recepcao.php?id=' + id);
-                $('#excluir').text(visitante);
-                $('#confirm').modal({show: true});              
-            }
-            function alterar(id, visitante, empresa, horario, setor, recebido_por, assunto) {
-                $('#id').val(id);
-                $('#visitante').val(visitante);
-                $('#empresa').val(empresa);
-                $('#horario').val(horario);
-                $('#setor').val(setor);
-                $('#recebido_por').val(recebido_por);
-                $('#assunto').val(assunto);
-                $('#form_recepcao').collapse("show");
-                $('#btn_cadastrar').hide();
-            }
-
 
         </script>
         <style>

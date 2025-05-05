@@ -25,7 +25,7 @@
             <div class="form-group row">
                 <label for="cargo" class="col-sm-2 col-form-label">Cargo:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="cargo" class="form-control form-control-sm" id="cargo" placeholder="matricula" required>
+                    <input type="text" name="cargo" class="form-control form-control-sm" id="cargo" placeholder="cargo" required>
                 </div>
             </div>
             <div class="form-group row">

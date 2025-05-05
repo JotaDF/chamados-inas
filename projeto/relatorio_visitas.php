@@ -122,7 +122,7 @@ and open the template in the editor.
             if (count($visitas) > 0) {
                 ?>
 
-            <div id="containerRecepcao" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Relatório de Recepcaos</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
+            <div id="containerRecepcao" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Relatório de Visitas</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
                     <table class="table table-striped" id="visitas">
                         <tr class="thead-dark">
                             <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> VISITANTE </th>

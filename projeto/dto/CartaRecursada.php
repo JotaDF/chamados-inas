@@ -2,9 +2,14 @@
 
 Class CartaRecursada extends Model {
     public $id;
-    public $carta_recursada;
-    public $valor_original;
-    public $id_fiscal_prestador;
+    public $numero;
+    public $lote;
+    public $valor;
+    public $id_recurso_glosa;
+    public $exercicio;
+    public $data_emissao;
+    public $data_validacao;
+
     public $excluir;
     public $msg;
 }

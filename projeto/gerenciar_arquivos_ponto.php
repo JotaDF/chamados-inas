@@ -132,7 +132,7 @@ and open the template in the editor.
                                     <select id="ano" name="ano" class="col form-control-sm" style="width: 100px;" required>
                                         <option value="">...</option>   
                                         <?php
-                                        $lista_ano = array("2024" , "2023");
+                                        $lista_ano = array("2025", "2024" , "2023");
                                         foreach ($lista_ano as $an) {
                                             $selected = "";
                                             if($an == $ano){

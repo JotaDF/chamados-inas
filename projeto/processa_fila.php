@@ -9,7 +9,8 @@ if ($atraso) {
     $regulacao = $manterRegulacao->listaSlaRegulacaoAtrasado($fila);
     foreach ($regulacao as $r) {
         echo "<tr>";
-        echo "<td>" . $r->tipo_guia . "</td>";
+        echo "<td>" . $r->autorizacao . "</td>";
+	echo "<td>" . $r->tipo_guia . "</td>";
         echo "<td>" . $r->area . "</td>";
         echo "<td>" . $r->fila . "</td>";
 
@@ -29,6 +30,7 @@ if ($atraso) {
     $regulacao = $manterRegulacao->listaSlaRegulacaoNoPrazo($prazo);
     foreach ($regulacao as $r) {
         echo "<tr>";
+	echo "<td>" . $r->autorizacao . "</td>";
         echo "<td>" . $r->tipo_guia . "</td>";
         echo "<td>" . $r->area . "</td>";
         echo "<td>" . $r->fila . "</td>";
@@ -48,7 +50,8 @@ if ($atraso) {
     $regulacao = $manterRegulacao->listarSlaRegulacao($todos);
     foreach ($regulacao as $r) {
         echo "<tr>";
-        echo "<td>" . $r->tipo_guia . "</td>";
+        echo "<td>" . $r->autorizacao . "</td>";
+	echo "<td>" . $r->tipo_guia . "</td>";
         echo "<td>" . $r->area . "</td>";
         echo "<td>" . $r->fila . "</td>";
 

@@ -1,4 +1,8 @@
 <?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//Administração
+$mod = 2;
 require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
@@ -89,7 +93,8 @@ and open the template in the editor.
         $mUsuario = new ManterUsuario();
         $mEvento = new ManterEvento();
 
-        $id_evento = isset($_REQUEST['id']);
+        $id_evento = $_REQUEST['id'];
+	//echo "#".$id_evento."#";
         $evento = $mEvento->getEventoPorId($id_evento);
         $inscritos = $mUsuario->getInscritosEvento($id_evento);
         ?>
@@ -101,10 +106,10 @@ and open the template in the editor.
             if (count($inscritos) > 0) {
                 ?>
 
-            <div id="containerUsuario" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Inscritos para: <?=$evento->titulo ?><</h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
+            <div id="containerUsuario" role="main" class="align-items-center" style="width:100%"><h2 class="text-center">Inscritos para: <?=$evento->titulo ?></h2><img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" />
                     <table class="table table-striped" id="inscritos">
                         <tr class="thead-dark">
-                            <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> MATR~ICULA </th>
+                            <th class="header c0 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c0" onclick="naover('c0');" aria-hidden="true" title="Remover coluna"></i> MATRÍCULA </th>
                             <th class="header c1 text-nowrap text-center" style="" scope="col"><i class="fa fa-minus-square text-white c1" onclick="naover('c1');" aria-hidden="true" title="Remover coluna"></i> NOME </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c2" onclick="naover('c2');" aria-hidden="true" title="Remover coluna"></i> CARGO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c3" onclick="naover('c3');" aria-hidden="true" title="Remover coluna"></i> SETOR </th>
@@ -115,9 +120,9 @@ and open the template in the editor.
                             ?>
                             <tr class="">
                                 <td class="cell c0 text-dark " style=""><?= $obj->matricula ?></td>
-                                <td class="cell c1 text-dark " style=""><?= $obj->nome ?></td>
+                                <td class="cell c1 text-dark " style=""><?= strtoupper($obj->nome) ?></td>
                                 <td class="cell c2 text-dark " style=""><?= $obj->cargo ?></td>
-                                <td class="cell c3 text-dark " style=""><?= $obj->setor ?></td>
+                                <td class="cell c3 text-dark " style=""><?= $obj->sigla ?></td>
                                 <td class="cell c6 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->registro)) ?></td>                             
                             </tr>   
                             <?php

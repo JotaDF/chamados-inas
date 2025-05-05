@@ -20,7 +20,7 @@
             <input type="hidden" id="id" name="id"/>
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    <input type="checkbox" class="form-control form-control-sm" name="autor_inas" id="autor_inas"> Autor INAS                     
+                    <input type="checkbox" name="autor_inas" id="autor_inas"> Autor INAS                     
                 </div>               
             </div>
             <div class="form-row">

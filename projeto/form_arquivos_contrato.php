@@ -358,8 +358,8 @@ and open the template in the editor.
                 li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%';
                 li.querySelectorAll('span')[1].style.width = percent_complete + '%';
             };
-            data.append('numero', <?=$numero ?>);
-            data.append('ano', <?=$ano ?>);
+            data.append('numero', '<?=$numero ?>');
+            data.append('ano', '<?=$ano ?>');
             http.open('POST', 'save_arquivo_contrato.php', true);
             http.send(data);
         }

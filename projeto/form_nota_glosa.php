@@ -28,8 +28,8 @@
                 <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
                 </div>
                 <div class="form-group col-md-3">
-                <label for="exercicio">lote:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" name="lote" class="form-control form-control-sm" id="lote" required>
+                <label for="exercicio">lote:</label>
+                <input type="text" name="lote" class="form-control form-control-sm" id="lote" >
                 </div>         
                 <div class="form-group col-md-3">
                 <label for="exercicio">Exercício:<span class="text-danger font-weight-bold">*</span></label>

@@ -5,8 +5,6 @@ require_once('./dto/Notificacao.php');
 $db_notificacao = new ManterNotificacao();
 $n = new Notificacao();
 
-
-
 $lista = $db_notificacao->listarPorUsuario($usuario_logado->id,$lida);
 if(count($lista) > 0){
     foreach ($lista as $obj) {

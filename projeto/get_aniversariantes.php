@@ -5,7 +5,7 @@
 	$manterUsuario = new ManterUsuario();
     $manterSetor = new ManterSetor();
 	
-	$lista = $manterUsuario->listarAniversariantes();
+	$lista = $manterUsuario->listarAniversariantesAll();
     echo '<ul class="list-group" style="width:400px;">';
     foreach ($lista as $obj) {
         $img_day = "";

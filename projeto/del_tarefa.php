@@ -15,7 +15,7 @@ $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 $db_notificacao = new ManterNotificacao();
 $db_usuario = new ManterUsuario();
 $n = new Notificacao();
-$n->texto   = "Uma nova tarefa da sua equipe foi excluída!";
+$n->texto   = "Uma tarefa da sua equipe foi excluída!";
 $n->link = 'tarefas.php?filtro=equipe';
 $n->tipo = 'tarefa';
 

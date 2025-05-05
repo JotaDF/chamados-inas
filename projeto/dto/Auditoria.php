@@ -1,6 +1,6 @@
 <?php
-  class Atendimento{
-	    public $id;
+  class Auditoria{
+      public $id;
       public $acao;
       public $objeto;
       public $informacao;

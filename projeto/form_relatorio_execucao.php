@@ -6,14 +6,14 @@ $exercicio = $manterCartaRecurso->listarExercicio();
 
 <!-- Card Content - Collapse -->
 <div class="card-body">
-    <form id="form_relatorio" action="relatorio_execucao.php" method="post">
+    <form id="form_relatorio" action="relatorio_execucao.php" method="post" target="_blank">
         <div class="col border p-4">
             <fieldset class="form-group">
                 <legend class="col-form-label h5" style="font-size: 22px;">Período</legend>
                 <div class="form-row mb-3">
                     <div class="col">
                         <label for="exercicio" class="col-form-label"><strong>Exercicio</strong></label>
-                        <select class="form-select form-select-sm w-100" id="exercicio" name="exercicio">
+                        <select class="form-control form-control-sm w-100" id="exercicio" name="exercicio">
                             <?php foreach ($exercicio as $e) { ?>
                                 <option value="<?= $e ?>" name="['exercicio']"><?= $e ?></option>
                             <?php } ?>
@@ -21,10 +21,9 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                     </div>
                     <div class="col">
                         <label for="termino" class="col-form-label"><strong>Filtro</strong></label>
-                        <select class="form-select form-select-lg  w-100" id="filtro" name="filtro">
+                        <select class="form-control form-control-sm w-100" id="filtro" name="filtro">
                             <option value="nota_glosa" name="nota_glosa">Nota de Glosa</option>
                             <option value="nota_pagamento" name="nota_pagamento" >Nota de Pagamento</option>
-                            <option value="todos">Todos</option>
                         </select>
                     </div>
                 </div>

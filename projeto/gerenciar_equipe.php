@@ -1,5 +1,5 @@
 <?php
-//Gerente
+//Administração
 $mod = 3;
 require_once('./verifica_login.php');
 ?> 

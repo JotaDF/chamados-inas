@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Atentimento - GDF Saúde - Painel</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <!------ Include the above in your HEAD tag ---------->
+
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="lib/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" class="init">
+
+		var senhaAtualNome   = $("#senhaAtualNome");
+		var senhaAtualGuiche  = $("#senhaAtualGuiche");
+
+		var ultimaSenhaNome1   = $("#ultimaSenhaNome1");
+		var ultimaSenhaGuiche1  = $("#ultimaSenhaGuiche1");
+		var ultimaSenhaNome2   = $("#ultimaSenhaNome2");
+		var ultimaSenhaGuiche2  = $("#ultimaSenhaGuiche2");
+		var ultimaSenhaNome3   = $("#ultimaSenhaNome3");
+		var ultimaSenhaGuiche3  = $("#ultimaSenhaGuiche3");
+
+		var chamadoAtual = JSON.parse('{"id":null,"nome":null,"preferencial":null,"entrada":null,"qtd_chamadas":null,"atendido":null,"servico":null,"chamar":null,"ultima_chamada":null,"excluir":null,"status":true,"msg":null}');
+		var chamadoAnt1 = JSON.parse('{"id":null,"nome":null,"preferencial":null,"entrada":null,"qtd_chamadas":null,"atendido":null,"servico":null,"chamar":null,"ultima_chamada":null,"excluir":null,"status":true,"msg":null}');
+		var chamadoAnt2 = JSON.parse('{"id":null,"nome":null,"preferencial":null,"entrada":null,"qtd_chamadas":null,"atendido":null,"servico":null,"chamar":null,"ultima_chamada":null,"excluir":null,"status":true,"msg":null}');
+		var chamadoAnt3 = JSON.parse('{"id":null,"nome":null,"preferencial":null,"entrada":null,"qtd_chamadas":null,"atendido":null,"servico":null,"chamar":null,"ultima_chamada":null,"excluir":null,"status":true,"msg":null}');
+
+		var cont = 0;
+
+		function getProximo() {
+			//$("#fila").html('Atualizando...');
+			
+			$.get( "../get_proximo_painel.php")
+			.done(function(data) {
+				var resp = JSON.parse(data);
+				if(resp.id == chamadoAtual.id && resp.qtd_chamadas > chamadoAtual.qtd_chamadas){
+					chamadoAtual = resp;
+					console.log(chamadoAtual);
+					if(chamadoAtual.id != null){
+						document.getElementById('senhaAtualNome').innerHTML = resp.nome;
+						document.getElementById('senhaAtualGuiche').innerHTML = 'Guichê ' +resp.guiche_chamador;
+						document.getElementById('audioChamada').play();
+						document.getElementById('tag').classList.add("blink");
+						getlista();
+					}
+				}if(resp.id != chamadoAtual.id){
+					chamadoAtual = resp;
+					console.log(chamadoAtual);
+					if(chamadoAtual.id != null){
+						document.getElementById('senhaAtualNome').innerHTML = resp.nome;
+						document.getElementById('senhaAtualGuiche').innerHTML = 'Guichê ' +resp.guiche_chamador;
+						document.getElementById('audioChamada').play();
+						getlista();
+					}
+				}
+				cont++;
+				console.log(cont);
+			});
+
+		}
+		function getlista() {
+			$.get( "../get_chamados_painel.php")
+			.done(function(data) {
+				var lista = JSON.parse(data);
+				console.log(lista);
+				for (var i = 0; i < lista.length; i++) {
+					if (i > 0) {
+						document.getElementById('ultimaSenhaNome'+i).innerHTML = lista[i].nome;
+						document.getElementById('ultimaSenhaGuiche'+i).innerHTML = 'Guichê ' +lista[i].guiche_chamador;
+					}
+				}
+				
+			});
+
+		}
+		setInterval(getProximo, 10000);
+		</script>
+        <style>
+            body{
+                font-size: small;
+            }
+        </style>
+    </head>
+
+<body>
+	<div class="barraTop">&nbsp;</div>
+	<div class="container page">
+		<div class="row barraSuperior">
+			<div class="col-xs-1">
+				<img src="imagens/logogdfsaude.png" class="logo">
+			</div>
+			<div class="col-xs-11" style="text-align: right;"><p></p>
+				<span class="uespiTexto">Atendimento GDF Saúde</span><br>
+				<span class="subtitulo">Unidade -  <strong>Plano Piloto</strong></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="senhaAtual">
+				<div class="row">
+					<div style="text-align: center;"><br><br>
+						<span class="senhaAtualTexto" id="senhaAtualNome">Joaquim José da Silva Xavier</span>
+					</div>
+                </div>
+                <div class="row">
+					<div style="text-align: center;">
+					<i id="tag" class="fa fa-arrow-right senhaAtualSeta" aria-hidden="true"></i> <span id="senhaAtualGuiche" class="senhaAtualSeta">Guichê 02</span>
+					</div>
+				</div>
+			</div>
+		</div><br/><br/>
+		<div class="row row gx-4 gx-lg-5">
+        <center><span class="h3"><i class="fa fa-arrow-down" aria-hidden="true"></i> CHAMADAS ANTERIORES <i class="fa fa-arrow-down" aria-hidden="true"> </i></span></center>
+			<div class="col-md-4 mb-5  ultimaSenha"><br/>
+				<span class="ultimaSenhaTexto" id="ultimaSenhaNome1">Manuel Martins Pereira </span><br>
+				<span class="h1 text-danger" id="ultimaSenhaGuiche1">Guichê 03</span>
+			</div>
+            <div class="col-md-4 mb-5  ultimaSenha"><br/>
+				<span class="ultimaSenhaTexto"id="ultimaSenhaNome2">Paula Antunes de Almeida </span><br>
+				<span class="h1 text-danger" id="ultimaSenhaGuiche2">Guichê 01</span>
+			</div>
+            <div class="col-md-4 mb-5  ultimaSenha"><br/>
+				<span class="ultimaSenhaTexto" id="ultimaSenhaNome3">Manuel Martins Pereira </span><br>
+				<span class="h1 text-danger" id="ultimaSenhaGuiche3">Guichê 03</span>
+			</div>
+		</div>
+	</div>
+	<audio id="audioChamada" autoplay>
+        <source src="./audio/chamada.wav" type="audio/mp3" />
+          seu navegador não suporta HTML5
+        </audio>
+</body>
+</html>

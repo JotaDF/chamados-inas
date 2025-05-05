@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group col-md-3">
                 <label for="valor">Valor:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00">
+                <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
                 </div>  
                 <div class="form-group col-md-3">
                 <label for="exercicio">Exercício:<span class="text-danger font-weight-bold">*</span></label>

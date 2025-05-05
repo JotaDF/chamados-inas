@@ -98,7 +98,7 @@
                             },
                             color: '#ffff', // Cor do texto dos rótulos
                             font: {
-                                size: 22 // Tamanho da fonte
+                                size: 18 // Tamanho da fonte
                             },
                             align: 'center', // Alinhamento central dos rótulos
                             anchor: 'center' // Ancorar os rótulos no centro

@@ -1,19 +1,19 @@
 <?php
-	include_once('actions/ManterReserva.php'); 
+//	include_once('actions/ManterReserva.php'); 
 	
-	$manterReserva = new ManterReserva();
+//	$manterReserva = new ManterReserva();
 	
-	$lista = $manterReserva->listar();
+//	$lista = $manterReserva->listar();
     $reservas=[];
-    foreach ($lista as $obj) {
+//    foreach ($lista as $obj) {
         $reservas[] = [
-            'id'=>  $obj->id,
-            'title'=>  $obj->sala . " - " . $obj->equipamento,
-            'color'=>  '#0000FE',
-            'start'=>  date('Y-m-d H:i', strtotime($obj->inicio)),
-            'end'=>  date('Y-m-d H:i', strtotime($obj->termino)),
+            'id'=>  1,
+            'title'=>  'Sala de reuniões com equipamento!',
+            'color'=>  '#FF5631',
+            'start'=>  '2024-04-12 10:30',
+            'end'=>  '2024-04-12 11:30',
 
         ];
-    }
+//    }
 
     echo json_encode($reservas);

@@ -1,113 +1,108 @@
 <?php
 
-date_default_timezone_set('America/Sao_Paulo'); // Define o fuso horário para São Paulo
-require_once('Model.php'); // Inclui o arquivo Model.php, que deve conter a classe base para conexão com o banco de dados
+date_default_timezone_set('America/Sao_Paulo');
+require_once('Model.php');
 
-require_once('dto/Chamado.php'); // Inclui o arquivo Chamado.php, onde está a definição da classe Chamado
-require_once('dto/Usuario.php'); // Inclui o arquivo Usuario.php, onde está a definição da classe Usuario
+require_once('dto/Chamado.php');
+require_once('dto/Usuario.php');
 
-class ManterChamado extends Model { // Define a classe ManterChamado que herda da classe Model
+class ManterChamado extends Model {
 
-    function __construct() { // Método construtor da classe ManterChamado
-        parent::__construct(); // Chama o construtor da classe pai (Model)
+    function __construct() { //metodo construtor
+        parent::__construct();
     }
 
-    function listar($filtro = "") { // Método para listar todos os chamados com um filtro opcional
-        $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente, (select count(*) from interacao as i where i.id_chamado=c.id) as dep FROM chamado as c " . $filtro . " ORDER BY data_abertura ASC"; // SQL para selecionar os chamados
-        //echo 'SQL: ' . $sql; // Linha comentada que mostraria a consulta SQL (para debug)
-        $resultado = $this->db->Execute($sql); // Executa a consulta no banco de dados
-        $array_dados = array(); // Cria um array para armazenar os resultados
-        while ($registro = $resultado->fetchRow()) { // Loop para percorrer todos os registros retornados
-            $dados = new Chamado(); // Cria uma nova instância da classe Chamado
-            $dados->excluir = true; // Define a propriedade 'excluir' como true por padrão
-            if ($registro["dep"] > 0) { // Se houverem interações relacionadas ao chamado
-                $dados->excluir = false; // Marca o chamado como não excluível
+    function listar($filtro = "") {
+        $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente, (select count(*) from interacao as i where i.id_chamado=c.id) as dep FROM chamado as c " . $filtro . " ORDER BY id DESC";
+        //echo 'SQL: ' . $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new Chamado();
+            $dados->excluir = true;
+            if ($registro["dep"] > 0) {
+                $dados->excluir = false;
             }
-            $dados->id = $registro["id"]; // Atribui o id do chamado
-            $dados->descricao = $registro["descricao"]; // Atribui a descrição do chamado
-            $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0; // Atribui a data de abertura, se disponível
-            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0; // Atribui a data de atendimento, se disponível
-            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0; // Atribui a data de atendimento, se disponível
-            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0; // Atribui a data de cancelamento, se disponível
-            $dados->status = $registro["status"]; // Atribui o status do chamado
-            $dados->categoria = $registro["id_categoria"]; // Atribui o id da categoria
-            $dados->usuario = $registro["id_usuario"]; // Atribui o id do usuário
-            $dados->atendente = $registro["id_atendente"]; // Atribui o id do atendente
+            $dados->id = $registro["id"];
+            $dados->descricao = $registro["descricao"];
+            $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0;
+            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;;
+            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;;
+            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;;
+            $dados->status = $registro["status"];
+            $dados->categoria = $registro["id_categoria"];
+            $dados->usuario = $registro["id_usuario"];
+            $dados->atendente = $registro["id_atendente"];
 
-            $array_dados[] = $dados; // Adiciona os dados do chamado ao array de resultados
+            $array_dados[] = $dados;
         }
-        return $array_dados; // Retorna o array com os chamados
+        return $array_dados;
     }
 
-    function getChamadoPorId($id) { // Método para obter um chamado pelo seu ID
-        $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente FROM chamado as c WHERE id=$id"; // SQL para selecionar um chamado pelo ID
-        //echo $sql; // Linha comentada que mostraria a consulta SQL (para debug)
-        $resultado = $this->db->Execute($sql); // Executa a consulta no banco de dados
-        $dados = new Chamado(); // Cria uma nova instância da classe Chamado
-        while ($registro = $resultado->fetchRow()) { // Loop para percorrer o resultado
-            $dados->id = $registro["id"]; // Atribui o id do chamado
-            $dados->descricao = $registro["descricao"]; // Atribui a descrição do chamado
-            $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0; // Atribui a data de abertura, se disponível
-            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0; // Atribui a data de atendimento, se disponível
-            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0; // Atribui a data de atendimento, se disponível
-            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0; // Atribui a data de cancelamento, se disponível
-            $dados->status = $registro["status"]; // Atribui o status do chamado
-            $dados->categoria = $registro["id_categoria"]; // Atribui o id da categoria
-            $dados->usuario = $registro["id_usuario"]; // Atribui o id do usuário
-            $dados->atendente = $registro["id_atendente"]; // Atribui o id do atendente
+    function getChamadoPorId($id) {
+        $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente FROM chamado as c WHERE id=$id";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Chamado();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->id = $registro["id"];
+            $dados->descricao = $registro["descricao"];
+            $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0;
+            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;
+            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;
+            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;
+            $dados->status = $registro["status"];
+            $dados->categoria = $registro["id_categoria"];
+            $dados->usuario = $registro["id_usuario"];
+            $dados->atendente = $registro["id_atendente"];
         }
-        return $dados; // Retorna os dados do chamado
+        return $dados;
     }
 
-    function salvar(Chamado $dados) { // Método para salvar ou atualizar um chamado
-        $sql = "insert into chamado (descricao,data_abertura,id_usuario,id_categoria) values ('" . $dados->descricao . "',now()," . $dados->usuario . ",1)"; // SQL para inserir um novo chamado
-        //echo $sql . "<BR/>"; // Linha comentada que mostraria a consulta SQL (para debug)
-        if ($dados->id > 0) { // Se o ID do chamado for maior que 0, significa que é uma atualização
-            $sql = "update chamado set descricao='" . $dados->descricao . "',data_abertura=now(),id_usuario='" . $dados->usuario . "' where id=$dados->id"; // SQL para atualizar o chamado
-            $resultado = $this->db->Execute($sql); // Executa a atualização no banco de dados
-        } else { // Se o ID for 0, é um novo chamado
-            $resultado = $this->db->Execute($sql); // Executa a inserção no banco de dados
-            $dados->id = $this->db->insert_Id(); // Obtém o ID gerado para o novo chamado e o atribui
+    function salvar(Chamado $dados) {
+        $sql = "insert into chamado (descricao,data_abertura,id_usuario,id_categoria) values ('" . $dados->descricao . "',now()," . $dados->usuario . ",1)";
+        //echo $sql . "<BR/>";
+        if ($dados->id > 0) {
+            $sql = "update chamado set descricao='" . $dados->descricao . "',data_abertura=now(),id_usuario='" . $dados->usuario . "' where id=$dados->id";
+            $resultado = $this->db->Execute($sql);
+        } else {
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
         }
-        return $dados; // Retorna os dados do chamado
+        return $dados;
     }
-
-    function atender(Chamado $dados) { // Método para atender um chamado
-        if ($dados->id > 0) { // Se o ID do chamado for maior que 0
-            $sql = "update chamado set id_categoria='" . $dados->categoria . "', id_atendente='" . $dados->atendente . "', status=1, data_atendimento=now() where id=$dados->id"; // SQL para atualizar o status do chamado para atendido
-            $resultado = $this->db->Execute($sql); // Executa a atualização no banco de dados
+    function atender(Chamado $dados) {
+        if ($dados->id > 0) {
+            $sql = "update chamado set id_categoria='" . $dados->categoria . "', id_atendente='" . $dados->atendente . "', status=1, data_atendimento=now() where id=$dados->id";
+            $resultado = $this->db->Execute($sql);
         }
-        return $resultado; // Retorna o resultado da execução
+        return $resultado;
     }
-
-    function concluir($id) { // Método para concluir um chamado
-        if ($id > 0) { // Se o ID do chamado for maior que 0
-            $sql = "update chamado set status=2, data_atendido=now() where id=$id"; // SQL para atualizar o status do chamado para concluído
-            $resultado = $this->db->Execute($sql); // Executa a atualização no banco de dados
+    function concluir($id) {
+        if ($id > 0) {
+            $sql = "update chamado set status=2, data_atendido=now() where id=$id";
+            $resultado = $this->db->Execute($sql);
         }
-        return $resultado; // Retorna o resultado da execução
+        return $resultado;
     }
-
-    function cancelar($id) { // Método para cancelar um chamado
-        if ($id > 0) { // Se o ID do chamado for maior que 0
-            $sql = "update chamado set status=3, data_cancelado=now() where id=$id"; // SQL para atualizar o status do chamado para cancelado
-            $resultado = $this->db->Execute($sql); // Executa a atualização no banco de dados
+    function cancelar($id) {
+        if ($id > 0) {
+            $sql = "update chamado set status=3, data_cancelado=now() where id=$id";
+            $resultado = $this->db->Execute($sql);
         }
-        return $resultado; // Retorna o resultado da execução
+        return $resultado;
     }
-
-    function reabrir($id) { // Método para reabrir um chamado
-        if ($id > 0) { // Se o ID do chamado for maior que 0
-            $sql = "update chamado set status=4, data_reaberto=now() where id=$id"; // SQL para atualizar o status do chamado para reaberto
-            $resultado = $this->db->Execute($sql); // Executa a atualização no banco de dados
+    function reabrir($id) {
+        if ($id > 0) {
+            $sql = "update chamado set status=4, data_reaberto=now() where id=$id";
+            $resultado = $this->db->Execute($sql);
         }
-        return $resultado; // Retorna o resultado da execução
+        return $resultado;
     }
-
-    function excluir($id) { // Método para excluir um chamado
-        $sql = "delete from chamado where id=" . $id; // SQL para excluir o chamado com o ID fornecido
-        $resultado = $this->db->Execute($sql); // Executa a exclusão no banco de dados
-        return $resultado; // Retorna o resultado da execução
+    function excluir($id) {
+        $sql = "delete from chamado where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
 
 }

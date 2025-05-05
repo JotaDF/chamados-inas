@@ -19,13 +19,15 @@ $e->descricao   = $descricao;
 $e->data        = $data;
 $e->hora        = $hora;
 $e->inscreve    = $inscreve;
+
 $criar_pasta = false;
-if($id == 0){
+
+if($id == 0 || $id==""){
     $criar_pasta = true;
 }
-$db_evento->salvar($e);
+$e = $db_evento->salvar($e);
 if ($criar_pasta) {
-    $caminho = __DIR__.'/eventos/folder_'. $id .'/';
+    $caminho = __DIR__.'/eventos/folder_'. $e->id .'/';
     $db_evento->addPasta($caminho);
 }
 

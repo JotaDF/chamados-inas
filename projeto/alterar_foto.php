@@ -76,7 +76,7 @@ and open the template in the editor.
                             <form method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="<?= $usuario_logado->id ?>"/>
                                 <label for="conteudo">Selecionar imagem:</label>
-                                <input type="file" name="img_perfil" accept=".jpg,.jpeg" class="form-control">
+                                <input type="file" name="img_perfil" accept=".jpg,.jpeg" class="form-control" required>
 
                                 <div align="center">
                                     <button type="submit" class="btn btn-success">Enviar imagem</button>

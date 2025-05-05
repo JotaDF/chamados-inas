@@ -13,5 +13,5 @@ $tp->id = $id;
 $tp->tipo = $tipo;
 
 $db_tipo_prestador->salvar($tp);
-header('Location: tipos_prestadores.php');
+header('Location: tipos_prestador.php');
 

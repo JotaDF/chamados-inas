@@ -2,7 +2,8 @@
 
 $numero = isset($_REQUEST['numero']) ? $_REQUEST['numero'] : "";
 $ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : "";
-
+//echo $numero . " # " .$ano;
+//exit;
 if(!empty($_FILES['file'])){
     $caminho = "contratos/" . $numero . "_" . $ano . "/";
     $arquivo = basename($_FILES['file']['name']);

@@ -16,12 +16,17 @@
     font-weight: 570;
 }
 
-#senhaAtualNumero{
+.senhaAtualNumero{
 	font-size: 90pt;
 	font-weight: 800;
 	color: limegreen;
 }
 
+.senhaAtualSeta{
+        font-size: 70pt;
+        font-weight: 800;
+        color: limegreen;
+}
 .ultimaSenha{
 	font-weight: 800;
 	text-align: center;
@@ -53,8 +58,11 @@
 	max-width: 250px;
 }
 
+.xlogo{
+	max-width: 400px;
+}
 
-.barraTexto{
+.Texto{
 	font-size: 27pt;
 	font-weight: 800;
 	color: #003a5f;
@@ -71,3 +79,26 @@ audio{
 body {
     zoom: 1.3 /* Coloca o zoom em 150% */
 }
+
+.blink {
+  animation: blink 6s steps(2, end);
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+

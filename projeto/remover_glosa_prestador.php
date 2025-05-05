@@ -20,8 +20,8 @@ if ($id > 0) {
     $a->autor = $id_usuario;
     $db_auditoria->salvar($a);
 
-    header('Location: gerenciar_carta_recursadas_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_glosas_prestador.php?id='.$id_prestador);
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: gerenciar_carta_recursadas_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_glosas_prestador.php?id='.$id_prestador);
 }

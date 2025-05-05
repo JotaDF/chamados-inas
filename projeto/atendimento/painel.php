@@ -40,6 +40,7 @@
 					chamadoAtual = resp;
 					//console.log(chamadoAtual);
 					if(chamadoAtual.id != null){
+						document.getElementById('tag').classList.remove("blink");
 						document.getElementById('senhaAtualNome').innerHTML = resp.nome;
 						document.getElementById('senhaAtualGuiche').innerHTML = 'Guichê ' +resp.guiche_chamador;
 						document.getElementById('audioChamada').play();
@@ -51,9 +52,11 @@
 					chamadoAtual = resp;
 					//console.log(chamadoAtual);
 					if(chamadoAtual.id != null){
+						document.getElementById('tag').classList.remove("blink");
 						document.getElementById('senhaAtualNome').innerHTML = resp.nome;
 						document.getElementById('senhaAtualGuiche').innerHTML = 'Guichê ' +resp.guiche_chamador;
 						document.getElementById('audioChamada').play();
+						document.getElementById('tag').classList.add("blink");
 						getlista();
 						$.get( "../registrar_chamado.php", { id: chamadoAtual.id } );
 					}
@@ -70,13 +73,13 @@
 				console.log(lista);
 				for (var i = 0; i < lista.length; i++) {
 					if (i > 0) {
-						document.getElementById('ultimaSenhaNome'+i).innerHTML = lista[i]..nome;
-						document.getElementById('ultimaSenhaGuiche'+i).innerHTML = 'Guichê ' +lista[i]..guiche_chamador;
+						document.getElementById('ultimaSenhaNome'+i).innerHTML = lista[i].nome;
+						document.getElementById('ultimaSenhaGuiche'+i).innerHTML = 'Guichê ' +lista[i].guiche_chamador;
 					}
 				}
 			});
 		}
-		setInterval(getProximo, 10000);
+		setInterval(getProximo, 8000);
 		</script>
         <style>
             body{

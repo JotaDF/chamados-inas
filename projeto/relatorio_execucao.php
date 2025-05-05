@@ -132,7 +132,7 @@ and open the template in the editor.
                         </tr>
                         <?php
                             foreach ($nota_glosa as $obj) {
-                                $data_limite = strtotime("+30 day", $obj->data_validacao);
+                                $data_limite = strtotime("+30 day", $obj->data_atesto);
                                 $data_executado = isset($obj->data_executado) ? date('d/m/Y', $obj->data_executado) : "-";
                                 $data_atesto = isset($obj->data_atesto) ? date('d/m/Y', $obj->data_atesto) : "-";
                                 $data_pagamento = isset($obj->data_pagamento) ? date('d/m/Y', $obj->data_pagamento) : "-";
@@ -185,7 +185,7 @@ and open the template in the editor.
                         <?php
 
                             foreach ($nota_pagamento as $obj) {
-                                $data_limite = strtotime("+30 day", $obj->data_validacao);
+                                $data_limite = strtotime("+30 day", $obj->data_atesto);
                                 $data_atesto = isset($obj->data_atesto) ? date('d/m/Y', $obj->data_atesto) : "-";
                                 $data_pagamento = isset($obj->data_pagamento) ? date('d/m/Y', $obj->data_pagamento) : "-";
                                 ?>
@@ -200,8 +200,8 @@ and open the template in the editor.
                                        <td class="cell c0 text-dark " style=""><?= $obj->competencia ?></td>
                                        <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $obj->data_emissao) ?></td>
                                        <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $obj->data_validacao) ?></td>
-                                       <td class="cell c2 text-dark " style=""><?= $obj->nome?></td>
                                        <td class="cell c2 text-dark " style=""><?= $data_atesto ?></td>
+				       <td class="cell c2 text-dark " style=""><?= $obj->nome?></td>
                                        <td class="cell c2 text-dark " style=""><?= date('d/m/Y', $data_limite) ?></td>
                                        <td class="cell c2 text-dark " style=""><?= $data_pagamento ?></td>
                                        <td class="cell c3 text-dark " style=""><?= $obj->doc_sei ?></td>

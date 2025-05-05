@@ -1,9 +1,5 @@
-body {
-    padding-top: 70px;
-
-}
 #calendar {
-    max-width: 800px;
+    max-width: 1000px;
 }
 .col-centered{
     float: none;

@@ -1,5 +1,5 @@
 <?php
-  class Enquete{
+  class Evento{
 	    public $id;
       public $titulo;
       public $descricao;

@@ -498,7 +498,6 @@ foreach ($listaCJ as $obj) {
                                             <th scope="col">CPF</th>
                                             <th scope="col">Beneficiário</th>
                                             <th scope="col">Autuação</th>
-                                            <th scope="col">Assunto</th>
                                             <th scope="col">Valor Causa</th>
                                             <th scope="col" class="text-nowrap">Opções</th>
                                         </tr>
@@ -513,7 +512,6 @@ foreach ($listaCJ as $obj) {
                                                 echo "  <td>".$obj->cpf."</td>";
                                                 echo "  <td>".$obj->beneficiario."</td>";
                                                 echo "  <td>".date('d/m/Y', $obj->autuacao)."</td>";
-                                                echo "  <td>".$manterAssunto->getAssuntoPorId($obj->assunto)->assunto."</td>";
                                                 echo "  <td>".$obj->valor_causa."</td>";
                                                 $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
                                                 $btn_desvincular = '&nbsp;&nbsp;<a href="desvincular_processo.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-random"></i></a>';

@@ -18,7 +18,7 @@
             }
             echo "  <td align='center'>".$txt_status."</td>";
             $btn_folder= '&nbsp;&nbsp;<a href="gerenciar_folder_evento.php?id='.$obj->id.'" title="Gerenciar folder" class="btn btn-success btn-sm" type="button"><i class="fa fa-file-image"></i></a>';
-            $btn_inscricoes = '&nbsp;&nbsp;<a href="gerenciar_inscricoes_evento.php?id='.$obj->id.'" title=":Lista de inscritos" class="btn btn-warning btn-sm" type="button"><i class="fa fa-list-ul"></i></a>';
+            //$btn_inscricoes = '&nbsp;&nbsp;<a href="gerenciar_inscricoes_evento.php?id='.$obj->id.'" title=":Lista de inscritos" class="btn btn-warning btn-sm" type="button"><i class="fa fa-list-ul"></i></a>';
             $btn_alterar = "<button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->titulo."\",\"".$obj->descricao."\",\"".$obj->inscreve."\",\"".$obj->data."\",\"".$obj->hora."\")'><i class='fas fa-edit'></i></button>";
             if($obj->excluir){
                 echo "  <td align='center'>" . $btn_alterar . "&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->descricao."\")'><i class='far fa-trash-alt'></i></button>" . $btn_inscricoes . $btn_folder .  "</td>";

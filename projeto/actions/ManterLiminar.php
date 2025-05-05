@@ -1,80 +1,59 @@
 <?php
 
-// Inclui o arquivo base que contém a conexão e métodos do banco de dados
 require_once('Model.php');
-
-// Inclui o DTO da classe Liminar
 require_once('dto/Liminar.php');
 
-// Classe responsável por realizar operações relacionadas às liminares
 class ManterLiminar extends Model {
 
-    // Construtor da classe, invoca o construtor da classe pai (Model)
-    function __construct() {
+    function __construct() { //metodo construtor
         parent::__construct();
     }
 
-    // Lista todas as liminares cadastradas, com verificação se podem ser excluídas (não referenciadas em processos)
     function listar() {
-        // Consulta dados da liminar e verifica dependência com a tabela processo
         $sql = "select l.id,l.tipo, (select count(*) from processo as f where f.id_liminar=l.id) as dep FROM liminar as l order by l.tipo";
-        $resultado = $this->db->Execute($sql); // Executa a query
-        $array_dados = array(); // Array que armazenará os objetos Liminar
-
-        // Percorre todos os registros retornados
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
-            $dados = new Liminar(); // Cria um novo DTO
-            $dados->excluir = true; // Por padrão, liminar pode ser excluída
+            $dados = new Liminar();
+            $dados->excluir = true;
             if ($registro["dep"] > 0) {
-                $dados->excluir = false; // Se houver dependência, não pode ser excluída
+                $dados->excluir = false;
             }
-
-            // Atribui os valores retornados do banco ao objeto
-            $dados->id     = $registro["id"];
-            $dados->tipo   = $registro["tipo"];
-            $array_dados[] = $dados; // Adiciona o objeto ao array
+            $dados->id          = $registro["id"];
+            $dados->tipo       = $registro["tipo"];
+            $array_dados[]      = $dados;
         }
-
-        return $array_dados; // Retorna o array com os objetos preenchidos
+        return $array_dados;
     }
-
-    // Retorna os dados de uma liminar específica a partir do ID
     function getLiminarPorId($id) {
-        $sql = "select l.id,l.tipo FROM liminar as l WHERE id=$id"; // SQL para buscar liminar pelo ID
-        $resultado = $this->db->Execute($sql); // Executa a consulta
-        $dados = new Liminar(); // Cria uma nova instância do DTO
-
-        // Percorre o resultado da consulta (normalmente apenas um registro)
+        $sql = "select l.id,l.tipo FROM liminar as l WHERE id=$id";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Liminar();
         while ($registro = $resultado->fetchRow()) {
-            $dados->id   = $registro["id"];
-            $dados->tipo = $registro["tipo"];
+            $dados->id          = $registro["id"];
+            $dados->tipo       = $registro["tipo"];
         }
-
-        return $dados; // Retorna o objeto preenchido
+        return $dados;
     }
-
-    // Salva uma nova liminar ou atualiza uma já existente
     function salvar(Liminar $dados) {
-        // Prepara SQL para inserção
         $sql = "insert into liminar (tipo) values ('" . $dados->tipo . "')";
-
-        // Se a liminar já possui ID, realiza um UPDATE
         if ($dados->id > 0) {
             $sql = "update liminar set tipo='" . $dados->tipo . "' where id=$dados->id";
-            $resultado = $this->db->Execute($sql); // Executa a atualização
+            $resultado = $this->db->Execute($sql);
         } else {
-            $resultado = $this->db->Execute($sql); // Executa a inserção
-            $dados->id = $this->db->insert_Id(); // Obtém o ID gerado e atribui ao objeto
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
         }
-
-        return $resultado; // Retorna o resultado da operação
+        return $resultado;
     }
 
-    // Exclui uma liminar a partir do ID
     function excluir($id) {
-        $sql = "delete from liminar where id=" . $id; // SQL de exclusão
-        $resultado = $this->db->Execute($sql); // Executa a exclusão
-        return $resultado; // Retorna o resultado da execução
+        $sql = "delete from liminar where id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
 
 }
+

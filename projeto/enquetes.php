@@ -83,7 +83,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                         <?php include './form_enquete.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:900px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-question fa-2x text-white"></i> 
@@ -98,13 +98,13 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table id="enquetes" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="enquetes" class="table-sm table-striped table-bordered dt-responsive" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Enquete</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" style="width:30px;">Opções</th>
+                                            <th scope="col" style="width:180px;">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>

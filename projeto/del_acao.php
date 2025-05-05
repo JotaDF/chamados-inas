@@ -13,7 +13,7 @@ $id = $_REQUEST['id'];
 
 $acao = $db_acao->getAcaoPorId($id);
 
-$tarefa = $db_etapa->getEtapaPorId($etapa)->tarefa;
+$tarefa = $db_etapa->getEtapaPorId($acao->etapa)->tarefa;
 
 $db_acao->excluir($id, $acao->tipo, $acao->etapa, $acao->ordem);
 

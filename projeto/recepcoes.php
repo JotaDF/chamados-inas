@@ -44,7 +44,7 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 $('#recepcoes').DataTable( {
-                    order: [[1, 'desc']]
+                    order: [[0, 'desc']]
                 });
             });
             function excluir(id, visitante) {
@@ -87,7 +87,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                         <?php include './form_recepcao.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:900px">
+                        <div class="card mb-4 border-primary" style="max-width:95%">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-address-card fa-2x text-white"></i> 

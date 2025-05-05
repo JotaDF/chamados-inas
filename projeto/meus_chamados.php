@@ -69,7 +69,7 @@ and open the template in the editor.
                 $('#acao_descricao').text(descricao);
                 $('#confirm').modal({show: true});              
             }
-            function reabrir(id,usuario,descricao,usuario_logado) {
+            function reabrir(id,usuario,descricao,categoria,usuario_logado) {
                 $('#acao').attr('href', 'reabrir_chamado.php?id=' + id + "&id_usuario="+usuario_logado); 
                 $('#acao_texto').text("Confimação de reabertura do chamado:");
                 $('#acao_usuario').text(usuario);
@@ -126,7 +126,7 @@ and open the template in the editor.
                                     <i class="fa fa-id-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Chamados <?=$txt_tipo ?></span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Meus Chamados</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_chamado" aria-expanded="false" aria-controls="form_chamado">

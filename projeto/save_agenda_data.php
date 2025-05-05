@@ -12,7 +12,7 @@ if (isset($_REQUEST['id']) && isset($_REQUEST['inicio']) && isset($_REQUEST['ter
 
     $db_agenda = new ManterAgenda();
     $a = new Agenda();
-    $a->id = $id_evento;
+    $a->id = $id;
     $a->inicio = date('Y/m/d H:i:s', strtotime($inicio));
     $a->termino = date('Y/m/d H:i:s', strtotime($termino));
 

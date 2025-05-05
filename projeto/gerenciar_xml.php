@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//Administração
+$mod = 2;
+require_once('./verifica_login.php');
+?>
 <html lang="pt-BR">
 
 <head>
@@ -42,6 +49,10 @@
             height: 100vh;
             /* Ajuste conforme necessário */
         }
+
+body{
+                font-size: small;
+            }
     </style>
 
 </head>
@@ -49,12 +60,12 @@
 <body id="page-top">
   
     <div id="wrapper">
-        <?php include './menu_gerente.php'; ?>
+        <?php include './menu_financeiro.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <?php //include './top_bar.php'; ?>
+                <?php include './top_bar.php'; ?>
                 <div class="conainer-fluid">
-                    <div class="card mb-4 border-primary" style="max-width:1000px">
+                    <div class="card ml-3 mb-4 border-primary" style="max-width:1000px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0 text-right" style="max-width:50px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"

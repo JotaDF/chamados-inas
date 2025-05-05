@@ -1,4 +1,5 @@
 <?php
+
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');

@@ -61,8 +61,8 @@ and open the template in the editor.
 
                         <!-- Begin Page Content -->
                         <div id="containerEnquete" class="container-fluid align-items-center" style="width:95%">
-                        <div class="row text-center">
-                        <h3>RESULTADO ENQUETE</h3>
+                        <div class="row text-center ml-2">
+                        	<h3>RESULTADO ENQUETE</h3>
                         </div>
                         <div class="row">
                             <?php
@@ -81,7 +81,7 @@ and open the template in the editor.
                             <div class="col-xl-4 col-lg-5">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary"><?=$enquete->descricao . "(" . $total_votos .")" ?></h6>
+                                        <h6 class="m-0"><?=$enquete->descricao . "(" . $total_votos .")" ?></h6>
                                     </div>
                                     <div class="card-body">
                             <?php
@@ -103,7 +103,7 @@ and open the template in the editor.
                                 </div>
                             </div>
                         </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

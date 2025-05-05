@@ -58,7 +58,7 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
 
                     <div class="container-fluid">
-                        <iframe src="https://gdf.maida.health/portal-beneficiario/acessar-demonstrativo" title="consulta IRRF" height="500" width="500" ></iframe>                        
+                        <iframe src="https://gdf.maida.health/portal-beneficiario/acessar-demonstrativo" title="consulta IRRF" height="1500" width="100%" ></iframe>                        
                     </div>
                     <!-- End of Main Content -->
                 </div> 

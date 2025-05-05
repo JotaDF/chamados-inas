@@ -60,14 +60,14 @@ and open the template in the editor.
                     <!-- Links sistemas -->
                     <div style="width: 900px;">
                         <h1 class="h3 ml-3 mb-3 text-gray-800">Documentos Institucionais</h1>
-                        <div class="ml-3 mb-4" style="max-width: 600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width: 600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/planejamento_estrategico_final_13_03_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Planejamento Estratégico Institucional INAS 2024 - 2027
+                                            <img src="img/pdf.svg" width="30">Planejamento Estratégico Institucional INAS 2024 - 2027
                                         </div>                                        
                                     </div>
                                 </div>
@@ -75,14 +75,14 @@ and open the template in the editor.
                             </a>
                         </div>
                     
-                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/mapa_estrategico_inas.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Mapa Estratégico INAS 2024 - 2027
+                                            <img src="img/pdf.svg" width="30">Mapa Estratégico INAS 2024 - 2027
                                         </div>                                        
                                     </div>
                                 </div>
@@ -90,28 +90,28 @@ and open the template in the editor.
                             </a>
                         </div>
 
-                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/codigo_de_etica_e_conduta_dos_servidores_do_inas.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Código de Ética e Conduta dos Servidores do INAS
+                                            <img src="img/pdf.svg" width="30">Código de Ética e Conduta dos Servidores do INAS
                                         </div>                                        
                                     </div>
                                 </div>
                             </div>
                             </a>
                         </div>    
-                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/codigo_de_conduta_inas_30_04_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Manual - Cartilha Ética e Conduta dos Servidores do INAS
+                                            <img src="img/pdf.svg" width="30">Manual - Cartilha Ética e Conduta dos Servidores do INAS
                                         </div>                                        
                                     </div>
                                 </div>
@@ -119,14 +119,14 @@ and open the template in the editor.
                             </a>
                         </div>     
 
-                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/politica_privacidade_portaria_77_22_de_julho_de_2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Política de Privacidade do INAS
+                                            <img src="img/pdf.svg" width="30">Política de Privacidade do INAS
                                         </div>                                        
                                     </div>
                                 </div>
@@ -134,14 +134,14 @@ and open the template in the editor.
                             </a>
                         </div> 
 
-                        <div class="ml-3 mb-4" style="max-width:  600px; max-height: 100px;">
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
                             <a class="text-decoration-none" target="_blank" href="documentos/programa_integridade_inas_26-09-2024.pdf">
                             <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
+                                <div class="card-body p-3">
                                     
                                     <div class="row no-gutters align-items-center">
                                         <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/pdf.svg" width="45">Programa de Integridade do INAS
+                                            <img src="img/pdf.svg" width="30">Programa de Integridade do INAS
                                         </div>                                        
                                     </div>
                                 </div>

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 $dados = array('ABLAÇÃO HEPÁTICA POR RADIOFREQUENCIA E DANOS MORAIS',
 'Andamento',
@@ -341,8 +344,7 @@ $dados = array('ABLAÇÃO HEPÁTICA POR RADIOFREQUENCIA E DANOS MORAIS',
 'Psicologia ABA. Fonoaudiologia PROMPT. Terapia Ocupacional Sensor de Ayres. Psicopedagogia ABA. Musicoterapia. Nutrição. Centro Interativo. Danos Morais.',
 'QUIMEOTERAPIA',
 'QUIMIOTERAPIA',
-'Quimioterapia como terapia sistêmica a base de
-Doxorrubicina',
+'Quimioterapia como terapia sistêmica a base de Doxorrubicina',
 'QUIMIOTERAPIA E MEDICAMENTOS',
 'QUIMIOTERAPIA/ FOLFOX',
 'QUIMIOTERAPIA/MEDICAMENTO/CABOZANTINIBE',
@@ -424,7 +426,7 @@ require_once('./dto/Assunto.php');
 $db_assunto = new ManterAssunto();
 
 foreach ($dados as $reg) {
-    $filtro = " WHERE UPPER(assunto) = UPPER('".$reg[0].") ";
+    $filtro = " WHERE UPPER(assunto) = UPPER('".$reg."') ";
     $assuntos_encontrado = $db_assunto->listar($filtro);
     $existe = false;
     foreach ($assuntos_encontrado as $assunto) {
@@ -432,7 +434,8 @@ foreach ($dados as $reg) {
     }
     if(!$existe){
         $a = new Assunto();
-        $a->assunto = $reg[0];
+        $a->assunto = $reg;
+	print_r($a);
         $db_assunto->salvar($a);
     }
 }

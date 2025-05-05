@@ -84,7 +84,7 @@ and open the template in the editor.
     <!-- Begin Page Content -->
     <div id="containerPergunta" class="container-fluid align-items-center" style="width:95%">
     <div class="row text-center">
-     <h3>RELATÓRIO DAS AVALIAÇÃOES</h3>
+     <h4 style="width:100%">RELATÓRIO DAS AVALIAÇÕES</h4>
     </div>
     <div class="row">
         <?php

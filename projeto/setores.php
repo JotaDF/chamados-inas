@@ -2,6 +2,8 @@
 //Administraçao
 $mod = 2;
 require_once('./verifica_login.php');
+
+//echo $url_atual;
 ?> 
 <!DOCTYPE html>
 <!--

@@ -154,7 +154,7 @@ foreach ($listaS as $obj) {
                                         <tr>
                                             <th scope="col" style="width:5%;">ID</th>
                                             <th scope="col" style="width:20%;">CNPJ</th>
-                                            <th scope="col" style="width:35%;">Nome Fantasia</th>
+                                            <th scope="col" style="width:35%;">Razão Social</th>
                                             <th scope="col">Tipo Prestador</th>
                                             <th scope="col">Ativo</th>
                                             <th scope="col" class="align-middle nowrap" style="width:18%;">Opções</th>
