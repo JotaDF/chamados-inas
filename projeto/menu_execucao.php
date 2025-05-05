@@ -70,7 +70,14 @@ if ($usuario_logado->perfil == 4 || $usuario_logado->perfil <= 2) {
            <li class="nav-item">
                 <a class="nav-link collapsed" href="gerar_busca_execucao.php">
                     <i class="fa fa-search"></i>
-                    <span>Buscas</span>
+                    <span>Buscar</span>
+                </a>
+           </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="gerar_busca_periodo_execucao.php">
+                    <i class="fa fa-search"></i>
+                    <span>Buscar Por Período</span>
                 </a>
            </li>
            <!-- Nav Item - Pages Collapse Menu -->
