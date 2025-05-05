@@ -33,7 +33,7 @@ $mSetor = new ManterSetor();
                                 require_once('./dto/Notificacao.php');
                                     
                                 $db_notificacao = new ManterNotificacao();
-                                $total_notificacoes = $db_notificacao->getTotalNotificacaoUsuario($usuario_logado->id);
+                                $total_notificacoes = $db_notificacao->getTotalNotificacaoNaoLidasUsuario($usuario_logado->id);
                                 $total = "";
                                 if($total_notificacoes > 0){
                                     $total = $total_notificacoes;
