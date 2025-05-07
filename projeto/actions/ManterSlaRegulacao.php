@@ -303,9 +303,26 @@ class ManterSlaRegulacao extends Model
         }
         return false;
     }
+    function atualizaFila()
+    {
+        $sql = "SELECT autorizacao, tipo_guia, area, fila, data_solicitacao_t, data_solicitacao_d FROM sla_regulacao_tmp";
+        $rs = $this->db->Execute($sql);
+       
+        while ($registro = $rs->fetchRow()) {
+            $sql_atualiza = "UPDATE sla_regulacao SET sla_regulacao.tipo_guia = '".$registro['tipo_guia']."', sla_regulacao.area = '".$registro['area']."', sla_regulacao.fila = '".$registro['fila']."', sla_regulacao.data_solicitacao_t = '".$registro['data_solicitacao_t']."', sla_regulacao.data_solicitacao_d = '".$registro['data_solicitacao_d']."' WHERE sla_regulacao.autorizacao = '".$registro['autorizacao']."'";
+            $resultado = $this->db->Execute($sql_atualiza);
+            
+        }
+        if ($resultado) {
+            // Se a atualização for bem-sucedida, retorna o resultado
+            return $resultado;
+        }
+        // Se não houver registros para atualizar, retorna false
+        return false;
+    }
     function atualizaNovosSla()
     {
-        $sql = 'INSERT INTO sla_regulacao ( autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT * FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
+        $sql = 'INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
