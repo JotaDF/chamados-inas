@@ -320,6 +320,23 @@ class ManterSlaRegulacao extends Model
         // Se não houver registros para atualizar, retorna false
         return false;
     }
+    function atualizaReanalise()
+    {
+        $sql = "SELECT * FROM sla_regulacao as sr WHERE sr.autorizado is not null AND sr.autorizacao IN (SELECT autorizacao FROM sla_regulacao_tmp as srt WHERE srt.autorizacao IS NOT NULL)";
+        $rs = $this->db->Execute($sql);
+       
+        while ($registro = $rs->fetchRow()) {
+            $sql_atualiza = "UPDATE sla_regulacao SET sla_regulacao.autorizado = NULL, sla_regulacao.data_reanalise = NOW() WHERE sla_regulacao.autorizacao = '".$registro['autorizacao']."'";
+            $resultado = $this->db->Execute($sql_atualiza);
+            
+        }
+        if ($resultado) {
+            // Se a atualização for bem-sucedida, retorna o resultado
+            return $resultado;
+        }
+        // Se não houver registros para atualizar, retorna false
+        return false;
+    }
     function atualizaNovosSla()
     {
         $sql = 'INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';

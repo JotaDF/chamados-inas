@@ -8,6 +8,7 @@ if (isset($_POST['update']) || isset($_POST['update_painel'])) {
     // Chama os métodos para atualizar as informações
     $manterSlaRegulacao->atualizaAutorizados();
     $manterSlaRegulacao->atualizaFila();
+    $manterSlaRegulacao->atualizaReanalise();
     $manterSlaRegulacao->atualizaNovosSla();
     $manterSlaRegulacao->limpaSlaTemporaria();
     $manterSlaRegulacao->registraAtualizacao($id_usuario);
