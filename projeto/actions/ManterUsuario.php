@@ -289,6 +289,21 @@ class ManterUsuario extends Model {
         }
         return $array_dados;
     }
+    function getAcessoUsuario($id_usuario,$id_modulo) {
+        $sql = "SELECT a.id_modulo, a.id_usuario, a.id_perfil, m.nome as modulo, p.perfil, m.icone, m.link 
+        FROM acesso as a, modulo as m, perfil as p 
+        WHERE p.id = a.id_perfil
+        AND m.id = a.id_modulo 
+        AND a.id_usuario =$id_usuario 
+        AND a.id_modulo = $id_modulo";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $id_perfil = 0;
+        if ($registro = $resultado->fetchRow()) {
+            $id_perfil = $registro["id_perfil"];
+        }
+        return $id_perfil;
+    }
     function getModulosParaAcessosUsuario($id_usuario) {
         $sql = "SELECT m.id, m.nome  
         FROM modulo as m 

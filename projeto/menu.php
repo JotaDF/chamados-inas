@@ -22,7 +22,7 @@
 $agenda = false;
 foreach ($acessos as $acesso) {
     if($acesso->id_modulo != 1){
-
+        $request = "";
         $icon_css = "";
         switch ($acesso->id_modulo) {
             case 2:
@@ -67,13 +67,14 @@ foreach ($acessos as $acesso) {
                 break;     
             case 15:
                 $icon_css = "fa fa-signal";
+                $request = "?nome=".$usuario_logado->nome."login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15);
                 break;                                      
         }
         
 ?> 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="<?=$acesso->link ?>">
+                <a class="nav-link collapsed" href="<?=$acesso->link . $request ?>">
                     <i class="<?=$icon_css ?>"></i>
                     <span><?=$acesso->modulo ?></span>
                 </a>
