@@ -49,29 +49,27 @@ foreach ($acessos as $acesso) {
                 break;  
             case 9:
                 $icon_css = "fa fa-address-book";
-                $agenda = true;
                 break; 
             case 10:
                 $icon_css = "fa fa-suitcase";
-                $agenda = true;
                 break;
             case 11:
                 $icon_css = "fa fa-file-pdf";
-                $agenda = true;
                 break; 
             case 12:
                 $icon_css = "fa fa-file";
-                $agenda = true;
                 break;    
             case 13:
                 $icon_css = "fa fa-calculator";
-                $agenda = true;
                 break; 
             case 14:
                 $icon_css = "fa fa-hourglass-half";
-                $agenda = true;
-                break;                                        
+                break;     
+            case 15:
+                $icon_css = "fa fa-signal";
+                break;                                      
         }
+        
 ?> 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
