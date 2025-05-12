@@ -304,6 +304,22 @@ class ManterUsuario extends Model {
         }
         return $id_perfil;
     }
+    function encryptarMensagem(string $texto): string {
+        $cipher = 'aes-256-cbc';
+        if (!in_array($cipher, openssl_get_cipher_methods())) {
+            die('Cipher não suportado: ' . $cipher);
+        }
+        // Gera uma chave de 256 bits (32 bytes) a partir da senha
+        $iv_length = openssl_cipher_iv_length($cipher);
+        // Gera um vetor de inicialização (IV) aleatório
+        $iv = openssl_random_pseudo_bytes($iv_length);
+        $key = "saiqueesuatafarelinas2025"; // Chave segura!
+           
+        $ciphertext = openssl_encrypt($texto, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+
+        // Concatena o IV (Initialization Vector) ao texto cifrado para descriptografia
+        return base64_encode($iv . $ciphertext);
+    }
     function getModulosParaAcessosUsuario($id_usuario) {
         $sql = "SELECT m.id, m.nome  
         FROM modulo as m 

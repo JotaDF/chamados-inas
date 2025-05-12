@@ -67,8 +67,9 @@ foreach ($acessos as $acesso) {
                 break;     
             case 15:
                 $icon_css = "fa fa-signal";
-                $request = "?nome=".$usuario_logado->nome."login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15);
-                break;                                      
+                $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
+                break; 
+                                                
         }
         
 ?> 
