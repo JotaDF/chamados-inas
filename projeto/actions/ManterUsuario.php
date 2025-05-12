@@ -313,7 +313,7 @@ class ManterUsuario extends Model {
         $iv_length = openssl_cipher_iv_length($cipher);
         // Gera um vetor de inicialização (IV) aleatório
         $iv = openssl_random_pseudo_bytes($iv_length);
-        $key = "saiqueesuatafarelinas2025"; // Chave segura!
+        $key = "sai_que_e_sua_tafarell_inas_2025"; // Chave segura!
            
         $ciphertext = openssl_encrypt($texto, $cipher, $key, OPENSSL_RAW_DATA, $iv);
 
