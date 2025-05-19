@@ -76,7 +76,7 @@ and open the template in the editor.
                         if($acesso->id_modulo != 1){
                     ?> 
                         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
-                            <a class="text-decoration-none" href="<?=$acesso->link ?>">
+                            <a class="text-decoration-none" href="<?=$acesso->link . $request ?>">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
