@@ -27,6 +27,19 @@ Class ManterQuestEscala extends Model {
 
     function salvar(QuestEscala $dados) {
         $sql = "insert into quest_escala (nome, descricao) values ('" .$dados->nome. "', '" .$dados->descricao. "')";
+        
+        if ($dados->id > 0) {
+            $sql = "update quest_escala set nome='". $dados->nome ."', descricao='". $dados->descricao ."' WHERE id= '". $dados->id . "'";
+            $resultado = $this->db->Execute($sql);
+        } else {
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
+        }
+        return $resultado;
+    }
+
+    function excluir($id) {
+        $sql = "delete from quest_escala where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }

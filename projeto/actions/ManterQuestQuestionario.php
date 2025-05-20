@@ -26,6 +26,18 @@ Class ManterQuestQuestionario extends Model {
     }
     function salvar(QuestQuestionario $dados) {
         $sql = "insert into quest_questionario (titulo, descricao) values ('" .$dados->titulo. "', '" .$dados->descricao. "')";
+        if ($dados->id > 0) {
+            $sql = "update quest_questionario set titulo='". $dados->titulo ."', descricao='". $dados->descricao ."' WHERE id= '". $dados->id . "'";
+            $resultado = $this->db->Execute($sql);
+        } else {
+            $resultado = $this->db->Execute($sql);
+            $dados->id = $this->db->insert_Id();
+        }
+        return $resultado;
+    }
+
+    function excluir($id) {
+        $sql = 'delete from quest_questionario where id=' . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }

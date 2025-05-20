@@ -1,16 +1,17 @@
 <div id="form_quest_escala" class="collapse">
-    <div class="card mb-4 border-primary" style="width: 50rem;">
+    <div class="card mb-4 border-primary" style="width: 56rem;">
         <div class="card-header bg-gradient-primary">
             <span class="h5 m-0 font-weight text-white">Escala</span>
         </div>
         <div class="card-body">
             <form action="save_quest_escala.php" method="POST">
+                <input type="hidden" id="id_quest_escala" name="id_quest_escala">
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
+                    <label for="nome" class="form-label">Nome:</label>
                     <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
                 <div class="mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
+                    <label for="descricao" class="form-label">Descrição:</label>
                     <input type="text" class="form-control" id="descricao" name="descricao" required>
                 </div>
                 <div class="form-group row float-right p1">

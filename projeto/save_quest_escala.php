@@ -3,7 +3,8 @@ require_once 'actions/ManterQuestEscala.php';
 require_once 'dto/QuestEscala.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nome         = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $id             = $_POST['id_quest_escala'];
+    $nome           = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
     $descricao      = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
     
    
@@ -12,12 +13,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } 
 
+    if (!$id) {
+        header('Location: quest_escala.php?naoveio'); 
+        exit;
+    }
+
     if (trim($descricao) === '') {
         header('Location: quest_escala.php?msg=2');
         exit;
     }
 
     $escalaDTO                = new QuestEscala();
+    $escalaDTO->id            = $id;
     $escalaDTO->nome          = $nome;
     $escalaDTO->descricao     = $descricao;
 
