@@ -43,12 +43,12 @@ and open the template in the editor.
             var duplicado = 0;
             $(document).ready(function () {
             });
-            function alterarInformativo(id_pagamento, competencia, informativo, id_fiscal_prestador) {
-                $('#id_pagamento').val(id_pagamento);
+            function alterarInformativo(id, competencia, informativo, id_fiscal_prestador) {
+                $('#id').val(id);
                 $('#id_fiscal_prestador').val(id_fiscal_prestador);
                 $('#competencia').val(competencia);
                 $('#informativo').val(informativo);
-                $('#txt_cadastro_informativo').text("Alterar pagamento: " + id_pagamento);    
+                $('#txt_cadastro_informativo').text("Alterar pagamento: " + id);    
                 $('#form_cadastro').removeAttr('onsubmit');  
                 $('#competencia').focus();   
             }
@@ -254,7 +254,7 @@ and open the template in the editor.
                                         <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
-                                        <input type="hidden" id="id_pagamento" name="id_pagamento" value="0"/>
+                                        <input type="hidden" id="id" name="id" value="0"/>
                                         <div class="form-group row ml-1">
                                             <label for="competencia" class="col-sm-2 col-form-label">Competência:</label>
                                             <div class="col-sm-10">
