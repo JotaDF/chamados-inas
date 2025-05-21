@@ -20,7 +20,9 @@ $id_prestador = $_POST['id_prestador'];
 $id_fiscal_prestador = $_POST['id_fiscal_prestador'];
 $competencia = $_POST['competencia'];
 $informativo = $_POST['informativo'];
+$id_pagamento = isset($_POST['id_pagamento']) ? $_POST['id_pagamento'] : 0;
 
+$p->id = $id_pagamento;
 $p->fiscal_prestador = $id_fiscal_prestador;
 $p->competencia = $competencia;
 $p->informativo = $informativo;
