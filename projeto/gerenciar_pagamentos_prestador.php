@@ -53,8 +53,9 @@ and open the template in the editor.
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
-            function alterarInformativo(id_pagamento, competencia, informativo) {
+            function alterarInformativo(id_pagamento, competencia, informativo, id_fiscal_prestador) {
                 $('#id_pagamento').val(id_pagamento);
+                $('#id_fiscal_prestador').val(id_fiscal_prestador);
                 $('#competencia').val(competencia);
                 $('#informativo').val(informativo);
                 $('#txt_cadastro_informativo').text("Alterar pagamento: " + id_pagamento);              
@@ -317,7 +318,7 @@ and open the template in the editor.
                                                     $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
-                                                    $btn_alterar = "<button id='btn_cadastrar' onclick='alterarInformativo(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\")' title='Alterar informativo!' class='btn btn-warning btn-sm' type='button'>
+                                                    $btn_alterar = "<button id='btn_cadastrar' onclick='alterarInformativo(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\",\"".$obj->id_fiscal_prestador."\")' title='Alterar informativo!' class='btn btn-warning btn-sm' type='button'>
                                                                     <i class='fas fa-edit text-white' aria-hidden='true'></i>
                                                                 </button>";           
                                                     if($editar){
