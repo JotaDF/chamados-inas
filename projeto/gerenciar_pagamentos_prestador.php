@@ -49,6 +49,7 @@ and open the template in the editor.
                 $('#competencia').val(competencia);
                 $('#informativo').val(informativo);
                 $('#txt_cadastro_informativo').text("Alterar pagamento: " + id_pagamento);    
+                $('#form_cadastro').removeAttr('onsubmit');  
                 $('#competencia').focus();   
             }
             function excluir(id_prestador,id, informativo, competencia, usuario) {
