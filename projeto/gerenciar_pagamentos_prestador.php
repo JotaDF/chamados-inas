@@ -43,6 +43,14 @@ and open the template in the editor.
             var duplicado = 0;
             $(document).ready(function () {
             });
+            function alterarInformativo(id_pagamento, competencia, informativo, id_fiscal_prestador) {
+                $('#id_pagamento').val(id_pagamento);
+                $('#id_fiscal_prestador').val(id_fiscal_prestador);
+                $('#competencia').val(competencia);
+                $('#informativo').val(informativo);
+                $('#txt_cadastro_informativo').text("Alterar pagamento: " + id_pagamento);    
+                $('#competencia').focus();   
+            }
             function excluir(id_prestador,id, informativo, competencia, usuario) {
                 $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
@@ -52,13 +60,6 @@ and open the template in the editor.
                 $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
-            }
-            function alterarInformativo(id_pagamento, competencia, informativo, id_fiscal_prestador) {
-                $('#id_pagamento').val(id_pagamento);
-                $('#id_fiscal_prestador').val(id_fiscal_prestador);
-                $('#competencia').val(competencia);
-                $('#informativo').val(informativo);
-                $('#txt_cadastro_informativo').text("Alterar pagamento: " + id_pagamento);              
             }
             function pagarNota(id_prestador,id_nota, numero, valor, exercicio,usuario) {
                 $('#id_prestador_pg').val(id_prestador);
@@ -252,7 +253,7 @@ and open the template in the editor.
                                         <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
-                                        <input type="hidden" id="id_pagamento" name="id_pagamento" />
+                                        <input type="hidden" id="id_pagamento" name="id_pagamento" value="0"/>
                                         <div class="form-group row ml-1">
                                             <label for="competencia" class="col-sm-2 col-form-label">Competência:</label>
                                             <div class="col-sm-10">
@@ -268,7 +269,7 @@ and open the template in the editor.
                                         </div>
 
                                         <div class="form-group row float-right">
-                                            <button type="reset" class="btn btn-danger btn-sm mr-3"><i class="fas fa-undo"></i> Cancelar</button>
+                                            <button type="button" class="btn btn-danger btn-sm mr-3" onclick="location.reload();"><i class="fas fa-undo"></i> Cancelar</button>
                                             <button type="submit" class="btn btn-primary btn-sm mr-3"><i class="fas fa-save"></i> Salvar</button>
                                         </div>
                                     </form>   
@@ -279,7 +280,7 @@ and open the template in the editor.
                                     ?>
                                 </div>
                             </div>
-                            <!-- fim da exibição --> 
+                            <!-- fim da exibição -->
                             <?php
                         }
                         ?>
@@ -318,14 +319,14 @@ and open the template in the editor.
                                                     $btn_nova = "<button id='btn_cadastrar' onclick='novaNota(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white' aria-hidden='true'></i>
                                                                 </button>";
-                                                    $btn_alterar = "<button id='btn_cadastrar' onclick='alterarInformativo(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\",\"".$obj->id_fiscal_prestador."\")' title='Alterar informativo!' class='btn btn-warning btn-sm' type='button'>
+                                                    $btn_alterar = "<button id='btn_cadastrar' onclick='alterarInformativo(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\",\"".$obj->fiscal_prestador."\")' title='Alterar informativo!' class='btn btn-warning btn-sm' type='button'>
                                                                     <i class='fas fa-edit text-white' aria-hidden='true'></i>
-                                                                </button>";           
+                                                                </button>";
                                                     if($editar){
                                                         if ($obj->excluir) {
                                                             echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;".$btn_nova."&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->informativo."\",\"".$obj->competencia."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
-                                                            echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
+                                                            echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;".$btn_nova."&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
 
                                                         }
                                                     } else {

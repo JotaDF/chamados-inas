@@ -14,6 +14,7 @@ $db_auditoria = new ManterAuditoria();
 $db_pagamento = new ManterPagamento();
 $p = new Pagamento();
 
+
 $id_usuario   = $_REQUEST['id_usuario'];
 
 $id_prestador = $_POST['id_prestador'];
