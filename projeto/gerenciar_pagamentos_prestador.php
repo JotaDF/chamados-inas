@@ -417,7 +417,7 @@ and open the template in the editor.
                                                                     $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
                                                                     break;
                                                             }
-                                                            
+                                                            $txt_btns .= " " . $btn_nt_alterar;
                                                         }
                                                         $out_notas .= "  <td><b>".$n->status."</b>".$txt_doc_sei."</td>";
                                                         $out_notas .= "  <td align='center'>".$txt_btns . $btn_ocorrencias . $campo_ocorrencias ."</td>";
