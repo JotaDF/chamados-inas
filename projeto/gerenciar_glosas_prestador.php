@@ -408,7 +408,7 @@ and open the template in the editor.
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
                                                         $btn_alterar_nota = "<button id='btn_cadastrar_info' onclick='alterarNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->exercicio."\",\"".$usuario_logado->id."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
-                                                                            <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
+                                                                            <i class='fas fa-edit text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
