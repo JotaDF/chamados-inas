@@ -114,7 +114,6 @@ and open the template in the editor.
                 $('#pagar').modal({show: true});
             }
 
-
            function novaNotaInfo(id_nota_glosa, numero, lote, valor,emissao, validacao) {
                 $('#id_nota_glosa').val(id_nota_glosa);
                 $('#id_data_emissao').val(emissao);
@@ -122,6 +121,32 @@ and open the template in the editor.
                 $('#txt_numero').text(numero);
                 $('#txt_lote').text(lote);
                 $('#txt_valor').text(valor);
+
+                $('#id_nota_info').val("");
+                $('#carta_informativo').val("");
+                $('#exercicio_info').val("");
+                $('#competencia_info').val("");
+                $('#valor_deferido').val("");
+
+                $("#msg_nota").html("");
+                $('#form_nota_informativo').collapse('show');
+                $('#carta_informativo').focus();
+           }
+           function alterarNotaInfo(id_nota_glosa, numero, lote, valor,emissao, validacao, id_nota_info, carta_informativo, exercicio, competencia, valor_deferido) {
+                $('#id_nota_glosa').val(id_nota_glosa);
+                $('#id_data_emissao').val(emissao);
+                $('#id_data_validacao').val(validacao);
+                $('#txt_numero').text(numero);
+                $('#txt_lote').text(lote);
+                $('#txt_valor').text(valor);
+
+                $('#id_nota_info').val(id_nota_info);
+                $('#carta_informativo').val(carta_informativo);
+                $('#exercicio_info').val(exercicio);
+                $('#competencia_info').val(competencia);
+                $('#valor_deferido').val(valor_deferido);
+
+                $('#form_cadastro_info').removeAttr('onsubmit');
                 $("#msg_nota").html("");
                 $('#form_nota_informativo').collapse('show');
                 $('#carta_informativo').focus();
@@ -418,7 +443,7 @@ and open the template in the editor.
                                                         }
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
-                                                        $btn_alterar_nota = "<button id='btn_cadastrar_info' onclick='alterarNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->exercicio."\",\"".$usuario_logado->id."\",\"".date('Y-m-d', $n->data_emissao)."\",\"".date('Y-m-d', $n->data_validacao)."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                        $btn_alterar_nota = "<button id='btn_cadastrar_info' onclick='alterarNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->exercicio."\",\"".$usuario_logado->id."\",\"".date('Y-m-d', $n->data_emissao)."\",\"".date('Y-m-d', $n->data_validacao)."\")' title='Alterar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fas fa-edit text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                         $tem_nota = true;
@@ -468,6 +493,9 @@ and open the template in the editor.
                                                             $txt_status = "";
                                                             $txt_doc_sei = "";
                                                             if($editar){
+                                                                $btn_alterar_nota_info = "<button id='btn_cadastrar_info' onclick='alterarNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".date('Y-m-d', $n->data_emissao)."\",\"".date('Y-m-d', $n->data_validacao)."\",\"".$c->id."\",\"".$c->carta_informativo."\",\"".$c->exercicio."\",\"".$c->competencia."\",\"".$c->valor_deferido."\")' title='Alterar Informativo!' class='btn btn-primary btn-sm' type='button'>
+                                                                            <i class='fas fa-edit text-white' aria-hidden='true'></i></button>&nbsp;";
+
                                                                 
                                                                 switch ($c->status) {
                                                                     case 'Em análise':
@@ -497,7 +525,7 @@ and open the template in the editor.
                                                                         $txt_doc_sei = "</br>(" . $c->doc_sei . ")";
                                                                         break;
                                                                 }
-                                                                $txt_btns =  $txt_btns ."&nbsp;". $btn_ocorrencias;
+                                                                $txt_btns =  $txt_btns . "&nbsp;" . $btn_alterar_nota_info ."&nbsp;". $btn_ocorrencias;
                                                             }
 
                                                             $out_info .= "<tr>";

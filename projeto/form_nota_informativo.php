@@ -8,12 +8,13 @@
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_nota_informativo.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
+        <form id="form_cadastro_info" action="save_nota_informativo.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
             <input type="hidden" id="id_nota_glosa" name="id_nota_glosa" value="<?=$n->id ?>"/>
             <input type="hidden" id="id_prestador"  name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario"    name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <input type="hidden" id="id_data_emissao" name="data_emissao" value="<?=$n->data_emissao ?>"/>
             <input type="hidden" id="id_data_validacao" name="data_validacao" value="<?=$n->data_validacao ?>"/>
+            <input type="hidden" id="id_nota_info" name="id_nota_info" value=""/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_numero">numero</label>
@@ -35,11 +36,11 @@
                 </div>
                 <div class="form-group col-md-3">
                 <label for="exercicio">Exercício:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio" required>
+                <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio_info" required>
                 </div>       
                 <div class="form-group col-md-3">
                 <label for="competencia">Competência:<span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" name="competencia" class="form-control form-control-sm" id="competencia" required>
+                <input type="text" name="competencia" class="form-control form-control-sm" id="competencia_info" required>
                 </div>  
                 <div class="form-group col-md-3">
                 <label for="valor">Valor Deferido:<span class="text-danger font-weight-bold">*</span></label>

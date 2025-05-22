@@ -16,6 +16,7 @@ $cr = new CartaRecurso();
 $id_usuario                    = $_REQUEST['id_usuario'];
 $id_prestador                  = $_POST['id_prestador'];
 
+$cr->id                        = isset($_POST['id_nota_info']) ? $_POST['id_nota_info'] : 0;
 $cr->id_nota_glosa             = $_POST['id_nota_glosa'];
 $cr->carta_informativo         = $_POST['carta_informativo'];
 $cr->exercicio                 = $_POST['exercicio'];
