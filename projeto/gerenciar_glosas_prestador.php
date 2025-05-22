@@ -493,7 +493,7 @@ and open the template in the editor.
                                                             $txt_status = "";
                                                             $txt_doc_sei = "";
                                                             if($editar){
-                                                                $btn_alterar_nota_info = "<button id='btn_cadastrar_info' onclick='alterarNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".date('Y-m-d', $n->data_emissao)."\",\"".date('Y-m-d', $n->data_validacao)."\",\"".$c->id."\",\"".$c->carta_informativo."\",\"".$c->exercicio."\",\"".$c->competencia."\",\"".$c->valor_deferido."\")' title='Alterar Informativo!' class='btn btn-primary btn-sm' type='button'>
+                                                                $btn_alterar_nota_info = "<button id='btn_cadastrar_info' onclick='alterarNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\",\"".$c->id."\",\"".$c->carta_informativo."\",\"".$c->exercicio."\",\"".$c->competencia."\",\"".$c->valor_deferido."\")' title='Alterar Informativo!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fas fa-edit text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                                 
