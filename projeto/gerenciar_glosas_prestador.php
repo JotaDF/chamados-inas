@@ -45,9 +45,9 @@ and open the template in the editor.
             });
             function alterarGlosa(id, carta_recursada, valor_original,id_fiscal_prestador) {
                 $('#id').val(id);
-                $('#id_fiscal_prestador').text(id_fiscal_prestador);
-                $('#carta_recursada').text(carta_recursada);
-                $('#valor_original').text(valor_original);
+                $('#id_fiscal_prestador').val(id_fiscal_prestador);
+                $('#carta_recursada').val(carta_recursada);
+                $('#valor_original').val(valor_original);
                 $('#txt_cadastro_glosa').text("Alterar pagamento: " + id);   
                 $('#form_cadastro').removeAttr('onsubmit');  
                 $('#carta_recursada').focus();
