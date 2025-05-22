@@ -52,6 +52,24 @@ and open the template in the editor.
                 $('#form_cadastro').removeAttr('onsubmit');  
                 $('#carta_recursada').focus();
             }
+            function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
+                $('#id_recurso_glosa').val(id_recurso_glosa);
+                $('#txt_carta_recursada').text(carta_recursada);
+                $('#txt_valor_original').text(valor_original);
+
+                $('#txt_id_nota').text("");
+                $('#id_nota').val(0);
+                $('#numero').val("");
+                $('#lote').val("");
+                $('#exercicio').val("");
+                $('#valor').val("");	
+                $('#data_emissao').val("");
+                $('#data_validacao').val("");
+
+                $("#msg_nota").html("");
+                $('#form_nota').collapse('show');  
+                $('#numero').focus();
+            }
             function alterarNota(id_recurso_glosa,carta_recursada, valor_original, id_nota, numero, lote, valor, exercicio, usuario, data_emissao, data_validacao) {
                 $('#txt_carta_recursada').text(carta_recursada);
                 $('#txt_valor_original').text(valor_original);
@@ -95,17 +113,7 @@ and open the template in the editor.
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
                 $('#pagar').modal({show: true});
             }
-            function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
-                $('#id_recurso_glosa').val(id_recurso_glosa);
-                $('#txt_carta_recursada').text(carta_recursada);
-                $('#txt_valor_original').text(valor_original);
 
-                $('#txt_id_nota').text("");
-                $('#id_nota').val(0);
-                $("#msg_nota").html("");
-                $('#form_nota').collapse('show');  
-                $('#numero').focus();
-            }
 
            function novaNotaInfo(id_nota_glosa, numero, lote, valor,emissao, validacao) {
                 $('#id_nota_glosa').val(id_nota_glosa);
