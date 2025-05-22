@@ -299,7 +299,8 @@ and open the template in the editor.
                                         </div>
 
                                         <div class="form-group row float-right">
-                                            <button type="submit" class="btn btn-primary btn-sm mr-3"><i class="fas fa-save"></i> Adicionar</button>
+                                            <button type="button" class="btn btn-danger btn-sm mr-3" onclick="location.reload();"><i class="fas fa-undo"></i> Cancelar</button>
+                                            <button type="submit" class="btn btn-primary btn-sm mr-3"><i class="fas fa-save"></i> Salvar</button>
                                         </div>
                                     </form>   
 
