@@ -21,13 +21,13 @@ $id_fiscal_prestador = $_POST['id_fiscal_prestador'];
 $carta_recursada = $_POST['carta_recursada'];
 $valor_original = $_POST['valor_original'];
 
-$cr->id_fiscal_prestador = $id_fiscal_prestador;
+$id = isset($_POST['id']) ? $_POST['id'] : 0;
 $cr->id = $id;
+$cr->id_fiscal_prestador = $id_fiscal_prestador;
 $cr->carta_recursada = $carta_recursada;
 $cr->valor_original = $valor_original;
 
 $db_cartaRecursada->salvar($cr);
-
 
 $a = new Auditoria();
 $a->acao = "Cadastrar Pagamento!";

@@ -43,6 +43,16 @@ and open the template in the editor.
             var duplicado = 0;
             $(document).ready(function () {
             });
+            function alterarGlosa(id, carta_recursada, valor_original,id_fiscal_prestador) {
+                $('#id').val(id);
+                $('#id_fiscal_prestador').text(id_fiscal_prestador);
+                $('#carta_recursada').text(carta_recursada);
+                $('#valor_original').text(valor_original);
+                $('#txt_cadastro_glosa').text("Alterar pagamento: " + id);   
+                $('#form_cadastro').removeAttr('onsubmit');  
+                $('#carta_recursada').focus();
+            }
+
             function excluir(id_prestador,id, informativo, competencia, usuario) {
                 $('#delete').attr('href', 'remover_glosa_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
@@ -268,11 +278,12 @@ and open the template in the editor.
                                         if($editar){
                                      ?>
                                     <p class=" ml-2 card-text">
-                                    <span class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
+                                    <span id="txt_cadastro_glosa" class="mt-3 ml-2 h6 card-title">Novo pagamento</span>
                                     <form id="form_cadastro" action="save_glosas_prestador.php" method="post" onsubmit="return verificaInformativoExiste(<?=$prestador->id ?>)">
                                         <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
+                                        <input type="hidden" id="id" name="id" value="0"/>
                                         <div class="form-group row ml-1">
                                             <label for="carta_recursada" class="col-sm-2 col-form-label">Carta Recursada:</label>
                                             <div class="col-sm-10">
@@ -346,11 +357,14 @@ and open the template in the editor.
                                             $btn_nova = "<button id='btn_cadastrar' align='center' onclick='novaNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                     <i class='fa fa-plus-circle text-white'  aria-hidden='true'></i>
                                                                 </button>";
+                                            $btn_alterar = "<button id='btn_cadastrar' align='center' onclick='alterarGlosa(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",\"".$obj->id_fiscal_prestador."\")' title='Alterar Glosa!' class='btn btn-warning btn-sm' type='button'>
+                                                            <i class='fas fa-edit text-white'  aria-hidden='true'></i>
+                                                        </button>";
                                                     if($editar){
                                                         if ($obj->excluir) {
-                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button></td>";
+                                                            echo "  <td align='center'>".$btn_alterar . "&nbsp;&nbsp;" .$btn_nova."&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$prestador->id.",".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button></td>";
                                                         } else {
-                                                            echo "  <td align='center'>".$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
+                                                            echo "  <td align='center'>".$btn_alterar . "&nbsp;&nbsp;" .$btn_nova."&nbsp;&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possui notas!'><i class='far fa-trash-alt'></i></button></td>";
 
                                                         }
                                                     } else {
