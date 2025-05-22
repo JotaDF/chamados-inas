@@ -18,7 +18,8 @@ $np = new NotaPagamento();
 $id_usuario         = $_REQUEST['id_usuario'];
 $id_prestador       = $_POST['id_prestador'];
 
-$np->pagamento       = $_POST['id_pagamento'];
+$np->id                 = isset($_POST['id_nota']) ? $_POST['id_nota'] : 0;
+$np->pagamento          = $_POST['id_pagamento'];
 $np->numero             = $_POST['numero'];
 $np->valor              = $_POST['valor'];
 $np->exercicio          = $_POST['exercicio'];

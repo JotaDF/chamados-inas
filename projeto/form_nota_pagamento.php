@@ -4,14 +4,15 @@
 <div class="card mb-4 collapse hide border-primary" id="form_nota" style="max-width:800px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de nota fiscal</span>
+        <span class="h6 m-0 font-weight text-white">Cadastro de nota fiscal <span id="txt_id_nota"></span></span>
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_nota_pagamento.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
+        <form id="form_cadastro_nota" action="save_nota_pagamento.php" method="post" onsubmit="return verificaNotaExiste(<?=$prestador->id ?>)">
             <input type="hidden" id="id_pagamento" name="id_pagamento" value="<?=$obj->id ?>"/>
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
+            <input type="hidden" id="id_nota" name="id_nota" value=""/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_id_pagamento">ID Pagamento:</label>
@@ -20,11 +21,11 @@
                 <div class="form-group col-md-3">
                 <label for="txt_competencia">Competência:</label>
                 <b><span id="txt_competencia"></span></b>
-                </div>  
+                </div>
                 <div class="form-group col-md-3">
                 <label for="txt_informativo">Informativo:</label>
                 <b><span id="txt_informativo"></span></b>
-                </div>       
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -34,7 +35,7 @@
                 <div class="form-group col-md-3">
                 <label for="valor">Valor:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" required>
-                </div>  
+                </div>
                 <div class="form-group col-md-3">
                 <label for="exercicio">Exercício:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio" required>

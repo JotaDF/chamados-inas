@@ -52,6 +52,7 @@ and open the template in the editor.
                 $('#form_cadastro').removeAttr('onsubmit');  
                 $('#competencia').focus();   
             }
+            
             function excluir(id_prestador,id, informativo, competencia, usuario) {
                 $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
@@ -75,6 +76,26 @@ and open the template in the editor.
                 $('#txt_competencia').text(competencia);
                 $('#txt_informativo').text(informativo);
                 $("#msg_nota").html("");
+                $('#form_nota').collapse('show');
+            }
+            function alterarNota(id_pagamento, competencia, informativo, id_prestador,id_nota, numero, valor, exercicio, usuario,data_emissao,data_validacao) {
+                //dados do pagamento
+                $('#id_pagamento').val(id_pagamento);
+                $('#txt_id_pagamento').text(id_pagamento);
+                $('#txt_competencia').text(competencia);
+                $('#txt_informativo').text(informativo);
+                //dados da nota
+                $('#id_prestador').val(id_prestador);
+                $('#id_usuario').val(usuario);
+                $('#id_nota').val(id_nota);
+                $('#txt_id_nota').text("Alterando nota ID: "+id_nota);
+                $('#numero').val(numero);
+                $('#valor').val(valor);
+                $('#exercicio').val(exercicio);
+                $('#data_emissao').val(data_emissao);
+                $('#data_validacao').val(data_validacao);
+                $('#form_cadastro_nota').removeAttr('onsubmit');
+                
                 $('#form_nota').collapse('show');
             }
             function mostrarOcorrencias(id_nota,id_prestador) {
@@ -363,6 +384,7 @@ and open the template in the editor.
                                                         $btn_nt_reverter_pag = "<a class='btn btn-danger btn-sm' title='Reverter pagamento!' href='reverter_pagamento_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-random'></i></a>&nbsp;";
                                                         $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_pagamento.php?id_prestador=".$prestador->id."&id=".$n->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>";                                                    
                                                         $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>";
+                                                        $btn_nt_alterar = "<button title='Alterar nota!' class='btn btn-warning btn-sm' type='button' onclick='alterarNota(".$obj->id.",\"".$obj->competencia."\",\"".$obj->informativo."\",".$prestador->id.",".$n->id.",\"".$n->numero."\",\"".$n->valor."\",\"".$n->exercicio."\",".$usuario_logado->id.",\"".date('Y-m-d', $n->data_emissao)."\",\"".date('Y-m-d', $n->data_validacao)."\")'><i class='fa fa-credit-card'></i></button>";                                                
                                                         $txt_btns = " - ";
                                                         $txt_doc_sei = "";
                                                         if($editar){
@@ -453,7 +475,7 @@ and open the template in the editor.
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form id="form_cadastro" action="pagar_nota_pagamento.php" method="post">
+                    <form id="form_cadastro_pg" action="pagar_nota_pagamento.php" method="post">
                         <input type="hidden" id="id_nota_pg" name="id_nota"/>
                         <input type="hidden" id="id_usuario_pg" name="id_usuario"/>
                         <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
