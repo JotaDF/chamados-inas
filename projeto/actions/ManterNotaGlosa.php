@@ -61,7 +61,7 @@ Class ManterNotaGlosa extends Model {
         return $dados;
     }
     function getCartasPorNotaGlosa($id) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.valor_deferido, cr.status, cr.id_nota_glosa, cr.exercicio, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.doc_sei
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.valor_deferido, cr.status, cr.id_nota_glosa, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.doc_sei
                 FROM  carta_recurso as cr 
                 WHERE cr.id_nota_glosa = " . $id;
 
@@ -72,9 +72,10 @@ Class ManterNotaGlosa extends Model {
             $dados->id                     = $registro["id"];
             $dados->carta_informativo      = $registro["carta_informativo"];
             $dados->exercicio              = $registro["exercicio"];
+            $dados->competencia            = $registro["competencia"];
             $dados->valor_deferido         = $registro["valor_deferido"];
             $dados->id_nota_glosa          = $registro["id_nota_glosa"];
-	    $dados->doc_sei             = $registro["doc_sei"];
+	        $dados->doc_sei             = $registro["doc_sei"];
             $dados->data_emissao        = $registro["data_emissao"];
             $dados->data_validacao      = $registro["data_validacao"];
             $dados->data_executado      = $registro["data_executado"];

@@ -140,7 +140,7 @@ AND cr.exercicio = '".$exercicio."'";
         $sql = "insert into carta_recurso (carta_informativo, exercicio, competencia, valor_deferido, id_nota_glosa, data_emissao, data_validacao, status) 
         values ('" . $dados->carta_informativo . "', '".$dados->exercicio."', '".$dados->competencia."', '" . $dados->valor_deferido . "','" . $dados->id_nota_glosa . "', '" . $dados->data_emissao . "', '" . $dados->data_validacao . "','Em análise')";
         if ($dados->id > 0) {
-            $sql = "update nota_glosa set numero='" . $dados->carta_informativo . "', valor='" . $dados->valor_deferido . "', exercicio='" . $dados->valor_deferido . "', competencia='" . $dados->competencia
+            $sql = "update carta_recurso set carta_informativo='" . $dados->carta_informativo . "', valor_deferido='" . $dados->valor_deferido . "', exercicio='" . $dados->exercicio . "', competencia='" . $dados->competencia
              . "', data_emissao='" . $dados->data_emissao . "', data_validacao='" . $dados->data_validacao . "' where id=" . $dados->id;
             $resultado = $this->db->Execute($sql);
         } else {
