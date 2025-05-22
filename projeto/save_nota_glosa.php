@@ -17,6 +17,7 @@ $ng = new NotaGlosa();
 $id_usuario             = $_REQUEST['id_usuario'];
 $id_prestador           = $_POST['id_prestador'];
 //-------------------------------------------------//
+$ng->id                 = isset($_POST['id_nota']) ? $_POST['id_nota'] : 0;
 $ng->numero             = $_POST['numero'];
 $ng->lote               = $_POST['lote'];
 $ng->valor              = $_POST['valor'];

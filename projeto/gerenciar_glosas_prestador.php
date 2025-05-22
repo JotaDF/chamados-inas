@@ -52,6 +52,26 @@ and open the template in the editor.
                 $('#form_cadastro').removeAttr('onsubmit');  
                 $('#carta_recursada').focus();
             }
+            function alterarNota(id_recurso_glosa,carta_recursada, valor_original, id_nota, numero, lote, valor, exercicio, usuario, data_emissao, data_validacao) {
+                $('#txt_carta_recursada').text(carta_recursada);
+                $('#txt_valor_original').text(valor_original);
+                
+                $('#id_recurso_glosa').val(id_recurso_glosa);
+                $('#id_usuario').val(usuario);
+                $('#txt_id_nota').text(" - Alterando nota ID: "+id_nota);
+                $('#id_nota').val(id_nota);
+                $('#numero').val(numero);
+                $('#lote').val(lote);
+                $('#exercicio').val(exercicio);
+                $('#valor').val(valor);
+                $('#data_emissao').val(data_emissao);
+                $('#data_validacao').val(data_validacao);
+
+                $('#form_cadastro_nota').removeAttr('onsubmit');
+                $("#msg_nota").html("");
+                $('#form_nota').collapse('show');  
+                $('#numero').focus();
+            }
 
             function excluir(id_prestador,id, informativo, competencia, usuario) {
                 $('#delete').attr('href', 'remover_glosa_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
@@ -387,13 +407,15 @@ and open the template in the editor.
                                                         }
                                                         $btn_nova_info = "<button id='btn_cadastrar_info' onclick='novaNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
                                                                             <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
+                                                        $btn_alterar_nota = "<button id='btn_cadastrar_info' onclick='alterarNota(".$obj->id.",\"".$obj->carta_recursada."\",\"".$obj->valor_original."\",".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->exercicio."\",\"".$usuario_logado->id."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\")' title='Adicionar nota!' class='btn btn-primary btn-sm' type='button'>
+                                                                            <i class='fa fa-plus-circle text-white' aria-hidden='true'></i></button>&nbsp;";
 
                                                         $tem_nota = true;
                                                         $out_notas .= "<tr>";
                                                         $out_notas .= "  <td align='center'>".$n->numero."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->lote."</td>";
                                                         $out_notas .= "  <td align='center'>".$n->valor."</td>";
-                                                        $out_notas .= "  <td align='center'>".$btn_nova_info . $btn_nt_excluir ."</td>";
+                                                        $out_notas .= "  <td align='center'>".$btn_nova_info . $btn_nt_excluir . $btn_alterar_nota ."</td>";
                                                         
                                                         $tem_info = false;
                                                         $out_info = "";

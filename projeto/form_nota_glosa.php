@@ -4,14 +4,15 @@
 <div class="card mb-4 collapse hide border-primary" id="form_nota" style="max-width:800px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de nota fiscal</span>
+        <span class="h6 m-0 font-weight text-white">Cadastro de nota fiscal <span id="txt_id_nota"></span></span>
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_nota_glosa.php" method="POST">
+        <form id="form_cadastro_nota" action="save_nota_glosa.php" method="POST">
             <input type="hidden" id="id_recurso_glosa" name="id_recurso_glosa" value="<?=$obj->id ?>"/>
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
+            <input type="hidden" id="id_nota" name="id_nota" value="<?=$obj->id ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_carta_recursada">Carta:</label>
