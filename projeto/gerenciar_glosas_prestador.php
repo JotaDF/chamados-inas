@@ -99,6 +99,9 @@ and open the template in the editor.
                 $('#id_recurso_glosa').val(id_recurso_glosa);
                 $('#txt_carta_recursada').text(carta_recursada);
                 $('#txt_valor_original').text(valor_original);
+
+                $('#txt_id_nota').text("");
+                $('#id_nota').val(0);
                 $("#msg_nota").html("");
                 $('#form_nota').collapse('show');  
                 $('#numero').focus();
