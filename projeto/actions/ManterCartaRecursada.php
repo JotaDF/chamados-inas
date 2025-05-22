@@ -126,7 +126,7 @@ Class ManterCartaRecursada extends Model {
     function salvar(CartaRecursada $dados) {
         $sql = "insert into carta_recursada_glosa (carta_recursada, valor_original, id_fiscal_prestador) values('".$dados->carta_recursada."', '".$dados->valor_original."', '".$dados->id_fiscal_prestador."')";
         if($dados->id > 0) {
-            $sql = "update carta_recursada_glosa set carta_recursada='".$dados->carta_recursada."' , '".$dados->valor_original."' , '".$dados->id_fiscal_prestador."' where id =" . $dados->id;
+            $sql = "update carta_recursada_glosa set carta_recursada='".$dados->carta_recursada."' , valor_original='".$dados->valor_original."' , id_fiscal_prestador='".$dados->id_fiscal_prestador."' where id =" . $dados->id;
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
