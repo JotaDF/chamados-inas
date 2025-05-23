@@ -43,4 +43,4 @@ Class ManterQuestEscala extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-}
+} 
