@@ -8,7 +8,7 @@ require_once 'actions/ManterQuestEscala.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -58,7 +58,6 @@ require_once 'actions/ManterQuestEscala.php';
             $('#pergunta').val(pergunta);
             $('#form_quest_pergunta').collapse("show");
         }
-
         function excluir(id, titulo) {
             $('#delete').attr('href', 'del_quest_pergunta.php?id=' + id);
             $('#titulo_excluir').text(titulo);
@@ -125,7 +124,7 @@ require_once 'actions/ManterQuestEscala.php';
                     <div class="card mb-4 border-primary" style="max-width:900px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
-                                <i class="fas fa-users fa-2x text-white"></i>
+                                <!-- <i class="fas fa-users fa-2x text-white"></i> -->
                             </div>
                             <div class="col mb-0">
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Perguntas</span>
@@ -146,6 +145,7 @@ require_once 'actions/ManterQuestEscala.php';
                                         <th scope="col" style="text-align: center;">ID</th>
                                         <th scope="col" style="text-align: center;">Título</th>
                                         <th scope="col" style="text-align: center;">Pergunta</th>
+                                        <th scope="col" style="text-align: center;">Opcional</th>
                                         <th scope="col" style="text-align: center;">Publicada</th>
                                         <th scope="col" style="text-align: center;">Tipo de Escala</th>
                                         <th scope="col" style="width:100px;">Opções</th>

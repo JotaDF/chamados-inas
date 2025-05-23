@@ -10,7 +10,7 @@ Class ManterQuestEscala extends Model {
     }
 
     function listar() {
-        $sql = 'select id, nome, descricao FROM quest_escala';
+        $sql = 'select id, nome, descricao, parametro FROM quest_escala';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -19,6 +19,7 @@ Class ManterQuestEscala extends Model {
             $dados->id                     = $registro['id'];
             $dados->nome                   = $registro['nome'];
             $dados->descricao              = $registro['descricao'];
+            $dados->parametro              = $registro['parametro'];
             $array_dados[]                 = $dados;
         }
 
@@ -26,8 +27,7 @@ Class ManterQuestEscala extends Model {
     }
 
     function salvar(QuestEscala $dados) {
-        $sql = "insert into quest_escala (nome, descricao, parametro) values ('" .$dados->nome. "', '" .$dados->descricao. "', '" . $dados->parametro . "')";
-        
+        $sql = "insert into quest_escala (nome, descricao, parametro) values ('" .$dados->nome. "', '" .$dados->descricao. "', '". $dados->parametro . "')";
         if ($dados->id > 0) {
             $sql = "update quest_escala set nome='". $dados->nome ."', descricao='". $dados->descricao ."', parametro='". $dados->parametro ."' WHERE id= '". $dados->id . "'";
             $resultado = $this->db->Execute($sql);
