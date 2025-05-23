@@ -21,7 +21,6 @@ Class ManterQuestQuestionario extends Model {
             $dados->descricao              = $registro['descricao'];
             $array_dados[]                 = $dados;
         }
-
         return $array_dados;
     }
     function salvar(QuestQuestionario $dados) {
