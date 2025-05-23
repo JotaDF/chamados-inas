@@ -11,17 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$nome || !$descricao || !$parametro) {
         header('Location: quest_escala.php?erro=1');
         exit;
-    } 
-
-    if (!$id) {
-        header('Location: quest_escala.php?erro=2'); 
-
-        exit;
-    }
-
-    if (trim($descricao) === '') {
-        header('Location: quest_escala.php?msg=2');
-        exit;
     }
 
     $escalaDTO                = new QuestEscala();
