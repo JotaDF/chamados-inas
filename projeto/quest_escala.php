@@ -142,6 +142,7 @@ require_once 'verifica_login.php';
                                         <th scope="col" style="text-align: center;">ID</th>
                                         <th scope="col" style="text-align: center;">Nome</th>
                                         <th scope="col" style="text-align: center;">Descrição</th>
+                                        <th scope="col" style="text-align: center;">Parâmetro</th>
                                         <th scope="col" style="width:100px;">Opções</th>
                                     </tr>
                                 </thead>

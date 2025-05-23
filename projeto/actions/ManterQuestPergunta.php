@@ -9,7 +9,7 @@ Class ManterQuestPergunta extends Model {
     }
 
     function listar() {
-        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.publicada, qp.id_quest_escala, qp.opcional, qe.id, qe.nome FROM quest_pergunta as qp, quest_escala as qe WHERE qp.id = qe.id';
+        $sql = 'SELECT qp.id AS id, qp.titulo AS titulo, qp.pergunta AS pergunta, qp.publicada AS publicada, qp.id_quest_escala AS id_quest_escala, qp.opcional AS opcional, qe.id AS id_escala, qe.nome AS nome_escala FROM quest_pergunta AS qp, quest_escala AS qe WHERE qp.id_quest_escala = qe.id';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -20,7 +20,7 @@ Class ManterQuestPergunta extends Model {
             $dados->pergunta                  = $registro['pergunta'];
             $dados->publicada                 = $registro['publicada'];
             $dados->opcional                  = $registro['opcional'];
-            $dados->nome                      = $registro['nome'];
+            $dados->nome                      = $registro['nome_escala'];
             $dados->id_quest_escala           = $registro['id_quest_escala'];
             $array_dados[]                    = $dados;
         }
@@ -28,7 +28,7 @@ Class ManterQuestPergunta extends Model {
         return $array_dados;
     }
     function salvar(QuestPergunta $dados) {
-        $sql = "insert into quest_pergunta (titulo, pergunta, id_quest_escala, opcional) values ('" .$dados->titulo. "', '" .$dados->pergunta. "', '". $dados->id_quest_escala . "', '". $dados->opcional . "')";
+       $sql = "insert into quest_pergunta (titulo, pergunta, id_quest_escala, opcional ) values ('" .$dados->titulo. "', '" .$dados->pergunta. "', '" .$dados->id_quest_escala. "', '" .$dados->opcional. "')";
         
         if($dados->id > 0) {
             $sql = "update quest_pergunta SET titulo='". $dados->titulo ."', pergunta='". $dados->pergunta . "', id_quest_escala='". $dados->id_quest_escala . "', opcional='". $dados->opcional ."' WHERE id='". $dados->id . "'";
