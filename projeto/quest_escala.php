@@ -1,10 +1,10 @@
 <?php
-session_start();
+$mod = 16;
 require_once 'verifica_login.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,22 @@ require_once 'verifica_login.php';
         $(document).ready(function () {
             $('#escalas').DataTable();
         });
-        functio
+          function alterar(id, nome, descricao) {
+            $('#id_quest_escala').val(id);
+            $('#nome').val(nome);
+            $('#descricao').val(descricao);
+            $('#form_quest_escala').collapse("show");
+        }
+
+        function excluir(id, nome) {
+            console.log(id);
+            $('#delete').attr('href', 'del_quest_escala.php?id=' + id);
+            $('#nome_excluir').text(nome);
+            $('#confirm').modal({ show: true });
+        }
+        if (window.location.search.includes('msg=')) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     </script>
     <style>
         body {
@@ -80,7 +95,7 @@ require_once 'verifica_login.php';
                                 </button>
                             </div>
                             <?php
-                        } else {
+                        } else if ($id_msg = 2) {
                             ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>Erro!</strong> O Campo descrição deve receber um conteudo válido.
@@ -89,6 +104,16 @@ require_once 'verifica_login.php';
                                     </button>
                                 </div>
                             <?php
+                        } else if ($id_msg = 10) {
+                            ?>
+                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Sucesso!</strong> O Campo descrição deve receber um conteudo válido.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <?php
                         }
                     }
                     ?>
@@ -128,6 +153,7 @@ require_once 'verifica_login.php';
                     </div>
                 </div>
             </div>
+             <?php include './rodape.php'; ?>
         </div>
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
