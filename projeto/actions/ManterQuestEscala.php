@@ -3,14 +3,14 @@ require_once 'Model.php';
 require_once 'dto/QuestEscala.php';
 
 Class ManterQuestEscala extends Model {
-
+ 
         
     function __construct() {
         parent::__construct();
     }
 
     function listar() {
-        $sql = 'select id, nome, descricao FROM quest_escala';
+        $sql = 'select id, nome, descricao (SELECT COUNT(*) from )FROM quest_escala';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
