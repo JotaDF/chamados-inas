@@ -34,14 +34,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="quest_escala.php">
-                <i class="fa fa-question-circle"></i>
-                <span>Genreciar Escalas</span>
+                <i class="fa fa-bars"></i>
+                <span>Gerenciar Escalas</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="quest_pergunta.php">
-                <i class="fa fa-question-circle"></i>
-                <span>Genreciar Perguntas</span>
+                <i class="fa fa-question"></i>
+                <span>Gerenciar Perguntas</span>
             </a>
         </li>
         <?php
