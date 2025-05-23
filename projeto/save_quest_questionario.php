@@ -11,10 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: quest_questionario.php?erro=1');
         exit;
     } 
-    if (trim($descricao) === '') {
-        header('Location: quest_questionario.php?msg=2');
-        exit;
-    }
     
     $questionarioDTO                = new QuestQuestionario();
     $questionarioDTO->id            = $id;
@@ -28,4 +24,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: quest_questionario.php?msg=1');
         exit;
     }
-} 
+}
