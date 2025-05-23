@@ -14,7 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } 
 
     if (!$id) {
+<<<<<<< HEAD
+        header('Location: quest_escala.php?erro=2'); 
+=======
         header('Location: quest_escala.php?naoveio'); 
+>>>>>>> 9ce4742bbd7ca4223b4185e67a33a142db13d4ee
         exit;
     }
 
