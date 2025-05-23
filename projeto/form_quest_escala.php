@@ -17,7 +17,11 @@
                 <div class="mb-3">
                     <label for="parametro" class="form-label">Parâmentro:</label>
                     <input type="text" class="form-control" id="parametro" name="parametro" required><br/>
-                    <span>Exemplos de parâmetros: <br/>livre <small class="form-text text-muted">(texto livre)</small><br/>Falso;Verdadeiro <small class="form-text text-muted">(Multipla escolha)</small><br/>Sim;Não <small class="form-text text-muted">(Multipla escolha)</small><br/>1;2;3;4;5 <small class="form-text text-muted">(Multipla escolha)</small>
+                    <span>Exemplos de parâmetros: 
+                        <br/>livre <small class="text-muted">(texto livre)</small>
+                        <br/>Falso;Verdadeiro <small class="text-muted">(Multipla escolha)</small>
+                        <br/>Sim;Não <small class="text-muted">(Multipla escolha)</small>
+                        <br/>1;2;3;4;5 <small class="text-muted">(Multipla escolha)</small>
                 </div>
                 <div class="form-group row float-right p1">
                     <button type="reset" class="btn btn-danger btn-sm" data-toggle="collapse" data-target="#form_quest_escala">
