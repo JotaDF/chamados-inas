@@ -4,7 +4,6 @@ require_once 'dto/QuestQuestionario.php';
 
 Class ManterQuestQuestionario extends Model {
 
-        
     function __construct() {
         parent::__construct();
     }
