@@ -1,9 +1,10 @@
 <?php
-session_start();
+//Juridico
+$mod = 16;
+// Verifica se o usuário está logado
 require_once 'verifica_login.php';
 require_once 'actions/ManterQuestEscala.php';
-$manterQuestEscala = new ManterQuestEscala();
-$escalas           = $manterQuestEscala->listar();
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $escalas           = $manterQuestEscala->listar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escala - INAS</title>
-  
+
     <!-- Ícone -->
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -146,7 +147,6 @@ $escalas           = $manterQuestEscala->listar();
                                         <th scope="col" style="text-align: center;">Título</th>
                                         <th scope="col" style="text-align: center;">Pergunta</th>
                                         <th scope="col" style="text-align: center;">Publicada</th>
-                                        <th scope="col" style="text-align: center;">Opcional</th>
                                         <th scope="col" style="text-align: center;">Tipo de Escala</th>
                                         <th scope="col" style="width:100px;">Opções</th>
                                     </tr>
