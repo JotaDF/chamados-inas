@@ -47,10 +47,11 @@ require_once 'verifica_login.php';
         $(document).ready(function () {
             $('#escalas').DataTable();
         });
-          function alterar(id, nome, descricao) {
+          function alterar(id, nome, descricao, parametro) {
             $('#id_quest_escala').val(id);
             $('#nome').val(nome);
             $('#descricao').val(descricao);
+            $('#parametro').val(parametro);
             $('#form_quest_escala').collapse("show");
         }
 
@@ -142,7 +143,6 @@ require_once 'verifica_login.php';
                                         <th scope="col" style="text-align: center;">ID</th>
                                         <th scope="col" style="text-align: center;">Nome</th>
                                         <th scope="col" style="text-align: center;">Descrição</th>
-                                        <th scope="col" style="text-align: center;">Parâmetro</th>
                                         <th scope="col" style="width:100px;">Opções</th>
                                     </tr>
                                 </thead>
