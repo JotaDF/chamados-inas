@@ -69,6 +69,9 @@ foreach ($acessos as $acesso) {
                 $icon_css = "fa fa-signal";
                 $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
                 break; 
+            case 16:
+                $icon_css = "fa fa-question-circle";
+                break;                
                                                 
         }
         
