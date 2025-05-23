@@ -82,7 +82,7 @@ require_once 'verifica_login.php';
         }
     </style>
 </head>
-
+ 
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">

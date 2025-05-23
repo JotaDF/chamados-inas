@@ -38,6 +38,12 @@
                 <span>Genreciar Escalas</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="quest_pergunta.php">
+                <i class="fa fa-question-circle"></i>
+                <span>Genreciar Perguntas</span>
+            </a>
+        </li>
         <?php
     }
     ?>

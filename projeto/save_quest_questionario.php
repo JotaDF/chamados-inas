@@ -28,4 +28,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: quest_questionario.php?msg=1');
         exit;
     }
-}
+} 

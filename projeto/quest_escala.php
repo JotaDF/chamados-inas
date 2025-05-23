@@ -10,7 +10,7 @@ require_once 'verifica_login.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escala - INAS</title>
-
+  
     <!-- Ícone -->
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -47,22 +47,7 @@ require_once 'verifica_login.php';
         $(document).ready(function () {
             $('#escalas').DataTable();
         });
-        function alterar(id, nome, descricao) {
-            console.log(id);
-            $('#id_quest_escala').val(id);
-            $('#nome').val(nome);
-            $('#descricao').val(descricao);
-            $('#form_quest_escala').collapse("show");
-        }
-
-        function excluir(id, nome) {
-            $('#delete').attr('href', 'del_quest_escala.php?id=' + id);
-            $('#nome_excluir').text(nome);
-            $('#confirm').modal({ show: true });
-        }
-        if (window.location.search.includes('msg=')) {
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
+        functio
     </script>
     <style>
         body {
@@ -94,15 +79,6 @@ require_once 'verifica_login.php';
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <?php
-                        } else if ($id_msg == 10) {
-                            ?>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Sucesso!</strong> O questionário foi excluído.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
                             <?php
                         } else {
                             ?>

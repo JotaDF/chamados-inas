@@ -11,4 +11,4 @@ if ($_SERVER['REQUEST_METHOD']) {
         header('Location: quest_escala.php?msg=10');
         exit;
     }
-}
+} 
