@@ -14,6 +14,11 @@
                     <label for="descricao" class="form-label">Descrição:</label>
                     <input type="text" class="form-control" id="descricao" name="descricao" required>
                 </div>
+                <div class="mb-3">
+                    <label for="parametro" class="form-label">Parâmentro:</label>
+                    <input type="text" class="form-control" id="parametro" name="parametro" required><br/>
+                    <small class="form-text text-muted">Exemplos: <br/>livre (texto livre)<br/>Falso;Verdadeiro (Multipla escolha)<br/>Sim;Não (Multipla escolha)<br/>1;2;3;4;5 (Multipla escolha)</small>
+                </div>
                 <div class="form-group row float-right p1">
                     <button type="reset" class="btn btn-danger btn-sm" data-toggle="collapse" data-target="#form_quest_escala">
                         <i class="fa fa-minus-square"></i> Cancelar
@@ -27,4 +32,3 @@
         </div>
     </div>
 </div>
- 
