@@ -8,7 +8,7 @@ $c = new QuestCategoriaPergunta();
 
 $manterCategoria = new ManterQuestCategoriaPergunta();
 
-$id  = $_REQUEST['id'];
+$id  = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 $id_questionario = $_REQUEST['id_questionario'];
 $nome = isset($_REQUEST['categoria']) ? $_REQUEST['categoria'] : '';
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 1;
