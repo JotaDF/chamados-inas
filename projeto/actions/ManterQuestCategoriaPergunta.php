@@ -43,9 +43,9 @@ class ManterQuestCategoriaPergunta extends Model {
         return $dados;
     }
     function salvar(QuestCategoriaPergunta $dados) {
-        $sql = "insert into quest_pergunta_categoria (nome,descricao,id_quest_questionario) values ('" . $dados->nome . "','" . $dados->questionario . "')";
+        $sql = "insert into quest_categoria_pergunta (nome,descricao,id_quest_questionario) values ('" . $dados->nome . "','" . $dados->questionario . "')";
         if ($dados->id > 0) {
-            $sql = "update quest_pergunta_categoria set nome='" . $dados->nome . "',id_quest_questionario='" . $dados->questionario . "' where id=$dados->id";
+            $sql = "update quest_categoria_pergunta set nome='" . $dados->nome . "',id_quest_questionario='" . $dados->questionario . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
@@ -55,7 +55,7 @@ class ManterQuestCategoriaPergunta extends Model {
     }
 
     function excluir($id) {
-        $sql = "delete from quest_pergunta_categoria where id=" . $id;
+        $sql = "delete from quest_categoria_pergunta where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
