@@ -64,8 +64,8 @@ and open the template in the editor.
                 <div id="content">
                     <?php include './top_bar.php'; ?>
                     <?php
-                    include_once('actions/ManterEquipe.php');
-                    include_once('actions/ManterUsuario.php');
+                    include_once('actions/ManterQuestQuestionario.php');
+                    include_once('actions/ManterQuestCategoriaPergunta.php');
 
                     $manterQuestionario = new ManterQuestQuestionario();
                     $manterCategoriaQuetionario = new ManterQuestCategoriaPergunta();
@@ -73,7 +73,7 @@ and open the template in the editor.
                     if (isset($_REQUEST['id'])) {
                         $id = $_REQUEST['id'];                        
                         $questionario    = $manterQuestionario->getQuestionarioPorId($id);
-                        $filtro          = " WHERE id_quest_questionario = $id ";
+                        $filtro          = " WHERE c.id_quest_questionario = $id ";
                         $categorias      = $manterCategoriaQuetionario->listar($filtro);
                         $editar = false;
 
