@@ -113,7 +113,7 @@ and open the template in the editor.
                                         <input type="hidden" id="id_questionario" name="id_questionario" value="<?=$questionario->id ?>"/>
                                         <input type="hidden" id="op" name="op" value="1"/>
                                         <div class="form-group row">
-                                            <label for="sigla" class="col-sm-2 col-form-label">Usuário:</label>
+                                            <label for="sigla" class="col-sm-2 col-form-label">Nome:</label>
                                             <div class="col-sm-10">
                                             <input type="text" id="categoria" name="categoria" class="form-control form-control-sm" required>
                                             </div>

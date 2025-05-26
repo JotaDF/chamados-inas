@@ -30,6 +30,7 @@ Class ManterQuestQuestionario extends Model {
             $dados->excluir    = true;
             $dados->id         = $registro['id'];
             $dados->titulo     = $registro['titulo'];
+            $dados->descricao  = $registro['descricao'];
         }
         return $dados;
     }
