@@ -109,7 +109,7 @@ and open the template in the editor.
                                     <br/>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Categoria</span>
-                                    <form id="form_cadastro" action="save_participante_questionario.php" method="post">
+                                    <form id="form_cadastro" action="save_categoria_questionario.php" method="post">
                                         <input type="hidden" id="id_questionario" name="id_questionario" value="<?=$questionario->id ?>"/>
                                         <input type="hidden" id="op" name="op" value="1"/>
                                         <div class="form-group row">
