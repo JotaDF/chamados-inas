@@ -11,7 +11,7 @@ class ManterQuestCategoriaPergunta extends Model {
     }
 
     function listar(string $filtro) {
-        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep FROM quest_categoria_pergunta as c $filtro order by c.nome";
+        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep FROM quest_categoria_pergunta as c $filtro order by c.ìd";
 	//echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -43,7 +43,7 @@ class ManterQuestCategoriaPergunta extends Model {
         return $dados;
     }
     function salvar(QuestCategoriaPergunta $dados) {
-        $sql = "insert into quest_categoria_pergunta (nome,descricao,id_quest_questionario) values ('" . $dados->nome . "','" . $dados->questionario . "')";
+        $sql = "insert into quest_categoria_pergunta (nome,id_quest_questionario) values ('" . $dados->nome . "','" . $dados->questionario . "')";
         if ($dados->id > 0) {
             $sql = "update quest_categoria_pergunta set nome='" . $dados->nome . "',id_quest_questionario='" . $dados->questionario . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
