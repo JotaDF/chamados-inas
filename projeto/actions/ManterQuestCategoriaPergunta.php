@@ -11,6 +11,7 @@ class ManterQuestCategoriaPergunta extends Model {
     }
 
     function listar(string $filtro) {
+        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep FROM quest_categoria_oergunta as c $filtro order by c.nome";
 	//echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
