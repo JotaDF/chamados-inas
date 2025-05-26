@@ -1,10 +1,11 @@
 <?php
-session_start();
+//Questionario
+$mod = 16;
 require_once 'verifica_login.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -82,7 +83,7 @@ require_once 'verifica_login.php';
         }
     </style>
 </head>
- 
+
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
