@@ -40,6 +40,13 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
+            function alterar(id, nome, id_questionario) {
+                $('#categoria').val(nome);
+                $('#id_questionario').val(id_questionario);
+                $('#id').val(id);
+                $('#op').val(1);
+                $('#categoria').focus();              
+            }
             function excluir(id, nome, id_questionario) {
                 $('#delete').attr('href', 'save_categoria_questionario.php?op=2&id=' + id +"&id_questionario="+id_questionario);
                 $('#nome_excluir').text(nome);
@@ -112,6 +119,7 @@ and open the template in the editor.
                                     <form id="form_cadastro" action="save_categoria_questionario.php" method="post">
                                         <input type="hidden" id="id_questionario" name="id_questionario" value="<?=$questionario->id ?>"/>
                                         <input type="hidden" id="op" name="op" value="1"/>
+                                        <input type="hidden" id="id" name="id" value=""/>
                                         <div class="form-group row">
                                             <label for="sigla" class="col-sm-2 col-form-label">Nome:</label>
                                             <div class="col-sm-10">
