@@ -148,7 +148,7 @@ and open the template in the editor.
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">CATEGORIA</th>
-                                            <th scope="col">REMOVER</th>
+                                            <th scope="col" style="width: 130px;">OPÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody id="fila">
