@@ -11,7 +11,7 @@ class ManterQuestCategoriaPergunta extends Model {
     }
 
     function listar(string $filtro) {
-        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep FROM quest_categoria_pergunta as c $filtro order by c.ìd";
+        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep FROM quest_categoria_pergunta as c $filtro order by c.id";
 	//echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -41,6 +41,42 @@ class ManterQuestCategoriaPergunta extends Model {
             $dados->total_perguntas = $registro["dep"];
         }
         return $dados;
+    }
+    function getPeguntasPorCategoria(int $id) {
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.publicada, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp, quest_pergunta_categoria AS qpc WHERE qpc.id_quest_pergunta=qp.id AND qpc.id_quest_categoria_pergunta=' . $id . ' ORDER BY qp.id';
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados                            = new QuestPergunta();
+            $dados->excluir                   = true;
+            $dados->id                        = $registro['id'];
+            $dados->titulo                    = $registro['titulo'];
+            $dados->pergunta                  = $registro['pergunta'];
+            $dados->publicada                 = $registro['publicada'];
+            $dados->opcional                  = $registro['opcional'];
+            $dados->id_quest_escala           = $registro['id_quest_escala'];
+            $array_dados[]                    = $dados;
+        }
+
+        return $array_dados;
+    }
+    function getPeguntasNaoVinculadasCategoria(int $id) {
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.publicada, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp  WHERE qp.id NOT IN(SELECT id_quest_pergunta FROM quest_pergunta_categoria WHERE id_quest_categoria_pergunta=' . $id . ') ORDER BY qp.id';
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados                            = new QuestPergunta();
+            $dados->excluir                   = true;
+            $dados->id                        = $registro['id'];
+            $dados->titulo                    = $registro['titulo'];
+            $dados->pergunta                  = $registro['pergunta'];
+            $dados->publicada                 = $registro['publicada'];
+            $dados->opcional                  = $registro['opcional'];
+            $dados->id_quest_escala           = $registro['id_quest_escala'];
+            $array_dados[]                    = $dados;
+        }
+
+        return $array_dados;
     }
     function salvar(QuestCategoriaPergunta $dados) {
         $sql = "insert into quest_categoria_pergunta (nome,id_quest_questionario) values ('" . $dados->nome . "','" . $dados->questionario . "')";
