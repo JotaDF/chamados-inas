@@ -19,7 +19,7 @@ Class ManterQuestPergunta extends Model {
             $dados->titulo                    = $registro['titulo'];
             $dados->pergunta                  = $registro['pergunta'];
             $dados->opcional                  = $registro['opcional'];
-            $dados->escala                    = $registro['nome'];
+            $dados->escala                    = $registro['escala'];
             $dados->id_quest_escala           = $registro['id_quest_escala'];
             $array_dados[]                    = $dados;
         }
