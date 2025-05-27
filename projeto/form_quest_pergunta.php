@@ -37,7 +37,6 @@
                     <div class="col-sm-7">
                         <div class="form-check form-check-inline">
                             <input type="checkbox" id="opcional" name="opcional" value="1">
-                            <label for="op1"> Sim </label>
                         </div>
                     </div>
                 </div>
