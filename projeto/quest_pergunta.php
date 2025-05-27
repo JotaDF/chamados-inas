@@ -48,14 +48,32 @@ require_once 'actions/ManterQuestEscala.php';
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script type="text/javascript" class="init">
+        var escalas = [];
+        <?php
+include_once('./actions/ManterQuestEscala.php');
+// Carrega as escalas disponíveis
+$manterEscala = new ManterQuestEscala();
+$listaEscala = $manterEscala->listar();
+foreach ($listaEscala as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", escala: "<?= $obj->nome ?>"};
+                escalas.push(item);
+    <?php
+}
+?>
         $(document).ready(function () {
             $('#perguntas').DataTable();
+            carregaEscalas(0);
         });
-        function alterar(id, titulo, pergunta, id_quest_escala) {
+        function alterar(id, titulo, pergunta, opcional,id_quest_escala) {
             $('#id_quest_pergunta').val(id);
-            $('#id_quest_escala').val(id_quest_escala);
             $('#titulo').val(titulo);
             $('#pergunta').val(pergunta);
+            carregaEscalas(id_quest_escala);
+            if (opcional == 1) {
+                $('#opcional').prop('checked', true);
+            } else {
+                $('#opcional').prop('checked', false);
+            }
             $('#form_quest_pergunta').collapse("show");
         }
         function excluir(id, titulo) {
@@ -67,6 +85,22 @@ require_once 'actions/ManterQuestEscala.php';
         if (window.location.search.includes('msg=')) {
             window.history.replaceState({}, document.title, window.location.pathname);
         }
+        function carregaEscalas(id_atual) {
+                var html = '<option value="">Selecione uma escala</option>';
+                for (var i = 0; i < escalas.length; i++) {
+                    var option = escalas[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.escala + '</option>';
+                }
+                $('#escala').html(html);
+            }
     </script>
     <style>
         body {

@@ -26,19 +26,9 @@
                     <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"><strong>Tipo de
                             Escala:</strong></label>
                     <div class="col-sm-7">
-                        <select name="id_quest_escala" class="form-control form-control-sm" id="escalas">
-                            <option value="0">Escolha uma escala</option>
-                            <?php
-                            $manterQuestEscala = new ManterQuestEscala();
-                            $escalas = $manterQuestEscala->listar();
-
-                            foreach ($escalas as $e) {
-                                ?>
-                                <option value="<?= $e->id ?>"><?= htmlspecialchars($e->nome) ?></option>
-                                <?php
-                            }
-                            ;
-                            ?>
+                        <label for="escala">Assunto <span class="text-danger font-weight-bold">*</span></label>
+                        <select id="escala" name="escala" class="form-control form-control-sm" required>
+                            <option value="">Selecione uma escala</option>    
                         </select>
                     </div>
                 </div>
@@ -46,14 +36,8 @@
                     <label for="pergunta_status" class="col-sm-2 col-form-label col-form-label-sm"><strong>Opcional:</strong></label>
                     <div class="col-sm-7">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="opcional" id="opcional"
-                                value="1">
-                            <label class="form-check-label" for="perguntaSim">Sim</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="opcional" id="opcional"
-                                value="0">
-                            <label class="form-check-label" for="perguntaNao">Não</label>
+                            <input type="checkbox" id="opcional" name="opcional" value="1">
+                            <label for="op1"> Sim </label>
                         </div>
                     </div>
                 </div>
