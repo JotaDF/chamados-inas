@@ -30,7 +30,7 @@ class ManterQuestCategoriaPergunta extends Model {
         return $array_dados;
     }
     function getCategoriaPorId(int $id) {
-        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep  FROM quest_pergunta_categoria as c WHERE id=$id";
+        $sql = "select c.id,c.nome, id_quest_questionario, (select count(*) from quest_pergunta_categoria as pc where pc.id_quest_categoria_pergunta=c.id) as dep  FROM quest_categoria_pergunta as c WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new QuestCategoriaPergunta();
