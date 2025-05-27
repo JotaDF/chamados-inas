@@ -8,15 +8,15 @@
                 <input type="hidden" id="id_quest_escala" name="id_quest_escala">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <input type="text" class="form-control form-control-sm" id="nome" name="nome" required>
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição:</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao" required>
+                    <input type="text" class="form-control form-control-sm" id="descricao" name="descricao" required>
                 </div>
                 <div class="mb-3">
                     <label for="parametro" class="form-label">Parâmentro:</label>
-                    <input type="text" class="form-control" id="parametro" name="parametro" required><br/>
+                    <input type="text" class="form-control form-control-sm" id="parametro" name="parametro" required><br/>
                     <span>Exemplos de parâmetros: 
                         <br/>livre <small class="text-muted">(texto livre)</small>
                         <br/>Falso;Verdadeiro <small class="text-muted">(Multipla escolha)</small>
