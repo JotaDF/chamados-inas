@@ -134,14 +134,14 @@ and open the template in the editor.
                                                     <option value="">Selecione uma pergunta</option>
                                                     <?php
                                                     foreach ($perguntas_nao as $obj) {
-                                                        echo "<option value='" . $obj->id . "'>" . $obj->titulo . "</option>";
+                                                        echo "<option value='" . $obj->id . "'>" . $obj->titulo . " - " . $obj->pergunta . "</option>";
                                                     }
                                                     ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row float-right">
-                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar>
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Adicionar</button>
                                         </div>
                                     </form>   
 
