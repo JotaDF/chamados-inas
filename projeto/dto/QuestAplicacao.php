@@ -6,4 +6,5 @@ Class QuestAplicacao {
     public $termino;
     public $publicado;
     public $id_quest_questionario;
+    public $excluir;
 }

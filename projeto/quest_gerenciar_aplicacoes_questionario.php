@@ -57,9 +57,15 @@ require_once 'verifica_login.php';
     <script type="text/javascript" class="init">
         $(document).ready(function () {
             $('#questionario').DataTable({
-                paging: true // Habilita a paginação
+                paging: false // Habilita a paginação
             });
         });
+        
+        function alterar(id, inicio, termino) {
+            $('#inicio').val(inicio);
+            $('#id').val(id);
+            $('#termino').val(termino);
+        }
     </script>
     <style>
         body {
@@ -67,7 +73,7 @@ require_once 'verifica_login.php';
         }
     </style>
 </head>
- 
+
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -77,35 +83,107 @@ require_once 'verifica_login.php';
             <!-- Main Content -->
             <div id="content">
                 <?php include './top_bar.php'; ?>
-                <div class="container float-left">
-                    <?php include './form_quest_aplicacao.php'; ?>
-                    <div class="card mb-4 border-primary dt-responsive" style="max-width:900px">
-                        <div class="row ml-0 card-header py-2 bg-gradient-primary dt-responsive" style="width:100%">
-                            <!-- <div class="col-sm ml-0" style="max-width:50px;">
-                                <i class="fas fa-users fa-2x text-white"></i>
-                            </div> -->
-                            <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Quetionários</span>
-                            </div>
-                            <div class="col text-right" style="max-width:20%">
-                                <button id="btn_cadastrar" title="Adicionar Questionário" class="btn btn-outline-light btn-sm" type="button"
-                                    data-toggle="collapse" data-target="#form_quest_questionario" aria-expanded="false"
-                                    aria-controls="form_setor">
-                                    <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                </button>
+                <?php
+                require_once 'actions/ManterQuestAplicacao.php';
+                include_once('actions/ManterQuestQuestionario.php');
+                $manterQuestQuestionario = new ManterQuestQuestionario();
+                $manterQuestAplicacao = new ManterQuestAplicacao();
+                if (isset($_REQUEST['id'])) {
+                    $id_questionario = $_REQUEST['id'];
+                    $questionario = $manterQuestQuestionario->getQuestionarioPorId($id_questionario);
+                    $aplicacao = $manterQuestAplicacao->listar();
+                }
+
+                ?>
+                <div class="container-fluid">
+                    <!-- Exibe dados da  tarefa -->
+                    <div class="card mb-3 border-primary" style="max-width: 1000px;">
+                        <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
+                            <div class="row">
+                                <div class="col c2 ml-2">
+                                    <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de aplicação dos
+                                        questionarios</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-flag fa-3x text-white"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="questionario" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                            <div class="row">
+                                <div class="c1 ml-4">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
+                                    <div class="mb-0"><?= $questionario->id ?></div>
+                                </div>
+                                <div class="c2 ml-4">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Título:</div>
+                                    <div class="mb-0"><?= $questionario->titulo ?></div>
+                                </div>
+                                <div class="c3 ml-4">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Descrição:</div>
+                                    <div class="mb-0"><?= $questionario->descricao ?></div>
+                                </div>
+                            </div>
+                            <br />
+                            <p class=" ml-2 card-text">
+                                <span class="mt-3 ml-2 h6 card-title">Aplicação</span>
+                            <form id="form_cadastro" action="save_quest_aplicacao.php" method="post">
+                                <input type="hidden" id="id_quest_questionario" name="id_quest_questionario"
+                                    value="<?= $questionario->id ?>" />
+                                <input type="hidden" id="id" name="id" value="" />
+                                <div class="form-group row">
+                                    <label for="sigla" class="col-sm-2 col-form-label">Inicio:</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" id="inicio" name="inicio"
+                                            class="form-control form-control-sm" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="sigla" class="col-sm-2 col-form-label">Término:</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" id="termino" name="termino"
+                                            class="form-control form-control-sm" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row float-right">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i>
+                                        Salvar </button>
+                                </div>
+                            </form>
+
+                            </p>
+                        </div>
+                    </div>
+                    <!-- fim da exibição -->
+                    <?php
+
+                    ?>
+
+
+                    <div class="card mb-4 border-primary" style="max-width:1000px">
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                            <div class="col-sm ml-0" style="max-width:50px;">
+                                <i class="fa fa-flag fa-2x text-white"></i>
+                            </div>
+                            <div class="col mb-0">
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Aplicações do
+                                    questionário</span>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="acessos" class="table-sm table-striped table-bordered dt-responsive nowrap"
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="text-align: center;">ID</th>
-                                        <th scope="col" style="text-align: center;">Titulo</th>
-                                        <th scope="col" style="width:100px;">Opções</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">INICIO</th>
+                                        <th scope="col">TÉRMINO</th>
+                                        <th scope="col" style="width: 130px;">PUBLICADO</th>
+                                        <th scope="col" style="width: 130px;">OPÇÕES</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="fila">
                                     <?php include './get_quest_aplicacao.php'; ?>
                                 </tbody>
                             </table>
@@ -116,31 +194,31 @@ require_once 'verifica_login.php';
             <?php include './rodape.php'; ?>
         </div>
     </div>
-            <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <!-- Modal excluir -->
-        <div class="modal fade" id="confirm" role="dialog">
-            <div class="modal-dialog modal-sm">
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Modal excluir -->
+    <div class="modal fade" id="confirm" role="dialog">
+        <div class="modal-dialog modal-sm">
 
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirmação</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
+                <div class="modal-body">
+                    <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                </div>
             </div>
+
         </div>
+    </div>
 
 </body>
 
