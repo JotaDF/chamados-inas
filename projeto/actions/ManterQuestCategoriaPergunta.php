@@ -3,6 +3,7 @@
 require_once('Model.php');
 //require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Categoria.php');
 require_once('dto/QuestCategoriaPergunta.php');
+require_once('dto/QuestPergunta.php');
 
 class ManterQuestCategoriaPergunta extends Model {
 
@@ -43,7 +44,7 @@ class ManterQuestCategoriaPergunta extends Model {
         return $dados;
     }
     function getPeguntasPorCategoria(int $id) {
-        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.publicada, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp, quest_pergunta_categoria AS qpc WHERE qpc.id_quest_pergunta=qp.id AND qpc.id_quest_categoria_pergunta=' . $id . ' ORDER BY qp.id';
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp, quest_pergunta_categoria AS qpc WHERE qpc.id_quest_pergunta=qp.id AND qpc.id_quest_categoria_pergunta=' . $id . ' ORDER BY qp.id';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -52,7 +53,6 @@ class ManterQuestCategoriaPergunta extends Model {
             $dados->id                        = $registro['id'];
             $dados->titulo                    = $registro['titulo'];
             $dados->pergunta                  = $registro['pergunta'];
-            $dados->publicada                 = $registro['publicada'];
             $dados->opcional                  = $registro['opcional'];
             $dados->id_quest_escala           = $registro['id_quest_escala'];
             $array_dados[]                    = $dados;
@@ -61,7 +61,7 @@ class ManterQuestCategoriaPergunta extends Model {
         return $array_dados;
     }
     function getPeguntasNaoVinculadasCategoria(int $id) {
-        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.publicada, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp  WHERE qp.id NOT IN(SELECT id_quest_pergunta FROM quest_pergunta_categoria WHERE id_quest_categoria_pergunta=' . $id . ') ORDER BY qp.id';
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.id_quest_escala, qp.opcional FROM quest_pergunta AS qp  WHERE qp.id NOT IN(SELECT id_quest_pergunta FROM quest_pergunta_categoria WHERE id_quest_categoria_pergunta=' . $id . ') ORDER BY qp.id';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -70,7 +70,6 @@ class ManterQuestCategoriaPergunta extends Model {
             $dados->id                        = $registro['id'];
             $dados->titulo                    = $registro['titulo'];
             $dados->pergunta                  = $registro['pergunta'];
-            $dados->publicada                 = $registro['publicada'];
             $dados->opcional                  = $registro['opcional'];
             $dados->id_quest_escala           = $registro['id_quest_escala'];
             $array_dados[]                    = $dados;
@@ -87,6 +86,16 @@ class ManterQuestCategoriaPergunta extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
+        return $resultado;
+    }
+    function addPergunta(int $id_categoria, int $id_pergunta) {
+        $sql = "insert into quest_pergunta_categoria (id_quest_categoria_pergunta,id_quest_pergunta) values (" . $id_categoria . "," . $id_pergunta . ")";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
+    function delPergunta(int $id_categoria, int $id_pergunta) {
+        $sql = "delete from quest_pergunta_categoria where id_quest_categoria_pergunta=" . $id_categoria . " and id_quest_pergunta=" . $id_pergunta;
+        $resultado = $this->db->Execute($sql);
         return $resultado;
     }
 
