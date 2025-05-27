@@ -26,7 +26,6 @@
                     <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"><strong>Tipo de
                             Escala:</strong></label>
                     <div class="col-sm-7">
-                        <label for="escala">Assunto <span class="text-danger font-weight-bold">*</span></label>
                         <select id="escala" name="escala" class="form-control form-control-sm" required>
                             <option value="">Selecione uma escala</option>    
                         </select>
