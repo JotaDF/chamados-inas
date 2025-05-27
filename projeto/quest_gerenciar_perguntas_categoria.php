@@ -168,7 +168,7 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">TÍTULO</th>
+                                            <th scope="col">PERGUNTA</th>
                                             <th scope="col" style="width: 130px;">REMOVER</th>
                                         </tr>
                                     </thead>
