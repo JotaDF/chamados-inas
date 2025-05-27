@@ -1,5 +1,5 @@
 <?php
-//Juridico
+//Questionário - Perguntas
 $mod = 16;
 // Verifica se o usuário está logado
 require_once 'verifica_login.php';
@@ -13,7 +13,7 @@ require_once 'actions/ManterQuestEscala.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escala - INAS</title>
+    <title>Perguntas - INAS</title>
 
     <!-- Ícone -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -121,7 +121,7 @@ require_once 'actions/ManterQuestEscala.php';
                     }
                     ?>
                     <?php include './form_quest_pergunta.php'; ?>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
+                    <div class="card mb-4 border-primary" style="max-width:1000px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
                                 <!-- <i class="fas fa-users fa-2x text-white"></i> -->
@@ -146,8 +146,7 @@ require_once 'actions/ManterQuestEscala.php';
                                         <th scope="col" style="text-align: center;">Título</th>
                                         <th scope="col" style="text-align: center;">Pergunta</th>
                                         <th scope="col" style="text-align: center;">Opcional</th>
-                                        <th scope="col" style="text-align: center;">Publicada</th>
-                                        <th scope="col" style="text-align: center;">Tipo de Escala</th>
+                                        <th scope="col" style="text-align: center;">Escala</th>
                                         <th scope="col" style="width:100px;">Opções</th>
                                     </tr>
                                 </thead>

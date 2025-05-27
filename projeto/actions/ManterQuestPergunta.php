@@ -9,7 +9,7 @@ Class ManterQuestPergunta extends Model {
     }
 
     function listar() {
-        $sql = 'SELECT qp.id AS id, qp.titulo AS titulo, qp.pergunta AS pergunta, qp.publicada AS publicada, qp.id_quest_escala AS id_quest_escala, qp.opcional AS opcional, qe.id AS id_escala, qe.nome AS nome_escala FROM quest_pergunta AS qp, quest_escala AS qe WHERE qp.id_quest_escala = qe.id';
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.id_quest_escala, qp.opcional, qe.nome as escala FROM quest_pergunta AS qp, quest_escala AS qe WHERE qp.id_quest_escala = qe.id';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -18,9 +18,8 @@ Class ManterQuestPergunta extends Model {
             $dados->id                        = $registro['id'];
             $dados->titulo                    = $registro['titulo'];
             $dados->pergunta                  = $registro['pergunta'];
-            $dados->publicada                 = $registro['publicada'];
             $dados->opcional                  = $registro['opcional'];
-            $dados->nome                      = $registro['nome_escala'];
+            $dados->escala                    = $registro['nome'];
             $dados->id_quest_escala           = $registro['id_quest_escala'];
             $array_dados[]                    = $dados;
         }
