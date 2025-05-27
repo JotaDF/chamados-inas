@@ -96,10 +96,6 @@ and open the template in the editor.
                                 <div class="card-body">
                                     <div class="row">
                                         <span class="mt-3 ml-2 h6 card-title">Questionário</span>
-                                        <div class="c1 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                            <div class="mb-0"><?=$questionario->id ?></div>
-                                        </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Título:</div>
                                             <div class="mb-0"><?=$questionario->titulo ?></div>
@@ -111,10 +107,6 @@ and open the template in the editor.
                                     </div>
                                     <div class="row">
                                         <span class="mt-3 ml-2 h6 card-title">Categoria</span>
-                                        <div class="c1 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                            <div class="mb-0"><?=$categoria->id ?></div>
-                                        </div>
                                         <div class="c2 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
                                             <div class="mb-0"><?=$categoria->nome ?></div>
