@@ -1,5 +1,5 @@
 <div id="form_quest_pergunta" class="collapse">
-    <div class="card mb-4 border-primary" style="width: 1000px;">
+    <div class="card mb-4 border-primary" style="width: 1200px;">
         <div class="card-header bg-gradient-primary">
             <span class="h5 m-0 font-weight text-white">Cadastro de Pergunta</span>
         </div>
