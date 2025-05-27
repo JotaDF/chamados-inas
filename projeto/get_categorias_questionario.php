@@ -6,6 +6,9 @@
             echo "  <td>".$obj->nome."</td>";
             $btn_alterar = "&nbsp;<button class='btn btn-primary btn-sm' type='button' title='Editar' onclick='alterar(".$obj->id.",\"".$obj->nome."\",".$questionario->id.")'><i class='fas fa-edit'></i></button>";
             $btn_excluir = "&nbsp;<button class='btn btn-danger btn-sm' type='button' title='Excluir' onclick='excluir(".$obj->id.",\"".$obj->nome."\",".$questionario->id.")'><i class='far fa-trash-alt'></i></button>";
+            if (!$obj->excluir) {
+                $btn_excluir = "&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!' disabled><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>";
+            }
             $btn_perguntas = "&nbsp;<a class='btn btn-info btn-sm' type='button' title='Gerenciar Perguntas' href='quest_gerenciar_perguntas_categoria.php?id_categoria=".$obj->id."&id_questionario=".$questionario->id."'><i class='fa fa-question'></i></a>";
             if($usuario_logado->perfil < 2){
                 echo "  <td align='center'>".$btn_alterar . $btn_perguntas . $btn_excluir."</td>";
