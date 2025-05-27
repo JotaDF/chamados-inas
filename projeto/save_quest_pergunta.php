@@ -3,11 +3,11 @@ require_once 'actions/ManterQuestPergunta.php';
 require_once 'dto/QuestPergunta.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id                     = $_POST['id_quest_pergunta'];
+    $id                     = isset($_POST['id_quest_pergunta']) ? $_POST['id_quest_pergunta'] : 0;
     $id_quest_escala        = $_POST['id_quest_escala'];
     $titulo                 = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_SPECIAL_CHARS);
     $pergunta               = filter_input(INPUT_POST, 'pergunta', FILTER_SANITIZE_SPECIAL_CHARS);
-    $opcional               = (int) $_POST['opcional'];
+    $opcional               = isset($_POST['opcional']) ? $_POST['opcional'] : 0;
     if (!$titulo || !$pergunta || !$id_quest_escala) {
         header('Location: quest_pergunta.php?error=1');
         exit();
