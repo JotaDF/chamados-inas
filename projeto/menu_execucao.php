@@ -69,6 +69,7 @@
                 <!-- Heading -->
         <div class="sidebar-heading">
             GERÊNCIA
+        </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="painel_pagamentos_pendentes.php">
@@ -115,7 +116,7 @@ if ($usuario_logado->perfil == 4 || $usuario_logado->perfil == 12 || $usuario_lo
             EXECUÇÃO
         </div>
             <?php
-        if ($usuario_logado->perfil >= 2) {
+        if ($usuario_logado->perfil >= 2 && $usuario_logado->perfil != 12) {
             ?>
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
