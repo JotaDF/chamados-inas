@@ -66,4 +66,10 @@ class ManterQuestAplicacao extends Model
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+
+    function excluir($id) {
+        $sql = "DELETE FROM quest_aplicacao WHERE id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
 }

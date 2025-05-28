@@ -66,6 +66,14 @@ require_once 'verifica_login.php';
             $('#id').val(id);
             $('#termino').val(termino);
         }
+
+        function excluir(id, id_questionario, titulo) {
+            $('#delete').attr('href', 'del_quest_aplicacao.php?id=' + id + '&id_questionario=' + id_questionario);
+            $('#id').val(id);
+            $('#titulo_excluir').text(titulo);
+            $('#id_quest_questionario').val(id_questionario);
+            $('#confirm').modal({ show: true });
+        }
     </script>
     <style>
         body {
@@ -154,11 +162,6 @@ require_once 'verifica_login.php';
                             </p>
                         </div>
                     </div>
-                    <!-- fim da exibição -->
-                    <?php
-
-                    ?>
-
 
                     <div class="card mb-4 border-primary" style="max-width:1000px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
@@ -209,7 +212,7 @@ require_once 'verifica_login.php';
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Deseja excluir <strong>"<span id="nome_excluir"></span>"</strong>?</p>
+                    <p>Deseja excluir a aplicação do questionário <strong>"<span id="titulo_excluir"></span>"<?= $questionario->titulo ?></strong>?</p>
                 </div>
                 <div class="modal-footer">
                     <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>

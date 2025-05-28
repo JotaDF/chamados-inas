@@ -15,7 +15,7 @@ foreach ($lista as $obj) {
     $btn_alterar = "&nbsp;<button class='btn btn-primary btn-sm' type='button' title='Editar' onclick='alterar(".$obj->id.",\"".$obj->inicio."\",\"".$obj->termino."\")'><i class='fas fa-edit'></i></button>";
     echo "  <td align='center'>" . $txt_publicado . "</td>";
     if ($obj->excluir) {
-        echo "  <td align='center'>" . $btn_alterar . "&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.")'><i class='far fa-trash-alt'></i></button></td>";
+        echo "  <td align='center'>" . $btn_alterar . "&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$id_questionario."\")'><i class='far fa-trash-alt'></i></button></td>";
     } else {
         echo "  <td align='center'>" . $btn_alterar .  "&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button></td></td>";
     }
