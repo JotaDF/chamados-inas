@@ -16,8 +16,10 @@ $data_pagamento = mktime (0, 0, 0, $data->format("m"), $data->format("d"),  $dat
 
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
 $url = 'gerenciar_pagamentos_prestador.php?id='.$id_prestador;
-if($painel > 0){
+if($painel == 1){
     $url = 'painel_meus_pagamentos_pendentes.php';
+} elseif ($painel == 2) {
+    $url = 'painel_pagamentos_pendentes.php';
 }
 
 if ($id > 0) {

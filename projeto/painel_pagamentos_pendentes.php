@@ -61,6 +61,18 @@ and open the template in the editor.
                 $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
                 $('#pagar').modal({show: true});
             }
+            function pagarNota(id_prestador,id_nota, numero, valor, exercicio,usuario,tipo) {
+                $url = 'pagar_nota_pagamento.php';
+                if(tipo == 1){
+                    $url = 'pagar_nota_glosa.php';
+                }
+                $('#form_cadastro').attr('action', $url);
+                $('#id_prestador_pg').val(id_prestador);
+                $('#id_usuario_pg').val(usuario);
+                $('#id_nota_pg').val(id_nota);
+                $('#nome_pg').text("Nota: "+numero + " Valor: " + valor + " Exercício: " + exercicio);
+                $('#pagar').modal({show: true});
+            }
             function novaNota(id_recurso_glosa, carta_recursada, valor_original) {
                 $('#id_recurso_glosa').val(id_recurso_glosa);
                 $('#txt_carta_recursada').text(carta_recursada);
@@ -210,6 +222,7 @@ and open the template in the editor.
                                             <th scope="col">ATESTO</th>
                                             <th scope="col">LIMITI PG</th>
                                             <th scope="col">STATUS</th>
+                                            <th scope="col">PAGAR</th>
                                             <th scope="col">TIPO</th>
                                             <th scope="col">ATRASO</th>
                                             <th scope="col">SITUAÇÃO</th>
@@ -220,6 +233,11 @@ and open the template in the editor.
                                             $prestadores    = $manterPrestador->listar();
                                             $valor_original = 0;
                                             $out_notas = "";
+                                            
+                                            $editar = false;                                              
+                                            if ($usuario_logado->perfil <= 2 || $usuario_logado->perfil == 12) {
+                                                $editar = true;
+                                            }
                                             foreach ($prestadores as $p) {
                                                 $notas_pagamento = $manterNotaPagamento->getPagamentosPentendesPrestador($p->id);
                                                 $notas_glosa = $manterCartaRecurso->getPagamentosPentendesPrestador($p->id);
@@ -242,6 +260,11 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                    $btn_nt_pagar = " - ";
+                                                    if($editar){
+                                                        $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$np->id.",\"".$np->numero."\",\"".$np->valor."\",\"".$np->exercicio."\",".$usuario_logado->id.",0)'><i class='fa fa-credit-card'></i></button>";
+                                                    }
+                                                    $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-primary'> Nota Pag. </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
@@ -271,6 +294,11 @@ and open the template in the editor.
                                                     $out_notas .= "  <td>".date('d/m/Y', $np->data_atesto)."</td>";
                                                     $out_notas .= "  <td>".date('d/m/Y', strtotime('+30 days', $np->data_validacao))."</td>";
                                                     $out_notas .= "  <td><b>".$np->status."</b></td>";
+                                                    $btn_nt_pagar = " - ";
+                                                        if($editar){
+                                                            $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$p->id.",".$ng->id.",\"".$ng->numero."\",\"".$ng->valor_deferido."\",\"".$ng->exercicio."\",".$usuario_logado->id.",1)'><i class='fa fa-credit-card'></i></button>";
+                                                        }
+                                                        $out_notas .= "  <td>".$btn_nt_pagar."</td>";
                                                     $out_notas .= "  <td class='text-danger'> Nota Glosa </td>";
                                                     $hoje = mktime (0, 0, 0, date("m"), date("d"),  date("Y"));
                                                     $dias = ($hoje - strtotime('+30 days', $np->data_validacao))/(60*60*24);
@@ -324,12 +352,17 @@ and open the template in the editor.
                         <input type="hidden" id="id_nota_pg" name="id_nota"/>
                         <input type="hidden" id="id_usuario_pg" name="id_usuario"/>
                         <input type="hidden" id="id_prestador_pg" name="id_prestador"/>
+                        <input type="hidden" id="painel" name="painel" value="2"/>
                         <div class="form-row">
                         <p><strong><span id="nome_pg"></span></strong></p>
                             <div class="form-group">
                             <label for="data_pagamento">Data de pagamento:<span class="text-danger font-weight-bold">*</span></label>
                             <input type="date" name="data_pagamento" class="form-control form-control-sm" id="data_pagamento" required>
-                            </div>     
+                            </div>   
+                            <div class="form-group">
+                                <label for="doc_sei">Doc. SEI:</label>
+                                <input type="text" name="doc_sei" class="form-control form-control-sm" id="doc_sei" required>
+                            </div>    
                         </div>
                     </div>
                     <div class="modal-footer">

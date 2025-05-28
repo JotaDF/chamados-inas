@@ -64,7 +64,22 @@
             
         <?php
     }
-if ($usuario_logado->perfil == 4 || $usuario_logado->perfil <= 2) {
+    if ($usuario_logado->perfil == 12) {
+        ?>
+                <!-- Heading -->
+        <div class="sidebar-heading">
+            GERÊNCIA
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="painel_pagamentos_pendentes.php">
+                    <i class="fa fa-credit-card"></i>
+                    <span>Pagamentos Pendentes</span>
+                </a>
+            </li>
+        <?php
+    }
+
+if ($usuario_logado->perfil == 4 || $usuario_logado->perfil == 12 || $usuario_logado->perfil <= 2) {
        ?>
            <!-- Nav Item - Pages Collapse Menu -->
            <li class="nav-item">
