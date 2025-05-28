@@ -133,14 +133,14 @@ require_once 'verifica_login.php';
                                 <input type="hidden" id="id" name="id" value="" />
                                 <div class="form-group row">
                                     <label for="sigla" class="col-sm-2 col-form-label">Inicio:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-2">
                                         <input type="date" id="inicio" name="inicio"
                                             class="form-control form-control-sm" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="sigla" class="col-sm-2 col-form-label">Término:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-2">
                                         <input type="date" id="termino" name="termino"
                                             class="form-control form-control-sm" required>
                                     </div>
