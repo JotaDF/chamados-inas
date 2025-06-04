@@ -490,7 +490,7 @@ and open the template in the editor.
                                                             $btn_nt_atestar = "<a class='btn btn-success btn-sm' title='Atestar nota!' href='atestar_nota_glosa.php?id_prestador=".$prestador->id."&id=".$c->id."&id_usuario=".$usuario_logado->id."'><i class='fa fa-check'></i></a>&nbsp;";                                                    
                                                             $btn_nt_pagar = "<button title='Pagar nota!' class='btn btn-warning btn-sm' type='button' onclick='pagarNota(".$prestador->id.",".$c->id.",\"".$c->numero."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='fa fa-credit-card'></i></button>&nbsp;";
                                                             $txt_btns = "";
-                                                            $txt_status = "";
+                                                            $txt_status = ""; 
                                                             $txt_doc_sei = "";
                                                             if($editar){
                                                                 $btn_alterar_nota_info = "<button id='btn_cadastrar_info' onclick='alterarNotaInfo(".$n->id.",\"".$n->numero."\",\"".$n->lote."\",\"".$n->valor."\",\"".$n->data_emissao."\",\"".$n->data_validacao."\",\"".$c->id."\",\"".$c->carta_informativo."\",\"".$c->exercicio."\",\"".$c->competencia."\",\"".$c->valor_deferido."\")' title='Alterar Informativo!' class='btn btn-primary btn-sm' type='button'>
@@ -525,7 +525,7 @@ and open the template in the editor.
                                                                         $txt_doc_sei = "</br>(" . $c->doc_sei . ")";
                                                                         break;
                                                                 }
-                                                                $txt_btns =  $txt_btns . "&nbsp;" . $btn_alterar_nota_info ."&nbsp;". $btn_ocorrencias;
+                                                                $txt_btns =  $txt_btns . "&nbsp;" . $btn_alterar_nota_info;
                                                             }
 
                                                             $out_info .= "<tr>";
@@ -534,7 +534,7 @@ and open the template in the editor.
                                                             $out_info .= "  <td align='center'>".$c->valor_deferido."</td>";
                                                             $btn_nt_excluir = "<button class='btn btn-danger btn-sm' type='button' onclick='excluirNotaInformativo(".$prestador->id.",".$c->id.",\"".$c->carta_informativo."\",\"".$c->valor_deferido."\",\"".$c->exercicio."\",".$usuario_logado->id.")'><i class='far fa-trash-alt'></i></button>&nbsp;";
                                                             $out_info .= "  <td align='center'><b>".$c->status."</b>".$txt_doc_sei."</td>";
-                                                            $out_info .= "  <td align='center'>" . $txt_btns . $campo_ocorrencias."</td>";
+                                                            $out_info .= "  <td align='center'>" . $txt_btns ." ". $btn_ocorrencias . $campo_ocorrencias ."</td>";
                                                             $out_info .= "</tr>";
             
 
