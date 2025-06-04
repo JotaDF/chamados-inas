@@ -432,8 +432,8 @@ class ManterSlaRegulacao extends Model
                     $area = $data[2];
                     $fila = $data[3];
                     $encaminhamento_manual = $data[4];
-                    $data_solicitacao_t = $data[5];
-                    $data_solicitacao_d = $data[5];
+                    $data_solicitacao_t = $data[6];
+                    $data_solicitacao_d = $data[6];
                     // Converter a data solicitacão para timestamp
                     $date_t = DateTime::createFromFormat('d/m/Y H:i', $data_solicitacao_t); // Formato completo com hora e minuto
                     $data_solicitacao_convertida = $date_t ? $date_t->getTimestamp() : null; // Verifica se a data foi convertida corretamente
