@@ -11,7 +11,7 @@ class ManterOcorrenciaNota extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o $filtro order by o.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_carta_recurso id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o $filtro order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -31,7 +31,7 @@ class ManterOcorrenciaNota extends Model {
     }
     
     function getOcorrenciaNotaPorId($id) {
-        $sql = "select o.id, o.descricao, o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_pagamento=$id";
+        $sql = "select o.id, o.descricao, o.resolvido, o.id_carta_recurso id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_pagamento=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new OcorrenciaNota();
@@ -47,7 +47,7 @@ class ManterOcorrenciaNota extends Model {
         return $dados;
     }
     function getOcorrenciasPorIdCartaRecurso($id_recurso) {
-        $sql = "select o.id, o.descricao,o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_recurso." order by o.id";
+        $sql = "select o.id, o.descricao,o.resolvido, o.id_carta_recurso id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_carta_recurso=".$id_recurso." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -66,7 +66,7 @@ class ManterOcorrenciaNota extends Model {
         return $array_dados;
     }
     function getOcorrenciasPorIdNotaPagamento($id_nota_pagamento) {
-        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_pagamento=".$id_nota_pagamento." order by o.id";
+        $sql = "select o.id, o.descricao,	o.resolvido, o.id_carta_recurso id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_pagamento=".$id_nota_pagamento." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -89,7 +89,7 @@ class ManterOcorrenciaNota extends Model {
         $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_pagamento,data,autor)
                 values ('" . $dados->descricao . "',0," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
         if($dados->nota_glosa > 0){
-            $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_glosa,data,autor)
+            $sql = "insert into ocorrencia_nota (descricao,resolvido,o.id_carta_recurso,data,autor)
                 values ('" . $dados->descricao . "',0," . $dados->nota_glosa . ",now()," . $dados->autor . ")";
         }       
         if ($dados->id > 0) {
