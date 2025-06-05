@@ -467,7 +467,7 @@ and open the template in the editor.
                                                             $vl= str_replace(",",".",$vl); 
                                                             $soma_valor_info += $vl;
 
-                                                            $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($n->id);
+                                                            $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdCartaRecurso($c->id);
                                                             $total_ocorrencias = count($ocorrencias);
                                                             $txt_dados_ocorrencia = "";
                                                             foreach ($ocorrencias as $o) {
