@@ -132,6 +132,27 @@ and open the template in the editor.
                                     ?>
                                     <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
                                         <div class="c1 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">NOTA:</div>
+                                            <div class="mb-0"><?=$nota->numero ?></div>
+                                        </div>
+                                        <div class="c2 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">LOTE:</div>
+                                            <div class="mb-0"><?=$nota->lote ?></div>
+                                        </div> 
+                                        <div class="c3 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">VALOR:</div>
+                                            <div class="mb-0"><?=$nota->valor ?></div>
+                                        </div> 
+                                        <div class="c4 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
+                                            <div class="mb-0"><?=$nota->status ?></div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    } else {
+                                     ?>
+                                     <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
+                                        <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">Carta Informativo:</div>
                                             <div class="mb-0"><?=$nota->carta_informativo ?></div>
                                         </div>
@@ -148,27 +169,6 @@ and open the template in the editor.
                                             <div class="mb-0"><?=$nota->status ?></div>
                                         </div>
                                     </div>
-                                    <?php
-                                    } else {
-                                     ?>
-                                    <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
-                                        <div class="c1 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">NOTA:</div>
-                                            <div class="mb-0"><?=$nota->numero ?></div>
-                                        </div>
-                                        <div class="c2 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">LOTE:</div>
-                                            <div class="mb-0"><?=$nota->lote ?></div>
-                                        </div> 
-                                        <div class="c3 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">VALOR:</div>
-                                            <div class="mb-0"><?=$nota->valor ?></div>
-                                        </div> 
-                                        <div class="c4 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
-                                            <div class="mb-0"><?=$nota->status ?></div>
-                                        </div>
-                                    </div>   
                                     <?php
                                     }
                                     ?>

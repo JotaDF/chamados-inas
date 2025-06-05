@@ -139,7 +139,7 @@ AND cr.exercicio = '".$exercicio."'";
         $sql = "SELECT cr.id, cr.carta_informativo, cr.valor_deferido, cr.exercicio, cr.competencia, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr, nota_glosa as ng where cr.id_nota_glosa = ng.id AND cr.id =" . $id; 
         $resultado = $this->db->Execute($sql);
         $dados = new CartaRecurso();
-        while($registro = $resultado->fetchRow()) {
+        if($registro = $resultado->fetchRow()) {
             $dados->id = $registro['id'];
             $dados->carta_informativo = $registro['carta_informativo'];
             $dados->exercicio = $registro['exercicio'];
@@ -153,9 +153,8 @@ AND cr.exercicio = '".$exercicio."'";
             $dados->data_atesto         = $registro["data_atesto"];
             $dados->data_pagamento      = $registro["data_pagamento"];
             $dados->status              = $registro["status"];
-            $array_dados[] = $dados;
         }
-        return $array_dados;
+        return $dados;
     } 
 
 
