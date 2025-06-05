@@ -56,14 +56,14 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterPrestador.php');
-                    include_once('actions/ManterNotaGlosa.php');
+                    include_once('actions/ManterCartaRecurso.php');
                     include_once('actions/ManterNotaPagamento.php');
                     include_once('actions/ManterTipoPrestador.php');
                     include_once('actions/ManterUsuario.php');
                     include_once('actions/ManterOcorrenciaNota.php');
 
                     $manterPrestador = new ManterPrestador();
-                    $manterNotaGlosa = new ManterNotaGlosa();
+                    $manterCartaRecurso = new ManterCartaRecurso();
                     $manterNotaPagamento = new ManterNotaPagamento();
                     $manterTipoPrestador = new ManterTipoPrestador();
                     $manterUsuario = new ManterUsuario();
@@ -82,8 +82,8 @@ and open the template in the editor.
                             $nota = $manterNotaPagamento->getNotaPagamentoPorId($id_nota);
                             $link_voltar = "gerenciar_pagamentos_prestador.php?id=".$id_prestador;
                         } else {
-                            $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdNotaGlosa($id_nota);
-                            $nota = $manterNotaGlosa->getNotaGlosaPorId($id_nota);
+                            $ocorrencias = $manterOcorrenciaNota->getOcorrenciasPorIdCartaRecurso($id_nota);
+                            $nota = $manterCartaRecurso->getRecursoPorId($id_nota);
                         }
                         ?>
                         <div class="container-fluid">
@@ -127,6 +127,30 @@ and open the template in the editor.
                                     <div class="row">
                                         </br>
                                     </div>
+                                    <?php
+                                    if ($tp == 1) {
+                                    ?>
+                                    <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
+                                        <div class="c1 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Carta Informativo:</div>
+                                            <div class="mb-0"><?=$nota->carta_informativo ?></div>
+                                        </div>
+                                        <div class="c2 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Competência:</div>
+                                            <div class="mb-0"><?=$nota->competencia ?></div>
+                                        </div> 
+                                        <div class="c3 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">VALOR:</div>
+                                            <div class="mb-0"><?=$nota->valor_deferido ?></div>
+                                        </div> 
+                                        <div class="c4 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
+                                            <div class="mb-0"><?=$nota->status ?></div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    } else {
+                                     ?>
                                     <div class="row bg-light border border-dark pt-2 pr-2 pb-2">
                                         <div class="c1 ml-4">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">NOTA:</div>
@@ -144,7 +168,10 @@ and open the template in the editor.
                                             <div class="text-xs font-weight-bold text-uppercase mb-1">STATUS:</div>
                                             <div class="mb-0"><?=$nota->status ?></div>
                                         </div>
-                                    </div>
+                                    </div>   
+                                    <?php
+                                    }
+                                    ?>
                                     <br/>
                                     <?php
                                         if($usuario_logado->perfil >= 2){

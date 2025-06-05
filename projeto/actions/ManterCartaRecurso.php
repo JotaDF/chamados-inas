@@ -114,7 +114,7 @@ AND cr.exercicio = '".$exercicio."'";
     }
 
     function getRecursoPorNotaGlosa ($id) {
-        $sql = "SELECT cr.id, cr.informativo, cr.valor_deferido, cr.exercicio, cr.competencia, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.valor_deferido, cr.exercicio, cr.competencia, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr inner join nota_glosa as ng where cr.id_nota_glosa = ng.id"; 
         $resultado = $this->db->Execute($sql);
         $dados = new CartaRecurso();
         while($registro = $resultado->fetchRow()) {
@@ -135,6 +135,29 @@ AND cr.exercicio = '".$exercicio."'";
         }
         return $array_dados;
     } 
+    function getRecursoPorId($id) {
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.valor_deferido, cr.exercicio, cr.competencia, cr.id_nota_glosa, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.status from  carta_recurso as cr, nota_glosa as ng where cr.id_nota_glosa = ng.id AND cr.id =" . $id; 
+        $resultado = $this->db->Execute($sql);
+        $dados = new CartaRecurso();
+        while($registro = $resultado->fetchRow()) {
+            $dados->id = $registro['id'];
+            $dados->carta_informativo = $registro['carta_informativo'];
+            $dados->exercicio = $registro['exercicio'];
+            $dados->competencia = $registro['competencia'];
+            $dados->valor_deferido =$registro['valor_deferido'];
+            $dados->id_nota_glosa =$registro['id_nota_glosa'];
+            $dados->doc_sei             = $registro["doc_sei"];
+            $dados->data_emissao        = $registro["data_emissao"];
+            $dados->data_validacao      = $registro["data_validacao"];
+            $dados->data_executado      = $registro["data_executado"];
+            $dados->data_atesto         = $registro["data_atesto"];
+            $dados->data_pagamento      = $registro["data_pagamento"];
+            $dados->status              = $registro["status"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    } 
+
 
     function salvar (CartaRecurso $dados) {
         $sql = "insert into carta_recurso (carta_informativo, exercicio, competencia, valor_deferido, id_nota_glosa, data_emissao, data_validacao, status) 

@@ -46,8 +46,8 @@ class ManterOcorrenciaNota extends Model {
         }
         return $dados;
     }
-    function getOcorrenciasPorIdNotaGlosa($id_nota_glosa) {
-        $sql = "select o.id, o.descricao,	o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_nota_glosa." order by o.id";
+    function getOcorrenciasPorIdCartaRecurso($id_recurso) {
+        $sql = "select o.id, o.descricao,o.resolvido, o.id_nota_glosa, o.id_nota_pagamento, o.data, o.autor FROM ocorrencia_nota as o WHERE o.id_nota_glosa=".$id_recurso." order by o.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
