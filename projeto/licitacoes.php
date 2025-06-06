@@ -1,141 +1,165 @@
 <?php
-//Compras
+//Licitacao
 $mod = 17;
-require_once('./verifica_login.php');
-?> 
+require_once 'verifica_login.php';
+?>
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>Licitações</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licitações</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-        <!-- Custom fonts for this template-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!------ Include the above in your HEAD tag ---------->
 
-        <!-- Custom styles for this template-->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <link rel="shortcut icon" href="favicon.ico" />
-        <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 
-        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        <script type="text/javascript" class="init">
-         
-
-            $(document).ready(function () {
-                $('#licitacoes').DataTable();
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            $('#licitacoes').DataTable({
+                paging: true // Habilita a paginação
             });
-            function excluir(id, nome) {
-                $('#delete').attr('href', 'del_licitacao.php?id=' + id);
-                $('#nome_excluir').text(nome);
-                $('#confirm').modal({show: true});              
-            }
-            function alterar(id, modalidade, certame, ano) {
+        });
+
+        function alterar(id, modalidade, certame, ano) {
                 $('#modalidade').val(modalidade);
                 $('#certame').val(certame);
                 $('#ano').val(ano);
                 $('#id').val(id);
                 $('#form_licitacao').collapse("show");
-                $('#btn_cadastrar').hide();
-            }
-            function novo() {
-                $('#modalidade').val("");
-                $('#certame').val("");
-                $('#ano').val("");
-                $('#id').val("");
-                $('#form_licitacao').collapse("show");
-                $('#btn_cadastrar').hide();
-            }
+        }
+        function excluir(id, nome) {
+            $('#delete').attr('href', 'del_licitacao.php?id=' + id);
+            $('#nome_excluir').text(nome);
+            $('#confirm').modal({ show: true });
+        }
+         if (window.location.search.includes('msg=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    </script>
+    <style>
+        body {
+            font-size: small;
+        }
+    </style>
+</head>
 
-            function selectByText(select, text) {
-                $(select).find('option:contains("' + text + '")').prop('selected', true);
-            }
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <?php include './menu_compras.php'; ?>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <?php include './top_bar.php'; ?>
+                <div class="container float-left">
+                    <?php
+                    if ($_REQUEST['msg']) {
+                        $id_msg = $_REQUEST['msg'];
 
-
-        </script>
-        <style>
-            body{
-                font-size: small;
-            }
-        </style>
-    </head>
-
-    <body id="page-top">
-
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-            <?php include './menu_compras.php'; ?>
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
-                    <?php include './top_bar.php'; ?>
-
-                    <div class="container-fluid">
-                        <?php include './form_licitacao.php'; ?>
-                        <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:900px">
-                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-shopping-basket fa-2x text-white"></i> 
-                                </div>
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Licitações</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" onclick="novo()">
-                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                    </button>
-                                </div>
+                        if ($id_msg == 1) {
+                            ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Sucesso!</strong> Licitação salvo com sucesso.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="card-body">
-                                <table id="licitacoes" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Modalidade</th>
-                                            <th scope="col">Certame</th>
-                                            <th scope="col" style="width:30px;">Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include './get_licitacao.php'; ?>
-                                    </tbody>
-                                </table>
+                            <?php
+                        } else if ($id_msg == 10) {
+                            ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Sucesso!</strong> A licitação foi excluído.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <?php include './form_quest_questionario.php'; ?>
+                    <div class="card mb-4 border-primary dt-responsive" style="max-width:900px">
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary dt-responsive" style="width:100%">
+                            <!-- <div class="col-sm ml-0" style="max-width:50px;">
+                                <i class="fas fa-users fa-2x text-white"></i>
+                            </div> -->
+                            <div class="col mb-0">
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Licitações</span>
+                            </div>
+                            <div class="col text-right" style="max-width:20%">
+                                <button id="btn_cadastrar" title="Adicionar Licitação" class="btn btn-outline-light btn-sm" type="button"
+                                    data-toggle="collapse" data-target="#form_quest_questionario" aria-expanded="false"
+                                    aria-controls="form_setor">
+                                    <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
+                        <div class="card-body">
+                            <table id="licitacoes" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="text-align: center;">ID</th>
+                                        <th scope="col" style="text-align: center;">Modalidade</th>
+                                        <th scope="col" style="text-align: center;">Certame</th>
+                                        <th scope="col" style="width:100px;">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include './get_licitacao.php'; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <!-- End of Main Content -->
-                </div> 
-                <?php include './rodape.php'; ?>
-
+                </div>
             </div>
-            <!-- End of Content Wrapper -->
-
+            <?php include './rodape.php'; ?>
         </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
+    </div>
+            <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
         <!-- Modal excluir -->
@@ -161,6 +185,6 @@ and open the template in the editor.
             </div>
         </div>
 
-    </body>
+</body>
 
 </html>
