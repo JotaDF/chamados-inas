@@ -88,10 +88,10 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-id-card fa-2x text-white"></i> 
+                                    <i class="fa fa-shopping-basket fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Perfis</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Licitações</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_licitacao" aria-expanded="false" aria-controls="form_licitacao">
@@ -104,8 +104,8 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Perfil</th>
-                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Modalidade</th>
+                                            <th scope="col">Certame</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>
