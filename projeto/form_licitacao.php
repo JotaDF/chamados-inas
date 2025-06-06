@@ -1,8 +1,7 @@
 <div id="form_licitacao" class="collapse">
     <div class="card mb-4 border-primary" style="width: 56rem;">
         <div class="card-header bg-gradient-primary ">
-            <span class="h5 m-0 font-weight text-white">Cadastro de Licitação</span>
-            <i class="fa fa-question-circle fa-2x text-white"></i>
+            <span class="h5 m-0 font-weight text-white">Cadastro de Licitação</span>    
         </div>
         <div class="card-body">
             <form action="save_licitacao.php" method="POST">
