@@ -16,7 +16,7 @@ $p->modalidade = $modalidade;
 $p->certame = $certame;
 $p->ano = $ano;
 
-$caminho = __DIR__.'/contratos/'.$id.'_'.$ano.'/';
+$caminho = __DIR__.'/licitacoes/'.$id.'_'.$ano.'/';
 $db_licitacao->salvar($p);
 $db_licitacao->addPasta($caminho);
 
