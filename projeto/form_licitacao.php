@@ -7,8 +7,8 @@
             <form action="save_licitacao.php" method="POST">
                 <input type="hidden" id="id" name="id">
                 <div class="mb-3">
-                    <label for="motalidade" class="form-label">Modalidade</label>
-                    <input type="text" class="form-control" id="motalidade" name="motalidade" required>
+                    <label for="modalidade" class="form-label">Modalidade</label>
+                    <input type="text" class="form-control" id="modalidade" name="modalidade" required>
                 </div>
                 <div class="mb-3">
                     <label for="certame" class="form-label">Certame</label>
