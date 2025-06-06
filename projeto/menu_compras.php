@@ -30,7 +30,7 @@
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="licitacoes.php">
-                    <i class="fa fa-th-large"></i>
+                    <i class="fa fa-shopping-basket"></i>
                     <span>Licitações</span>
                 </a>
             </li>
