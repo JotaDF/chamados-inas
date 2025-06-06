@@ -1,12 +1,10 @@
 <?php
-//Contratos
+//Licitacao
 $mod = 17;
 require_once('./verifica_login.php');
 
-$id = $_REQUEST['id'];
-$modalidade = $_REQUEST['modalidade'];
-$certame = $_REQUEST['certame'];
 $ano = $_REQUEST['ano'];
+$id = $_REQUEST['id'];
 
 ?> 
 <!DOCTYPE html>
@@ -23,7 +21,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gerenciar arquivos de licitação</title>
+        <title>Gerenciar arquivos ponto</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,7 +47,7 @@ and open the template in the editor.
              function deleteFile(fileName) {
                 var xhr = new XMLHttpRequest();
                 var item = document.getElementById("file-"+fileName);
-                xhr.open("GET", "del_arquivo_licitacao.php?id=<?=$id ?>&ano=<?=$ano ?>&file=" + fileName, true);
+                xhr.open("GET", "del_arquivo_contrato.php?id=<?=$id ?>&ano=<?=$ano ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
@@ -69,10 +67,10 @@ and open the template in the editor.
             function atualizar(){
                 // Fazendo requisição AJAX
                 $.ajax({
-                    url: 'get_arquivos_licitacao.php?id=<?=$id ?>&ano=<?=$ano ?>',
+                    url: 'get_arquivos_contrato.php?id=<?=$id ?>&ano=<?=$ano ?>',
                     dataType: 'html',
                     success: function (html) {
-                        $('#arquivos_licitacao').html(html);
+                        $('#arquivos_contrato').html(html);
                     }
                 });
             }
@@ -261,7 +259,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_compras.php'; ?>
+            <?php include './menu_contratos.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -270,7 +268,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                     <div style="max-width:900px" class="row float-none">
                         <div class="ml-3 mb-2">
-                            <a href="licitacoes.php" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                            <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
                         </div>
                     </div>
                         <?php
@@ -283,10 +281,10 @@ and open the template in the editor.
                         ?>
                         
                         <!-- Collapsable Form -->
-                        <div class="card mb-4 collapse hide border-primary" id="form_arquivos_licitacao" style="max-width:900px">
+                        <div class="card mb-4 collapse hide border-primary" id="form_arquivos_contrato" style="max-width:900px">
                             <!-- Card Header - Accordion -->
                             <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-                                <span class="h6 m-0 font-weight text-white">Enviar arquivos da licitação</span>
+                                <span class="h6 m-0 font-weight text-white">Enviar arquivos do contrato (<?=$id . '/' . $ano ?>)</span>
                             </div>                  
                             <!-- Card Content - Collapse -->
                             <div class="card-body">
@@ -300,16 +298,19 @@ and open the template in the editor.
                                 </div>               
                             </div>
                             <div class="form-group row float-right">
-                                <button type="reset" data-toggle="collapse" data-target="#form_arquivos_licitacao" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
+                                <button type="reset" data-toggle="collapse" data-target="#form_arquivos_contrato" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                             </div>
                         </div>
                         </div>
 
                         <?php
-                            include_once('actions/ManterLicitacao.php');
-                            $manterLicitacao = new ManterLicitacao();
+                            include_once('actions/ManterPrestador.php');
+                            include_once('actions/ManterTipoPrestador.php');
+        
+                            $manterPrestador = new ManterPrestador();
+                            $manterTipoPrestador = new ManterTipoPrestador();
                             if (isset($_REQUEST['id'])) {
-                                $licitacao    = $manterLicitacao->getLicitacaoPorId($_REQUEST['id']);
+                                $prestador    = $manterPrestador->getPrestadorPorId($_REQUEST['id']);
                             }
                             ?>
                         <!-- Exibe dados da  tarefa -->
@@ -317,7 +318,7 @@ and open the template in the editor.
                             <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                 <div class="row">
                                     <div class="col c2 ml-2">
-                                        <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de licitações</div>
+                                        <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de contratos</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-file-pdf fa-3x text-white"></i>
@@ -327,12 +328,16 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="row">
                                     <div class="c1 ml-4">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Modalidade:</div>
-                                        <div class="mb-0"><?=$licitacao->modalidade ?></div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">CNPJ:</div>
+                                        <div class="mb-0"><?=$prestador->cnpj ?></div>
                                     </div>
                                     <div class="c2 ml-4">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Certame:</div>
-                                        <div class="mb-0"><?=$licitacao->certame ?></div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
+                                        <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
+                                    </div> 
+                                    <div class="c3 ml-4">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
+                                        <div class="mb-0"><?=$manterTipoPrestador->getTipoPrestadorPorId($prestador->tipo_prestador)->tipo ?></div>
                                     </div> 
                                 </div>
                             </div>
@@ -341,19 +346,19 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-shopping-basket fa-2x text-white"></i> 
+                                    <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos da licitação</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos do contrato (<?=$id . '/' . $ano ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_licitacao" aria-expanded="false" aria-controls="form_arquivos_licitacao">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_contrato" aria-expanded="false" aria-controls="form_arquivos_contrato">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>                            
                             <div class="card-body">
-                                <div class="card-group" id="arquivos_licitacao">
+                                <div class="card-group" id="arquivos_contrato">
                                     <?php
                            
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
@@ -536,7 +541,7 @@ and open the template in the editor.
             };
             data.append('id', '<?=$id ?>');
             data.append('ano', '<?=$ano ?>');
-            http.open('POST', 'save_arquivo_licitacao.php', true);
+            http.open('POST', 'save_arquivo_contrato.php', true);
             http.send(data);
             atualizar();
         }
