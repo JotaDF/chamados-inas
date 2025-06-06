@@ -11,23 +11,18 @@
         <form id="form_cadastro" action="save_licitacao.php" method="post">
             <input type="hidden" id="id" name="id"/>
             <div class="form-group row">
-                <label for="modalidade" class="col-sm-2 col-form-label">Modalidade:</label>
+                <label for="nome" class="col-sm-2 col-form-label">Categoria:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="modalidade" class="form-control form-control-sm" id="modalidade"  required>
+                    <input type="text" name="nome" class="form-control form-control-sm" id="nome" placeholder="Categoria" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="certame" class="col-sm-2 col-form-label">Certame:</label>
+                <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="certame" class="form-control form-control-sm" id="certame"  required>
+                    <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" placeholder="Descrição" required>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="ano" class="col-sm-2 col-form-label">Ano:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="ano" class="form-control form-control-sm" id="ano"  required>
-                </div>
-            </div>
+
             <div class="form-group row float-right">
                 <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_licitacao" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
