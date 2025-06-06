@@ -1,37 +1,36 @@
-<!-- Begin Page Content -->
-
-<!-- Collapsable Form -->
-<div class="card mb-4 collapse hide border-primary" id="form_licitacao" style="max-width:900px">
-    <!-- Card Header - Accordion -->
-    <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de Licitação</span>
-    </div>
-    <!-- Card Content - Collapse -->
-    <div class="card-body">
-        <form id="form_cadastro" action="save_licitacao.php" method="post">
-            <input type="hidden" id="id" name="id"/>
-            <div class="form-group row">
-                <label for="nome" class="col-sm-2 col-form-label">Categoria:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nome" class="form-control form-control-sm" id="nome" placeholder="Categoria" required>
+<div id="form_licitacao" class="collapse">
+    <div class="card mb-4 border-primary" style="width: 56rem;">
+        <div class="card-header bg-gradient-primary ">
+            <span class="h5 m-0 font-weight text-white">Cadastro de Licitação</span>
+            <i class="fa fa-question-circle fa-2x text-white"></i>
+        </div>
+        <div class="card-body">
+            <form action="save_licitacao.php" method="POST">
+                <input type="hidden" id="id" name="id">
+                <div class="mb-3">
+                    <label for="motalidade" class="form-label">Modalidade</label>
+                    <input type="text" class="form-control" id="motalidade" name="motalidade" required>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" placeholder="Descrição" required>
+                <div class="mb-3">
+                    <label for="certame" class="form-label">Certame</label>
+                    <input type="text" class="form-control" id="certame" name="certame" required>
                 </div>
-            </div>
-
-            <div class="form-group row float-right">
-                <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_licitacao" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
-                &nbsp;&nbsp;&nbsp;
-            </div>
-        </form>                  
+                <div class="mb-3">
+                    <label for="ano" class="form-label">Ano</label>
+                    <input type="text" class="form-control" id="ano" name="ano" required>
+                </div>
+                <div class="form-group row float-right p1">
+                    <button type="button"
+                        onclick="$('#btn_cadastrar').show(); $('#form_licitacao').collapse('hide');"
+                        class="btn btn-danger btn-sm">
+                        <i class="fa fa-minus-square"></i> Cancelar
+                    </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary btn-sm mr-1" name="enviar"><i class="fas fa-save"></i>
+                        Salvar</button>
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-<!-- /.container-fluid -->
-
-

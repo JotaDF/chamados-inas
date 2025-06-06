@@ -120,7 +120,7 @@ require_once 'verifica_login.php';
                         }
                     }
                     ?>
-                    <?php include './form_quest_questionario.php'; ?>
+                    <?php include './form_licitacao.php'; ?>
                     <div class="card mb-4 border-primary dt-responsive" style="max-width:900px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary dt-responsive" style="width:100%">
                             <!-- <div class="col-sm ml-0" style="max-width:50px;">
@@ -131,8 +131,8 @@ require_once 'verifica_login.php';
                             </div>
                             <div class="col text-right" style="max-width:20%">
                                 <button id="btn_cadastrar" title="Adicionar Licitação" class="btn btn-outline-light btn-sm" type="button"
-                                    data-toggle="collapse" data-target="#form_quest_questionario" aria-expanded="false"
-                                    aria-controls="form_setor">
+                                    data-toggle="collapse" data-target="#form_licitacao" aria-expanded="false"
+                                    aria-controls="form_licitacao">
                                     <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                 </button>
                             </div>
