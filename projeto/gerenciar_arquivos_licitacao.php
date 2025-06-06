@@ -8,7 +8,6 @@ $modalidade = $_REQUEST['modalidade'];
 $certame = $_REQUEST['certame'];
 $ano = $_REQUEST['ano'];
 
-
 ?> 
 <!DOCTYPE html>
 <!--
@@ -62,9 +61,7 @@ and open the template in the editor.
             }
 
             function excluir(fileName) {
-                $('#delete').off('click').on('click', function() {
-                    deleteFile(fileName);
-                });
+                $('#delete').attr('onclick', 'deleteFile("'+fileName+'")');
                 $('#excluir').text(fileName);
                 $('#confirm').modal({show: true});              
             }
@@ -72,7 +69,7 @@ and open the template in the editor.
             function atualizar(){
                 // Fazendo requisição AJAX
                 $.ajax({
-                    url: 'get_arquivos_licitacao.php?nid=<?=$id ?>&ano=<?=$ano ?>',
+                    url: 'get_arquivos_licitacao.php?id=<?=$id ?>&ano=<?=$ano ?>',
                     dataType: 'html',
                     success: function (html) {
                         $('#arquivos_licitacao').html(html);
@@ -273,7 +270,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                     <div style="max-width:900px" class="row float-none">
                         <div class="ml-3 mb-2">
-                            <a href="licitacoes.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                            <a href="licitacoes.php" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
                         </div>
                     </div>
                         <?php
@@ -289,7 +286,7 @@ and open the template in the editor.
                         <div class="card mb-4 collapse hide border-primary" id="form_arquivos_licitacao" style="max-width:900px">
                             <!-- Card Header - Accordion -->
                             <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-                                <span class="h6 m-0 font-weight text-white">Enviar arquivos da licitação (<?=$certame  ?>)</span>
+                                <span class="h6 m-0 font-weight text-white">Enviar arquivos da licitação</span>
                             </div>                  
                             <!-- Card Content - Collapse -->
                             <div class="card-body">
@@ -310,7 +307,6 @@ and open the template in the editor.
 
                         <?php
                             include_once('actions/ManterLicitacao.php');
-        
                             $manterLicitacao = new ManterLicitacao();
                             if (isset($_REQUEST['id'])) {
                                 $licitacao    = $manterLicitacao->getLicitacaoPorId($_REQUEST['id']);
@@ -345,10 +341,10 @@ and open the template in the editor.
                         <div class="card mb-4 border-primary" style="max-width:900px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-address-card fa-2x text-white"></i> 
+                                    <i class="fa fa-shopping-basket fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos da licitação (<?=$certame ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos da licitação</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_licitacao" aria-expanded="false" aria-controls="form_arquivos_licitacao">
