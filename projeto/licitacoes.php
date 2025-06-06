@@ -57,6 +57,14 @@ and open the template in the editor.
                 $('#form_licitacao').collapse("show");
                 $('#btn_cadastrar').hide();
             }
+            function novo() {
+                $('#modalidade').val("");
+                $('#certame').val("");
+                $('#ano').val("");
+                $('#id').val("");
+                $('#form_licitacao').collapse("show");
+                $('#btn_cadastrar').hide();
+            }
 
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
@@ -94,7 +102,7 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Licitações</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_licitacao" aria-expanded="false" aria-controls="form_licitacao">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" onclick="novo()">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
