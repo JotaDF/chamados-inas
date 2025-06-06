@@ -304,13 +304,11 @@ and open the template in the editor.
                         </div>
 
                         <?php
-                            include_once('actions/ManterPrestador.php');
-                            include_once('actions/ManterTipoPrestador.php');
+                            include_once('actions/ManterLicitacao.php');
         
-                            $manterPrestador = new ManterPrestador();
-                            $manterTipoPrestador = new ManterTipoPrestador();
+                            $manterLicitacao = new ManterLicitacao();
                             if (isset($_REQUEST['id'])) {
-                                $prestador    = $manterPrestador->getPrestadorPorId($_REQUEST['id']);
+                                $licitacao    = $manterLicitacao->getLicitacaoPorId($_REQUEST['id']);
                             }
                             ?>
                         <!-- Exibe dados da  tarefa -->
@@ -328,16 +326,12 @@ and open the template in the editor.
                             <div class="card-body">
                                 <div class="row">
                                     <div class="c1 ml-4">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">CNPJ:</div>
-                                        <div class="mb-0"><?=$prestador->cnpj ?></div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Modalidade:</div>
+                                        <div class="mb-0"><?=$licitacao->modalidade ?></div>
                                     </div>
                                     <div class="c2 ml-4">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">PRESTADOR:</div>
-                                        <div class="mb-0"><?=$prestador->nome_fantasia ?></div>
-                                    </div> 
-                                    <div class="c3 ml-4">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">TIPO:</div>
-                                        <div class="mb-0"><?=$manterTipoPrestador->getTipoPrestadorPorId($prestador->tipo_prestador)->tipo ?></div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Certame:</div>
+                                        <div class="mb-0"><?=$licitacao->certame ?></div>
                                     </div> 
                                 </div>
                             </div>
