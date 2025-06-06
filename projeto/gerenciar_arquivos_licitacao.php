@@ -1,10 +1,13 @@
 <?php
-//Licitacao
+//Contratos
 $mod = 17;
 require_once('./verifica_login.php');
 
-$ano = $_REQUEST['ano'];
 $id = $_REQUEST['id'];
+$modalidade = $_REQUEST['modalidade'];
+$certame = $_REQUEST['certame'];
+$ano = $_REQUEST['ano'];
+
 
 ?> 
 <!DOCTYPE html>
@@ -21,7 +24,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gerenciar arquivos ponto</title>
+        <title>Gerenciar arquivos de licitação</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,14 +36,21 @@ and open the template in the editor.
         <!------ Include the above in your HEAD tag ---------->
 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
              function deleteFile(fileName) {
                 var xhr = new XMLHttpRequest();
                 var item = document.getElementById("file-"+fileName);
-                xhr.open("GET", "del_arquivo_contrato.php?id=<?=$id ?>&ano=<?=$ano ?>&file=" + fileName, true);
+                xhr.open("GET", "del_arquivo_licitacao.php?id=<?=$id ?>&ano=<?=$ano ?>&file=" + fileName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log("Arquivo deletado");
@@ -52,7 +62,9 @@ and open the template in the editor.
             }
 
             function excluir(fileName) {
-                $('#delete').attr('onclick', 'deleteFile("'+fileName+'")');
+                $('#delete').off('click').on('click', function() {
+                    deleteFile(fileName);
+                });
                 $('#excluir').text(fileName);
                 $('#confirm').modal({show: true});              
             }
@@ -60,10 +72,10 @@ and open the template in the editor.
             function atualizar(){
                 // Fazendo requisição AJAX
                 $.ajax({
-                    url: 'get_arquivos_contrato.php?id=<?=$id ?>&ano=<?=$ano ?>',
+                    url: 'get_arquivos_licitacao.php?nid=<?=$id ?>&ano=<?=$ano ?>',
                     dataType: 'html',
                     success: function (html) {
-                        $('#arquivos_contrato').html(html);
+                        $('#arquivos_licitacao').html(html);
                     }
                 });
             }
@@ -252,7 +264,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_contratos.php'; ?>
+            <?php include './menu_compras.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -261,7 +273,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                     <div style="max-width:900px" class="row float-none">
                         <div class="ml-3 mb-2">
-                            <a href="gerenciar_contratos_prestador.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                            <a href="licitacoes.php?id=<?=$id ?>" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
                         </div>
                     </div>
                         <?php
@@ -274,10 +286,10 @@ and open the template in the editor.
                         ?>
                         
                         <!-- Collapsable Form -->
-                        <div class="card mb-4 collapse hide border-primary" id="form_arquivos_contrato" style="max-width:900px">
+                        <div class="card mb-4 collapse hide border-primary" id="form_arquivos_licitacao" style="max-width:900px">
                             <!-- Card Header - Accordion -->
                             <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-                                <span class="h6 m-0 font-weight text-white">Enviar arquivos do contrato (<?=$id . '/' . $ano ?>)</span>
+                                <span class="h6 m-0 font-weight text-white">Enviar arquivos da licitação (<?=$certame  ?>)</span>
                             </div>                  
                             <!-- Card Content - Collapse -->
                             <div class="card-body">
@@ -291,7 +303,7 @@ and open the template in the editor.
                                 </div>               
                             </div>
                             <div class="form-group row float-right">
-                                <button type="reset" data-toggle="collapse" data-target="#form_arquivos_contrato" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
+                                <button type="reset" data-toggle="collapse" data-target="#form_arquivos_licitacao" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                             </div>
                         </div>
                         </div>
@@ -309,7 +321,7 @@ and open the template in the editor.
                             <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                 <div class="row">
                                     <div class="col c2 ml-2">
-                                        <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de contratos</div>
+                                        <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de licitações</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-file-pdf fa-3x text-white"></i>
@@ -336,16 +348,16 @@ and open the template in the editor.
                                     <i class="fa fa-address-card fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos do contrato (<?=$id . '/' . $ano ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivos da licitação (<?=$certame ?>)</span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_contrato" aria-expanded="false" aria-controls="form_arquivos_contrato">
+                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivos_licitacao" aria-expanded="false" aria-controls="form_arquivos_licitacao">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>                            
                             <div class="card-body">
-                                <div class="card-group" id="arquivos_contrato">
+                                <div class="card-group" id="arquivos_licitacao">
                                     <?php
                            
                                     $files = array_diff(scandir($uploadDir), array('.', '..'));
@@ -528,7 +540,7 @@ and open the template in the editor.
             };
             data.append('id', '<?=$id ?>');
             data.append('ano', '<?=$ano ?>');
-            http.open('POST', 'save_arquivo_contrato.php', true);
+            http.open('POST', 'save_arquivo_licitacao.php', true);
             http.send(data);
             atualizar();
         }
