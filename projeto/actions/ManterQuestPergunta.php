@@ -26,6 +26,8 @@ Class ManterQuestPergunta extends Model {
 
         return $array_dados;
     }
+
+    
     function salvar(QuestPergunta $dados) {
        $sql = "insert into quest_pergunta (titulo, pergunta, id_quest_escala, opcional ) values ('" .$dados->titulo. "', '" .$dados->pergunta. "', '" .$dados->id_quest_escala. "', '" .$dados->opcional. "')";
         

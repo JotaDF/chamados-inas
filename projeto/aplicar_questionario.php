@@ -1,10 +1,10 @@
 <?php
-$mod = 16;
-require_once 'verifica_login.php';
+// $mod = 16;
+//  require_once 'quest_aceite.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
@@ -55,29 +55,30 @@ require_once 'verifica_login.php';
     <script type="text/javascript" language="javascript"
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script type="text/javascript" class="init">
-        $(document).ready(function () {
-            $('#questionario').DataTable({
-                paging: false // Habilita a paginação
-            });
-        });
-        
-        function alterar(id, inicio, termino) {
-            $('#inicio').val(inicio);
-            $('#id').val(id);
-            $('#termino').val(termino);
-        }
-
-        function excluir(id, id_questionario, titulo) {
-            $('#delete').attr('href', 'del_quest_aplicacao.php?id=' + id + '&id_questionario=' + id_questionario);
-            $('#id').val(id);
-            $('#titulo_excluir').text(titulo);
-            $('#id_quest_questionario').val(id_questionario);
-            $('#confirm').modal({ show: true });
-        }
     </script>
     <style>
         body {
+            /* Light gray background */
             font-size: small;
+        }
+
+        .card {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-check-label {
+            margin-left: 5px;
+            /* Espaçamento entre o radio/checkbox e o texto */
+        }
+
+        .form-label {
+            font-weight: 20px;
+            font-size: 15px;
+            color: #343a40;
         }
     </style>
 </head>
@@ -85,102 +86,180 @@ require_once 'verifica_login.php';
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <?php include './menu_questionario.php'; ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include './top_bar.php'; ?>
                 <?php
                 require_once 'actions/ManterQuestAplicacao.php';
                 include_once('actions/ManterQuestQuestionario.php');
+                include_once('actions/ManterQuestEscala.php');
+                include_once('actions/ManterQuestEscala.php');
                 include_once('actions/ManterPergunta.php');
                 $manterQuestAplicacao = new ManterQuestAplicacao();
                 $manterQuestQuestionario = new ManterQuestQuestionario();
-                $id_questionario = 18;
-                
-                if($id_questionario == 18) {
-                    $questionario = $manterQuestAplicacao->getQuestionario($id_questionario);
-                    $aplicacao = $manterQuestAplicacao->listar();
-                ?>
-                <div class="container-fluid">
-                    <!-- Exibe dados da  tarefa -->
-                    <div class="card mb-3 border-primary" style="max-width: 1000px;">
-                        <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
-                            <div class="row">
-                                <div class="col c2 ml-2">
-                                    <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de aplicação dos
-                                        questionarios</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa fa-flag fa-3x text-white"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="c1 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $questionario->id ?></div>
-                                </div>
-                                <div class="c2 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Título:</div>
-                                    <div class="mb-0"><?= $questionario->titulo ?></div>
-                                </div>
-                                <div class="c3 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Descrição:</div>
-                                    <p class="card-text"><?= $questionario->descricao ?></p>
-                                </div>
-                            </div>
-                            <br />
+                $manterQuestEscala = new ManterQuestEscala();
 
-                            <p class=" ml-2 card-text">
-                                <span class="mt-3 ml-2 h6 card-title"></span>
-                            <form id="form_cadastro" action="save_quest_aplicacao.php" method="post">
-                                <input type="hidden" id="id_quest_questionario" name="id_quest_questionario"
-                                    value="<?= $questionario->id ?>" />
-                                <input type="hidden" id="id" name="id" value="" />
-                                <div class="form-group row float-right">
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i>
-                                        Salvar </button>
+                if(isset($_GET['id']) && isset($_GET['aplicacao'])) {
+                $id_questionario        = (int) $_GET['id'];
+                $id_quest_aplicacao     = (int) $_GET['aplicacao']; 
+            }
+                if ($id_questionario) {
+                $questionario = $manterQuestQuestionario->getQuestionarioPorId($id_questionario);
+    
+                if (!$questionario) {
+                    echo "<p class='alert alert-warning text-center'>Questionário não encontrado.</p>";
+                    exit();
+                }
+                $todas_perguntas = $manterQuestAplicacao->getTodasPerguntasPorQuestionario($id_questionario); 
+                $categoria_atual = null;
+                $numero_pergunta = 1;
+    ?>
+    <div class="container-fluid">
+         <div id="content-wrapper" class="d-flex flex-column">
+             <div class="card container border-dark">
+            <div class="text-center">
+                <img src="img/inas.png" alt="" style="width: 200px; height: 132px;">
+            </div>
+        <div class="row  card-header py-2 border border-dark rounded bg-gradient mb-2">
+            <h5 class="mb-2"><?= $questionario->titulo ?? 'Título do Questionário' ?></h5>
+            <p class="fs-3 mb-2"><?= $questionario->descricao ?? 'Descrição do questionário' ?></p>
+        </div>
+            <div class="card-body p-2">
+                <form action="processa_quest_resposta.php" method="POST">
+                    <input type="hidden"  name="id_usuario"          value="<?= $usuario_logado->id ?>">
+                    <input type="hidden"  name="id_questionario"     value="<?= $id_questionario ?>">
+                    <input type="hidden"  name="id_quest_apli cacao"  value="<?= $id_quest_aplicacao?>">
+ 
+                    <?php
+                    foreach ($todas_perguntas as $pergunta) {
+                        if ($pergunta->nome_categoria !== $categoria_atual) {
+                            
+                            if ($categoria_atual !== null) {
+                                echo '</div>'; 
+                            }
+                            $categoria_atual                = $pergunta->nome_categoria;
+                            $descricao_categoria_atual      = $pergunta->descricao;
+                            ?>
+                            
+                                <h5 class="text-left">
+                                    <li> <?= $categoria_atual ?> </li>
+                                </h5>
+                                <p class="text-left text-sm"> <?= $descricao_categoria_atual ?> </p>
+                            <div class="mb-2 p-1 bg-white"> 
+                            <?php
+                        }
+                        $opcional      = ($pergunta->opcional == 0) ? "required" : ""; 
+                        $tag_required  = ($opcional === 'required') ? "<span class='text-danger'> * </span>" : "";
+                        ?>
+                        <div class="mb-3 border border-dark rounded p-2">
+                            <label class="form-label fw-bold mb-2 ">
+                                <?php 
+                                echo "<strong>" . $numero_pergunta++ . ". "; 
+                                echo  ($pergunta->pergunta) . "</strong>"; 
+                                echo $tag_required; 
+                                ?>
+                            </label> 
+                            
+                            <?php if ($pergunta->nome_escala == 'Verdadeiro ou Falso') {  ?>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <?php 
+                                    $opcoes_vf = [
+                                        (object)['id_sufix' => 'verdadeiro', 'texto' => 'Verdadeiro', 'valor' => 'verdadeiro'],
+                                        (object)['id_sufix' => 'falso', 'texto' => 'Falso', 'valor' => 'falso']
+                                    ];
+                                    
+                                    $primeiro_radio_vf = true; 
+                                    foreach ($opcoes_vf as $opcao) {
+                                    ?>
+                                        <div class="form-check form-check-inline">
+                                            <input 
+                                                class="form-check-input" type="radio" name="resposta_<?= $pergunta->id ?>" 
+                                                id="<?= $pergunta->id ?>_<?= $opcao->id_sufix ?>" 
+                                                value="<?= $opcao->valor ?>"
+                                                <?= $primeiro_radio_vf ? $opcional : '' ?> 
+                                            >
+                                            <label class="form-check-label" for="resposta_<?= $pergunta->id ?>_<?=$opcao->id_sufix ?>">
+                                                <?= $opcao->texto ?>
+                                            </label>
+                                        </div>
+                                    <?php 
+                                        $primeiro_radio_vf = false; 
+                                } 
+                                    ?>
                                 </div>
-                            </form>
 
-                            </p>
-                        </div>
+                            <?php } else if ($pergunta->nome_escala == 'Escala Likert') { ?>
+                                <?php 
+                             
+                                $escalas = $manterQuestEscala->getParametroPorPergunta($pergunta->id_quest_escala);
+                                ?>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <?php 
+                                    foreach ($escalas as $escala_obj){
+                                        $opcoes_likert_string = $escala_obj->parametro;
+                                        $opcoes_likert_array = explode(";", $opcoes_likert_string);
+                                        
+                                        $opcao_likert_contador = 0; 
+                                        $primeiro_radio_likert = true; 
+
+                                        foreach ($opcoes_likert_array as $opcao_likert_texto){
+                                            $id_sufix = 'likert_' . $opcao_likert_contador; 
+                                            $valor_opcao = trim($opcao_likert_texto); 
+                                    ?>
+                                            <div class="form-check form-check-inline">
+                                                <input 
+                                                    class="form-check-input" type="radio" name="resposta_<?= $pergunta->id ?>"id="pergunta_<?= $pergunta->id ?>_<?= $id_sufix ?>" value="<?= $valor_opcao ?>"
+                                                    <?= $primeiro_radio_likert ? $opcional : '' ?> 
+                                                >
+                                                <label class="form-check-label" for="pergunta_<?= $pergunta->id ?>_<?= $id_sufix ?>">
+                                                    <?= $valor_opcao ?> 
+                                                </label>
+                                            </div>
+                                    <?php 
+                                            $opcao_likert_contador++;
+                                            $primeiro_radio_likert = false; 
+                                        }
+                                    }; 
+                                    ?>
+                                </div>
+
+                            <?php } else if ($pergunta->nome_escala == 'Resposta por texto livre') { // Usando nome_escala aqui ?>
+                                <input 
+                                    type="text" class="form-control form-control-sm" name="resposta_<?= $pergunta->id ?>" id="resposta_<?= $pergunta->id ?>_texto"  placeholder="<?= $pergunta->titulo ?? 'Digite sua resposta aqui...' ?>"
+                                    <?= $opcional ?> 
+                                >
+                            <?php } ?>
+                        </div> 
+                    <?php } // Fim do foreach ($todas_perguntas) ?>
+                    
+                    <?php 
+                    // Fecha o último div de categoria, se houver perguntas
+                    if ($categoria_atual !== null) {
+                        echo '</div>'; 
+                    }
+                    ?>
+
+                    <div class="d-grid gap-1 mt-2">
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Enviar Questionário</button>
                     </div>
-                </div>
-                <?php } ?>
+                </form>
             </div>
-            <?php include './rodape.php'; ?>
-        </div>
-    </div>
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    <!-- Modal excluir -->
-    <div class="modal fade" id="confirm" role="dialog">
-        <div class="modal-dialog modal-sm">
+            </div>
+            <?php
+    } else {
+        echo "<p class='alert alert-danger text-center mt-5'>ID do questionário não fornecido.</p>";
+    }
+                    ?>
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirmação</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        </form>
+                    </div>
+
+                    <?php ?>
                 </div>
-                <div class="modal-body">
-                    <p>Deseja excluir a aplicação do questionário <strong>"<span id="titulo_excluir"></span>"<?= $questionario->titulo ?></strong>?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
                 </div>
             </div>
-
         </div>
-    </div>
-
 </body>
 
 </html>

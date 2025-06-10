@@ -25,7 +25,22 @@ Class ManterQuestEscala extends Model {
 
         return $array_dados;
     }
+    function getParametroPorPergunta($id) {
+        $sql = "SELECT qe.id, qe.nome, qe.descricao, qe.parametro FROM quest_escala as qe, quest_pergunta as qp where qe.id = qp.id_quest_escala AND qp.id_quest_escala =" . $id;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados                         = new QuestEscala();
+            $dados->excluir                = true;
+            $dados->id                     = $registro['id'];
+            $dados->nome                   = $registro['nome'];
+            $dados->descricao              = $registro['descricao'];
+            $dados->parametro              = $registro['parametro'];
+            $array_dados[]                 = $dados;
+        }
 
+        return $array_dados;
+    }
     function salvar(QuestEscala $dados) {
         $sql = "insert into quest_escala (nome, descricao, parametro) values ('" .$dados->nome. "', '" .$dados->descricao. "', '". $dados->parametro . "')";
         if ($dados->id > 0) {
