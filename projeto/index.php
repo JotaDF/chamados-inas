@@ -76,12 +76,11 @@ and open the template in the editor.
                         if($acesso->id_modulo != 1){
                             $request = "";
                             if ($acesso->id_modulo == 15) {
-                                $request = "?xxx";
-                                //$request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
+                                $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
                             }
                     ?> 
                         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
-                            <a class="text-decoration-none" href="<?=$acesso->link ?>">
+                            <a class="text-decoration-none" href="<?=$acesso->link . $request ?>">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body">
                                     
@@ -177,26 +176,6 @@ and open the template in the editor.
                 <div class="modal-body">
                     <div class="col-xl-3 col-md-2 mb-4">
                         <div class="row no-gutters align-items-center">
-                            <img src="publicidade/imagen.jpg" width="100%"/>
-                            <br/>
-                            <img src="publicidade/imagen1.jpg" width="100%"/>
-                            <p>
-                            Olá, equipe INAS,<br/><br/>
-
-Queremos convidar vocês para um momento muito importante: a nossa Celebração dos 4 Anos do GDF Saúde e a Inauguração da Galeria dos Diretores-Presidentes do INAS! 
-🎉🎁🎈🎂
-
-Uma ótima oportunidade para celebrarmos tudo o que já construímos juntos e reconhecer quem faz parte dessa história — como você! 
-
-Vai ser uma ocasião cheia de memórias, homenagens e, claro, uma chance de estarmos todos juntos para relembrar cada conquista e sonhar com o que ainda está por vir. 
-
-🗓️ Data: 31/10/24
-🕒 Horário: 16h
-📍Local: Hall do INAS, 10º andar.
-
-Esperamos todos para comemorarem com a gente. 
-Sua presença vai tornar este momento ainda mais especial!  ❤️
-                            </p>
                         </div>
                     </div>
                 </div>
