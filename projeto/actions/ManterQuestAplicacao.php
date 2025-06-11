@@ -84,7 +84,7 @@ class ManterQuestAplicacao extends Model
     }
 
     function getTodasPerguntasPorQuestionario($id) {
-        $sql = "SELECT qp.id as id_pergunta, qp.pergunta,  qp.opcional, qcp.nome AS nome_categoria, qcp.descricao, qe.nome AS nome_escala, qp.id_quest_escala
+        $sql = "SELECT qp.id as id_pergunta, qp.pergunta,  qp.opcional, qcp.nome AS nome_categoria, qe.nome AS nome_escala, qp.id_quest_escala
                 FROM quest_pergunta qp, quest_pergunta_categoria qpc, quest_categoria_pergunta qcp, quest_questionario qq,quest_escala qe 
                 WHERE qp.id = qpc.id_quest_pergunta AND qcp.id = qpc.id_quest_categoria_pergunta AND qe.id = qp.id_quest_escala AND qcp.id_quest_questionario = qq.id AND qq.id = $id
                 ORDER BY qp.id";
@@ -96,7 +96,6 @@ class ManterQuestAplicacao extends Model
             $dados->pergunta            = $registro['pergunta'];
             $dados->opcional            = $registro['opcional'];
             $dados->nome_categoria      = $registro['nome_categoria'];
-            $dados->descricao           = $registro['descricao'];
             $dados->nome_escala         = $registro['nome_escala'];
             $dados->id_quest_escala     = $registro['id_quest_escala'];
             $array_dados[]              = $dados;
@@ -104,14 +103,13 @@ class ManterQuestAplicacao extends Model
         return $array_dados;
     }
     function getCategoriaPorQuestionario($id) {
-        $sql = "SELECT qcp.nome, qcp.descricao, qcp.id, qcp.id_quest_questionario FROM quest_categoria_pergunta as qcp WHERE qcp.id_quest_questionario =" . $id;
+        $sql = "SELECT qcp.nome, qcp.id, qcp.id_quest_questionario FROM quest_categoria_pergunta as qcp WHERE qcp.id_quest_questionario =" . $id;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro  = $resultado->fetchRow()) {
             $dados                       = new QuestCategoriaPergunta;
             $dados->id                   = $registro['id'];
             $dados->nome                 = $registro['nome'];
-            $dados->descricao            = $registro['descricao'];
             $dados->questionario         = $registro['id_quest_questionario'];
         }
         return $dados;

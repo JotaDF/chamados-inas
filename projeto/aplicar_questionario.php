@@ -139,13 +139,12 @@
                                 echo '</div>'; 
                             }
                             $categoria_atual                = $pergunta->nome_categoria;
-                            $descricao_categoria_atual      = $pergunta->descricao;
                             ?>
                             
                                 <h5 class="text-left">
                                     <li> <?= $categoria_atual ?> </li>
                                 </h5>
-                                <p class="text-left text-sm"> <?= $descricao_categoria_atual ?> </p>
+                                <p class="text-left text-sm"> <?= $pergunta->nome_categoria?> </p>
                             <div class="mb-2 p-1 bg-white"> 
                             <?php
                         }
