@@ -84,7 +84,7 @@ class ManterQuestAplicacao extends Model
     }
 
     function getTodasPerguntasPorQuestionario($id) {
-        $sql = "SELECT qp.id as id_pergunta, qp.pergunta,  qp.opcional, qcp.nome AS nome_categoria, qe.nome AS nome_escala, qp.id_quest_escala
+        $sql = "SELECT qp.id as id_pergunta, qp.pergunta,  qp.opcional, qcp.nome AS nome_categoria, qe.parametro AS parametro_escala, qe.nome AS nome_escala, qp.id_quest_escala
                 FROM quest_pergunta qp, quest_pergunta_categoria qpc, quest_categoria_pergunta qcp, quest_questionario qq,quest_escala qe 
                 WHERE qp.id = qpc.id_quest_pergunta AND qcp.id = qpc.id_quest_categoria_pergunta AND qe.id = qp.id_quest_escala AND qcp.id_quest_questionario = qq.id AND qq.id = $id
                 ORDER BY qp.id";
@@ -97,6 +97,7 @@ class ManterQuestAplicacao extends Model
             $dados->opcional            = $registro['opcional'];
             $dados->nome_categoria      = $registro['nome_categoria'];
             $dados->nome_escala         = $registro['nome_escala'];
+            $dados->parametro_escala    = $registro['parametro_escala'];
             $dados->id_quest_escala     = $registro['id_quest_escala'];
             $array_dados[]              = $dados;
         }

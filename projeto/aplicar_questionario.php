@@ -160,70 +160,32 @@
                                 ?>
                             </label> 
                             
-                            <?php if ($pergunta->nome_escala == 'Verdadeiro ou Falso') {  ?>
+                            <?php if ($pergunta->parametro_escala != 'livre') { 
+                                $opcoes = explode(';', $pergunta->parametro_escala);
+                                ?>
                                 <div class="d-flex flex-wrap gap-3">
                                     <?php 
-                                    $opcoes_vf = [
-                                        (object)['id_sufix' => 'verdadeiro', 'texto' => 'Verdadeiro', 'valor' => 'verdadeiro'],
-                                        (object)['id_sufix' => 'falso', 'texto' => 'Falso', 'valor' => 'falso']
-                                    ];
-                                    
-                                    $primeiro_radio_vf = true; 
-                                    foreach ($opcoes_vf as $opcao) {
+                                    $primeiro_radio = true; 
+                                    foreach ($opcoes as $opcao) {
                                     ?>
                                         <div class="form-check form-check-inline">
                                             <input 
                                                 class="form-check-input" type="radio" name="resposta_<?= $pergunta->id ?>" 
-                                                id="<?= $pergunta->id ?>_<?= $opcao->id_sufix ?>" 
-                                                value="<?= $opcao->valor ?>"
-                                                <?= $primeiro_radio_vf ? $opcional : '' ?> 
+                                                id="<?= $pergunta->id ?>_<?= $opcao ?>" 
+                                                value="<?= $opcao ?>"
+                                                <?= $primeiro_radio ? $opcional : '' ?> 
                                             >
-                                            <label class="form-check-label" for="resposta_<?= $pergunta->id ?>_<?=$opcao->id_sufix ?>">
-                                                <?= $opcao->texto ?>
+                                            <label class="form-check-label" for="resposta_<?= $pergunta->id ?>_<?=$opcao ?>">
+                                                <?= $opcao ?>
                                             </label>
                                         </div>
                                     <?php 
-                                        $primeiro_radio_vf = false; 
+                                        $primeiro_radio = false; 
                                 } 
                                     ?>
                                 </div>
 
-                            <?php } else if ($pergunta->nome_escala == 'Escala Likert') { ?>
-                                <?php 
-                             
-                                $escalas = $manterQuestEscala->getParametroPorPergunta($pergunta->id_quest_escala);
-                                ?>
-                                <div class="d-flex flex-wrap gap-3">
-                                    <?php 
-                                    foreach ($escalas as $escala_obj){
-                                        $opcoes_likert_string = $escala_obj->parametro;
-                                        $opcoes_likert_array = explode(";", $opcoes_likert_string);
-                                        
-                                        $opcao_likert_contador = 0; 
-                                        $primeiro_radio_likert = true; 
-
-                                        foreach ($opcoes_likert_array as $opcao_likert_texto){
-                                            $id_sufix = 'likert_' . $opcao_likert_contador; 
-                                            $valor_opcao = trim($opcao_likert_texto); 
-                                    ?>
-                                            <div class="form-check form-check-inline">
-                                                <input 
-                                                    class="form-check-input" type="radio" name="resposta_<?= $pergunta->id ?>"id="pergunta_<?= $pergunta->id ?>_<?= $id_sufix ?>" value="<?= $valor_opcao ?>"
-                                                    <?= $primeiro_radio_likert ? $opcional : '' ?> 
-                                                >
-                                                <label class="form-check-label" for="pergunta_<?= $pergunta->id ?>_<?= $id_sufix ?>">
-                                                    <?= $valor_opcao ?> 
-                                                </label>
-                                            </div>
-                                    <?php 
-                                            $opcao_likert_contador++;
-                                            $primeiro_radio_likert = false; 
-                                        }
-                                    }; 
-                                    ?>
-                                </div>
-
-                            <?php } else if ($pergunta->nome_escala == 'Resposta por texto livre') { // Usando nome_escala aqui ?>
+                            <?php  } else { // Usando nome_escala aqui ?>
                                 <input 
                                     type="text" class="form-control form-control-sm" name="resposta_<?= $pergunta->id ?>" id="resposta_<?= $pergunta->id ?>_texto"  placeholder="<?= $pergunta->titulo ?? 'Digite sua resposta aqui...' ?>"
                                     <?= $opcional ?> 
