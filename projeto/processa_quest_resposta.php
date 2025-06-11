@@ -9,13 +9,12 @@ $perguntas = $manterQuestPergunta->listar();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_usuario = $_POST['id_usuario'];
-    $id_questionario = $_POST['id_questionario'];
+    $id_questionario =    $_POST['id_questionario'];
     $id_quest_aplicacao = $_POST['id_quest_aplicacao'];
-    $parametros = "?id=" . $id_questionario . "&aplicacao=" . $id_aplicacao;
+    $parametros = "?id=" . $id_questionario . "&aplicacao=" . $id_quest_aplicacao;
     $r = new QuestResposta;
-    
     $respostas_totais = [];
+
     foreach ($perguntas as $pergunta) {
         $nome_campo = "resposta_" . $pergunta->id;
         if (isset($_POST[$nome_campo])) {
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if($resultado) {
-        header('Location: index.php');
+        header('Location: quest_agradecimento.php');
         exit;
     }
 }

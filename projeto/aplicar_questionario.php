@@ -99,7 +99,6 @@
                 $manterQuestAplicacao = new ManterQuestAplicacao();
                 $manterQuestQuestionario = new ManterQuestQuestionario();
                 $manterQuestEscala = new ManterQuestEscala();
-
                 if(isset($_GET['id']) && isset($_GET['aplicacao'])) {
                 $id_questionario        = (int) $_GET['id'];
                 $id_quest_aplicacao     = (int) $_GET['aplicacao']; 
@@ -118,18 +117,19 @@
     <div class="container-fluid">
          <div id="content-wrapper" class="d-flex flex-column">
              <div class="card container border-dark">
-            <div class="text-center">
-                <img src="img/inas.png" alt="" style="width: 200px; height: 132px;">
+            <div class="text-center mb-4">
+                <img src="img/logo_oficial.png" alt="" style="width: 400px;">
             </div>
         <div class="row  card-header py-2 border border-dark rounded bg-gradient mb-2">
             <h5 class="mb-2"><?= $questionario->titulo ?? 'Título do Questionário' ?></h5>
+            <br>
             <p class="fs-3 mb-2"><?= $questionario->descricao ?? 'Descrição do questionário' ?></p>
         </div>
             <div class="card-body p-2">
                 <form action="processa_quest_resposta.php" method="POST">
                     <input type="hidden"  name="id_usuario"          value="<?= $usuario_logado->id ?>">
                     <input type="hidden"  name="id_questionario"     value="<?= $id_questionario ?>">
-                    <input type="hidden"  name="id_quest_apli cacao"  value="<?= $id_quest_aplicacao?>">
+                    <input type="hidden"  name="id_quest_aplicacao"  value="<?= $id_quest_aplicacao?>">
  
                     <?php
                     foreach ($todas_perguntas as $pergunta) {
@@ -144,7 +144,6 @@
                                 <h5 class="text-left">
                                     <li> <?= $categoria_atual ?> </li>
                                 </h5>
-                                <p class="text-left text-sm"> <?= $pergunta->nome_categoria?> </p>
                             <div class="mb-2 p-1 bg-white"> 
                             <?php
                         }
