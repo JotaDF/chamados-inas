@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,15 @@
         body {
             font-size: small;
         }
+
         /* Estilo para simular um botão desabilitado em <a> */
         .btn.disabled {
-            pointer-events: none; /* Impede que o clique seja detectado */
-            opacity: 0.65;       /* Opacidade para indicar desabilitação */
-            cursor: not-allowed; /* Altera o cursor */
+            pointer-events: none;
+            /* Impede que o clique seja detectado */
+            opacity: 0.65;
+            /* Opacidade para indicar desabilitação */
+            cursor: not-allowed;
+            /* Altera o cursor */
         }
     </style>
 
@@ -29,7 +34,7 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             const checkboxAceite = document.getElementById('checkboxAceite');
             const btnProsseguir = document.getElementById('btnProsseguir');
             function toggleButtonState() {
@@ -57,39 +62,52 @@
             <div class="d-flex justify-content-center">
                 <div class="card mb-3 border shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 600px;">
                     <div class="card-body text-center">
-                        <h4 class="card-title border-bottom p-2">Titulo do Aceite</h4>
+                        <h4 class="card-title border-bottom p-2">Termo de Consentimento Livre e Esclarecido</h4>
                         <p class="card-text border-bottom p-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Nullam sed nibh ipsum. Vestibulum fringilla augue ut vehicula euismod. Cras vitae
-                            ullamcorper lacus. Vestibulum sed ante in leo tincidunt accumsan eu eu velit. Phasellus
-                            purus erat, lobortis vitae magna rutrum, sodales posuere elit. Nunc ultricies magna nisl,
-                            quis viverra erat volutpat eu. Aenean tincidunt auctor metus vitae posuere. Nulla eu sem
-                            posuere, maximus felis non, fermentum nisl.
+                            Ao participar deste questionário, você concorda voluntariamente em fornecer suas respostas
+                            para fins de pesquisa e/ou aprimoramento de serviços.
+
+                            Garantimos que:
+
+                            <li><strong> respostas serão mantidas em total anonimato, sem qualquer identificação
+                                    pessoal;</strong></li>
+
+                            <li>
+                                <strong>Os dados coletados serão utilizados exclusivamente para fins estatísticos e de
+                                    análise, não
+                                    sendo compartilhados individualmente com terceiros;</strong>
+                            </li>
+
+                            <li><strong>Sua participação é totalmente voluntária, podendo ser interrompida a qualquer
+                                    momento sem
+                                    prejuízo algum.</strong></li>
+                            <br>
+                            Ao prosseguir, você declara estar ciente e de acordo com os termos acima.
                         </p>
 
                         <input class="form-check-input" type="checkbox" id="checkboxAceite">
-                            <label class="form-check-label" for="checkboxAceite">
-                                Eu li e concordo com os termos e condições.
-                            </label>
+                        <label class="form-check-label" for="checkboxAceite">
+                            Eu li e concordo com os termos e condições.
+                        </label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <?php 
-                        if(isset($_GET['id']) && isset($_GET['aplicacao'])) {
-                            $id_questionario      = $_GET['id'];
-                            $id_aplicacao         = $_GET['aplicacao'];
+                        <?php
+                        if (isset($_REQUEST['id']) && isset($_REQUEST['aplicacao'])) {
+                            $id_questionario = $_REQUEST['id'];
+                            $id_aplicacao = $_REQUEST['aplicacao'];
                         }
                         $parametros = "?id=" . $id_questionario . "&aplicacao=" . $id_aplicacao;
                         ?>
-                        <a href="aplicar_questionario.php<?= $parametros ?>" class="btn btn-primary btn-sm disabled" id="btnProsseguir"
+                        <a href="aplicar_questionario.php" class="btn btn-primary btn-sm disabled" id="btnProsseguir"
                             role="button" aria-disabled="true">
                             Prosseguir para o Questionário
                         </a>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </body>
+</body>
 
 </html>

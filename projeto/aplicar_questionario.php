@@ -120,7 +120,7 @@
             <div class="text-center mb-4">
                 <img src="img/logo_oficial.png" alt="" style="width: 400px;">
             </div>
-        <div class="row  card-header py-2 border border-dark rounded bg-gradient mb-2">
+        <div class="card-header py-2 border border-dark rounded mb-2 text-dark" style="background-color: #A9A9A9;">
             <h5 class="mb-2"><?= $questionario->titulo ?? 'Título do Questionário' ?></h5>
             <br>
             <p class="fs-3 mb-2"><?= $questionario->descricao ?? 'Descrição do questionário' ?></p>
@@ -140,10 +140,11 @@
                             }
                             $categoria_atual                = $pergunta->nome_categoria;
                             ?>
-                            
-                                <h5 class="text-left">
-                                    <li> <?= $categoria_atual ?> </li>
-                                </h5>
+                                <div class="card-header py-1 border border-dark rounded mb-1" style="background-color: 	#D3D3D3;">
+                                    <h5 class="text-left ">
+                                        <p> <?= $categoria_atual ?> </p>
+                                    </h5>
+                                </div>
                             <div class="mb-2 p-1 bg-white"> 
                             <?php
                         }
