@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
+        body {
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+        }
 
         /* Estilo para simular um botão desabilitado em <a> */
         .btn.disabled {
@@ -37,16 +41,14 @@
         <div class="container mb-2">
             <div class="d-flex justify-content-center">
                 <div class="card mb-3 border shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 600px;">
-                    <div class="card-body text-center">
-                        <h4 class="card-title border-bottom p-2">Muito obrigado por sua participação!</h4>
-                        <p class="card-text border-bottom p-2">
+                    <div class="card-body text-center" style="text-align: justify;">
+                        <h4 class="card-title border-bottom p-2" >Obrigado por sua participação!</h4>
+                        <p class="card-text border-bottom p-2" style="text-align: justify;">
                             Sua colaboração ao responder este questionário é de grande importância para nós. As
                             informações fornecidas ajudarão a aprimorar nossos serviços e a desenvolver iniciativas mais
                             eficazes.
 
-                            Agradecemos seu tempo, sua atenção e seu compromisso.
-
-                            <strong>Juntos, podemos construir algo melhor!</strong>
+                            Agradecemos seu tempo, sua atenção e seu compromisso!
                         </p>
                     </div>
                     <div class="d-flex justify-content-center">
