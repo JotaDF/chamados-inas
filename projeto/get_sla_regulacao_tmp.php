@@ -11,6 +11,7 @@ foreach ($regulacao as $r) {
     echo "<td>" . $r->area . "</td>";
     echo "<td>" . $encaminhamento_manual . "</td>";
     echo "<td>" . $r->data_solicitacao_d . "</td>";
+    echo "<td>" . $r->carater . "</td>";
     echo "</tr>";
 }
 ?>

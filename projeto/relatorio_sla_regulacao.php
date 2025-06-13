@@ -101,6 +101,7 @@ if ($filtro == "vazio") {
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c5" onclick="naover('c5');" aria-hidden="true" title="Remover coluna"></i> DATA DE SOLICITAÇÃO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c6" onclick="naover('c6');" aria-hidden="true" title="Remover coluna"></i> ATRASO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c7" onclick="naover('c7');" aria-hidden="true" title="Remover coluna"></i> AUTORIZADO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c7" onclick="naover('c8');" aria-hidden="true" title="Remover coluna"></i> CARÁTER </th>
                         </tr>
                         <?php
                             foreach ($autorizado as $obj) {
@@ -116,6 +117,7 @@ if ($filtro == "vazio") {
                                     <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
                                     <td class="cell c3 text-dark"><?= date('d/m/Y h:i', strtotime($obj->autorizado)) ?></td>
+                                    <td class="cell c3 text-dark"><?= $obj->carater ?></td>
                                 </tr>
                                 </tbody>
                             <?php
@@ -137,6 +139,7 @@ if ($filtro == "vazio") {
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c5" onclick="naover('c5');" aria-hidden="true" title="Remover coluna"></i> DATA DE SOLICITAÇÃO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c6" onclick="naover('c6');" aria-hidden="true" title="Remover coluna"></i> ATRASO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c7" onclick="naover('c7');" aria-hidden="true" title="Remover coluna"></i> AUTORIZADO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c8" onclick="naover('c8');" aria-hidden="true" title="Remover coluna"></i> CARÁTER </th>
                         </tr>
                         <?php
                             foreach ($nao_autorizado as $obj) {
@@ -152,6 +155,7 @@ if ($filtro == "vazio") {
                                     <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
                                     <td class="cell c3 text-dark"> NÃO AUTORIZADO </td>
+                                    <td class="cell c3 text-dark"><?= $obj->carater ?></td>
                                 </tr>
                                 </tbody>
                             <?php
@@ -173,6 +177,7 @@ if ($filtro == "vazio") {
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c5" onclick="naover('c5');" aria-hidden="true" title="Remover coluna"></i> DATA DE SOLICITAÇÃO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c6" onclick="naover('c6');" aria-hidden="true" title="Remover coluna"></i> ATRASO </th>
                             <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c7" onclick="naover('c7');" aria-hidden="true" title="Remover coluna"></i> AUTORIZADO </th>
+                            <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%"><i class="fa fa-minus-square text-white c8" onclick="naover('c8');" aria-hidden="true" title="Remover coluna"></i> CARÁTER </th>
                         </tr>
                         <?php 
                         foreach($todos as $obj) {
@@ -191,6 +196,7 @@ if ($filtro == "vazio") {
                                     <td class="cell c0 text-dark"><?= date('d/m/Y h:i', strtotime($obj->data_solicitacao_d)) ?></td>
                                     <td class="cell c2 text-dark"><?= $obj->atraso ?></td>
                                     <td class="cell c3 text-dark"><?= $autorizado ?></td>
+                                    <td class="cell c3 text-dark"><?= $obj->carater ?></td>
                                 </tr>
                                 </tbody>
                                 <?php

@@ -115,6 +115,7 @@ and open the template in the editor.
                                             <th scope="col" style="text-align: center;">Área</th>
                                             <th scope="col" style="width:50px;">Encaminhamento Manual</th>
                                             <th scope="col" style="width:50px;">Data de Solicitação</th>
+                                            <th scope="col" style="width:50px;">Caráter</th>
                                         </tr>
                                     </thead>
                                     <tbody>

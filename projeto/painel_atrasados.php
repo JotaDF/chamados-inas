@@ -150,6 +150,7 @@ $todos = isset($_GET['fila_todos']);
                                             <th scope="col">Encaminhamento Manual</th>
                                             <th scope="col">Data de Solicitação</th>
                                             <th scope="col">Atraso</th>
+                                            <th scope="col">Caráter</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -10,7 +10,7 @@ class ManterSlaRegulacao extends Model
 
     function listaSlaRegulacaoAtrasado($fila)
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is  null AND s.atraso > 0 AND  s.fila ='" . $fila . "'";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao as s WHERE s.autorizado is  null AND s.atraso > 0 AND  s.fila ='" . $fila . "'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -24,13 +24,14 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
             $dados->atraso = $registro["atraso"];
             $dados->autorizado = $registro["autorizado"];
+            $dados->carater = $registro["carater"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
     function listaSlaRegulacaoNoPrazo($fila) 
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao AS s WHERE s.autorizado IS NULL AND s.fila = '".$fila ."' AND s.atraso = 0";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao AS s WHERE s.autorizado IS NULL AND s.fila = '".$fila ."' AND s.atraso = 0";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -44,13 +45,14 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
             $dados->atraso = $registro["atraso"];
             $dados->autorizado = $registro["autorizado"];
+            $dados->carater = $registro["carater"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
     
     function listaSlaRegulacaoTemporaria() {
-        $sql = "SELECT  autorizacao ,tipo_guia ,area ,fila ,encaminhamento_manual,data_solicitacao_t,data_solicitacao_d,atraso,autorizado FROM sla_regulacao_tmp";
+        $sql = "SELECT  autorizacao ,tipo_guia ,area ,fila ,encaminhamento_manual,data_solicitacao_t,data_solicitacao_d,atraso,autorizado, carater FROM sla_regulacao_tmp";
         $resultado = $this->db->Execute($sql);
         $array_dados  = array();
         while ($registro = $resultado->fetchRow()) {
@@ -64,20 +66,21 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
             $dados->atraso = $registro["atraso"];
             $dados->autorizado = $registro["autorizado"];
+            $dados->carater = $registro["carater"];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
 
     function listarSlaRegulacaoTodas() {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao as s";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
         $dados = new SlaRegulacao();
         $atributos = [
             "autorizacao", "tipo_guia", "area", "fila", "encaminhamento_manual", 
-            "data_solicitacao_t", "data_solicitacao_d", "atraso", "autorizado"
+            "data_solicitacao_t", "data_solicitacao_d", "atraso", "autorizado", "carater"
         ];
         foreach ($atributos as $atributo) {
                 $dados->$atributo = $registro[$atributo];
@@ -90,10 +93,10 @@ class ManterSlaRegulacao extends Model
 
     function listarSlaRegulacao($fila="")
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is null";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao as s WHERE s.autorizado is null";
         
         if($fila!=""){
-            $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.fila = '" . $fila . "' AND s.autorizado is null";
+            $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao as s WHERE s.fila = '" . $fila . "' AND s.autorizado is null";
         }
         
         $resultado = $this->db->Execute($sql);
@@ -109,6 +112,7 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
             $dados->atraso = $registro["atraso"];
             $dados->autorizado = $registro["autorizado"];
+            $dados->carater = $registro["carater"];
             $array_dados[] = $dados;
         }
         return $array_dados;
@@ -116,7 +120,7 @@ class ManterSlaRegulacao extends Model
 
     function listarSlaRegulacaoNaoAutorizados()
     {
-        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado FROM sla_regulacao as s WHERE s.autorizado is null";
+        $sql = "SELECT s.autorizacao, s.tipo_guia, s.area, s.fila, s.encaminhamento_manual, s.data_solicitacao_t, s.data_solicitacao_d, s.atraso, s.autorizado, s.carater FROM sla_regulacao as s WHERE s.autorizado is null";
          
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -131,6 +135,7 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d = $registro["data_solicitacao_d"];
             $dados->atraso = $registro["atraso"];
             $dados->autorizado = $registro["autorizado"];
+            $dados->carater = $registro["carater"];
             $array_dados[] = $dados;
         }
         return $array_dados;
@@ -243,7 +248,7 @@ class ManterSlaRegulacao extends Model
         return 0;
     }
     function getAutorizados() {
-        $sql = "SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado FROM  sla_regulacao where autorizado is not null";
+        $sql = "SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado, carater FROM  sla_regulacao where autorizado is not null";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -256,13 +261,14 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d          = $registro['data_solicitacao_d'];
             $dados->atraso                      = $registro['atraso'];
             $dados->autorizado                  = $registro['autorizado'];
+            $dados->carater                     = $registro['carater'];
             $array_dados[]                      =  $dados;                                                
         }
         return $array_dados;
     }
 
     function getNaoAutorizados() {
-        $sql = "SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado FROM  sla_regulacao where autorizado is null";
+        $sql = "SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado, carater FROM  sla_regulacao where autorizado is null";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -275,6 +281,7 @@ class ManterSlaRegulacao extends Model
             $dados->data_solicitacao_d          = $registro['data_solicitacao_d'];
             $dados->atraso                      = $registro['atraso'];
             $dados->autorizado                  = $registro['autorizado'];
+            $dados->carater                     = $registro['carater'];
             $array_dados[]                      =  $dados;                                                
         }
         return $array_dados;
@@ -305,11 +312,11 @@ class ManterSlaRegulacao extends Model
     }
     function atualizaFila()
     {
-        $sql = "SELECT autorizacao, tipo_guia, area, fila, data_solicitacao_t, data_solicitacao_d FROM sla_regulacao_tmp";
+        $sql = "SELECT autorizacao, tipo_guia, area, fila, data_solicitacao_t, data_solicitacao_d, carater FROM sla_regulacao_tmp";
         $rs = $this->db->Execute($sql);
        
         while ($registro = $rs->fetchRow()) {
-            $sql_atualiza = "UPDATE sla_regulacao SET sla_regulacao.tipo_guia = '".$registro['tipo_guia']."', sla_regulacao.area = '".$registro['area']."', sla_regulacao.fila = '".$registro['fila']."', sla_regulacao.data_solicitacao_t = '".$registro['data_solicitacao_t']."', sla_regulacao.data_solicitacao_d = '".$registro['data_solicitacao_d']."' WHERE sla_regulacao.autorizacao = '".$registro['autorizacao']."'";
+            $sql_atualiza = "UPDATE sla_regulacao SET sla_regulacao.tipo_guia = '".$registro['tipo_guia']."', sla_regulacao.area = '".$registro['area']."', sla_regulacao.fila = '".$registro['fila']."', sla_regulacao.data_solicitacao_t = '".$registro['data_solicitacao_t']."', sla_regulacao.data_solicitacao_d = '".$registro['data_solicitacao_d']."', sla_regulacao.carater = '".$registro['carater']."' WHERE sla_regulacao.autorizacao = '".$registro['autorizacao']."'";
             $resultado = $this->db->Execute($sql_atualiza);
             
         }
@@ -339,7 +346,7 @@ class ManterSlaRegulacao extends Model
     }
     function atualizaNovosSla()
     {
-        $sql = 'INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado) (SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
+        $sql = 'INSERT INTO sla_regulacao (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado, carater) (SELECT autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, autorizado, carater FROM sla_regulacao_tmp as srt WHERE srt.autorizacao NOT IN (select autorizacao from sla_regulacao))';
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
@@ -420,8 +427,8 @@ class ManterSlaRegulacao extends Model
                 fgetcsv($handle, 9000, ',');
 
                 // Definir a consulta SQL com placeholders
-                $sql = "INSERT INTO sla_regulacao_tmp (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO sla_regulacao_tmp (autorizacao, tipo_guia, area, fila, encaminhamento_manual, data_solicitacao_t, data_solicitacao_d, atraso, carater) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 
                 // Ler o arquivo CSV linha por linha
@@ -432,6 +439,7 @@ class ManterSlaRegulacao extends Model
                     $area = $data[2];
                     $fila = $data[3];
                     $encaminhamento_manual = $data[4];
+                    $carater = $data[5];
                     $data_solicitacao_t = $data[6];
                     $data_solicitacao_d = $data[6];
                     // Converter a data solicitacão para timestamp
@@ -454,7 +462,8 @@ class ManterSlaRegulacao extends Model
                         $encaminhamento_manual_convertido,
                         $data_solicitacao_convertida,
                         $data_solicitacao_d,
-                        $atraso
+                        $atraso,
+                        $carater
                     ]);
 
                     if (!$result) {
