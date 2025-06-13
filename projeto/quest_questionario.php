@@ -146,14 +146,14 @@ require_once 'verifica_login.php';
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="questionario" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                            <table id="questionario" class="table-sm table-striped table-bordered dt-responsive"
                                 style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col" style="text-align: center;">ID</th>
                                         <th scope="col" style="text-align: center;">Titulo</th>
                                         <th scope="col" style="text-align: center;">Descrição</th>
-                                        <th scope="col" style="width:100px;">Opções</th>
+                                        <th scope="col" style="width:120px;">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>
