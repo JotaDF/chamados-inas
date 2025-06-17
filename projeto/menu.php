@@ -71,7 +71,10 @@ foreach ($acessos as $acesso) {
                 break; 
             case 16:
                 $icon_css = "fa fa-question-circle";
-                break;                
+                break;  
+            case 17:
+                $icon_css = "fa fa-shopping-cart";
+                break;              
                                                 
         }
         
