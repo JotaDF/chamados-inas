@@ -41,7 +41,7 @@ $planejamento = $planejamentos->listar();
             </div>
             <div class="form-group row">
                 <label for="visao" class="col-sm-2 col-form-label">Visão:</label>
-                <div class="col-sm-10 input-group" style="max-width: 800px;">
+                <div class="col-sm-10 input-group">
                     <div style="width: 100%;">
                         <textarea class="form-control" id="froala-editor-visao" name="visao" rows="3"></textarea>
                     </div>

@@ -25,6 +25,20 @@ Class ManterPlanejamento extends Model {
         return $array_dados;
     }
 
+    function getPlanejamentoPorId($id = 0) {
+        $sql = "SELECT p.id, p.nome, p.ano_inicio, p.ano_fim, p.missao, p.visao FROM planejamento as p WHERE p.id=" . $id;
+        $resultado   = $this->db->Execute($sql);
+        while($registro = $resultado->fetchRow()) {
+            $dados      = new Planejamento;
+            $dados->id              = $registro['id'];
+            $dados->nome            = $registro['nome'];
+            $dados->ano_inicio      = $registro['ano_inicio'];
+            $dados->ano_fim         = $registro['ano_fim'];
+            $dados->missao          = $registro['missao'];
+            $dados->visao           = $registro['visao'];
+        }
+        return $dados;
+    }
     function salvar(Planejamento $dados) {
         $sql = "INSERT INTO planejamento(nome, ano_inicio, ano_fim, missao, visao) VALUES ('". $dados->nome ."','" . $dados->ano_inicio ."',
         '". $dados->ano_fim ."','". $dados->missao ."','". $dados->visao ."')";

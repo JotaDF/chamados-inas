@@ -40,7 +40,28 @@ require_once('./verifica_login.php');
         type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/css/froala_style.min.css" rel="stylesheet"
         type="text/css" />
+    <!-- jQuery e Bootstrap -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
+    <!-- SB Admin JS -->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Plugins adicionais -->
+    <script src="js/jquery.mask.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Froala Editor JS -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/js/froala_editor.pkgd.min.js"></script>
     <style>
         body {
             font-size: small;
@@ -129,28 +150,7 @@ require_once('./verifica_login.php');
         </div>
     </div>
 
-    <!-- jQuery e Bootstrap -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- SB Admin JS -->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Plugins adicionais -->
-    <script src="js/jquery.mask.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-
-    <!-- Froala Editor JS -->
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/froala-editor@4.0.10/js/froala_editor.pkgd.min.js"></script>
 
 </body>
 
@@ -196,7 +196,6 @@ require_once('./verifica_login.php');
 
         // Função para preencher o formulário com os dados de um planejamento selecionado para edição
         function alterar(id, nome, ano_inicio, ano_fim, missao, visao) {
-            console.log(id);                            // Exibe o ID no console (debug)
             $('#id').val(id);                           // Preenche o campo oculto 'id'
             $('#nome').val(nome);                       // Preenche o campo 'nome'
             $('#ano_inicio').val(ano_inicio);           // Preenche o campo 'ano_inicio'
