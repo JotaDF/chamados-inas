@@ -15,33 +15,33 @@ $planejamento = $planejamentos->listar();
             <div class="form-group row">
                 <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
                 <div class="col-sm-10 input-group">
-                    <input type="text" name="nome" class="form-control form-control-sm" id="nome" required>
+                    <input type="text" name="nome" class="form-control form-control-sm" id="nome" placeholder="Nome" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="ano_inicio" class="col-sm-2 col-form-label">Ano Inicio:</label>
                 <div class="col-sm-10 input-group">
-                    <input type="number" name="ano_inicio" class="form-control form-control-sm" id="ano_inicio"
+                    <input type="number" name="ano_inicio" class="form-control form-control-sm"  placeholder="Ano de Inicio" id="ano_inicio"
                         required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="ano_fim" class="col-sm-2 col-form-label">Ano Fim:</label>
                 <div class="col-sm-10 input-group">
-                    <input type="number" name="ano_fim" class="form-control form-control-sm" id="ano_fim" required>
+                    <input type="number" name="ano_fim" class="form-control form-control-sm"  placeholder="Ano de Fim" id="ano_fim" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="missao" class="col-sm-2 col-form-label">Missão:</label>
                 <div class="col-sm-10">
-                    <div style="width: 100%; height: 60%;" id="editor-missao"></div>
+                    <div style="width: 100%; height: 75px;" id="editor-missao"  placeholder="Missão"></div>
                     <input type="hidden" name="missao">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="visao" class="col-sm-2 col-form-label">Visão:</label>
                 <div class="col-sm-10">
-                    <div style="width: 100%; height: 60%;" id="editor-visao"></div>
+                    <div style="width: 100%; height: 75px;" id="editor-visao"></div>
                         <input type="hidden" name="visao">
                 </div>
             </div>

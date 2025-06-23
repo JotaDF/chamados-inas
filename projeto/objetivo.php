@@ -89,7 +89,7 @@ require_once('./verifica_login.php');
                             <div class="row">
                                 <div class="c1 ml-4">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $planejamento->id ?></div>
+                                    <div class="mb-0"><?= $id_planejamento  ?></div>
                                 </div>
                                 <div class="c2 ml-4">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
@@ -103,28 +103,23 @@ require_once('./verifica_login.php');
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">Ano Fim:</div>
                                     <div class="mb-0"><?= $planejamento->ano_fim ?></div>
                                 </div>
-                                <div class="c5 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Missão:</div>
-                                    <div class="mb-0"><?= $missao_planejamento ?></div>
-                                </div>
-                                <div class="c6 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Visão:</div>
-                                    <div class="mb-0"><?= $visao_planejamento ?></div>
-                                </div>
                             </div>
                             <br />
                             <p class=" ml-2 card-text">
                                 <span class="mt-3 ml-2 h6 card-title">Objetivo</span>
                             <form id="form_cadastro" action="save_objetivo.php" method="post">
                                 <input type="hidden" id="id_planejamento" name="id_planejamento"
-                                    value="<?= $planejamento->id ?>" />
+                                    value="<?= $id_planejamento ?>" />
+
+                                    <?php  echo $id_planejamento . " oi "?>
                                 <input type="hidden" name="id_objetivo" id="id_objetivo">
                                 <div class="form-group row">
                                     <label for="sigla" class="col-sm-2 col-form-label text-dark">Descrição:</label>
-                                    <div class="col-sm-5 ">
-                                        <input type="text" id="descricao" name="descricao"
-                                            class="form-control form-control-sm " required>
+                                    <div class="col-sm-9" style="width: 100px; height: 75px;">
+                                    <div id="editor">
+                                        <input type="hidden" id="descricao" name="descricao" required>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="form-group row float-right">
                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i>
@@ -188,4 +183,21 @@ require_once('./verifica_login.php');
                 </div>
             </div>
             <?php include './rodape.php'; ?>
+            <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+            <script>
+                const quillOpcoes = {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline'],
+                            ['link'],
+                            [{ 'align': [] }],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                        ],
+                    },
+                    theme: 'snow',
+                };
+                const quillDescricao = new Quill('#editor', quillOpcoes);
+            </script>
 </body>

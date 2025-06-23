@@ -27,7 +27,6 @@ require_once('./verifica_login.php'); // Faz a verificação de login
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico" />
-    <!-- Froala Editor CSS -->
 
     <!-- Bootstrap e DataTables CSS -->
     <link rel="stylesheet" type="text/css"
@@ -35,8 +34,9 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-
-
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.bubble.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.core.css" rel="stylesheet" />
     <!-- jQuery e Bootstrap -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -55,7 +55,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
         src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript"
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <!-- Froala Editor JS -->
 
 
@@ -151,39 +151,38 @@ require_once('./verifica_login.php'); // Faz a verificação de login
 
             // Inicialização do DataTable
             $('#planejamentos').DataTable();
-
             const quillOpcoes = {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline'],
                         ['link'],
                         [{ 'align': [] }],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
                     ],
                 },
                 theme: 'snow',
             };
-        const quillMissao = new Quill('#editor-missao', quillOpcoes);
-        const quillVisao = new Quill('#editor-visao', quillOpcoes);
-        document.getElementById('form_planejamento').addEventListener('submit', function () {
-            // Coloca no campo hidden para enviar via POST
-            var visaoHTML = quillVisao.root.innerHTML;
-            var missaoHTML = quillMissao.root.innerHTML;
-            document.querySelector('input[name="visao"]').value = visaoHTML;
-            document.querySelector('input[name="missao"]').value = missaoHTML;
-        });
-        // Função para preencher o formulário ao editar
-        function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
-            $('#id').val(id);
-            $('#nome').val(nome);
-            $('#ano_inicio').val(ano_inicio);
-            $('#ano_fim').val(ano_fim);
-            quillMissao.root.innerHTML = missaoHTML;
-            quillVisao.root.innerHTML = visaoHTML;
-            $('#form_planejamento').collapse("show");
-        }
+            const quillMissao = new Quill('#editor-missao', quillOpcoes);
+            const quillVisao = new Quill('#editor-visao', quillOpcoes);
+            document.getElementById('form_planejamento').addEventListener('submit', function () {
+                // Coloca no campo hidden para enviar via POST
+                var visaoHTML = quillVisao.root.innerHTML;
+                var missaoHTML = quillMissao.root.innerHTML;
+                document.querySelector('input[name="visao"]').value = visaoHTML;
+                document.querySelector('input[name="missao"]').value = missaoHTML;
+            });
+            // Função para preencher o formulário ao editar
+            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
+                $('#id').val(id);
+                $('#nome').val(nome);
+                $('#ano_inicio').val(ano_inicio);
+                $('#ano_fim').val(ano_fim);
+                quillMissao.root.innerHTML = missaoHTML;
+                quillVisao.root.innerHTML = visaoHTML;
+                $('#form_planejamento').collapse("show");
+            }
 
-        window.alterar = alterar; // Torna a função global
+            window.alterar = alterar; // Torna a função global
         });
 
         // Função para excluir
