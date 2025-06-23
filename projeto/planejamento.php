@@ -18,7 +18,9 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- SB Admin CSS -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -26,34 +28,36 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico" />
     <!-- Froala Editor CSS -->
-    
+
     <!-- Bootstrap e DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-    
-    
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+
     <!-- jQuery e Bootstrap -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    
-    <link rel="stylesheet" href="./vendor/froala_editor_4.5.2/css/froala_editor.pkgd.min.css">
-    <link rel="stylesheet" href="./vendor/froala_editor_4.5.2/css/froala_style.min.css">
+
+
     <!-- SB Admin JS -->
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Plugins adicionais -->
-    <script src="js/jquery.mask.min.js"></script>
 
     <!-- DataTables JS -->
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
 
     <!-- Froala Editor JS -->
-    <script type="text/javascript" src="vendor/froala_editor_4.5.2/js/froala_editor.pkgd.min.js"></script>
+
 
     <style>
         body {
@@ -78,14 +82,18 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Planejamento</span>
                             </div>
                             <div class="col text-right" style="max-width:20%">
-                                <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_planejamento" aria-expanded="false" aria-controls="form_planejamento">
+                                <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button"
+                                    data-toggle="collapse" data-target="#form_planejamento" aria-expanded="false"
+                                    aria-controls="form_planejamento">
                                     <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="planejamentos" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <table id="planejamentos"
+                                    class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                    style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="text-align: center;">ID</th>
@@ -135,7 +143,8 @@ require_once('./verifica_login.php'); // Faz a verificação de login
             </div>
         </div>
     </div>
-
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <!-- JS de inicialização do DataTable e Froala Editor -->
     <script type="text/javascript" class="init">
         $(document).ready(function () {
@@ -143,45 +152,33 @@ require_once('./verifica_login.php'); // Faz a verificação de login
             // Inicialização do DataTable
             $('#planejamentos').DataTable();
 
-            // Definição de ícone customizado no Froala
-            FroalaEditor.DefineIcon('clear', { NAME: 'remove', SVG_KEY: 'remove' });
-
-            // Registro de comando customizado 'clear'
-            FroalaEditor.RegisterCommand('clear', {
-                title: 'Limpar',
-                focus: false,
-                undo: true,
-                refreshAfterCallback: false,
-                callback: function () {
-                    this.html.set('');
-                    this.events.focus();
-                }
-            });
-
-            // Opções padrão para os dois editores Froala
-            var froalaOptions = {
-                key: '',
-                toolbarButtons: [
-                    ['undo', 'redo', 'bold', 'underline', 'italic', 'align'],
-                    ['alert', 'clear', 'insert']
-                ],
-                quickInsertTags: true,
-                placeholderText: false,
-                charCounterMax: 1000,
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        [{ header: [1, 2, false] }],
+                        ['bold', 'italic'],
+                    ],
+                },
+                placeholder: 'Compose an epic...',
+                theme: 'snow', // or 'bubble'
             };
-
-            // Inicialização dos editores Froala
-            var froalaMissao = new FroalaEditor('#froala-editor', froalaOptions);
-            var froalaVisao = new FroalaEditor('#froala-editor-visao', froalaOptions);
-
+            const quillMissao = new Quill('#editor-missao', quillOpcoes);
+            const quillVisao = new Quill('#editor-visao', quillOpcoes);
+            document.getElementById('form_planejamento').addEventListener('submit', function () {
+                // Coloca no campo hidden para enviar via POST
+                var visaoHTML = quillVisao.root.innerHTML;
+                var missaoHTML = quillMissao.root.innerHTML;
+                document.querySelector('input[name="visao"]').value = visaoHTML;
+                document.querySelector('input[name="missao"]').value = missaoHTML;
+            });
             // Função para preencher o formulário ao editar
-            function alterar(id, nome, ano_inicio, ano_fim, missao, visao) {
+            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
                 $('#id').val(id);
                 $('#nome').val(nome);
                 $('#ano_inicio').val(ano_inicio);
                 $('#ano_fim').val(ano_fim);
-                froalaMissao.html.set(missao);
-                froalaVisao.html.set(visao);
+                quillMissao.root.innerHTML = missaoHTML;  
+                quillVisao.root.innerHTML = visaoHTML;  
                 $('#form_planejamento').collapse("show");
             }
 

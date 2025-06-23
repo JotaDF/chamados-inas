@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'actions/ManterPlanejamento.php';
 
 $planejamentos = new ManterPlanejamento();
@@ -33,18 +33,16 @@ $planejamento = $planejamentos->listar();
             </div>
             <div class="form-group row">
                 <label for="missao" class="col-sm-2 col-form-label">Missão:</label>
-                <div class="col-sm-10 input-group">
-                    <div style="width: 100%;">
-                        <textarea class="form-control" id="froala-editor" name="missao" rows="3"></textarea>
-                    </div>
+                <div class="col-sm-10">
+                    <div style="width: 100%; height: 60%;" id="editor-missao"></div>
+                    <input type="hidden" name="missao">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="visao" class="col-sm-2 col-form-label">Visão:</label>
-                <div class="col-sm-10 input-group">
-                    <div style="width: 100%;">
-                        <textarea class="form-control" id="froala-editor-visao" name="visao" rows="3"></textarea>
-                    </div>
+                <div class="col-sm-10">
+                    <div style="width: 100%; height: 60%;" id="editor-visao"></div>
+                        <input type="hidden" name="visao">
                 </div>
             </div>
             <div class="form-group row float-right">

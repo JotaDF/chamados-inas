@@ -9,6 +9,6 @@ Class Planejamento {
     public $visao;
 
       //variaveis de manipulação
-    public $excluir;
+    public $excluir = true;
     public $msg;
 }

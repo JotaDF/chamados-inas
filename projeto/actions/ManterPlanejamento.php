@@ -9,11 +9,15 @@ Class ManterPlanejamento extends Model {
     }
 
     function listar() {
-        $sql         = "SELECT p.id, p.nome, p.ano_inicio, p.ano_fim, p.missao, p.visao FROM planejamento as p";
+        $sql         = "SELECT p.id, p.nome, p.ano_inicio, p.ano_fim, p.missao, p.visao, (select count(*) from objetivo as o WHERE o.id_planejamento = p.id) as dep FROM planejamento as p";
         $resultado   = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados = new Planejamento;
+            $dados->excluir = true;
+            if($registro['dep'] > 0) {
+                $dados->excluir = false;
+            }
             $dados->id              = $registro['id'];
             $dados->nome            = $registro['nome'];
             $dados->ano_inicio      = $registro['ano_inicio'];

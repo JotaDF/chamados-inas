@@ -22,6 +22,19 @@ Class ManterObjetivo extends Model {
         return $array_dados;
     }
 
+    function getObjetivoPorIdPlanejamento($id = 0) {
+        $sql = "SELECT id, descricao, id_planejamento FROM objetivo WHERE id_planejamento = " . $id;
+        $resultado  = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro  = $resultado->fetchRow()) {
+            $dados =   new Objetivo;
+            $dados->id           = $registro['id'];
+            $dados->descricao    = $registro['descricao'];
+            $array_dados[]       = $dados;
+        }
+        return $array_dados;
+    }
+
     function salvar(Objetivo $dados) {
         $sql = "INSERT INTO objetivo(descricao, id_planejamento) VALUES ('". $dados->descricao ."','". $dados->planejamento . "')";
         if ($dados->id > 0) {
