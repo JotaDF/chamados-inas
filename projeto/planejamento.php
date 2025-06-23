@@ -155,34 +155,35 @@ require_once('./verifica_login.php'); // Faz a verificação de login
             const quillOpcoes = {
                 modules: {
                     toolbar: [
-                        [{ header: [1, 2, false] }],
-                        ['bold', 'italic'],
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
                     ],
                 },
-                placeholder: 'Compose an epic...',
-                theme: 'snow', // or 'bubble'
+                theme: 'snow',
             };
-            const quillMissao = new Quill('#editor-missao', quillOpcoes);
-            const quillVisao = new Quill('#editor-visao', quillOpcoes);
-            document.getElementById('form_planejamento').addEventListener('submit', function () {
-                // Coloca no campo hidden para enviar via POST
-                var visaoHTML = quillVisao.root.innerHTML;
-                var missaoHTML = quillMissao.root.innerHTML;
-                document.querySelector('input[name="visao"]').value = visaoHTML;
-                document.querySelector('input[name="missao"]').value = missaoHTML;
-            });
-            // Função para preencher o formulário ao editar
-            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
-                $('#id').val(id);
-                $('#nome').val(nome);
-                $('#ano_inicio').val(ano_inicio);
-                $('#ano_fim').val(ano_fim);
-                quillMissao.root.innerHTML = missaoHTML;  
-                quillVisao.root.innerHTML = visaoHTML;  
-                $('#form_planejamento').collapse("show");
-            }
+        const quillMissao = new Quill('#editor-missao', quillOpcoes);
+        const quillVisao = new Quill('#editor-visao', quillOpcoes);
+        document.getElementById('form_planejamento').addEventListener('submit', function () {
+            // Coloca no campo hidden para enviar via POST
+            var visaoHTML = quillVisao.root.innerHTML;
+            var missaoHTML = quillMissao.root.innerHTML;
+            document.querySelector('input[name="visao"]').value = visaoHTML;
+            document.querySelector('input[name="missao"]').value = missaoHTML;
+        });
+        // Função para preencher o formulário ao editar
+        function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
+            $('#id').val(id);
+            $('#nome').val(nome);
+            $('#ano_inicio').val(ano_inicio);
+            $('#ano_fim').val(ano_fim);
+            quillMissao.root.innerHTML = missaoHTML;
+            quillVisao.root.innerHTML = visaoHTML;
+            $('#form_planejamento').collapse("show");
+        }
 
-            window.alterar = alterar; // Torna a função global
+        window.alterar = alterar; // Torna a função global
         });
 
         // Função para excluir
