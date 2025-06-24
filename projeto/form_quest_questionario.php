@@ -9,7 +9,7 @@
                 <input type="hidden" id="id_quest_questionario" name="id_quest_questionario">
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Titulo</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    <input type="text" class="form-control form-control-sm" id="titulo" name="titulo" required>
                 </div>
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Descrição</label>
