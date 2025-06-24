@@ -32,6 +32,9 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <!-- Quill Editor -->
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -43,26 +46,59 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 $('#eventos').DataTable();
+                const quillOpcoes = {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline'],
+                            ['link'],
+                            [{ 'align': [] }],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                        ],
+                    },
+                    theme: 'snow',
+                };
+                const quillDescricao = new Quill('#editor-descricao', quillOpcoes);
+                document.getElementById('form_quest_questionario').addEventListener('submit', function () {
+                    // Coloca no campo hidden para enviar via POST
+                    var descHTML = quillDescricao.root.innerHTML;
+                    document.querySelector('input[name="descricao"]').value = descHTML;
+                });
+                function alterar(id, titulo, descricao, inscreve, data, hora) {
+                    $('#id').val(id);
+                    $('#titulo').val(titulo);
+                    $('#descricao').val(descricao);
+                    quillDescricao.root.innerHTML = descricao;
+                    $('#data').val(data);
+                    $('#hora').val(hora);
+                    if(inscreve==1) {
+                        $('#inscreve').prop( "checked", true );
+                    } else {
+                        $('#inscreve').prop( "checked", false );
+                    }
+                    $('#form_evento').collapse("show");
+                    $('#btn_cadastrar').hide();
+                }
+                function novo() {
+                    $('#id').val("");
+                    $('#titulo').val("");
+                    $('#descricao').val("");
+                    quillDescricao.root.innerHTML = "";
+                    $('#data').val("");
+                    $('#hora').val("");
+                    $('#inscreve').prop( "checked", false );
+
+                    $('#form_evento').collapse("show");
+                    $('#btn_cadastrar').hide();
+                }
+                window.alterar = alterar; // Torna a função global
+                window.novo = novo; // Torna a função global
             });
             function excluir(id, nome) {
                 $('#delete').attr('href', 'del_evento.php?id=' + id);
                 $('#nome_excluir').text(nome);
                 $('#confirm').modal({show: true});              
             }
-            function alterar(id, titulo, descricao, inscreve, data, hora) {
-                $('#id').val(id);
-                $('#titulo').val(titulo);
-                $('#descricao').val(descricao);
-                $('#data').val(data);
-                $('#hora').val(hora);
-                if(inscreve==1) {
-                    $('#inscreve').prop( "checked", true );
-                } else {
-                    $('#inscreve').prop( "checked", false );
-                }
-                $('#form_evento').collapse("show");
-                $('#btn_cadastrar').hide();
-            }
+
 
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
@@ -100,7 +136,7 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Eventos</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_evento" aria-expanded="false" aria-controls="form_evento">
+                                    <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_evento" aria-expanded="false" aria-controls="form_evento">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
                                 </div>

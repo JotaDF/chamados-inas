@@ -8,7 +8,7 @@
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_evento.php" method="post">
+        <form id="form_cadastro" action="save_evento.php" method="post"> 
             <input type="hidden" id="id" name="id"/>
             <div class="form-group row">
                 <label for="titulo" class="col-sm-2 col-form-label">Título:</label>
@@ -17,10 +17,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="descricao" class="col-sm-2 col-form-label">Descrição:</label>
-                <div class="col-sm-10">
-                    <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" placeholder="Descrição" required>
-                </div>
+                <label for="titulo" class="form-label">Descrição</label>
+                <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
+                <input type="hidden" name="descricao" id="descricao">
             </div>
             <div class="col border">
                 <fieldset class="form-group form-inline">

@@ -15,7 +15,7 @@ $inscreve   = isset($_POST['inscreve']) ? $_POST['inscreve'] : '0';
 
 $e->id          = $id;
 $e->titulo      = $titulo;
-$e->descricao   = $descricao;
+$e->descricao   = html_entity_decode($descricao);
 $e->data        = $data;
 $e->hora        = $hora;
 $e->inscreve    = $inscreve;
