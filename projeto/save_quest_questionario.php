@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $questionarioDTO                = new QuestQuestionario();
     $questionarioDTO->id            = $id;
     $questionarioDTO->titulo        = $titulo;
-    $questionarioDTO->descricao     = $descricao;
+    $questionarioDTO->descricao     = html_entity_decode($descricao);
 
     $manterQuestionario             = new ManterQuestQuestionario;
     $resultado                      = $manterQuestionario->salvar($questionarioDTO);

@@ -9,7 +9,7 @@
             echo "<tr>";
             echo "  <td>".$obj->id."</td>";
             echo "  <td>".$obj->titulo."</td>";
-            echo "  <td>".html_entity_decode($obj->descricao)."</td>";
+            echo "  <td>".$obj->descricao."</td>";
             $btn_alterar = "&nbsp;<button class='btn btn-primary btn-sm' type='button' title='Editar' onclick='alterar(".$obj->id.",\"".$obj->titulo."\",\"".$obj->descricao."\")'><i class='fas fa-edit'></i></button>";
             $btn_aplicacoes = "&nbsp;<a class='btn btn-info btn-sm' type='button' title='Gerenciar Aplicações' href='quest_gerenciar_aplicacoes_questionario.php?id=".$obj->id."'><i class='fa fa-flag'></i></a>";
             $btn_categorias = "&nbsp;<a class='btn btn-warning btn-sm' type='button' title='Gerenciar Categorias' href='quest_gerenciar_categorias_questionario.php?id=".$obj->id."'><i class='fa fa-tags'></i></a>";
