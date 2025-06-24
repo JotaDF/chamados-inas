@@ -15,6 +15,8 @@
                     <label for="titulo" class="form-label">Descrição</label>
                     <input type="text" class="form-control" id="descricao" name="descricao" rows="3"
                         required></textarea>
+                        <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
+                        <input type="hidden" name="descricao">
                 </div>
                 <div class="form-group row float-right p1">
                     <button type="button"
@@ -25,9 +27,9 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit" class="btn btn-primary btn-sm mr-1" name="enviar"><i class="fas fa-save"></i>
                         Salvar</button>
-                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp; 
                 </div>
             </form>
         </div>
     </div>
-</div> 
+</div>
