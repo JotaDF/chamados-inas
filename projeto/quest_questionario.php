@@ -75,6 +75,7 @@ require_once 'verifica_login.php';
             $('#id_quest_questionario').val(id);
             $('#titulo').val(titulo);
             $('#descricao').val(descricao);
+            quillDescricao.root.innerHTML = descHTML;
             $('#form_quest_questionario').collapse("show");
         }
         function excluir(id, titulo) {
