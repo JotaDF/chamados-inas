@@ -48,7 +48,11 @@ require_once 'verifica_login.php';
     <!-- jQuery 3.3.1 SLIM (NÃO recomendado junto com o jQuery completo, pode causar conflito) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
-        const quillOpcoes = {
+        $(document).ready(function () {
+            $('#questionario').DataTable({
+                paging: true // Habilita a paginação
+            });
+            const quillOpcoes = {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline'],
@@ -59,25 +63,22 @@ require_once 'verifica_login.php';
                 },
                 theme: 'snow',
             };
-        const quillDescricao = new Quill('#editor-descricao', quillOpcoes);
-        $(document).ready(function () {
-            $('#questionario').DataTable({
-                paging: true // Habilita a paginação
-            });
+            const quillDescricao = new Quill('#editor-descricao', quillOpcoes);
             document.getElementById('form_quest_questionario').addEventListener('submit', function () {
                 // Coloca no campo hidden para enviar via POST
                 var descHTML = quillDescricao.root.innerHTML;
                 document.querySelector('input[name="descricao"]').value = descHTML;
             });
-
+            function alterar(id, titulo, descricao) {
+                $('#id_quest_questionario').val(id);
+                $('#titulo').val(titulo);
+                $('#descricao').val(descricao);
+                quillDescricao.root.innerHTML = descricao;
+                $('#form_quest_questionario').collapse("show");
+            }
+            window.alterar = alterar; // Torna a função global
         });
-        function alterar(id, titulo, descricao) {
-            $('#id_quest_questionario').val(id);
-            $('#titulo').val(titulo);
-            $('#descricao').val(descricao);
-            quillDescricao.root.innerHTML = descricao;
-            $('#form_quest_questionario').collapse("show");
-        }
+        
         function excluir(id, titulo) {
             $('#delete').attr('href', 'del_quest_questionario.php?id=' + id);
             $('#nome_excluir').text(titulo);
