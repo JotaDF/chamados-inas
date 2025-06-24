@@ -1,7 +1,6 @@
 <?php 
 require_once './actions/ManterPlanejamento.php';
 require_once './dto/Planejamento.php';
-
 $db_planejamento = new ManterPlanejamento();
 $p            = new Planejamento;
 
@@ -10,7 +9,7 @@ $p->nome         = $_POST['nome'];
 $p->ano_inicio   = $_POST['ano_inicio'];
 $p->ano_fim      = $_POST['ano_fim'];
 $p->missao       = $_POST['missao'];
-$p->visao        = $_POST['visao'];
+$p->visao        = html_entity_decode($_POST['visao']);
 $resultado = $db_planejamento->salvar($p);
 if($resultado) {
     header('Location: planejamento.php');
