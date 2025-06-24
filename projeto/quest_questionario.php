@@ -69,15 +69,15 @@ require_once 'verifica_login.php';
                 var descHTML = quillDescricao.root.innerHTML;
                 document.querySelector('input[name="descricao"]').value = descHTML;
             });
+            function alterar(id, titulo, descricao) {
+                $('#id_quest_questionario').val(id);
+                $('#titulo').val(titulo);
+                $('#descricao').val(descricao);
+                quillDescricao.root.innerHTML = descricao;
+                $('#form_quest_questionario').collapse("show");
+            }
         });
 
-        function alterar(id, titulo, descricao) {
-            $('#id_quest_questionario').val(id);
-            $('#titulo').val(titulo);
-            $('#descricao').val(descricao);
-            quillDescricao.root.innerHTML = descHTML;
-            $('#form_quest_questionario').collapse("show");
-        }
         function excluir(id, titulo) {
             $('#delete').attr('href', 'del_quest_questionario.php?id=' + id);
             $('#nome_excluir').text(titulo);
