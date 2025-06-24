@@ -17,9 +17,11 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="titulo" class="form-label">Descrição</label>
-                <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
-                <input type="hidden" name="descricao" id="descricao">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Descrição</label>
+                    <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
+                    <input type="hidden" name="descricao">
+                </div>
             </div>
             <div class="col border">
                 <fieldset class="form-group form-inline">
