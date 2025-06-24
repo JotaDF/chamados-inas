@@ -52,6 +52,23 @@ require_once 'verifica_login.php';
             $('#questionario').DataTable({
                 paging: true // Habilita a paginação
             });
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+            const quillDescricao = new Quill('#editor-descricao', quillOpcoes);
+            document.getElementById('form_quest_questionario').addEventListener('submit', function () {
+                // Coloca no campo hidden para enviar via POST
+                var descHTML = quillDescricao.root.innerHTML;
+                document.querySelector('input[name="descricao"]').value = descHTML;
+            });
         });
 
         function alterar(id, titulo, descricao) {
