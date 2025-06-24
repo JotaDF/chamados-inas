@@ -37,6 +37,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.bubble.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.core.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <!-- jQuery e Bootstrap -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -57,8 +58,57 @@ require_once('./verifica_login.php'); // Faz a verificação de login
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <!-- Froala Editor JS -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- JS de inicialização do DataTable e Froala Editor -->
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
 
-
+            // Inicialização do DataTable
+            $('#planejamentos').DataTable();
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+            const quillMissao = new Quill('#editor-missao', quillOpcoes);
+            const quillVisao = new Quill('#editor-visao', quillOpcoes);
+            document.getElementById('form_planejamento').addEventListener('submit', function () {
+                // Coloca no campo hidden para enviar via POST
+                var visaoHTML = quillVisao.root.innerHTML;
+                var missaoHTML = quillMissao.root.innerHTML;
+                document.querySelector('input[name="visao"]').value = visaoHTML;
+                document.querySelector('input[name="missao"]').value = missaoHTML;
+            });
+            // Função para preencher o formulário ao editar
+            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
+                $('#id').val(id);
+                $('#nome').val(nome);
+                $('#ano_inicio').val(ano_inicio);
+                $('#ano_fim').val(ano_fim);
+                quillMissao.root.innerHTML = missaoHTML;
+                quillVisao.root.innerHTML = visaoHTML;
+                $('#form_planejamento').collapse("show");
+            }
+            function novo() {
+                quillMissao.root.innerHTML = "";
+                quillVisao.root.innerHTML = "";
+                $('#form_planejamento').collapse("show");
+            }
+            window.alterar = alterar; // Torna a função global
+            window.novo = novo; // Torna a função global
+        });
+        function excluir(id, nome) {
+            $('#delete').attr('href', 'del_planejamento.php?id=' + id);
+            $('#excluir').text(nome);
+            $('#confirm').modal({ show: true });
+        }
+    </script>
     <style>
         body {
             font-size: small;
@@ -82,9 +132,9 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Planejamento</span>
                             </div>
                             <div class="col text-right" style="max-width:20%">
-                                <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button"
-                                    data-toggle="collapse" data-target="#form_planejamento" aria-expanded="false"
-                                    aria-controls="form_planejamento">
+                                <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm"
+                                    type="button" data-toggle="collapse" data-target="#form_planejamento"
+                                    aria-expanded="false" aria-controls="form_planejamento">
                                     <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -100,8 +150,6 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                                             <th scope="col" style="text-align: center;">Nome</th>
                                             <th scope="col" style="text-align: center;">Ano Início</th>
                                             <th scope="col" style="text-align: center;">Ano Fim</th>
-                                            <th scope="col" style="text-align: center;">Missão</th>
-                                            <th scope="col" style="text-align: center;">Visão</th>
                                             <th scope="col" style="width:50px;">Opções</th>
                                         </tr>
                                     </thead>
@@ -143,55 +191,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
             </div>
         </div>
     </div>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-    <!-- JS de inicialização do DataTable e Froala Editor -->
-    <script type="text/javascript" class="init">
-        $(document).ready(function () {
 
-            // Inicialização do DataTable
-            $('#planejamentos').DataTable();
-            const quillOpcoes = {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        ['link'],
-                        [{ 'align': [] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                    ],
-                },
-                theme: 'snow',
-            };
-            const quillMissao = new Quill('#editor-missao', quillOpcoes);
-            const quillVisao = new Quill('#editor-visao', quillOpcoes);
-            document.getElementById('form_planejamento').addEventListener('submit', function () {
-                // Coloca no campo hidden para enviar via POST
-                var visaoHTML = quillVisao.root.innerHTML;
-                var missaoHTML = quillMissao.root.innerHTML;
-                document.querySelector('input[name="visao"]').value = visaoHTML;
-                document.querySelector('input[name="missao"]').value = missaoHTML;
-            });
-            // Função para preencher o formulário ao editar
-            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
-                $('#id').val(id);
-                $('#nome').val(nome);
-                $('#ano_inicio').val(ano_inicio);
-                $('#ano_fim').val(ano_fim);
-                quillMissao.root.innerHTML = missaoHTML;
-                quillVisao.root.innerHTML = visaoHTML;
-                $('#form_planejamento').collapse("show");
-            }
-
-            window.alterar = alterar; // Torna a função global
-        });
-
-        // Função para excluir
-        function excluir(id, nome) {
-            $('#delete').attr('href', 'del_planejamento.php?id=' + id);
-            $('#excluir').text(nome);
-            $('#confirm').modal({ show: true });
-        }
-    </script>
 </body>
 
 </html>

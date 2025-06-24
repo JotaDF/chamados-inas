@@ -38,7 +38,7 @@ Class ManterObjetivo extends Model {
     function salvar(Objetivo $dados) {
         $sql = "INSERT INTO objetivo(descricao, id_planejamento) VALUES ('". $dados->descricao ."','". $dados->planejamento . "')";
         if ($dados->id > 0) {
-            $sql = "UPDATE objetivo SET descricao='". $dados->descricao ."', id_planejamento='". $dados->planejamento . "'";
+            $sql = "UPDATE objetivo SET descricao='". $dados->descricao ."', id_planejamento='". $dados->planejamento . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);

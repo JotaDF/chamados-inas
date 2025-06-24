@@ -23,6 +23,7 @@ require_once('./verifica_login.php');
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript"
@@ -33,17 +34,36 @@ require_once('./verifica_login.php');
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
         $(document).ready(function () {
             $('#objetivos').DataTable();
-        })
-        function alterar(id, descricao) {
-            $('#id').val(id);
-            $('#descricao').val(descricao);
-            $('#objetivos').focus();
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+            window.quillDescricao = new Quill('#editor', quillOpcoes);
+            document.getElementById('form_objetivo').addEventListener('submit', function () {
+                var descricaoHTML = quillDescricao.root.innerHTML;
+                document.querySelector('input[name="descricao"]').value = descricaoHTML;
+            });
+        
+        });
+        function alterar(id, descricaoHTML) {
+            $('#id_objetivo').val(id);
+            window.quillDescricao.root.innerHTML = descricaoHTML;
+            $('#descricao').focus();
         }
-        function excluir(id, descricao) {
-            $('#delete').attr('href', 'del_objetivo.php?id=' + id);
+        function excluir(id, descricao, id_planejamento) {
+            console.log(id_planejamento);
+            $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
             $('#excluir').text(descricao);
             $('#confirm').modal({ show: true });
         }
@@ -69,8 +89,6 @@ require_once('./verifica_login.php');
                 $manterPlanejamento = new ManterPlanejamento;
                 $id_planejamento = isset($_GET['id']) ? $_GET['id'] : 0;
                 $planejamento = $manterPlanejamento->getPlanejamentoPorId($id_planejamento);
-                $missao_planejamento = strlen($planejamento->missao) > 100 ? substr($planejamento->missao, 0, 30) . '...' : $planejamento->missao;
-                $visao_planejamento = strlen($planejamento->visao) > 100 ? substr($planejamento->visao, 0, 30) . '...' : $planejamento->visao;
                 ?>
                 <div class="container-fluid">
                     <!-- Exibe dados da  tarefa -->
@@ -89,7 +107,7 @@ require_once('./verifica_login.php');
                             <div class="row">
                                 <div class="c1 ml-4">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $id_planejamento  ?></div>
+                                    <div class="mb-0"><?= $id_planejamento ?></div>
                                 </div>
                                 <div class="c2 ml-4">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
@@ -107,19 +125,16 @@ require_once('./verifica_login.php');
                             <br />
                             <p class=" ml-2 card-text">
                                 <span class="mt-3 ml-2 h6 card-title">Objetivo</span>
-                            <form id="form_cadastro" action="save_objetivo.php" method="post">
+                            <form id="form_objetivo" action="save_objetivo.php" method="post">
                                 <input type="hidden" id="id_planejamento" name="id_planejamento"
                                     value="<?= $id_planejamento ?>" />
-
-                                    <?php  echo $id_planejamento . " oi "?>
                                 <input type="hidden" name="id_objetivo" id="id_objetivo">
                                 <div class="form-group row">
                                     <label for="sigla" class="col-sm-2 col-form-label text-dark">Descrição:</label>
                                     <div class="col-sm-9" style="width: 100px; height: 75px;">
-                                    <div id="editor">
-                                        <input type="hidden" id="descricao" name="descricao" required>
+                                        <div id="editor"></div>
+                                        <input type="hidden" id="descricao" name="descricao">
                                     </div>
-                                </div>
                                 </div>
                                 <div class="form-group row float-right">
                                     <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i>
@@ -173,7 +188,8 @@ require_once('./verifica_login.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Deseja excluir o objetivo: <strong>"<span id="excluir"></span>"</strong>?</p>
+                            <p>Deseja excluir o objetivo: <strong>"<span
+                                        id="excluir"></span>"</strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
@@ -183,21 +199,4 @@ require_once('./verifica_login.php');
                 </div>
             </div>
             <?php include './rodape.php'; ?>
-            <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-            <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
-
-            <script>
-                const quillOpcoes = {
-                    modules: {
-                        toolbar: [
-                            ['bold', 'italic', 'underline'],
-                            ['link'],
-                            [{ 'align': [] }],
-                            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                        ],
-                    },
-                    theme: 'snow',
-                };
-                const quillDescricao = new Quill('#editor', quillOpcoes);
-            </script>
 </body>

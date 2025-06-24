@@ -5,7 +5,7 @@ $planejamentos = new ManterPlanejamento();
 $planejamento = $planejamentos->listar();
 ?>
 
-<div class="card mb-4 collapse hide border-primary" id="form_planejamento" style="max-width:800px">
+<div class="card mb-4 collapse hide border-primary" id="form_planejamento" style="max-width:900px">
     <div class="card-header py-2 card-body bg-gradient-primary align-middle">
         <span class="h6 m-0 font-weight text-white">Cadastro de planejamento</span>
     </div>
