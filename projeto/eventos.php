@@ -20,47 +20,33 @@ and open the template in the editor.
 
         <title>Eventos - INAS</title>
 
-     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico" />
-    <!------ Include the above in your HEAD tag ---------->
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+        <link rel="shortcut icon" href="favicon.ico" />
+        <!------ Include the above in your HEAD tag ---------->
 
-    <!-- Bootstrap CSS (repetido) -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <!-- DataTables Bootstrap4 CSS (repetido) -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-    <!-- DataTables Responsive Bootstrap4 CSS (repetido) -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-        
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <!-- Quill Editor -->
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
-    <!-- jQuery 3.3.1 (NÃO SLIM, preferível para plugins) -->
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- jQuery 3.3.1 SLIM (NÃO recomendado junto com o jQuery completo, pode causar conflito) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script type="text/javascript" class="init">
-         
-
             $(document).ready(function () {
-                $('#eventos').DataTable();
+                $('#eventos').DataTable({
+                    paging: true
+                });
+
                 const quillOpcoes = {
                     modules: {
                         toolbar: [
@@ -72,55 +58,56 @@ and open the template in the editor.
                     },
                     theme: 'snow',
                 };
+
                 const quillDescricao = new Quill('#editor-descricao', quillOpcoes);
-                document.getElementById('form_quest_questionario').addEventListener('submit', function () {
-                    // Coloca no campo hidden para enviar via POST
-                    var descHTML = quillDescricao.root.innerHTML;
+
+                document.getElementById('form_evento').addEventListener('submit', function () {
+                    const descHTML = quillDescricao.root.innerHTML;
                     document.querySelector('input[name="descricao"]').value = descHTML;
                 });
+
                 function alterar(id, titulo, descricao, inscreve, data, hora) {
                     $('#id').val(id);
                     $('#titulo').val(titulo);
-                    $('#descricao').val(descricao);
                     quillDescricao.root.innerHTML = descricao;
+
                     $('#data').val(data);
                     $('#hora').val(hora);
-                    if(inscreve==1) {
-                        $('#inscreve').prop( "checked", true );
-                    } else {
-                        $('#inscreve').prop( "checked", false );
-                    }
+                    $('#inscreve').prop('checked', inscreve == 1);
+
                     $('#form_evento').collapse("show");
                     $('#btn_cadastrar').hide();
                 }
+
                 function novo() {
                     $('#id').val("");
                     $('#titulo').val("");
-                    $('#descricao').val("");
                     quillDescricao.root.innerHTML = "";
                     $('#data').val("");
                     $('#hora').val("");
-                    $('#inscreve').prop( "checked", false );
+                    $('#inscreve').prop('checked', false);
 
                     $('#form_evento').collapse("show");
                     $('#btn_cadastrar').hide();
                 }
-                window.alterar = alterar; // Torna a função global
-                window.novo = novo; // Torna a função global
+
+                window.alterar = alterar;
+                window.novo = novo;
             });
+
             function excluir(id, nome) {
                 $('#delete').attr('href', 'del_evento.php?id=' + id);
                 $('#nome_excluir').text(nome);
-                $('#confirm').modal({show: true});              
+                $('#confirm').modal({show: true});
             }
-
 
             function selectByText(select, text) {
-                $(select).find('option:contains("' + text + '")').prop('selected', true);
+                $(select).find('option').filter(function () {
+                    return $(this).text().trim() === text;
+                }).prop('selected', true);
             }
-
-
         </script>
+
         <style>
             body{
                 font-size: small;
