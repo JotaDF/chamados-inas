@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="mb-3">
+                <div class="mb-3 w-100">
                     <label for="titulo" class="form-label">Descrição</label>
                     <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
                     <input type="hidden" name="descricao">
