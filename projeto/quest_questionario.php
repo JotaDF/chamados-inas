@@ -76,7 +76,15 @@ require_once 'verifica_login.php';
                 quillDescricao.root.innerHTML = descricao;
                 $('#form_quest_questionario').collapse("show");
             }
+            function novo() {
+                $('#id_quest_questionario').val("");
+                $('#titulo').val("");
+                $('#descricao').val("");
+                quillDescricao.root.innerHTML = "";
+                $('#form_quest_questionario').collapse("show");
+            }
             window.alterar = alterar; // Torna a função global
+            window.novo = novo; // Torna a função global
         });
         
         function excluir(id, titulo) {
@@ -149,7 +157,7 @@ require_once 'verifica_login.php';
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Quetionários</span>
                             </div>
                             <div class="col text-right" style="max-width:20%">
-                                <button id="btn_cadastrar" title="Adicionar Questionário" class="btn btn-outline-light btn-sm" type="button"
+                                <button id="btn_cadastrar" onclick="novo()" title="Adicionar Questionário" class="btn btn-outline-light btn-sm" type="button"
                                     data-toggle="collapse" data-target="#form_quest_questionario" aria-expanded="false"
                                     aria-controls="form_setor">
                                     <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
