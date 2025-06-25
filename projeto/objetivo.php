@@ -54,7 +54,7 @@ require_once('./verifica_login.php');
                 var descricaoHTML = quillDescricao.root.innerHTML;
                 document.querySelector('input[name="descricao"]').value = descricaoHTML;
             });
-        
+
         });
         function alterar(id, descricaoHTML) {
             $('#id_objetivo').val(id);
@@ -62,9 +62,9 @@ require_once('./verifica_login.php');
             $('#descricao').focus();
         }
         function excluir(id, descricao, id_planejamento) {
-            console.log(id_planejamento);
             $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
-            $('#excluir').text(descricao);
+            var descricaoDecodificada = $('<div/>').html(descricao).text();
+            $('#excluir').text(descricaoDecodificada);
             $('#confirm').modal({ show: true });
         }
     </script>
@@ -130,17 +130,22 @@ require_once('./verifica_login.php');
                                     value="<?= $id_planejamento ?>" />
                                 <input type="hidden" name="id_objetivo" id="id_objetivo">
                                 <div class="form-group row">
-                                    <label for="sigla" class="col-sm-2 col-form-label text-dark">Descrição:</label>
-                                    <div class="col-sm-9" style="width: 100px; height: 75px;">
-                                        <div id="editor"></div>
+                                    <label for="descricao">Descrição:</label>
+                                    <div class="col-sm-10">
+                                        <div id="editor" style="height: 100px;"></div>
                                         <input type="hidden" id="descricao" name="descricao">
                                     </div>
                                 </div>
-                                <div class="form-group row float-right">
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i>
-                                        Salvar </button>
+
+                                <div class="form-group row justify-content-end">
+                                    <div class="col-sm-auto">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-save"></i> Salvar
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
+
                             </p>
                         </div>
 
@@ -188,8 +193,7 @@ require_once('./verifica_login.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Deseja excluir o objetivo: <strong>"<span
-                                        id="excluir"></span>"</strong>?</p>
+                            <p>Deseja excluir o objetivo: <strong>"<span id="excluir"></span>"</strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
