@@ -4,7 +4,6 @@ require_once './actions/ManterIndicador.php';
 
 $id_objetivo  = isset($_POST['id_objetivo']) ? $_POST['id_objetivo'] : 0;
 $id_indicador = isset($_POST['id_indicador']) ? $_POST['id_indicador'] : 0;
-echo "oi " . $id_indicador . " objetivo: " . $id_objetivo;
 $i = new Indicador;
 
 $i->id        = $id_indicador;

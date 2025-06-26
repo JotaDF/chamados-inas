@@ -38,6 +38,19 @@ Class ManterIndicador extends Model {
         return $array_dados;
     }
 
+    function getIndicadorPorId($id = 0) {
+        $sql = "SELECT id, nome, unidade, id_objetivo FROM indicador WHERE id=" . $id;
+        $resultado   = $this->db->Execute($sql);
+        while($registro = $resultado->fetchRow()) {
+            $dados             = new Indicador;
+            $dados->id         = $registro['id'];
+            $dados->nome       = $registro['nome'];
+            $dados->unidade    = $registro['unidade'];
+            $dados->objetivo   = $registro['objetivo'];
+    }
+    return $dados;
+}
+
     function salvar(Indicador $dados) {
         $sql = "INSERT INTO indicador(nome, unidade, id_objetivo) VALUES ('". $dados->nome ."','". $dados->unidade ."','". $dados->objetivo ."')";
         if ($dados->id > 0) {

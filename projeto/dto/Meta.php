@@ -9,6 +9,6 @@ class Meta
     public $indicador;
 
     //variaveis de manipulação
-    public $excluir;
+    public $excluir = true;
     public $msg;
 }

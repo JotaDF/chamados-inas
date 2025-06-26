@@ -29,6 +29,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <link rel="shortcut icon" href="favicon.ico" />
 
     <!-- Bootstrap e DataTables CSS -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
@@ -122,6 +123,11 @@ require_once('./verifica_login.php'); // Faz a verificação de login
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <?php include 'top_bar.php'; ?>
+                <?php
+                require_once 'actions/ManterPlanejamento.php';
+                $planejamentos = new ManterPlanejamento();
+                $planejamento = $planejamentos->listar();
+                ?>
                 <div class="container-fluid">
                     <?php include './form_planejamento.php'; ?>
                     <div class="card mb-4 border-primary" style="max-width:900px">
@@ -129,6 +135,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                             <div class="col-sm ml-0" style="max-width:50px;">
                             </div>
                             <div class="col mb-0">
+                                
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Planejamento</span>
                             </div>
                             <div class="col text-right" style="max-width:20%">

@@ -11,7 +11,7 @@ require_once './verifica_login.php';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Indicadores - INAS</title>
+    <title>Metas - INAS</title>
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -38,17 +38,18 @@ require_once './verifica_login.php';
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
         $(document).ready(function () {
-            $('#objetivos').DataTable();
+            $('#metas').DataTable();
         });
-        function alterar(id, nome, unidade) {
-            $('#id_indicador').val(id);
-            $('#nome').val(nome);
-            $('#unidade').val(unidade);
-            $('#nome').focus();
+        function alterar(id, valor, data_inicio, data_fim) {
+            $('#id_meta').val(id);
+            $('#valor').val(valor);
+            $('#data_inicio').val(data_inicio);
+            $('#data_fim').val(data_fim);
+            $('#valor').focus();
         }
-        function excluir(id, nome, id_objetivo) {
-            $('#delete').attr('href', 'del_indicador.php?id=' + id + '&objetivo=' + id_objetivo);
-            $('#excluir').text(nome);
+        function excluir(id, valor, id_indicador) {
+            $('#delete').attr('href', 'del_meta.php?id=' + id + "&indicador=" + id_indicador);
+            $('#excluir').text(valor);
             $('#confirm').modal({ show: true });
         }
     </script>
@@ -65,54 +66,64 @@ require_once './verifica_login.php';
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <?php
-                include('actions/ManterObjetivo.php');
-                include('actions/ManterIndicador.php');
-                $manterObjetivo = new ManterObjetivo();
-                $manterIndicador = new ManterIndicador();
-                $id_objetivo = $_GET['id'];
-                $id_planejamento = $_GET['pl'];
-                $objetivo = $manterObjetivo->getObjetivoPorId($id_objetivo);
+                include 'actions/ManterMeta.php';
+                include 'actions/ManterIndicador.php';
+                $manterMeta = new ManterMeta;
+                $manterIndicador = new ManterIndicador;
+                $id_indicador = $_GET['id'];
+                $indicador = $manterIndicador->getIndicadorPorId($id_indicador);
                 ?>
                 <div class="container-fluid">
                     <div class="card mb-3 border-primary" style="max-width: 900px;">
-                        <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
+                        <div class="card-body bg-gradient-primary" style="max-width: 900px;">
                             <div class="row">
                                 <div class="col c2 ml-2">
-                                    <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Indicadores</div>
+                                    <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Metas</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fa fa-bullseye fa-3x text-white"></i>
+                                    <i class=""></i>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $id_objetivo ?></div>
+                                    <div class="mb-0"><?= $id_indicador ?></div>
                                 </div>
-                                <div class="col-md-10">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Descrição:</div>
-                                    <div class="mb-0"><?= $objetivo->descricao ?></div>
+                                <div class="col-md-2">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
+                                    <div class="mb-1"><?= $indicador->nome ?></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Unidade de Medida:</div>
+                                    <div class="mb-0"><?= $indicador->unidade ?></div>
                                 </div>
                             </div>
-
+                            <br>
                             <h6 class="font-weight-bold">Indicador</h6>
-
-                            <form id="form_indicador" action="save_indicador.php" method="post">
-                                <input type="hidden" name="id_objetivo" value="<?= $id_objetivo ?>" />
-                                <input type="hidden" name="id_indicador" id="id_indicador" />
+                            <form id="form_meta" action="save_meta.php" method="post">
+                                <input type="hidden" name="id_indicador" value="<?= $id_indicador ?>" />
+                                <input type="hidden" name="id_meta" id="id_meta" />
                                 <div class="form-group row">
-                                    <label for="nome" class="col-sm-2 col-form-label">Nome do Indicador:</label>
+                                    <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="nome" name="nome" placeholder="Nome do Indicador" required>
+                                        <input type="text" class="form-control form-control-sm" id="valor" name="valor"
+                                            placeholder="Valor" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="unidade" class="col-sm-2 col-form-label">Unidade de medida:</label>
+                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Inicio:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="unidade"
-                                            name="unidade" placeholder="Ex: porcentagem, Minutos..." required>
+                                        <input type="datetime-local" class="form-control form-control-sm" id="data_inicio"
+                                            name="data_inicio" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="data_fim" class="col-sm-2 col-form-label">Data de Fim:</label>
+                                    <div class="col-sm-10">
+                                        <input type="datetime-local" class="form-control form-control-sm" id="data_fim"
+                                            name="data_fim" required>
                                     </div>
                                 </div>
 
@@ -140,18 +151,19 @@ require_once './verifica_login.php';
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="objetivos" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                <table id="metas" class="table-sm table-striped table-bordered dt-responsive nowrap"
                                     style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="text-align: center;">ID</th>
-                                            <th scope="col" style="text-align: center;">Nome</th>
-                                            <th scope="col" style="text-align: center;">Unidade de medida</th>
+                                            <th scope="col" style="text-align: center;">Valor</th>
+                                            <th scope="col" style="text-align: center;">Data de Inicio</th>
+                                            <th scope="col" style="text-align: center;">Data Fim</th>
                                             <th scope="col" style="width:50px;">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php include('get_indicador.php') ?>
+                                        <?php include('get_meta.php') ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -174,7 +186,7 @@ require_once './verifica_login.php';
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Deseja excluir o Indicador: <strong>"<span id="excluir"></span>"</strong>?</p>
+                            <p>Deseja excluir a Meta com o valor: <strong>"<span id="excluir"></span>"</strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>

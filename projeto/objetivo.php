@@ -23,6 +23,7 @@ require_once('./verifica_login.php');
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -91,12 +92,16 @@ require_once('./verifica_login.php');
                 $planejamento = $manterPlanejamento->getPlanejamentoPorId($id_planejamento);
                 ?>
                 <div class="container-fluid">
-                    <!-- Exibe dados da  tarefa -->
                     <div class="card mb-3 border-primary" style="max-width: 900px;">
                         <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                             <div class="row">
                                 <div class="col c2 ml-2">
                                     <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Objetivos</div>
+                                </div>
+                                <div>
+                                    <a href="planejamento.php" class="btn btn-sm text-white border">
+                                        <i class="fas fa-arrow-left"></i> Voltar
+                                    </a>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa fa-bullseye fa-3x text-white"></i>
@@ -133,7 +138,7 @@ require_once('./verifica_login.php');
                                     <label for="descricao">Descrição:</label>
                                     <div class="col-sm-10">
                                         <div id="editor" style="height: 100px;"></div>
-                                        <input type="hidden" id="descricao" name="descricao">
+                                        <input type="hidden" id="descricao" name="descricao" required>
                                     </div>
                                 </div>
 
@@ -170,7 +175,7 @@ require_once('./verifica_login.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php include('get_objetivos.php') ?>
+                                        <?php include('get_objetivo.php') ?>
                                     </tbody>
                                 </table>
                             </div>
