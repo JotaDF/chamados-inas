@@ -1,6 +1,6 @@
 <?php
-$mod = 17;
-require_once('./verifica_login.php');
+$mod = 18;
+require_once './verifica_login.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@ require_once('./verifica_login.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Objetivos - INAS</title>
+    <title>Metas - INAS</title>
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -38,34 +38,18 @@ require_once('./verifica_login.php');
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
         $(document).ready(function () {
-            $('#objetivos').DataTable();
-            const quillOpcoes = {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        ['link'],
-                        [{ 'align': [] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                    ],
-                },
-                theme: 'snow',
-            };
-            window.quillDescricao = new Quill('#editor', quillOpcoes);
-            document.getElementById('form_objetivo').addEventListener('submit', function () {
-                var descricaoHTML = quillDescricao.root.innerHTML;
-                document.querySelector('input[name="descricao"]').value = descricaoHTML;
-            });
-
+            $('#metas').DataTable();
         });
-        function alterar(id, descricaoHTML) {
-            $('#id_objetivo').val(id);
-            window.quillDescricao.root.innerHTML = descricaoHTML;
-            $('#descricao').focus();
+        function alterar(id, valor, data_inicio, data_fim) {
+            $('#id_meta').val(id);
+            $('#valor').val(valor);
+            $('#data_inicio').val(data_inicio);
+            $('#data_fim').val(data_fim);
+            $('#valor').focus();
         }
-        function excluir(id, descricao, id_planejamento) {
-            $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
-            var descricaoDecodificada = $('<div/>').html(descricao).text();
-            $('#excluir').text(descricaoDecodificada);
+        function excluir(id, valor, id_indicador) {
+            $('#delete').attr('href', 'del_meta.php?id=' + id + "&indicador=" + id_indicador);
+            $('#excluir').text(valor);
             $('#confirm').modal({ show: true });
         }
     </script>
@@ -74,108 +58,112 @@ require_once('./verifica_login.php');
             font-size: small;
         }
     </style>
-</head>
 
 <body id="page-top">
-
     <div id="wrapper">
         <?php include './menu_planejamento.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <?php
-                include('actions/ManterObjetivo.php');
-                include('actions/ManterPlanejamento.php');
-                $manterObjetivo = new ManterObjetivo;
-                $manterPlanejamento = new ManterPlanejamento;
-                $id_planejamento = isset($_GET['id']) ? $_GET['id'] : 0;
-                $planejamento = $manterPlanejamento->getPlanejamentoPorId($id_planejamento);
+                include 'actions/ManterMeta.php';
+                include 'actions/ManterIndicador.php';
+                $manterMeta = new ManterMeta;
+                $manterIndicador = new ManterIndicador;
+                $id_indicador = $_GET['id'];
+                $indicador = $manterIndicador->getIndicadorPorId($id_indicador);
                 ?>
                 <div class="container-fluid">
                     <div class="card mb-3 border-primary" style="max-width: 900px;">
-                        <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
+                        <div class="card-body bg-gradient-primary" style="max-width: 900px;">
                             <div class="row">
                                 <div class="col c2 ml-2">
-                                    <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Objetivos</div>
-                                </div>
-                                <div>
-                                    <a href="planejamento.php" class="btn btn-sm text-white border">
-                                        <i class="fas fa-arrow-left"></i> Voltar
-                                    </a>
+                                    <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Metas</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fa fa-bullseye fa-3x text-white"></i>
+                                    <i class=""></i>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="c1 ml-4">
+                                <div class="col-md-1">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $id_planejamento ?></div>
+                                    <div class="mb-0"><?= $id_indicador ?></div>
                                 </div>
-                                <div class="c2 ml-4">
+                                <div class="col-md-2">
                                     <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
-                                    <div class="mb-0"><?= $planejamento->nome ?></div>
+                                    <div class="mb-1"><?= $indicador->nome ?></div>
                                 </div>
-                                <div class="c3 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Ano Inicio:</div>
-                                    <div class="mb-0"><?= $planejamento->ano_inicio ?></div>
-                                </div>
-                                <div class="c4 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Ano Fim:</div>
-                                    <div class="mb-0"><?= $planejamento->ano_fim ?></div>
+                                <div class="col-md-3">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Unidade de Medida:</div>
+                                    <div class="mb-0"><?= $indicador->unidade ?></div>
                                 </div>
                             </div>
-                            <br />
-                            <p class=" ml-2 card-text">
-                                <span class="mt-3 ml-2 h6 card-title">Objetivo</span>
-                            <form id="form_objetivo" action="save_objetivo.php" method="post">
-                                <input type="hidden" id="id_planejamento" name="id_planejamento"
-                                    value="<?= $id_planejamento ?>" />
-                                <input type="hidden" name="id_objetivo" id="id_objetivo">
+                            <br>
+                            <h6 class="font-weight-bold">Indicador</h6>
+                            <form id="form_meta" action="save_meta.php" method="post">
+                                <input type="hidden" name="id_indicador" value="<?= $id_indicador ?>" />
+                                <input type="hidden" name="id_meta" id="id_meta" />
                                 <div class="form-group row">
-                                    <label for="descricao">Descrição:</label>
+                                    <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
                                     <div class="col-sm-10">
-                                        <div id="editor" style="height: 100px;"></div>
-                                        <input type="hidden" id="descricao" name="descricao" required>
+                                        <input type="text" class="form-control form-control-sm" id="valor" name="valor"
+                                            placeholder="Valor" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Inicio:</label>
+                                    <div class="col-sm-10">
+                                        <input type="datetime-local" class="form-control form-control-sm" id="data_inicio"
+                                            name="data_inicio" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="data_fim" class="col-sm-2 col-form-label">Data de Fim:</label>
+                                    <div class="col-sm-10">
+                                        <input type="datetime-local" class="form-control form-control-sm" id="data_fim"
+                                            name="data_fim" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group row justify-content-end">
                                     <div class="col-sm-auto">
+                                        <button type="reset" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-minus-square"></i> Cancelar
+                                        </button>
                                         <button type="submit" class="btn btn-primary btn-sm">
                                             <i class="fas fa-save"></i> Salvar
                                         </button>
                                     </div>
                                 </div>
                             </form>
-
-                            </p>
                         </div>
-
                     </div>
                     <div class="card mb-4 border-primary" style="max-width:900px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
+
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Objetivos</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Indicadores</span>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="objetivos" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                <table id="metas" class="table-sm table-striped table-bordered dt-responsive nowrap"
                                     style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="text-align: center;">ID</th>
-                                            <th scope="col" style="text-align: center;">Descrição</th>
+                                            <th scope="col" style="text-align: center;">Valor</th>
+                                            <th scope="col" style="text-align: center;">Data de Inicio</th>
+                                            <th scope="col" style="text-align: center;">Data Fim</th>
                                             <th scope="col" style="width:50px;">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php include('get_objetivo.php') ?>
+                                        <?php include('get_meta.php') ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -198,7 +186,7 @@ require_once('./verifica_login.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Deseja excluir o objetivo: <strong>"<span id="excluir"></span>"</strong>?</p>
+                            <p>Deseja excluir a Meta com o valor: <strong>"<span id="excluir"></span>"</strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
@@ -207,5 +195,7 @@ require_once('./verifica_login.php');
                     </div>
                 </div>
             </div>
-            <?php include './rodape.php'; ?>
+            <?php include './rodape.php' ?>
+        </div>
+    </div>
 </body>

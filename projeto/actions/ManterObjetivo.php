@@ -23,16 +23,32 @@ Class ManterObjetivo extends Model {
     }
 
     function getObjetivoPorIdPlanejamento($id = 0) {
-        $sql = "SELECT id, descricao, id_planejamento FROM objetivo WHERE id_planejamento = " . $id;
+        $sql = "SELECT o.id, o.descricao, o.id_planejamento, (SELECT COUNT(*) FROM indicador as i WHERE i.id_objetivo = o.id) as dep FROM objetivo as o WHERE id_planejamento =" . $id;
         $resultado  = $this->db->Execute($sql);
         $array_dados = array();
         while($registro  = $resultado->fetchRow()) {
             $dados =   new Objetivo;
+            $dados->excluir      = true;
+            if($registro['dep'] > 0) {
+                $dados->excluir  = false;
+            }
             $dados->id           = $registro['id'];
             $dados->descricao    = $registro['descricao'];
             $array_dados[]       = $dados;
         }
         return $array_dados;
+    }
+
+    function getObjetivoPorId($id = 0) {
+        $sql = "SELECT id, descricao, id_planejamento FROM objetivo WHERE id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        while ($registro = $resultado->fetchRow()) {
+            $dados               = new Objetivo;
+            $dados->id           = $registro['id'];
+            $dados->descricao    = $registro['descricao'];
+            $dados->planejamento = $registro['id_planejamento'];
+        }
+        return $dados;
     }
 
     function salvar(Objetivo $dados) {

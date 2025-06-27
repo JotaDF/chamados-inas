@@ -24,12 +24,27 @@ Class ManterMeta extends Model {
         return $array_dados;
     }
 
+    function getMetaPorIndicador($id = 0) {
+        $sql = "SELECT id, valor, data_inicio, data_fim, id_indicador FROM meta WHERE id_indicador=" . $id;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados     = new Meta;
+            $dados->id            = $registro['id'];
+            $dados->valor         = $registro['valor'];
+            $dados->data_inicio   = $registro['data_inicio'];
+            $dados->data_fim      = $registro['data_fim'];
+            $dados->indicador     = $registro['indicador']; 
+            $array_dados[]        = $dados;
+        }
+        return $array_dados;
+    }
     function salvar(Meta $dados) {
         $sql = "INSERT INTO meta(valor, data_inicio, data_fim, id_indicador) VALUES ('". $dados->valor ."','". $dados->data_inicio ."',
         '". $dados->data_fim ."','". $dados->indicador ."')";
         if($dados->id > 0) {
             $sql = "UPDATE meta SET valor='". $dados->valor ."',data_inicio='". $dados->data_inicio ."',
-            data_fim='". $dados->data_fim ."',id_indicador='". $dados->indicador ."'";
+            data_fim='". $dados->data_fim ."',id_indicador='". $dados->indicador ."' WHERE id=" . $dados->id;
         $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
@@ -40,7 +55,7 @@ Class ManterMeta extends Model {
 
     function excluir($id) {
         $sql = "DELETE FROM meta WHERE id=" . $id;
-        $resultado = $this->db->Execute($id);
+        $resultado = $this->db->Execute($sql);
         return $resultado;
     }
 }

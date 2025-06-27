@@ -28,7 +28,7 @@
         </div>
         <li class="nav-item">
             <a class="nav-link collapsed" href="planejamento.php">
-                <!-- <i class="fa fa-question-circle"></i> -->
+                <i class="bi bi-card-checklist"></i>
                 <span>Planejamento</span>
             </a>
         </li>
