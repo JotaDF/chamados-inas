@@ -66,10 +66,10 @@ and open the template in the editor.
                     document.querySelector('input[name="descricao"]').value = descHTML;
                 });
 
-                function alterar(id, titulo, descricao, inscreve, data, hora) {
+                function alterar(id, titulo, inscreve, data, hora) {
                     $('#id').val(id);
                     $('#titulo').val(titulo);
-                    quillDescricao.root.innerHTML = descricao;
+                    quillDescricao.root.innerHTML = $('#'+id+'_descricao').val();
 
                     $('#data').val(data);
                     $('#hora').val(hora);
