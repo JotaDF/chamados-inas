@@ -87,13 +87,13 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                 document.querySelector('input[name="missao"]').value = missaoHTML;
             });
             // Função para preencher o formulário ao editar
-            function alterar(id, nome, ano_inicio, ano_fim, missaoHTML, visaoHTML) {
+            function alterar(id, nome, ano_inicio, ano_fim) {
                 $('#id').val(id);
                 $('#nome').val(nome);
                 $('#ano_inicio').val(ano_inicio);
                 $('#ano_fim').val(ano_fim);
-                quillMissao.root.innerHTML = missaoHTML;
-                quillVisao.root.innerHTML = visaoHTML;
+                quillMissao.root.innerHTML = $('#'+id+'_missao').val();
+                quillVisao.root.innerHTML =  $('#'+id+'_visao').val();
                 $('#form_planejamento').collapse("show");
             }
             function novo() {

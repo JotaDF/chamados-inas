@@ -57,14 +57,14 @@ require_once('./verifica_login.php');
             });
 
         });
-        function alterar(id, descricaoHTML) {
+        function alterar(id) {
             $('#id_objetivo').val(id);
-            window.quillDescricao.root.innerHTML = descricaoHTML;
-            $('#descricao').focus();
+            window.quillDescricao.root.innerHTML = $('#'+id+'_descricao').val();
+            $('#'+id+'_descricao').focus();
         }
         function excluir(id, descricao, id_planejamento) {
             $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
-            var descricaoDecodificada = $('<div/>').html(descricao).text();
+            var descricaoDecodificada = $('#'+id+'_descricao').val();
             $('#excluir').text(descricaoDecodificada);
             $('#confirm').modal({ show: true });
         }
@@ -115,7 +115,7 @@ require_once('./verifica_login.php');
                                     <div class="mb-0"><?= $id_planejamento ?></div>
                                 </div>
                                 <div class="c2 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Nome do Planejamento:</div>
                                     <div class="mb-0"><?= $planejamento->nome ?></div>
                                 </div>
                                 <div class="c3 ml-4">

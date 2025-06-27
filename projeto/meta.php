@@ -107,26 +107,45 @@ require_once './verifica_login.php';
                                 <input type="hidden" name="id_meta" id="id_meta" />
                                 <div class="form-group row">
                                     <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-8">
                                         <input type="text" class="form-control form-control-sm" id="valor" name="valor"
                                             placeholder="Valor" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Inicio:</label>
-                                    <div class="col-sm-10">
-                                        <input type="datetime-local" class="form-control form-control-sm" id="data_inicio"
-                                            name="data_inicio" required>
+                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Início:</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-row">
+                                            <div class="col-auto">
+                                                <label for="data" class="col-form-label">Data:</label>
+                                                <input type="date" name="data_inicio" id="data_inicio"
+                                                    class="form-control form-control-sm" required>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="hora" class="col-form-label">Hora:</label>
+                                                <input type="time" name="hora_inicio" id="hora_inicio"
+                                                    class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="data_fim" class="col-sm-2 col-form-label">Data de Fim:</label>
+                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Início:</label>
                                     <div class="col-sm-10">
-                                        <input type="datetime-local" class="form-control form-control-sm" id="data_fim"
-                                            name="data_fim" required>
+                                        <div class="form-row">
+                                            <div class="col-auto">
+                                                <label for="data" class="col-form-label">Data:</label>
+                                                <input type="date" name="data_fim" id="data_fim"
+                                                    class="form-control form-control-sm" required>
+                                            </div>
+                                            <div class="col-auto">
+                                                <label for="hora" class="col-form-label">Hora:</label>
+                                                <input type="time" name="hora_fim" id="hora_fim"
+                                                    class="form-control form-control-sm" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group row justify-content-end">
                                     <div class="col-sm-auto">
                                         <button type="reset" class="btn btn-danger btn-sm">

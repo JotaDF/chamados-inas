@@ -6,10 +6,12 @@ $m           = new Meta;
 
 $id_indicador = isset($_POST['id_indicador']) ? $_POST['id_indicador'] : 0;
 $id_meta = isset($_POST['id_meta']) ? $_POST['id_meta'] : 0;
+$data_inicio = $_POST['data_inicio'] .  ' ' . $_POST['hora_inicio'] ;
+$data_fim    = $_POST['data_fim']  . ' ' .  $_POST['hora_fim'];
 $m->id               = $id_meta; 
 $m->valor            = $_POST['valor'];
-$m->data_inicio      = $_POST['data_inicio'];
-$m->data_fim         = $_POST['data_fim'];
+$m->data_inicio      = $data_inicio;
+$m->data_fim         = $data_fim ;
 $m->indicador        = $id_indicador;
 
 $resultado = $db_meta->salvar($m);

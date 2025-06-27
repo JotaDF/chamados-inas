@@ -24,11 +24,15 @@ Class ManterIndicador extends Model {
     }
 
     function getIndicadorPorObjetivo($id = 0) {
-        $sql = "SELECT i.id, i.nome, i.unidade, i.id_objetivo FROM indicador as i WHERE i.id_objetivo =" . $id;
+        $sql = "SELECT i.id, i.nome, i.unidade, i.id_objetivo, (SELECT COUNT(*) FROM meta as m where m.id_indicador = i.id) as dep FROM indicador as i WHERE i.id_objetivo =" . $id;
         $resultado   = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados             = new Indicador;
+            $dados->excluir    = true;
+            if($registro['dep'] > 0) {
+                $dados->excluir = false;
+            }
             $dados->id         = $registro['id'];
             $dados->nome       = $registro['nome'];
             $dados->unidade    = $registro['unidade'];
