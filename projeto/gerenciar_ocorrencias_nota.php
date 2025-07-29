@@ -174,7 +174,7 @@ and open the template in the editor.
                                     ?>
                                     <br/>
                                     <?php
-                                        if($usuario_logado->perfil >= 2){
+                                        if($usuario_logado->perfil >= 1){
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Nova ocorrência</span>

@@ -89,7 +89,7 @@ class ManterOcorrenciaNota extends Model {
         $sql = "insert into ocorrencia_nota (descricao,resolvido,id_nota_pagamento,data,autor)
                 values ('" . $dados->descricao . "',0," . $dados->nota_pagamento . ",now()," . $dados->autor . ")";
         if($dados->nota_glosa > 0){
-            $sql = "insert into ocorrencia_nota (descricao,resolvido,o.id_carta_recurso,data,autor)
+            $sql = "insert into ocorrencia_nota (descricao,resolvido,id_carta_recurso,data,autor)
                 values ('" . $dados->descricao . "',0," . $dados->nota_glosa . ",now()," . $dados->autor . ")";
         }       
         if ($dados->id > 0) {
