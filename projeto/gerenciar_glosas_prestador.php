@@ -341,13 +341,13 @@ and open the template in the editor.
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <input type="hidden" id="id" name="id" value="0"/>
                                         <div class="form-group row ml-1">
-                                            <label for="carta_recursada" class="col-sm-2 col-form-label">Carta Recursada:</label>
+                                            <label for="carta_recursada" class="col-sm-2 col-form-label">Informativo de Origem:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="carta_recursada" name="carta_recursada" class="form-control form-control-sm" required />
                                             </div>
                                         </div>
                                         <div class="form-group row ml-1">
-                                            <label for="valor_original" class="col-sm-2 col-form-label">Valor Original:</label>
+                                            <label for="valor_original" class="col-sm-2 col-form-label">Valor Glosado Total:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" id="valor_original" onInput="mascaraMoeda(event);" placeholder="R$ 0,00" name="valor_original" class="form-control form-control-sm" required />
                                             </div>

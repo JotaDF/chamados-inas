@@ -39,7 +39,7 @@
                 <input type="text" name="exercicio" class="form-control form-control-sm" id="exercicio_info" required>
                 </div>       
                 <div class="form-group col-md-3">
-                <label for="competencia">Competência:<span class="text-danger font-weight-bold">*</span></label>
+                <label for="competencia">Mês Faturamento Recurso:<span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" name="competencia" class="form-control form-control-sm" id="competencia_info" required>
                 </div>  
                 <div class="form-group col-md-3">
