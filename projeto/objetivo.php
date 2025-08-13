@@ -59,14 +59,17 @@ require_once('./verifica_login.php');
         });
         function alterar(id) {
             $('#id_objetivo').val(id);
-            window.quillDescricao.root.innerHTML = $('#'+id+'_descricao').val();
-            $('#'+id+'_descricao').focus();
+            window.quillDescricao.root.innerHTML = $('#' + id + '_descricao').val();
+            $('#' + id + '_descricao').focus();
         }
         function excluir(id, descricao, id_planejamento) {
             $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
-            var descricaoDecodificada = $('#'+id+'_descricao').val();
+            var descricaoDecodificada = $('#' + id + '_descricao').val();
             $('#excluir').text(descricaoDecodificada);
             $('#confirm').modal({ show: true });
+        }
+        function limpaEditor() {
+            window.quillDescricao.root.innerHTML = '';
         }
     </script>
     <style>
@@ -115,7 +118,8 @@ require_once('./verifica_login.php');
                                     <div class="mb-0"><?= $id_planejamento ?></div>
                                 </div>
                                 <div class="c2 ml-4">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Nome do Planejamento:</div>
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Nome do Planejamento:
+                                    </div>
                                     <div class="mb-0"><?= $planejamento->nome ?></div>
                                 </div>
                                 <div class="c3 ml-4">
@@ -144,6 +148,9 @@ require_once('./verifica_login.php');
 
                                 <div class="form-group row justify-content-end">
                                     <div class="col-sm-auto">
+                                        <button type="reset" class="btn btn-danger btn-sm" onclick="limpaEditor()">
+                                            <i class="fas fa-minus-square"></i> Cancelar
+                                        </button>
                                         <button type="submit" class="btn btn-primary btn-sm">
                                             <i class="fas fa-save"></i> Salvar
                                         </button>
