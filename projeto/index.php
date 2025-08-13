@@ -75,7 +75,7 @@ and open the template in the editor.
                     foreach ($acessos as $acesso) {
                         if($acesso->id_modulo != 1){
                             $request = "";
-                            if ($acesso->id_modulo == 15) {
+                            if ($acesso->id_modulo == 15 || $acesso->id_modulo == 19) {
                                 $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
                             }
                     ?> 
