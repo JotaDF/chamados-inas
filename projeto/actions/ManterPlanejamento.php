@@ -54,6 +54,7 @@ Class ManterPlanejamento extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
+        
         return $resultado;
     }
 
