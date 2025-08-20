@@ -46,6 +46,7 @@ Class ManterMeta extends Model {
             $sql = "UPDATE meta SET valor='". $dados->valor ."',data_inicio='". $dados->data_inicio ."',
             data_fim='". $dados->data_fim ."',id_indicador='". $dados->indicador ."' WHERE id=" . $dados->id;
         $resultado = $this->db->Execute($sql);
+        
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
