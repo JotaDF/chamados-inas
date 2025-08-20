@@ -11,8 +11,8 @@ class ManterPrestador extends Model {
         parent::__construct();
     }
 
-    function listar() {
-        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
+    function listar($filtro = '') {
+        $sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p $filtro order by p.razao_social";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
