@@ -42,14 +42,14 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function alterar(id, numero, valor, ano, id_prestador) {
+            function alterar(id, numero, valor, ano, vigente, id_prestador) {
                 $('#id').val(id);
                 $('#numero').val(numero); 
                 $('#valor').val(valor); 
                 $('#ano').val(ano);
                 $('#id_prestador').val(id_prestador);
                 $('#op').val(2);
-                $('#vigente').prop('checked', true);
+                $('#vigente').prop('checked', vigente == 1);
             }
             function excluir(id, numero, ano, id_prestador) {
                 $('#delete').attr('href', 'save_contrato_prestador.php?op=2&id=' + id +"&id_prestador="+id_prestador+"&numero="+numero+"&ano="+ano);
