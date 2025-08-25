@@ -42,10 +42,10 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function alterar(id, numero,valor, ano, id_prestador) {
+            function alterar(id, numero, valor, ano, id_prestador) {
                 $('#id').val(id);
                 $('#numero').val(numero); 
-                $('#numero').val(valor); 
+                $('#valor').val(valor); 
                 $('#ano').val(ano);
                 $('#id_prestador').val(id_prestador);
                 $('#op').val(2);
