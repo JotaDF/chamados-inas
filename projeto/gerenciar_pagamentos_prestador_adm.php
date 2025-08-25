@@ -229,7 +229,7 @@ and open the template in the editor.
                         $executor = $manterPrestador->getExecutorPorId($id_prestador, $usuario_logado->id);
                         
                         $editar = false;
-                        if ($executor->editor == 1 || $usuario_logado->perfil <=2) {
+                        if ($usuario_logado->perfil <=2) {
                             $editar = true;
                         }
                         ?>

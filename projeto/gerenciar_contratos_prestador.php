@@ -37,13 +37,41 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
+            function alterar(id, numero,valor, ano, id_prestador) {
+                $('#id').val(id);
+                $('#numero').val(numero); 
+                $('#numero').val(valor); 
+                $('#ano').val(ano);
+                $('#id_prestador').val(id_prestador);
+                $('#op').val(2);
+                $('#vigente').prop('checked', true);
+            }
             function excluir(id, numero, ano, id_prestador) {
                 $('#delete').attr('href', 'save_contrato_prestador.php?op=2&id=' + id +"&id_prestador="+id_prestador+"&numero="+numero+"&ano="+ano);
                 $('#nome_excluir').text(numero+"/"+ano);
                 $('#confirm').modal({show: true});              
+            }
+
+            const mascaraMoeda = (event) => {
+            const onlyDigits = event.target.value
+                .split("")
+                .filter(s => /\d/.test(s))
+                .join("")
+                .padStart(3, "0")
+            const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+            event.target.value = maskCurrency(digitsFloat)
+            }
+
+            const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+            return new Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency
+            }).format(valor)
             }
         </script>
         <style>
@@ -118,11 +146,18 @@ and open the template in the editor.
                                     <span class="mt-3 ml-2 h6 card-title">Novo contrato</span>
                                     <form id="form_cadastro" action="save_contrato_prestador.php" method="post">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
+                                        <input type="hidden" id="id" name="id" value=""/>
                                         <input type="hidden" id="op" name="op" value="1"/>
                                         <div class="form-group row ml-1">
                                             <label for="numero" class="col-sm-2 col-form-label">Número:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="numero" style="width: 200px" class="form-control form-control-sm" id="numero" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ml-1">
+                                            <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" onInput="mascaraMoeda(event);" name="valor" id="valor" placeholder="R$ 0,00" style="width: 200px" class="form-control form-control-sm" required>
                                             </div>
                                         </div>
                                         <div class="form-group row ml-1">
@@ -169,6 +204,7 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">NÚMERO</th>
+                                            <th scope="col">VALOR</th>
                                             <th scope="col">ANO</th>
                                             <th scope="col">VIGENTE</th>
                                             <th scope="col">OPÇÕES</th> 

@@ -10,7 +10,7 @@ class ManterContrato extends Model {
     }
 
     function listar() {
-        $sql = "select c.id,c.numero, c.ano, c.vigente, c.id_prestador FROM contrato as a order by c.numero";
+        $sql = "select c.id,c.numero, c.valor, c.ano, c.vigente, c.id_prestador FROM contrato as a order by c.numero";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -27,7 +27,7 @@ class ManterContrato extends Model {
         return $array_dados;
     }
     function getContratoPorId($id) {
-        $sql = "select c.id,c.numero, c.ano, c.vigente, c.id_prestador FROM contrato as a WHERE c.id=$id";
+        $sql = "select c.id,c.numero, c.valor, c.ano, c.vigente, c.id_prestador FROM contrato as a WHERE c.id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Contrato();
@@ -42,9 +42,9 @@ class ManterContrato extends Model {
     }
     function salvar(Contrato $dados) {
         $sql = "insert into contrato (numero,ano,vigente,id_prestador) 
-                values ('" . $dados->numero . "','" . $dados->ano . "','" . $dados->vigente . "','" . $dados->prestador . "')";
+                values ('" . $dados->numero . "','" . $dados->valor . "','" . $dados->ano . "','" . $dados->vigente . "','" . $dados->prestador . "')";
         if ($dados->id > 0) {
-            $sql = "update contrato set numero='" . $dados->numero . "',ano='" . $dados->ano . "',vigente='" . $dados->vigente . "',id_prestador='" . $dados->prestador . "' where id=$dados->id";
+            $sql = "update contrato set numero='" . $dados->numero . "',valor='" . $dados->valor . "',ano='" . $dados->ano . "',vigente='" . $dados->vigente . "',id_prestador='" . $dados->prestador . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
