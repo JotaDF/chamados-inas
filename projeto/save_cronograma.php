@@ -20,6 +20,7 @@ $c->inicio_prev   = $inicio_prev;
 $c->fim_prev      = $fim_prev;
 $c->inicio_real   = $inicio_real;
 $c->fim_real      = $fim_real;
+$c->status        = 'Não Iniciado';
 $c->eap_item      = $eap_item;
 
 $db_cronograma     = new ManterCronograma();

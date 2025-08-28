@@ -11,6 +11,7 @@ $p->descricao   = $_POST['descricao'];
 $p->tap         = html_entity_decode($_POST['tap']);
 $p->orcamento   = $_POST['orcamento'];
 $p->objetivo    = $_POST['objetivo'];
+$p->status      = 'Em execução';
 
 $resultado = $db_projeto->salvar($p);
 if ($resultado) {

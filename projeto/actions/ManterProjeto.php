@@ -132,8 +132,8 @@ class ManterProjeto extends Model
     }
     function salvar(Projeto $dados)
     {
-        $sql = "INSERT INTO projeto(nome, descricao, tap, orcamento, id_objetivo) VALUES ('" . $dados->nome . "','" . $dados->descricao . "',
-        '" . $dados->tap . "','" . $dados->orcamento . "','" . $dados->objetivo . "')";
+        $sql = "INSERT INTO projeto(nome, descricao, tap, orcamento, id_objetivo, status) VALUES ('" . $dados->nome . "','" . $dados->descricao . "',
+        '" . $dados->tap . "','" . $dados->orcamento . "','" . $dados->objetivo . "','" . $dados->status . "')";
         if ($dados->id > 0) {
             $sql = "UPDATE projeto SET nome='" . $dados->nome . "', descricao='" . $dados->descricao . "',tap='" . $dados->tap . "'
             ,orcamento='" . $dados->orcamento . "', id_objetivo='" . $dados->objetivo . "' WHERE id='" . $dados->id . "'";

@@ -51,8 +51,8 @@ class ManterCronograma extends Model
     }
     function salvar(Cronograma $dados)
     {
-        $sql = "INSERT INTO cronograma (descricao, inicio_prev, fim_prev, inicio_real, fim_real, id_eap_item) 
-        VALUES('" . $dados->descricao . "', '" . $dados->inicio_prev . "', '" . $dados->fim_prev . "', " . $dados->inicio_real . ", " . $dados->fim_real . ", '" . $dados->eap_item . "')";
+        $sql = "INSERT INTO cronograma (descricao, inicio_prev, fim_prev, inicio_real, fim_real, id_eap_item, status) 
+        VALUES('" . $dados->descricao . "', '" . $dados->inicio_prev . "', '" . $dados->fim_prev . "', " . $dados->inicio_real . ", " . $dados->fim_real . ", '" . $dados->eap_item . "', '" . $dados->status . "')";
         if ($dados->id > 0) {
             $sql = "UPDATE cronograma SET descricao= '" . $dados->descricao . "',  inicio_prev= '" . $dados->inicio_prev . "', fim_prev='" . $dados->fim_prev . "', id_eap_item= '" . $dados->eap_item . "' WHERE id= $dados->id";
             $resultado = $this->db->Execute($sql);
