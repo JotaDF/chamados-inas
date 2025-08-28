@@ -1,10 +1,12 @@
-<div class="card mb-4 border-primary" id="form_planejamento" style="max-width:900px">
+<div class="card mb-4 collapse hide border-primary" id="form_projeto" style="max-width:900px">
     <div class="card-header py-2 card-body bg-gradient-primary align-middle">
-        <span class="h6 m-0 font-weight text-white">Cadastro de Projeto</span>
+        <span class="h5 m-0 font-weight text-white">Cadastro de Projeto</span>
+        <i class="fa fa-folder text-white"></i>
     </div>
     <div class="card-body">
         <form action="save_projeto.php" method="POST">
-            <input type="hidden" name="id_planejamento" id="id">
+            <input type="hidden" id="id_projeto" name="id_projeto" />
+            <input type="hidden" id="id_objetivo" name="id_objetivo" />
             <div class="form-group row">
                 <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
                 <div class="col-sm-10 input-group">
@@ -23,38 +25,27 @@
                 <label for="tap" class="col-sm-2 col-form-label">TAP:</label>
                 <div class="col-sm-10">
                     <div style="width: 100%; height: 75px;" id="editor-tap"></div>
-                    <input type="hidden" name="tap">
+                    <input type="hidden" id="tap" name="tap">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="orcamento" class="col-sm-2 col-form-label">Orçamento:</label>
-                <div class="col-sm-10 input-group" id="editor">
-                    <input type="text" name="orcamento" class="form-control form-control-sm" placeholder="Orçamento"
-                        id="orcamento" required>
+                <div class="col-sm-10 input-group">
+                    <input type="text" onInput="mascaraMoeda(event);" name="orcamento" id="orcamento" placeholder="R$ 0,00"
+                        class="form-control form-control-sm" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="status" class="col-sm-2 col-form-label">Status:</label>
-                <div class="col-sm-10 input-group" id="editor">
-                    <input type="text" name="status" class="form-control form-control-sm" placeholder="Status"
-                        id="status" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="status" class="col-sm-2 col-form-label">objetivo:</label>
-                <div class="col-sm-10 input-group" id="objetivo">
-                    <select name="objetivo" id="objetivo" class="form-control form-control-sm ">
-                        <option value="0">Selecione um Objetivo</option>
-                    <?php foreach ($objetivos as $o) {
-                        ?>
-                            <option value="<?=$o->id?>"><?php echo $o->descricao ?></option>
-                            <?php } ?>
-                        </select>
+                <label for="status" class="col-sm-2 col-form-label">Objetivo:</label>
+                <div class="col-sm-10 input-group">
+                    <select name="objetivo" id="objetivo" class="form-control form-control-sm" required>
+                        <option value="">Selecione um Objetivo</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row float-right">
-                <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse"
-                    data-target="#form_planejamento" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i>
+                <button type="reset" onclick=" $('#form_projeto').collapse('hide');" data-toggle="collapse"
+                    data-target="#form_projeto" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i>
                     Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
@@ -63,4 +54,4 @@
         </form>
 
     </div>
-    </div>
+</div>

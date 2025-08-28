@@ -37,14 +37,56 @@ require_once './verifica_login.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
+        var quillMetodologia;
+        var quillLinhaBase;
+        var quillFonte;
         $(document).ready(function () {
-            $('#objetivos').DataTable();
+            $('#indicadores').DataTable();
+            // array de opções do Quill
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+
+            // instanciar o Quill para os editores
+            quillMetodologia = new Quill('#editor-metodologia', quillOpcoes);
+            quillLinhaBase = new Quill('#editor-linha_base', quillOpcoes);
+            quillFonte = new Quill('#editor-fonte', quillOpcoes);
+
+            document.getElementById('form_indicador').addEventListener('submit', function () {
+                // Coloca no campo hidden para enviar via POST
+                var fonteHTML = quillFonte.root.innerHTML;
+                var linhaBaseHtml = quillLinhaBase.root.innerHTML;
+                var MetodologiaHtml = quillMetodologia.root.innerHTML;
+                document.querySelector('input[name="metodologia"]').value = MetodologiaHtml
+                document.querySelector('input[name="linha_base"]').value = linhaBaseHtml;
+                document.querySelector('input[name="fonte"]').value = fonteHTML;
+            });
         });
-        function alterar(id, nome, unidade) {
+
+        function alterar(id, nome, unidade, indicador,  periodicidade, tendencia) {
             $('#id_indicador').val(id);
             $('#nome').val(nome);
             $('#unidade').val(unidade);
+            $('#indicador_desempenho').val(indicador);
+            $('#periodicidade').val(periodicidade);
+            $('#tendencia').val(tendencia);
+            quillLinhaBase.root.innerHTML = $('#' + id + '_linha_base').val();
+            quillMetodologia.root.innerHTML = $('#' + id + '_metodologia').val();
+            quillFonte.root.innerHTML = $('#' + id + '_fonte').val();
             $('#nome').focus();
+        }
+        function limpaEditor() {
+            quillLinhaBase.root.innerHTML = '';
+            quillMetodologia.root.innerHTML = '';
+            quillFonte.root.innerHTML = '';
         }
         function excluir(id, nome, id_objetivo) {
             $('#delete').attr('href', 'del_indicador.php?id=' + id + '&objetivo=' + id_objetivo);
@@ -57,7 +99,6 @@ require_once './verifica_login.php';
             font-size: small;
         }
     </style>
-
 <body id="page-top">
     <div id="wrapper">
         <?php include './menu_planejamento.php'; ?>
@@ -74,79 +115,25 @@ require_once './verifica_login.php';
                 $objetivo = $manterObjetivo->getObjetivoPorId($id_objetivo);
                 ?>
                 <div class="container-fluid">
-                    <div class="card mb-3 border-primary" style="max-width: 900px;">
-                        <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
-                            <div class="row">
-                                <div class="col c2 ml-2">
-                                    <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Indicadores</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa fa-bullseye fa-3x text-white"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">ID:</div>
-                                    <div class="mb-0"><?= $id_objetivo ?></div>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1">Descrição:</div>
-                                    <div class="mb-0"><?= $objetivo->descricao ?></div>
-                                </div>
-                            </div>
-
-                            <h6 class="font-weight-bold">Indicador</h6>
-
-                            <form id="form_indicador" action="save_indicador.php" method="post">
-                                <input type="hidden" name="id_objetivo" value="<?= $id_objetivo ?>" />
-                                <input type="hidden" name="id_indicador" id="id_indicador" />
-                                <div class="form-group row">
-                                    <label for="nome" class="col-sm-2 col-form-label">Nome do Indicador:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="nome" name="nome" placeholder="Nome do Indicador" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="unidade" class="col-sm-2 col-form-label">Unidade de medida:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="unidade"
-                                            name="unidade" placeholder="Ex: porcentagem, Minutos..." required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row justify-content-end">
-                                    <div class="col-sm-auto">
-                                        <button type="reset" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-minus-square"></i> Cancelar
-                                        </button>
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-save"></i> Salvar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
-                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                            <div class="col-sm ml-0" style="max-width:50px;">
-
-                            </div>
+                    <?php include('form_indicador.php') ?>
+                    <div class="card mb-4 border-primary" style="max-width:800px">
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:800px">
+                            <i class="fa fa-compass fa-2x text-white"></i>
                             <div class="col mb-0">
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Indicadores</span>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="objetivos" class="table-sm table-striped table-bordered dt-responsive nowrap"
+                                <table id="indicadores"
+                                    class="table-sm table-striped table-bordered dt-responsive nowrap"
                                     style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="text-align: center;">ID</th>
                                             <th scope="col" style="text-align: center;">Nome</th>
                                             <th scope="col" style="text-align: center;">Unidade de medida</th>
+                                            <th scope="col" style="text-align: center;">Indicador de Desempenho</th>
                                             <th scope="col" style="width:50px;">Opções</th>
                                         </tr>
                                     </thead>

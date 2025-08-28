@@ -1,5 +1,5 @@
 <?php
-$mod = 17; // Define a variável de módulo
+$mod = 18; // Define a variável de módulo
 require_once('./verifica_login.php'); // Faz a verificação de login
 ?>
 <!DOCTYPE html>
@@ -7,11 +7,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Planejamento - INAS</title>
 
     <!-- FontAwesome -->
@@ -29,7 +25,7 @@ require_once('./verifica_login.php'); // Faz a verificação de login
     <link rel="shortcut icon" href="favicon.ico" />
 
     <!-- Bootstrap e DataTables CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
@@ -92,8 +88,8 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                 $('#nome').val(nome);
                 $('#ano_inicio').val(ano_inicio);
                 $('#ano_fim').val(ano_fim);
-                quillMissao.root.innerHTML = $('#'+id+'_missao').val();
-                quillVisao.root.innerHTML =  $('#'+id+'_visao').val();
+                quillMissao.root.innerHTML = $('#' + id + '_missao').val();
+                quillVisao.root.innerHTML = $('#' + id + '_visao').val();
                 $('#form_planejamento').collapse("show");
             }
             function novo() {
@@ -116,7 +112,6 @@ require_once('./verifica_login.php'); // Faz a verificação de login
         }
     </style>
 </head>
-
 <body id="page-top">
     <div id="wrapper">
         <?php include './menu_planejamento.php'; ?>
@@ -125,18 +120,18 @@ require_once('./verifica_login.php'); // Faz a verificação de login
                 <?php include 'top_bar.php'; ?>
                 <?php
                 require_once 'actions/ManterPlanejamento.php';
-                $planejamentos = new ManterPlanejamento();
-                $planejamento = $planejamentos->listar();
+                $manterPlanejamentos = new ManterPlanejamento();
+                $planejamento  = $manterPlanejamentos->listar();
                 ?>
                 <div class="container-fluid">
                     <?php include './form_planejamento.php'; ?>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
+                    <div class="card mb-4 border-primary" style="max-width:800px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
+                                <i class="fa fa-list-alt fa-2x text-white"></i>
                             </div>
                             <div class="col mb-0">
-                                
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Planejamento</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Planejamentos</span>
                             </div>
                             <div class="col text-right" style="max-width:20%">
                                 <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm"

@@ -1,5 +1,5 @@
 <?php
-$mod = 17;
+$mod = 18;
 require_once('./verifica_login.php');
 ?>
 <!DOCTYPE html>
@@ -63,9 +63,10 @@ require_once('./verifica_login.php');
             $('#' + id + '_descricao').focus();
         }
         function excluir(id, descricao, id_planejamento) {
+            console.log(id, descricao, id_planejamento);
             $('#delete').attr('href', 'del_objetivo.php?id=' + id + '&planejamento=' + id_planejamento);
             var descricaoDecodificada = $('#' + id + '_descricao').val();
-            $('#excluir').text(descricaoDecodificada);
+            $('#excluir').html(descricaoDecodificada);
             $('#confirm').modal({ show: true });
         }
         function limpaEditor() {
@@ -95,7 +96,7 @@ require_once('./verifica_login.php');
                 $planejamento = $manterPlanejamento->getPlanejamentoPorId($id_planejamento);
                 ?>
                 <div class="container-fluid">
-                    <div class="card mb-3 border-primary" style="max-width: 900px;">
+                    <div class="card mb-3 border-primary" style="max-width: 800px;">
                         <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                             <div class="row">
                                 <div class="col c2 ml-2">
@@ -162,7 +163,7 @@ require_once('./verifica_login.php');
                         </div>
 
                     </div>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
+                    <div class="card mb-4 border-primary" style="max-width:800px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
                             </div>
@@ -205,7 +206,7 @@ require_once('./verifica_login.php');
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Deseja excluir o objetivo: <strong>"<span id="excluir"></span>"</strong>?</p>
+                            <p>Deseja excluir o objetivo: <strong><span id="excluir"></span></strong>?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
