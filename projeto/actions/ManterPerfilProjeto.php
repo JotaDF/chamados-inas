@@ -9,7 +9,7 @@ class ManterPerfilProjeto extends Model {
     }
 
     function listar() {
-        $sql = "SELECT pp.id, pp.nome, (SELECT COUNT(*) FROM projeto_usuario) as dep FROM perfil_projeto AS pp";
+        $sql = "SELECT pp.id, pp.nome, (SELECT COUNT(*) FROM projeto_usuario AS pu WHERE pp.id = pu.id_perfil_projeto) as dep FROM perfil_projeto AS pp";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
