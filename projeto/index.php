@@ -51,6 +51,7 @@ and open the template in the editor.
                 ?>
             $(document).ready(function () {
                 $("#evento").modal('show');
+                $("#enquete").modal('show');
             });
             <?php
             //}
@@ -75,7 +76,7 @@ and open the template in the editor.
                     foreach ($acessos as $acesso) {
                         if($acesso->id_modulo != 1){
                             $request = "";
-                            if ($acesso->id_modulo == 15) {
+                            if ($acesso->id_modulo == 15 || $acesso->id_modulo == 19) {
                                 $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
                             }
                     ?> 
@@ -184,7 +185,6 @@ and open the template in the editor.
         </div>
         <!-- Fim Modal -->
 
-
         <?php
         require_once('./actions/ManterEnquete.php');
         $db_enquete = new ManterEnquete();
@@ -251,7 +251,80 @@ and open the template in the editor.
         }
         ?>
 
+<?php
+        require_once('./actions/ManterEvento.php');
+        $db_evento = new ManterEvento();
+        $evento = $db_evento->getEventoAtivo();
 
+        if($evento->id > 0){
+            $inscrito = false;
+            if ($evento->inscreve == 1) {
+                $inscrito = $db_evento->jaInscreveu($evento->id, $usuario_logado->id);
+            }
+        ?>
+        <!-- Modal -->
+        <div class="modal fade" style="" id="evento" tabindex="-1" role="dialog" aria-labelledby="TituloEvento" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloEvento"><?=$evento->titulo ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 650px;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="card border-dark mb-3" style="max-width: 100%;">
+                                <div class="card-body text-dark">
+                                    <?php
+                                    $uploadDir = 'eventos/folder_';
+                                    $uploadDir .= $evento->id;
+                                    $uploadDir .= '/';
+                                                               
+                                    $files = array_diff(scandir($uploadDir), array('.', '..'));
+                                    
+                                    foreach ($files as $file) { ?>
+                                    <img src="<?=$uploadDir . $file ?>" height="400" width="400"> <br/>
+                                    <?php
+                                    }
+                                    
+
+                                    if ($evento->inscreve == 1) {
+                                    ?>
+                                    <h6 class="card-title"><?=$evento->titulo ?></h6>
+                                    <p class="card-text">
+                                        <?php
+                                        echo $evento->descricao . "<br/><br/>";
+                                        if ($inscrito) {
+                                            echo "<a class='btn btn-danger btn-sm' href='cancelar_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=".$usuario_logado->id ."' ><i class='far fa-trash-alt'></i> Cancelar minha inscrição</a>";
+                                        } else {
+                                            echo "<a class='btn btn-primary btn-sm' href='save_inscricao_evento.php?id_evento=".$evento->id."&id_usuario=".$usuario_logado->id ."' ><i class='fa fa-check'></i> Me inscrever</a>";
+                                        }
+                                        ?>
+                                    </p>
+                                    <?php
+                                    } else {
+                                        ?>
+                                        <h6 class="card-title"><?=$evento->titulo ?></h6>
+                                        <p class="card-text">
+                                        <?=$evento->descricao ?>
+                                        </p>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim Modal -->
+        <?php
+            }
+        ?>
 
 </body>
 

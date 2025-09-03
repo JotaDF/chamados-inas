@@ -49,21 +49,7 @@
                 <i class="fa fa-window-restore"></i>
                 <span>Módulos</span>
             </a>
-        </li> 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="enquetes.php">
-                <i class="fa fa-list-ul"></i>
-                <span>Enquetes</span>
-            </a>
-        </li> 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-            <a class="nav-link collapsed" href="eventos.php">
-                <i class="fa fa-list-ul"></i>
-                <span>Eventos</span>
-            </a>
-        </li> 
+        </li>
             <?php
         }
     }
