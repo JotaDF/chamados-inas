@@ -5,9 +5,10 @@ $db_meta = new ManterMeta;
 $m           = new Meta;
 
 $id_indicador = isset($_POST['id_indicador']) ? $_POST['id_indicador'] : 0;
-$id_meta = isset($_POST['id_meta']) ? $_POST['id_meta'] : 0;
-$data_inicio = $_POST['data_inicio'] .  ' ' . $_POST['hora_inicio'] ;
-$data_fim    = $_POST['data_fim']  . ' ' .  $_POST['hora_fim'];
+$id_meta      = isset($_POST['id_meta']) ? $_POST['id_meta'] : 0;
+$data_inicio  = $_POST['data_inicio'] .  ' ' . $_POST['hora_inicio'] ;
+$data_fim     = $_POST['data_fim']  . ' ' .  $_POST['hora_fim'];
+
 $m->id               = $id_meta; 
 $m->valor            = $_POST['valor'];
 $m->data_inicio      = $data_inicio;
@@ -19,5 +20,5 @@ $resultado = $db_meta->salvar($m);
 if ($resultado) {
     header('Location: meta.php?id=' . $id_indicador);
 } else {
-     header('Location: meta.php?id=' . $id_indicador);
+    header('Location: meta.php?id=' . $id_indicador);
 }

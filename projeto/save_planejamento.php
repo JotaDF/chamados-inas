@@ -11,6 +11,9 @@ $p->ano_fim      = $_POST['ano_fim'];
 $p->missao       = html_entity_decode($_POST['missao']);
 $p->visao        = html_entity_decode($_POST['visao']);
 $resultado = $db_planejamento->salvar($p);
+
 if($resultado) {
     header('Location: planejamento.php');
+} else {
+    
 }

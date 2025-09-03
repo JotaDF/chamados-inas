@@ -43,9 +43,12 @@ require_once './verifica_login.php';
         function alterar(id, valor, data_inicio, data_fim) {
             $('#id_meta').val(id);
             $('#valor').val(valor);
-            $('#data_inicio').val(data_inicio);
-            $('#data_fim').val(data_fim);
+            $('#data_inicio').val(data_inicio.split(' ')[0]);
+            $('#data_fim').val(data_fim.split(' ')[0]);
+            $('#hora_inicio').val(data_inicio.split(' ')[1]);
+            $('#hora_fim').val(data_fim.split(' ')[1]);
             $('#valor').focus();
+
         }
         function excluir(id, valor, id_indicador) {
             $('#delete').attr('href', 'del_meta.php?id=' + id + "&indicador=" + id_indicador);
@@ -74,8 +77,8 @@ require_once './verifica_login.php';
                 $indicador = $manterIndicador->getIndicadorPorId($id_indicador);
                 ?>
                 <div class="container-fluid">
-                    <div class="card mb-3 border-primary" style="max-width: 900px;">
-                        <div class="card-body bg-gradient-primary" style="max-width: 900px;">
+                    <div class="card mb-3 border-primary" style="max-width: 800px;">
+                        <div class="card-body bg-gradient-primary" style="max-width: 800px;">
                             <div class="row">
                                 <div class="col c2 ml-2">
                                     <div class="h5 mb-0 text-white font-weight-bold">Cadastros de Metas</div>
@@ -130,7 +133,7 @@ require_once './verifica_login.php';
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data de Início:</label>
+                                    <label for="data_inicio" class="col-sm-2 col-form-label">Data Fim:</label>
                                     <div class="col-sm-10">
                                         <div class="form-row">
                                             <div class="col-auto">
@@ -159,7 +162,7 @@ require_once './verifica_login.php';
                             </form>
                         </div>
                     </div>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
+                    <div class="card mb-4 border-primary" style="max-width:800px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
 

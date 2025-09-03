@@ -11,7 +11,8 @@ class ManterProjeto extends Model
 
     function listar()
     {
-        $sql = "SELECT id, nome, descricao, tap, orcamento, status, (SELECT COUNT(*) FROM projeto_usuario WHERE id_projeto = p.id) as dep FROM projeto as p";
+        $sql = "SELECT id, nome, descricao, tap, orcamento, status, id_objetivo, 
+        ((SELECT COUNT(*) FROM projeto_usuario pu WHERE pu.id_projeto = p.id) + (SELECT COUNT(*) FROM arquivo a WHERE a.id_projeto = p.id) + (SELECT COUNT(*) FROM reporte r WHERE r.id_projeto = p.id) + (SELECT COUNT(*) FROM eap_item as e WHERE e.id_projeto = p.id) ) AS dep FROM projeto as p";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -63,6 +64,32 @@ class ManterProjeto extends Model
         return $dados;
     }
 
+    function getNomeProjetoPorId($id = 0) {
+        $sql = "SELECT id, nome FROM projeto WHERE id=" . $id;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Projeto();
+        if ($registro = $resultado->fetchRow()) {
+            $dados->id = $registro['id'];
+            $dados->nome = $registro['nome'];
+        }
+        return $dados;
+    }
+
+    function criaDirPorProjeto($id_projeto, $caminho_dir) {
+        $dir = $caminho_dir . $id_projeto;
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        return $dir;
+    }
+
+    function excluirDirProjeto($id_projeto, $caminho_dir) {
+        $dir = $caminho_dir . $id_projeto; 
+        if(is_dir($dir)) {
+            rmdir($dir);
+        }
+    }
+
     function getUsuarioSemProjetoPorId($id) {
         $sql = "SELECT u.id, u.nome FROM usuario as u WHERE u.id NOT IN (SELECT pu.id_usuario FROM projeto_usuario as pu, projeto as p WHERE pu.id_projeto = p.id AND p.id = $id) ORDER BY u.nome";
         $resultado = $this->db->Execute($sql);
@@ -105,11 +132,11 @@ class ManterProjeto extends Model
     }
     function salvar(Projeto $dados)
     {
-        $sql = "INSERT INTO projeto(nome, descricao, tap, orcamento, status, id_objetivo) VALUES ('" . $dados->nome . "','" . $dados->descricao . "',
-        '" . $dados->tap . "','" . $dados->orcamento . "','" . $dados->status . "','" . $dados->objetivo . "')";
+        $sql = "INSERT INTO projeto(nome, descricao, tap, orcamento, id_objetivo, status) VALUES ('" . $dados->nome . "','" . $dados->descricao . "',
+        '" . $dados->tap . "','" . $dados->orcamento . "','" . $dados->objetivo . "','" . $dados->status . "')";
         if ($dados->id > 0) {
             $sql = "UPDATE projeto SET nome='" . $dados->nome . "', descricao='" . $dados->descricao . "',tap='" . $dados->tap . "'
-            ,orcamento='" . $dados->orcamento . "',status='" . $dados->status . "',id_objetivo='" . $dados->objetivo . "' WHERE id='" . $dados->id . "'";
+            ,orcamento='" . $dados->orcamento . "', id_objetivo='" . $dados->objetivo . "' WHERE id='" . $dados->id . "'";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);

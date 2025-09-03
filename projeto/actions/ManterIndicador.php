@@ -49,7 +49,7 @@ Class ManterIndicador extends Model {
             $dados->fonte                 = $registro['fonte'];
             $dados->linha_base            = $registro['linha_base'];
             $dados->objetivo              = $registro['objetivo'];
-            $array_dados[]                 = $dados;
+            $array_dados[]                = $dados;
         }
             return $array_dados;
     }
@@ -68,14 +68,13 @@ Class ManterIndicador extends Model {
 }
 
     function salvar(Indicador $dados) {
-        $sql = "INSERT INTO indicador(nome, unidade, id_objetivo, indicador, periodicidade, tendencia, fonte, linha_base, metodologia) VALUES 
+        $sql = "INSERT INTO indicador(nome, unidade, id_objetivo, indicador_desempenho, periodicidade, tendencia, fonte, linha_base, metodologia) VALUES 
         ('". $dados->nome ."','". $dados->unidade ."','". $dados->objetivo ."', '".  $dados->indicador_desempenho ."' , '". $dados->periodicidade ."', '". $dados->tendencia ."', '". $dados->fonte ."', '". $dados->linha_base ."', 
-        '". $dados->metodologia ."'')";
+        '". $dados->metodologia ."')";
         if ($dados->id > 0) {
             $sql = "UPDATE indicador SET nome='". $dados->nome ."', unidade='". $dados->unidade ."',id_objetivo='". $dados->objetivo ."', indicador_desempenho='".  $dados->indicador_desempenho ."', 
             periodicidade='". $dados->periodicidade ."', tendencia='". $dados->tendencia ."', fonte='". $dados->fonte ."', linha_base='". $dados->linha_base ."', metodologia='". $dados->metodologia ."' WHERE id=" . $dados->id;
             $resultado = $this->db->Execute($sql);
-            
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();

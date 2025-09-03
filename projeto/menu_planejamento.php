@@ -28,8 +28,20 @@
         </div>
         <li class="nav-item">
             <a class="nav-link collapsed" href="planejamento.php">
-                <i class="bi bi-card-checklist"></i>
+                <i class="fa fa-list-alt"></i>
                 <span>Planejamento</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="perfil_projeto.php">
+                <i class="fa fa-address-card"></i>
+                <span>Perfils</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="projeto.php">
+                <i class="fa fa-folder"></i>
+                <span>Projeto</span>
             </a>
         </li>
         <?php
