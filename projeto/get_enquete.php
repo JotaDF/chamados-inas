@@ -6,6 +6,7 @@
 	$lista = $manterEnquete->listar();
         
         foreach ($lista as $obj) {
+            $hidden_descricao = "<input type='hidden' id='". $obj->id."_descricao'  value='". $obj->descricao ."'>";
             echo "<tr>";
             echo "  <td>".$obj->id."</td>";
             echo "  <td>".$obj->descricao."</td>";
@@ -18,9 +19,9 @@
             $btn_opcoes = '&nbsp;&nbsp;<a href="gerenciar_opcoes_enquete.php?id='.$obj->id.'" title="Gerenciar opções" class="btn btn-warning btn-sm" type="button"><i class="fa fa-list-ul"></i></a>';
             $btn_resultado = '&nbsp;&nbsp;<a href="resultado_enquete.php?id='.$obj->id.'" title="Resultado da enquete" class="btn btn-success btn-sm" type="button"><i class="fa fa-signal"></i></a>';
             if($obj->excluir){
-                echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->descricao."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->descricao."\")'><i class='far fa-trash-alt'></i></button>" . $btn_opcoes . $btn_folder . $btn_resultado . "</td>";
+                echo "  <td align='center'>$hidden_descricao<button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->descricao."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->descricao."\")'><i class='far fa-trash-alt'></i></button>" . $btn_opcoes . $btn_folder . $btn_resultado . "</td>";
             } else {
-                echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->descricao."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>" . $btn_opcoes . $btn_folder . $btn_resultado . "</td>";                
+                echo "  <td align='center'>$hidden_descricao<button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->descricao."\")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>" . $btn_opcoes . $btn_folder . $btn_resultado . "</td>";                
             }
             echo "</tr>";
         }

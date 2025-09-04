@@ -10,15 +10,16 @@
     <div class="card-body">
         <form id="form_cadastro" action="save_enquete.php" method="post">
             <input type="hidden" id="id" name="id"/>
-            <div class="form-group row">
+            <div class="form-group row mb-5">
                 <label for="descricao" class="col-sm-2 col-form-label">Enquete:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" placeholder="Descrição" required>
+                    <div id="editor-descricao"></div>
+                    <input type="hidden" name="descricao">
                 </div>
             </div>
 
             <div class="form-group row float-right">
-                <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_enquete" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
+                <button type="reset" onclick="$('#btn_cadastrar').show(); limpaEditor();" data-toggle="collapse" data-target="#form_enquete" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
                 &nbsp;&nbsp;&nbsp;
