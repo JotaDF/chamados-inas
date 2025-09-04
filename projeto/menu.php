@@ -75,6 +75,9 @@ foreach ($acessos as $acesso) {
             case 17:
                 $icon_css = "fa fa-shopping-cart";
                 break;
+            case 18:
+                $icon_css = "fa fa-puzzle-piece";
+                break;
             case 19:
                 $icon_css = "fa fa-list-alt";
                 $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
