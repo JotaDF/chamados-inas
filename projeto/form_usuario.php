@@ -1,7 +1,7 @@
 <!-- Begin Page Content -->
 
 <!-- Collapsable Form -->
-<div class="card mb-4 collapse hide border-primary" id="form_usuario" style="max-width:900px">
+<div class="card mb-4 collapse hide border-primary" id="form_usuario" style="max-width:1000px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">
         <span class="h6 m-0 font-weight text-white">Cadastro de Usuário</span>
@@ -50,7 +50,7 @@
                 <div class="form-group col-md-2">
                     <label for="simbolo_cargo">Símbolo do Cargo</label>
                     <input type="text" name="simbolo_cargo" id="simbolo_cargo" class="form-control form-control-sm"
-                        placeholder="CC-08" required>
+                     required>
                 </div>
             </div>
 
@@ -58,21 +58,19 @@
                 <div class="form-group col-md-5">
                     <label for="descricao_lotacao">Descrição Lotação</label>
                     <input type="text" name="descricao_lotacao" id="descricao_lotacao"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm"
-                        placeholder="Unidade de Tecnologia da Informação e Comunicação">
+                        oninput="this.value = this.value.toUpperCase()" class="form-control form-control-sm">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="codigo_lotacao">Código Lotação</label>
-                    <input type="text" name="codigo_lotacao" id="codigo_lotacao" class="form-control form-control-sm"
-                        placeholder="30.01.07.04.00.00">
-                </div>
-
-                <div class="form-group col-md-4">
                     <label for="setor">Setor</label>
                     <select id="setor" name="setor" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>
                     </select>
                 </div>
+                <div class="form-group col-md-4">
+                    <label for="codigo_lotacao">Código Lotação</label>
+                    <input type="text" name="codigo_lotacao" id="codigo_lotacao" class="form-control form-control-sm">
+                </div>
+
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
@@ -81,14 +79,14 @@
                         placeholder="">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="whatsapp">WhatsApp</label>
-                    <input type="text" name="whatsapp" id="whatsapp" class="form-control form-control-sm"
-                        placeholder="(99) 99999-9999">
-                </div>
-                <div class="form-group col-md-4">
                     <label for="linkedin">LinkedIn</label>
                     <input type="text" name="linkedin" id="linkedin" class="form-control form-control-sm"
                         placeholder="Link do perfil">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="whatsapp">WhatsApp</label>
+                    <input type="text" name="whatsapp" id="whatsapp" class="form-control form-control-sm"
+                        placeholder="(99) 99999-9999">
                 </div>
             </div>
             <div class="form-group row float-right">
