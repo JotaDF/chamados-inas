@@ -50,7 +50,8 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="cpf"> CPF </label>
-                    <input type="text" name="cpf" id="cpf" class="form-control form-control-sm">
+                    <input type="text" name="cpf" id="cpf" oninput="mascaraCPF(event)"
+                        class="form-control form-control-sm">
                 </div>
                 <div class="form-group col-md-5">
                     <label for="descricao_lotacao">Descrição Lotação</label>
@@ -83,16 +84,16 @@
                     <input type="text" name="simbolo_cargo" id="simbolo_cargo" class="form-control form-control-sm"
                         required="">
                 </div>
-                </div>
-                <div class="form-group row float-right">
-                    <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse"
-                        data-target="#form_usuario" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i>
-                        Cancelar</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
-                    &nbsp;&nbsp;&nbsp;
-                </div>
-                
+            </div>
+            <div class="form-group row float-right">
+                <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse"
+                    data-target="#form_usuario" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i>
+                    Cancelar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
+                &nbsp;&nbsp;&nbsp;
+            </div>
+
         </form>
     </div>
 </div>

@@ -114,7 +114,27 @@ and open the template in the editor.
             $('#form_usuario').collapse("show");
             $('#btn_cadastrar').hide();
         }
+        const mascaraCPF = (event) => {
+            // Pega só os dígitos
+            const onlyDigits = event.target.value
+                .split("")
+                .filter(s => /\d/.test(s))
+                .join("")
+                .slice(0, 11); // CPF tem no máximo 11 dígitos
 
+            // Aplica a máscara XXX.XXX.XXX-XX
+            let formatted = onlyDigits;
+
+            if (onlyDigits.length > 9) {
+                formatted = onlyDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+            } else if (onlyDigits.length > 6) {
+                formatted = onlyDigits.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+            } else if (onlyDigits.length > 3) {
+                formatted = onlyDigits.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+            }
+
+            event.target.value = formatted;
+        };
     </script>
     <style>
         body {
