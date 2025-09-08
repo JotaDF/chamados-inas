@@ -69,82 +69,89 @@ and open the template in the editor.
                 <!-- Main Content -->
                 <div id="content">
                     <?php include './top_bar.php'; ?>
-                    
-                    <!-- Links sistemas -->
-                    <div class="card-group">
-                    <?php
-                    foreach ($acessos as $acesso) {
-                        if($acesso->id_modulo != 1){
-                            $request = "";
-                            if ($acesso->id_modulo == 15 || $acesso->id_modulo == 19) {
-                                $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
+                    <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- Links sistemas -->
+                            <div class="card-group">
+                            <?php
+                            foreach ($acessos as $acesso) {
+                                if($acesso->id_modulo != 1){
+                                    $request = "";
+                                    if ($acesso->id_modulo == 15 || $acesso->id_modulo == 19) {
+                                        $request = "?texto=". $db_usuario->encryptarMensagem("nome=".$usuario_logado->nome."&login=".$usuario_logado->login."&matricula=".$usuario_logado->matricula."&perfil=".$db_usuario->getAcessoUsuario($usuario_logado->id,15));
+                                    }
+                            ?> 
+                                <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
+                                    <a class="text-decoration-none" href="<?=$acesso->link . $request ?>">
+                                    <div class="card border-left-primary h-100 shadow">
+                                        <div class="card-body">
+                                            
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                                    <img src="img/<?=$acesso->icone ?>" width="70"><?=$acesso->modulo ?>
+                                                </div>                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                </div>
+                                <?php
                             }
-                    ?> 
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
-                            <a class="text-decoration-none" href="<?=$acesso->link . $request ?>">
-                            <div class="card border-left-primary h-100 shadow">
-                                <div class="card-body">
-                                    
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/<?=$acesso->icone ?>" width="70"><?=$acesso->modulo ?>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <?php
-                    }
-                }
-//Agenda
-                if($usuario_logado->agenda){
-                ?>
-                    <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
-                        <a class="text-decoration-none" href="agendas.php">
-                        <div class="card border-left-success h-100 shadow">
-                            <div class="card-body">
-                                
-                                <div class="row no-gutters align-items-center">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                        <img src="img/agenda.svg" width="70">Agenda
-                                    </div>                                        
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                <?php
-                } else {
-                    require_once('./actions/ManterAgenda.php');
-                    $db_agenda = new ManterAgenda();
-                    if(count($db_agenda->getAgendasQueAcesso($usuario_logado->id)) > 0){
+                        }
+                        //Agenda
+                        if($usuario_logado->agenda){
                         ?>
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
-                            <a class="text-decoration-none" href="agendas.php">
-                            <div class="card border-left-success h-100 shadow">
-                                <div class="card-body">
-                                    
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
-                                            <img src="img/agenda.svg" width="70">Agenda
-                                        </div>                                        
+                            <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
+                                <a class="text-decoration-none" href="agendas.php">
+                                <div class="card border-left-success h-100 shadow">
+                                    <div class="card-body">
+                                        
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                                <img src="img/agenda.svg" width="70">Agenda
+                                            </div>                                        
+                                        </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
-                            </a>
-                        </div>
-                    <?php 
-                    }
-                }
-?>
-
-                <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
-                    <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
-                    <div class="row no-gutters align-items-center">
-                        <?php include './get_aniversariantes.php'; ?>
+                        <?php
+                        } else {
+                            require_once('./actions/ManterAgenda.php');
+                            $db_agenda = new ManterAgenda();
+                            if(count($db_agenda->getAgendasQueAcesso($usuario_logado->id)) > 0){
+                                ?>
+                                <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
+                                    <a class="text-decoration-none" href="agendas.php">
+                                    <div class="card border-left-success h-100 shadow">
+                                        <div class="card-body">
+                                            
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                                    <img src="img/agenda.svg" width="70">Agenda
+                                                </div>                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </a>
+                                </div>
+                            <?php 
+                            }
+                        }
+        ?>
                     </div>
-                </div>
+                    <div class="col">
+                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
+                            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
+                            <div class="row no-gutters align-items-center">
+                                <?php include './get_aniversariantes.php'; ?>
+                            </div>
+                        </div>
+                    </div> <!-- div col-->
+                    </div> <!-- div row-->
+                    </div> <!-- div container-->
+
                     <!-- End of publicidade
                     <div class="col-xl-3 col-md-2 mb-4" style="max-width: 410px;">
                         <div class="row no-gutters align-items-center">
