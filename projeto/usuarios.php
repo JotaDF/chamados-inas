@@ -157,7 +157,7 @@ and open the template in the editor.
                 <div class="container-fluid">
                     <?php include './form_usuario.php'; ?>
                     <!-- Project Card Example -->
-                    <div class="card mb-4 border-primary" style="max-width:1000px">
+                    <div class="card mb-4 border-primary" style="max-width:1100px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
                                 <i class="fas fa-user fa-2x text-white"></i>
