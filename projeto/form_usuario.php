@@ -78,7 +78,7 @@
                     <input type="text" name="cargo_efetivo" id="cargo_efetivo" class="form-control form-control-sm"
                         placeholder="">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="simbolo_cargo">Símbolo do Cargo</label>
                     <input type="text" name="simbolo_cargo" id="simbolo_cargo" class="form-control form-control-sm"
                         required="">
