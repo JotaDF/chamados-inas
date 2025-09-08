@@ -95,7 +95,7 @@ and open the template in the editor.
             $('#nome_excluir').text(nome);
             $('#confirm').modal({ show: true });
         }
-        function alterar(id, login, nome, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, id_perfil, codigo_lotacao, descricao_lotacao, cargo_efetivo, simbolo_cargo) {
+        function alterar(id, login, nome, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, id_perfil, codigo_lotacao, descricao_lotacao, cargo_efetivo, simbolo_cargo, cpf) {
             $('#id').val(id);
             $('#login').val(login);
             $('#nome').val(nome);
@@ -105,7 +105,7 @@ and open the template in the editor.
             $('#descricao_lotacao').val(descricao_lotacao);
             $('#cargo_efetivo').val(cargo_efetivo);
             $('#simbolo_cargo').val(simbolo_cargo);
-            console.log(codigo_lotacao, descricao_lotacao, cargo_efetivo, simbolo_cargo);
+            $('#cpf').val(cpf);
             $('#email').val(email);
             $('#nascimento').val(nascimento);
             $('#whatsapp').val(whatsapp);

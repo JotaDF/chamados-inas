@@ -21,7 +21,7 @@ $usuario->nascimento        = isset($_POST['nascimento']) ? strtotime($_POST['na
 $usuario->whatsapp          = $_POST['whatsapp'];
 $usuario->linkedin          = $_POST['linkedin'];
 $usuario->setor             = $_POST['setor'];
-
+$usuario->cpf               = $_POST['cpf'];
 
 //print_r($usuario);
 $db_usuario->salvar($usuario);
