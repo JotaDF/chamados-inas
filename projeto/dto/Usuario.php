@@ -13,6 +13,10 @@
       public $agenda;
       public $aniversariantes;
       public $ativo;
+      public $descricao_lotacao;
+      public $codigo_lotacao;
+      public $simbolo_cargo;
+      public $cargo_efetivo;
       public $acessos = array();
       public $equipes = array();
 

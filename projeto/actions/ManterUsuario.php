@@ -14,7 +14,8 @@ class ManterUsuario extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.agenda,u.id_setor,u.aniversariantes,(select count(*) from acesso as a where a.id_usuario=u.id) as dep FROM usuario as u ".$filtro." order by u.nome";
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.agenda,u.id_setor,u.aniversariantes, 
+        u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo, (select count(*) from acesso as a where a.id_usuario=u.id) as dep FROM usuario as u ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -29,6 +30,10 @@ class ManterUsuario extends Model {
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
             $dados->email = $registro["email"];
+            $dados->codigo_lotacao = $registro["codigo_lotacao"];
+            $dados->descricao_lotacao = $registro["descricao_lotacao"];
+            $dados->simbolo_cargo = $registro["simbolo_cargo"];
+            $dados->cargo_efetivo = $registro["cargo_efetivo"];
             $dados->nascimento = date('Y-m-d', $registro["nascimento"]);
             $dados->whatsapp = $registro["whatsapp"];
             $dados->linkedin = $registro["linkedin"];
@@ -42,7 +47,8 @@ class ManterUsuario extends Model {
     }
 
     function getUsuarioPorId($id) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes FROM usuario as u WHERE id=$id";
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
+         FROM usuario as u WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Usuario();
@@ -53,6 +59,10 @@ class ManterUsuario extends Model {
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
             $dados->email = $registro["email"];
+            $dados->codigo_lotacao = $registro["codigo_lotacao"];
+            $dados->descricao_lotacao = $registro["descricao_lotacao"];
+            $dados->simbolo_cargo = $registro["simbolo_cargo"];
+            $dados->cargo_efetivo = $registro["cargo_efetivo"];
             $dados->nascimento = date('Y-m-d', $registro["nascimento"]);
             $dados->whatsapp = $registro["whatsapp"];
             $dados->linkedin = $registro["linkedin"];
@@ -64,7 +74,8 @@ class ManterUsuario extends Model {
         return $dados;
     }
     function getUsuarioPorLogin($login) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes FROM usuario as u WHERE login='$login'";
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
+        FROM usuario as u WHERE login='$login'";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Usuario();
@@ -75,6 +86,10 @@ class ManterUsuario extends Model {
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
             $dados->email = $registro["email"];
+            $dados->codigo_lotacao = $registro["codigo_lotacao"];
+            $dados->descricao_lotacao = $registro["descricao_lotacao"];
+            $dados->simbolo_cargo = $registro["simbolo_cargo"];
+            $dados->cargo_efetivo = $registro["cargo_efetivo"];
             $dados->nascimento = date('Y-m-d', $registro["nascimento"]);
             $dados->whatsapp = $registro["whatsapp"];
             $dados->linkedin = $registro["linkedin"];
@@ -86,17 +101,22 @@ class ManterUsuario extends Model {
         return $dados;
     }
     function salvar(Usuario $dados) { 
-        $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "')";
+        $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, descricao_lotacao, codigo_lotacao, simbolo_cargo, cargo_efetivo) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "'
+        ,'" . $dados->descricao_lotacao . "','" . $dados->codigo_lotacao . "','" . $dados->simbolo_cargo  . "','" . $dados->cargo_efetivo . "')";
 //        echo $sql . "<BR/>";
 //        exit;
         if ($dados->id > 0) {
-            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',id_setor='" . $dados->setor . "' where id=$dados->id";
+            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "'
+            ,id_setor='" . $dados->setor . "', cargo_efetivo='" . $dados->cargo_efetivo . "', simbolo_cargo='" . $dados->simbolo_cargo . "', codigo_lotacao='" . $dados->codigo_lotacao . "', descricao_lotacao='" . $dados->descricao_lotacao . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
         //echo $sql . "<BR/>";
+        if(!$resultado) {
+           echo "erro:" . $this->db->errorMsg();
+        }
         return $resultado;
     }
 
@@ -417,7 +437,7 @@ class ManterUsuario extends Model {
     function listarAniversariantesAll($mes = "") {
         if ($mes == "") {
             $mes = "" . date("m");
-        }
+        }   
         $sql = "SELECT id, nome, id_setor, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%d') as dia, DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') as mes FROM usuario WHERE ativo=1 AND aniversariantes=1 AND DATE_FORMAT(FROM_UNIXTIME(nascimento), '%m') = " . $mes . " ORDER BY dia, mes";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
