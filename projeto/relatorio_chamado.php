@@ -95,10 +95,10 @@ and open the template in the editor.
         $termino = isset($_REQUEST['termino']) ? $_REQUEST['termino'] : 0;
 
         $where = " ";
-        $cont_param = 1;
+        $cont_param = 0;
         if ($inicio != 0) {
             if ($cont_param > 0) {
-                $where .= " AND ";
+                $where .= " WHERE ";
             }
             $where .= " data_abertura >='" . $inicio . " 07:00'";
             $cont_param++;
