@@ -152,7 +152,7 @@ and open the template in the editor.
                                 <td class="cell c2 text-dark " style=""><?= $mCategoria->getCategoriaPorId($obj->categoria)->nome ?></td>
                                 <td class="cell c3 text-dark " style=""><?= $obj->descricao ?></td>
                                 <td class="cell c4 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->data_abertura)) ?></td>
-                                <td class="cell c5 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->data_atendido)) ?></td>
+                                <td class="cell c5 text-dark " style=""><?= isset($obj->data_atendido) ? date('d/m/Y h:i', strtotime($obj->data_atendido)) : "-" ?></td>
                                 <td class="cell c6 text-dark " style=""> <?= $obj->tempo ?> minutos</td>                                
                                 <td class="cell c7 text-dark " style=""><?= $atendente->nome ?></td>                                
                             </tr>   
