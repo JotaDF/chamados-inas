@@ -18,6 +18,7 @@
       public $simbolo_cargo;
       public $cargo_efetivo;
       public $cpf;
+      public $horario;
       public $acessos = array();
       public $equipes = array();
 

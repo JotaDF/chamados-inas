@@ -15,7 +15,7 @@ class ManterUsuario extends Model {
 
     function listar($filtro = "") {
         $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.agenda,u.id_setor,u.aniversariantes, 
-        u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo, u.cpf, (select count(*) from acesso as a where a.id_usuario=u.id) as dep FROM usuario as u ".$filtro." order by u.nome";
+        u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo, u.cpf, u.horario, (select count(*) from acesso as a where a.id_usuario=u.id) as dep FROM usuario as u ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -38,6 +38,7 @@ class ManterUsuario extends Model {
             $dados->nascimento = date('Y-m-d', $registro["nascimento"]);
             $dados->whatsapp = $registro["whatsapp"];
             $dados->linkedin = $registro["linkedin"];
+            $dados->horario = $registro["horario"];
             $dados->ativo = $registro["ativo"];
             $dados->agenda = $registro["agenda"];
             $dados->setor = $registro["id_setor"];
@@ -48,7 +49,7 @@ class ManterUsuario extends Model {
     }
 
     function getUsuarioPorId($id) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.cpf, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
+        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.cpf, u.horario, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
          FROM usuario as u WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -70,6 +71,7 @@ class ManterUsuario extends Model {
             $dados->ativo = $registro["ativo"];
             $dados->agenda = $registro["agenda"];
             $dados->cpf = $registro["cpf"];
+            $dados->horario = $registro["horario"];
             $dados->setor = $registro["id_setor"];
             $dados->aniversariantes = $registro["aniversariantes"];
         }
@@ -104,8 +106,8 @@ class ManterUsuario extends Model {
         return $dados;
     }
     function salvar(Usuario $dados) { 
-        $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, descricao_lotacao, codigo_lotacao, simbolo_cargo, cargo_efetivo, cpf) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "'
-        ,'" . $dados->descricao_lotacao . "','" . $dados->codigo_lotacao . "','" . $dados->simbolo_cargo  . "','" . $dados->cargo_efetivo . "','" . $dados->cpf . "')";
+        $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, descricao_lotacao, codigo_lotacao, simbolo_cargo, cargo_efetivo, cpf, horario) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "'
+        ,'" . $dados->descricao_lotacao . "','" . $dados->codigo_lotacao . "','" . $dados->simbolo_cargo  . "','" . $dados->cargo_efetivo . "','" . $dados->cpf . "', '08:00;12:00;13:00;17:00')";
 //        echo $sql . "<BR/>";
 //        exit;
         if ($dados->id > 0) {
@@ -124,7 +126,7 @@ class ManterUsuario extends Model {
     }
 
     function salvarPerfil(Usuario $dados) {
-        $sql = "update usuario set whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',aniversariantes='" . $dados->aniversariantes . "' where id=$dados->id";
+        $sql = "update usuario set whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',aniversariantes='" . $dados->aniversariantes . "', horario='". $dados->horario ."' where id=$dados->id";
         $resultado = $this->db->Execute($sql);
         //echo $sql . "<BR/>";
         return $resultado;
