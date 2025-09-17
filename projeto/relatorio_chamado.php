@@ -1,4 +1,6 @@
 <?php
+//Chamados
+$mod = 4;
 require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
@@ -94,11 +96,11 @@ and open the template in the editor.
         $inicio = isset($_REQUEST['inicio']) ? $_REQUEST['inicio'] : 0;
         $termino = isset($_REQUEST['termino']) ? $_REQUEST['termino'] : 0;
 
-        $where = " ";
+        $where = " WHERE ";
         $cont_param = 0;
         if ($inicio != 0) {
             if ($cont_param > 0) {
-                $where .= " WHERE ";
+                $where .= " AND ";
             }
             $where .= " data_abertura >='" . $inicio . " 07:00'";
             $cont_param++;
@@ -113,9 +115,9 @@ and open the template in the editor.
 
         $chamados = array();
         if ($cont_param > 0) {
-            $chamados = $mChamado->listar($where);
+            $chamados = $mChamado->listaRelatorio($where);
         } else {
-            $chamados = $mChamado->listar();
+            $chamados = $mChamado->listaRelatorio();
         }
         ?>
         <!-- Begin Page Content -->
@@ -140,8 +142,8 @@ and open the template in the editor.
                         </tr>
                         <?php
                         foreach ($chamados as $obj) {
-                            $usuario = $mUsuario->getUsuarioPorId($obj->id_usuario);
-                            $atendente = $mUsuario->getUsuarioPorId($obj->id_atendente);
+                            $usuario = $mUsuario->getUsuarioPorId($obj->usuario);
+                            $atendente = $mUsuario->getUsuarioPorId($obj->atendente);
 
                             ?>
                             <tr class="">
@@ -151,7 +153,7 @@ and open the template in the editor.
                                 <td class="cell c3 text-dark " style=""><?= $obj->descricao ?></td>
                                 <td class="cell c4 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->data_abertura)) ?></td>
                                 <td class="cell c5 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->data_atendido)) ?></td>
-                                <td class="cell c6 text-dark " style=""> - minutos</td>                                
+                                <td class="cell c6 text-dark " style=""> <?= $obj->tempo ?> minutos</td>                                
                                 <td class="cell c7 text-dark " style=""><?= $atendente->nome ?></td>                                
                             </tr>   
                             <?php
