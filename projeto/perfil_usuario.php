@@ -252,9 +252,10 @@ and open the template in the editor.
                                         </div>
 
                                     </div>
-
-                                    <button type="submit" class="btn btn-primary btn-sm editar"
-                                        style="display: none;"><i class="fas fa-save"></i> Salvar</button>
+                                    <div class="c3 ml-4 text-right">
+                                        <button type="submit" class="btn btn-primary btn-sm editar "
+                                            style="display: none;"><i class="fas fa-save"></i> Salvar</button>
+                                    </div>
                                 </form>
                                 </p>
                                 <?php
@@ -262,11 +263,13 @@ and open the template in the editor.
                                     ?>
                                     <input type="hidden" id="editor" value="1" />
                                     <div class="c3 ml-4 text-right">
-                                        <i id="btn_editar"
-                                            onclick="editar(0,'<?= $horario[0] ?>', '<?= $horario[1] ?>', '<?= $horario[2] ?>', '<?= $horario[3] ?>');"
-                                            title="Editar minhas informações" class="fa fa-lock"
-                                            style="cursor: pointer;"></i>
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            onclick="editar(0,'<?= $horario[0] ?>', '<?= $horario[1] ?>', '<?= $horario[2] ?>', '<?= $horario[3] ?>'); this.style.display='none';"
+                                            title="Editar minhas informações" style="cursor: pointer;">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </button>
                                     </div>
+
                                     <?php
                                 }
                                 ?>
@@ -296,7 +299,7 @@ and open the template in the editor.
                                                 <tr>
                                                     <th scope="col">ANO</th>
                                                     <th scope="col">MÊS</th>
-                                                    <th scope="col" class="text-center">DOWNLOAD</th>
+                                                    <th scope="col" class="text-center">LINK</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="fila">

@@ -28,7 +28,7 @@ foreach ($meses as $numero_mes => $nome_mes) {
         echo "  <td align='center'>
                    <a class='btn btn-danger btn-sm' target='_blank' 
                       href='./folha_ponto.php?id=$usuario_logado->id&ano=$ano&numero_mes=$numero_mes&nome_mes=$nome_mes'>
-                      <i class='fa fa-file-pdf text-white'></i>
+                      <i class='fa fa-clock text-white'></i>
                    </a>
                </td>";
     } else {
