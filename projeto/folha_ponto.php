@@ -41,7 +41,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
         $(document).ready(function () {
             $('#folhas_ponto').DataTable()
         });
-      
+
     </script>
 
     </script>
@@ -52,7 +52,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
         }
 
 
-        
+
         .header-governo {
             font-family: "Arial";
             font-size: 12px;
@@ -102,13 +102,17 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             text-align: center;
             font-weight: bold;
         }
+
         .page-break {
-            page-break-before: always;  /* ou page-break-after */
+            page-break-before: always;
+            /* ou page-break-after */
         }
+
         .card-body {
             margin-top: -1 !important;
             margin-bottom: -1 !important;
         }
+
         @media print {
             #header-governo {
                 margin-bottom: -1px !important;
@@ -201,63 +205,63 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
     <div class="conteudo-principal">
 
 
-    <div class="container border border-dark p-2 mt-2 text-center"
-        style="max-width:96%; background-color:#d3d3d3; font-size:18px;">
-        <b>GOVERNO DO DISTRITO FEDERAL<br>
-            INSTITUTO DE ASSISTÊNCIA A SAÚDE DOS SERVIDORES DO DF - INAS
-        </b>
-    </div>
-
-    <div class="container border border-top-0 border-dark p-2 text-center"
-        style="max-width:96%; max-height: 90%; font-size:15px;">
-        <b>FOLHA DE FREQUÊNCIA</b>
-    </div>
-
-    <div class="container border border-dark border-top-0 p-2" style="max-width: 96%; font-size:15px;">
-        <div class="row mb-1">
-            <div class="col"><b>NOME:</b> <?= $usuario->nome ?></div>
-            <div class="col"><b>REF:</b> <?= strtoupper($ref); ?></div>
-            <div class="col"><b>CARGO EFETIVO:</b> <?= $usuario->cargo_efetivo ?></div>
+        <div class="container border border-dark p-2 mt-2 text-center"
+            style="max-width:96%; background-color:#d3d3d3; font-size:18px;">
+            <b>GOVERNO DO DISTRITO FEDERAL<br>
+                INSTITUTO DE ASSISTÊNCIA A SAÚDE DOS SERVIDORES DO DF - INAS
+            </b>
         </div>
-        <div class="row mb-1">
-            <div class="col"><b>MATRÍCULA:</b> <?= $usuario->matricula ?></div>
-            <div class="col"><b>CARGO EM COMISSÃO:</b> <?= strtoupper($usuario->cargo) ?></div>
-            <div class="col"><b>SÍMBOLO:</b> <?= $usuario->simbolo_cargo ?></div>
+
+        <div class="container border border-top-0 border-dark p-2 text-center"
+            style="max-width:96%; max-height: 90%; font-size:15px;">
+            <b>FOLHA DE FREQUÊNCIA</b>
         </div>
-<div class="row mb-1">
-    <div class="col-7"><b>UA:</b> 001 - INAS</div>
-    <div class="col-auto"><b>CARGA HORÁRIA:</b> 40H</div>
-  <div class="col-auto"><b>CÓDIGO LOTAÇÃO:</b> <?= $usuario->codigo_lotacao ?></div>
-  <div class="col"><b>DESC LOTAÇÃO:</b> <?= $usuario->descricao_lotacao ?></div>
-</div>
 
-    </div>
+        <div class="container border border-dark border-top-0 p-2" style="max-width: 96%; font-size:15px;">
+            <div class="row mb-1">
+                <div class="col"><b>NOME:</b> <?= $usuario->nome ?></div>
+                <div class="col"><b>REF:</b> <?= strtoupper($ref); ?></div>
+                <div class="col"><b>CARGO EFETIVO:</b> <?= $usuario->cargo_efetivo ?></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col"><b>MATRÍCULA:</b> <?= $usuario->matricula ?></div>
+                <div class="col"><b>CARGO EM COMISSÃO:</b> <?= strtoupper($usuario->cargo) ?></div>
+                <div class="col"><b>SÍMBOLO:</b> <?= $usuario->simbolo_cargo ?></div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-7"><b>UA:</b> 001 - INAS</div>
+                <div class="col-auto"><b>CARGA HORÁRIA:</b> 40H</div>
+                <div class="col-auto"><b>CÓDIGO LOTAÇÃO:</b> <?= $usuario->codigo_lotacao ?></div>
+                <div class="col"><b>DESC LOTAÇÃO:</b> <?= $usuario->descricao_lotacao ?></div>
+            </div>
 
-    <div class="container border border-top-0  mt-2 mb-2 p-0 " style="max-width:96%;">
-        <table id="folha_pontos" class="table-sm table-bordered dt-responsive nowrap text-center text-dark m-0">
-            <thead>
-                <tr>
-                    <th style="border:1px solid black;"></th>
-                    <th style="border:1px solid black;" class="text-left" colspan="3"><b>Turno: MATUTINO</b></th>
-                    <th style="border:1px solid black;" class="text-left" colspan="3"><b>Turno: VESPERTINO</b></th>
-                    <th style="border:1px solid black;"></th>
-                </tr>
-            </thead>
-            <tr>
-                <th style="background-color:#d3d3d3; border:1px solid black;"><b>Dia</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black;"><b>Assinatura do Servidor</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black;"><b>Entrada</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black; width:100px;"><b>Saída</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black;"><b>Assinatura do Servidor</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black;"><b>Entrada</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black; width:100px;"><b>Saída</b></th>
-                <th style="background-color:#d3d3d3; border:1px solid black; width:100px;"><b>CÓD</b></th>
-            </tr>
-            <tbody>
-                <?php include('gerar_folha_ponto.php'); ?>
-            </tbody>
-        </table>
-    </div>
+        </div>
+
+        <div class="container border border-top-0  mt-2 mb-2 p-0 " style="max-width:96%;">
+            <table id="folha_pontos" class="table-sm table-bordered dt-responsive nowrap text-center text-dark m-0">
+                <thead>
+                    <tr>
+                        <th style="border:1px solid black;"></th>
+                        <th style="border:1px solid black;" class="text-left" colspan="3"><b>Turno: MATUTINO</b></th>
+                        <th style="border:1px solid black;" class="text-left" colspan="3"><b>Turno: VESPERTINO</b></th>
+                        <th style="border:1px solid black;"></th>
+                    </tr>
+                    <tr>
+                        <th style="background-color:#d3d3d3; border:1px solid black;"><b>Dia</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;"><b>Assinatura do Servidor</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(2)"><b>Entrada</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(3)"><b>Saída</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;" ><b>Assinatura do Servidor</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(4)"><b>Entrada</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(5)"><b>Saída</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black; width:100px;"><b>CÓD</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include('gerar_folha_ponto.php'); ?>
+                </tbody>
+            </table>
+        </div>
 
     </div>
     <div class="container mb-6" style="width: 96%;">
@@ -276,29 +280,30 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
         </div>
     </div>
     </div>
-    
-<div class="container border border-dark border-bottom-0 p-2 mt-5 text-center page-break"
+
+    <div class="container border border-dark border-bottom-0 p-2 mt-5 text-center page-break"
         style="max-width:96%; background-color:#d3d3d3; font-size:24px;">
         <b>GOVERNO DO DISTRITO FEDERAL<br>
         </b>
     </div>
-            <div class="container border border-bottom-0 border-dark p-2 text-center"
-             style="max-width:96%; max-height: 90%; font-size:15px;">
-                <div class="row mb-1">
+    <div class="container border border-bottom-0 border-dark p-2 text-center"
+        style="max-width:96%; max-height: 90%; font-size:15px;">
+        <div class="row mb-1">
             <div class="col"><b>MATRÍCULA:</b> <?= $usuario->matricula ?></div>
             <div class="col"><b>UA:</b> 001 </div>
             <div class="col-8"><b>LOTAÇÃO:</b> <?= $usuario->descricao_lotacao ?></div>
         </div>
-        
+
     </div>
-        <div class="container border border-dark p-0 " style="max-width:96%;">
-            <div class="col text-center" style="font-size: 18px"><b>TABELA DE CODIFICAÇÃO</b></div>
-            <br>
-            <div class="col text-start mb-1"><b>NA COLUNA RELATIVA AO CÓDIGO SERÃO ANOTADAS, DE ACORDO COM A CODIFICAÇÃO ABAIXO, AS CORRÊNCIAS DO MÊS,
+    <div class="container border border-dark p-0 " style="max-width:96%;">
+        <div class="col text-center" style="font-size: 18px"><b>TABELA DE CODIFICAÇÃO</b></div>
+        <br>
+        <div class="col text-start mb-1"><b>NA COLUNA RELATIVA AO CÓDIGO SERÃO ANOTADAS, DE ACORDO COM A CODIFICAÇÃO
+                ABAIXO, AS CORRÊNCIAS DO MÊS,
                 RELATIVAS AO SERVIDOR.
             </b></div>
-        </div>
-         <div class="container border border-dark border-top-0 p-0" style="max-width:96%;">
+    </div>
+    <div class="container border border-dark border-top-0 p-0" style="max-width:96%;">
         <div class="mb-2"><b> &nbsp;&nbsp;OBSERVAÇÕES:</b></div class="mb-2">
         <?php
         for ($i = 0; $i <= 14; $i++) {
@@ -311,48 +316,48 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
         <b>CÓDIGOS<br>
         </b>
     </div>
-        <div class="container border border-top-0 border-dark p-2"
-        style="max-width:96%; max-height: 90%; font-size:15px; ">
+    <div class="container border border-top-0 border-dark p-2" style="max-width:96%; max-height: 90%; font-size:15px; ">
 
-<div class="row text-start">
-    <div class="col-12"><b>118 - Exame Médico Preventivo ou Periódico</b></div>
-    <div class="col-12"><b>119 - Falta injustificada </b></div>
-    <div class="col-12"><b>205 - Licença motivo doença família (efetivo)</b></div>
-    <div class="col-12"><b>207 - Licença maternidade  </b></div>
-    <div class="col-12"><b>211 - Licença adoção (07) dias consecutivos inclusive o dia do acontecimento</b></div>
-    <div class="col-12"><b>219 - Abono </b></div>
-    <div class="col-12"><b>258 - Recesso</b></div>
-    <div class="col-12"><b>289 - Licença paternidade 07 dias consecutivos inclusive o dia do nascimento</b></div>
-    <div class="col-12"><b>310 - Afastamento doação de sangue</b></div>
-    <div class="col-12"><b>313 - Afastamento falecimento família (08 dias)</b></div>
-    <div class="col-12"><b>314 - Afastamento júri serviço obrigatório</b></div>
-    <div class="col-12"><b>317 - Afastamento para casamento 08 dias</b></div>
-    <div class="col-12"><b>318 - Afastamento para participação em treinamento/Curso</b></div>
-    <div class="col-12"><b>339 - Prorrogação Licença paternidade (23 dias)</b></div>
-    <div class="col-12"><b>340 - Atestado de Comparecimento </b></div>
-    <div class="col-12"><b>345 - Atestado de até 3 dias</b></div>
-    <div class="col-12"><b>594 - Férias</b></div>
-        <br><br>
-  </div>
-  
-</div>
-<div class="text-center mb-4">
-    <b>SISTEMA ÚNICO DE GESTÃO DE RECURSOS HUMANOS - SIGRH</b>
-</div>
+        <div class="row text-start">
+            <div class="col-12"><b>118 - Exame Médico Preventivo ou Periódico</b></div>
+            <div class="col-12"><b>119 - Falta injustificada </b></div>
+            <div class="col-12"><b>205 - Licença motivo doença família (efetivo)</b></div>
+            <div class="col-12"><b>207 - Licença maternidade </b></div>
+            <div class="col-12"><b>211 - Licença adoção (07) dias consecutivos inclusive o dia do acontecimento</b>
+            </div>
+            <div class="col-12"><b>219 - Abono </b></div>
+            <div class="col-12"><b>258 - Recesso</b></div>
+            <div class="col-12"><b>289 - Licença paternidade 07 dias consecutivos inclusive o dia do nascimento</b>
+            </div>
+            <div class="col-12"><b>310 - Afastamento doação de sangue</b></div>
+            <div class="col-12"><b>313 - Afastamento falecimento família (08 dias)</b></div>
+            <div class="col-12"><b>314 - Afastamento júri serviço obrigatório</b></div>
+            <div class="col-12"><b>317 - Afastamento para casamento 08 dias</b></div>
+            <div class="col-12"><b>318 - Afastamento para participação em treinamento/Curso</b></div>
+            <div class="col-12"><b>339 - Prorrogação Licença paternidade (23 dias)</b></div>
+            <div class="col-12"><b>340 - Atestado de Comparecimento </b></div>
+            <div class="col-12"><b>345 - Atestado de até 3 dias</b></div>
+            <div class="col-12"><b>594 - Férias</b></div>
+            <br><br>
+        </div>
 
     </div>
-       <div class="container text-center"
-        style="max-width:96%; background-color:#e9e9e9; font-size:15px;">
+    <div class="text-center mb-4">
+        <b>SISTEMA ÚNICO DE GESTÃO DE RECURSOS HUMANOS - SIGRH</b>
+    </div>
+
+    </div>
+    <div class="container text-center" style="max-width:96%; background-color:#e9e9e9; font-size:15px;">
         INSTIUTO DE ASSISTÊNCIA A SAÚDE DOS SERVIDORES DO DF - INAS
         <br>
         <b>SETOR COMERCIAL SUL, QUADRA 09, LOJA 15 (TÉRREO) - EDIFÍCIO PARQUE<br>
-        CIDADE CORPORATE, ASA SUL - BRASÍLIA-DF - CEP 70.308.200
+            CIDADE CORPORATE, ASA SUL - BRASÍLIA-DF - CEP 70.308.200
         </b>
         <br>
         <br>
         <br>
-    </div> 
+    </div>
     </div>
 </body>
 
-</html> 
+</html>
