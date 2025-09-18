@@ -10,6 +10,8 @@
       public $senha;
       public $valor_causa;
       public $assunto;
+      public $sub_assunto;
+      public $motivo;
       public $situacao_processual;
       public $liminar;
       public $data_cumprimento_liminar;
@@ -20,6 +22,7 @@
       public $classe_judicial;
       public $observacao;
       public $autor_inas;
+      public $pessoa_fisica;
       
 
       //variaveis de manipulação
