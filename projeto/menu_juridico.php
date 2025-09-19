@@ -46,7 +46,7 @@
            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="motivos.php">
-                    <i class="fa fa-rss"></i>
+                    <i class="fa fa-bookmark"></i>
                     <span>Motivos</span>
                 </a>
             </li>
