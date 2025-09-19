@@ -22,16 +22,10 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         "Saturday" => "SÁBADO",
         "Sunday" => "DOMINGO"
     ];
+
     $assinatura_servidor = $dias_fim_semana[$nome_dia_semana] ?? "";
-
-    // verifica se o dia é feriado
-    if (in_array($data_dia, $data_feriados)) {
-        $assinatura_servidor = "FERIADO";
-    }
-
     $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO"], true);
     $td_class = $is_dia_especial ? "final_semana" : "";
-
 
     // Horários
     if ($is_dia_especial) {
@@ -65,6 +59,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 
 ?>
 <script>
+
     const opcoesAssinatura = {
         "": "",
         "219": "ABONO ANUAL",
@@ -85,49 +80,70 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         "258": "RECESSO"
     };
 
-    const turnoMap = {
-        1: [2, 3], // assinatura matutino => entrada, saida_almoco
-        4: [5, 6]  // assinatura vespertino => volta_almoco, saida
-    };
+    // Função principal para mostrar select na célula
+// Mapeamento do turno: coluna assinatura => índices de horário
+const turnoMap = {
+    1: [2, 3], // matutino
+    4: [5, 6]  // vespertino
+};
+
+function mostrarSelect(td) {
+    if (td.querySelector("select")) return;
+
+    const valorAtual = td.getAttribute("data-codigo") || "";
+    const select = criarSelect(valorAtual);
+
+    td.innerHTML = "";
+    td.appendChild(select);
+    select.focus();
+
+    select.addEventListener("blur", function () {
+        const selecionado = select.options[select.selectedIndex];
+        const codigo = selecionado.value;
+        const descricao = selecionado.getAttribute("data-full");
+
+        td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
+        td.setAttribute("data-codigo", codigo);
+
+        const tr = td.closest("tr");
+        const tdCodigo = tr.querySelector("td.codigo");
+        if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
+
+        const sigCol = Array.prototype.indexOf.call(tr.children, td);
+        const isEspecial = descricao === "ATESTADO - COMPARECIMENTO" || descricao === "TREINAMENTO/CURSO";
+
+        if (isEspecial) {
+            // Pega as colunas correspondentes ao turno clicado
+            const indicesTurno = turnoMap[sigCol] || [];
+            indicesTurno.forEach(i => {
+                const tdHorario = tr.children[i];
+                if (tdHorario) tdHorario.innerHTML = "<b>-----</b>";
+            });
+        } else {
+            // Para outros valores, restaura os horários originais
+            const colunas = [2,3,5,6];
+            colunas.forEach(i => {
+                const tdHorario = tr.children[i];
+                if (!tdHorario) return;
+                tdHorario.innerHTML = `<b>${tdHorario.getAttribute("data-horario") || ""}</b>`;
+            });
+        }
+    });
+}
 
 
-    function mostrarSelect(td) {
-        if (td.querySelector("select")) return;
 
-        const valorAtual = td.getAttribute("data-codigo") || "";
-        const select = criarSelect(valorAtual);
-
-        td.innerHTML = "";
-        td.appendChild(select);
-        select.focus();
-
-        select.addEventListener("blur", function () {
-            const selecionado = select.options[select.selectedIndex];
-            const codigo = selecionado.value;
-            const descricao = selecionado.getAttribute("data-full");
-
-            td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
-            td.setAttribute("data-codigo", codigo);
-
-
-            const tr = td.closest("tr");
-            const tdCodigo = tr.querySelector("td.codigo");
-            if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
-
-
-            aplicarValorSelecionado(tr, descricao, td);
-        });
-    }
-
-
+    // Cria o select com opções
     function criarSelect(valorAtual) {
         const select = document.createElement("select");
         select.className = "form-control form-control-sm";
+        select.style.overflow = "hidden";
+        select.style.textOverflow = "ellipsis";
 
         Object.keys(opcoesAssinatura).forEach(codigo => {
             const option = document.createElement("option");
             option.value = codigo;
-            option.textContent = opcoesAssinatura[codigo];
+            option.text = opcoesAssinatura[codigo];
             option.setAttribute("data-full", opcoesAssinatura[codigo]);
             if (codigo === valorAtual) option.selected = true;
             select.appendChild(option);
@@ -136,88 +152,81 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         return select;
     }
 
-    function atualizarAssinaturas(tr, valor, tdClicada) {
+    function atualizarAssinaturas(tr, valor, tdClicada = null) {
         const celulasAssinatura = tr.querySelectorAll("td[data-assinatura]");
+
         celulasAssinatura.forEach(cel => {
-            if ((valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO")) {
+            if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
+                // Atualiza só a célula clicada, preservando a outra
                 if (tdClicada && cel === tdClicada) {
                     cel.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
+                    cel.setAttribute("data-codigo", cel.getAttribute("data-codigo") || "");
                 }
             } else {
+                // Comportamento padrão: todas as assinaturas recebem o mesmo valor
                 cel.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
-            }
-        });
-    }
-
-    // Atualiza horários de um turno
-    // Função para atualizar horários com base no valor da assinatura
-    function atualizarHorarios(tr, valor, indicesTurno) {
-        indicesTurno.forEach(i => {
-            const tdHorario = tr.children[i];
-            if (!tdHorario) return;
-
-            const valorOriginal = tdHorario.getAttribute("data-horario") || "";
-
-            // prioridade 1: se coluna estiver "oculta manualmente", não mexe
-            if (tdHorario.getAttribute("data-oculto") === "1") {
-                tdHorario.innerHTML = "";
-                return;
-            }
-
-            // prioridade 2: regras de assinatura
-            if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
-                tdHorario.innerHTML = "<b>-----</b>";
-            } else if (valor !== "") {
-                tdHorario.innerHTML = "<b>-----</b>";
-            } else {
-                tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
-            }
-        });
-    }
-
-    // Clica no TH para ocultar/restaurar toda a coluna
-    function toggleColunaHorario(index) {
-        const linhas = document.querySelectorAll("table tbody tr");
-        linhas.forEach(tr => {
-            const td = tr.children[index];
-            if (!td) return;
-
-            // se for final de semana/feriado → não permite ocultar
-            if (td.classList.contains("final_semana")) {
-                td.innerHTML = "<b>-----</b>";
-                td.removeAttribute("data-oculto");
-                return;
-            }
-
-            const valorOriginal = td.getAttribute("data-horario") || "";
-
-            if (td.getAttribute("data-oculto") === "1") {
-                // restaurar
-                td.removeAttribute("data-oculto");
-                td.innerHTML = `<b>${valorOriginal}</b>`;
-            } else {
-                // ocultar
-                td.setAttribute("data-oculto", "1");
-                td.innerHTML = "";
+                cel.setAttribute("data-codigo", cel.getAttribute("data-codigo") || "");
             }
         });
     }
 
 
 
-    function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
-        atualizarAssinaturas(tr, valorSelecionado, tdClicada);
+// Atualiza horários de uma linha, apenas nas colunas indicadas
+function atualizarHorarios(tr, valor, colunas) {
+    colunas.forEach(i => {
+        const tdHorario = tr.children[i];
+        if (!tdHorario) return;
 
-        if (valorSelecionado === "DOMINGO" || valorSelecionado === "SÁBADO") return;
+        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
+            tdHorario.innerHTML = "<b>-----</b>";
+            return;
+        }
 
-        if (tdClicada) {
-            const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
+        // Restaurar valores originais se valor não especial
+        const valorOriginal = tdHorario.getAttribute("data-horario") || "";
+        tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
+    });
+}
+
+
+
+function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
+    atualizarAssinaturas(tr, valorSelecionado, tdClicada);
+
+    if (valorSelecionado === "DOMINGO" || valorSelecionado === "SÁBADO") return;
+
+    const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO";
+
+    if (tdClicada) {
+        const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
+        if (isEspecial) {
             const indicesTurno = turnoMap[sigCol] || [];
             atualizarHorarios(tr, valorSelecionado, indicesTurno);
-        } else {
-
-            atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
         }
+    } else if (isEspecial) {
+        atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
     }
+}
+
+
+    document.querySelectorAll("#folha_pontos thead tr:nth-child(2) th").forEach((th, index) => {
+        th.addEventListener("click", () => {
+            const linhas = document.querySelectorAll("#folha_pontos tbody tr");
+
+            linhas.forEach(tr => {
+                const td = tr.children[index];
+                if (!td || !td.classList.contains('horario') || td.textContent === "-----") return;
+
+                if (td.textContent === "") {
+                    td.innerHTML = `<b>${td.dataset.horario || ""}</b>`;
+                    th.title = "Remover horários";
+                } else {
+                    td.textContent = "";
+                    th.title = "Carregar horários";
+                }
+            });
+        });
+    });
 
 </script>
