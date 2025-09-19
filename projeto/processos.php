@@ -129,6 +129,7 @@ foreach ($listaCJ as $obj) {
                 carregaClassesJudiciais(0);
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
+                habilitaCNPJ();
             });
             var sei_t = "";
             var sei = "";
@@ -218,7 +219,7 @@ foreach ($listaCJ as $obj) {
                 carregaClassesJudiciais(0);
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);  
-                            
+                habilitaCNPJ();
             }
             function excluir(id, numero, cpf, beneficiario) {
                 var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Beneficiário: " + beneficiario;
@@ -227,7 +228,7 @@ foreach ($listaCJ as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao,pessoa_fisica) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -251,7 +252,8 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(situacao_processual) ;
                 carregaInstancias(instancia);
                 carregaClassesJudiciais(classe_judicial);
-
+                $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
+                habilitaCNPJ();
                 $('#form_processo').collapse("show");
             }
 
@@ -431,6 +433,26 @@ foreach ($listaCJ as $obj) {
                     return false;		
                 return true;   
             }   
+            $('#pessoa_fisica').change(function() {
+                habilitaCNPJ();
+            });
+            function habilitaCNPJ() {
+                if($('#pessoa_fisica').is(":checked")) {
+                    $('#cpf').attr("placeholder", "000.000.000-00");
+                    $('#cpf').val("");
+                    $('#cpf').off('input');
+                    $('#cpf').on('input', function() {
+                        $(this).mask('000.000.000-00');
+                    });
+                } else {
+                    $('#cpf').attr("placeholder", "00.000.000/0000-00");
+                    $('#cpf').val("");
+                    $('#cpf').off('input');
+                    $('#cpf').on('input', function() {
+                        $(this).mask('00.000.000/0000-00');
+                    });
+                }
+            }
         </script>
         <style>
             body{

@@ -26,6 +26,7 @@ $processo->data_cumprimento_liminar = isset($_POST['data_cumprimento_liminar']) 
 $processo->situacao_processual      = $_POST['situacao'];
 $processo->observacao               = addslashes($_POST['observacoes']);
 $processo->usuario                  = $_POST['usuario'];
+$processo->pessoa_fisica            = isset($_POST['pessoa_fisica']) ? $_POST['pessoa_fisica'] : 0;
 
 
 //print_r($processo);

@@ -58,12 +58,18 @@
                 <label for="guia">Guia/Autorização</label>
                 <input type="text" class="form-control form-control-sm" name="guia" id="guia" placeholder="00000000000">
                 </div>
-                <div class="form-group col-md-2">
-                <label for="cpf">CPF <span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" onblur="validarCPF(this.value)" onkeypress="$(this).mask('000.000.000-00');" class="form-control form-control-sm" name="cpf" id="cpf" placeholder="000.000.000-00"  required>
+                <div class="form-group col-md-3">
+                <label for="cpf">Pessoa Física </label>
+                <input type="checkbox" id="pessoa_fisica" name="pessoa_fisica" value="1" checked onchange="habilitaCNPJ()">
+                </div>          
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                <label for="cpf">CPF/CNPJ <span class="text-danger font-weight-bold">*</span></label>
+                <input type="text"  class="form-control form-control-sm" name="cpf" id="cpf" required>
                 </div>
-                <div class="form-group col-md-8">
-                <label for="beneficiario">Beneficiário <span class="text-danger font-weight-bold">*</span></label>
+                <div class="form-group col-md-9">
+                <label for="beneficiario">Autor <span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" class="form-control form-control-sm" name="beneficiario" id="beneficiario" placeholder="nome" required>
                 </div>           
             </div>
