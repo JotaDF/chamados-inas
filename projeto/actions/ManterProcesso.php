@@ -132,6 +132,10 @@ class ManterProcesso extends Model
         if ($dados->autor_inas == "") {
             $dados->autor_inas = 0;
         }
+        if ($dados->pessoa_fisica == "") {
+            $dados->pessoa_fisica = 0;
+        }
+
         $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas, pessoa_fisica) 
         values ('" . $dados->numero . "','" . $dados->sei . "','" . $dados->autuacao . "','" . $dados->cpf . "','" . $dados->beneficiario . "',
