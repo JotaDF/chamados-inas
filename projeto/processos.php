@@ -226,7 +226,7 @@ foreach ($listaCJ as $obj) {
                 $('#excluir').html(txt_excluir);
                 $('#confirm').modal({show: true});              
             }
-            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sb_assunto,motivo,situacao_processual,liminar,
+            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
                             data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao) {
                 $('#id').val(id);
                 $('#numero').val(numero);
@@ -477,6 +477,7 @@ foreach ($listaCJ as $obj) {
                                             <th scope="col">AUTUAÇÃO</th>
                                             <th scope="col">ATUALIZAÇÃO</th>
                                             <th scope="col">ASSUNTO</th>
+                                            <th scope="col">SUB ASSUNTO</th>
                                             <th scope="col" class="text-nowrap">Opções</th>
                                         </tr>
                                     </thead>
