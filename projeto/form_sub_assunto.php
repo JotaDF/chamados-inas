@@ -11,7 +11,7 @@
         <form id="form_cadastro" action="save_sub_assunto.php" method="post">
             <input type="hidden" id="id" name="id"/>
             <div class="form-group row">
-                <label for="sub_assunto" class="col-sm-2 col-form-label">Subsub_assunto:</label>
+                <label for="sub_assunto" class="col-sm-2 col-form-label">Subassunto:</label>
                 <div class="col-sm-10">
                     <input type="text" name="sub_assunto" class="form-control form-control-sm" id="sub_assunto" placeholder="SubAssunto" required>
                 </div>
