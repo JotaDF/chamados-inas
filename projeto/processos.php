@@ -245,7 +245,7 @@ foreach ($listaCJ as $obj) {
                 carregarSei(sei);
                 carregaAssuntos(assunto);
                 carregaSubAssuntos(sub_assunto);
-                carregaAMotivos(motivo);
+                carregaMotivos(motivo);
                 carregaTiposLiminar(liminar);
                 verificaLiminar(liminar);
                 carregaSituacoes(situacao_processual) ;

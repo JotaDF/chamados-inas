@@ -77,7 +77,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                <label for="sub_assunto">Sub Assunto <span class="text-danger font-weight-bold">*</span></label>
+                <label for="sub_assunto">Sub Assunto </label>
                     <select id="sub_assunto" name="sub_assunto" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>    
                     </select>
@@ -89,7 +89,7 @@
                 <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);" name="valor_causa" id="valor_causa" placeholder="R$ 0,00">
                 </div> 
                 <div class="form-group col-md-7.5">
-                <label for="sub_assunto">Motivo <span class="text-danger font-weight-bold">*</span></label>
+                <label for="sub_assunto">Motivo </label>
                     <select id="motivo" name="motivo" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>    
                     </select>
