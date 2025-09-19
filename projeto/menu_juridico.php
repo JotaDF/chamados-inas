@@ -38,6 +38,20 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="sub_assuntos.php">
+                    <i class="fa fa-rss"></i>
+                    <span>Sub Assuntos</span>
+                </a>
+            </li>
+           <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="motivos.php">
+                    <i class="fa fa-rss"></i>
+                    <span>Motivos</span>
+                </a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="tipos_liminar.php">
                     <i class="fa fa-gavel"></i>
                     <span>Tipos de liminar</span>
