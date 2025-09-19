@@ -78,7 +78,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                 <label for="sub_assunto">Sub Assunto </label>
-                    <select id="sub_assunto" name="sub_assunto" class="form-control form-control-sm" required>
+                    <select id="sub_assunto" name="sub_assunto" class="form-control form-control-sm">
                         <option value="">Selecione</option>    
                     </select>
                 </div>            
@@ -90,7 +90,7 @@
                 </div> 
                 <div class="form-group col-md-7.5">
                 <label for="sub_assunto">Motivo </label>
-                    <select id="motivo" name="motivo" class="form-control form-control-sm" required>
+                    <select id="motivo" name="motivo" class="form-control form-control-sm">
                         <option value="">Selecione</option>    
                     </select>
                 </div> 
