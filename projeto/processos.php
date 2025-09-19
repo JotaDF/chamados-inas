@@ -222,7 +222,7 @@ foreach ($listaCJ as $obj) {
                 habilitaCNPJ();
             }
             function excluir(id, numero, cpf, beneficiario) {
-                var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Beneficiário: " + beneficiario;
+                var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Autor: " + beneficiario;
                 $('#delete').attr('href', 'del_processo.php?id=' + id);
                 $('#excluir').html(txt_excluir);
                 $('#confirm').modal({show: true});              
@@ -439,15 +439,15 @@ foreach ($listaCJ as $obj) {
             function habilitaCNPJ() {
                 if($('#pessoa_fisica').is(":checked")) {
                     $('#cpf').attr("placeholder", "000.000.000-00");
-                    $('#cpf').val("");
-                    $('#cpf').off('input');
+                    //$('#cpf').val("");
+                    $('#cpf').attr("maxlength", 14);
                     $('#cpf').on('input', function() {
                         $(this).mask('000.000.000-00');
                     });
                 } else {
                     $('#cpf').attr("placeholder", "00.000.000/0000-00");
-                    $('#cpf').val("");
-                    $('#cpf').off('input');
+                    //$('#cpf').val("");
+                    $('#cpf').attr("maxlength", 18);
                     $('#cpf').on('input', function() {
                         $(this).mask('00.000.000/0000-00');
                     });
