@@ -88,7 +88,7 @@ and open the template in the editor.
                                     <i class="fa fa-rss fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Subassuntos</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Sub Assuntos</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_sub_assunto" aria-expanded="false" aria-controls="form_sub_assunto">
@@ -102,7 +102,7 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Subassunto</th>
+                                            <th scope="col">Sub Assunto</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>

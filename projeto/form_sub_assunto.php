@@ -4,14 +4,14 @@
 <div class="card mb-4 collapse hide border-primary" id="form_sub_assunto" style="max-width:900px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de sub_assunto</span>
+        <span class="h6 m-0 font-weight text-white">Cadastro de Sub Assunto</span>
     </div>                  
     <!-- Card Content - Collapse -->
     <div class="card-body">
         <form id="form_cadastro" action="save_sub_assunto.php" method="post">
             <input type="hidden" id="id" name="id"/>
             <div class="form-group row">
-                <label for="sub_assunto" class="col-sm-2 col-form-label">Subassunto:</label>
+                <label for="sub_assunto" class="col-sm-2 col-form-label">Sub Assunto:</label>
                 <div class="col-sm-10">
                     <input type="text" name="sub_assunto" class="form-control form-control-sm" id="sub_assunto" placeholder="SubAssunto" required>
                 </div>
