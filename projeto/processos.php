@@ -441,16 +441,19 @@ foreach ($listaCJ as $obj) {
                     $('#cpf').attr("placeholder", "000.000.000-00");
                     //$('#cpf').val("");
                     $('#cpf').attr("maxlength", 14);
-                    $('#cpf').on('input', function() {
-                        $(this).mask('000.000.000-00');
-                    });
+                    $('#cpf').onkeypress="$(this).mask('000.000.000-00');"
+                    //$('#cpf').on('input', function() {
+                    //    $(this).mask('000.000.000-00');
+                    //});
                 } else {
                     $('#cpf').attr("placeholder", "00.000.000/0000-00");
                     //$('#cpf').val("");
+                    $("p").removeAttr("style");
                     $('#cpf').attr("maxlength", 18);
-                    $('#cpf').on('input', function() {
-                        $(this).mask('00.000.000/0000-00');
-                    });
+                    $('#cpf').onkeypress="$(this).mask('00.000.000/0000-00');"
+                    //$('#cpf').on('input', function() {
+                    //    $(this).mask('00.000.000/0000-00');
+                    //});
                 }
             }
         </script>
