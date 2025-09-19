@@ -43,12 +43,16 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
         <script type="text/javascript" class="init">
                      var assuntos = [];
+                     var sub_assuntos = [];
+                     var motivos = [];
                      var tipos_liminar = [];
                      var situacoes = [];
                      var instancias = [];
                      var classes_judiciais = [];
 <?php
 include_once('./actions/ManterAssunto.php');
+include_once('./actions/ManterSubAssunto.php');
+include_once('./actions/ManterMotivo.php');
 include_once('./actions/ManterLiminar.php');
 include_once('./actions/ManterSituacaoProcessual.php');
 include_once('./actions/ManterInstancia.php');
@@ -56,6 +60,12 @@ include_once('./actions/ManterClasseJudicial.php');
 
 $manterAssunto = new ManterAssunto();
 $listaA = $manterAssunto->listar();
+
+$manterSubAssunto = new ManterSubAssunto();
+$listaSA = $manterSubAssunto->listar();
+
+$manterMotivo = new ManterMotivo();
+$listaM = $manterMotivo->listar();
 
 $manterLiminar = new ManterLiminar();
 $listaL = $manterLiminar->listar();
@@ -73,6 +83,16 @@ $listaCJ = $manterClasseJudicial->listar();
 foreach ($listaA as $obj) {
     ?>item = {id: "<?= $obj->id ?>", assunto: "<?= $obj->assunto ?>"};
                 assuntos.push(item);
+    <?php
+}
+foreach ($listaSA as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", sub_assunto: "<?= $obj->sub_assunto ?>"};
+                sub_assuntos.push(item);
+    <?php
+}
+foreach ($listaM as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", motivo: "<?= $obj->motivo ?>"};
+                motivos.push(item);
     <?php
 }
 foreach ($listaL as $obj) {
@@ -101,6 +121,8 @@ foreach ($listaCJ as $obj) {
             $(document).ready(function () {
                 $('#numeros').DataTable();
                 carregaAssuntos(0);
+                carregaSubAssuntos(0);
+                carregaMotivos(0);
                 carregaTiposLiminar(0);
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
@@ -188,6 +210,8 @@ foreach ($listaCJ as $obj) {
             function novo() {
                 carregarSei("");
                 carregaAssuntos(0);
+                carregaSubAssuntos(0);
+                carregaMotivos(0);
                 carregaTiposLiminar(0);
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
@@ -202,7 +226,7 @@ foreach ($listaCJ as $obj) {
                 $('#excluir').html(txt_excluir);
                 $('#confirm').modal({show: true});              
             }
-            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,situacao_processual,liminar,
+            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sb_assunto,motivo,situacao_processual,liminar,
                             data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao) {
                 $('#id').val(id);
                 $('#numero').val(numero);
@@ -220,6 +244,8 @@ foreach ($listaCJ as $obj) {
                 
                 carregarSei(sei);
                 carregaAssuntos(assunto);
+                carregaSubAssuntos(sub_assunto);
+                carregaAMotivos(motivo);
                 carregaTiposLiminar(liminar);
                 verificaLiminar(liminar);
                 carregaSituacoes(situacao_processual) ;
@@ -245,6 +271,38 @@ foreach ($listaCJ as $obj) {
                         }
                     }
                     html += '<option value="' + option.id + '" ' + selected + '>' + option.assunto + '</option>';
+                }
+                $('#assunto').html(html);
+            }
+            function carregaSubAssuntos(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < sub_assuntos.length; i++) {
+                    var option = sub_assuntos[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.sub_assunto + '</option>';
+                }
+                $('#assunto').html(html);
+            }
+            function carregaMotivos(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < motivos.length; i++) {
+                    var option = motivos[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.motivo + '</option>';
                 }
                 $('#assunto').html(html);
             }
