@@ -288,7 +288,7 @@ foreach ($listaCJ as $obj) {
                     }
                     html += '<option value="' + option.id + '" ' + selected + '>' + option.sub_assunto + '</option>';
                 }
-                $('#assunto').html(html);
+                $('#sub_assunto').html(html);
             }
             function carregaMotivos(id_atual) {
                 var html = '<option value="">Selecione </option>';
@@ -304,7 +304,7 @@ foreach ($listaCJ as $obj) {
                     }
                     html += '<option value="' + option.id + '" ' + selected + '>' + option.motivo + '</option>';
                 }
-                $('#assunto').html(html);
+                $('#motivo').html(html);
             }
             function carregaTiposLiminar(id_atual) {
                 var html = '<option value="">Selecione </option>';
