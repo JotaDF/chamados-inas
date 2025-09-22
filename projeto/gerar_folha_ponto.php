@@ -81,57 +81,61 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     };
 
     // Função principal para mostrar select na célula
-// Mapeamento do turno: coluna assinatura => índices de horário
-const turnoMap = {
-    1: [2, 3], // matutino
-    4: [5, 6]  // vespertino
-};
+    // Mapeamento do turno: coluna assinatura => índices de horário
+    const turnoMap = {
+        1: [2, 3], // matutino
+        4: [5, 6]  // vespertino
+    };
 
-function mostrarSelect(td) {
-    if (td.querySelector("select")) return;
+    function mostrarSelect(td) {
+        if (td.querySelector("select")) return;
 
-    const valorAtual = td.getAttribute("data-codigo") || "";
-    const select = criarSelect(valorAtual);
+        const valorAtual = td.getAttribute("data-codigo") || "";
+        const select = criarSelect(valorAtual);
 
-    td.innerHTML = "";
-    td.appendChild(select);
-    select.focus();
+        td.innerHTML = "";
+        td.appendChild(select);
+        select.focus();
 
-    select.addEventListener("blur", function () {
-        const selecionado = select.options[select.selectedIndex];
-        const codigo = selecionado.value;
-        const descricao = selecionado.getAttribute("data-full");
+        select.addEventListener("blur", function () {
+            const selecionado = select.options[select.selectedIndex];
+            const codigo = selecionado.value;
+            const descricao = selecionado.getAttribute("data-full");
 
-        td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
-        td.setAttribute("data-codigo", codigo);
+            td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
+            td.setAttribute("data-codigo", codigo);
 
-        const tr = td.closest("tr");
-        const tdCodigo = tr.querySelector("td.codigo");
-        if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
+            const tr = td.closest("tr");
+            const tdCodigo = tr.querySelector("td.codigo");
+            if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
 
-        const sigCol = Array.prototype.indexOf.call(tr.children, td);
-        const isEspecial = descricao === "ATESTADO - COMPARECIMENTO" || descricao === "TREINAMENTO/CURSO";
+            const sigCol = Array.prototype.indexOf.call(tr.children, td);
+            const isTurnoEspecial = descricao === "ATESTADO - COMPARECIMENTO" || descricao === "TREINAMENTO/CURSO";
 
-        if (isEspecial) {
-            // Pega as colunas correspondentes ao turno clicado
-            const indicesTurno = turnoMap[sigCol] || [];
-            indicesTurno.forEach(i => {
-                const tdHorario = tr.children[i];
-                if (tdHorario) tdHorario.innerHTML = "<b>-----</b>";
-            });
-        } else {
-            // Para outros valores, restaura os horários originais
-            const colunas = [2,3,5,6];
-            colunas.forEach(i => {
-                const tdHorario = tr.children[i];
-                if (!tdHorario) return;
-                tdHorario.innerHTML = `<b>${tdHorario.getAttribute("data-horario") || ""}</b>`;
-            });
-        }
-    });
-}
-
-
+            if (descricao === "") {
+                // 🔹 Restaurar os horários originais
+                [2, 3, 5, 6].forEach(i => {
+                    const tdHorario = tr.children[i];
+                    if (tdHorario) {
+                        tdHorario.innerHTML = `<b>${tdHorario.getAttribute("data-horario") || ""}</b>`;
+                    }
+                });
+            } else if (isTurnoEspecial) {
+                // 🔹 Apenas colunas do turno clicado
+                const indicesTurno = turnoMap[sigCol] || [];
+                indicesTurno.forEach(i => {
+                    const tdHorario = tr.children[i];
+                    if (tdHorario) tdHorario.innerHTML = "<b>-----</b>";
+                });
+            } else {
+                // 🔹 Todas as colunas de horário recebem traço
+                [2, 3, 5, 6].forEach(i => {
+                    const tdHorario = tr.children[i];
+                    if (tdHorario) tdHorario.innerHTML = "<b>-----</b>";
+                });
+            }
+        });
+    }
 
     // Cria o select com opções
     function criarSelect(valorAtual) {
@@ -172,42 +176,42 @@ function mostrarSelect(td) {
 
 
 
-// Atualiza horários de uma linha, apenas nas colunas indicadas
-function atualizarHorarios(tr, valor, colunas) {
-    colunas.forEach(i => {
-        const tdHorario = tr.children[i];
-        if (!tdHorario) return;
+    // Atualiza horários de uma linha, apenas nas colunas indicadas
+    function atualizarHorarios(tr, valor, colunas) {
+        colunas.forEach(i => {
+            const tdHorario = tr.children[i];
+            if (!tdHorario) return;
 
-        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
-            tdHorario.innerHTML = "<b>-----</b>";
-            return;
-        }
+            if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
+                tdHorario.innerHTML = "<b>-----</b>";
+                return;
+            }
 
-        // Restaurar valores originais se valor não especial
-        const valorOriginal = tdHorario.getAttribute("data-horario") || "";
-        tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
-    });
-}
-
-
-
-function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
-    atualizarAssinaturas(tr, valorSelecionado, tdClicada);
-
-    if (valorSelecionado === "DOMINGO" || valorSelecionado === "SÁBADO") return;
-
-    const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO";
-
-    if (tdClicada) {
-        const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
-        if (isEspecial) {
-            const indicesTurno = turnoMap[sigCol] || [];
-            atualizarHorarios(tr, valorSelecionado, indicesTurno);
-        }
-    } else if (isEspecial) {
-        atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
+            // Restaurar valores originais se valor não especial
+            const valorOriginal = tdHorario.getAttribute("data-horario") || "";
+            tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
+        });
     }
-}
+
+
+
+    function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
+        atualizarAssinaturas(tr, valorSelecionado, tdClicada);
+
+        if (valorSelecionado === "DOMINGO" || valorSelecionado === "SÁBADO") return;
+
+        const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO";
+
+        if (tdClicada) {
+            const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
+            if (isEspecial) {
+                const indicesTurno = turnoMap[sigCol] || [];
+                atualizarHorarios(tr, valorSelecionado, indicesTurno);
+            }
+        } else if (isEspecial) {
+            atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
+        }
+    }
 
 
     document.querySelectorAll("#folha_pontos thead tr:nth-child(2) th").forEach((th, index) => {
