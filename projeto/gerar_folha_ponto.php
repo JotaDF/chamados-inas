@@ -59,7 +59,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 
 <script>
     const opcoesAssinatura = {
-        "": "LIMPAR",
+        "  ": "LIMPAR",
         "219": "ABONO ANUAL",
         "340": "ATESTADO - COMPARECIMENTO",
         "310": "DOAÇÃO DE SANGUE",
@@ -84,74 +84,72 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         4: [5, 6]  // vespertino
     };
 
-function mostrarSelect(td) {
-    if (td.querySelector("select")) return;
+    function mostrarSelect(td) {
+        if (td.querySelector("select")) return;
 
-    // Guarda o valor atual da célula
-    const valorAtual = td.getAttribute("data-codigo") || "";
-    const descricaoAtual = td.textContent || "";
+        // Guarda o valor atual da célula
+        const valorAtual = td.getAttribute("data-codigo") || "";
+        const descricaoAtual = td.textContent || "";
 
-    const select = criarSelect(valorAtual);
+        const select = criarSelect(valorAtual);
 
-    td.innerHTML = "";
-    td.appendChild(select);
-    select.focus();
+        td.innerHTML = "";
+        td.appendChild(select);
+        select.focus();
 
-    select.addEventListener("blur", function () {
-        const selecionado = select.options[select.selectedIndex];
-        const codigo = selecionado.value;
-        const descricao = selecionado.getAttribute("data-full");
+        select.addEventListener("blur", function () {
+            const selecionado = select.options[select.selectedIndex];
+            const codigo = selecionado.value;
+            const descricao = selecionado.getAttribute("data-full");
 
-        const tr = td.closest("tr");
-        const tdCodigo = tr.querySelector("td.codigo");
+            const tr = td.closest("tr");
+            const tdCodigo = tr.querySelector("td.codigo");
 
-        if (descricao !== "") {
-            // Atualiza célula e código
-            td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
-            td.setAttribute("data-codigo", codigo);
+            if (descricao !== "") {
+                // Atualiza célula e código
+                td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
+                td.setAttribute("data-codigo", codigo);
 
-            if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
+                if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
 
-            aplicarValorSelecionado(tr, descricao, td);
-        } else {
-            // Se selecionou "", mantém tudo como estava
-            td.innerHTML = `<span title="${descricaoAtual}"><b>${descricaoAtual}</b></span>`;
-            td.setAttribute("data-codigo", valorAtual);
+                aplicarValorSelecionado(tr, descricao, td);
+            } else {
+                // Se selecionou "", mantém tudo como estava
+                td.innerHTML = `<span title="${descricaoAtual}"><b>${descricaoAtual}</b></span>`;
+                td.setAttribute("data-codigo", valorAtual);
 
-            if (tdCodigo) tdCodigo.innerHTML = `<b>${valorAtual}</b>`;
-        }
-    });
-}
+                if (tdCodigo) tdCodigo.innerHTML = `<b>${valorAtual}</b>`;
+            }
+        });
+    }
 
+    function criarSelect(valorAtual) {
+        const select = document.createElement("select");
+        select.className = "form-control form-control-sm";
+        select.style.overflow = "hidden";
+        select.style.textOverflow = "ellipsis";
 
-function criarSelect(valorAtual) {
-    const select = document.createElement("select");
-    select.className = "form-control form-control-sm";
-    select.style.overflow = "hidden";
-    select.style.textOverflow = "ellipsis";
+        // Cria primeiro a opção "" manualmente (não alterar)
+        const optionVazio = document.createElement("option");
+        optionVazio.value = "";
+        optionVazio.setAttribute("data-full", "");
+        if (valorAtual === "") optionVazio.selected = true;
+        select.appendChild(optionVazio);
 
-    // Cria primeiro a opção "" manualmente (não alterar)
-    const optionVazio = document.createElement("option");
-    optionVazio.value = "";
-    optionVazio.text = "  ";
-    optionVazio.setAttribute("data-full", "");
-    if (valorAtual === "") optionVazio.selected = true;
-    select.appendChild(optionVazio);
+        // Agora adiciona as demais opções
+        Object.keys(opcoesAssinatura).forEach(codigo => {
+            if (codigo === "") return; // já adicionamos acima
 
-    // Agora adiciona as demais opções
-    Object.keys(opcoesAssinatura).forEach(codigo => {
-        if (codigo === "") return; // já adicionamos acima
+            const option = document.createElement("option");
+            option.value = codigo;
+            option.text = opcoesAssinatura[codigo];
+            option.setAttribute("data-full", opcoesAssinatura[codigo]);
+            if (codigo === valorAtual) option.selected = true;
+            select.appendChild(option);
+        });
 
-        const option = document.createElement("option");
-        option.value = codigo;
-        option.text = opcoesAssinatura[codigo];
-        option.setAttribute("data-full", opcoesAssinatura[codigo]);
-        if (codigo === valorAtual) option.selected = true;
-        select.appendChild(option);
-    });
-
-    return select;
-}
+        return select;
+    }
 
 
     function atualizarAssinaturas(tr, valor, tdClicada = null) {
