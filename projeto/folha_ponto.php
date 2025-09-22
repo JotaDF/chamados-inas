@@ -236,7 +236,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             </div>
 
         </div>
-
+ 
         <div class="container border border-top-0  mt-2 mb-2 p-0 " style="max-width:96%;">
             <table id="folha_pontos" class="table-sm table-bordered dt-responsive nowrap text-center text-dark m-0">
                 <thead>
