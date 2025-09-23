@@ -84,6 +84,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 <script>
     const opcoesAssinatura = {
         "  ": "-------||LIMPAR||-------",
+        " " : "QUARTA FEIRA DE CINZAS",
         "219": "ABONO ANUAL",
         "340": "ATESTADO - COMPARECIMENTO",
         "310": "DOAÇÃO DE SANGUE",
@@ -186,7 +187,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         const celulasAssinatura = tr.querySelectorAll("td[data-assinatura]");
 
         // Se for um valor "especial", atualiza só a célula clicada
-        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
+        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" || valor === "QUARTA FEIRA DE CINZAS") {
             if (tdClicada) {
                 tdClicada.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
             }
@@ -219,7 +220,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
                     const valorOriginal = tdHorario.getAttribute("data-horario") || "";
                     tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
                     break;
-                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO"):
+                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" ):
                     // Para casos especiais, mostra traço
                     tdHorario.innerHTML = "<b>-----</b>";
                     break;
@@ -238,7 +239,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         // Se for final de semana, não altera horários
         if (["DOMINGO", "SÁBADO"].includes(valorSelecionado)) return;
 
-        const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO";
+        const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO" || valorSelecionado === "QUARTA FEIRA DE CINZAS";
 
         if (tdClicada) {
             // Descobre a posição da célula clicada dentro da linha
