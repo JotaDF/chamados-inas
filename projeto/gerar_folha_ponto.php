@@ -2,12 +2,16 @@
 include('./actions/ManterFeriadoAno.php');
 $manterFeriadoAno = new ManterFeriadoAno();
 $feriados = $manterFeriadoAno->lista();
+// $descricao_feriado = $feriados->descricao;
 $numero_mes = $_GET['numero_mes'];
 $horarios = explode(";", $usuario->horario);
 $data = new DateTime("$ano-$numero_mes-01");
 $ultimo_dia = (clone $data)->modify('last day of this month')->format('d');
 
-$data_feriados = array_map(fn($f) => $f->data, $feriados);
+$data_feriados = [];
+foreach ($feriados as $f) {
+    $data_feriados[$f->data] = $f->descricao;
+}
 
 
 for ($i = 1; $i <= $ultimo_dia; $i++) {
@@ -19,7 +23,6 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     $editableAttr = "contenteditable='true'";
     $assinatura_servidor = "";
 
-
     $diaNum = (int) $data->format('N');
     $dias_fim_semana = [
         6 => "SÁBADO",
@@ -30,16 +33,20 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         $td_class = "final_semana";
         $editableAttr = "";
     }
-
-
-    if (!empty($data_feriados) && in_array($data_dia, $data_feriados, true)) {
-        $assinatura_servidor = "FERIADO";
+    
+    if (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
+        if ($data_feriados[$data_dia] === 'Ponto facultativo') {
+            $assinatura_servidor = "PONTO FACULTATIVO";
+        } else {
+            $assinatura_servidor = "FERIADO";
+        }
         $td_class = "final_semana";
         $editableAttr = "";
     }
 
 
-    $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO"], true);
+
+    $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO", "FERIADO"], true);
 
 
     if ($is_dia_especial) {
