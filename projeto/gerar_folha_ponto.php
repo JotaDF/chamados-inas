@@ -20,7 +20,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     $nome_dia_semana = $data->format('l');
 
     $td_class = "";
-    $editableAttr = "contenteditable='true'";
+    $editable = "contenteditable='true'";
     $assinatura_servidor = "";
 
     $diaNum = (int) $data->format('N');
@@ -31,9 +31,9 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     if (isset($dias_fim_semana[$diaNum])) {
         $assinatura_servidor = $dias_fim_semana[$diaNum];
         $td_class = "final_semana";
-        $editableAttr = "";
+        $editable = "";
     }
-    
+    // Se a data do dia for um feriado (pela chave)
     if (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
         if ($data_feriados[$data_dia] === 'Ponto facultativo') {
             $assinatura_servidor = "PONTO FACULTATIVO";
@@ -41,10 +41,8 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
             $assinatura_servidor = "FERIADO";
         }
         $td_class = "final_semana";
-        $editableAttr = "";
+        $editable = "";
     }
-
-
 
     $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO", "FERIADO"], true);
 
