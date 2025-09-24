@@ -65,7 +65,6 @@ require_once 'verifica_login.php';
         function alterar(id, modalidade, certame, ano) {
                 $('#modalidade').val(modalidade);
                 $('#certame').val(certame);
-                $('#objeto').val(objeto);
                 quillObjeto.root.innerHTML = $('#'+id+'_objeto').val();
                 $('#ano').val(ano);
                 $('#id').val(id);
