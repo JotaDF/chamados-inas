@@ -35,7 +35,6 @@ require_once 'verifica_login.php';
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
 
     <script type="text/javascript" class="init">
-        var quillObjeto;
         $(document).ready(function () {
             $('#licitacoes').DataTable({
                 paging: true // Habilita a paginação
@@ -53,7 +52,7 @@ require_once 'verifica_login.php';
             theme: 'snow',
         };
 
-        quillObjeto = new Quill('#editor-objeto', quillOpcoes);
+        const quillObjeto = new Quill('#editor-objeto', { theme: 'snow' });
 
         document.getElementById('form_licitacao').addEventListener('submit', function () {
             const descHTML = quillObjeto.root.innerHTML;
