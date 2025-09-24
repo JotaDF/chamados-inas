@@ -2,12 +2,17 @@
 include('./actions/ManterFeriadoAno.php');
 $manterFeriadoAno = new ManterFeriadoAno();
 $feriados = $manterFeriadoAno->lista();
+// $descricao_feriado = $feriados->descricao;
 $numero_mes = $_GET['numero_mes'];
 $horarios = explode(";", $usuario->horario);
 $data = new DateTime("$ano-$numero_mes-01");
 $ultimo_dia = (clone $data)->modify('last day of this month')->format('d');
 
-$data_feriados = array_map(fn($f) => $f->data, $feriados);
+$data_feriados = [];
+foreach ($feriados as $f) {
+    $data_feriados[$f->data] = $f->descricao;
+}
+
 
 for ($i = 1; $i <= $ultimo_dia; $i++) {
     $numero_dia = sprintf('%02d', $i);
@@ -18,30 +23,48 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     $editable = "contenteditable='true'";
     $assinatura_servidor = "";
 
+    $diaNum = (int) $data->format('N');
     $dias_fim_semana = [
-        "Saturday" => "SÁBADO",
-        "Sunday" => "DOMINGO"
+        6 => "SÁBADO",
+        7 => "DOMINGO"
     ];
+    if (isset($dias_fim_semana[$diaNum])) {
+        $assinatura_servidor = $dias_fim_semana[$diaNum];
+        $td_class = "final_semana";
+        $editable = "";
+    }
+    // Se a data do dia for um feriado (pela chave)
+    if (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
+        if ($data_feriados[$data_dia] === 'Ponto facultativo') {
+            $assinatura_servidor = "PONTO FACULTATIVO";
+        } else {
+            $assinatura_servidor = "FERIADO";
+        }
+        $td_class = "final_semana";
+        $editable = "";
+    }
 
-    $assinatura_servidor = $dias_fim_semana[$nome_dia_semana] ?? "";
-    $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO"], true);
-    $td_class = $is_dia_especial ? "final_semana" : "";
+    $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO", "FERIADO"], true);
 
-    // Horários
+
     if ($is_dia_especial) {
-        [$entrada, $saida_almoco, $volta_almoco, $saida] = ["-----", "-----", "-----", "-----"];
+        $entrada = $saida_almoco = $volta_almoco = $saida = "-----";
     } else {
         [$entrada, $saida_almoco, $volta_almoco, $saida] = $horarios;
     }
 
-    if ($assinatura_servidor == "DOMINGO" || $assinatura_servidor == "SÁBADO" || $assinatura_servidor == "FERIADO") {
-        $assinatura_vespertino = "<td class='$td_class' ><b>$assinatura_servidor</b></td>";
-        $assinatura_matutino = "<td class='$td_class' ><b>$assinatura_servidor</b></td>";
+
+    if ($is_dia_especial) {
+        $assinatura_matutino = "<td class='$td_class'><b>$assinatura_servidor</b></td>";
+        $assinatura_vespertino = "<td class='$td_class'><b>$assinatura_servidor</b></td>";
     } else {
-        $assinatura_vespertino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
+        // data-assinatura marca para seu JS
         $assinatura_matutino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
+        $assinatura_vespertino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
     }
 
+
+    // imprime a linha (use htmlspecialchars nas variáveis que vêm de usuário/banco)
     echo "<tr>";
     echo "<td class='$td_class' style='height: 12px'><b>$numero_dia</b></td>";
     echo $assinatura_matutino;
@@ -53,15 +76,15 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     echo "<td class='$td_class codigo'></td>";
     echo "</tr>";
 
-
     $data->modify('+1 day');
 }
 
 ?>
-<script>
 
+<script>
     const opcoesAssinatura = {
-        "": "",
+        "  ": "-------||LIMPAR||-------",
+        " " : "QUARTA FEIRA DE CINZAS",
         "219": "ABONO ANUAL",
         "340": "ATESTADO - COMPARECIMENTO",
         "310": "DOAÇÃO DE SANGUE",
@@ -80,67 +103,74 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         "258": "RECESSO"
     };
 
-    // Função principal para mostrar select na célula
-// Mapeamento do turno: coluna assinatura => índices de horário
-const turnoMap = {
-    1: [2, 3], // matutino
-    4: [5, 6]  // vespertino
-};
+    // Mapeamento do turno: coluna assinatura => índices de horário
+    const turnoMap = {
+        1: [2, 3], // matutino
+        4: [5, 6]  // vespertino
+    };
 
-function mostrarSelect(td) {
-    if (td.querySelector("select")) return;
+    // Função chamada quando o usuário clica em uma célula para exibir um <select>
+    function mostrarSelect(td) {
+        // Se já existir um <select> dentro da célula, não faz nada
+        if (td.querySelector("select")) return;
 
-    const valorAtual = td.getAttribute("data-codigo") || "";
-    const select = criarSelect(valorAtual);
+        // Pega os valores atuais da célula
+        const valorAtual = td.getAttribute("data-codigo") || ""; // código armazenado em atributo
+        const descricaoAtual = td.textContent || ""; // texto mostrado
 
-    td.innerHTML = "";
-    td.appendChild(select);
-    select.focus();
+        // Cria o <select> com a opção atual
+        const select = criarSelect(valorAtual);
 
-    select.addEventListener("blur", function () {
-        const selecionado = select.options[select.selectedIndex];
-        const codigo = selecionado.value;
-        const descricao = selecionado.getAttribute("data-full");
+        // Limpa a célula e insere o <select>
+        td.innerHTML = "";
+        td.appendChild(select);
+        select.focus(); // foca no select automaticamente
 
-        td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
-        td.setAttribute("data-codigo", codigo);
+        // Evento disparado quando o select perde o foco
+        select.addEventListener("blur", function () {
+            const selecionado = select.options[select.selectedIndex]; // opção escolhida
+            const codigo = selecionado.value;
+            const descricao = selecionado.getAttribute("data-full");
 
-        const tr = td.closest("tr");
-        const tdCodigo = tr.querySelector("td.codigo");
-        if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
+            const tr = td.closest("tr"); // linha da tabela
+            const tdCodigo = tr.querySelector("td.codigo"); // célula que exibe o código
 
-        const sigCol = Array.prototype.indexOf.call(tr.children, td);
-        const isEspecial = descricao === "ATESTADO - COMPARECIMENTO" || descricao === "TREINAMENTO/CURSO";
+            if (descricao !== "") {
+                // Atualiza célula e código com a nova escolha
+                td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
+                td.setAttribute("data-codigo", codigo);
 
-        if (isEspecial) {
-            // Pega as colunas correspondentes ao turno clicado
-            const indicesTurno = turnoMap[sigCol] || [];
-            indicesTurno.forEach(i => {
-                const tdHorario = tr.children[i];
-                if (tdHorario) tdHorario.innerHTML = "<b>-----</b>";
-            });
-        } else {
-            // Para outros valores, restaura os horários originais
-            const colunas = [2,3,5,6];
-            colunas.forEach(i => {
-                const tdHorario = tr.children[i];
-                if (!tdHorario) return;
-                tdHorario.innerHTML = `<b>${tdHorario.getAttribute("data-horario") || ""}</b>`;
-            });
-        }
-    });
-}
+                if (tdCodigo) tdCodigo.innerHTML = `<b>${codigo}</b>`;
 
+                aplicarValorSelecionado(tr, descricao, td);
+            } else {
+                // Se o usuário escolheu vazio, mantém os valores antigos
+                td.innerHTML = `<span title="${descricaoAtual}"><b>${descricaoAtual}</b></span>`;
+                td.setAttribute("data-codigo", valorAtual);
 
+                if (tdCodigo) tdCodigo.innerHTML = `<b>${valorAtual}</b>`;
+            }
+        });
+    }
 
-    // Cria o select com opções
+    // Cria o <select> com todas as opções possíveis
     function criarSelect(valorAtual) {
         const select = document.createElement("select");
-        select.className = "form-control form-control-sm";
+        select.className = "form-control form-control-sm"; // usa classes Bootstrap
         select.style.overflow = "hidden";
         select.style.textOverflow = "ellipsis";
 
+        // Adiciona opção vazia no topo
+        const optionVazio = document.createElement("option");
+        optionVazio.value = "";
+        optionVazio.setAttribute("data-full", "");
+        if (valorAtual === "") optionVazio.selected = true;
+        select.appendChild(optionVazio);
+
+        // Percorre o objeto opcoesAssinatura e adiciona cada opção
         Object.keys(opcoesAssinatura).forEach(codigo => {
+            if (codigo === "") return; // já adicionou vazio acima
+
             const option = document.createElement("option");
             option.value = codigo;
             option.text = opcoesAssinatura[codigo];
@@ -152,64 +182,93 @@ function mostrarSelect(td) {
         return select;
     }
 
+    // Atualiza todas as células de assinatura da linha
     function atualizarAssinaturas(tr, valor, tdClicada = null) {
         const celulasAssinatura = tr.querySelectorAll("td[data-assinatura]");
 
-        celulasAssinatura.forEach(cel => {
-            if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
-                // Atualiza só a célula clicada, preservando a outra
-                if (tdClicada && cel === tdClicada) {
-                    cel.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
-                    cel.setAttribute("data-codigo", cel.getAttribute("data-codigo") || "");
-                }
-            } else {
-                // Comportamento padrão: todas as assinaturas recebem o mesmo valor
+        // Se for um valor "especial", atualiza só a célula clicada
+        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" || valor === "QUARTA FEIRA DE CINZAS") {
+            if (tdClicada) {
+                tdClicada.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
+            }
+        } else {
+            // Senão, aplica o valor em todas as células da linha
+            celulasAssinatura.forEach(cel => {
                 cel.innerHTML = `<span title="${valor}"><b>${valor}</b></span>`;
-                cel.setAttribute("data-codigo", cel.getAttribute("data-codigo") || "");
+            });
+        }
+
+        // Se for "limpar", apaga todas as células
+        if (valor === "-------||LIMPAR||-------") {
+            if (tdClicada) {
+                celulasAssinatura.forEach(cel => {
+                    cel.innerHTML = `<span title=""><b></b></span>`;
+                })
+            }
+        }
+    }
+
+    // Atualiza os horários de acordo com o valor selecionado
+    function atualizarHorarios(tr, valor, colunas) {
+        colunas.forEach(i => {
+            const tdHorario = tr.children[i];
+            if (!tdHorario) return;
+
+            switch (valor) {
+                case "-------||LIMPAR||-------":
+                    // Restaura o horário original salvo em data-horario
+                    const valorOriginal = tdHorario.getAttribute("data-horario") || "";
+                    tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
+                    break;
+                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" ):
+                    // Para casos especiais, mostra traço
+                    tdHorario.innerHTML = "<b>-----</b>";
+                    break;
+                default:
+                    // Para qualquer outro, também mostra traço
+                    tdHorario.innerHTML = "<b>-----</b>";
+                    break;
             }
         });
     }
 
+    // Aplica as regras de alteração de assinaturas e horários
+    function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
+        atualizarAssinaturas(tr, valorSelecionado, tdClicada);
 
+        // Se for final de semana, não altera horários
+        if (["DOMINGO", "SÁBADO"].includes(valorSelecionado)) return;
 
-// Atualiza horários de uma linha, apenas nas colunas indicadas
-function atualizarHorarios(tr, valor, colunas) {
-    colunas.forEach(i => {
-        const tdHorario = tr.children[i];
-        if (!tdHorario) return;
+        const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO" || valorSelecionado === "QUARTA FEIRA DE CINZAS";
 
-        if (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO") {
-            tdHorario.innerHTML = "<b>-----</b>";
-            return;
+        if (tdClicada) {
+            // Descobre a posição da célula clicada dentro da linha
+            const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
+
+            switch (valorSelecionado) {
+                case "LIMPAR":
+                    // Se for "LIMPAR", restaura os horários padrão das colunas fixas
+                    atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
+                    break;
+                default:
+                    if (isEspecial) {
+                        // Para valores especiais, usa o mapeamento de colunas (turnoMap)
+                        const indicesTurno = turnoMap[sigCol] || [];
+                        atualizarHorarios(tr, valorSelecionado, indicesTurno);
+                    } else {
+                        // Para qualquer outro valor, atualiza sempre as colunas fixas
+                        atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
+                    }
+                    break;
+            }
+        } else {
+            // Se nenhuma célula foi clicada diretamente, aplica nos horários padrão
+            atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
         }
 
-        // Restaurar valores originais se valor não especial
-        const valorOriginal = tdHorario.getAttribute("data-horario") || "";
-        tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
-    });
-}
-
-
-
-function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
-    atualizarAssinaturas(tr, valorSelecionado, tdClicada);
-
-    if (valorSelecionado === "DOMINGO" || valorSelecionado === "SÁBADO") return;
-
-    const isEspecial = valorSelecionado === "ATESTADO - COMPARECIMENTO" || valorSelecionado === "TREINAMENTO/CURSO";
-
-    if (tdClicada) {
-        const sigCol = Array.prototype.indexOf.call(tr.children, tdClicada);
-        if (isEspecial) {
-            const indicesTurno = turnoMap[sigCol] || [];
-            atualizarHorarios(tr, valorSelecionado, indicesTurno);
-        }
-    } else if (isEspecial) {
-        atualizarHorarios(tr, valorSelecionado, [2, 3, 5, 6]);
     }
-}
 
-
+    // Adiciona evento nos cabeçalhos da tabela para mostrar/ocultar horários
     document.querySelectorAll("#folha_pontos thead tr:nth-child(2) th").forEach((th, index) => {
         th.addEventListener("click", () => {
             const linhas = document.querySelectorAll("#folha_pontos tbody tr");
@@ -218,6 +277,7 @@ function aplicarValorSelecionado(tr, valorSelecionado, tdClicada = null) {
                 const td = tr.children[index];
                 if (!td || !td.classList.contains('horario') || td.textContent === "-----") return;
 
+                // Alterna entre mostrar o horário original ou esconder
                 if (td.textContent === "") {
                     td.innerHTML = `<b>${td.dataset.horario || ""}</b>`;
                     th.title = "Remover horários";

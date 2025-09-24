@@ -33,13 +33,13 @@
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
+            </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="gerenciar_arquivos_ponto.php">
-                    <i class="fa fa-id-badge"></i>
-                    <span>Arquivos de ponto</span>
+                <a class="nav-link collapsed" href="feriados.php">
+                    <i class="fa fa-calendar"></i>
+                    <span>Feriados</span>
                 </a>
             </li>
-
         <?php
     }
     ?>
