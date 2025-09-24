@@ -55,15 +55,13 @@ require_once 'verifica_login.php';
 
             quillObjeto = new Quill('#editor-objeto', { theme: 'snow' });
 
-            //document.getElementById('form_licitacao').addEventListener('submit', function () {
-            //    const descHTML = quillObjeto.root.innerHTML;
-            //    document.querySelector('input[name="objeto"]').value = descHTML;
-            //});
+            document.getElementById('form_licitacao_submit').addEventListener('submit', function () {
+                const descHTML = quillObjeto.root.innerHTML;
+                document.querySelector('input[name="objeto"]').value = descHTML;
+            });
 
         });
-        function pegarObjeto() {
-            $('#objeto').val(quillObjeto.root.innerHTML);
-        }
+
         function alterar(id, modalidade, certame, ano) {
                 $('#modalidade').val(modalidade);
                 $('#certame').val(certame);

@@ -4,7 +4,7 @@
             <span class="h5 m-0 font-weight text-white">Cadastro de Licitação</span>    
         </div>
         <div class="card-body">
-            <form action="save_licitacao.php" method="POST" onsubmit="pegarObjeto()">
+            <form action="save_licitacao.php" method="POST" id="form_licitacao_submit">
                 <input type="hidden" id="id" name="id">
                 <div class="mb-3">
                     <label for="modalidade" class="form-label">Modalidade</label>
