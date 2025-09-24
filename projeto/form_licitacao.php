@@ -15,6 +15,12 @@
                     <input type="text" class="form-control" id="certame" name="certame" required>
                 </div>
                 <div class="mb-3">
+                    <label for="objeto" class="form-label">Objeto</label>
+
+                    <div style="width: 100%; height: 75px;" id="editor-objeto"></div>
+                    <input type="hidden" name="objeto" id="objeto">
+                </div>
+                <div class="mb-3">
                     <label for="ano" class="form-label">Ano</label>
                     <input type="text" class="form-control" id="ano" name="ano" required>
                 </div>
