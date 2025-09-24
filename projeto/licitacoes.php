@@ -51,15 +51,15 @@ require_once 'verifica_login.php';
                 ],
             },
             theme: 'snow',
-        };
+         };
 
-        quillObjeto = new Quill('#editor-objeto', { theme: 'snow' });
-        });
+            quillObjeto = new Quill('#editor-objeto', { theme: 'snow' });
 
+            document.getElementById('form_licitacao').addEventListener('submit', function () {
+                const descHTML = quillObjeto.root.innerHTML;
+                document.querySelector('input[name="objeto"]').value = descHTML;
+            });
 
-        document.getElementById('form_licitacao').addEventListener('submit', function () {
-            const descHTML = quillObjeto.root.innerHTML;
-            document.querySelector('input[name="objeto"]').value = descHTML;
         });
 
         function alterar(id, modalidade, certame, ano) {
