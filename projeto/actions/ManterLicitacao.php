@@ -10,7 +10,7 @@ class ManterLicitacao extends Model {
     }
 
     function listar() {
-        $sql = "select l.id,l.modalidade, l.certame, l.ano FROM licitacao as l order by l.numero";
+        $sql = "select l.id,l.modalidade, l.certame, l.objeto, l.ano FROM licitacao as l order by l.id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -20,13 +20,14 @@ class ManterLicitacao extends Model {
             $dados->id          = $registro["id"];
             $dados->modalidade  = $registro["modalidade"];
             $dados->certame     = $registro["certame"];
+            $dados->objeto      = $registro["objeto"];
             $dados->ano         = $registro["ano"];
             $array_dados[]      = $dados;
         }
         return $array_dados;
     }
     function getLicitacaoPorId($id) {
-        $sql = "select l.id,l.modalidade, l.certame, l.ano FROM licitacao as l WHERE l.id=$id";
+        $sql = "select l.id,l.modalidade, l.certame, l.objeto, l.ano FROM licitacao as l WHERE l.id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new Licitacao();
@@ -34,15 +35,16 @@ class ManterLicitacao extends Model {
             $dados->id          = $registro["id"];
             $dados->modalidade  = $registro["modalidade"];
             $dados->certame     = $registro["certame"];
+            $dados->objeto      = $registro["objeto"];
             $dados->ano         = $registro["ano"];
         }
         return $dados;
     }
     function salvar(Licitacao $dados) {
         $sql = "insert into licitacao (modalidade,certame,ano) 
-                values ('" . $dados->modalidade . "','" . $dados->certame . "','" . $dados->ano . "')";
+                values ('" . $dados->modalidade . "','" . $dados->certame . "','" . $dados->objeto . "','" . $dados->ano . "')";
         if ($dados->id > 0) {
-            $sql = "update licitacao set modalidade='" . $dados->modalidade . "',certame='" . $dados->certame . "',ano='" . $dados->ano . "' where id=$dados->id";
+            $sql = "update licitacao set modalidade='" . $dados->modalidade . "',certame='" . $dados->certame . "',objeto='" . $dados->objeto . "',ano='" . $dados->ano . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);

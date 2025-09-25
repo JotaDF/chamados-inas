@@ -3,6 +3,7 @@
       public $id;
       public $modalidade;
       public $certame;
+      public $objeto;
       public $ano;
 
       //variaveis de manipulação

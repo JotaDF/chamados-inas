@@ -4,7 +4,7 @@
             <span class="h5 m-0 font-weight text-white">Cadastro de Licitação</span>    
         </div>
         <div class="card-body">
-            <form action="save_licitacao.php" method="POST">
+            <form action="save_licitacao.php" method="POST" id="form_licitacao_submit">
                 <input type="hidden" id="id" name="id">
                 <div class="mb-3">
                     <label for="modalidade" class="form-label">Modalidade</label>
@@ -13,6 +13,12 @@
                 <div class="mb-3">
                     <label for="certame" class="form-label">Certame</label>
                     <input type="text" class="form-control" id="certame" name="certame" required>
+                </div>
+                <div class="mb-3">
+                    <label for="objeto" class="form-label">Objeto</label>
+
+                    <div style="width: 100%; height: 75px;" id="editor-objeto"></div>
+                    <input type="hidden" name="objeto" id="objeto">
                 </div>
                 <div class="mb-3">
                     <label for="ano" class="form-label">Ano</label>

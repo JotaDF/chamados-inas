@@ -9,11 +9,13 @@ $l = new Licitacao();
 $id = isset($_POST['id']) ? $_POST['id'] : 0;
 $modalidade = $_POST['modalidade'];
 $certame = $_POST['certame'];
+$objeto = $_POST['objeto'];
 $ano = $_POST['ano'];
 
 $l->id = $id;
 $l->modalidade = $modalidade;
 $l->certame = $certame;
+$l->objeto = $objeto;
 $l->ano = $ano;
 
 $l = $db_licitacao->salvar($l);

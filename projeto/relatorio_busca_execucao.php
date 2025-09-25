@@ -165,8 +165,8 @@ and open the template in the editor.
                         <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">VALOR NF </th>
                         <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">INFORMATIVO
                         </th>
-                        <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">COMPETENCIA
-                        </th>
+                        <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">COMPETENCIA</th>
+                        <th class="header c2 text-nowrap text-center" style="" scope="col" style="width:50%">EXERCÍCIO</th>
                         <th class="header c3 text-nowrap text-center" style="" scope="col">EMISSAO DA NF </th>
                         <th class="header c4 text-nowrap text-center" style="" scope="col">DATA RECEBIMENTO </th>
                         <th class="header c5 text-nowrap text-center" style="" scope="col">DATA ATESTO </th>
@@ -203,6 +203,7 @@ and open the template in the editor.
                                 <td class="cell c2 text-dark"><?= $obj->valor ?></td>
                                 <td class="cell c0 text-dark"><?= $obj->informativo ?></td>
                                 <td class="cell c0 text-dark"><?= $obj->competencia ?> </td>
+                                <td class="cell c0 text-dark"><?= $obj->exercicio ?> </td>
                                 <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_emissao) ?></td>
                                 <td class="cell c2 text-dark"><?= date('d/m/Y', $obj->data_validacao) ?></td>
                                 <td class="cell c2 text-dark"><?= $data_atesto ?></td>
