@@ -83,8 +83,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 
 <script>
     const opcoesAssinatura = {
-        "  ": "-------||LIMPAR||-------",
-        " " : "QUARTA FEIRA DE CINZAS",
+        "1": "-------||LIMPAR||-------",
         "219": "ABONO ANUAL",
         "340": "ATESTADO - COMPARECIMENTO",
         "310": "DOAÇÃO DE SANGUE",
@@ -100,7 +99,8 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         "207": "L. MATERNIDADE",
         "205": "L. MOTIVO DOENÇA FAMILIA",
         "339": "P. PARTERNIDADE (23) Dias",
-        "258": "RECESSO"
+        "258": "RECESSO",
+        "400": "QUARTA FEIRA DE CINZAS"
     };
 
     // Mapeamento do turno: coluna assinatura => índices de horário
@@ -135,6 +135,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
             const tr = td.closest("tr"); // linha da tabela
             const tdCodigo = tr.querySelector("td.codigo"); // célula que exibe o código
 
+
             if (descricao !== "") {
                 // Atualiza célula e código com a nova escolha
                 td.innerHTML = `<span title="${descricao}"><b>${descricao}</b></span>`;
@@ -156,31 +157,36 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     // Cria o <select> com todas as opções possíveis
     function criarSelect(valorAtual) {
         const select = document.createElement("select");
-        select.className = "form-control form-control-sm"; // usa classes Bootstrap
+        select.className = "form-control form-control-sm";
         select.style.overflow = "hidden";
         select.style.textOverflow = "ellipsis";
-
-        // Adiciona opção vazia no topo
+        
         const optionVazio = document.createElement("option");
         optionVazio.value = "";
+        optionVazio.text = ""; // ou "" se preferir
         optionVazio.setAttribute("data-full", "");
         if (valorAtual === "") optionVazio.selected = true;
         select.appendChild(optionVazio);
-
-        // Percorre o objeto opcoesAssinatura e adiciona cada opção
         Object.keys(opcoesAssinatura).forEach(codigo => {
-            if (codigo === "") return; // já adicionou vazio acima
-
             const option = document.createElement("option");
-            option.value = codigo;
             option.text = opcoesAssinatura[codigo];
             option.setAttribute("data-full", opcoesAssinatura[codigo]);
+
+            // Se for a opção de limpar, o value fica vazio
+            if (codigo === "1") {
+                option.value = "";
+            } else {
+                option.value = codigo;
+            }
+
             if (codigo === valorAtual) option.selected = true;
             select.appendChild(option);
         });
 
         return select;
     }
+
+
 
     // Atualiza todas as células de assinatura da linha
     function atualizarAssinaturas(tr, valor, tdClicada = null) {
@@ -220,7 +226,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
                     const valorOriginal = tdHorario.getAttribute("data-horario") || "";
                     tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
                     break;
-                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" ):
+                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO"):
                     // Para casos especiais, mostra traço
                     tdHorario.innerHTML = "<b>-----</b>";
                     break;
