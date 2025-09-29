@@ -34,6 +34,7 @@ Class ManterQuestQuestionario extends Model {
         }
         return $dados;
     }
+
     function salvar(QuestQuestionario $dados) {
         $sql = "insert into quest_questionario (titulo, descricao) values ('" .$dados->titulo. "', '" .$dados->descricao. "')";
         if ($dados->id > 0) {

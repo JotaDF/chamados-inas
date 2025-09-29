@@ -27,7 +27,20 @@ Class ManterQuestPergunta extends Model {
         return $array_dados;
     }
 
-    
+    function getEscalaPorPergunta($id = 0) {
+        $sql = "SELECT qe.nome as escala FROM quest_pergunta as qp, quest_escala as qe WHERE qp.id_quest_escala = qe.id AND qp.id =" . $id;
+        $resultado = $this->db->Execute($sql);
+        $registro  = $resultado->fetchRow();
+        $escala    = $registro['escala'];
+        return $escala;
+    }
+    function getParametroPergunta($id = 0) {
+        $sql = "SELECT qe.parametro FROM quest_escala as qe, quest_pergunta as qp WHERE qp.id_quest_escala = qe.id AND qp.id =" . $id;
+        $resultado = $this->db->Execute($sql);
+        $registro = $resultado->fetchRow();
+        $parametro = $registro['parametro'];
+        return $parametro;
+    }
     function salvar(QuestPergunta $dados) {
        $sql = "insert into quest_pergunta (titulo, pergunta, id_quest_escala, opcional ) values ('" .$dados->titulo. "', '" .$dados->pergunta. "', '" .$dados->id_quest_escala. "', '" .$dados->opcional. "')";
         
