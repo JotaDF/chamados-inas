@@ -217,7 +217,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             <b>FOLHA DE FREQUÊNCIA</b>
         </div>
 
-        <div class="container border border-dark border-top-0 p-2" style="max-width: 96%; font-size:15px;">
+        <div class="container border border-dark border-top-0 p-2" style="max-width: 96%; font-size:15px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
             <div class="row mb-1">
                 <div class="col"><b>NOME:</b> <?= $usuario->nome ?></div>
                 <div class="col"><b>REF:</b> <?= strtoupper($ref); ?></div>
