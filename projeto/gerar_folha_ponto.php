@@ -80,7 +80,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 }
 
 ?>
-
+ 
 <script>
     const opcoesAssinatura = {
         "1": "-------||LIMPAR||-------",

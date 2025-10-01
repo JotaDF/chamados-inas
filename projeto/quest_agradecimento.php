@@ -7,6 +7,8 @@
     <title>Aceite de Questionário</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" />
     <style>
         body {
             font-size: 0.95rem;
@@ -42,7 +44,7 @@
             <div class="d-flex justify-content-center">
                 <div class="card mb-3 border shadow-sm p-3 mb-5 bg-white rounded" style="max-width: 600px;">
                     <div class="card-body text-center" style="text-align: justify;">
-                        <h4 class="card-title border-bottom p-2" >Obrigado por sua participação!</h4>
+                        <h4 class="card-title border-bottom p-2">Obrigado por sua participação!</h4>
                         <p class="card-text border-bottom p-2" style="text-align: justify;">
                             Sua colaboração ao responder este questionário é de grande importância para nós. As
                             informações fornecidas ajudarão a aprimorar nossos serviços e a desenvolver iniciativas mais
