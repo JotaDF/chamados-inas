@@ -121,8 +121,11 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
 
             body {
                 margin: 0 !important;
-                /* remove margens padrão do body */
                 padding: 0 !important;
+                font-family: "Arial";
+                font-size: 15px;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             .sub-header {
@@ -140,13 +143,6 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
                 font-weight: bold;
             }
 
-
-            body {
-                font-family: "Arial";
-                font-size: 15px;
-
-            }
-
             .header-governo {
                 font-family: "Arial";
                 font-size: 12px;
@@ -156,6 +152,8 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             #folha_pontos th,
             #folha_pontos td {
                 border: 1px solid black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             #folha_pontos {
@@ -164,7 +162,9 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             }
 
             .final_semana {
-                background-color: #d3d3d3;
+                background-color: #d3d3d3 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             .print-header {
@@ -173,6 +173,9 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
                 padding: 4px;
                 font-size: 18px;
                 text-align: center;
+                background-color: #e9e9e9 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             .print-subheader {
@@ -181,14 +184,19 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
                 padding: 4px;
                 font-size: 15px;
                 text-align: center;
+                background-color: #e9e9e9 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             .card-body {
                 margin-top: -1 !important;
                 margin-bottom: -1 !important;
             }
-
         }
+
+
+        
     </style>
 </head>
 
@@ -217,7 +225,8 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             <b>FOLHA DE FREQUÊNCIA</b>
         </div>
 
-        <div class="container border border-dark border-top-0 p-2" style="max-width: 96%; font-size:15px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+        <div class="container border border-dark border-top-0 p-2"
+            style="max-width: 96%; font-size:15px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
             <div class="row mb-1">
                 <div class="col"><b>NOME:</b> <?= $usuario->nome ?></div>
                 <div class="col"><b>REF:</b> <?= strtoupper($ref); ?></div>
@@ -236,7 +245,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
             </div>
 
         </div>
- 
+
         <div class="container border border-top-0  mt-2 mb-2 p-0 " style="max-width:96%;">
             <table id="folha_pontos" class="table-sm table-bordered dt-responsive nowrap text-center text-dark m-0">
                 <thead>
@@ -249,11 +258,15 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
                     <tr>
                         <th style="background-color:#d3d3d3; border:1px solid black;"><b>Dia</b></th>
                         <th style="background-color:#d3d3d3; border:1px solid black;"><b>Assinatura do Servidor</b></th>
-                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(2)"><b>Entrada</b></th>
-                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(3)"><b>Saída</b></th>
-                        <th style="background-color:#d3d3d3; border:1px solid black;" ><b>Assinatura do Servidor</b></th>
-                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(4)"><b>Entrada</b></th>
-                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;" title="Remover Horario" onclick="toggleColunaHorario(5)"><b>Saída</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;"
+                            title="Remover Horario" onclick="toggleColunaHorario(2)"><b>Entrada</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;  cursor: pointer; width:100px;"
+                            title="Remover Horario" onclick="toggleColunaHorario(3)"><b>Saída</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black;"><b>Assinatura do Servidor</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;"
+                            title="Remover Horario" onclick="toggleColunaHorario(4)"><b>Entrada</b></th>
+                        <th style="background-color:#d3d3d3; border:1px solid black; cursor: pointer; width:100px;"
+                            title="Remover Horario" onclick="toggleColunaHorario(5)"><b>Saída</b></th>
                         <th style="background-color:#d3d3d3; border:1px solid black; width:100px;"><b>CÓD</b></th>
                     </tr>
                 </thead>

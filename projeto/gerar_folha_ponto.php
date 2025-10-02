@@ -18,24 +18,24 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     $numero_dia = sprintf('%02d', $i);
     $data_dia = $data->format('Y-m-d');
     $nome_dia_semana = $data->format('l');
-
     $td_class = "";
     $editable = "contenteditable='true'";
     $assinatura_servidor = "";
 
+    // Verifica dia da semana
     $diaNum = (int) $data->format('N');
     $dias_fim_semana = [
         6 => "SÁBADO",
         7 => "DOMINGO"
     ];
+
     if (isset($dias_fim_semana[$diaNum])) {
         $assinatura_servidor = $dias_fim_semana[$diaNum];
         $td_class = "final_semana";
         $editable = "";
-    }
-    // Se a data do dia for um feriado (pela chave)
-    if (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
-        if ($data_feriados[$data_dia] === 'Ponto facultativo') {
+    } elseif (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
+        // Só entra aqui se NÃO for sábado/domingo
+        if ($data_feriados[$data_dia] == 'Ponto facultativo') {
             $assinatura_servidor = "PONTO FACULTATIVO";
         } else {
             $assinatura_servidor = "FERIADO";
@@ -44,7 +44,10 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         $editable = "";
     }
 
-    $is_dia_especial = in_array($assinatura_servidor, ["SÁBADO", "DOMINGO", "FERIADO", "FERIADO"], true);
+    var_dump($data_feriados[$data_dia]); 
+
+    $dia_especial = ["SÁBADO", "DOMINGO", "FERIADO"];
+    $is_dia_especial = in_array($assinatura_servidor, $dia_especial, true);
 
 
     if ($is_dia_especial) {
@@ -63,8 +66,6 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         $assinatura_vespertino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
     }
 
-
-    // imprime a linha (use htmlspecialchars nas variáveis que vêm de usuário/banco)
     echo "<tr>";
     echo "<td class='$td_class' style='height: 12px'><b>$numero_dia</b></td>";
     echo $assinatura_matutino;
@@ -80,7 +81,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
 }
 
 ?>
- 
+
 <script>
     const opcoesAssinatura = {
         "1": "-------||LIMPAR||-------",
@@ -160,7 +161,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         select.className = "form-control form-control-sm";
         select.style.overflow = "hidden";
         select.style.textOverflow = "ellipsis";
-        
+
         const optionVazio = document.createElement("option");
         optionVazio.value = "";
         optionVazio.text = ""; // ou "" se preferir
