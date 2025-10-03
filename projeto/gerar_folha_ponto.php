@@ -44,9 +44,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         $editable = "";
     }
 
-    var_dump($data_feriados[$data_dia]); 
-
-    $dia_especial = ["SÁBADO", "DOMINGO", "FERIADO"];
+    $dia_especial = ["SÁBADO", "DOMINGO", "FERIADO","PONTO FACULTATIVO"];
     $is_dia_especial = in_array($assinatura_servidor, $dia_especial, true);
 
 
