@@ -35,7 +35,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         $editable = "";
     } elseif (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
         // Só entra aqui se NÃO for sábado/domingo
-        if ($data_feriados[$data_dia] == 'Ponto facultativo') {
+        if (strpos($data_feriados[$data_dia], 'facultativo') !== false) {
             $assinatura_servidor = "PONTO FACULTATIVO";
         } else {
             $assinatura_servidor = "FERIADO";
