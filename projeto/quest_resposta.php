@@ -91,25 +91,32 @@ require_once 'verifica_login.php';
                             <div class="card-body">
                                 <div class="row g-3 text-center">
                                     <div class="col p-3">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">ID</div>
-                                        <div class="h5 font-weight-bold mb-0"><?= $questionario->id ?>
+                                        <div class="text-xs  text-uppercase mb-1">ID</div>
+                                        <div class="h5  mb-0"><?= $questionario->id ?>
                                         </div>
                                     </div>
                                     <div class="col p-3">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Título</div>
-                                        <div class="h5 font-weight-bold mb-0"><?= $questionario->titulo ?>
+                                        <div class="text-xs  text-uppercase mb-1">Título</div>
+                                        <div class="h5  mb-0"><?= $questionario->titulo ?>
                                         </div>
                                     </div>
                                     <div class="col p-3">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Descrição</div>
-                                        <div class="h5 font-weight-bold mb-0">
-                                            <?= $questionario->descricao ?>
+                                        <div class="text-xs  text-uppercase mb-1">Total de Respostas
+                                        </div>
+                                        <div class="h5  mb-0"><?= $total_respostas ?>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="row g-3">
                                     <div class="col p-3">
-                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total de Respostas
-                                        </div>
-                                        <div class="h5 font-weight-bold mb-0"><?= $total_respostas ?>
+                                        <div class="text-xs text-uppercase mb-1">Descrição</div>
+                                        <div class="mb-0">
+                                            <?php
+                                            if (strlen($questionario->descricao) > 300) {
+                                                echo $questionario->descricao;
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -133,9 +140,9 @@ require_once 'verifica_login.php';
                                         <div class="p-3">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <!-- Pergunta -->
-                                                <h5 class="font-weight-bold text-dark mb-0">
+                                                <div class="mb-0" style="font-size: 16px;">
                                                     <?= $pergunta->pergunta ?>
-                                                </h5>
+                                                </div>
 
                                                 <!-- Total de respostas -->
                                                 <p class="mb-0 " style="font-size: 16px;">
@@ -157,10 +164,10 @@ require_once 'verifica_login.php';
                                         <div class="p-3">
                                             <!-- Cabeçalho da pergunta -->
                                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h5 class="font-weight-bold text-dark mb-0">
+                                                <div class="mb-0" style="font-size: 16px;">
                                                     <?= $pergunta->pergunta ?>
-                                                </h5>
-                                                <p class="mb-0" style="font-size: 16px;">
+                                                </div>
+                                                <p class="mb-0" style="font-size: 16px;" >
                                                     <strong>Total de respostas:</strong> <?= $total_respostas_pergunta ?>
                                                 </p>
                                             </div>
@@ -174,7 +181,7 @@ require_once 'verifica_login.php';
                                                     ?>
                                                     <div class="rounded p-2 mb-1 bg-light">
                                                         <p class="mb-0" style="font-size: 14px;">
-                                                            <?= htmlspecialchars($rp->resposta) ?>
+                                                            <b><?= htmlspecialchars($rp->resposta) ?></b>
                                                         </p>
                                                     </div>
                                                     <?php

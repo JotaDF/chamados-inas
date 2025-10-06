@@ -27,6 +27,13 @@ Class ManterQuestPergunta extends Model {
         return $array_dados;
     }
 
+    function getPerguntaPorId($id) {
+        $sql = 'SELECT pergunta FROM quest_pergunta WHERE id=' . $id;
+        $resultado = $this->db->Execute($sql);
+        $registro  = $resultado->fetchRow();
+        $pergunta  = $registro['pergunta'];
+        return $pergunta;
+    }
     function getEscalaPorPergunta($id = 0) {
         $sql = "SELECT qe.nome as escala FROM quest_pergunta as qp, quest_escala as qe WHERE qp.id_quest_escala = qe.id AND qp.id =" . $id;
         $resultado = $this->db->Execute($sql);

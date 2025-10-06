@@ -55,6 +55,18 @@ class ManterQuestResposta extends Model
         }
         return $array_dados;
     }
+    function getRespostaLivrePorIdQuestionario($id_questionario, $id_pergunta)
+    {
+        $sql = "SELECT qr.resposta FROM quest_pergunta as qp, quest_escala as qe, quest_pergunta_categoria as qpc, quest_categoria_pergunta as qcp, quest_questionario as qq, quest_resposta as qr WHERE qe.id = qp.id_quest_escala AND qpc.id_quest_pergunta = qp.id AND qpc.id_quest_categoria_pergunta = qcp.id AND qcp.id_quest_questionario = qq.id AND qq.id = $id_questionario AND qp.id = $id_pergunta AND qr.id_quest_pergunta = qp.id AND qe.parametro = 'livre'";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new QuestResposta;
+            $dados->resposta = $registro['resposta'];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function getTodasRespostaPorPerguntaQuestionario($id_questionario = 0, $id_pergunta = 0) {
         $sql = "SELECT qr.resposta, qr.execucao FROM quest_resposta as qr, quest_aplicacao as qa, quest_questionario as qq, quest_pergunta as qp WHERE qr.id_quest_pergunta = qp.id  AND qr.id_quest_aplicacao = qa.id AND qa.id_quest_questionario = qq.id  AND qq.id = $id_questionario AND qp.id =" . $id_pergunta;
         $resultado = $this->db->Execute($sql);
