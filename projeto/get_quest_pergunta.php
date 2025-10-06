@@ -2,7 +2,7 @@
 require_once 'actions/ManterQuestPergunta.php';
 $manterQuestPergunta = new ManterQuestPergunta();
 
-$quest_pergunta_lista = $manterQuestPergunta->listar();
+$quest_pergunta_lista = $manterQuestPergunta->getPerguntaPorUsuario($usuario_logado->id);
 
 foreach ($quest_pergunta_lista as $obj) {
     echo "<tr>";

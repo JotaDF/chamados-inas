@@ -3,6 +3,7 @@
 class QuestQuestionario
 {
     public $id;
+    public $id_usuario;
     public $titulo;
     public $descricao;
     public $excluir;

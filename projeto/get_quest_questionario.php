@@ -3,8 +3,7 @@
 	
 	$manterQuestQuestionario = new ManterQuestQuestionario();
 	
-	$lista = $manterQuestQuestionario->listar();
-        
+	$lista = $manterQuestQuestionario->getQuestionarioPorIdUsuario($usuario_logado->id);
         foreach ($lista as $obj) {
             echo "<tr>";
             echo "  <td>".$obj->id."</td>";

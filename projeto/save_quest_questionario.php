@@ -1,4 +1,5 @@
 <?php
+require_once './verifica_login.php';
 require_once 'actions/ManterQuestQuestionario.php';
 require_once 'dto/QuestQuestionario.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,8 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $questionarioDTO                = new QuestQuestionario();
     $questionarioDTO->id            = $id;
     $questionarioDTO->titulo        = $titulo;
+    $questionarioDTO->id_usuario    = $usuario_logado->id;
     $questionarioDTO->descricao     = html_entity_decode($descricao);
-
+    
     $manterQuestionario             = new ManterQuestQuestionario;
     $resultado                      = $manterQuestionario->salvar($questionarioDTO);
 

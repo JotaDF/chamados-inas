@@ -7,6 +7,7 @@
         public $publicada;
         public $opcional;
         public $id_quest_escala;
+        public $id_usuario;
         public $escala;
         public $excluir;
     }
