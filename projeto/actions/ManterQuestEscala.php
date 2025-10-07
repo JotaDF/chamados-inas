@@ -10,12 +10,15 @@ Class ManterQuestEscala extends Model {
     }
 
     function listar() {
-        $sql = 'select id, nome, descricao, parametro FROM quest_escala';
+        $sql = 'select qe.id, qe.nome, qe.descricao, qe.parametro, (SELECT COUNT(*) FROM quest_pergunta as qp WHERE qp.id_quest_escala = qe.id) as dep FROM quest_escala as qe';
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados                         = new QuestEscala();
             $dados->excluir                = true;
+            if($registro['dep'] > 0) {
+                $dados->excluir = false;
+            }
             $dados->id                     = $registro['id'];
             $dados->nome                   = $registro['nome'];
             $dados->descricao              = $registro['descricao'];

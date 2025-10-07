@@ -22,8 +22,8 @@ Class ManterQuestQuestionario extends Model {
         }
         return $array_dados;
     }
-    function getQuestionarioPorId($id) {
-        $sql = 'select id, titulo, descricao FROM quest_questionario WHERE id=' . $id;
+    function getQuestionarioPorId($id) { 
+        $sql = 'select id, titulo, descricao  FROM quest_questionario as qq WHERE id=' . $id;
         $resultado = $this->db->Execute($sql);
         $dados  = new QuestQuestionario();
         if($registro = $resultado->fetchRow()) {
@@ -35,13 +35,16 @@ Class ManterQuestQuestionario extends Model {
         return $dados;
     }
 
-    function getQuestionarioPorIdUsuario($id) {
-        $sql = 'select id, titulo, descricao FROM quest_questionario WHERE id_usuario=' . $id;
+    function getQuestionarioPorIdUsuario($id_usuario) {
+        $sql = "select qq.id, qq.titulo, qq.descricao, (SELECT COUNT(*) FROM quest_aplicacao as qa WHERE qa.id_quest_questionario = qq.id) as dep_1, (SELECT COUNT(*) FROM quest_categoria_pergunta as qcp WHERE qcp.id_quest_questionario = qq.id) as dep_2 FROM quest_questionario as qq WHERE qq.id_usuario=$id_usuario";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados  = new QuestQuestionario();
             $dados->excluir    = true;
+            if($registro["dep_1"] || $registro["dep_2"] > 0) {
+                $dados->excluir = false;
+            }
             $dados->id         = $registro['id'];
             $dados->titulo     = $registro['titulo'];
             $dados->descricao  = $registro['descricao'];
@@ -65,6 +68,6 @@ Class ManterQuestQuestionario extends Model {
     function excluir($id) {
         $sql = 'delete from quest_questionario where id=' . $id;
         $resultado = $this->db->Execute($sql);
-        return $resultado;
+        return $this->db->errorMsg();
     }
 }

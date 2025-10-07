@@ -32,12 +32,17 @@ class ManterQuestPergunta extends Model
 
     function getPerguntaPorUsuario($id)
     {
-        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.id_quest_escala, qp.opcional, qe.nome as escala FROM quest_pergunta AS qp, quest_escala AS qe WHERE qp.id_quest_escala = qe.id AND qp.id_usuario=' . $id;
+        $sql = 'SELECT qp.id, qp.titulo, qp.pergunta, qp.id_quest_escala, qp.opcional, qe.nome as escala, 
+        (SELECT COUNT(*) FROM quest_pergunta as qp, quest_pergunta_categoria as qpc, quest_categoria_pergunta as qcp WHERE qp.id = qpc.id_quest_pergunta AND qpc.id_quest_categoria_pergunta = qcp.id) as dep 
+        FROM quest_pergunta AS qp, quest_escala AS qe WHERE qp.id_quest_escala = qe.id AND qp.id_usuario=' . $id;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new QuestPergunta();
             $dados->excluir = true;
+            if($registro['dep'] > 0) {
+                $dados->excluir = false;
+            }
             $dados->id = $registro['id'];
             $dados->titulo = $registro['titulo'];
             $dados->pergunta = $registro['pergunta'];
