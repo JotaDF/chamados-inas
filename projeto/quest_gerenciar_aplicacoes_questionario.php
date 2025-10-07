@@ -60,7 +60,7 @@ require_once 'verifica_login.php';
                 paging: false // Habilita a paginação
             });
         });
-        
+
         function alterar(id, inicio, termino) {
             $('#inicio').val(inicio);
             $('#id').val(id);
@@ -212,7 +212,9 @@ require_once 'verifica_login.php';
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Deseja excluir a aplicação do questionário <strong>"<span id="titulo_excluir"></span>"<?= $questionario->titulo ?></strong>?</p>
+                    <p>Deseja realmente excluir esta aplicação?</br>
+                        Ao confirmar, todas as respostas associadas a este questionário também serão removidas
+                        permanentemente.</p>
                 </div>
                 <div class="modal-footer">
                     <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
