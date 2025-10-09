@@ -522,7 +522,7 @@ and open the template in the editor.
                                                                         } else {
                                                                             $txt_btns = " - ";
                                                                         }
-                                                                        $txt_doc_sei = "</br>(" . $c->doc_sei . ") (".date('d/m/Y', $c->data_pagamento).")";
+                                                                        $txt_doc_sei = "</br><small>(" . $c->doc_sei . ") (".date('d/m/Y', $c->data_pagamento).")</small>";
                                                                         break;
                                                                 }
                                                                 $txt_btns =  $txt_btns . "&nbsp;" . $btn_alterar_nota_info;
