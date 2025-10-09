@@ -5,7 +5,7 @@
 	$manterPrestador = new ManterPrestador();
     $manterTipoPrestador = new ManterTipoPrestador();
     
-    $filtro = " WHERE p.id_tipo_prestador = 11 ";
+    $filtro = " WHERE p.id_tipo_prestador = 12 ";
 	$lista = $manterPrestador->listar($filtro);
         
         foreach ($lista as $obj) {
