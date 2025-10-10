@@ -29,7 +29,7 @@ class ManterPagamento extends Model {
         return $array_dados;
     }
     function getPagamentosPorPrestador($id_prestador) {
-        $sql = "select p.id,p.informativo,p.competencia, p.id_fiscal_prestador, (select count(*) from nota_pagamento as np where np.id_pagamento=p.id) as dep FROM pagamento as p, fiscal_prestador as fp where p.id_fiscal_prestador = fp.id AND fp.id_prestador = ".$id_prestador."  order by p.id desc";
+        $sql = "select p.id,p.informativo,p.competencia,SUBSTRING_INDEX(p.competencia, '/', 1) as mes, SUBSTRING_INDEX(SUBSTRING_INDEX(p.competencia, '/', 2), '/', -1) as ano, p.id_fiscal_prestador, (select count(*) from nota_pagamento as np where np.id_pagamento=p.id) as dep FROM pagamento as p, fiscal_prestador as fp where p.id_fiscal_prestador = fp.id AND fp.id_prestador = " . $id_prestador . " order by ano desc,mes desc;";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
