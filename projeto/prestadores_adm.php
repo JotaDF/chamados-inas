@@ -124,7 +124,7 @@ foreach ($listaS as $obj) {
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_execucao.php'; ?>
+            <?php include './menu_execucao_adm.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
