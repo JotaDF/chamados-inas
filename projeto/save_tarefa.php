@@ -29,7 +29,7 @@ if($responsavel==''){
 
 $tarefa->id                  = $id;
 $tarefa->nome                = $nome;
-$tarefa->descricao           = $descricao;
+$tarefa->descricao           = html_entity_decode($descricao);
 $tarefa->categoria           = $categoria;
 $tarefa->tipo                = $tipo;
 $tarefa->inicio              = strtotime($inicio);

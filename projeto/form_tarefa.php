@@ -1,89 +1,99 @@
 <!-- Begin Page Content -->
- 
+
 <!-- Collapsable Form -->
 <div class="card mb-4 collapse hide border-primary" style="max-width: 900px;" id="form_tarefa">
     <!-- Card Header - Accordion -->
-    <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
+    <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">
         <span class="h6 m-0 font-weight text-white">Cadastro de Tarefa</span>
-    </div>                
+    </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
         <form id="form_cadastro" action="save_tarefa.php" method="post">
-            <input type="hidden" id="id" name="id"/>
-            <input type="hidden" id="id_criador" name="criador" value="<?= $usuario_logado->id ?>"/>
-            <input type="hidden" id="duplicar" name="duplicar" value="0"/>
-            <div class="form-group row">
-                <div class="col input-group">
-                    <label for="nome" class="col-sm-4 col-form-label">Nome:</label>
-                    <input type="text" name="nome" class="form-control form-control-sm" id="nome" placeholder="nome" required>
-                </div>
+            <input type="hidden" id="id" name="id" />
+            <input type="hidden" id="id_criador" name="criador" value="<?= $usuario_logado->id ?>" />
+            <input type="hidden" id="duplicar" name="duplicar" value="0" />
+
+            <div class="form-group">
+                <label for="nome" class="form-label small">Nome:</label>
+                <input type="text" name="nome" class="form-control form-control-sm" id="nome" placeholder="Nome"
+                    required>
             </div>
+            <div class="form-group">
+                <label for="descricao" class="form-label small">Descrição:</label>
+                <div style="width: 100%; height: 75px;" id="editor-descricao"></div>
+                <input type="hidden" id="descricao" name="descricao">
+            </div>
+
             <div class="form-group row">
-                <div class="col input-group">
-                    <label for="descricao" class="col-sm-4 col-form-label">Descrição:</label>
-                    <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" placeholder="descrição" required>
-                </div>
-            </div>                        <div class="form-group row">
-                <div class="col input-group">
-                    <label for="categoria" class="col-sm-4 col-form-label">Categoria:</label>
-                    <select id="categoria" name="categoria" class="form-control form-control-sm" onChange="verificaCategoria(this.options[this.selectedIndex].value)" required>
-                        <option value="">Selecione</option>    
+                <div class="col-md-6">
+                    <label for="inicio" class="form-label small">Categoria:</label>
+                    <select id="categoria" name="categoria" class="form-control form-control-sm" required>
+                        <option value="">Selecione</option>
                     </select>
                 </div>
-                <div class="col input-group">
-                    <label for="tipo" class="col-sm-4 col-form-label">Tipo:</label>
+                <div class="col-md-6">
+                    <label for="termino" class="form-label small">Tipo:</label>
                     <select id="tipo" name="tipo" class="form-control form-control-sm" required>
-                        <option value="">Selecione</option>    
+                        <option value="">Selecione</option>
                     </select>
-                </div>                            
-            </div>  
-            <?php
-            if($usuario_logado->perfil == 1 || $usuario_logado->perfil == 2 || $usuario_logado->perfil == 11 ){
-            ?>
-            <div id="equipes" >                        
-                <div class="form-group row">
-                    <div class="col input-group">
-                        <label for="equipe" class="col-sm-4 col-form-label">Equipe:</label>
-                        <select id="equipe" name="equipe" class="form-control form-control-sm" onChange="atualizaUsuarios(this.options[this.selectedIndex].value)">
-                            <option value="0"> Todos </option>    
-                        </select>
-                    </div>
-                </div> 
-            </div>   
-                <?php
-                }
+                </div>
+            </div>
+            <?php if ($usuario_logado->perfil == 1 || $usuario_logado->perfil == 2 || $usuario_logado->perfil == 11) {
                 ?>
-            <div id="responsaveis" > 
                 <div class="form-group row">
-                    <div class="col input-group">
-                        <label for="responsavel" class="col-sm-4 col-form-label">Responsável:</label>
+                    <div class="col-md-6">
+                        <label for="responsavel" class="v">Responsável:</label>
                         <select id="responsavel" name="responsavel" class="form-control form-control-sm">
-                            <option value="">Selecione</option>    
+                            <option value="">Selecione</option>
                         </select>
                     </div>
-                </div>        
-            </div>                
-            <div class="col border">
-                <fieldset class="form-group form-inline">
-                    <legend class="col c1 col-form-label pt-0">Realização</legend>
-                    <div class="input-group">
-                        <label for="inicio" class="col c0 col-form-label">Início:</label>
-                        <input type="date" name="inicio" class="col c1 form-control form-control-sm" id="inicio" required>
+                        <div class="col-md-6">
+                            <label for="equipe" class="form-label small">Equipe:</label>
+                            <select id="equipe" name="equipe" class="form-control form-control-sm"
+                                onChange="atualizaUsuarios(this.options[this.selectedIndex].value)">
+                                <option value="0"> Todos </option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="termino" class=" col c2 col-form-label">Término:</label>
-                        <input type="date" name="termino" class="col c3 form-control form-control-sm" id="termino" required>
-                    </div>
-                </fieldset>  
+                <?php
+            } else {
+            ?>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label for="responsavel" class="form-label small">Responsável:</label>
+                    <select id="responsavel" name="responsavel" class="form-control form-control-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
             </div>
-            <br/>
-            <div class="form-group row float-right">
-                <button type="reset" onclick="cancelar()" data-toggle="collapse" data-target="#form_tarefa" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
+            <?php } ?>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="inicio" class="form-label small">Início:</label>
+                    <input type="date" name="inicio" class="form-control form-control-sm" id="inicio" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="termino" class="form-label small">Término:</label>
+                    <input type="date" name="termino" class="form-control form-control-sm" id="termino" required>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group text-end">
+                <button type="reset" onclick="cancelar()" data-toggle="collapse" data-target="#form_tarefa"
+                    class="btn btn-danger btn-sm">
+                    <i class="fa fa-minus-square"></i> Cancelar
+                </button>
                 &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
             </div>
-        </form>                  
+        </form>
+
+
     </div>
 </div>
 <!-- /.container-fluid -->

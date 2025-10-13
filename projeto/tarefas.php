@@ -39,6 +39,7 @@ and open the template in the editor.
 
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -60,10 +61,11 @@ and open the template in the editor.
         src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" language="javascript"
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script type="text/javascript" class="init">
-
+        var quillEditor;
         <?php
-        if ($usuario_logado->perfil == 3) {
+        if ($usuario_logado->perfil == 1) {
             ?>
             var categorias = [{ id: "Pessoal", nome: "Pessoal" }];
             <?php
@@ -73,14 +75,16 @@ and open the template in the editor.
             <?php
         }
         ?>
-        var tipos = [{ id: "Desenvolvimento", nome: "Desenvolvimento" }, { id: "Suporte", nome: "Suporte" }, { id: "SEI", nome: "SEI" }, { id: "Serviços", nome: "Serviços" }, { id: "Outro", nome: "Outro" }];
+        var tipos = [];
         var equipes = [];
         var responsaveis = [];
 
         <?php
         include_once('actions/ManterEquipe.php');
         include_once('actions/ManterUsuario.php');
+        include_once('actions/ManterTipoTarefa.php');
 
+        $manterTipoTarefa = new ManterTipoTarefa();
         $manterEquipe = new ManterEquipe();
         $manterUsuario = new ManterUsuario();
 
@@ -143,7 +147,12 @@ and open the template in the editor.
             $listaUsuario = $manterEquipe->getParticimantesPorId($usuario_logado->equipe);
         }
 
-
+        $listaTipoTarefa = $manterTipoTarefa->listar();
+        foreach ($listaTipoTarefa as $obj) {
+            ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>" };
+            tipos.push(item);
+            <?php
+        }
         foreach ($listaEquipe as $obj) {
             ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->equipe ?>" };
             equipes.push(item);
@@ -164,6 +173,9 @@ and open the template in the editor.
 
         }
         ?>
+
+
+
         function carregaEquipes(id_atual) {
             var html = '<option value="0"> Todos </option>';
             for (var i = 0; i < equipes.length; i++) {
@@ -180,13 +192,29 @@ and open the template in the editor.
             }
             $('#equipe').html(html);
         }
+        function carregaTipoTarefa(id_atual) {
+            var html = '<option value="0"> Selecione os tipos </option>';
+            for (var i = 0; i < tipos.length; i++) {
+                var option = tipos[i];
+                var selected = "";
+                if (id_atual > 0) {
+                    if (option.id == id_atual) {
+                        selected = "selected";
+                    } else {
+                        selected = "";
+                    }
+                }
+                html += '<option value="' + option.id + '" ' + selected + '>' + option.nome + '</option>';
+            }
+            $('#tipo').html(html);
+        }
 
         function atualizaUsuarios(equipe, responsavel) {
             $('#responsavel').load('get_responsavel.php?id_equipe=' + equipe + '&id_usuario=' + responsavel);
         }
 
         function carregaUsuarios(id_atual, equipe) {
-            var html = '<option value="">Selecione </option>';
+            var html = '<option value="">Selecione TESTE</option>';
             for (var i = 0; i < responsaveis.length; i++) {
                 var option = responsaveis[i];
                 if (option.equipe == equipe || equipe == 0) {
@@ -220,41 +248,42 @@ and open the template in the editor.
             }
             $('#categoria').html(html);
         }
-        function carregaTipos(id_atual) {
-            var html = '<option value="">Selecione </option>';
-            for (var i = 0; i < tipos.length; i++) {
-                var option = tipos[i];
-                var selected = "";
-                if (id_atual != "") {
-                    if (option.id == id_atual) {
-                        selected = "selected";
-                    } else {
-                        selected = "";
-                    }
-                }
-                html += '<option value="' + option.id + '" ' + selected + '>' + option.nome + '</option>';
-            }
-            $('#tipo').html(html);
-        }
+       
 
         $(document).ready(function () {
-    $('#tarefas').DataTable({
-        dom: '<"d-flex justify-content-between align-items-center flex-wrap mb-1"<"d-flex align-items-center gap-2"B><"d-flex align-items-center gap-3"l><"d-flex align-items-center gap-3"f>>t<"mt-2 d-flex justify-content-between"i p>',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: '<img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport">',
-                attr: {
-                    style: 'margin-right: 10px;' // Mantém o espaço à direita do botão
-                }
-            }
-        ],
-    });
-  carregaEquipes(0);
+            $('#tarefas').DataTable({
+                dom: '<"d-flex justify-content-between align-items-center flex-wrap mb-1"<"d-flex align-items-center gap-2"B><"d-flex align-items-center gap-3"l><"d-flex align-items-center gap-3"f>>t<"mt-2 d-flex justify-content-between"i p>',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: '<img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport">',
+                        attr: {
+                            style: 'margin-right: 10px;' // Mantém o espaço à direita do botão
+                        }
+                    }
+                ],
+            });
+            carregaEquipes(0);
             carregaCategorias("0");
             atualizaUsuarios(0, 0);
-            carregaTipos(0);
+            carregaTipoTarefa(0);
             $("#equipes").show();
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+            quillEditor = new Quill('#editor-descricao', quillOpcoes);
+            document.getElementById('form_tarefa').addEventListener('submit', function () {
+                const quilldescHTML = quillEditor.root.innerHTML;
+                document.querySelector('input[name="descricao"]').value = quilldescHTML;
+            });
         });
         function excluir(id, nome) {
             $('#delete').attr('href', 'del_tarefa.php?id=' + id);
@@ -265,14 +294,14 @@ and open the template in the editor.
             //alert('Tipo: '+tipo);
             $('#id').val(id);
             $('#nome').val(nome);
-            $('#descricao').val(descricao);
+            quillEditor.root.innerHTML = $('#' + id + '_descricao').val();
             $('#inicio').val(inicio);
             $('#termino').val(fim);
 
             carregaEquipes(equipe);
             atualizaUsuarios(equipe, responsavel);
             carregaCategorias(categoria);
-            carregaTipos(tipo);
+            carregaTipoTarefa(tipo);
             verificaCategoria(tipo);
             $('#form_tarefa').collapse("show");
             $('#btn_cadastrar').hide();
@@ -290,7 +319,7 @@ and open the template in the editor.
             carregaEquipes(equipe);
             atualizaUsuarios(equipe, responsavel);
             carregaCategorias(categoria);
-            carregaTipos(tipo);
+            carregaTipoTarefa(tipo);
             verificaCategoria(tipo);
 
             $('#form_tarefa').collapse("show");
