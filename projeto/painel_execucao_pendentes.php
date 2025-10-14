@@ -180,9 +180,10 @@ and open the template in the editor.
                     $manterNotaPagamento = new ManterNotaPagamento ();
                     $manterPrestador = new ManterPrestador();   
                     
-                    if ($usuario_logado->perfil >= 2) {
+                    if ($usuario_logado->perfil >= 1) {
                         
-                        $prestadores    = $manterPrestador->listar();
+                        $filtro = " WHERE p.id_tipo_prestador <> 12 ";
+                        $prestadores    = $manterPrestador->listar($filtro);
                         $editar = false;
                         if ($executor->editor == 1 || $usuario_logado->perfil <= 2) {
                             $editar = true;
