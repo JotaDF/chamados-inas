@@ -15,6 +15,7 @@ $id_prestador  = $_REQUEST['id_prestador'];
 $id_usuario = $_REQUEST['id_usuario'];
 $editor = isset($_REQUEST['editor']) ? $_REQUEST['editor'] : 0;
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 1;
+$adm = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0;
 
 
 if ($op == 1) {
@@ -27,7 +28,7 @@ if ($op == 1) {
     $n->tipo = 'prestador';
     //$db_notificacao->salvar($n);
 
-    header('Location: gerenciar_executor_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_executor_prestador.php?adm='.$adm.'&id='.$id_prestador);
 } else {
     $manterPrestador->del($id_prestador,$id_usuario);
 
@@ -38,5 +39,5 @@ if ($op == 1) {
     $n->tipo = 'prestador';
     //$db_notificacao->salvar($n);
 
-    header('Location: gerenciar_executor_prestador.php?id='.$id_prestador);
+    header('Location: gerenciar_executor_prestador.php?adm='.$adm.'&id='.$id_prestador);
 }

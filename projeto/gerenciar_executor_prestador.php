@@ -2,6 +2,12 @@
 //Executor
 $mod = [10,20];
 require_once('./verifica_login.php');
+
+$origem = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0; 
+$menu = "menu_execucao.php";
+if($origem == 1){
+    $menu = "menu_execucao_adm.php";
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -41,7 +47,7 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id_usuario, nome, id_prestador) {
-                $('#delete').attr('href', 'save_executor_prestador.php?op=2&id_usuario=' + id_usuario +"&id_prestador="+id_prestador);
+                $('#delete').attr('href', 'save_executor_prestador.php?adm=<?=$origem ?>&op=2&id_usuario=' + id_usuario +"&id_prestador="+id_prestador);
                 $('#nome_excluir').text(nome);
                 $('#confirm').modal({show: true});              
             }
@@ -58,11 +64,7 @@ and open the template in the editor.
         <!-- Page Wrapper -->
         <div id="wrapper">
             <?php 
-            $origem = isset($_REQUEST['op']) ? $_REQUEST['op'] : 0; 
-            $menu = "menu_execucao.php";
-            if($origem == 1){
-                $menu = "menu_execucao_adm.php";
-            }
+
             include './'.$menu;
             ?>
             <!-- Content Wrapper -->
@@ -131,6 +133,7 @@ and open the template in the editor.
                                     <form id="form_cadastro" action="save_executor_prestador.php" method="post">
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="op" name="op" value="1"/>
+                                        <input type="hidden" id="adm" name="adm" value="<?=$origem ?>"/>
                                         <div class="form-group row">
                                             <label for="sigla" class="col-sm-2 col-form-label">Executor:</label>
                                             <div class="col-sm-10">
