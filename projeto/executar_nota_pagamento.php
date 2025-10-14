@@ -11,7 +11,14 @@ $id_usuario = $_REQUEST['id_usuario'];
 $id = $_REQUEST['id'];
 $id_prestador = $_REQUEST['id_prestador'];
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
+
+$adm = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0;
+
 $url = 'gerenciar_pagamentos_prestador.php?id='.$id_prestador;
+if($adm == 1){
+    $url = 'gerenciar_pagamentos_prestador_adm.php?id='.$id_prestador;
+}
+
 if($painel > 0){
     $url = 'painel_minha_execucao_pendentes.php';
 }

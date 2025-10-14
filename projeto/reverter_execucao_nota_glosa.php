@@ -13,9 +13,7 @@ $id_prestador = $_REQUEST['id_prestador'];
 
 $painel = isset($_REQUEST['painel']) ? $_REQUEST['painel'] : 0;
 $url = 'gerenciar_glosas_prestador.php?id='.$id_prestador;
-if($painel > 0){
-    $url = 'painel_minha_execucao_pendentes.php';
-}
+
 
 if ($id > 0) {
     $db_carta_recurso->reverterExecucao($id);
