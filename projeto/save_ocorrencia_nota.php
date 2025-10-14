@@ -10,10 +10,11 @@ $manterOcorrenciaNota = new ManterOcorrenciaNota();
 
 $id_prestador  = $_REQUEST['id_prestador'];
 $id_usuario = $_REQUEST['id_usuario'];
-$descricao = $_REQUEST['descricao'];
+$descricao = addslashes($_REQUEST['descricao']);
 $id_nota = $_REQUEST['id_nota'];
 $id = $_REQUEST['id'];
 $tp = isset($_REQUEST['tp']) ? $_REQUEST['tp'] : 1;
+
 
 $o->id = $id;
 $o->autor = $id_usuario;
