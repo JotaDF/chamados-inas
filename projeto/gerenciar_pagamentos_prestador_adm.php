@@ -1,6 +1,6 @@
 <?php
 //Execucao
-$mod = 11;
+$mod = 20;
 require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
