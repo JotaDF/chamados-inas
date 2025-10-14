@@ -22,6 +22,7 @@ $id_fiscal_prestador = $_POST['id_fiscal_prestador'];
 $competencia = $_POST['competencia'];
 $informativo = $_POST['informativo'];
 $id = isset($_POST['id']) ? $_POST['id'] : 0;
+$adm = isset($_POST['adm']) ? $_POST['adm'] : 0;
 
 $p->id = $id;
 $p->fiscal_prestador = $id_fiscal_prestador;
@@ -39,5 +40,9 @@ $a->informacao = "id_prestador= " . $id_prestador . " id_fiscal_prestador= " . $
 $a->autor = $id_usuario;
 $db_auditoria->salvar($a);
 
-header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+$retorno = "gerenciar_pagamentos_prestador.php";
+if($adm == 1){
+    $retorno = "gerenciar_pagamentos_prestador_adm.php";
+}
+header('Location: '.$retorno.'?id='.$id_prestador);
 

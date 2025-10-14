@@ -54,12 +54,12 @@ and open the template in the editor.
             }
             
             function excluir(id_prestador,id, informativo, competencia, usuario) {
-                $('#delete').attr('href', 'remover_pagamento_prestador.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
+                $('#delete').attr('href', 'remover_pagamento_prestador.php?adm=1&id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(competencia + " - " + informativo);
                 $('#confirm').modal({show: true});
             }
             function excluirNota(id_prestador,id, numero, valor, exercicio,usuario) {
-                $('#delete').attr('href', 'remover_nota_pagamento.php?id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
+                $('#delete').attr('href', 'remover_nota_pagamento.php?adm=1&id_prestador='+id_prestador+'&id=' + id + '&id_usuario=' + usuario);
                 $('#nome_excluir').text(numero + " - " + valor + " - " + exercicio);
                 $('#confirm').modal({show: true});
             }
@@ -114,7 +114,7 @@ and open the template in the editor.
                 } else {
                     $("#txt_ocorrencias").html("Não existem ocorrências para essa nota!");
                 }
-                $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?id_prestador='+id_prestador+'&id='+id_nota+'&tp=1');
+                $('#link_ocorrencia').attr('href', 'gerenciar_ocorrencias_nota.php?adm=1&id_prestador='+id_prestador+'&id='+id_nota+'&tp=1');
                 $('#modal_ocorrencias').modal({show: true});
             }
             function verificaNotaExiste(id_prestador) {
@@ -276,6 +276,7 @@ and open the template in the editor.
                                         <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
                                         <input type="hidden" id="id_fiscal_prestador" name="id_fiscal_prestador" value="<?=$executor->id_fiscal_prestador ?>"/>
                                         <input type="hidden" id="id" name="id" value="0"/>
+                                        <input type="hidden" id="adm" name="adm" value="1"/>
                                         <div class="form-group row ml-1">
                                             <label for="competencia" class="col-sm-2 col-form-label">Competência:</label>
                                             <div class="col-sm-10">
