@@ -57,7 +57,14 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_execucao.php'; ?>
+            <?php 
+            $origem = isset($_REQUEST['op']) ? $_REQUEST['op'] : 0; 
+            $menu = "menu_execucao.php";
+            if($origem == 1){
+                $menu = "menu_execucao_adm.php";
+            }
+            include './'.$menu;
+            ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -71,9 +78,9 @@ and open the template in the editor.
                     $manterPrestador = new ManterPrestador();
                     $manterTipoPrestador = new ManterTipoPrestador();
                     $manterUsuario = new ManterUsuario();
-
+                    
                     if (isset($_REQUEST['id'])) {
-                        $id_prestador = $_REQUEST['id'];                        
+                        $id_prestador = $_REQUEST['id'];            
                         $prestador    = $manterPrestador->getPrestadorPorId($id_prestador);
                         $prestador->executores = $manterPrestador->getExecutoresPorId($id_prestador);
                         $listaNaoExecutores = $manterPrestador->getNaoExecutoresPorId($id_prestador);

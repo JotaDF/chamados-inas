@@ -19,7 +19,7 @@
 
             $btns_gestao = ' - ';
             if($usuario_logado->perfil <= 2){
-                $btns_gestao = '&nbsp;&nbsp;<a href="gerenciar_executor_prestador.php?id='.$obj->id.'" title="Gerenciar executores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-users"></i></a>&nbsp;&nbsp;<a href="gerenciar_pagamentos_prestador_adm.php?id='.$obj->id.'" title="Gerenciar pagamentos prestador" class="btn btn-success btn-sm" type="button">Pag. <i class="fa fa-plus-square"></i></a>';
+                $btns_gestao = '&nbsp;&nbsp;<a href="gerenciar_executor_prestador.php?op=1&id='.$obj->id.'" title="Gerenciar executores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-users"></i></a>&nbsp;&nbsp;<a href="gerenciar_pagamentos_prestador_adm.php?id='.$obj->id.'" title="Gerenciar pagamentos prestador" class="btn btn-success btn-sm" type="button">Pag. <i class="fa fa-plus-square"></i></a>';
             }
             echo "  <td align='center'> " . $btns_gestao . " </td>";
             echo "</tr>";
