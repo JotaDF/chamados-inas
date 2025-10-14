@@ -58,7 +58,7 @@
         <?php
     }
 
-
+/*
 if ($usuario_logado->perfil == 4 || $usuario_logado->perfil == 12 || $usuario_logado->perfil <= 2) {
        ?>
            <!-- Nav Item - Pages Collapse Menu -->
@@ -86,6 +86,7 @@ if ($usuario_logado->perfil == 4 || $usuario_logado->perfil == 12 || $usuario_lo
 
        <?php
    }
+   */
     ?>
 <!-- Divider -->
 <hr class="sidebar-divider">
