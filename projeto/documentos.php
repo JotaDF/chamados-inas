@@ -148,7 +148,19 @@ and open the template in the editor.
                             </div>
                             </a>
                         </div> 
-
+                        <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
+                            <a class="text-decoration-none" target="_blank" href="documentos/portaria_de_substituicoes_13-10-2025.pdf">
+                            <div class="card border-left-primary h-100 shadow">
+                                <div class="card-body p-3">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="font-weight-bold text-primary text-uppercase mb-1 mb-0 w-100">
+                                            <img src="img/pdf.svg" width="30">Portaria de Substituições do INAS
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div> 
                     </div>
                 <!-- End of Main Content -->                
             </div>
