@@ -26,7 +26,11 @@ if (!isset($_SESSION["usuario"])) {
     $acessos = $db_usuario->getAcessosUsuario($usuario_logado->id);
     $usuario_logado->perfil = 100;
     foreach ($acessos as $acesso) {
-        if ($acesso->id_modulo == $mod) {
+        if(is_array($mod)){
+            if (in_array($acesso->id_modulo, $mod)) {
+                $usuario_logado->perfil = $acesso->id_perfil;
+            }
+        } else if ($acesso->id_modulo == $mod) {
             $usuario_logado->perfil = $acesso->id_perfil;
 	    //echo "Perfil: " . $usuario_logado->perfil;
             break;
