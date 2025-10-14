@@ -26,6 +26,8 @@ $np->exercicio          = $_POST['exercicio'];
 $np->data_emissao       = isset($_POST['data_emissao']) ? strtotime($_POST['data_emissao']) : '';
 $np->data_validacao     = isset($_POST['data_validacao']) ? strtotime($_POST['data_validacao']) : '';
 
+$adm = isset($_POST['adm']) ? $_POST['adm'] : 0;
+
 $db_nota_pagamento->salvar($np);
 
 //Auditando processo
@@ -38,5 +40,10 @@ $a->informacao = "id_prestador= " . $id_prestador . " id_pagamento= " . $np->pag
 $a->autor = $id_usuario;
 $db_auditoria->salvar($a);
 
-header('Location: gerenciar_pagamentos_prestador.php?id='.$id_prestador);
+$retorno = "gerenciar_pagamentos_prestador.php";
+if($adm == 1){
+    $retorno = "gerenciar_pagamentos_prestador_adm.php";
+}
+header('Location: '.$retorno.'?id='.$id_prestador);
+
 

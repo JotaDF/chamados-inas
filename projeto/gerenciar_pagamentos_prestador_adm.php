@@ -2,6 +2,7 @@
 //Execucao
 $mod = 20;
 require_once('./verifica_login.php');
+$adm=1;
 ?> 
 <!DOCTYPE html>
 <!--

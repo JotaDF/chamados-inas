@@ -13,6 +13,7 @@
             <input type="hidden" id="id_prestador" name="id_prestador" value="<?=$prestador->id ?>"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <input type="hidden" id="id_nota" name="id_nota" value=""/>
+            <input type="hidden" id="adm" name="adm" value="<?=$adm ?>"/>
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="txt_id_pagamento">ID Pagamento:</label>
