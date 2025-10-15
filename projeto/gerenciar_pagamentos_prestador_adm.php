@@ -416,7 +416,7 @@ and open the template in the editor.
                                                                     } else {
                                                                         $txt_btns = " - ";
                                                                     }
-                                                                    $txt_doc_sei = "</br>(" . $n->doc_sei . ")";
+                                                                    $txt_doc_sei = "</br><small>(" . $n->doc_sei . ") (".date('d/m/Y', $n->data_pagamento).")</small>";
                                                                     break;
                                                             }
                                                             $txt_btns .= " " . $btn_nt_alterar;
