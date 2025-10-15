@@ -1,9 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
->>>>>>> cfb1b7bd8a23fe1f9a51ef0f2277db23f8f57fbd
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
