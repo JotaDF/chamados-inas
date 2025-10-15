@@ -66,14 +66,13 @@ and open the template in the editor.
                     document.querySelector('input[name="ementa"]').value = descHTML;
                 });
 
-                function alterar(id, titulo, inscreve, data, hora) {
+                function alterar(id, processo_sei, doc_sei, nota_juridica) {
                     $('#id').val(id);
-                    $('#titulo').val(titulo);
+                    $('#processo_sei').val(processo_sei);
                     quillDescricao.root.innerHTML = $('#'+id+'_ementa').val();
 
-                    $('#data').val(data);
-                    $('#hora').val(hora);
-                    $('#inscreve').prop('checked', inscreve == 1);
+                    $('#doc_sei').val(doc_sei);
+                    $('#nota_juridica').val(nota_juridica);
 
                     $('#form_ementario').collapse("show");
                     $('#btn_cadastrar').hide();
@@ -81,11 +80,10 @@ and open the template in the editor.
 
                 function novo() {
                     $('#id').val("");
-                    $('#titulo').val("");
+                    $('#processo_sei').val("");
                     quillDescricao.root.innerHTML = "";
-                    $('#data').val("");
-                    $('#hora').val("");
-                    $('#inscreve').prop('checked', false);
+                    $('#doc_sei').val("");
+                    $('#nota_juridica').val("");
 
                     $('#form_ementario').collapse("show");
                     $('#btn_cadastrar').hide();
