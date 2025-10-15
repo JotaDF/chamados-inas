@@ -127,7 +127,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                         <?php include './form_ementario.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:900px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-rss fa-2x text-white"></i> 
@@ -145,12 +145,12 @@ and open the template in the editor.
                                 <table id="ementarios" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Precesso SEI</th>
-                                            <th scope="col">DOC SEI</th>
-                                            <th scope="col">Nota Jurídica</th>
-                                            <th scope="col">Ementa</th>
-                                            <th scope="col">Atualizado</th>
+                                            <th scope="col" style="width:5%;">ID</th>
+                                            <th scope="col" style="width:10%;">Precesso SEI</th>
+                                            <th scope="col" style="width:5%;">DOC SEI</th>
+                                            <th scope="col" style="width:15%;">Nota Jurídica</th>
+                                            <th scope="col" style="width:30%;">Ementa</th>
+                                            <th scope="col" style="width:5%;">Atualizado</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>
