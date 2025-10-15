@@ -33,12 +33,14 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script type="text/javascript" class="init">
             var categorias = [];
             var usuarios = [];
@@ -61,6 +63,24 @@ and open the template in the editor.
             $(document).ready(function () {
                 $('#chamados').DataTable();
                 carregaCategorias(0);
+                const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+
+            // Instanciar o Quill para o editor de TAP
+            quillEditor = new Quill('#editor', quillOpcoes);
+            document.getElementById('form_chamado').addEventListener('submit', function () {
+                const quillEditorHTML = quillEditor.root.innerHTML;
+                document.querySelector('input[name="descricao"]').value = quillEditorHTML;
+            });
             });
             function cancelar(id,usuario,descricao,usuario_logado) {
                 $('#acao').attr('href', 'cancelar_chamado.php?id=' + id + "&id_usuario="+usuario_logado);
