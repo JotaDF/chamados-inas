@@ -1,6 +1,4 @@
 <?php
-//ini_set('display_errors', 1);
-//error_reporting(E_ALL);
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
