@@ -30,8 +30,9 @@
             </div> 
             <div class="form-group row">
                 <label for="descricao" class="col-sm-2 col-form-label">Descrição da solicitação:</label>
-                <div class="col-sm-10">
-                    <textarea size="5" name="descricao" class="form-control form-control-sm" id="descricao" style="height: 105px;" required></textarea>
+                <div class="col-sm-10 mb-5">
+                    <div id="editor"></div>
+                    <input type="hidden" name="descricao" id="descricao">
                 </div>
             </div>
 

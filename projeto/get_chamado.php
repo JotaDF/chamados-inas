@@ -58,13 +58,13 @@ foreach ($lista as $obj) {
     $link_cancelar = "";
     $link_reabrir = "";
     if ($usuario_logado->perfil == 1 || $usuario_logado->perfil == 2 || $usuario_logado->perfil == 9) {
-        $link_atender = "<button class='btn btn-primary btn-sm' type='button' onclick='atender(".$obj->id.",\"". $txt_usuario ."\",\"".$obj->descricao."\",".$obj->categoria.")' title='Atender chamado'><i class='fa fa-clock'></i></button>&nbsp;&nbsp;";
-        $link_cancelar = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelar(".$obj->id.",\"". $txt_usuario ."\",\"".$obj->descricao."\",".$usuario_logado->id.")'  title='Cancelar chamado'><i class='fa fa-ban'></i></button>";
-        $link_reabrir = "<button class='btn btn-warning btn-sm' type='button' onclick='reabrir(".$obj->id.",\"". $txt_usuario ."\",\"".$obj->descricao."\",".$obj->categoria.",".$usuario_logado->id.")' title='Reabrir chamado'><i class='fa fa-history'></i></button>";
+        $link_atender = "<button class='btn btn-primary btn-sm' type='button' onclick='atender(".$obj->id.",\"". $txt_usuario ."\",\"".htmlspecialchars($obj->descricao, ENT_QUOTES )."\",".$obj->categoria.")' title='Atender chamado'><i class='fa fa-clock'></i></button>&nbsp;&nbsp;";
+        $link_cancelar = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelar(".$obj->id.",\"". $txt_usuario ."\",\"".htmlspecialchars($obj->descricao, ENT_QUOTES )."\",".$usuario_logado->id.")'  title='Cancelar chamado'><i class='fa fa-ban'></i></button>";
+        $link_reabrir = "<button class='btn btn-warning btn-sm' type='button' onclick='reabrir(".$obj->id.",\"". $txt_usuario ."\",\"".htmlspecialchars($obj->descricao, ENT_QUOTES )."\",".$obj->categoria.",".$usuario_logado->id.")' title='Reabrir chamado'><i class='fa fa-history'></i></button>";
     }
     if($usuario_logado->id == $obj->usuario){
-        $link_cancelar = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelar(".$obj->id.",\"". $txt_usuario ."\",\"".$obj->descricao."\",".$usuario_logado->id.")'  title='Cancelar chamado'><i class='fa fa-ban'></i></button>";
-        $link_reabrir = "<button class='btn btn-warning btn-sm' type='button' onclick='reabrir(".$obj->id.",\"". $txt_usuario ."\",\"".$obj->descricao."\",".$obj->categoria.",".$usuario_logado->id.")' title='Reabrir chamado'><i class='fa fa-history'></i></button>";
+        $link_cancelar = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelar(".$obj->id.",\"". $txt_usuario ."\",\"".htmlspecialchars($obj->descricao, ENT_QUOTES )."\",".$usuario_logado->id.")'  title='Cancelar chamado'><i class='fa fa-ban'></i></button>";
+        $link_reabrir = "<button class='btn btn-warning btn-sm' type='button' onclick='reabrir(".$obj->id.",\"". $txt_usuario ."\",\"".htmlspecialchars($obj->descricao, ENT_QUOTES )."\",".$obj->categoria.",".$usuario_logado->id.")' title='Reabrir chamado'><i class='fa fa-history'></i></button>";
     }
 
     if($obj->status == 0){
