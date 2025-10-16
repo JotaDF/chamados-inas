@@ -30,11 +30,10 @@
             <div class="form-group row">
                 <div class="mb-3 w-100">
                     <label for="ementa" class="form-label">Ementa</label>
-                    <div style="width: 100%; height: 75px;" id="editor-ementa"></div>
+                    <div style="width: 100%; height: 130px;" id="editor-ementa"></div>
                     <input type="hidden" name="ementa" id="ementa">
                 </div>
             </div>
-            <br/>
             <div class="form-group row float-right">
                 <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_ementario" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
