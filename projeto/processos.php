@@ -31,7 +31,6 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -40,7 +39,6 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script type="text/javascript" class="init">
                      var assuntos = [];
                      var sub_assuntos = [];
@@ -49,7 +47,6 @@ and open the template in the editor.
                      var situacoes = [];
                      var instancias = [];
                      var classes_judiciais = [];
-                     var quillEditor;
 <?php
 include_once('./actions/ManterAssunto.php');
 include_once('./actions/ManterSubAssunto.php');
@@ -95,7 +92,7 @@ foreach ($listaM as $obj) {
     ?>item = {id: "<?= $obj->id ?>", motivo: "<?= $obj->motivo ?>"};
                 motivos.push(item);
     <?php
- }
+}
 foreach ($listaL as $obj) {
     ?>item = {id: "<?= $obj->id ?>", tipo: "<?= $obj->tipo ?>"};
                 tipos_liminar.push(item);
@@ -131,25 +128,6 @@ foreach ($listaCJ as $obj) {
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
                 habilitaCNPJ();
-
-                const quillOpcoes = {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        ['link'],
-                        [{ 'align': [] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                    ],
-                },
-                theme: 'snow',
-            };
-
-            // Instanciar o Quill para o editor de TAP
-            quillEditor = new Quill('#editor', quillOpcoes);
-            document.getElementById('form_processo').addEventListener('submit', function () {
-                const quillEditorHTML = quillEditor.root.innerHTML;
-                document.querySelector('input[name="observacoes"]').value = quillEditorHTML;
-            });
             });
             var sei_t = "";
             var sei = "";
@@ -237,7 +215,6 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
                 carregaClassesJudiciais(0);
-                quillEditor.root.innerHTML = "";
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);  
                 habilitaCNPJ();
@@ -258,8 +235,7 @@ foreach ($listaCJ as $obj) {
                 $('#beneficiario').val(beneficiario);
                 $('#guia').val(guia);
                 $('#valor_causa').val(valor_causa);
-                let conteudo = document.getElementById(id + '_observacoes').value;
-                quillEditor.root.innerHTML = conteudo;
+                $('#observacoes').val(observacao);
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
@@ -464,6 +440,7 @@ foreach ($listaCJ as $obj) {
                     //$('#cpf').val("");
                     $('#cpf').attr("maxlength", 14);
                     $('#cpf').attr("onkeypress", "$(this).mask('000.000.000-00');");
+                    $('form_processo').attr("onsubmit","return validarCPF()");
                     //$('#cpf').on('input', function() {
                     //    $(this).mask('000.000.000-00');
                     //});
@@ -473,6 +450,7 @@ foreach ($listaCJ as $obj) {
                     $("p").removeAttr("style");
                     $('#cpf').attr("maxlength", 18);
                     $('#cpf').attr("onkeypress", "$(this).mask('00.000.000/0000-00');");
+                    $('form_processo').removeAttr("onsubmit");
                     //$('#cpf').on('input', function() {
                     //    $(this).mask('00.000.000/0000-00');
                     //});
