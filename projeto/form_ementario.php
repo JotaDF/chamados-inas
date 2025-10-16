@@ -27,7 +27,7 @@
             </div>
             <div class="form-row">
                 <div class="mb-3 w-100">
-                    <label for="ementa" class="form-label">Ementa</label>
+                    <label for="ementa" class="form-label">Ementa <span class="text-danger font-weight-bold">*</span></label>
                     <div style="width: 100%; height: 130px;" id="editor-ementa"></div>
                     <input type="hidden" name="ementa" id="ementa">
                 </div>
