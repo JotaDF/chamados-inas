@@ -93,6 +93,13 @@
                     <span>Gerenciar Processos</span>
                 </a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="ementario.php">
+                    <i class="fa fa-newspaper"></i>
+                    <span>Ementário</span>
+                </a>
+            </li>
             <?php
         }
         ?>
