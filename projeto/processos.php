@@ -31,6 +31,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -39,6 +40,7 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script type="text/javascript" class="init">
                      var assuntos = [];
                      var sub_assuntos = [];
@@ -128,6 +130,24 @@ foreach ($listaCJ as $obj) {
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
                 habilitaCNPJ();
+                const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+
+            // Instanciar o Quill para o editor de TAP
+            quillEditor = new Quill('#editor', quillOpcoes);
+            document.getElementById('form_processo').addEventListener('submit', function () {
+                const quillEditorHTML = quillEditor.root.innerHTML;
+                document.querySelector('input[name="observacoes"]').value = quillEditorHTML;
+            });
             });
             var sei_t = "";
             var sei = "";
@@ -234,8 +254,8 @@ foreach ($listaCJ as $obj) {
                 $('#cpf').val(cpf);
                 $('#beneficiario').val(beneficiario);
                 $('#guia').val(guia);
-                $('#valor_causa').val(valor_causa);
-                $('#observacoes').val(observacao);
+                $('#valor_causa').val(valor_causa);let conteudo = document.getElementById(id + '_observacoes').value;
+                quillEditor.root.innerHTML = conteudo;
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
