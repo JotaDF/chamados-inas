@@ -12,7 +12,7 @@
             <input type="hidden" id="id" name="id"/>
             <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-row">
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-3">
                 <label for="processo_sei">Processo SEI <span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" class="form-control form-control-sm" name="processo_sei" id="processo_sei" required>
                 </div>
@@ -20,12 +20,12 @@
                 <label for="doc_sei">DOC SEI <span class="text-danger font-weight-bold">*</span></label>
                 <input type="text" name="doc_sei" class="form-control form-control-sm" id="doc_sei" required>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                 <label for="nota_juridica">Nota Jurídica <span class="text-danger font-weight-bold">*</span></label>
                    <input type="text" name="nota_juridica" class="form-control form-control-sm" id="nota_juridica" required>
                 </div>                
             </div>
-            <div class="form-group row">
+            <div class="form-row">
                 <div class="mb-3 w-100">
                     <label for="ementa" class="form-label">Ementa</label>
                     <div style="width: 100%; height: 130px;" id="editor-ementa"></div>
