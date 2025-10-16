@@ -69,7 +69,7 @@ and open the template in the editor.
                     $manterUsuario = new ManterUsuario();
                     $manterOcorrenciaNota = new ManterOcorrenciaNota();
 
-                    $adm = isset($_POST['adm']) ? $_POST['adm'] : 0;
+                    $adm = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0;
 
                     if (isset($_REQUEST['id'])) {
                         $id_prestador = $_REQUEST['id_prestador'];   
