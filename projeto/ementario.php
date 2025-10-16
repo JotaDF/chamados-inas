@@ -47,16 +47,10 @@ and open the template in the editor.
                     paging: true,
                     columnDefs: [
                         {
-                        targets: 2, // índice da coluna (0 = primeira)
-                        createdCell: function (td, cellData, rowData, row, col) {
-                            $(td).css({
-                            'white-space': 'normal',
-                            'word-break': 'break-word',
-                            'overflow-wrap': 'break-word'
-                            });
+                        targets: 0, // índice da coluna onde você quer quebrar a linha
+                        className: 'text-wrap'
                         }
-                        }
-                    ]
+                    ]  
                 });
 
                 const quillOpcoes = {
