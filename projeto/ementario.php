@@ -44,7 +44,19 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
                 $('#ementarios').DataTable({
-                    paging: true
+                    paging: true,
+                    columnDefs: [
+                        {
+                        targets: 2, // índice da coluna (0 = primeira)
+                        createdCell: function (td, cellData, rowData, row, col) {
+                            $(td).css({
+                            'white-space': 'normal',
+                            'word-break': 'break-word',
+                            'overflow-wrap': 'break-word'
+                            });
+                        }
+                        }
+                    ]
                 });
 
                 const quillOpcoes = {
@@ -149,9 +161,9 @@ and open the template in the editor.
                                             <th scope="col" style="width:10%;">Precesso SEI</th>
                                             <th scope="col" style="width:5%;">DOC SEI</th>
                                             <th scope="col" style="width:15%;">Nota Jurídica</th>
-                                            <th scope="col" style="width:30%;">Ementa</th>
+                                            <th scope="col" style="width:45%;">Ementa</th>
                                             <th scope="col" style="width:5%;">Atualizado</th>
-                                            <th scope="col" style="width:30px;">Opções</th>
+                                            <th scope="col" style="width:5%;">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
