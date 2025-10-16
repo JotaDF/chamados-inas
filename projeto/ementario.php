@@ -44,11 +44,14 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
                 $('#ementarios').DataTable({
-                    paging: true,
                     columnDefs: [
                         {
-                        targets: 0, // índice da coluna onde você quer quebrar a linha
-                        className: 'text-wrap'
+                        targets: 0,
+                        createdCell: function (td) {
+                            td.style.whiteSpace = 'normal';
+                            td.style.wordBreak = 'break-word';
+                            td.style.overflowWrap = 'break-word';
+                        }
                         }
                     ]  
                 });
