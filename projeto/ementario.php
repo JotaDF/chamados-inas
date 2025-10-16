@@ -44,16 +44,7 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
                 $('#ementarios').DataTable({
-                    columnDefs: [
-                        {
-                        targets: 0,
-                        createdCell: function (td) {
-                            td.style.whiteSpace = 'normal';
-                            td.style.wordBreak = 'break-word';
-                            td.style.overflowWrap = 'break-word';
-                        }
-                        }
-                    ]  
+                    paging: true
                 });
 
                 const quillOpcoes = {
