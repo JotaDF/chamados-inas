@@ -42,18 +42,18 @@
                 ?>
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label for="responsavel" class="v">Responsável:</label>
+                        <label for="equipe" class="form-label small">Equipe:</label>
+                        <select id="equipe" name="equipe" class="form-control form-control-sm"
+                            onChange="atualizaUsuarios(this.options[this.selectedIndex].value)">
+                            <option value="0"> Todos </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="responsavel" class="form-label small">Responsável:</label>
                         <select id="responsavel" name="responsavel" class="form-control form-control-sm">
                             <option value="">Selecione</option>
                         </select>
                     </div>
-                        <div class="col-md-6">
-                            <label for="equipe" class="form-label small">Equipe:</label>
-                            <select id="equipe" name="equipe" class="form-control form-control-sm"
-                                onChange="atualizaUsuarios(this.options[this.selectedIndex].value)">
-                                <option value="0"> Todos </option>
-                            </select>
-                        </div>
                     </div>
                 <?php
             } else {
