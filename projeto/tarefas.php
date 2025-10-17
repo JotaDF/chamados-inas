@@ -65,7 +65,7 @@ and open the template in the editor.
     <script type="text/javascript" class="init">
         var quillEditor;
         <?php
-        if ($usuario_logado->perfil == 1) {
+        if ($usuario_logado->perfil > 1) {
             ?>
             var categorias = [{ id: "Pessoal", nome: "Pessoal" }];
             <?php
