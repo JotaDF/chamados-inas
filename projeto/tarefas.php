@@ -136,7 +136,7 @@ and open the template in the editor.
 
 
         $listaEquipe = $manterEquipe->listar();
-        if ($usuario_logado->perfil >= 2) {
+        if ($usuario_logado->perfil >= 1) {
             $filtroE = ' WHERE criador=' . $usuario_logado->id;
             $listaEquipe = $manterEquipe->listar($filtroE);
         }
