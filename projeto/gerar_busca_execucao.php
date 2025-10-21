@@ -1,6 +1,11 @@
 <?php
 $mod = 10;
 require_once('./verifica_login.php');
+$origem = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0; 
+$menu = "menu_execucao.php";
+if($origem == 1){
+    $menu = "menu_execucao_adm.php";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -47,7 +52,7 @@ require_once('./verifica_login.php');
 
 <body id="page-top">
     <div id="wrapper">
-        <?php include './menu_execucao.php' ?>
+        <?php include './' . $menu ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <?php include './top_bar.php'; ?>
 
