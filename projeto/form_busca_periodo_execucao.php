@@ -6,7 +6,7 @@
             <fieldset class="form-group">
                 <div class="row row-cols-lg-auto g-3 align-items-center">
                     <div class="col-md-4">
-                        <label for="termino" class="col-form-label"><strong>Tipo</strong></label>
+                        <label for="termino" class="col-form-label">Tipo</label>
                         <select class="form-control form-control-sm w-100" id="filtro" name="filtro">
                             <option value="data_executado">Data de Execução</option>
                             <option value="data_atesto">Data de Atesto</option>
@@ -15,12 +15,12 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="inicio" class="form-label"><strong>Data início</strong></label>
+                        <label for="inicio" class="form-label">Data início</strong></label>
                         <input type="date" class="form-control form-control-sm" id="inicio" name="inicio"
                             placeholder="Data de Emissão">
                     </div>
                     <div class="col-md-4">
-                        <label for="termino" class="form-label"><strong>Data término</strong></label>
+                        <label for="termino" class="form-label">Data término</label>
                         <input type="date" class="form-control form-control-sm" id="termino" name="termino"
                             placeholder="Data de término">
                     </div>
