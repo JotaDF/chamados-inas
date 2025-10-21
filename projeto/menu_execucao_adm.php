@@ -63,21 +63,21 @@ if ($usuario_logado->perfil == 4 || $usuario_logado->perfil == 12 || $usuario_lo
        ?>
            <!-- Nav Item - Pages Collapse Menu -->
            <li class="nav-item">
-                <a class="nav-link collapsed" href="gerar_busca_execucao.php">
+                <a class="nav-link collapsed" href="gerar_busca_execucao.php?adm=1">
                     <i class="fa fa-search"></i>
                     <span>Buscar</span>
                 </a>
            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="gerar_busca_periodo_execucao.php">
+                <a class="nav-link collapsed" href="gerar_busca_periodo_execucao.php?adm=1">
                     <i class="fa fa-search"></i>
                     <span>Buscar Por Período</span>
                 </a>
            </li>
            <!-- Nav Item - Pages Collapse Menu -->
            <li class="nav-item">
-               <a class="nav-link collapsed" href="gerar_relatorio_execucao.php">
+               <a class="nav-link collapsed" href="gerar_relatorio_execucao.php?adm=1">
                    <i class="fa fa-laptop"></i>
                    <span>Gerar Relatório</span>
                </a>
