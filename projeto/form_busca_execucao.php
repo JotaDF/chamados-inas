@@ -20,7 +20,7 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                         <input type="text" class="form-control form-control-sm" id="nota_fiscal" name="nota_fiscal" placeholder="Número da NF">
                     </div>
                     <div class="col-md-4">
-                        <label for="informativo" class="form-label"><strong>Informativo</strong></label>
+                        <label for="informativo" class="form-label">Informativo</strong></label>
                         <input type="text" class="form-control form-control-sm" id="informativo" name="informativo"
                             placeholder="Informativo">
                     </div>
@@ -34,6 +34,12 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                         <input type="date" class="form-control form-control-sm" id="data_emissao" name="data_emissao"
                             placeholder="Data de Emissão">
                     </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-10">                    
+                        <input type="checkbox" id="adm" name="adm" value="1" /> 
+                        <label for="adm">Exibir contratos Administrativos </label> 
+                    </div>
+                </div>
                 </div>
             </fieldset>
         </div>

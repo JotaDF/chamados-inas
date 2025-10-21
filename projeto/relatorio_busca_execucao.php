@@ -127,6 +127,12 @@ and open the template in the editor.
         'np.numero ' => $nota_fiscal
     ];
 
+    $adm = isset($_POST['adm']) ? $_POST['adm'] : 0;
+    $filtro_adm = " AND pr.id_tipo_prestador <> 12 ";
+    if ($adm == 1) {
+        $filtro_adm = " AND pr.id_tipo_prestador = 12 ";
+    }
+
     $where_carta = '';
     foreach ($filtros_carta as $campo => $valor) {
         if (!empty($valor)) {
@@ -139,6 +145,8 @@ and open the template in the editor.
             $where_nota .= " AND $campo = '" . $valor . "'";
         }
     }
+    $where_carta .= $filtro_adm;
+    $where_nota .= $filtro_adm;
     $soma_total = 0;
     $carta = $mCartaRecurso->listarCartaPorFiltro($where_carta);
     $nota = $mNotaPagamento->listarNotaPorFiltro($where_nota);
