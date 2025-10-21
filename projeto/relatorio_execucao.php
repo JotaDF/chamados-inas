@@ -93,12 +93,17 @@ and open the template in the editor.
 
         $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : '';
         $exercicio = isset($_POST['exercicio']) ? $_POST['exercicio'] : " ";
+        $adm = isset($_POST['adm']) ? $_POST['adm'] : 0;
         $nota_glosa = array();
         $nota_pagamento = array();
+        $filtro_adm = " AND pr.id_tipo_prestador <> 12 ";
+        if ($adm == 1) {
+            $filtro_adm = " AND pr.id_tipo_prestador = 12 ";
+        }
         if ($filtro == 'nota_glosa') {
-            $nota_glosa = $mCartaRecurso->listarCartaPorExercicio($exercicio);
+            $nota_glosa = $mCartaRecurso->listarCartaPorExercicio($exercicio, $filtro_adm);
         } else if ($filtro == 'nota_pagamento') {
-            $nota_pagamento = $mNotaPagamento->listarNotaPorExercicio($exercicio);
+            $nota_pagamento = $mNotaPagamento->listarNotaPorExercicio($exercicio, $filtro_adm);
         } else if ($filtro == 'todos') {
             //chamar função
         }

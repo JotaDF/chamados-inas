@@ -27,6 +27,12 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                         </select>
                     </div>
                 </div>
+                <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="cpf">Exibir contratos Administrativos </label> 
+                    <input type="checkbox" id="adm" name="adm" value="1" />
+                </div>
+            </div>
             </fieldset>
         </div>
 

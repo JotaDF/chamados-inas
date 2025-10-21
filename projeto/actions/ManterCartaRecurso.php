@@ -46,14 +46,14 @@ Class ManterCartaRecurso extends Model {
         return $anos;
     }
 
-    function listarCartaPorExercicio($exercicio) {
-        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, p.cnpj, p.razao_social, p.id, p.cnpj, u.nome FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as p, usuario as u
+    function listarCartaPorExercicio($exercicio, $filtro = '') {
+        $sql = "SELECT cr.id, cr.carta_informativo, cr.status, cr.exercicio, cr.competencia, cr.data_emissao, cr.data_validacao, cr.data_executado, cr.data_atesto, cr.data_pagamento, cr.id_nota_glosa, cr.doc_sei, ng.id, ng.numero, ng.valor, ng.id_recurso_glosa, crg.id, crg.id_fiscal_prestador, pr.cnpj, pr.razao_social, pr.id, pr.cnpj, u.nome FROM carta_recurso as cr, nota_glosa as ng, carta_recursada_glosa as crg, fiscal_prestador as fp, prestador as pr, usuario as u
 WHERE cr.id_nota_glosa = ng.id
 AND ng.id_recurso_glosa = crg.id 
 AND crg.id_fiscal_prestador = fp.id
-AND fp.id_prestador = p.id
+AND fp.id_prestador = pr.id
 AND u.id = fp.id_usuario
-AND cr.exercicio = '".$exercicio."'";
+AND cr.exercicio = '".$exercicio."' " . $filtro;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {

@@ -36,14 +36,14 @@ class ManterNotaPagamento extends Model {
         }
         return $array_dados;
     }
-    function listarNotaPorExercicio($exercicio) {
+    function listarNotaPorExercicio($exercicio, $filtro = '') {
         $sql = "SELECT np.status, pr.cnpj, pr.razao_social,np.id, np.numero, np.valor, p.informativo, p.competencia, np.exercicio, np.status, np.data_emissao, np.data_validacao, np.data_executado, np.data_atesto, u.nome, np.data_pagamento, np.id_pagamento, np.doc_sei
         FROM nota_pagamento as np, pagamento as p, fiscal_prestador as fp, prestador as pr, usuario as u
         WHERE np.id_pagamento=p.id 
         AND p.id_fiscal_prestador = fp.id
         AND fp.id_prestador = pr.id
         AND u.id = fp.id_usuario
-        AND np.exercicio = '".$exercicio."'";;
+        AND np.exercicio = '".$exercicio."' " . $filtro;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
