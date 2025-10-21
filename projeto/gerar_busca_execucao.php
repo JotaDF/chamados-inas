@@ -1,5 +1,5 @@
 <?php
-$mod = 10;
+$mod = [10,20];
 require_once('./verifica_login.php');
 $origem = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0; 
 $menu = "menu_execucao.php";
