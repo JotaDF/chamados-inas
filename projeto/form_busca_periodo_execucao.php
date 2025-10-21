@@ -25,10 +25,11 @@
                             placeholder="Data de término">
                     </div>
                 </div>
+                <br/>
                 <div class="form-row">
                     <div class="form-group col-md-10">                    
                         <input type="checkbox" id="adm" name="adm" value="1" /> 
-                        <label for="adm">Exibir contratos Administrativos </label> 
+                        <label for="adm"><small>Exibir contratos Administrativos</small></label> 
                     </div>
                 </div>
             </fieldset>

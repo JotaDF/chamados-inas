@@ -34,10 +34,11 @@ $exercicio = $manterCartaRecurso->listarExercicio();
                         <input type="date" class="form-control form-control-sm" id="data_emissao" name="data_emissao"
                             placeholder="Data de Emissão">
                     </div>
-                    <div class="form-row">
+                    <br/>
+                    <div class="ml-1 w-100">
                     <div class="form-group col-md-10">                    
                         <input type="checkbox" id="adm" name="adm" value="1" /> 
-                        <label for="adm">Exibir contratos Administrativos </label> 
+                        <label for="adm"><small>Exibir contratos Administrativos</small></label> 
                     </div>
                 </div>
                 </div>
