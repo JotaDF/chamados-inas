@@ -18,9 +18,8 @@ $meses = array(
     '12' => 'Dezembro'
 );
 
-$id_usuario = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-if($id_usuario != 0){
-    $usuario    = $manterUsuario->getUsuarioPorId($id_usuario);
+
+if($usuario->id > 0){
     $ano = date('Y');
     $txt_matricula = "0" . strtoupper(str_replace("-", "", $usuario->matricula));
     $mes_atual = date('n');

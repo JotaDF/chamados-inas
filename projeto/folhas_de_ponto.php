@@ -2,7 +2,11 @@
 //Administraçao
 $mod = 9;
 require_once('./verifica_login.php');
+$id_usuario = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 
+if($id_usuario != 0){
+    $usuario    = $manterUsuario->getUsuarioPorId($id_usuario);
+}
 //echo $url_atual;
 ?> 
 <!DOCTYPE html>
@@ -68,7 +72,7 @@ and open the template in the editor.
                                         </div>
                                         <div class="col mb-0">
                                             <span style="align:left;" class="h5 m-0 font-weight text-white">Folhas de
-                                                ponto</span>
+                                                ponto - (<?=$usuario->nome ?>)</span>
                                         </div>
                                     </div>
 
@@ -84,7 +88,7 @@ and open the template in the editor.
                                                 </tr>
                                             </thead>
                                             <tbody id="fila">
-                                                <?php include './get_folhas_ponto.php'; ?>
+                                                <?php include './get_folhas_ponto_geral.php'; ?>
                                             </tbody>
                                         </table>
                                     </div>
