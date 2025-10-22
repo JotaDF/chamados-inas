@@ -69,7 +69,7 @@ and open the template in the editor.
                         <?php include './form_setor.php'; ?>
                         <!-- Project Card Example -->
                         <div class="row" style="justify-content: center;">
-                                <div class="ml-3 mr-3 card shadow mb-4" style="width:100%;">
+                                <div class="ml-3 mr-3 card shadow mb-4" style="width-max: 900px;">
                                     <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                         <div class="col-sm ml-0" style="max-width:50px;">
                                             <i class="fa fa-file-pdf fa-2x text-white"></i>
@@ -82,21 +82,22 @@ and open the template in the editor.
 
                                     <div class="card-body">
                                         <div class="row">
-                                        <div class="c1 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Matrícula:</div>
-                                            <div class="mb-0"><?=$usuario->matricula ?></div>
+                                            <div class="c1 ml-4">
+                                                <div class="text-xs font-weight-bold text-uppercase mb-1">Matrícula:</div>
+                                                <div class="mb-0"><?=$usuario->matricula ?></div>
+                                            </div>
+                                            <div class="c2 ml-4">
+                                                <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
+                                                <div class="mb-0"><?=$usuario->nome ?></div>
+                                            </div>                                         
+                                            <div class="c5 ml-4 float-right pr-3" style="min-width: 200px;">
+                                                <div class="text-xs font-weight-bold text-uppercase mb-1"></div>
+                                                <div class="mb-0 float-right">
+                                                    <button class="btn btn-success btn-sm" onclick="window.history.back()"><i class="fa fa-arrow-left text-white"></i> Voltar</button>
+                                                    </div>
+                                            </div>
                                         </div>
-                                        <div class="c2 ml-4">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
-                                            <div class="mb-0"><?=$usuario->nome ?></div>
-                                        </div>                                         
-                                        <div class="c5 ml-4 float-right pr-3" style="min-width: 200px;">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1"></div>
-                                            <div class="mb-0 float-right">
-                                                <button class="btn btn-success btn-sm" onclick="window.history.back()"><i class="fa fa-arrow-left text-white"></i> Voltar</button>
-                                                </div>
-                                        </div>
-                                    </div>
+                                        <br/><br/>
                                         <table id="folha_ponto"
                                             class="table-sm table-striped table-bordered dt-responsive nowrap"
                                             style="width:100%">
