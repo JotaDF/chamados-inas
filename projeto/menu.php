@@ -105,7 +105,7 @@ foreach ($acessos as $acesso) {
     }
 
     if(!$agenda){
-        if($usuario_logado->agenda){
+        if($usuario_logado->agenda == 1){
 ?>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">

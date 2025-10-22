@@ -100,7 +100,7 @@ and open the template in the editor.
                             }
                         }
                         //Agenda
-                        if($usuario_logado->agenda){
+                        if($usuario_logado->agenda == 1){
                         ?>
                             <div class="col-xl-3 col-md-2 mb-4" style="max-width: 280px; max-height: 100px;">
                                 <a class="text-decoration-none" href="agendas.php">
