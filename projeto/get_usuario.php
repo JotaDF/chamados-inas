@@ -23,7 +23,7 @@
             $btn_acessos = "";
             $btn_agenda = "";
 
-            $btn_ponto = '&nbsp;&nbsp;<a href="folhas_de_ponto.php?id='.$obj->id.'&agenda=1" title="Vizualizar folhar de ponto!" class="btn btn-info btn-sm" ><i class="fa fa-clock"></i></a>';
+            $btn_ponto = '&nbsp;&nbsp;<a href="folhas_de_ponto.php?id='.$obj->id.'" title="Vizualizar folhar de ponto!" class="btn btn-danger btn-sm" ><i class="fa fa-clock"></i></a>';
             if($usuario_logado->perfil == 1){
                 $btn_agenda = $btn_ponto . '&nbsp;&nbsp;<a href="save_usuario_agenda.php?id='.$obj->id.'&agenda=1" title="Habilitar agenda!" class="btn btn-info btn-sm" type="button"><i class="fa fa-calendar-plus"></i></a>';
                 if($obj->agenda > 0){

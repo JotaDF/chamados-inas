@@ -2,6 +2,10 @@
 //Administraçao
 $mod = 9;
 require_once('./verifica_login.php');
+
+include_once('actions/ManterUsuario.php'); 
+$manterUsuario = new ManterUsuario();
+
 $id_usuario = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 
 if($id_usuario != 0){

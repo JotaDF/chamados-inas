@@ -1,8 +1,5 @@
 <?php
 
-include_once('actions/ManterUsuario.php'); 
-$manterUsuario = new ManterUsuario();
-
 $meses = array(
     '01' => 'Janeiro',
     '02' => 'Fevereiro',
