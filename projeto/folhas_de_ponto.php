@@ -76,11 +76,27 @@ and open the template in the editor.
                                         </div>
                                         <div class="col mb-0">
                                             <span style="align:left;" class="h5 m-0 font-weight text-white">Folhas de
-                                                ponto - (<?=$usuario->nome ?>)</span>
+                                                ponto</span>
                                         </div>
                                     </div>
 
                                     <div class="card-body">
+                                        <div class="row">
+                                        <div class="c1 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Matrícula:</div>
+                                            <div class="mb-0"><?=$usuario->matricula ?></div>
+                                        </div>
+                                        <div class="c2 ml-4">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Nome:</div>
+                                            <div class="mb-0"><?=$usuario->nome ?></div>
+                                        </div>                                         
+                                        <div class="c5 ml-4 float-right pr-3" style="min-width: 200px;">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1"></div>
+                                            <div class="mb-0 float-right">
+                                                <button class="btn btn-success btn-sm" onclick="window.history.back()"><i class="fa fa-arrow-left text-white"></i> Voltar</button>
+                                                </div>
+                                        </div>
+                                    </div>
                                         <table id="folha_ponto"
                                             class="table-sm table-striped table-bordered dt-responsive nowrap"
                                             style="width:100%">
