@@ -61,7 +61,7 @@ class ManterEnquete extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
-        return $resultado;
+        return $dados;
     }
     function publicar($id) {
         $sql = "update enquete set status=1 where id=$id";
