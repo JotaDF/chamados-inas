@@ -10,7 +10,7 @@ $id        = isset($_POST['id']) ? $_POST['id'] : 0;
 $descricao = isset($_POST['descricao']) ? html_entity_decode($_POST['descricao']) : '';
 $p->id = $id;
 $p->descricao = $descricao;
-$db_enquete->salvar($p); 
+$p = $db_enquete->salvar($p); 
 
 $criar_pasta = false;
 
