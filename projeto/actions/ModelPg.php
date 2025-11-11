@@ -7,7 +7,7 @@ require('adodb/adodb.inc.php'); //biblioteca necessaria para trabalhar com adodb
 
 Class ModelPg{
 	protected $db;
-	function __construct() { 
+	function __construct($banco = "df_regulacao_consulta_api_live") { 
 		$tipo_banco    = "postgres";
 		/*local 
 		$servidor      = "db";
@@ -19,7 +19,7 @@ Class ModelPg{
 		$servidor      = "10.233.121.3";
 		$usuario       = "intranet ";
 		$senha         = "Inas$2020";
-		$db            = "df_regulacao_consulta_api_live";
+		$db            = $banco;
 		
         $this->db = $banco = NewADOConnection($tipo_banco);
 		$this->db->dialect = 3;
