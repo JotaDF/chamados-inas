@@ -21,7 +21,7 @@ class ManterMedicoPerito extends Model {
     }
 
     function salvar(MedicoPerito $dados) {
-        $sql = "INSERT INTO medico_perito (id, nome) values('" . $dados->id ."', '". $dados->nome ."')";
+        $sql = "INSERT INTO medico_perito (nome) values('". $dados->nome ."')";
         if($dados->id > 0) {
             $sql = "update medico_perito set nome='" . $dados->nome ."' WHERE id='". $dados->id . "'";
             $resultado = $this->db->Execute($sql);
