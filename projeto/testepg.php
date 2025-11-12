@@ -16,10 +16,12 @@ foreach ($lista as $obj) {
     echo $obj['autorizacao']."<br/>";
     echo $obj['data_solicitacao']."<br/>";
     echo $obj['id_beneficiario']."<br/>";
+    echo $obj['codigo']."<br/>";
+    echo $obj['descricao']."<br/>";
+    echo $obj['situacao']."<br/>";
     $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
     print_r($rs_beneficiario);
-    echo $obj['justificativa']."<br/>";
-    echo $obj['situacao']."<br/>";
+
     echo "<hr/>";
 }
 //print_r($rs1);
