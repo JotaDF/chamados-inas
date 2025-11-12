@@ -10,6 +10,7 @@ $manterFilaPericia = new ManterFilaPericia('df_regulacao_consulta_api_live');
 $rs1 = $manterFilaPericia->listar();
 print_r($rs1);
 echo "<hr><br/>";
+
 //$rs2 = $db2->db->Execute("SELECT * FROM segurado WHERE uuid = '85b4ad5d-e7fd-4d5d-9c57-40ec929bde81'");
 //print_r($rs2);
 //echo "<hr><br/>";

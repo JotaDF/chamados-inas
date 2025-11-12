@@ -1,12 +1,11 @@
 <?php
 
-date_default_timezone_set('America/Sao_Paulo');
 require_once('ModelPg.php');
 
 class ManterFilaPericia extends ModelPg {
 
-    function __construct() { //metodo construtor
-        parent::__construct();
+    function __construct($banco = 'df_regulacao_consulta_api_live') { //metodo construtor
+        parent::__construct($banco);
     }
 
     function listar() {
