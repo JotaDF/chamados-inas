@@ -129,11 +129,17 @@ class ManterProcesso extends Model
         if ($dados->data_cumprimento_liminar == "") {
             $dados->data_cumprimento_liminar = 0;
         }
+        if ($dados->sub_assunto == "") {
+            $dados->sub_assunto = 0;
+        }
+        if ($dados->motivo == "") {
+            $dados->motivo = 0;
+        }
         if ($dados->autor_inas == "") {
             $dados->autor_inas = 0;
         }
         if ($dados->pessoa_fisica == "") {
-            $dados->pessoa_fisica = 0;
+            $dados->pessoa_fisica = 1;
         }
 
         $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
@@ -145,7 +151,7 @@ class ManterProcesso extends Model
             $sql = "update processo set numero='" . $dados->numero . "', sei='" . $dados->sei . "', autuacao='" . $dados->autuacao . "',
             cpf='" . $dados->cpf . "', beneficiario='" . $dados->beneficiario . "', guia='" . $dados->guia . "', senha='" . $dados->senha . "', 
             valor_causa='" . $dados->valor_causa . "', observacao='" . $dados->observacao . "', id_assunto='" . $dados->assunto . "', id_sub_assunto='" . $dados->sub_assunto . "', id_motivo='" . $dados->motivo . "', id_classe_judicial=" . $dados->classe_judicial . ", id_situacao_processual='" . $dados->situacao_processual . "', 
-            id_liminar=" . $dados->liminar . ", data_cumprimento_liminar='" . $dados->data_cumprimento_liminar . "', id_usuario='" . $dados->usuario . "', atualizacao=now(), processo_principal='" . $dados->processo_principal . "', autor_inas=" . $dados->autor_inas . ", pessoa_fisica =" . $dados->pessoa_fisica . " where id=$dados->id";
+            id_liminar=" . $dados->liminar . ", data_cumprimento_liminar='" . $dados->data_cumprimento_liminar . "', id_instancia='" . $dados->instancia . "', id_usuario='" . $dados->usuario . "', atualizacao=now(), processo_principal='" . $dados->processo_principal . "', autor_inas=" . $dados->autor_inas . ", pessoa_fisica =" . $dados->pessoa_fisica . " where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);

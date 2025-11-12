@@ -1,6 +1,6 @@
 <?php
 //Administração
-$mod = 2;
+$mod = 21;
 require_once('./verifica_login.php');
 ?> 
 <!DOCTYPE html>
@@ -57,7 +57,7 @@ and open the template in the editor.
 
         <!-- Page Wrapper -->
         <div id="wrapper">
-            <?php include './menu_admin.php'; ?>
+            <?php include './menu_ascom.php'; ?>
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
@@ -87,7 +87,7 @@ and open the template in the editor.
                                             <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de opções de enquete</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fa fa-lock fa-3x text-white"></i>
+                                            <i class="fa fa-list-ul fa-3x text-white"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@ and open the template in the editor.
                                     </div>
                                     <br/>
                                     <?php
-                                        if($usuario_logado->perfil==1){
+                                        if($usuario_logado->perfil<=2){
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Nova opção</span>
@@ -163,7 +163,7 @@ and open the template in the editor.
                                                     echo "<tr>";
                                                     echo "  <td>".$obj->id."</td>";
                                                     echo "  <td>".$obj->opcao."</td>";
-                                                    if($usuario_logado->perfil == 1){
+                                                    if($usuario_logado->perfil <= 2){
                                                         echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->id_enquete.",\"".$obj->opcao."\")'><i class='far fa-trash-alt'></i></button></td>";
                                                     } else {
                                                         echo "  <td align='center'> - </td>";                

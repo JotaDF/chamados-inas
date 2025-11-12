@@ -10,6 +10,17 @@ $id        = isset($_POST['id']) ? $_POST['id'] : 0;
 $descricao = isset($_POST['descricao']) ? html_entity_decode($_POST['descricao']) : '';
 $p->id = $id;
 $p->descricao = $descricao;
-$db_enquete->salvar($p);
+$p = $db_enquete->salvar($p); 
+
+$criar_pasta = false;
+
+if($id == 0 || $id==""){
+    $criar_pasta = true;
+}
+
+if ($criar_pasta) {
+    $caminho = __DIR__.'/enquete/folder_'. $e->id .'/';
+    $db_enquete->addPasta($caminho);
+}
 header('Location: enquetes.php');
 

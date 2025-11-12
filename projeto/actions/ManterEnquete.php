@@ -10,7 +10,7 @@ class ManterEnquete extends Model {
     function __construct() { //metodo construtor
         parent::__construct();
     }
-
+ 
     function listar($filtro = "") {
         $sql = "select e.id,e.descricao, e.status, (select count(*) from enquete_resposta as n where n.id_enquete=e.id) as dep FROM enquete as e $filtro order by e.id";
         $resultado = $this->db->Execute($sql);
@@ -61,7 +61,7 @@ class ManterEnquete extends Model {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
-        return $resultado;
+        return $dados;
     }
     function publicar($id) {
         $sql = "update enquete set status=1 where id=$id";
@@ -137,6 +137,24 @@ class ManterEnquete extends Model {
             $total   = $registro["total"];
         }
         if($total > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public static function delPasta($dir) {
+        if(is_dir($dir)){
+            $files = array_diff(scandir($dir), array('.','..'));
+            foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
+            }
+            return rmdir($dir);
+        }
+        return false;
+    }
+    public static function addPasta($dir) {
+        if(!is_dir($dir)){
+            mkdir($dir, 0777, true);
             return true;
         }
         return false;
