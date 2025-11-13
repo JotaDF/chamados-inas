@@ -2,7 +2,7 @@
 
 require_once('ModelPg.php');
 
-class ManterFilaPericia extends ModelPg {
+class ManterFilaPericiaPg extends ModelPg {
 
     function __construct($banco = 'df_regulacao_consulta_api_live') { //metodo construtor
         parent::__construct($banco);

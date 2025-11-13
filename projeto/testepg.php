@@ -1,13 +1,13 @@
 <?php 
 
-include_once('actions/ManterFilaPericia.php');
-include_once('actions/ManterBeneficiario.php');
+include_once('actions/ManterFilaPericiaPg.php');
+include_once('actions/ManterBeneficiarioPg.php');
 // Conexão
 //$db1 = new ModelPg('df_regulacao_consulta_api_live');
 //$db2 = new ModelPg('df_contrato_api_live');
 //$db3 = new ModelPg('df_pessoa_api_live');
-$manterFilaPericia = new ManterFilaPericia('df_regulacao_consulta_api_live');
-$manterBeneficiario = new ManterBeneficiario('df_contrato_api_live');
+$manterFilaPericia = new ManterFilaPericiaPg('df_regulacao_consulta_api_live');
+$manterBeneficiario = new ManterBeneficiarioPg('df_contrato_api_live');
 // Consultas
 $lista = $manterFilaPericia->listar();
         
