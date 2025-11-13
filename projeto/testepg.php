@@ -15,29 +15,28 @@ $lista = $manterFilaPericia->listar();
 $id_beneficiario = '';
 foreach ($lista as $obj) {
     if ($id_beneficiario != $obj['id_beneficiario']) {
-        echo "<hr/>";
+        echo "<br/><hr/>";
         $id_beneficiario = $obj['id_beneficiario'];
         $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
         //print_r($rs_beneficiario);
         foreach ($rs_beneficiario as $obj2) {
-            echo "Carteirinha: ".$obj2['numero_cartao']."<br/>";
-            echo "CPF: ".$obj2['cpf_cnpj']."<br/>";
-            echo "Nome: ".$obj2['nome']."<br/>";
-            echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
+            echo "Carteirinha: ".$obj2['numero_cartao']." ";
+            echo "CPF: ".$obj2['cpf_cnpj']." ";
+            echo "Nome: ".$obj2['nome']." ";
+            echo "Data Nascimento: ".$obj2['data_nascimento']." ";
             $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
             //print_r($rs_contatos);
             foreach ($rs_contatos as $obj3) {
-                echo  $obj3['tipo'] . ": " .$obj3['valor']."<br/>";
+                echo  $obj3['tipo'] . ": " .$obj3['valor']."; ";
             }
             echo "<br/>";
-            echo "ID: ".$obj['id']."<br/>";
-            echo "Autorização: ".$obj['autorizacao']."<br/>";
+            echo "ID: ".$obj['id']." ";
+            echo "Autorização: ".$obj['autorizacao']." ";
             echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
         }
         
     }
-    echo "Código: ".$obj['codigo']."<br/>";
-    echo "Descrição: ".$obj['descricao']."<br/>";
+    echo $obj['codigo']." - " . $obj['descricao']."; ";
     //echo "Situação: ".$obj['situacao']."<br/>";
     //echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
 }
