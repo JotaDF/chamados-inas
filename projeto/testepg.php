@@ -12,7 +12,7 @@ $manterBeneficiario = new ManterBeneficiarioPg('df_contrato_api_live');
 $manterContatoBeneficiario = new ManterContatoBeneficiarioPg('df_pessoa_api_live');
 // Consultas
 $lista = $manterFilaPericia->listar();
-        
+$id_beneficiario = '';
 foreach ($lista as $obj) {
     echo "ID: ".$obj['id']."<br/>";
     echo "Autorização: ".$obj['autorizacao']."<br/>";
@@ -21,18 +21,23 @@ foreach ($lista as $obj) {
     echo "Descrição: ".$obj['descricao']."<br/>";
     echo "Situação: ".$obj['situacao']."<br/>";
     echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
-    $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
-    //print_r($rs_beneficiario);
-    foreach ($rs_beneficiario as $obj2) {
-        echo "Carteirinha: ".$obj2['numero_cartao ']."<br/>";
-        echo "CPF: ".$obj2['cpf_cnpj']."<br/>";
-        echo "Nome: ".$obj2['nome']."<br/>";
-        echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
-        $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
-        print_r($rs_contatos);
+    if ($id_beneficiario != $obj['id_beneficiario']) {
+        $id_beneficiario = $obj['id_beneficiario'];
+        $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
+        //print_r($rs_beneficiario);
+        foreach ($rs_beneficiario as $obj2) {
+            echo "Carteirinha: ".$obj2['numero_cartao']."<br/>";
+            echo "CPF: ".$obj2['cpf_cnpj']."<br/>";
+            echo "Nome: ".$obj2['nome']."<br/>";
+            echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
+            $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
+            print_r($rs_contatos);
+            foreach ($rs_contatos as $obj3) {
+                echo  $obj3['tipo'] . ": " .$obj3['valor']."<br/>";
+            }
+        }
+        echo "<hr/>";
     }
-
-    echo "<hr/>";
 }
 //print_r($rs1);
 //echo "<hr><br/>";
