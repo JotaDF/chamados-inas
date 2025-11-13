@@ -25,20 +25,21 @@ foreach ($lista as $obj) {
             echo "Nome: ".$obj2['nome']."<br/>";
             echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
             $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
-            print_r($rs_contatos);
+            //print_r($rs_contatos);
             foreach ($rs_contatos as $obj3) {
                 echo  $obj3['tipo'] . ": " .$obj3['valor']."<br/>";
             }
+            echo "<br/>";
+            echo "ID: ".$obj['id']."<br/>";
+            echo "Autorização: ".$obj['autorizacao']."<br/>";
+            echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
         }
         
     }
-    echo "ID: ".$obj['id']."<br/>";
-    echo "Autorização: ".$obj['autorizacao']."<br/>";
-    echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
     echo "Código: ".$obj['codigo']."<br/>";
     echo "Descrição: ".$obj['descricao']."<br/>";
-    echo "Situação: ".$obj['situacao']."<br/>";
-    echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
+    //echo "Situação: ".$obj['situacao']."<br/>";
+    //echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
 }
 //print_r($rs1);
 //echo "<hr><br/>";
