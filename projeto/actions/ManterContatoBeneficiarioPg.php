@@ -9,7 +9,7 @@ class ManterContatoBeneficiarioPg extends ModelPg {
     }
 
     function getContadosPorCpf($cpf_cnpj) {
-        $sql = "SELECT c.tipo, c.valor FROM contato as c, pessoa as p WHERE c.ativo=true AND p.cpf_cnpj= '$cpf_cnpj' AND c.pessoa_id";
+        $sql = "SELECT c.tipo, c.valor FROM contato as c, pessoa as p WHERE c.ativo=true AND p.cpf_cnpj= '$cpf_cnpj' AND c.pessoa_id=p.id";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
          while ($registro = $resultado->fetchRow()) {

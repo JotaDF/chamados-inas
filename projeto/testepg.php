@@ -20,6 +20,7 @@ foreach ($lista as $obj) {
     echo "Código: ".$obj['codigo']."<br/>";
     echo "Descrição: ".$obj['descricao']."<br/>";
     echo "Situação: ".$obj['situacao']."<br/>";
+    echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
     $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
     //print_r($rs_beneficiario);
     foreach ($rs_beneficiario as $obj2) {
