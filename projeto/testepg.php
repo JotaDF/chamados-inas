@@ -14,14 +14,8 @@ $manterContatoBeneficiario = new ManterContatoBeneficiarioPg('df_pessoa_api_live
 $lista = $manterFilaPericia->listar();
 $id_beneficiario = '';
 foreach ($lista as $obj) {
-    echo "ID: ".$obj['id']."<br/>";
-    echo "Autorização: ".$obj['autorizacao']."<br/>";
-    echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
-    echo "Código: ".$obj['codigo']."<br/>";
-    echo "Descrição: ".$obj['descricao']."<br/>";
-    echo "Situação: ".$obj['situacao']."<br/>";
-    echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
     if ($id_beneficiario != $obj['id_beneficiario']) {
+        echo "<hr/>";
         $id_beneficiario = $obj['id_beneficiario'];
         $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
         //print_r($rs_beneficiario);
@@ -36,8 +30,15 @@ foreach ($lista as $obj) {
                 echo  $obj3['tipo'] . ": " .$obj3['valor']."<br/>";
             }
         }
-        echo "<hr/>";
+        
     }
+    echo "ID: ".$obj['id']."<br/>";
+    echo "Autorização: ".$obj['autorizacao']."<br/>";
+    echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
+    echo "Código: ".$obj['codigo']."<br/>";
+    echo "Descrição: ".$obj['descricao']."<br/>";
+    echo "Situação: ".$obj['situacao']."<br/>";
+    echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
 }
 //print_r($rs1);
 //echo "<hr><br/>";
