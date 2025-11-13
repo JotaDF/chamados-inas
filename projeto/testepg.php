@@ -24,9 +24,10 @@ foreach ($lista as $obj) {
     //print_r($rs_beneficiario);
     foreach ($rs_beneficiario as $obj2) {
         echo "Carteirinha: ".$obj2['numero_cartao ']."<br/>";
+        echo "CPF: ".$obj2['cpf_cnpj']."<br/>";
         echo "Nome: ".$obj2['nome']."<br/>";
         echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
-        $rs_contatos = $manterContatoBeneficiario->getContadosPorIdPessoa($obj2['id']);
+        $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
         print_r($rs_contatos);
     }
 
