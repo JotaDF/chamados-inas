@@ -2,25 +2,33 @@
 
 include_once('actions/ManterFilaPericiaPg.php');
 include_once('actions/ManterBeneficiarioPg.php');
+include_once('actions/ManterContatoBeneficiarioPg.php');
 // Conexão
 //$db1 = new ModelPg('df_regulacao_consulta_api_live');
 //$db2 = new ModelPg('df_contrato_api_live');
 //$db3 = new ModelPg('df_pessoa_api_live');
 $manterFilaPericia = new ManterFilaPericiaPg('df_regulacao_consulta_api_live');
 $manterBeneficiario = new ManterBeneficiarioPg('df_contrato_api_live');
+$manterContatoBeneficiario = new ManterBeneficiarioPg('df_pessoa_api_live');
 // Consultas
 $lista = $manterFilaPericia->listar();
         
 foreach ($lista as $obj) {
-    echo $obj['id']."<br/>";
-    echo $obj['autorizacao']."<br/>";
-    echo $obj['data_solicitacao']."<br/>";
-    echo $obj['id_beneficiario']."<br/>";
-    echo $obj['codigo']."<br/>";
-    echo $obj['descricao']."<br/>";
-    echo $obj['situacao']."<br/>";
+    echo "ID: ".$obj['id']."<br/>";
+    echo "Autorização: ".$obj['autorizacao']."<br/>";
+    echo "Solicitação: ".$obj['data_solicitacao']."<br/>";
+    echo "Código: ".$obj['codigo']."<br/>";
+    echo "Descrição: ".$obj['descricao']."<br/>";
+    echo "Situação: ".$obj['situacao']."<br/>";
     $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
-    print_r($rs_beneficiario);
+    //print_r($rs_beneficiario);
+    foreach ($rs_beneficiario as $obj2) {
+        echo "Carteirinha: ".$obj2['numero_cartao ']."<br/>";
+        echo "Nome: ".$obj2['nome']."<br/>";
+        echo "Data Nascimento: ".$obj2['data_nascimento']."<br/>";
+        $rs_contatos = $manterContatoBeneficiario->getContadosPorIdPessoa($obj2['id']);
+        print_r($rs_contatos);
+    }
 
     echo "<hr/>";
 }

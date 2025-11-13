@@ -15,6 +15,7 @@ class ManterBeneficiarioPg extends ModelPg {
          while ($registro = $resultado->fetchRow()) {
             $dados = array();
             $dados['cpf_cnpj'] = $registro["cpf_cnpj"];
+            $dados['numero_cartao '] = $registro["numero_cartao "];
             $dados['nome'] = $registro["nome"];
             $dados['data_nascimento'] = $registro["data_nascimento"];
             $array_dados[] = $dados;
