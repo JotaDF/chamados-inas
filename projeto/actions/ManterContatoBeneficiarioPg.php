@@ -2,7 +2,7 @@
 
 require_once('ModelPg.php');
 
-class ManterBeneficiarioPg extends ModelPg {
+class ManterContatoBeneficiarioPg extends ModelPg {
 
     function __construct($banco = 'df_pessoa_api_live') { //metodo construtor
         parent::__construct($banco);

@@ -9,7 +9,7 @@ include_once('actions/ManterContatoBeneficiarioPg.php');
 //$db3 = new ModelPg('df_pessoa_api_live');
 $manterFilaPericia = new ManterFilaPericiaPg('df_regulacao_consulta_api_live');
 $manterBeneficiario = new ManterBeneficiarioPg('df_contrato_api_live');
-$manterContatoBeneficiario = new ManterBeneficiarioPg('df_pessoa_api_live');
+$manterContatoBeneficiario = new ManterContatoBeneficiarioPg('df_pessoa_api_live');
 // Consultas
 $lista = $manterFilaPericia->listar();
         
