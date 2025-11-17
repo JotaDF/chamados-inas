@@ -45,7 +45,7 @@ foreach ($lista as $obj) {
                     if($b->email != '') {
                         $b->email .= "; ";
                     }
-                    $b->email .= $obj3['valor'] . " ";
+                    $b->email .= $obj3['valor'];
                 }
             }
             //$manterBeneficiario->salvar($b);
@@ -60,7 +60,6 @@ foreach ($lista as $obj) {
             $filaPericiaEco->justificativa = $obj['justificativa'];
             $filaPericiaEco->situacao = $obj['situacao'];
             $filaPericiaEco->cpf = $obj2['cpf_cnpj'];
-            $filaPericiaEco->codigo = '';
             $filaPericiaEco->descricao = '';
             $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
             foreach ($rs_itens as $item) {

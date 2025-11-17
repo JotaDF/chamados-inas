@@ -6,7 +6,6 @@
       public $data_solicitacao;
       public $justificativa;
       public $situacao;
-      public $codigo;
       public $descricao;
       public $cpf;
 

@@ -13,7 +13,7 @@ class ManterFilaPericiaEco extends Model {
     }
 
     function listar() {
-        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, codigo, descricao, cpf 
+        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf 
                 FROM fila_pericia_eco";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -30,7 +30,6 @@ class ManterFilaPericiaEco extends Model {
             $dados->data_solicitacao    = $registro["data_solicitacao"];
             $dados->justificativa       = $registro["justificativa"];
             $dados->situacao            = $registro["situacao"];
-            $dados->codigo              = $registro["codigo"];
             $dados->descricao           = $registro["descricao"];
             $dados->cpf                 = $registro["cpf"];
             $array_dados[]              = $dados;
@@ -38,7 +37,7 @@ class ManterFilaPericiaEco extends Model {
         return $array_dados;
     }
     function getFilaPorIdGuia($id_guia) {
-        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, codigo, descricao, cpf 
+        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf 
                 FROM fila_pericia_eco 
                 WHERE id_guia = " . $id_guia;
         //echo $sql;
@@ -52,7 +51,6 @@ class ManterFilaPericiaEco extends Model {
             $dados->data_solicitacao    = $registro["data_solicitacao"];
             $dados->justificativa       = $registro["justificativa"];
             $dados->situacao            = $registro["situacao"];
-            $dados->codigo              = $registro["codigo"];
             $dados->descricao           = $registro["descricao"];
             $dados->cpf                 = $registro["cpf"];
         }
@@ -68,8 +66,8 @@ class ManterFilaPericiaEco extends Model {
         return false;
     }
     function salvar(FilaPericiaEco $dados) {
-        $sql = "INSERT INTO fila_pericia_eco (id_guia, autorizacao, data_solicitacao, justificativa, situacao, codigo, descricao, cpf) 
-                VALUES (" . $dados->id_guia . ", '" . $dados->autorizacao . "', '" . $dados->data_solicitacao . "', '" . $dados->justificativa . "', '" . $dados->situacao . "', '" . $dados->codigo . "', '" . $dados->descricao . "', '" . $dados->cpf . "')";
+        $sql = "INSERT INTO fila_pericia_eco (id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf) 
+                VALUES (" . $dados->id_guia . ", '" . $dados->autorizacao . "', '" . $dados->data_solicitacao . "', '" . $dados->justificativa . "', '" . $dados->situacao . "', '" . $dados->descricao . "', '" . $dados->cpf . "')";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         return $resultado;

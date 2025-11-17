@@ -58,12 +58,11 @@ foreach ($lista as $obj) {
             $filaPericiaEco->justificativa = $obj['justificativa'];
             $filaPericiaEco->situacao = $obj['situacao'];
             $filaPericiaEco->cpf = $obj2['cpf_cnpj'];
-            $filaPericiaEco->codigo = '';
             $filaPericiaEco->descricao = '';
             $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
             foreach ($rs_itens as $item) {
                 if($filaPericiaEco->descricao != '') {
-                    $filaPericiaEco->descricao .= ";  ";
+                    $filaPericiaEco->descricao .= "; ";
                 }
                 $filaPericiaEco->descricao .= $item['codigo'] . " - " . $item['descricao'];
             }
