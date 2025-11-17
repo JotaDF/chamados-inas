@@ -35,11 +35,17 @@ foreach ($lista as $obj) {
 
             $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
             foreach ($rs_contatos as $obj3) {
-                if ($obj3['tipo'] == 'TELEFONE') {
-                    $b->telefone .= $obj3['valor'] . " ";
+               if ($obj3['tipo'] == 'TELEFONE') {
+                    if($b->telefone != '') {
+                        $b->telefone .= "; ";
+                    }
+                    $b->telefone .= $obj3['valor'];
                 } 
                 if ($obj3['tipo'] == 'EMAIL') {
-                    $b->email .= $obj3['valor'] . " ";
+                    if($b->email != '') {
+                        $b->email .= "; ";
+                    }
+                    $b->email .= $obj3['valor'];
                 }
             }
             $manterBeneficiario->salvar($b);
@@ -56,8 +62,10 @@ foreach ($lista as $obj) {
             $filaPericiaEco->descricao = '';
             $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
             foreach ($rs_itens as $item) {
-                $filaPericiaEco->codigo .= $item['codigo'] . " ";
-                $filaPericiaEco->descricao .= $item['descricao'] . " ";
+                if($filaPericiaEco->descricao != '') {
+                    $filaPericiaEco->descricao .= ";  ";
+                }
+                $filaPericiaEco->descricao .= $item['codigo'] . " - " . $item['descricao'];
             }
             $manterFilaPericiaEco->salvar($filaPericiaEco);
         }
