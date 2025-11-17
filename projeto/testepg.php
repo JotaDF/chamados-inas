@@ -3,13 +3,19 @@
 include_once('actions/ManterFilaPericiaPg.php');
 include_once('actions/ManterBeneficiarioPg.php');
 include_once('actions/ManterContatoBeneficiarioPg.php');
+
+include_once('actions/ManterBeneficiario.php');
+include_once('actions/ManterFilaPericiaEco.php');
+include_once('dto/Beneficiario.php');
+include_once('dto/FilaPericiaEco.php');
+
 // Conexão
-//$db1 = new ModelPg('df_regulacao_consulta_api_live');
-//$db2 = new ModelPg('df_contrato_api_live');
-//$db3 = new ModelPg('df_pessoa_api_live');
 $manterFilaPericia = new ManterFilaPericiaPg('df_regulacao_consulta_api_live');
-$manterBeneficiario = new ManterBeneficiarioPg('df_contrato_api_live');
+$manterBeneficiarioPg = new ManterBeneficiarioPg('df_contrato_api_live');
 $manterContatoBeneficiario = new ManterContatoBeneficiarioPg('df_pessoa_api_live');
+
+$manterBeneficiario = new ManterBeneficiario();
+$manterFilaPericiaEco = new ManterFilaPericiaEco();
 // Consultas
 $lista = $manterFilaPericia->listar();
 $id_beneficiario = '';
@@ -17,35 +23,47 @@ foreach ($lista as $obj) {
     if ($id_beneficiario != $obj['id_beneficiario']) {
         echo "<br/><br/><hr/>";
         $id_beneficiario = $obj['id_beneficiario'];
-        $rs_beneficiario = $manterBeneficiario->getBeneficiarioPorId($obj['id_beneficiario']);
+        $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
         //print_r($rs_beneficiario);
-        foreach ($rs_beneficiario as $obj2) {
-            echo "<b>Carteirinha:</b> ".$obj2['numero_cartao']." ";
-            echo "<b>CPF:</b> ".$obj2['cpf_cnpj']." ";
-            echo "<b>Nome:</b> ".$obj2['nome']." ";
-            echo "<b>Data Nascimento:</b> ".$obj2['data_nascimento']." ";
-            $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
-            //print_r($rs_contatos);
-            foreach ($rs_contatos as $obj3) {
-                echo  $obj3['tipo'] . ": " .$obj3['valor']."; ";
-            }
-            echo "<br/><br/>";
-            echo "<b>ID: </b>".$obj['id']." ";
-            echo "<b>Autorização: </b>".$obj['autorizacao']." ";
-            echo "<b>Solicitação: </b>".$obj['data_solicitacao']."<br/>";
-        }
-        
-    }
-    echo "<b>".$obj['codigo']." </b> - " . $obj['descricao']."; ";
-    //echo "Situação: ".$obj['situacao']."<br/>";
-    //echo "id_beneficiario: ".$obj['id_beneficiario']."<br/>";
-}
-//print_r($rs1);
-//echo "<hr><br/>";
+        if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
+            $b = new Beneficiario();
+            $b->cpf = $obj2['cpf_cnpj'];
+            $b->nome = $obj2['nome'];
+            $b->carteirinha = $obj2['numero_cartao'];
+            $b->telefone = '';
+            $b->email = '';
 
-//$rs2 = $db2->db->Execute("SELECT * FROM segurado WHERE uuid = '85b4ad5d-e7fd-4d5d-9c57-40ec929bde81'");
-//print_r($rs2);
-//echo "<hr><br/>";
-//$rs3 = $db3->db->Execute("SELECT * FROM pessoa WHERE cpf_cnpj ='868.303.331-72'");
-//print_r($rs3);
-//echo "<hr><br/>";
+            $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
+            foreach ($rs_contatos as $obj3) {
+                if ($obj3['tipo'] == 'TELEFONE') {
+                    $b->telefone .= $obj3['valor'] . " ";
+                } 
+                if ($obj3['tipo'] == 'EMAIL') {
+                    $b->email .= $obj3['valor'] . " ";
+                }
+            }
+            //$manterBeneficiario->salvar($b);
+            print_r($b);
+            echo "<br/><br/>";
+        }
+        if(!$manterFilaPericiaEco->existeGuia($obj['id'])) {
+            $filaPericiaEco = new FilaPericiaEco();
+            $filaPericiaEco->id_guia = $obj['id'];
+            $filaPericiaEco->autorizacao = $obj['autorizacao'];
+            $filaPericiaEco->data_solicitacao = $obj['data_solicitacao'];
+            $filaPericiaEco->justificativa = $obj['justificativa'];
+            $filaPericiaEco->situacao = $obj['situacao'];
+            $filaPericiaEco->cpf = $obj2['cpf_cnpj'];
+            $filaPericiaEco->codigo = '';
+            $filaPericiaEco->descricao = '';
+            $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
+            foreach ($rs_itens as $item) {
+                $filaPericiaEco->codigo .= $item['codigo'] . " ";
+                $filaPericiaEco->descricao .= $item['descricao'] . " ";
+            }
+            //$manterFilaPericiaEco->salvar($filaPericiaEco);
+            print_r($filaPericiaEco);
+            echo "<br/>";
+        }
+    }
+}
