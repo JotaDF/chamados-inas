@@ -25,6 +25,7 @@ foreach ($lista as $obj) {
         $id_beneficiario = $obj['id_beneficiario'];
         $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
         //print_r($rs_beneficiario);
+        $rs_insert = false;
         if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
             $b = new Beneficiario();
             $b->cpf = $obj2['cpf_cnpj'];
@@ -48,25 +49,29 @@ foreach ($lista as $obj) {
                     $b->email .= $obj3['valor'];
                 }
             }
-            $manterBeneficiario->salvar($b);
+            print_r($b);
+            echo "<br/><br/>";
+            $rs_insert = $manterBeneficiario->salvar($b);
         }
-        if(!$manterFilaPericiaEco->existeGuia($obj['id'])) {
-            $filaPericiaEco = new FilaPericiaEco();
-            $filaPericiaEco->id_guia = $obj['id'];
-            $filaPericiaEco->autorizacao = $obj['autorizacao'];
-            $filaPericiaEco->data_solicitacao = $obj['data_solicitacao'];
-            $filaPericiaEco->justificativa = $obj['justificativa'];
-            $filaPericiaEco->situacao = $obj['situacao'];
-            $filaPericiaEco->cpf = $obj2['cpf_cnpj'];
-            $filaPericiaEco->descricao = '';
+        if(!$manterFilaPericiaEco->existeGuia($obj['id']) && $rs_insert) {
+            $f = new FilaPericiaEco();
+            $f->id_guia = $obj['id'];
+            $f->autorizacao = $obj['autorizacao'];
+            $f->data_solicitacao = $obj['data_solicitacao'];
+            $f->justificativa = $obj['justificativa'];
+            $f->situacao = $obj['situacao'];
+            $f->cpf = $obj2['cpf_cnpj'];
+            $f->descricao = '';
             $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
             foreach ($rs_itens as $item) {
-                if($filaPericiaEco->descricao != '') {
-                    $filaPericiaEco->descricao .= "; ";
+                if($f->descricao != '') {
+                    $f->descricao .= "; ";
                 }
-                $filaPericiaEco->descricao .= $item['codigo'] . " - " . $item['descricao'];
+                $f->descricao .= $item['codigo'] . " - " . $item['descricao'];
             }
-            $manterFilaPericiaEco->salvar($filaPericiaEco);
+            $manterFilaPericiaEco->salvar($f);
+            print_r($f);
+            echo "<br/><hr/>";
         }
     }
 }
