@@ -11,16 +11,14 @@ class ManterBeneficiarioPg extends ModelPg {
     function getBeneficiarioPorId($id_beneficiario) {
         $sql = "SELECT cpf_cnpj, numero_cartao, nome, data_nascimento  FROM segurado WHERE uuid = '$id_beneficiario'";
         $resultado = $this->db->Execute($sql);
-        $array_dados = array();
-         while ($registro = $resultado->fetchRow()) {
             $dados = array();
+         if ($registro = $resultado->fetchRow()) {
             $dados['cpf_cnpj'] = $registro["cpf_cnpj"];
             $dados['numero_cartao'] = $registro["numero_cartao"];
             $dados['nome'] = $registro["nome"];
             $dados['data_nascimento'] = $registro["data_nascimento"];
-            $array_dados[] = $dados;
         } 
-        return $array_dados;
+        return $dados;
     }
 
 }

@@ -9,9 +9,13 @@ class ManterFilaPericiaPg extends ModelPg {
     }
 
     function listar() {
-        $sql = "SELECT g.id, g.autorizacao, g.data_solicitacao, g.id_beneficiario, g.justificativa, g.situacao, i.codigo, i.descricao
-        FROM guia as g, item_guia as i 
-        WHERE i.guia_id=g.id AND (fila_id =18 or id_fila =18)";
+        $sql = "SELECT g.id, g.autorizacao, g.data_solicitacao, g.id_beneficiario, g.justificativa, g.situacao, ig.codigo, ig.descricao
+FROM  guia g, item_guia as ig
+WHERE ig.guia_id=g.id
+and g.situacao <> 'CANCELADA'
+AND g.id in (select guia_id from pericia_medica pm where pm.status ='AGUARDANDO_AGENDAMENTO' or pm.status = 'AGENDADA' or pm.status = 'AGUARDANDO_REGULACAO')
+AND (g.fila_id =18 or g.id_fila =18 or g.fila_id =33 or g.id_fila =33)
+ORDER BY g.data_solicitacao";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -22,6 +26,18 @@ class ManterFilaPericiaPg extends ModelPg {
             $dados['id_beneficiario'] = $registro["id_beneficiario"];
             $dados['justificativa'] = $registro["justificativa"];
             $dados['situacao'] = $registro["situacao"];
+            $dados['codigo'] = $registro["codigo"];
+            $dados['descricao'] = $registro["descricao"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function listarItensGuia($id_guia) {
+        $sql = "SELECT ig.codigo, ig.descricao FROM  item_guia as ig WHERE ig.guia_id= " . $id_guia;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = array();
             $dados['codigo'] = $registro["codigo"];
             $dados['descricao'] = $registro["descricao"];
             $array_dados[] = $dados;

@@ -17,7 +17,7 @@ Class ModelPg{
 		*/
                 /** web */
 		$servidor      = "10.233.121.3";
-		$usuario       = "intranet ";
+		$usuario       = "intranet";
 		$senha         = "Inas$2020";
 		$db            = $banco;
 		
