@@ -31,7 +31,11 @@ class ManterBeneficiario extends Model {
     }
 
     function salvar(Beneficiario $dados) {
-        $sql = "UPDATE beneficiario SET telefone='" . $dados->telefone ."', email='" . $dados->email . "' WHERE cpf='". $dados->cpf ."'";
+        $sql = "INSERT INTO beneficiario (cpf, nome, carteirinha, telefone, email, endereco) 
+                VALUES ('" . $dados->cpf . "', '" . $dados->nome . "', '" . $dados->carteirinha . "', '" . $dados->telefone . "', '" . $dados->email . "')";    
+        if($this->existeCpf($dados->cpf)) {
+            $sql = "UPDATE beneficiario SET telefone='" . $dados->telefone ."', email='" . $dados->email . "' WHERE cpf='". $dados->cpf ."'";
+        }
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
