@@ -25,7 +25,6 @@ foreach ($lista as $obj) {
         $id_beneficiario = $obj['id_beneficiario'];
         $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
         //print_r($rs_beneficiario);
-        $rs_insert = false;
         if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
             $b = new Beneficiario();
             $b->cpf = $obj2['cpf_cnpj'];
@@ -49,11 +48,11 @@ foreach ($lista as $obj) {
                     $b->email .= $obj3['valor'];
                 }
             }
-            print_r($b);
-            echo "<br/><br/>";
-            $rs_insert = $manterBeneficiario->salvar($b);
+            //print_r($b);
+            $manterBeneficiario->salvar($b);
+            echo "Salvou!! (".$b->cpf.")<br/><br/>";
         }
-        if(!$manterFilaPericiaEco->existeGuia($obj['id']) && $rs_insert) {
+        if(!$manterFilaPericiaEco->existeGuia($obj['id']) && $manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
             $f = new FilaPericiaEco();
             $f->id_guia = $obj['id'];
             $f->autorizacao = $obj['autorizacao'];
@@ -71,7 +70,7 @@ foreach ($lista as $obj) {
             }
             $manterFilaPericiaEco->salvar($f);
             print_r($f);
-            echo "<br/><hr/>";
+            echo "Salvou!! (".$f->id_guia.")<br/><hr/>";
         }
     }
 }
