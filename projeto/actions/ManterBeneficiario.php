@@ -9,7 +9,6 @@ class ManterBeneficiario extends Model {
         parent::__construct();
     }
 
-
     function listar() {
         $sql = "SELECT cpf, nome, carteirinha, telefone, email, endereco FROM beneficiario";
         $resultado = $this->db->Execute($sql);
@@ -31,7 +30,6 @@ class ManterBeneficiario extends Model {
         return $array_dados;
     }
 
-
     function salvar(Beneficiario $dados) {
         $sql = "UPDATE beneficiario SET telefone='" . $dados->telefone ."', email='" . $dados->email . "' WHERE cpf='". $dados->cpf ."'";
         $resultado = $this->db->Execute($sql);
@@ -41,15 +39,24 @@ class ManterBeneficiario extends Model {
         $sql = "SELECT cpf, nome, carteirinha, telefone, email, endereco FROM beneficiario WHERE cpf='". $cpf ."'" ;
         $resultado = $this->db->Execute($sql);
         $registro = $resultado->fetchRow();
-            $dados = new Beneficiario();
-            $dados->cpf          = $registro['cpf'];
-            $dados->nome         = $registro['nome'];
-            $dados->carteirinha  = $registro['carteirinha'];
-            $dados->telefone     = $registro['telefone'];
-            $dados->email        = $registro['email'];
-            $dados->endereco     = $registro['endereco'];
-            return $dados;
-        } 
+        $dados = new Beneficiario();
+        $dados->cpf          = $registro['cpf'];
+        $dados->nome         = $registro['nome'];
+        $dados->carteirinha  = $registro['carteirinha'];
+        $dados->telefone     = $registro['telefone'];
+        $dados->email        = $registro['email'];
+        $dados->endereco     = $registro['endereco'];
+        return $dados;
     }
+    function existeCpf($cpf) {
+        $sql = "SELECT cpf FROM beneficiario WHERE cpf='". $cpf ."'" ;
+        $resultado = $this->db->Execute($sql);
+        if($registro = $resultado->fetchRow()) {
+            return true;
+        }
+        return false;
+    }
+    
+}
 
 
