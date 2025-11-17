@@ -28,12 +28,16 @@
                     <span>Agendamento</span>
                 </a>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="medico_perito.php">
                     <i class="fa fa-user-md"></i>
                     <span>Médicos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="beneficiario.php">
+                    <i class="fa fa-user"></i>
+                    <span>Beneficiários</span>
                 </a>
             </li>
         <?php
