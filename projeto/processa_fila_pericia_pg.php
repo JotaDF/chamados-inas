@@ -19,62 +19,51 @@ try {
     $manterFilaPericiaEco = new ManterFilaPericiaEco();
     // Consultas
     $lista = $manterFilaPericia->listar();
-    $autorizacao = '';
     foreach ($lista as $obj) {
-        if ($autorizacao != $obj['autorizacao']) {
-            //echo "<br/><br/><hr/>";
-            $autorizacao = $obj['autorizacao'];
-            $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
-            //print_r($rs_beneficiario);
-            if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
-                $b = new Beneficiario();
-                $b->cpf = $obj2['cpf_cnpj'];
-                $b->nome = $obj2['nome'];
-                $b->carteirinha = $obj2['numero_cartao'];
-                $b->telefone = '';
-                $b->email = '';
-
-                $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
-                foreach ($rs_contatos as $obj3) {
-                if ($obj3['tipo'] == 'TELEFONE') {
-                        if($b->telefone != '') {
-                            $b->telefone .= "; ";
-                        }
-                        $b->telefone .= $obj3['valor'];
-                    } 
-                    if ($obj3['tipo'] == 'EMAIL') {
-                        if($b->email != '') {
-                            $b->email .= "; ";
-                        }
-                        $b->email .= $obj3['valor'];
+        $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
+        if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
+            $b = new Beneficiario();
+            $b->cpf = $obj2['cpf_cnpj'];
+            $b->nome = $obj2['nome'];
+            $b->carteirinha = $obj2['numero_cartao'];
+            $b->telefone = '';
+            $b->email = '';
+            $rs_contatos = $manterContatoBeneficiario->getContadosPorCpf($obj2['cpf_cnpj']);
+            foreach ($rs_contatos as $obj3) {
+            if ($obj3['tipo'] == 'TELEFONE') {
+                    if($b->telefone != '') {
+                        $b->telefone .= "; ";
                     }
-                }
-                //print_r($b);
-                $manterBeneficiario->salvar($b);
-                //echo "Salvou!! (".$b->cpf.")<br/><br/>";
-            }
-            if(!$manterFilaPericiaEco->existeGuia($obj['id']) && $manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
-                $f = new FilaPericiaEco();
-                $f->id_guia = $obj['id'];
-                $f->autorizacao = $obj['autorizacao'];
-                $f->data_solicitacao = $obj['data_solicitacao'];
-                $f->justificativa = $obj['justificativa'];
-                $f->situacao = $obj['situacao'];
-                $f->cpf = $obj2['cpf_cnpj'];
-                $f->descricao = '';
-                $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
-                foreach ($rs_itens as $item) {
-                    if($f->descricao != '') {
-                        $f->descricao .= "; ";
+                    $b->telefone .= $obj3['valor'];
+                } 
+                if ($obj3['tipo'] == 'EMAIL') {
+                    if($b->email != '') {
+                        $b->email .= "; ";
                     }
-                    $f->descricao .= $item['codigo'] . " - " . $item['descricao'];
+                    $b->email .= $obj3['valor'];
                 }
-                $manterFilaPericiaEco->salvar($f);
-                //print_r($f);
-                //echo "Salvou!! (".$f->id_guia.")<br/><hr/>";
             }
+            $manterBeneficiario->salvar($b);
+        }
+        if(!$manterFilaPericiaEco->existeGuia($obj['id']) && $manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
+            $f = new FilaPericiaEco();
+            $f->id_guia = $obj['id'];
+            $f->autorizacao = $obj['autorizacao'];
+            $f->data_solicitacao = $obj['data_solicitacao'];
+            $f->justificativa = $obj['justificativa'];
+            $f->situacao = $obj['situacao'];
+            $f->cpf = $obj2['cpf_cnpj'];
+            $f->descricao = '';
+            $rs_itens = $manterFilaPericia->listarItensGuia($obj['id']);
+            foreach ($rs_itens as $item) {
+                if($f->descricao != '') {
+                    $f->descricao .= "; ";
+                }
+                $f->descricao .= $item['codigo'] . " - " . $item['descricao'];
+            }
+            $manterFilaPericiaEco->salvar($f);
         }
     }
 } catch (Exception $e) {
-    echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+    echo date('dd/mm/YY HH:mm:ss') . ': Exceção capturada: ',  $e->getMessage(), "\n";
 }
