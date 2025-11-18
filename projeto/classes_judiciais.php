@@ -108,7 +108,7 @@ and open the template in the editor.
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Classe Judicial</th>
-                                            <th scope="col">Processos Vinculados</th>
+                                            <th scope="col">Exibir em Processos Vinculados</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>
