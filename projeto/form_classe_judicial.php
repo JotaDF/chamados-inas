@@ -4,16 +4,16 @@
 <div class="card mb-4 collapse hide border-primary" id="form_classe_judicial" style="max-width:900px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de Classe Judicial</span>
+        <span class="h6 m-0 font-weight text-white">Cadastro de Classe Processual</span>
     </div>                  
     <!-- Card Content - Collapse -->
     <div class="card-body">
         <form id="form_cadastro" action="save_classe_judicial.php" method="post">
             <input type="hidden" id="id" name="id"/>
             <div class="form-group row">
-                <label for="classe" class="col-sm-2 col-form-label">Classe Judicial:</label>
+                <label for="classe" class="col-sm-2 col-form-label">Classe Processual:</label>
                 <div class="col-sm-10">
-                    <input type="text" name="classe" class="form-control form-control-sm" id="classe" placeholder="Classe Judicial" required>
+                    <input type="text" name="classe" class="form-control form-control-sm" id="classe" placeholder="Classe Processual" required>
                 </div>
             </div>
             <div class="form-group row">

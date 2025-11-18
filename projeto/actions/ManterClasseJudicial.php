@@ -9,8 +9,8 @@ class ManterClasseJudicial extends Model {
         parent::__construct();
     }
 
-    function listar() {
-        $sql = "select cj.id,cj.classe, cj.vinculado, (select count(*) from processo as p where p.id_classe_judicial=cj.id) as dep FROM classe_judicial as cj order by cj.classe";
+    function listar($filtro = "") {
+        $sql = "select cj.id,cj.classe, cj.vinculado, (select count(*) from processo as p where p.id_classe_judicial=cj.id) as dep FROM classe_judicial as cj $filtro order by cj.classe";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();

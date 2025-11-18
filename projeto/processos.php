@@ -77,7 +77,7 @@ $manterInstancia = new ManterInstancia();
 $listaI = $manterInstancia->listar();
 
 $manterClasseJudicial = new ManterClasseJudicial();
-$listaCJ = $manterClasseJudicial->listar();
+$listaCJ = $manterClasseJudicial->listar(" WHERE vinculado='0' ");
 
 
 foreach ($listaA as $obj) {
