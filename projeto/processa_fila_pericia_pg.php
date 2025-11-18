@@ -19,11 +19,11 @@ try {
     $manterFilaPericiaEco = new ManterFilaPericiaEco();
     // Consultas
     $lista = $manterFilaPericia->listar();
-    $id_beneficiario = '';
+    $autorizacao = '';
     foreach ($lista as $obj) {
-        if ($id_beneficiario != $obj['id_beneficiario']) {
+        if ($autorizacao != $obj['autorizacao']) {
             //echo "<br/><br/><hr/>";
-            $id_beneficiario = $obj['id_beneficiario'];
+            $autorizacao = $obj['autorizacao'];
             $obj2 = $manterBeneficiarioPg->getBeneficiarioPorId($obj['id_beneficiario']);
             //print_r($rs_beneficiario);
             if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
