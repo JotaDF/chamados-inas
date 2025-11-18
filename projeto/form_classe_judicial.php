@@ -16,6 +16,12 @@
                     <input type="text" name="classe" class="form-control form-control-sm" id="classe" placeholder="Classe Judicial" required>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="vinculado" class="col-sm-2 col-form-label">Vizualizar em processos vinculados:</label>
+                <div class="col-sm-10">
+                    <input type="checkbox" name="vinculado" class="form-check-input" id="vinculado" value="1">
+                </div>
+            </div>
 
             <div class="form-group row float-right">
                 <button type="reset" data-toggle="collapse" data-target="#form_classe_judicial" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>

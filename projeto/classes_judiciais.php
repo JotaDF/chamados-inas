@@ -48,9 +48,14 @@ and open the template in the editor.
                 $('#excluir').text(classe_judicial);
                 $('#confirm').modal({show: true});              
             }
-            function alterar(id, classe_judicial) {
+            function alterar(id, classe_judicial, vinculado) {
                 $('#id').val(id);
                 $('#classe').val(classe_judicial);
+                if(vinculado=='1'){
+                    $('#vinculado').prop('checked', true);
+                }else{
+                    $('#vinculado').prop('checked', false);
+                }
                 $('#form_classe_judicial').collapse("show");
                 $('#btn_cadastrar').hide();
             }
@@ -103,6 +108,7 @@ and open the template in the editor.
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Classe Judicial</th>
+                                            <th scope="col">Processos Vinculados</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>

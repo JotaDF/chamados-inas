@@ -1,7 +1,8 @@
 <?php
   class ClasseJudicial{
 	    public $id;
-      public $classe_judicial;
+      public $classe;
+      public $vinculado;
 
       //variaveis de manipulação
       public $excluir;

@@ -11,6 +11,7 @@ $classe = $_POST['classe'];
 
 $cj->id = $cjd;
 $cj->classe = $classe;
+$cj->vinculado = isset($_POST['vinculado']) ? $_POST['vinculado'] : '0';
 
 $db_classe_judicial->salvar($cj);
 header('Location: classes_judiciais.php');
