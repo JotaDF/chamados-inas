@@ -55,7 +55,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-7">
-                <label for="classe_judicial">Classe Judicial</label>
+                <label for="classe_judicial">Classe Processual</label>
                     <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm" onChange="verificaClasse(this.options[this.selectedIndex].value)" >
                         <option value="">Selecione</option>    
                     </select>
