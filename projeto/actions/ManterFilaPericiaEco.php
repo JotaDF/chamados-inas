@@ -65,6 +65,8 @@ class ManterFilaPericiaEco extends Model {
         }
         return false;
     }
+
+
     function salvar(FilaPericiaEco $dados) {
         $sql = "INSERT INTO fila_pericia_eco (id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf) 
                 VALUES (" . $dados->id_guia . ", '" . $dados->autorizacao . "', '" . $dados->data_solicitacao . "', '" . $dados->justificativa . "', '" . $dados->situacao . "', '" . $dados->descricao . "', '" . $dados->cpf . "')";

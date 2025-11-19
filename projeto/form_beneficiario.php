@@ -9,8 +9,19 @@
     <!-- Card Content - Collapse -->
     <div class="card-body">
         <form id="form_cadastro" action="save_beneficiario.php" method="post">
-            <input type="hidden" id="cpf" name="cpf" />
             <div class="form-group row">
+                <label for="Nome" class="col-sm-2 col-form-label "><b>CPF:</b></label>
+                <div class="col-sm-10 mb-1">
+                    <input type="text" class="form-control form-control-sm" name="cpf" id="cpf" readonly>
+                </div>
+                <label for="Nome do médico" class="col-sm-2 col-form-label "><b>Carteirinha:</b></label>
+                <div class="col-sm-10 mb-1">
+                    <input type="text" class="form-control form-control-sm" name="carteirinha" id="carteirinha" readonly>
+                </div>
+                <label for="Nome" class="col-sm-2 col-form-label"><b>Nome:</b></label>
+                <div class="col-sm-10 mb-1">
+                    <input type="text" class="form-control form-control-sm" name="nome" id="nome" readonly>
+                </div>
                 <label for="Nome do médico" class="col-sm-2 col-form-label "><b>Telefone:</b></label>
                 <div class="col-sm-10 mb-1">
                     <input type="text" class="form-control form-control-sm" name="telefone" id="telefone">

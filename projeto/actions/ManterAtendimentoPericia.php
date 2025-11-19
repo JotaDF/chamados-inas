@@ -1,6 +1,7 @@
 <?php
 require_once('Model.php');
 require_once('dto/AtendimentoPericia.php');
+require_once('dto/FilaPericiaEco.php');
 
 class ManterAtendimentoPericia extends Model {
     
@@ -32,7 +33,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
     function getAtendimentoPorBeneficiario($cpf) {
-        $sql = "SELECT ap.id, ap.id_medico_perito, ap.cpf, ap.guia, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado, b.cpf as cpf_beneficiario FROM atendimento_pericia as ap, beneficiario as b WHERE b.cpf = ap.cpf AND ap.cpf = '".$cpf."'";
+        $sql = "SELECT ap.id, ap.id_medico_perito, ap.cpf, ap.guia, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado FROM atendimento_pericia ap WHERE ap.cpf = '".$cpf."' ORDER BY ap.situacao";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -54,8 +55,32 @@ class ManterAtendimentoPericia extends Model {
         return $array_dados;
     }
 
+        function listaFilaPorCpf($cpf) {
+        $sql = "SELECT fpe.id, fpe.id_guia, fpe.autorizacao, fpe.data_solicitacao, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.cpf FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id_guia NOT IN ( SELECT ap.guia FROM atendimento_pericia AS ap)";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new FilaPericiaEco(); 
+            $dados->id = $registro['id'];
+            $dados->id_guia  = $registro['id_guia'];
+            $dados->autorizacao = $registro['autorizacao'];
+            $dados->data_solicitacao = $registro['data_solicitacao'];
+            $dados->justificativa = $registro['justificativa'];
+            $dados->situacao = $registro['situacao'];
+            $dados->descricao = $registro['descricao'];
+            $dados->cpf = $registro['cpf'];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+    function getTotalFilaBeneficiario($cpf) {
+        $sql = "SELECT COUNT(*) AS total FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id_guia NOT IN ( SELECT ap.guia FROM atendimento_pericia AS ap )";
+        $resultado = $this->db->getRow($sql);
+        $total = $resultado['total'];
+        return $total;
+    }
     function getTotalAtendimentoPorBeneficiario($cpf) {
-        $sql = "SELECT COUNT(*) as total FROM atendimento_pericia as ap WHERE ap.cpf = '".$cpf."'";
+        $sql = "SELECT COUNT(*) as total FROM atendimento_pericia as ap WHERE ap.cpf  = '".$cpf."'";
         $resultado = $this->db->getRow($sql);
         $total = $resultado['total'];
         return $total;

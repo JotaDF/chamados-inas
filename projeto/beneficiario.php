@@ -48,12 +48,15 @@ require_once('./verifica_login.php');
             $('#excluir').text(descricao);
             $('#confirm').modal({ show: true });
         }
-        function alterar(cpf, telefone, email) {
+        function alterar(nome, cpf, carteirinha,telefone, email) {
+            console.log(cpf);
+            $('#nome').val(nome);
             $('#cpf').val(cpf);
+            $('#carteirinha').val(carteirinha);
             $('#telefone').val(telefone);
             $('#email').val(email);
             $('#form_beneficiario').collapse("show");
-            $('#nome').focus();
+            $('#telefone').focus();
         }
     </script>
     <style>
@@ -90,7 +93,7 @@ require_once('./verifica_login.php');
                                         <th scope="col">Carteirinha</th>
                                         <th scope="col">Telefone</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col" style="width:10px;">Opções</th>
+                                        <th scope="col">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -101,7 +104,7 @@ require_once('./verifica_login.php');
                     </div>
                 </div>
             </div>
-            <?php include('./rodape.php')?>
+            <?php include('./rodape.php') ?>
         </div>
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>

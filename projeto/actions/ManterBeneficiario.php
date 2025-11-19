@@ -39,6 +39,7 @@ class ManterBeneficiario extends Model {
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    
     function getBeneficiarioPorCpf($cpf) {
         $sql = "SELECT cpf, nome, carteirinha, telefone, email, endereco FROM beneficiario WHERE cpf='". $cpf ."'" ;
         $resultado = $this->db->Execute($sql);
@@ -52,6 +53,7 @@ class ManterBeneficiario extends Model {
         $dados->endereco     = $registro['endereco'];
         return $dados;
     }
+
     function existeCpf($cpf) {
         $sql = "SELECT cpf FROM beneficiario WHERE cpf='". $cpf ."'" ;
         $resultado = $this->db->Execute($sql);

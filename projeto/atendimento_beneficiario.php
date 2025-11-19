@@ -61,7 +61,9 @@ require_once('./verifica_login.php');
                 $cpf_beneficiario = $_GET['cpf'];
                 $beneficiario = $manterBeneficiario->getBeneficiarioPorCpf($cpf_beneficiario);
                 $total_atendimentos = $manterAtendimentoPericia->getTotalAtendimentoPorBeneficiario($cpf_beneficiario);
+                $total_fila = $manterAtendimentoPericia->getTotalFilaBeneficiario($cpf_beneficiario);
                 $atendimentos = $manterAtendimentoPericia->getAtendimentoPorBeneficiario($cpf_beneficiario);
+                $fila_beneficario = $manterAtendimentoPericia->listaFilaPorCpf($cpf_beneficiario);
                 ?>
                 <div class="container-fluid">
                     <div class="card mb-4 border-0 shadow-sm rounded-3 bg-gradient-primary">
@@ -74,95 +76,158 @@ require_once('./verifica_login.php');
 
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <?php
-                        if ($total_atendimentos > 0) {
+                    <div class="container-fluid">
+                        <div class="row">
+                            <?php if (empty($total_atendimentos) && empty($total_fila)) { ?>
+                                <div class="col-12">
+                                    <div class="card border-0 shadow-sm p-4 text-center"
+                                        style="background: linear-gradient(135deg, #ffffff, #f3f6f9); border-radius: 16px;">
+                                        <div class="card-body d-flex flex-column align-items-center">
+                                            <h5 class="fw-bold text-primary mb-2">
+                                                Nenhuma fila ou atendimento encontrados
+                                            </h5>
 
-                            foreach ($atendimentos as $atendimento) {
+                                            <p class="text-muted mb-3" style="max-width: 250px;">
+                                                Não há registros de atendimento ou fila para este beneficiário.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
 
-                                // Formata a data
-                                $data_agendada = date('d/m/Y', strtotime($atendimento->data_agendada));
-                                ?>
+                            <div class="col-12 col-md-6">
+                                <?php if (empty($total_atendimentos) && $total_fila > 0) { ?>
 
-                                <div class="col">
-                                    <div class="card shadow-sm border-0 rounded-3 h-100">
+                                    <div class="col-12">
+                                        <div class="card border-0 shadow-sm p-4 text-center"
+                                            style="background: linear-gradient(135deg, #ffffff, #f3f6f9); border-radius: 16px;">
+                                            <div class="card-body d-flex flex-column align-items-center">
+                                                <h5 class="fw-bold text-primary mb-2">
+                                                    Nenhum atendimento encontrado
+                                                </h5>
 
-                                        <!-- Cabeçalho do card -->
-                                        <div class="card-header bg-gradient-primary text-white py-2">
-                                            <div class="d-flex align-items-center">
+                                                <p class="text-muted mb-3" style="max-width: 250px;">
+                                                    Não há registros de atendimento para este beneficiário.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($total_atendimentos > 0) { ?>
+                                    <?php foreach ($atendimentos as $atendimento) {
+                                        $data_agendada = date('d/m/Y', strtotime($atendimento->data_agendada));
+                                        $data_hora_agendada = $data_agendada . " " . $atendimento->hora_agendada;
+                                        ?>
+                                        <div class="card shadow-sm border-0 rounded-3 mb-3">
+                                            <div class="card-header bg-gradient-primary text-white py-2">
                                                 <i class="bi bi-file-earmark-text me-2"></i>
                                                 <span class="fw-semibold">Atendimento</span>
                                             </div>
+                                            <div class="card-body">
+                                                <div class="row g-3">
+                                                    <div class="col-4">
+                                                        <div class="text-uppercase fw-bold">Guia</div>
+                                                        <div class="fw-semibold"><b><?= $atendimento->guia ?></b></div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="text-uppercase fw-bold">Data e Hora
+                                                            Agendada</div>
+                                                        <div class="fw-semibold"><b><?= $data_hora_agendada ?></b></div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="text-uppercase fw-bold">Situação</div>
+                                                        <div class="fw-semibold"><b><?= $atendimento->situacao ?></b></div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="text-uppercase fw-bold">Procedimento</div>
+                                                        <div class="fw-semibold p-2 border rounded bg-light">
+                                                            <b><?= $atendimento->procedimento ?></b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="text-uppercase fw-bold">Resultado</div>
+                                                        <div class="fw-semibold p-2 border rounded bg-light">
+                                                            <b><?= $atendimento->resultado ?></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <!-- Corpo -->
-                                        <div class="card-body">
-                                            <div class="row g-3">
-                                                <div class="col-12 col-md-6">
-                                                    <div class="
-                                                 text-uppercase  fw-bold">Guia</div>
-                                                    <div class="fw-semibold"><b><?= $atendimento->guia ?></b></div>
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-2">
-                                                    <div class="
-                                                 text-uppercase">Situação</div>
-                                                    <div class="fw-semibold"><b><?= $atendimento->situacao ?></b></div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6 ">
-                                                    <div class="
-                                                 text-uppercase  fw-bold">Data Agendada</div>
-                                                    <div class="fw-semibold"><b><?= $data_agendada ?></b></div>
-                                                </div>
-
-                                                <div class="col-12 col-md-6">
-                                                    <div class="
-                                                 text-uppercase  fw-bold">Hora Agendada</div>
-                                                    <div class="fw-semibold"><b><?= $atendimento->hora_agendada ?></b></div>
-                                                </div>
-
-                                            </div>
-
-                                            <!-- Procedimento -->
-                                            <div class="mt-4 p-3 rounded bg-light border">
-                                                <div class="text-uppercase text-primary fw-bold">Procedimento</div>
-                                                <div class="mt-1"><?= $atendimento->procedimento ?></div>
-                                            </div>
-                                            <div class="mt-4 p-3 rounded bg-light border">
-                                                <div class="text-uppercase text-primary fw-bold">Resultado</div>
-                                                <div class="mt-1"><?= $atendimento->resultado ?></div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php
-                            }
-                        } else {
-                            ?>
-
-                            <div class="col">
-                                <div class="card border-0 shadow-sm p-4 text-center"
-                                    style="background: linear-gradient(135deg, #ffffff, #f3f6f9); border-radius: 16px;">
-                                    <div class="card-body d-flex flex-column align-items-center">
-                                        <h5 class="fw-bold text-primary mb-2">
-                                            Nenhum atendimento encontrado
-                                        </h5>
-
-                                        <p class="text-muted mb-3" style="max-width: 250px;">
-                                            Não há registros de atendimento para este beneficiário.
-                                        </p>
-                                    </div>
-                                </div>
+                                    <?php }
+                                } ?>
                             </div>
 
+                            <!-- COLUNA 2: FILA -->
+                            <div class="col-12 col-md-6">
+                                <?php if (empty($total_fila) && $total_atendimentos > 0) {
+                                    ?>
+                                    <div class="col-12">
+                                        <div class="card border-0 shadow-sm p-4 text-center"
+                                            style="background: linear-gradient(135deg, #ffffff, #f3f6f9); border-radius: 16px;">
+                                            <div class="card-body d-flex flex-column align-items-center">
+                                                <h5 class="fw-bold text-primary mb-2">
+                                                    Nenhuma fila encontrada
+                                                </h5>
 
-                        <?php } ?>
+                                                <p class="text-muted mb-3" style="max-width: 250px;">
+                                                    Não há registros de fila para este beneficiário.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                                if ($total_fila > 0) { ?>
+                                    <?php foreach ($fila_beneficario as $fila) {
+                                        $data = explode(' ', $fila->data_solicitacao)[0] ?? '';
+                                        $data_solicitacao = date('d/m/Y', strtotime($data));
+                                        ?>
+
+                                        <div class="card shadow-sm border-0 rounded-3 mb-3">
+                                            <div class="card-header bg-gradient-primary text-white py-2">
+                                                <i class="bi bi-file-earmark-text me-2"></i>
+                                                <span class="fw-semibold">Fila</span>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="text-uppercase text-dark">Guia</div>
+                                                        <div class="fw-semibold"><b><?= $fila->id_guia ?></b></div>
+                                                    </div>
+                                                    <div class="col-6 mb-3">
+                                                        <div class="text-uppercase text-dark">Data Solicitação</div>
+                                                        <div class="fw-semibold"><b><?= $data_solicitacao ?></b></div>
+                                                    </div>
+                                                    <div class="col-6 mb-3">
+                                                        <div class="text-uppercase text-dark">Autorização</div>
+                                                        <div class="fw-semibold"><b><?= $fila->autorizacao ?></b></div>
+                                                    </div>
+                                                    <div class="col-6 mb-3">
+                                                        <div class="text-uppercase text-dark mb-1">Descrição</div>
+                                                        <div class="fw-semibold"><b><?= $fila->descricao ?></b></div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="text-uppercase text-dark mb-1">Situação</div>
+                                                        <div class="fw-semibold"><b><?= $fila->situacao ?></b></div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="text-uppercase text-dark mb-1">Justificativa</div>
+                                                        <div class="fw-semibold"><b><?= $fila->justificativa ?></b></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php }
+                                }
+                                ?>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
-
             </div>
             <?php include('./rodape.php') ?>
         </div>
