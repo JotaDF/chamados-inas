@@ -75,7 +75,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="classes_judiciais.php">
                     <i class="fa fa-retweet"></i>
-                    <span>Classes Judiciais</span>
+                    <span>Classes Processuais</span>
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
