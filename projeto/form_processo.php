@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-7">
+                <div class="form-group col-md-5">
                     <label for="orgao_origem">Órgão de Origem</label>
                     <select id="orgao_origem" name="orgao_origem" class="form-control form-control-sm">
                         <option value="">Selecione</option>
