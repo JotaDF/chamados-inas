@@ -10,7 +10,7 @@ class ManterOrgaoOrigem extends Model {
     }
 
     function listar($filtro="") {
-        $sql = "select oo.id,oo.nome, (select count(*) from processo as p where p.id_orgao_origem=oo.id) as dep FROM nome as oo $filtro order by oo.nome";
+        $sql = "select oo.id,oo.nome, (select count(*) from processo as p where p.id_orgao_origem=oo.id) as dep FROM orgao_origem as oo $filtro order by oo.nome";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -27,7 +27,7 @@ class ManterOrgaoOrigem extends Model {
         return $array_dados;
     }
     function getOrgaoOrigemPorId($id) {
-        $sql = "select oo.id,oo.nome FROM nome as oo WHERE id=$id";
+        $sql = "select oo.id,oo.nome FROM orgao_origem as oo WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new OrgaoOrigem();
@@ -38,9 +38,9 @@ class ManterOrgaoOrigem extends Model {
         return $dados;
     }
     function salvar(OrgaoOrigem $dados) {
-        $sql = "insert into nome (nome) values ('" . $dados->nome . "')";
+        $sql = "insert into orgao_origem (nome) values ('" . $dados->nome . "')";
         if ($dados->id > 0) {
-            $sql = "update nome set nome='" . $dados->nome . "' where id=$dados->id";
+            $sql = "update orgao_origem set nome='" . $dados->nome . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
@@ -50,7 +50,7 @@ class ManterOrgaoOrigem extends Model {
     }
 
     function excluir($id) {
-        $sql = "delete from nome where id=" . $id;
+        $sql = "delete from orgao_origem where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }

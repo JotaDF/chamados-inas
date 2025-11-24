@@ -80,6 +80,13 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="orgaos_origem.php">
+                    <i class="fa fa-university"></i>
+                    <span>Órgãos de Origem</span>
+                </a>
+            </li>            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="tipos_valores.php">
                     <i class="fa fa-credit-card"></i>
                     <span>Tipo de valores</span>
