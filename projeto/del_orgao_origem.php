@@ -10,8 +10,8 @@ $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
 
 if ($id > 0) {
     $db_orgao_origem->excluir($id);
-    header('Location: orgao_origem.php');
+    header('Location: orgaos_origem.php');
 } else {
     echo 'Falta de parâmetro!';
-    header('Location: orgao_origem.php');
+    header('Location: orgaos_origem.php');
 }

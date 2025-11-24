@@ -13,5 +13,5 @@ $s->id = $id;
 $s->nome = $nome;
 
 $db_orgao_origem->salvar($s);
-header('Location: orgao_origem.php');
+header('Location: orgaos_origem.php');
 

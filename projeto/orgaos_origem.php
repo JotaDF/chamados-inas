@@ -88,7 +88,7 @@ and open the template in the editor.
                                     <i class="fa fa-rss fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Órgãos de Origem s</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Órgãos de Origem</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_orgao_origem" aria-expanded="false" aria-controls="form_orgao_origem">
