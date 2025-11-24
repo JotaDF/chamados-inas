@@ -13,7 +13,7 @@ class ManterProcesso extends Model
 
     function listar($filtro = "")
     {
-        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
+        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_orgao_origem, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas, pessoa_fisica FROM processo $filtro ORDER BY autuacao";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -35,6 +35,7 @@ class ManterProcesso extends Model
             $dados->sub_assunto = $registro["id_sub_assunto"];
             $dados->motivo = $registro["id_motivo"];
             $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->orgao_origem = $registro["id_orgao_origem"];
             $dados->processo_principal = $registro["processo_principal"];
             $dados->situacao_processual = $registro["id_situacao_processual"];
             $dados->liminar = $registro["id_liminar"];
@@ -51,7 +52,7 @@ class ManterProcesso extends Model
     }
     function getProcessoPorId($id)
     {
-        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
+        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_orgao_origem, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas, pessoa_fisica FROM processo WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -71,6 +72,7 @@ class ManterProcesso extends Model
             $dados->sub_assunto = $registro["id_sub_assunto"];
             $dados->motivo = $registro["id_motivo"];
             $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->orgao_origem = $registro["id_orgao_origem"];
             $dados->processo_principal = $registro["processo_principal"];
             $dados->situacao_processual = $registro["id_situacao_processual"];
             $dados->liminar = $registro["id_liminar"];
@@ -85,7 +87,7 @@ class ManterProcesso extends Model
     }
     function getProcessoPorNumero($numero)
     {
-        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
+        $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_orgao_origem, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas, pessoa_fisica FROM processo WHERE numero=$numero";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -105,6 +107,7 @@ class ManterProcesso extends Model
             $dados->sub_assunto = $registro["id_sub_assunto"];
             $dados->motivo = $registro["id_motivo"];
             $dados->classe_judicial = $registro["id_classe_judicial"];
+            $dados->orgao_origem = $registro["id_orgao_origem"];
             $dados->processo_principal = $registro["processo_principal"];
             $dados->situacao_processual = $registro["id_situacao_processual"];
             $dados->liminar = $registro["id_liminar"];
@@ -121,6 +124,9 @@ class ManterProcesso extends Model
     {
         if ($dados->classe_judicial == "") {
             $dados->classe_judicial = "null";
+        }
+        if ($dados->orgao_origem == "") {
+            $dados->orgao_origem = "null";
         }
         if ($dados->liminar == "") {
             $dados->liminar = "null";
@@ -142,15 +148,15 @@ class ManterProcesso extends Model
             $dados->pessoa_fisica = 1;
         }
 
-        $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_situacao_processual, id_liminar, 
+        $sql = "insert into processo (numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_orgao_origem, id_situacao_processual, id_liminar, 
         data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, processo_principal, autor_inas, pessoa_fisica) 
         values ('" . $dados->numero . "','" . $dados->sei . "','" . $dados->autuacao . "','" . $dados->cpf . "','" . $dados->beneficiario . "',
         '" . $dados->guia . "','" . $dados->senha . "','" . $dados->valor_causa . "','" . $dados->observacao . "','" . $dados->assunto . "','" . $dados->sub_assunto . "','" . $dados->motivo . "',
-        " . $dados->classe_judicial . ",'" . $dados->situacao_processual . "'," . $dados->liminar . ",'" . $dados->data_cumprimento_liminar . "','" . $dados->instancia . "','" . $dados->usuario . "',now(),'" . $dados->processo_principal . "'," . $dados->autor_inas . "," . $dados->pessoa_fisica . ")";
+        " . $dados->classe_judicial . "," . $dados->orgao_origem . ",'" . $dados->situacao_processual . "'," . $dados->liminar . ",'" . $dados->data_cumprimento_liminar . "','" . $dados->instancia . "','" . $dados->usuario . "',now(),'" . $dados->processo_principal . "'," . $dados->autor_inas . "," . $dados->pessoa_fisica . ")";
         if ($dados->id > 0) {
             $sql = "update processo set numero='" . $dados->numero . "', sei='" . $dados->sei . "', autuacao='" . $dados->autuacao . "',
             cpf='" . $dados->cpf . "', beneficiario='" . $dados->beneficiario . "', guia='" . $dados->guia . "', senha='" . $dados->senha . "', 
-            valor_causa='" . $dados->valor_causa . "', observacao='" . $dados->observacao . "', id_assunto='" . $dados->assunto . "', id_sub_assunto='" . $dados->sub_assunto . "', id_motivo='" . $dados->motivo . "', id_classe_judicial=" . $dados->classe_judicial . ", id_situacao_processual='" . $dados->situacao_processual . "', 
+            valor_causa='" . $dados->valor_causa . "', observacao='" . $dados->observacao . "', id_assunto='" . $dados->assunto . "', id_sub_assunto='" . $dados->sub_assunto . "', id_motivo='" . $dados->motivo . "', id_classe_judicial=" . $dados->classe_judicial . ", id_orgao_origem=" . $dados->orgao_origem . ", id_situacao_processual='" . $dados->situacao_processual . "', 
             id_liminar=" . $dados->liminar . ", data_cumprimento_liminar='" . $dados->data_cumprimento_liminar . "', id_instancia='" . $dados->instancia . "', id_usuario='" . $dados->usuario . "', atualizacao=now(), processo_principal='" . $dados->processo_principal . "', autor_inas=" . $dados->autor_inas . ", pessoa_fisica =" . $dados->pessoa_fisica . " where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {

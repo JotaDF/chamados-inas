@@ -20,6 +20,7 @@
       public $instancia;
       public $processo_principal;
       public $classe_judicial;
+      public $orgao_origem;
       public $observacao;
       public $autor_inas;
       public $pessoa_fisica;

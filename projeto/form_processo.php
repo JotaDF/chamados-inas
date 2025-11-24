@@ -44,16 +44,17 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-7">
+                    <label for="orgao_origem">Órgão de Origem</label>
+                    <select id="orgao_origem" name="orgao_origem" class="form-control form-control-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-7">
                     <label for="classe_judicial">Classe Processual</label>
                     <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm"
                         onChange="verificaClasse(this.options[this.selectedIndex].value)">
                         <option value="">Selecione</option>
                     </select>
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="processo_vinculado">Processo Principal</label>
-                    <input type="text" class="form-control form-control-sm" name="processo_principal"
-                        id="processo_principal" placeholder="00000">
                 </div>
             </div>
             <div class="form-row">

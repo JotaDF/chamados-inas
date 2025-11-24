@@ -13,6 +13,7 @@ $processo->autuacao                 = isset($_POST['autuacao']) ? strtotime($_PO
 $processo->instancia                = isset($_POST['instancia']) ? $_POST['instancia'] : '';
 $processo->sei                      = isset($_POST['sei']) ? $_POST['sei'] : '';
 $processo->classe_judicial          = isset($_POST['classe_judicial']) ? $_POST['classe_judicial'] : '';
+$processo->orgao_origem          = isset($_POST['orgao_origem']) ? $_POST['orgao_origem'] : '';
 $processo->processo_vinculado       = isset($_POST['processo_vinculado']) ? $_POST['processo_vinculado'] : '';
 $processo->guia                     = isset($_POST['guia']) ? $_POST['guia'] : '';
 $processo->cpf                      = $_POST['cpf'];

@@ -49,6 +49,7 @@ and open the template in the editor.
                      var situacoes = [];
                      var instancias = [];
                      var classes_judiciais = [];
+                     var orgaos_origem = [];
 <?php
 include_once('./actions/ManterAssunto.php');
 include_once('./actions/ManterSubAssunto.php');
@@ -57,6 +58,7 @@ include_once('./actions/ManterLiminar.php');
 include_once('./actions/ManterSituacaoProcessual.php');
 include_once('./actions/ManterInstancia.php');
 include_once('./actions/ManterClasseJudicial.php');
+include_once('./actions/ManterOrgaoOrigem.php');
 
 $manterAssunto = new ManterAssunto();
 $listaA = $manterAssunto->listar();
@@ -79,6 +81,8 @@ $listaI = $manterInstancia->listar();
 $manterClasseJudicial = new ManterClasseJudicial();
 $listaCJ = $manterClasseJudicial->listar(" WHERE vinculado='0' ");
 
+$manterOrgaoOrigem = new ManterOrgaoOrigem();
+$listaO = $manterOrgaoOrigem->listar();
 
 foreach ($listaA as $obj) {
     ?>item = {id: "<?= $obj->id ?>", assunto: "<?= $obj->assunto ?>"};
@@ -116,6 +120,12 @@ foreach ($listaCJ as $obj) {
     <?php
 }
 
+foreach ($listaO as $obj) {
+    ?>item = {id: "<?= $obj->id ?>", orgao: "<?= $obj->nome ?>"};
+                orgaos_origem.push(item);
+    <?php
+}
+
 ?>
 
             $(document).ready(function () {
@@ -127,6 +137,7 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(0) ;
                 carregaInstancias(0);
                 carregaClassesJudiciais(0);
+                carregaOrgaosOrigem(0);
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);
                 habilitaCNPJ();
@@ -246,7 +257,7 @@ foreach ($listaCJ as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao,pessoa_fisica) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,observacao,pessoa_fisica) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -259,7 +270,6 @@ foreach ($listaCJ as $obj) {
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
-                $('#processo_principal').val(processo_principal);
                 
                 carregarSei(sei);
                 carregaAssuntos(assunto);
@@ -270,6 +280,7 @@ foreach ($listaCJ as $obj) {
                 carregaSituacoes(situacao_processual) ;
                 carregaInstancias(instancia);
                 carregaClassesJudiciais(classe_judicial);
+                carregaOrgaosOrigem(orgao_origem);
                 $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
                 habilitaCNPJ();
                 $('#form_processo').collapse("show");
@@ -390,6 +401,22 @@ foreach ($listaCJ as $obj) {
                 }
                 $('#classe_judicial').html(html);
             } 
+            function carregaOrgaosOrigem(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < orgaos_origem.length; i++) {
+                    var option = orgaos_origem[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option.id == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option.id + '" ' + selected + '>' + option.orgao + '</option>';
+                }
+                $('#orgao_origem').html(html);
+            }
             const mascaraMoeda = (event) => {
             const onlyDigits = event.target.value
                 .split("")
