@@ -257,7 +257,7 @@ foreach ($listaO as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,observacao,pessoa_fisica) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,observacao,pessoa_fisica) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -280,7 +280,7 @@ foreach ($listaO as $obj) {
                 carregaSituacoes(situacao_processual) ;
                 carregaInstancias(instancia);
                 carregaClassesJudiciais(classe_judicial);
-                carregaOrgaosOrigem(0);
+                carregaOrgaosOrigem(orgao_origem);
                 $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
                 habilitaCNPJ();
                 $('#form_processo').collapse("show");
