@@ -87,7 +87,10 @@ foreach ($acessos as $acesso) {
                 break;    
             case 21:
                 $icon_css = "fa fa-comments";
-                break;                                                            
+                break; 
+            case 22:
+                $icon_css = "fa fa-user-md";
+                break;                                                           
         }
         
 ?> 
