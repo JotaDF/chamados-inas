@@ -1,6 +1,6 @@
 <?php
 $mod = 22;
-require_once('./verifica_login.php');
+include_once('./verifica_login.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -40,24 +40,8 @@ require_once('./verifica_login.php');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
         $(document).ready(function () {
-            $('#beneficiarios').DataTable();
+            $('#fila_atendimentos').DataTable();
         });
-
-        function excluir(id, descricao) {
-            $('#delete').attr('href', 'del_beneficiario.php?id=' + id);
-            $('#excluir').text(descricao);
-            $('#confirm').modal({ show: true });
-        }
-        function alterar(nome, cpf, carteirinha,telefone, email) {
-            console.log(cpf);
-            $('#nome').val(nome);
-            $('#cpf').val(cpf);
-            $('#carteirinha').val(carteirinha);
-            $('#telefone').val(telefone);
-            $('#email').val(email);
-            $('#form_beneficiario').collapse("show");
-            $('#telefone').focus();
-        }
     </script>
     <style>
         body {
@@ -73,31 +57,31 @@ require_once('./verifica_login.php');
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <div class="container-fluid">
-                    <?php include './form_beneficiario.php'; ?>
                     <div class="card mb-4 border-primary" style="max-width:900px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
                                 <i class="fa fa-user fa-2x text-white"></i>
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Beneficiários</span>
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Fila Perícia Eco</span>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="beneficiarios" class="table-sm table-striped table-bordered dt-responsive wrap"
+                            <table id="fila_atendimentos" class="table-sm table-striped table-bordered dt-responsive wrap"
                                 style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Autorização</th>
+                                        <th scope="col">Data Solicitação</th>
+                                        <th scope="col">Situação</th>
+                                        <th scope="col">Descrição</th>
                                         <th scope="col">Nome</th>
-                                        <th scope="col">CPF</th>
-                                        <th scope="col">Carteirinha</th>
                                         <th scope="col">Telefone</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col" style="width: 10%">Opções</th>
+                                        <th scope="col" style="width: 5%">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php include('./get_beneficiario.php'); ?>
+                                    <?php include('./get_fila_pericia_eco.php'); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -106,31 +90,6 @@ require_once('./verifica_login.php');
             </div>
             <?php include('./rodape.php') ?>
         </div>
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Modal de Confirmação -->
-        <div class="modal fade" id="confirm" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirmação</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Deseja excluir o Médico: <strong>"<span id="excluir"></span>"</strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</body>
 
-</html>
+</body>

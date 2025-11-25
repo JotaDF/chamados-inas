@@ -23,7 +23,7 @@
             Atendimento Perícia
         </div>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="agendamento_pericia.php">
                     <i class="fa fa-calendar"></i>
                     <span>Agendamento</span>
                 </a>
@@ -38,6 +38,12 @@
                 <a class="nav-link collapsed" href="beneficiario.php">
                     <i class="fa fa-user"></i>
                     <span>Beneficiários</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="fila_pericia_eco.php">
+                    <i class="fa fa-user"></i>
+                    <span>Fila Perícia Eco</span>
                 </a>
             </li>
         <?php
