@@ -13,7 +13,7 @@ $processo->autuacao                 = isset($_POST['autuacao']) ? strtotime($_PO
 $processo->instancia                = isset($_POST['instancia']) ? $_POST['instancia'] : '';
 $processo->sei                      = isset($_POST['sei']) ? $_POST['sei'] : '';
 $processo->classe_judicial          = isset($_POST['classe_judicial']) ? $_POST['classe_judicial'] : '';
-$processo->orgao_origem          = isset($_POST['orgao_origem']) ? $_POST['orgao_origem'] : '';
+$processo->orgao_origem             = isset($_POST['orgao_origem']) ? $_POST['orgao_origem'] : '';
 $processo->processo_vinculado       = isset($_POST['processo_vinculado']) ? $_POST['processo_vinculado'] : '';
 $processo->guia                     = isset($_POST['guia']) ? $_POST['guia'] : '';
 $processo->cpf                      = $_POST['cpf'];
@@ -28,7 +28,8 @@ $processo->situacao_processual      = $_POST['situacao'];
 $processo->observacao               = addslashes($_POST['observacoes']);
 $processo->usuario                  = $_POST['usuario'];
 $processo->pessoa_fisica            = isset($_POST['pessoa_fisica']) ? $_POST['pessoa_fisica'] : 0;
-
+$processo->inas_parte               = isset($_POST['inas_parte']) ? $_POST['inas_parte'] : 0;
+$processo->pediu_danos              = isset($_POST['pediu_danos']) ? $_POST['pediu_danos'] : 0;
 
 //print_r($processo);
 $db_processo->salvar($processo); 

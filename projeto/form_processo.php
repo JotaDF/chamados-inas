@@ -58,16 +58,24 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     <label for="guia">Guia/Autorização</label>
                     <input type="text" class="form-control form-control-sm" name="guia" id="guia"
                         placeholder="00000000000">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="cpf">Pessoa Física </label>
+                    <label for="pessoa_fisica">Pessoa Física </label>
                     <input type="checkbox" id="pessoa_fisica" name="pessoa_fisica" value="1" checked
                         onchange="habilitaCNPJ()">
                 </div>
+                <div class="form-group col-md-3">
+                    <label for="inas_parte">INAS é parte </label>
+                    <input type="checkbox" id="inas_parte" name="inas_parte" value="1" checked>  
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="pediu_danos">Pediu Danos Morais </label>
+                    <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1" checked>  
+                </div>                
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -118,7 +126,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="data_cumprimento_liminar">Cumprimento Liminar</label>
+                    <label for="data_cumprimento_liminar">Data Arquivamento</label>
                     <input type="date" class="form-control form-control-sm" name="data_cumprimento_liminar"
                         id="data_cumprimento_liminar">
                 </div>

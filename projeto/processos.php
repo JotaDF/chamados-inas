@@ -248,6 +248,8 @@ foreach ($listaO as $obj) {
                 carregaClassesJudiciais(0);
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);  
+                $('#inas_parte').prop('checked', false);
+                $('#pediu_danos').prop('checked', false);
                 habilitaCNPJ();
             }
             function excluir(id, numero, cpf, beneficiario) {
@@ -257,7 +259,7 @@ foreach ($listaO as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,observacao,pessoa_fisica) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,observacao,pessoa_fisica,inas_parte,pediu_danos) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -270,7 +272,6 @@ foreach ($listaO as $obj) {
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
                 }
-                
                 carregarSei(sei);
                 carregaAssuntos(assunto);
                 carregaSubAssuntos(sub_assunto);
@@ -282,6 +283,8 @@ foreach ($listaO as $obj) {
                 carregaClassesJudiciais(classe_judicial);
                 carregaOrgaosOrigem(orgao_origem);
                 $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
+                $('#inas_parte').prop('checked', (inas_parte == 1));
+                $('#pediu_danos').prop('checked', (pediu_danos == 1));
                 habilitaCNPJ();
                 $('#form_processo').collapse("show");
             }

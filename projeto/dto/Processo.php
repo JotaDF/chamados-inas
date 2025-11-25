@@ -24,7 +24,8 @@
       public $observacao;
       public $autor_inas;
       public $pessoa_fisica;
-      
+      public $inas_parte;
+      public $pediu_danos;
 
       //variaveis de manipulação
       public $excluir;
