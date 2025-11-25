@@ -251,6 +251,8 @@ foreach ($listaO as $obj) {
                 $('#inas_parte').prop('checked', false);
                 $('#pediu_danos').prop('checked', false);
                 habilitaCNPJ();
+                $('#valor_causa').val(valor_causa);
+                quillEditor.root.innerHTML = '';
             }
             function excluir(id, numero, cpf, beneficiario) {
                 var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Autor: " + beneficiario;
