@@ -119,7 +119,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="liminar">liminar</label>
+                    <label for="liminar">Decisão</label>
                     <select id="liminar" name="liminar" class="form-control form-control-sm"
                         onChange="verificaLiminar(this.options[this.selectedIndex].value)">
                         <option value="">Selecione</option>

@@ -251,7 +251,6 @@ foreach ($listaO as $obj) {
                 $('#inas_parte').prop('checked', false);
                 $('#pediu_danos').prop('checked', false);
                 habilitaCNPJ();
-                $('#valor_causa').val(valor_causa);
                 quillEditor.root.innerHTML = '';
             }
             function excluir(id, numero, cpf, beneficiario) {
@@ -261,7 +260,7 @@ foreach ($listaO as $obj) {
                 $('#confirm').modal({show: true});              
             }
             function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,observacao,pessoa_fisica,inas_parte,pediu_danos) {
+                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,pessoa_fisica,inas_parte,pediu_danos) {
                 $('#id').val(id);
                 $('#numero').val(numero);
                 $('#sei').val(sei);
@@ -269,7 +268,8 @@ foreach ($listaO as $obj) {
                 $('#cpf').val(cpf);
                 $('#beneficiario').val(beneficiario);
                 $('#guia').val(guia);
-                $('#valor_causa').val(valor_causa);let conteudo = document.getElementById(id + '_observacoes').value;
+                $('#valor_causa').val(valor_causa);
+                let conteudo = document.getElementById(id + '_observacoes').value;
                 quillEditor.root.innerHTML = conteudo;
                 if(liminar != "" && liminar != "0"){
                     $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
