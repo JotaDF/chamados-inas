@@ -17,6 +17,7 @@
       public $data_cumprimento_liminar;
       public $usuario;
       public $atualizacao;
+      public $criacao;
       public $instancia;
       public $processo_principal;
       public $classe_judicial;
