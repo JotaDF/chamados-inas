@@ -12,6 +12,10 @@
             <input type="hidden" id="nova_busca" name="nova_busca" value="1" />
             <div class="form-row">
                 <div class="form-group col-md-5">
+                    <label for="arquivado">Arquivado </label>
+                    <input type="checkbox" id="arquivado" name="arquivado" value="1">  
+                </div>
+                <div class="form-group col-md-5">
                     <label for="inas_parte">INAS é parte </label>
                     <input type="checkbox" id="inas_parte" name="inas_parte" value="1">  
                 </div>

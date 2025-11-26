@@ -530,38 +530,7 @@ foreach ($listaO as $obj) {
                     <div class="container-fluid">
                         <?php include './form_processo_busca.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:1500px">
-                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-balance-scale fa-2x text-white"></i> 
-                                </div>
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Processos</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-
-                                </div>
-                            </div>                            
-
-                            <div class="card-body">
-                                <table id="numeros" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Número</th>
-                                            <th scope="col">BENEFICIÁRIO</th>
-                                            <th scope="col">AUTUAÇÃO</th>
-                                            <th scope="col">ATUALIZAÇÃO</th>
-                                            <th scope="col">ASSUNTO</th>
-                                            <th scope="col">SUB ASSUNTO</th>
-                                            <th scope="col" class="text-nowrap">Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include './get_processo.php'; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
                     </div>
                     <!-- End of Main Content -->
                 </div> 
@@ -577,28 +546,6 @@ foreach ($listaO as $obj) {
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-        <!-- Modal excluir -->
-        <div class="modal fade" id="confirm" role="dialog">
-            <div class="modal-dialog modal-sm">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirmação</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Deseja excluir <strong><br/><span id="excluir"></span></strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
     </body>
 
