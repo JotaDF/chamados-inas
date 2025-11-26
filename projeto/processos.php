@@ -582,7 +582,7 @@ foreach ($listaO as $obj) {
                                 <div class="col mb-0">
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Processos</span>
                                 </div>
-                                <div class="col text-right" style="max-width:20%">
+                                <div class="col text-right" style="max-width:30%">
                                     <?php
                                     if ($filtro != " WHERE 1=1 ") {
                                         echo '<a href="processos_busca.php?rn=1" class="btn btn-outline-light btn-sm" type="button" title="Filtrar"><i class="fa fa-filter text-white" aria-hidden="true"></i> Remover Filtro</a>&nbsp;&nbsp; <a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Altera Filtro"><i class="fa fa-filter text-white" aria-hidden="true"></i> Alterar Filtro</a>&nbsp;&nbsp; ';

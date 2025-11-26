@@ -8,6 +8,7 @@ $busca = [];
 if ($remover_filtro == '1') {
     unset($_SESSION['filtro_processo']);
     unset($_SESSION['post_busca']);
+    header('Location: processos.php');
 } else {
     if (isset($_SESSION['post_busca'])) {
         $busca = $_SESSION['post_busca'];
