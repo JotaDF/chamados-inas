@@ -6,13 +6,16 @@ require_once('Model.php');
 //require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Fila.php');
 require_once('dto/FilaPericiaEco.php');
 
-class ManterFilaPericiaEco extends Model {
+class ManterFilaPericiaEco extends Model
+{
 
-    function __construct() { //metodo construtor
+    function __construct()
+    { //metodo construtor
         parent::__construct();
     }
 
-    function listar() {
+    function listar()
+    {
         $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf 
                 FROM fila_pericia_eco";
         //echo $sql;
@@ -24,19 +27,20 @@ class ManterFilaPericiaEco extends Model {
             if ($registro["dep"] > 0) {
                 $dados->excluir = false;
             }
-            $dados->id                  = $registro["id"];
-            $dados->id_guia             = $registro["id_guia"];
-            $dados->autorizacao         = $registro["autorizacao"];
-            $dados->data_solicitacao    = $registro["data_solicitacao"];
-            $dados->justificativa       = $registro["justificativa"];
-            $dados->situacao            = $registro["situacao"];
-            $dados->descricao           = $registro["descricao"];
-            $dados->cpf                 = $registro["cpf"];
-            $array_dados[]              = $dados;
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
+            $array_dados[] = $dados;
         }
         return $array_dados;
     }
-    function getFilaPorIdGuia($id_guia) {
+    function getFilaPorIdGuia($id_guia)
+    {
         $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf 
                 FROM fila_pericia_eco 
                 WHERE id_guia = " . $id_guia;
@@ -45,49 +49,52 @@ class ManterFilaPericiaEco extends Model {
         $dados = new FilaPericiaEco();
         if ($registro = $resultado->fetchRow()) {
             $dados->excluir = true;
-            $dados->id                  = $registro["id"];
-            $dados->id_guia             = $registro["id_guia"];
-            $dados->autorizacao         = $registro["autorizacao"];
-            $dados->data_solicitacao    = $registro["data_solicitacao"];
-            $dados->justificativa       = $registro["justificativa"];
-            $dados->situacao            = $registro["situacao"];
-            $dados->descricao           = $registro["descricao"];
-            $dados->cpf                 = $registro["cpf"];
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
         }
         return $dados;
     }
-    function getDataAgendamento() {
+    function getDataAgendamento()
+    {
         $sql = "SELECT data_solicitacao FROM fila_pericia_eco";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
-        while($registro = $resultado->fetchRow()) {
+        while ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco();
             $dados = $registro['data_solicitacao'];
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
-    function getAgendamentoPorData($data) {
-        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf FROM fila_pericia_eco WHERE data_solicitacao = '". $data ."'";
+    function getAgendamentoPorData($data)
+    {
+        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf FROM fila_pericia_eco WHERE data_solicitacao = '" . $data . "'";
         $resultado = $this->db->Execute($sql);
-        if($registro = $resultado->fetchRow()) {
+        if ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
             $dados->excluir = true;
             if ($registro["dep"] > 0) {
                 $dados->excluir = false;
             }
-            $dados->id                  = $registro["id"];
-            $dados->id_guia             = $registro["id_guia"];
-            $dados->autorizacao         = $registro["autorizacao"];
-            $dados->data_solicitacao    = $registro["data_solicitacao"];
-            $dados->justificativa       = $registro["justificativa"];
-            $dados->situacao            = $registro["situacao"];
-            $dados->descricao           = $registro["descricao"];
-            $dados->cpf                 = $registro["cpf"];
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
         }
         return $dados;
     }
-    function listaFilaPericiaSemAtendimento() {
+    function listaFilaPericiaSemAtendimento()
+    {
         $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE id_fila)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -97,22 +104,23 @@ class ManterFilaPericiaEco extends Model {
             // if ($registro["dep"] > 0) {
             //     $dados->excluir = false;
             // }
-            $dados->id                  = $registro["id"];
-            $dados->id_guia             = $registro["id_guia"];
-            $dados->autorizacao         = $registro["autorizacao"];
-            $dados->data_solicitacao    = $registro["data_solicitacao"];
-            $dados->justificativa       = $registro["justificativa"];
-            $dados->situacao            = $registro["situacao"];
-            $dados->descricao           = $registro["descricao"];
-            $dados->cpf                 = $registro["cpf"];
-            $dados->nome                = $registro["nome"];
-            $dados->telefone            = $registro["telefone"];
-            $array_dados[]              = $dados;
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->nome = $registro["nome"];
+            $dados->telefone = $registro["telefone"];
+            $array_dados[] = $dados;
         }
         return $array_dados;
     }
-    function getFilaPorId($id_fila) {
-        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id ='". $id_fila ."'";
+    function getFilaPorId($id_fila)
+    {
+        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id ='" . $id_fila . "'";
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
@@ -120,20 +128,21 @@ class ManterFilaPericiaEco extends Model {
             if ($registro["dep"] > 0) {
                 $dados->excluir = false;
             }
-            $dados->id                  = $registro["id"];
-            $dados->id_guia             = $registro["id_guia"];
-            $dados->autorizacao         = $registro["autorizacao"];
-            $dados->data_solicitacao    = $registro["data_solicitacao"];
-            $dados->justificativa       = $registro["justificativa"];
-            $dados->situacao            = $registro["situacao"];
-            $dados->descricao           = $registro["descricao"];
-            $dados->cpf                 = $registro["cpf"];
-            $dados->nome                = $registro["nome"];
-            $dados->telefone            = $registro["telefone"];
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->nome = $registro["nome"];
+            $dados->telefone = $registro["telefone"];
         }
         return $dados;
     }
-    function existeGuia($id_guia) {
+    function existeGuia($id_guia)
+    {
         $sql = "SELECT id, id_guia FROM fila_pericia_eco WHERE id_guia = " . $id_guia;
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -143,18 +152,67 @@ class ManterFilaPericiaEco extends Model {
         return false;
     }
 
-    function salvar(FilaPericiaEco $dados) {
+    function salvar(FilaPericiaEco $dados)
+    {
         $sql = "INSERT INTO fila_pericia_eco (id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf) 
                 VALUES (" . $dados->id_guia . ", '" . $dados->autorizacao . "', '" . $dados->data_solicitacao . "', '" . $dados->justificativa . "', '" . $dados->situacao . "', '" . $dados->descricao . "', '" . $dados->cpf . "')";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-    function excluir($id) {
+    function excluir($id)
+    {
         $sql = "delete from fila_pericia_eco where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
 
+    function getPeriodo(DateTime $inicio)
+    {
+        $inicio = new DateTime();
+        $fim = new DateTime("+30 days");
+        $diario = new DateInterval("P1D");
+        $periodo = new DatePeriod($inicio, $diario, $fim);
+        $periodoDatas = $this->removeDiaEspecial($periodo);
+        return $periodoDatas;
+    }
+    function removeDiaEspecial($periodoDatas)
+    {
+        $datasValidas = [];
+
+        foreach ($periodoDatas as $data) {
+            if ($data->format("N") <= 5) { 
+                $datasValidas[] = $data;
+            }
+        }
+
+        return $datasValidas;
+    }
+
+    function getHorarios()
+    {
+        $inicio = new DateTime("08:00");
+        $fim = new DateTime("19:00");
+        $intervalo = new DateInterval("PT30M");
+        $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
+        return $periodoHoras;
+    }
+
+
+    function criaAgenda($periodoDatas, $periodoHoras)
+    {
+        $agenda = [];
+        foreach ($periodoDatas as $data) {
+            if ($data->format("N") <= 5) {
+                $horarios = [];
+                foreach ($periodoHoras as $hora) {
+                    $horarios[] = $hora->format("H:i");
+                }
+                $agenda[$data->format("Y-m-d")] = $horarios;
+            }
+        }
+
+        return $agenda;
+    }
 }
 

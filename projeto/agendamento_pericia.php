@@ -115,8 +115,27 @@ include_once('./verifica_login.php');
                 $datas = $manterFilaPericiaEco->getDataAgendamento();
                 $id_fila = $_GET['id'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
+                $periodoDatas = $manterFilaPericiaEco->getPeriodo(new DateTime());
+                $periodoHoras = $manterFilaPericiaEco->getHorarios();
+                $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
+                // print_r($agenda);
+                // foreach ($agenda as $data) {
+                //     echo "dia: " . $data . "<br>";
+                //     foreach($data as $horas)
+                //         echo "horas: " . $horas . "<br>";
+                // }
+                
+                foreach ($agenda as $data => $horas) {
+                    echo "dia: " . $data . "<br>";
+                    foreach ($horas as $hora) {
+                        echo "horas: " . $hora . "<br>";
+                    }
+                    echo "=============================";
+                    echo "<br>";
+                }
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
                 ?>
+
                 <div class="container-fluid">
                     <div>
                         <div class="card shadow-sm mt-3">
