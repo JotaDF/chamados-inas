@@ -2,6 +2,18 @@
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
+
+$remover_filtro = isset($_GET['rn']) ? $_GET['rn'] : '';
+$busca = [];
+if ($remover_filtro == '1') {
+    unset($_SESSION['filtro_processo']);
+    unset($_SESSION['post_busca']);
+} else {
+    if (isset($_SESSION['post_busca'])) {
+        $busca = $_SESSION['post_busca'];
+    }
+}
+
 ?> 
 <!DOCTYPE html>
 <!--
@@ -129,167 +141,19 @@ foreach ($listaO as $obj) {
 ?>
 
             $(document).ready(function () {
-                $('#numeros').DataTable();
-                carregaAssuntos(0);
-                carregaSubAssuntos(0);
-                carregaMotivos(0);
-                carregaTiposLiminar(0);
-                carregaSituacoes(0) ;
-                carregaInstancias(0);
-                carregaClassesJudiciais(0);
-                carregaOrgaosOrigem(0);
-                $('#processo_principal').prop("disabled", true);                                                                                                            
-                $('#data_cumprimento_liminar').prop("disabled", true);
-                habilitaCNPJ();
-                const quillOpcoes = {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        ['link'],
-                        [{ 'align': [] }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
-                    ],
-                },
-                theme: 'snow',
-            };
+                carregaAssuntos(<?= isset($busca['assunto']) ? $busca['assunto'] : 0 ?>);
+                carregaSubAssuntos(<?= isset($busca['sub_assunto']) ? $busca['sub_assunto'] : 0 ?>);
+                carregaMotivos(<?= isset($busca['motivo']) ? $busca['motivo'] : 0 ?>);
+                carregaTiposLiminar(<?= isset($busca['liminar']) ? $busca['liminar'] : 0 ?>);
+                carregaSituacoes(<?= isset($busca['situacao']) ? $busca['situacao'] : 0 ?>);
+                carregaInstancias(<?= isset($busca['instancia']) ? $busca['instancia'] : 0 ?>);
+                carregaClassesJudiciais(<?= isset($busca['classe_judicial']) ? $busca['classe_judicial'] : 0 ?>);
+                carregaOrgaosOrigem(<?= isset($busca['orgao_origem']) ? $busca['orgao_origem'] : 0 ?>);
+                $('#arquivado').prop('checked', <?= isset($busca['arquivado']) && $busca['arquivado'] == '1'  ? 'true' : 'false' ?>);
+                $('#inas_parte').prop('checked', <?= isset($busca['inas_parte']) && $busca['inas_parte'] == '1'  ? 'true' : 'false' ?>);
+                $('#pediu_danos').prop('checked', <?= isset($busca['pediu_danos']) && $busca['pediu_danos'] == '1'  ? 'true' : 'false' ?>);
 
-            // Instanciar o Quill para o editor de TAP
-            quillEditor = new Quill('#editor', quillOpcoes);
-            document.getElementById('form_processo').addEventListener('submit', function () {
-                const quillEditorHTML = quillEditor.root.innerHTML;
-                document.querySelector('input[name="observacoes"]').value = quillEditorHTML;
             });
-            });
-            var sei_t = "";
-            var sei = "";
-            var sei_html = "";
-            var sei_arr;
-            function addSei() {
-                sei_t = $('#sei_t').val();
-                sei = $('#sei').val();
-                
-                //alert(sei_t);
-                //alert(sei);
-                if($(sei_t !="")){
-                    sei_html = "";
-                    sei_arr = sei. split(";");
-                    var achou = false;
-                    for (let i = 0; i < sei_arr.length; i++) {
-                        if(sei_arr[i] == sei_t){
-                            achou = true;
-                        }
-                    }
-                    if(!achou) {
-                        sei += sei_t + ";";
-                    } else {
-                        alert("Processo SEI já adicionado!");
-                    }
-                    sei_arr = sei. split(";");
-                    for (let i = 0; i < sei_arr.length; i++) {
-                        if(sei_arr[i] !=""){
-                            sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
-                        }
-                    }
-                    $('#txt_sei').html(sei_html);
-                    $('#sei').val(sei);
-                    $('#sei_t').val("");
-                }
-                //alert(sei);    
-            }
-            function delSei(numero) {
-                sei_html = "";
-                sei = $('#sei').val();
-                sei = sei.replace(numero, '');
-                sei_arr = sei. split(";");
-                for (let i = 0; i < sei_arr.length; i++) {
-                    if(sei_arr[i] !=""){
-                        sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
-                    }
-                }
-                $('#txt_sei').html(sei_html);
-                $('#sei').val(sei);
-                //alert(sei);    
-            }
-            function carregarSei(numero) {
-                sei = numero;
-                sei_html = "";
-                sei_arr = numero.split(";");
-                for (let i = 0; i < sei_arr.length; i++) {
-                    if(sei_arr[i] !=""){
-                        sei_html += sei_arr[i] + " <a href='#' onclick='delSei(\""+ sei_arr[i] +";\")'><i class='text-danger far fa-trash-alt'></i></a> ";
-                    }
-                }
-                $('#txt_sei').html(sei_html);
-                $('#sei').val(sei);
-                //alert(sei);    
-            }
-            function verificaClasse(classe) {
-                if (classe != "") {
-                    $('#processo_principal').prop("disabled", false);
-                } else {
-                    $('#processo_principal').prop("disabled", true);
-                }
-            }
-            function verificaLiminar(liminar) {
-                if (liminar != "") {
-                    $('#data_cumprimento_liminar').prop("disabled", false);
-                } else {
-                    $('#data_cumprimento_liminar').prop("disabled", true);
-                }
-            }
-            function novo() {
-                carregarSei("");
-                carregaAssuntos(0);
-                carregaSubAssuntos(0);
-                carregaMotivos(0);
-                carregaTiposLiminar(0);
-                carregaSituacoes(0) ;
-                carregaInstancias(0);
-                carregaClassesJudiciais(0);
-                $('#processo_principal').prop("disabled", true);                                                                                                            
-                $('#data_cumprimento_liminar').prop("disabled", true);  
-                $('#inas_parte').prop('checked', false);
-                $('#pediu_danos').prop('checked', false);
-                habilitaCNPJ();
-                quillEditor.root.innerHTML = '';
-            }
-            function excluir(id, numero, cpf, beneficiario) {
-                var txt_excluir = " Processo número: " + numero + "<br/> CPF: " + cpf + "<br/> Autor: " + beneficiario;
-                $('#delete').attr('href', 'del_processo.php?id=' + id);
-                $('#excluir').html(txt_excluir);
-                $('#confirm').modal({show: true});              
-            }
-            function alterar(id,numero,sei,autuacao,cpf,beneficiario,guia,valor_causa,assunto,sub_assunto,motivo,situacao_processual,liminar,
-                            data_cumprimento_liminar,instancia,processo_principal,classe_judicial,orgao_origem,pessoa_fisica,inas_parte,pediu_danos) {
-                $('#id').val(id);
-                $('#numero').val(numero);
-                $('#sei').val(sei);
-                $('#autuacao').val(autuacao);
-                $('#cpf').val(cpf);
-                $('#beneficiario').val(beneficiario);
-                $('#guia').val(guia);
-                $('#valor_causa').val(valor_causa);
-                let conteudo = document.getElementById(id + '_observacoes').value;
-                quillEditor.root.innerHTML = conteudo;
-                if(liminar != "" && liminar != "0"){
-                    $('#data_cumprimento_liminar').val(data_cumprimento_liminar);
-                }
-                carregarSei(sei);
-                carregaAssuntos(assunto);
-                carregaSubAssuntos(sub_assunto);
-                carregaMotivos(motivo);
-                carregaTiposLiminar(liminar);
-                verificaLiminar(liminar);
-                carregaSituacoes(situacao_processual) ;
-                carregaInstancias(instancia);
-                carregaClassesJudiciais(classe_judicial);
-                carregaOrgaosOrigem(orgao_origem);
-                $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
-                $('#inas_parte').prop('checked', (inas_parte == 1));
-                $('#pediu_danos').prop('checked', (pediu_danos == 1));
-                habilitaCNPJ();
-                $('#form_processo').collapse("show");
-            }
 
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
@@ -421,93 +285,7 @@ foreach ($listaO as $obj) {
                     html += '<option value="' + option.id + '" ' + selected + '>' + option.orgao + '</option>';
                 }
                 $('#orgao_origem').html(html);
-            }
-            const mascaraMoeda = (event) => {
-            const onlyDigits = event.target.value
-                .split("")
-                .filter(s => /\d/.test(s))
-                .join("")
-                .padStart(3, "0")
-            const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
-            event.target.value = maskCurrency(digitsFloat)
-            }
-
-            const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
-            return new Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency
-            }).format(valor)
             }    
-            function validarCPF() {
-                var cpf = $('#cpf').val();
-                if(!validarCPFX(cpf)){
-                    alert("Número de CPF inválido!");
-                    return false;
-                }
-                return true;
-            }
-            function validarCPFX(cpf) {	
-                cpf = cpf.replace(/\D+/g, '');	
-                if(cpf == '') return false;	
-                // Elimina CPFs invalidos conhecidos	
-                if (cpf.length != 11 || 
-                    cpf == "00000000191" ||
-                    cpf == "00000000000" ||  
-                    cpf == "11111111111" || 
-                    cpf == "22222222222" || 
-                    cpf == "33333333333" || 
-                    cpf == "44444444444" || 
-                    cpf == "55555555555" || 
-                    cpf == "66666666666" || 
-                    cpf == "77777777777" || 
-                    cpf == "88888888888" || 
-                    cpf == "99999999999")
-                        return false;		
-                // Valida 1o digito	
-                add = 0;	
-                for (i=0; i < 9; i ++)		
-                    add += parseInt(cpf.charAt(i)) * (10 - i);	
-                    rev = 11 - (add % 11);	
-                    if (rev == 10 || rev == 11)		
-                        rev = 0;	
-                    if (rev != parseInt(cpf.charAt(9)))		
-                        return false;		
-                // Valida 2o digito	
-                add = 0;	
-                for (i = 0; i < 10; i ++)		
-                    add += parseInt(cpf.charAt(i)) * (11 - i);	
-                rev = 11 - (add % 11);	
-                if (rev == 10 || rev == 11)	
-                    rev = 0;	
-                if (rev != parseInt(cpf.charAt(10)))
-                    return false;		
-                return true;   
-            }   
-            $('#pessoa_fisica').change(function() {
-                habilitaCNPJ();
-            });
-            function habilitaCNPJ() {
-                if($('#pessoa_fisica').is(":checked")) {
-                    $('#cpf').attr("placeholder", "000.000.000-00");
-                    //$('#cpf').val("");
-                    $('#cpf').attr("maxlength", 14);
-                    $('#cpf').attr("onkeypress", "$(this).mask('000.000.000-00');");
-                    $('form_processo').attr("onsubmit","return validarCPF()");
-                    //$('#cpf').on('input', function() {
-                    //    $(this).mask('000.000.000-00');
-                    //});
-                } else {
-                    $('#cpf').attr("placeholder", "00.000.000/0000-00");
-                    //$('#cpf').val("");
-                    $("p").removeAttr("style");
-                    $('#cpf').attr("maxlength", 18);
-                    $('#cpf').attr("onkeypress", "$(this).mask('00.000.000/0000-00');");
-                    $('form_processo').removeAttr("onsubmit");
-                    //$('#cpf').on('input', function() {
-                    //    $(this).mask('00.000.000/0000-00');
-                    //});
-                }
-            }
         </script>
         <style>
             body{

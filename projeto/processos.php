@@ -4,6 +4,7 @@ $mod = 6;
 require_once('./verifica_login.php');
 
 $filtro = " WHERE 1=1 ";
+$requisisao = $_POST;
 //-- Filtros de busca --//
 if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
     if(isset($_POST['arquivado']) && $_POST['arquivado'] == 1){
@@ -40,7 +41,8 @@ if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
         $filtro .= " AND p.id_situacao_processual = '".$_POST['situacao']."' ";
     }
     $_SESSION["busca_processo"] = $filtro;
-} else if (!isset($_SESSION["busca_processo"])) {
+    $_SESSION['post_busca'] = $_POST;
+} else if (isset($_SESSION["busca_processo"])) {
     $filtro = $_SESSION['busca_processo'];;
 }
 
@@ -583,8 +585,10 @@ foreach ($listaO as $obj) {
                                 <div class="col text-right" style="max-width:20%">
                                     <?php
                                     if ($filtro != " WHERE 1=1 ") {
-                                        echo '<a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Altera Filtro"><i class="fa fa-filter text-white" aria-hidden="true"></i> Alterar Filtro</a>&nbsp;&nbsp; ';
-                                    } 
+                                        echo '<a href="processos_busca.php?rn=1" class="btn btn-outline-light btn-sm" type="button" title="Filtrar"><i class="fa fa-filter text-white" aria-hidden="true"></i> Remover Filtro</a>&nbsp;&nbsp; <a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Altera Filtro"><i class="fa fa-filter text-white" aria-hidden="true"></i> Alterar Filtro</a>&nbsp;&nbsp; ';
+                                    } else {
+                                        echo '<a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Filtrar"><i class="fa fa-filter text-white" aria-hidden="true"></i> Filtrar</a>&nbsp;&nbsp; ';
+                                    }
                                     ?>
                                     <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
