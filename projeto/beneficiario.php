@@ -49,7 +49,6 @@ require_once('./verifica_login.php');
             $('#confirm').modal({ show: true });
         }
         function alterar(nome, cpf, carteirinha,telefone, email) {
-            console.log(cpf);
             $('#nome').val(nome);
             $('#cpf').val(cpf);
             $('#carteirinha').val(carteirinha);
@@ -74,7 +73,7 @@ require_once('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <div class="container-fluid">
                     <?php include './form_beneficiario.php'; ?>
-                    <div class="card mb-4 border-primary" style="max-width:900px">
+                    <div class="card mb-4 border-primary" style="max-width:1200px">
                         <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                             <div class="col-sm ml-0" style="max-width:50px;">
                                 <i class="fa fa-user fa-2x text-white"></i>
@@ -93,7 +92,7 @@ require_once('./verifica_login.php');
                                         <th scope="col">Carteirinha</th>
                                         <th scope="col">Telefone</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col" style="width: 10%">Opções</th>
+                                        <th scope="col" style="width: 7%">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>

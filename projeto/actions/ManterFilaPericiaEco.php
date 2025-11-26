@@ -68,7 +68,7 @@ class ManterFilaPericiaEco extends Model {
         return $array_dados;
     }
     function getAgendamentoPorData($data) {
-        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, codigo, descricao, cpf FROM fila_pericia_eco WHERE data_solicitacao = '". $data ."'";
+        $sql = "SELECT id, id_guia, autorizacao, data_solicitacao, justificativa, situacao, descricao, cpf FROM fila_pericia_eco WHERE data_solicitacao = '". $data ."'";
         $resultado = $this->db->Execute($sql);
         if($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
@@ -88,15 +88,15 @@ class ManterFilaPericiaEco extends Model {
         return $dados;
     }
     function listaFilaPericiaSemAtendimento() {
-        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.codigo, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE id_fila)";
+        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE id_fila)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
             $dados->excluir = true;
-            if ($registro["dep"] > 0) {
-                $dados->excluir = false;
-            }
+            // if ($registro["dep"] > 0) {
+            //     $dados->excluir = false;
+            // }
             $dados->id                  = $registro["id"];
             $dados->id_guia             = $registro["id_guia"];
             $dados->autorizacao         = $registro["autorizacao"];
@@ -112,7 +112,7 @@ class ManterFilaPericiaEco extends Model {
         return $array_dados;
     }
     function getFilaPorId($id_fila) {
-        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.codigo, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id ='". $id_fila ."'";
+        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id ='". $id_fila ."'";
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
