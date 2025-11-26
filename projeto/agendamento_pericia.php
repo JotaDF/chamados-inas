@@ -40,61 +40,6 @@ include_once('./verifica_login.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
-        // $(document).ready(function () {
-        //     $('#beneficiarios').DataTable();
-        // });
-
-        // function excluir(id, descricao) {
-        //     $('#delete').attr('href', 'del_beneficiario.php?id=' + id);
-        //     $('#excluir').text(descricao);
-        //     $('#confirm').modal({ show: true });
-        // }
-        // function alterar(nome, cpf, carteirinha,telefone, email) {
-        //     console.log(cpf);
-        //     $('#nome').val(nome);
-        //     $('#cpf').val(cpf);
-        //     $('#carteirinha').val(carteirinha);
-        //     $('#telefone').val(telefone);
-        //     $('#email').val(email);
-        //     $('#form_beneficiario').collapse("show");
-        //     $('#telefone').focus();
-        // }
-
-        function proximoDia(data) {
-            $.ajax({
-                url: "obter_fila_pericia_eco.php",
-                type: "GET",
-                data: { data: data },
-                dataType: "json",
-                success: function (dados) {
-                    console.log(dados);
-                    $("#id_guia").html(dados.id_guia);
-                    $("#autorizacao").html(dados.autorizacao);
-                    $("#data_solicitacao").html(dados.data_solicitacao);
-                    $("#situacao").html(dados.situacao);
-                    $("#procedimento").html(dados.procedimento);
-                    $("#descricao").html(dados.descricao);
-                    $("#cpf").html(dados.cpf);
-                    $("#diaAtual").html("Dia atual: " + dados.data_atual);
-                    $("#btnAnterior").hide();
-                    $("#btnProximo").hide();
-                    if (dados.anterior) {
-                        $("#btnAnterior")
-                            .show()
-                            .attr("onclick", `proximoDia('${dados.anterior}')`);
-                    }
-                    if (dados.proximo) {
-                        $("#btnProximo")
-                            .show()
-                            .attr("onclick", `proximoDia('${dados.proximo}')`);
-                    }
-                },
-                error: function () {
-                    alert("Erro ao carregar dados.");
-                }
-            });
-        }
-
     </script>
     <style>
         body {
@@ -115,8 +60,20 @@ include_once('./verifica_login.php');
                 $datas = $manterFilaPericiaEco->getDataAgendamento();
                 $id_fila = $_GET['id'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
+                $periodoDatas = $manterFilaPericiaEco->getPeriodo(new DateTime());
+                $periodoHoras = $manterFilaPericiaEco->getHorarios();
+                $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
+                foreach ($agenda as $data => $horas) {
+                    echo "dia: " . $data . "<br>";
+                    foreach ($horas as $hora) {
+                        echo "horas: " . $hora . "<br>";
+                    }
+                    echo "=============================";
+                    echo "<br>";
+                }
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
                 ?>
+
                 <div class="container-fluid">
                     <div>
                         <div class="card shadow-sm mt-3">
