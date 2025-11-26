@@ -11,11 +11,11 @@
         <form id="form_cadastro" action="processos.php" method="post">
             <input type="hidden" id="nova_busca" name="nova_busca" value="1" />
             <div class="form-row">
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-2">
                     <label for="arquivado">Arquivado </label>
                     <input type="checkbox" id="arquivado" name="arquivado" value="1">  
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-2">
                     <label for="inas_parte">INAS é parte </label>
                     <input type="checkbox" id="inas_parte" name="inas_parte" value="1">  
                 </div>
@@ -23,7 +23,7 @@
                     <label for="pediu_danos">Pediu Danos Morais </label>
                     <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-5">
                     <label for="senha">Instância </label>
                     <select id="instancia" name="instancia" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>
@@ -86,8 +86,7 @@
                 </div>
             </div>
             <div class="form-group row float-right">
-                <button type="reset" data-toggle="collapse" data-target="#form_processo"
-                    class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
+                <button type="reset" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Limpar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="submit" class="btn btn-primary btn-sm mr-1"><i class="fas fa-save"></i> Buscar</button>
                 &nbsp;&nbsp;&nbsp;
