@@ -2,6 +2,48 @@
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
+
+$filtro = " WHERE 1=1 ";
+//-- Filtros de busca --//
+if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
+    if(isset($_POST['arquivado']) && $_POST['arquivado'] == 1){
+        $filtro .= " AND p.data_cumprimento_liminar <> 0 ";
+    }
+    if(isset($_POST['inas_parte']) && $_POST['inas_parte'] == 1){
+        $filtro .= " AND p.inas_parte = 1 ";
+    }
+    if(isset($_POST['pediu_danos']) && $_POST['pediu_danos'] == 1){
+        $filtro .= " AND p.pediu_danos = 1 ";
+    }
+    if(isset($_POST['instancia']) && $_POST['instancia'] != ""){
+        $filtro .= " AND p.id_instancia = '".$_POST['instancia']."' ";
+    }
+    if(isset($_POST['orgao_origem']) && $_POST['orgao_origem'] != ""){
+        $filtro .= " AND p.id_orgao_origem = '".$_POST['orgao_origem']."' ";
+    }
+    if(isset($_POST['classe_judicial']) && $_POST['classe_judicial'] != ""){
+        $filtro .= " AND p.id_classe_judicial = '".$_POST['classe_judicial']."' ";
+    }
+    if(isset($_POST['assunto']) && $_POST['assunto'] != ""){
+        $filtro .= " AND p.id_assunto = '".$_POST['assunto']."' ";
+    }
+    if(isset($_POST['sub_assunto']) && $_POST['sub_assunto'] != ""){
+        $filtro .= " AND p.id_sub_assunto = '".$_POST['sub_assunto']."' ";
+    }
+    if(isset($_POST['motivo']) && $_POST['motivo'] != ""){
+        $filtro .= " AND p.id_motivo = '".$_POST['motivo']."' ";
+    }
+    if(isset($_POST['liminar']) && $_POST['liminar'] != ""){
+        $filtro .= " AND p.id_liminar = '".$_POST['liminar']."' ";
+    }
+    if(isset($_POST['situacao']) && $_POST['situacao'] != ""){
+        $filtro .= " AND p.id_situacao_processual = '".$_POST['situacao']."' ";
+    }
+    $_SESSION["busca_processo"] = $filtro;
+} else if (!isset($_SESSION["busca_processo"])) {
+    $filtro = $_SESSION['busca_processo'];;
+}
+
 ?> 
 <!DOCTYPE html>
 <!--
