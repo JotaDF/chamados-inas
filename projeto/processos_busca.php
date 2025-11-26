@@ -2,48 +2,6 @@
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
-
-$filtro = " WHERE 1=1 ";
-//-- Filtros de busca --//
-if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
-    if(isset($_POST['arquivado']) && $_POST['arquivado'] == 1){
-        $filtro .= " AND p.data_cumprimento_liminar <> 0 ";
-    }
-    if(isset($_POST['inas_parte']) && $_POST['inas_parte'] == 1){
-        $filtro .= " AND p.inas_parte = 1 ";
-    }
-    if(isset($_POST['pediu_danos']) && $_POST['pediu_danos'] == 1){
-        $filtro .= " AND p.pediu_danos = 1 ";
-    }
-    if(isset($_POST['instancia']) && $_POST['instancia'] != ""){
-        $filtro .= " AND p.id_instancia = '".$_POST['instancia']."' ";
-    }
-    if(isset($_POST['orgao_origem']) && $_POST['orgao_origem'] != ""){
-        $filtro .= " AND p.id_orgao_origem = '".$_POST['orgao_origem']."' ";
-    }
-    if(isset($_POST['classe_judicial']) && $_POST['classe_judicial'] != ""){
-        $filtro .= " AND p.id_classe_judicial = '".$_POST['classe_judicial']."' ";
-    }
-    if(isset($_POST['assunto']) && $_POST['assunto'] != ""){
-        $filtro .= " AND p.id_assunto = '".$_POST['assunto']."' ";
-    }
-    if(isset($_POST['sub_assunto']) && $_POST['sub_assunto'] != ""){
-        $filtro .= " AND p.id_sub_assunto = '".$_POST['sub_assunto']."' ";
-    }
-    if(isset($_POST['motivo']) && $_POST['motivo'] != ""){
-        $filtro .= " AND p.id_motivo = '".$_POST['motivo']."' ";
-    }
-    if(isset($_POST['liminar']) && $_POST['liminar'] != ""){
-        $filtro .= " AND p.id_liminar = '".$_POST['liminar']."' ";
-    }
-    if(isset($_POST['situacao']) && $_POST['situacao'] != ""){
-        $filtro .= " AND p.id_situacao_processual = '".$_POST['situacao']."' ";
-    }
-    $_SESSION["busca_processo"] = $filtro;
-} else if (!isset($_SESSION["busca_processo"])) {
-    $filtro = $_SESSION['busca_processo'];;
-}
-
 ?> 
 <!DOCTYPE html>
 <!--
@@ -59,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Processos - INAS</title>
+        <title>Busca Processos - INAS</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -570,42 +528,9 @@ foreach ($listaO as $obj) {
                     <?php include './top_bar.php'; ?>
 
                     <div class="container-fluid">
-                        <?php include './form_processo.php'; ?>
+                        <?php include './form_processo_busca.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:1600px">
-                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                <div class="col-sm ml-0" style="max-width:50px;">
-                                    <i class="fa fa-balance-scale fa-2x text-white"></i> 
-                                </div>
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Processos</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
-                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>                            
-
-                            <div class="card-body">
-                                <table id="numeros" class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Número</th>
-                                            <th scope="col">BENEFICIÁRIO</th>
-                                            <th scope="col">AUTUAÇÃO</th>
-                                            <th scope="col">ATUALIZAÇÃO</th>
-                                            <th scope="col">ASSUNTO</th>
-                                            <th scope="col">SUB ASSUNTO</th>
-                                            <th scope="col" class="text-nowrap">Opções</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include './get_processo.php'; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
                     </div>
                     <!-- End of Main Content -->
                 </div> 
@@ -621,28 +546,6 @@ foreach ($listaO as $obj) {
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-        <!-- Modal excluir -->
-        <div class="modal fade" id="confirm" role="dialog">
-            <div class="modal-dialog modal-sm">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirmação</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Deseja excluir <strong><br/><span id="excluir"></span></strong>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" type="button" class="btn btn-danger" id="delete">Excluir</a>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
     </body>
 

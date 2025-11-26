@@ -9,8 +9,8 @@
 	$manterProcesso = new ManterProcesso();
     $manterAssunto = new ManterAssunto();
     $manterSubAssunto = new ManterSubAssunto();
-	
-	$lista = $manterProcesso->listar();
+
+    $lista = $manterProcesso->listar($filtro);
         
         foreach ($lista as $obj) {
             echo "<tr>";
