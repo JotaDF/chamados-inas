@@ -12,15 +12,15 @@
             <input type="hidden" id="nova_busca" name="nova_busca" value="1" />
             <div class="form-row">
                 <div class="form-group col-md-2">
-                    <label for="arquivado">Arquivado </label>
+                    <label for="arquivado">Arquivado </label><br/>
                     <input type="checkbox" id="arquivado" name="arquivado" value="1">  
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="inas_parte">INAS é parte </label>
+                    <label for="inas_parte">INAS é parte </label><br/>
                     <input type="checkbox" id="inas_parte" name="inas_parte" value="1">  
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="pediu_danos">Pediu Danos Morais </label>
+                    <label for="pediu_danos">Pediu Danos Morais </label><br/>
                     <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1">
                 </div>
                 <div class="form-group col-md-5">
