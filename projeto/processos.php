@@ -583,7 +583,7 @@ foreach ($listaO as $obj) {
                                 <div class="col text-right" style="max-width:20%">
                                     <?php
                                     if ($filtro != " WHERE 1=1 ") {
-                                        echo '<a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Altera Filtro"><i class="fa fa-times-circle text-white" aria-hidden="true"></i></a> ';
+                                        echo '<a href="processos_busca.php" class="btn btn-outline-light btn-sm" type="button" title="Altera Filtro"><i class="fa fa-filter text-white" aria-hidden="true"></i> Alterar Filtro</a>&nbsp;&nbsp; ';
                                     } 
                                     ?>
                                     <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
