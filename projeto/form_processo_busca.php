@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group col-md-5">
                     <label for="senha">Instância </label>
-                    <select id="instancia" name="instancia" class="form-control form-control-sm" required>
+                    <select id="instancia" name="instancia" class="form-control form-control-sm">
                         <option value="">Selecione</option>
                     </select>
                 </div>
@@ -48,7 +48,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="assunto">Assunto </label>
-                    <select id="assunto" name="assunto" class="form-control form-control-sm" required>
+                    <select id="assunto" name="assunto" class="form-control form-control-sm">
                         <option value="">Selecione</option>
                     </select>
                 </div>
@@ -78,9 +78,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="situacao">Situação Processual <span
-                            class="text-danger font-weight-bold">*</span></label>
-                    <select id="situacao" name="situacao" class="form-control form-control-sm" required>
+                    <label for="situacao">Situação Processual </label>
+                    <select id="situacao" name="situacao" class="form-control form-control-sm">
                         <option value="">Selecione</option>
                     </select>
                 </div>
