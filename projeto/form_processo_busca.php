@@ -8,17 +8,19 @@
     </div>
     <!-- Card Content - Collapse -->
     <div class="card-body">
-        <form id="form_cadastro" action="save_processo.php" method="post">
+        <form id="form_cadastro" action="processos.php" method="post">
             <input type="hidden" id="nova_busca" name="nova_busca" value="1" />
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    
+                    <label for="inas_parte">INAS é parte </label>
+                    <input type="checkbox" id="inas_parte" name="inas_parte" value="1">  
                 </div>
                 <div class="form-group col-md-3">
-                    
+                    <label for="pediu_danos">Pediu Danos Morais </label>
+                    <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="senha">Instância <span class="text-danger font-weight-bold">*</span></label>
+                    <label for="senha">Instância </label>
                     <select id="instancia" name="instancia" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>
                     </select>
@@ -40,24 +42,8 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-3">
-
-                </div>
-                <div class="form-group col-md-3">
-
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="inas_parte">INAS é parte </label>
-                    <input type="checkbox" id="inas_parte" name="inas_parte" value="1" checked>  
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="pediu_danos">Pediu Danos Morais </label>
-                    <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1" checked>  
-                </div>                
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="assunto">Assunto <span class="text-danger font-weight-bold">*</span></label>
+                    <label for="assunto">Assunto </label>
                     <select id="assunto" name="assunto" class="form-control form-control-sm" required>
                         <option value="">Selecione</option>
                     </select>
@@ -72,10 +58,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-2.5">
-
-                </div>
-                <div class="form-group col-md-7.5">
+                <div class="form-group col-md-12">
                     <label for="sub_assunto">Motivo </label>
                     <select id="motivo" name="motivo" class="form-control form-control-sm">
                         <option value="">Selecione</option>
@@ -90,10 +73,7 @@
                         <option value="">Selecione</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
-
-                </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-8">
                     <label for="situacao">Situação Processual <span
                             class="text-danger font-weight-bold">*</span></label>
                     <select id="situacao" name="situacao" class="form-control form-control-sm" required>
