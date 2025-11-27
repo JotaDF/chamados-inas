@@ -150,22 +150,23 @@ foreach ($listaO as $obj) {
                 carregaInstancias(<?= isset($busca['instancia']) ? $busca['instancia'] : 0 ?>);
                 carregaClassesJudiciais(<?= isset($busca['classe_judicial']) ? $busca['classe_judicial'] : 0 ?>);
                 carregaOrgaosOrigem(<?= isset($busca['orgao_origem']) ? $busca['orgao_origem'] : 0 ?>);
-                $('input[name="arquivado"][value="<?= isset($busca['arquivado']) ? $busca['arquivado'] : '' ?>"]').prop('checked', true);
+                <?php
                 if(isset($busca['arquivado']) && $busca['arquivado'] == 1){
-                    $('#arquivado_sim').prop('checked', true);
+                    echo "$('#arquivado_sim').prop('checked', true);";
                 } else if(isset($busca['arquivado']) && $busca['arquivado'] == 0){
-                    $('#arquivado_nao').prop('checked', true);
+                    echo "$('#arquivado_nao').prop('checked', true);";
                 }
                 if(isset($busca['inas_parte']) && $busca['inas_parte'] == 1){
-                    $('#inas_parte_sim').prop('checked', true);
+                    echo "$('#inas_parte_sim').prop('checked', true);";
                 } else if(isset($busca['inas_parte']) && $busca['inas_parte'] == 0){
-                    $('#inas_parte_nao').prop('checked', true);
+                    echo "$('#inas_parte_nao').prop('checked', true);";
                 }
                 if(isset($busca['pediu_danos']) && $busca['pediu_danos'] == 1){
-                    $('#pediu_danos_sim').prop('checked', true);
+                    echo "$('#pediu_danos_sim').prop('checked', true);";
                 } else if(isset($busca['pediu_danos']) && $busca['pediu_danos'] == 0){
-                    $('#pediu_danos_nao').prop('checked', true);
+                    echo "$('#pediu_danos_nao').prop('checked', true);";
                 }
+                ?>
             });
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
