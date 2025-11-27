@@ -33,7 +33,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
     function getAtendimentoPorBeneficiario($cpf) {
-        $sql = "SELECT ap.id, ap.id_medico_perito, ap.cpf, ap.guia, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado FROM atendimento_pericia as ap WHERE ap.cpf = '".$cpf."' ORDER BY ap.situacao";
+        $sql = "SELECT ap.id, ap.id_medico_perito, fpe.cpf, fpe.autorizacao, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado FROM atendimento_pericia as ap WHERE ap.cpf = '".$cpf."' ORDER BY ap.situacao";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -42,7 +42,7 @@ class ManterAtendimentoPericia extends Model {
             $dados->id                  = $registro['id'];
             $dados->id_medico_perito    = $registro['id_medico_perito'];
             $dados->cpf                 = $registro['cpf'];
-            $dados->guia                = $registro['guia'];
+            $dados->guia                = $registro['autorizacao'];
             $dados->procedimento        = $registro['procedimento'];
             $dados->data_agendada       = $registro['data_agendada'];
             $dados->hora_agendada       = $registro['hora_agendada'];
@@ -56,7 +56,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
         function listaFilaPorCpf($cpf) {
-        $sql = "SELECT fpe.id, fpe.id_guia, fpe.autorizacao, fpe.data_solicitacao, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.cpf FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id_guia NOT IN ( SELECT ap.guia FROM atendimento_pericia AS ap)";
+        $sql = "SELECT fpe.id, fpe.id_guia, fpe.autorizacao, fpe.data_solicitacao, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.cpf FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id NOT IN ( SELECT ap.id_fila FROM atendimento_pericia AS ap)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
