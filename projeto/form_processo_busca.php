@@ -13,18 +13,18 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="arquivado">Arquivado </label><br/>
-                    <input type="radio" name="arquivado" value="1"> Sim
-                    <input type="radio" name="arquivado" value="0"> Não  
+                    <input type="radio" id="arquivado_sim" name="arquivado" value="1"> Sim
+                    <input type="radio"id="arquivado_nao" name="arquivado" value="0"> Não  
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inas_parte">INAS é parte </label><br/>
-                    <input type="radio" name="inas_parte" value="1"> Sim
-                    <input type="radio" name="inas_parte" value="0"> Não 
+                    <input type="radio" id="inas_parte_sim" name="inas_parte" value="1"> Sim
+                    <input type="radio" id="inas_parte_nao" name="inas_parte" value="0"> Não
                 </div>
                 <div class="form-group col-md-3">
                     <label for="pediu_danos">Pediu Danos Morais </label><br/>
-                    <input type="radio" name="pediu_danos" value="1"> Sim
-                    <input type="radio" name="pediu_danos" value="0"> Não
+                    <input type="radio" id="pediu_danos_sim" name="pediu_danos" value="1"> Sim
+                    <input type="radio" id="pediu_danos_nao" name="pediu_danos" value="0"> Não 
                 </div>
                 <div class="form-group col-md-5">
                     <label for="senha">Instância </label>
