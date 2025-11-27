@@ -167,7 +167,6 @@ foreach ($listaO as $obj) {
                     $('#pediu_danos_nao').prop('checked', true);
                 }
             });
-
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
             }
