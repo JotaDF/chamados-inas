@@ -10,11 +10,20 @@ if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
     if(isset($_POST['arquivado']) && $_POST['arquivado'] == 1){
         $filtro .= " AND p.data_cumprimento_liminar <> 0 ";
     }
+    if(isset($_POST['arquivado']) && $_POST['arquivado'] == 0){
+        $filtro .= " AND p.data_cumprimento_liminar = 0 ";
+    }
     if(isset($_POST['inas_parte']) && $_POST['inas_parte'] == 1){
         $filtro .= " AND p.inas_parte = 1 ";
     }
+    if(isset($_POST['inas_parte']) && $_POST['inas_parte'] == 0){
+        $filtro .= " AND p.inas_parte = 0 ";
+    }
     if(isset($_POST['pediu_danos']) && $_POST['pediu_danos'] == 1){
         $filtro .= " AND p.pediu_danos = 1 ";
+    }
+    if(isset($_POST['pediu_danos']) && $_POST['pediu_danos'] == 0){
+        $filtro .= " AND p.pediu_danos = 0 ";
     }
     if(isset($_POST['instancia']) && $_POST['instancia'] != ""){
         $filtro .= " AND p.id_instancia = '".$_POST['instancia']."' ";
