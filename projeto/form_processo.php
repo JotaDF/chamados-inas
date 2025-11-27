@@ -69,12 +69,14 @@
                         onchange="habilitaCNPJ()">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="inas_parte">INAS é parte </label>
-                    <input type="checkbox" id="inas_parte" name="inas_parte" value="1" checked>  
+                    <label for="inas_parte">INAS é parte </label><br/>
+                    <input type="radio" name="inas_parte" value="1" checked> Sim
+                    <input type="radio" name="inas_parte" value="0"> Não 
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="pediu_danos">Pediu Danos Morais </label>
-                    <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1" checked>  
+                    <label for="pediu_danos">Pediu Danos Morais </label><br/>
+                    <input type="radio" name="pediu_danos" value="1" checked> Sim
+                    <input type="radio" name="pediu_danos" value="0"> Não 
                 </div>                
             </div>
             <div class="form-row">

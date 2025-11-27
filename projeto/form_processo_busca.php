@@ -13,15 +13,18 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="arquivado">Arquivado </label><br/>
-                    <input type="checkbox" id="arquivado" name="arquivado" value="1">  
+                    <input type="radio" name="arquivado" value="1"> Sim
+                    <input type="radio" name="arquivado" value="0"> Não  
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inas_parte">INAS é parte </label><br/>
-                    <input type="checkbox" id="inas_parte" name="inas_parte" value="1">  
+                    <input type="radio" name="inas_parte" value="1"> Sim
+                    <input type="radio" name="inas_parte" value="0"> Não 
                 </div>
                 <div class="form-group col-md-3">
                     <label for="pediu_danos">Pediu Danos Morais </label><br/>
-                    <input type="checkbox" id="pediu_danos" name="pediu_danos" value="1">
+                    <input type="radio" name="pediu_danos" value="1"> Sim
+                    <input type="radio" name="pediu_danos" value="0"> Não
                 </div>
                 <div class="form-group col-md-5">
                     <label for="senha">Instância </label>

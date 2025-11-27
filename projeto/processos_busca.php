@@ -3,7 +3,7 @@
 $mod = 6;
 require_once('./verifica_login.php');
 
-$remover_filtro = isset($_GET['rn']) ? $_GET['rn'] : '';
+$remover_filtro = isset($_REQUEST['rn']) ? $_REQUEST['rn'] : '';
 $busca = [];
 if ($remover_filtro == '1') {
     unset($_SESSION['filtro_processo']);
@@ -150,10 +150,9 @@ foreach ($listaO as $obj) {
                 carregaInstancias(<?= isset($busca['instancia']) ? $busca['instancia'] : 0 ?>);
                 carregaClassesJudiciais(<?= isset($busca['classe_judicial']) ? $busca['classe_judicial'] : 0 ?>);
                 carregaOrgaosOrigem(<?= isset($busca['orgao_origem']) ? $busca['orgao_origem'] : 0 ?>);
-                $('#arquivado').prop('checked', <?= isset($busca['arquivado']) && $busca['arquivado'] == '1'  ? 'true' : 'false' ?>);
-                $('#inas_parte').prop('checked', <?= isset($busca['inas_parte']) && $busca['inas_parte'] == '1'  ? 'true' : 'false' ?>);
-                $('#pediu_danos').prop('checked', <?= isset($busca['pediu_danos']) && $busca['pediu_danos'] == '1'  ? 'true' : 'false' ?>);
-
+                $('input[name="arquivado"][value="<?= isset($busca['arquivado']) ? $busca['arquivado'] : '' ?>"]').prop('checked', true);
+                $('input[name="inas_parte"][value="<?= isset($busca['inas_parte']) ? $busca['inas_parte'] : '' ?>"]').prop('checked', true);
+                $('input[name="pediu_danos"][value="<?= isset($busca['pediu_danos']) ? $busca['pediu_danos'] : '' ?>"]').prop('checked', true);
             });
 
             function selectByText(select, text) {

@@ -292,8 +292,8 @@ foreach ($listaO as $obj) {
                 carregaClassesJudiciais(0);
                 $('#processo_principal').prop("disabled", true);                                                                                                            
                 $('#data_cumprimento_liminar').prop("disabled", true);  
-                $('#inas_parte').prop('checked', false);
-                $('#pediu_danos').prop('checked', false);
+                $('input[name="inas_parte"][value="1"]').prop('checked', true);
+                $('input[name="pediu_danos"][value="1"]').prop('checked', true);
                 habilitaCNPJ();
                 quillEditor.root.innerHTML = '';
             }
@@ -328,9 +328,9 @@ foreach ($listaO as $obj) {
                 carregaInstancias(instancia);
                 carregaClassesJudiciais(classe_judicial);
                 carregaOrgaosOrigem(orgao_origem);
-                $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));
-                $('#inas_parte').prop('checked', (inas_parte == 1));
-                $('#pediu_danos').prop('checked', (pediu_danos == 1));
+                $('#pessoa_fisica').prop('checked', (pessoa_fisica == 1));                
+                $('input[name="inas_parte"][value="<?= isset($busca['inas_parte']) ? $busca['inas_parte'] : '' ?>"]').prop('checked', true);
+                $('input[name="pediu_danos"][value="<?= isset($busca['pediu_danos']) ? $busca['pediu_danos'] : '' ?>"]').prop('checked', true)
                 habilitaCNPJ();
                 $('#form_processo').collapse("show");
             }
