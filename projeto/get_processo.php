@@ -9,9 +9,12 @@
 	$manterProcesso = new ManterProcesso();
     $manterAssunto = new ManterAssunto();
     $manterSubAssunto = new ManterSubAssunto();
+    $editar = false;
+    if ($usuario_logado->perfil <= 3) {
+        $editar = true;
+    }
 
     $lista = $manterProcesso->listar($filtro);
-        
         foreach ($lista as $obj) {
             echo "<tr>";
             echo "  <td>".$obj->numero."</td>";            
@@ -28,7 +31,8 @@
             $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
             $btn_vinculos = '&nbsp;&nbsp;<a href="gerenciar_processos_vinculados.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-link"></i></a>';
             $data_arquivamento = ($obj->data_cumprimento_liminar != 0) ? date('d/m/Y', $obj->data_cumprimento_liminar) : '';
-            $btn_alterar = $hidden_observacao."<button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->sub_assunto."\",\"".$obj->motivo."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". $data_arquivamento."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\",\"".$obj->orgao_origem."\",\"".$obj->pessoa_fisica."\",\"".$obj->inas_parte."\",\"".$obj->pediu_danos."\")'><i class='fas fa-edit'></i></button>";
+            $icon_editar = ($editar) ? "<i class='fas fa-edit'></i>" : "<i class='fas fa-eye'></i>";
+            $btn_alterar = $hidden_observacao."<button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->sub_assunto."\",\"".$obj->motivo."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". $data_arquivamento."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\",\"".$obj->orgao_origem."\",\"".$obj->pessoa_fisica."\",\"".$obj->inas_parte."\",\"".$obj->pediu_danos."\")'>".$icon_editar."</button>";
             if($obj->processo_principal != ""){
                 $btn_alterar = "<button class='btn btn-secondary btn-sm' type='button' title='É um processo vinculado'><i class='fas fa-edit'></i></button>";
             }

@@ -3,6 +3,13 @@
 $mod = 6;
 require_once('./verifica_login.php');
 
+$editar = false;
+$disable = "disabled";
+if ($usuario_logado->perfil <= 3) {
+    $editar = true;
+    $disable = "";
+}
+
 $filtro = " WHERE 1=1 ";
 $requisisao = $_POST;
 //-- Filtros de busca --//

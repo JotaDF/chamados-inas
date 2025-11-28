@@ -94,7 +94,7 @@
             </li>
             <?php
         }
-        if ($usuario_logado->perfil <= 3) {
+        if ($usuario_logado->perfil <= 4) {
             ?>
                 <hr class="sidebar-divider">            
                 <!-- Nav Item - Pages Collapse Menu -->
@@ -104,6 +104,10 @@
                         <span>Gerenciar Processos</span>
                     </a>
                 </li>
+           <?php
+        }
+        if ($usuario_logado->perfil <= 3) {
+            ?>               
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="ementario.php">
@@ -111,11 +115,11 @@
                         <span>Ementário</span>
                     </a>
                 </li>
-
-
-            <?php
+        <?php
         }
         ?>
+
+ 
      <!-- Divider -->
      <hr class="sidebar-divider">
              <!-- Nav Item - Pages Collapse Menu -->
