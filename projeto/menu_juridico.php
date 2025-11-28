@@ -92,35 +92,32 @@
                     <span>Tipo de valores</span>
                 </a>
             </li>
-            <hr class="sidebar-divider">            
-              <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="processos.php">
-                    <i class="fa fa-balance-scale"></i>
-                    <span>Gerenciar Processos</span>
-                </a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="ementario.php">
-                    <i class="fa fa-newspaper"></i>
-                    <span>Ementário</span>
-                </a>
-            </li>
+            <?php
+        }
+        if ($usuario_logado->perfil <= 3) {
+            ?>
+                <hr class="sidebar-divider">            
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="processos.php">
+                        <i class="fa fa-balance-scale"></i>
+                        <span>Gerenciar Processos</span>
+                    </a>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="ementario.php">
+                        <i class="fa fa-newspaper"></i>
+                        <span>Ementário</span>
+                    </a>
+                </li>
+
+
             <?php
         }
         ?>
-
-        <?php
-    }
-    ?>
      <!-- Divider -->
      <hr class="sidebar-divider">
-
-<!-- Nav Item - Pages Collapse Menu -->
-<?php
-    if ($usuario_logado->perfil <= 3) {
-        ?>
              <!-- Nav Item - Pages Collapse Menu -->
              <li class="nav-item">
                 <a class="nav-link collapsed" target="_black" href="gerar_relatorio_processos.php">
