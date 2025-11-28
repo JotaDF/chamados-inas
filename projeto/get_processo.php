@@ -36,10 +36,12 @@
             if($obj->processo_principal != ""){
                 $btn_alterar = "<button class='btn btn-secondary btn-sm' type='button' title='É um processo vinculado'><i class='fas fa-edit'></i></button>";
             }
-            if($obj->excluir){
+            if($obj->excluir && $editar){
                 echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
-            } else {
+            } else if($editar){
                 echo "  <td align='center'>".$btn_alterar."&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
+            }else {
+                echo "  <td align='center'>".$btn_alterar . $btn_vinculos."</td>";                
             }
             echo "</tr>";
     }
