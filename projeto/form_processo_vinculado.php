@@ -63,13 +63,13 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="liminar">liminar</label>
+                    <label for="liminar">Decisão</label>
                     <select id="liminar" name="liminar" class="form-control form-control-sm" onChange="verificaLiminar(this.options[this.selectedIndex].value)">
                         <option value="">Selecione</option>    
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                <label for="data_cumprimento_liminar">Cumprimento Liminar</label>
+                <label for="data_cumprimento_liminar">Data Arquivamento</label>
                 <input type="date" class="form-control form-control-sm" name="data_cumprimento_liminar" id="data_cumprimento_liminar">
                 </div>
                 <div class="form-group col-md-5">
