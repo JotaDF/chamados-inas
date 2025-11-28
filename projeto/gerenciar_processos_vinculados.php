@@ -2,6 +2,13 @@
 //Juridico
 $mod = 6;
 require_once('./verifica_login.php');
+
+$editar = false;
+$disable = "disabled";
+if ($usuario_logado->perfil <= 3) {
+    $editar = true;
+    $disable = "";
+}
 ?> 
 <!DOCTYPE html>
 <!--
@@ -484,9 +491,14 @@ foreach ($listaCJ as $obj) {
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Processos Vinculados</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
-                                    <button id="btn_cadastrar" onclick="novo(<?= $processo->id ?>,'<?=$processo->numero ?>','<?=$processo->cpf ?>','<?=$processo->beneficiario ?>','<?=$processo->guia ?>','<?=$processo->valor_causa ?>',<?=$processo->assunto ?>)" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
-                                        <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
-                                    </button>
+                                    <?php
+                                    if($editar) { ?>
+                                         <button id="btn_cadastrar" onclick="novo(<?= $processo->id ?>,'<?=$processo->numero ?>','<?=$processo->cpf ?>','<?=$processo->beneficiario ?>','<?=$processo->guia ?>','<?=$processo->valor_causa ?>',<?=$processo->assunto ?>)" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_processo" aria-expanded="false" aria-controls="form_processo">
+                                            <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
+                                        </button>
+                                    <?php
+                                    } 
+                                    ?>
                                 </div>
                             </div>                            
 
@@ -515,10 +527,11 @@ foreach ($listaCJ as $obj) {
                                                 echo "  <td>".$obj->valor_causa."</td>";
                                                 $btn_valores = '&nbsp;&nbsp;<a href="gerenciar_valores_processo.php?id='.$obj->id.'" title="Gerenciar valores" class="btn btn-warning btn-sm" type="button"><i class="fa fa-credit-card"></i></a>';
                                                 $btn_desvincular = '&nbsp;&nbsp;<a href="desvincular_processo.php?id='.$obj->id.'" title="Gerenciar processos vinculados" class="btn btn-info btn-sm" type="button"><i class="fa fa-random"></i></a>';
-                                                if($obj->excluir){
-                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
+                                                $icon_editar = ($editar) ? "<i class='fas fa-edit'></i>" : "<i class='fas fa-eye'></i>";
+                                                if($obj->excluir && $editar){
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"". date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'>".$icon_editar."</button>&nbsp;&nbsp;<button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->numero."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\")'><i class='far fa-trash-alt'></i></button>".$btn_valores.$btn_vinculos."</td>";
                                                 } else {
-                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"".date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'><i class='fas fa-edit'></i></button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
+                                                    echo "  <td align='center'><button class='btn btn-primary btn-sm' type='button' onclick='alterar(".$obj->id.",\"".$obj->numero."\",\"".$obj->sei."\",\"".date('Y-m-d', $obj->autuacao)."\",\"".$obj->cpf."\",\"".$obj->beneficiario."\",\"".$obj->guia."\",\"".$obj->valor_causa."\",\"".$obj->assunto."\",\"".$obj->situacao_processual."\",\"".$obj->liminar."\",\"".date('Y-m-d', $obj->data_cumprimento_liminar)."\",\"".$obj->instancia."\",\"".$obj->processo_principal."\",\"".$obj->classe_judicial."\"," . $processo->id . ")'>".$icon_editar."</button>&nbsp;&nbsp;<button class='btn btn-secondary btn-sm' type='button' title='Possuí dependências!'><i class='far fa-trash-alt' alt='Possuí dependências!'></i></button>".$btn_valores.$btn_vinculos."</td>";                
                                                 }
                                                 echo "</tr>";
                                             }

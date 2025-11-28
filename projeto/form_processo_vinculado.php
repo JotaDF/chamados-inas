@@ -20,21 +20,21 @@
             <input type="hidden" id="id" name="id"/>
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    <input type="checkbox" name="autor_inas" id="autor_inas"> Autor INAS                     
+                    <input type="checkbox" name="autor_inas" id="autor_inas" <?=$disable ?>> Autor INAS                     
                 </div>               
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                 <label for="numero">Número <span class="text-danger font-weight-bold">*</span></label>
-                <input type="text" class="form-control form-control-sm" name="numero" id="numero" placeholder="00000" required>
+                <input type="text" class="form-control form-control-sm" name="numero" id="numero" placeholder="00000" required <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-3">
                 <label for="autuacao">Autuação <span class="text-danger font-weight-bold">*</span></label>
-                <input type="date" class="form-control form-control-sm" name="autuacao" id="autuacao" required>
+                <input type="date" class="form-control form-control-sm" name="autuacao" id="autuacao" required <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-4">
                 <label for="senha">Instância <span class="text-danger font-weight-bold">*</span></label>
-                    <select id="instancia" name="instancia" class="form-control form-control-sm" required>
+                    <select id="instancia" name="instancia" class="form-control form-control-sm" required <?=$disable ?>>
                         <option value="">Selecione</option>    
                     </select>
                 </div>                
@@ -42,7 +42,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="sei_t">SEI</label>
-                <input type="text" class="form-control form-control-sm" name="sei_t" id="sei_t" placeholder="0000">
+                <input type="text" class="form-control form-control-sm" name="sei_t" id="sei_t" placeholder="0000" <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-1 mt-4">
                     <a class="btn btn-warning btn-sm" onclick="addSei()" href="#">+</a>
@@ -56,7 +56,7 @@
             <div class="form-row">
                 <div class="form-group col-md-7">
                 <label for="classe_judicial">Classe Processual</label>
-                    <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm" onChange="verificaClasse(this.options[this.selectedIndex].value)" >
+                    <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm" onChange="verificaClasse(this.options[this.selectedIndex].value)" <?=$disable ?>>
                         <option value="">Selecione</option>    
                     </select>
                 </div>          
@@ -64,17 +64,17 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="liminar">Decisão</label>
-                    <select id="liminar" name="liminar" class="form-control form-control-sm" onChange="verificaLiminar(this.options[this.selectedIndex].value)">
+                    <select id="liminar" name="liminar" class="form-control form-control-sm" onChange="verificaLiminar(this.options[this.selectedIndex].value)" <?=$disable ?>>
                         <option value="">Selecione</option>    
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                 <label for="data_cumprimento_liminar">Data Arquivamento</label>
-                <input type="date" class="form-control form-control-sm" name="data_cumprimento_liminar" id="data_cumprimento_liminar">
+                <input type="date" class="form-control form-control-sm" name="data_cumprimento_liminar" id="data_cumprimento_liminar" <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-5">
                 <label for="situacao">Situação Processual <span class="text-danger font-weight-bold">*</span></label>
-                    <select id="situacao" name="situacao" class="form-control form-control-sm" required>
+                    <select id="situacao" name="situacao" class="form-control form-control-sm" required <?=$disable ?>>
                         <option value="">Selecione</option>    
                     </select>
                 </div>            
@@ -82,13 +82,13 @@
             <div class="form-row mb-2">
                 <div class="form-row w-100">
                 <label for="observacoes ">Observações </label>
-                <textarea class="form-control form-control-sm" name="observacoes" id="observacoes" rows="3"></textarea><br/>
+                <textarea class="form-control form-control-sm" name="observacoes" id="observacoes" rows="3" <?=$disable ?>></textarea><br/>
                 </div>           
             </div>           
             <div class="form-group row float-right">
                 <button type="reset" data-toggle="collapse" data-target="#form_processo" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm mr-1"><i class="fas fa-save"></i> Salvar</button>
+                <button type="submit" class="btn btn-primary btn-sm mr-1" <?=$disable ?>><i class="fas fa-save"></i> Salvar</button>
                 &nbsp;&nbsp;&nbsp;
             </div>
         </form>                  

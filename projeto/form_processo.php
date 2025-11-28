@@ -144,14 +144,14 @@
                 <div class="col-sm-12">
                     <label for="observacoes ">Observações </label>
                     <div style="width: 100%; height: 95px;" id="editor"></div>
-                    <input type="hidden" name="observacoes" id="observacoes" rows="3"><br />
+                    <input type="hidden" name="observacoes" id="observacoes" rows="3" <?=$disable ?>><br />
                 </div>
             </div>
             <div class="form-group row float-right">
                 <button type="reset" data-toggle="collapse" data-target="#form_processo"
                     class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="submit" class="btn btn-primary btn-sm mr-1"><i class="fas fa-save" <?=$disable ?>></i> Salvar</button>
+                <button type="submit" class="btn btn-primary btn-sm mr-1" <?=$disable ?>><i class="fas fa-save"></i> Salvar</button>
                 &nbsp;&nbsp;&nbsp;
             </div>
         </form>
