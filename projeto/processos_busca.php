@@ -6,7 +6,7 @@ require_once('./verifica_login.php');
 $remover_filtro = isset($_REQUEST['rn']) ? $_REQUEST['rn'] : '';
 $busca = [];
 if ($remover_filtro == '1') {
-    unset($_SESSION['filtro_processo']);
+    unset($_SESSION['busca_processo']);
     unset($_SESSION['post_busca']);
     header('Location: processos.php');
 } else {
