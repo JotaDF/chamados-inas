@@ -95,15 +95,12 @@ class ManterFilaPericiaEco extends Model
     }
     function listaFilaPericiaSemAtendimento()
     {
-        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE id_fila)";
+        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE id_fila)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
             $dados->excluir = true;
-            // if ($registro["dep"] > 0) {
-            //     $dados->excluir = false;
-            // }
             $dados->id = $registro["id"];
             $dados->id_guia = $registro["id_guia"];
             $dados->autorizacao = $registro["autorizacao"];
@@ -167,6 +164,38 @@ class ManterFilaPericiaEco extends Model
         return $resultado;
     }
 
+    function listaHorarioAgendados($data)
+    {
+        $sql = "SELECT hora_agendada FROM atendimento_pericia WHERE data_agendada = '" . $data . "'";
+        $resultado = $this->db->Execute($sql);
+        $agendados = [];
+        $agendados[$data] = [];
+        while ($registro = $resultado->fetchRow()) {
+            $agendados[$data][] = $registro['hora_agendada'];
+        }
+        return $agendados;
+    }
+
+    function listaHorariosDisponiveisPorData($agenda, $horarios_agendados, $data_atual)
+    {
+        foreach ($agenda as $data => $horariosPossiveis) {
+            $agendadosParaData = [];
+
+            if (!empty($horarios_agendados[$data])) {
+                foreach ($horarios_agendados[$data] as $hora) {
+                    $hora = trim($hora);
+                    $agendadosParaData[] = substr($hora, 0, 5);
+                }
+            }
+            $livres = array_values(array_diff($horariosPossiveis, $agendadosParaData));
+            sort($livres);
+
+            $horarios_disponiveis[$data] = $livres;
+        }
+        $disponiveis_para_data_atual = $horarios_disponiveis[$data_atual] ?? [];
+        return $disponiveis_para_data_atual;
+
+    }
     function getPeriodo(DateTime $inicio)
     {
         $inicio = new DateTime();
@@ -181,7 +210,7 @@ class ManterFilaPericiaEco extends Model
         $datasValidas = [];
 
         foreach ($periodoDatas as $data) {
-            if ($data->format("N") <= 5) { 
+            if ($data->format("N") <= 5) {
                 $datasValidas[] = $data;
             }
         }
@@ -197,7 +226,6 @@ class ManterFilaPericiaEco extends Model
         $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
         return $periodoHoras;
     }
-
 
     function criaAgenda($periodoDatas, $periodoHoras)
     {
