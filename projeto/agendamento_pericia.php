@@ -39,10 +39,8 @@ include_once('./verifica_login.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <?php
-
-    ?>
     <script type="text/javascript" class="init">
+
         function proximoDia(data) {
             $.ajax({
                 url: "obter_fila_pericia_eco.php",
@@ -140,6 +138,13 @@ include_once('./verifica_login.php');
         body {
             font-size: small;
         }
+
+        .dropdown-scroll {
+            max-height: 200px;
+            /* altura visível */
+            overflow-y: auto;
+            /* ativa scroll vertical */
+        }
     </style>
 </head>
 
@@ -151,6 +156,8 @@ include_once('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 include_once('actions/ManterFilaPericiaEco.php');
+                include_once('actions/ManterFilaPericiaEco.php');
+                $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $datas = $manterFilaPericiaEco->getDataAgendamento();
                 $hoje = date('d/m/Y');
@@ -162,53 +169,56 @@ include_once('./verifica_login.php');
                 $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
                 $datas = date("Y-m-d", strtotime($data));
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
-                include_once('actions/ManterFilaPericiaEco.php');
-                $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $dias_para_agendamento = $manterFilaPericiaEco->getPeriodo(new DateTime());
                 $soDatas = array_map(function ($dt) {
                     return $dt->format('d/m/Y');
                 }, $dias_para_agendamento);
-
+                $descricoes = explode(";", $dados->descricao);
                 ?>
-
+                <script>
+                    window.onload = function () {
+                        proximoDia("<?= $hoje ?>");
+                    };
+                    
+                </script>
                 <div class="container mt-4">
                     <div>
                         <div class="card shadow-sm mt-3">
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Detalhes da Fila</h5>
                                 <hr>
-                                <div class="row g-3">
-                                    <div class="col-6">
+                                <div class="row g-4">
+                                    <div class="col-4">
                                         <div class="text-uppercase small text-muted fw-bold">Nome</div>
                                         <div class="fw-semibold" id="id"><?= $dados->nome ?></div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="text-uppercase small text-muted fw-bold">CPF</div>
                                         <div class="fw-semibold" id="cpf"><?= $dados->cpf ?></div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="text-uppercase small text-muted fw-bold">Guia</div>
-                                        <div class="fw-semibold" id="id_guia"><?= $dados->id_guia ?></div>
+                                    <div class="col-4 mb-2">
+                                        <div class="text-uppercase small text-muted fw-bold">Telefone</div>
+                                        <div class="fw-semibold" id="id_guia"><?= $dados->telefone ?></div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="text-uppercase small text-muted fw-bold">Autorização</div>
                                         <div class="fw-semibold" id="autorizacao"><?= $dados->autorizacao ?></div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <div class="text-uppercase small text-muted fw-bold">Data Solicitação</div>
                                         <div class="fw-semibold" id="data_solicitacao">
                                             <?= $data_solicitacao_formatada ?>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-4 ">
                                         <div class="text-uppercase small text-muted fw-bold">Situação</div>
                                         <div class="fw-semibold" id="situacao"><?= $dados->situacao ?></div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-12 mt-2">
                                         <div class="text-uppercase small text-muted fw-bold">justificativa</div>
                                         <div class="fw-semibold p-2 border bg-light rounded" id="justificativa">
                                             <?= $dados->justificativa ?>
@@ -218,7 +228,9 @@ include_once('./verifica_login.php');
                                     <div class="col-12">
                                         <div class="text-uppercase small text-muted fw-bold">Descrição</div>
                                         <div class="fw-semibold p-2 border bg-light rounded" id="descricao">
-                                            <?= $dados->descricao ?>
+                                            <?php foreach ($descricoes as $descricao) {
+                                                echo $descricao . "</br>";
+                                            } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -235,17 +247,17 @@ include_once('./verifica_login.php');
                                     <button class="btn btn-primary btn-sm" id="btnProximo" onclick="proximoDia()">
                                         Próximo: <span id="dataProximo"></span>
                                     </button>
-                                    <button class="btn btn-primary dropdown-toggle dropdown-small-btn" type="button"
+                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button"
                                         id="dropdownDatas" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         Selecionar data
                                     </button>
 
-                                    <div class="dropdown-menu dropdown-small-menu">
+                                    <div class="dropdown-menu dropdown-scroll">
                                         <?php foreach ($soDatas as $data) {
                                             $dataISO = DateTime::createFromFormat('d/m/Y', $data)->format('Y-m-d');
                                             ?>
-                                            <a class="dropdown-item" href="#" onclick="proximoDia('<?= $dataISO ?>')">
+                                            <a class="dropdown-item " href="#" onclick="proximoDia('<?= $dataISO ?>')">
                                                 <?= $data ?>
                                             </a>
                                         <?php } ?>

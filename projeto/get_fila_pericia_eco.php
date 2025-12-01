@@ -13,6 +13,7 @@ foreach ($fila_pericia_eco as $obj) {
     $telefone = explode(";", $obj->telefone);
     
     
+    
     echo "<tr>";
     echo "<td>" . $obj->autorizacao . "</td>";
     echo "<td>" . $data_solicitacao_formatada . "</td>";

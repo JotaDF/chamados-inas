@@ -141,7 +141,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
     echo "<td class='horario $vespertino_class'  $editable  data-tipo='volta_almoco' data-horario='$volta_almoco'><b>$volta_almoco</b></td>";
     echo "<td class='horario $vespertino_class'  $editable  data-tipo='saida' data-horario='$saida'><b>$saida</b></td>";
 
-    echo "<td class='codigo'></td>";
+    echo "<td class='$td_class codigo'></td>";
     echo "</tr>";
 
     $data->modify('+1 day');
