@@ -1,85 +1,153 @@
 <?php
 include('./actions/ManterFeriadoAno.php');
+
 $manterFeriadoAno = new ManterFeriadoAno();
 $feriados = $manterFeriadoAno->lista();
-// $descricao_feriado = $feriados->descricao;
+
 $numero_mes = $_GET['numero_mes'];
 $horarios = explode(";", $usuario->horario);
 $data = new DateTime("$ano-$numero_mes-01");
 $ultimo_dia = (clone $data)->modify('last day of this month')->format('d');
 
+// Horário padrão do servidor
+list($entrada_default, $saida_almoco_default, $volta_almoco_default, $saida_default) = $horarios;
+
+// Prepara lista de feriados
 $data_feriados = [];
 foreach ($feriados as $f) {
     $data_feriados[$f->data] = $f->descricao;
 }
 
-
 for ($i = 1; $i <= $ultimo_dia; $i++) {
+
     $numero_dia = sprintf('%02d', $i);
     $data_dia = $data->format('Y-m-d');
-    $nome_dia_semana = $data->format('l');
-    $td_class = "";
-    $editable = "contenteditable='true'";
     $assinatura_servidor = "";
+    $td_class = "";
 
-    // Verifica dia da semana
+    // Dia da semana
     $diaNum = (int) $data->format('N');
-    $dias_fim_semana = [
-        6 => "SÁBADO",
-        7 => "DOMINGO"
-    ];
+    $dias_fim_semana = [6 => "SÁBADO", 7 => "DOMINGO"];
 
+    // Por padrão  editáveis
+    $editable_matutino = "onclick='mostrarSelect(this)' data-assinatura";
+    $editable_vespertino = "onclick='mostrarSelect(this)' data-assinatura";
+    $classe_dia = "";
+    $editable = "";
+    [$entrada, $saida_almoco, $volta_almoco, $saida] = $horarios;
+
+
+    // -------------------- FIM DE SEMANA --------------------
     if (isset($dias_fim_semana[$diaNum])) {
+
         $assinatura_servidor = $dias_fim_semana[$diaNum];
+
+        $classe_dia = "dia_cinza";
         $td_class = "final_semana";
-        $editable = "";
-    } elseif (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
-        // Só entra aqui se NÃO for sábado/domingo
-        if (strpos($data_feriados[$data_dia], 'facultativo') !== false) {
-            $assinatura_servidor = "PONTO FACULTATIVO";
-        } else {
-            $assinatura_servidor = "FERIADO";
-        }
-        $td_class = "final_semana";
-        $editable = "";
-    }
 
-    $dia_especial = ["SÁBADO", "DOMINGO", "FERIADO","PONTO FACULTATIVO"];
-    $is_dia_especial = in_array($assinatura_servidor, $dia_especial, true);
-
-
-    if ($is_dia_especial) {
         $entrada = $saida_almoco = $volta_almoco = $saida = "-----";
+
+        $editable_matutino = "";
+        $editable_vespertino = "";
+        $editable = "";
+        $matutino_class = "final_semana";
+        $vespertino_class = "final_semana";
+
+    // ---------------------- FERIADO / PONTO FACULTATIVO / VÉSPERA ----------------------
+    } elseif (!empty($data_feriados) && array_key_exists($data_dia, $data_feriados)) {
+
+        $descricao = strtolower($data_feriados[$data_dia]);
+        $classe_dia = "dia_cinza";
+
+        // ----------- VÉSPERA (detecta "após") -----------
+        if (strpos($descricao, "após") !== false) {
+
+            $assinatura_servidor = "PONTO FACULTATIVO";
+
+            // Matutino normal (editável)
+            $entrada = $entrada_default;
+            $saida_almoco = $saida_almoco_default;
+            $matutino_class = "";
+            $editable_matutino = "onclick='mostrarSelect(this)' data-assinatura";
+            $saida_almoco = "14:00";
+
+            // Vespertino bloqueado
+            $volta_almoco = $saida = "-----";
+            $vespertino_class = "final_semana";
+            $editable_vespertino = "";
+            $td_class_vespertino = "final_semana";
+            $editable = "contenteditable=true";
+
+        } else {
+
+            // Feriado ou ponto facultativo completo
+            $assinatura_servidor =
+                strpos($descricao, "facultativo") !== false
+                ? "PONTO FACULTATIVO "
+                : "FERIADO";
+
+            $td_class = "final_semana";
+            
+            $entrada = $saida_almoco = $volta_almoco = $saida = "-----";
+
+            $editable_matutino = "";
+            $editable_vespertino = "";
+
+            $matutino_class = "final_semana";
+            $vespertino_class = "final_semana";
+        }
+
+    // ---------------------- DIA NORMAL ----------------------
     } else {
-        [$entrada, $saida_almoco, $volta_almoco, $saida] = $horarios;
+
+        $assinatura_servidor = "";
+
+        $entrada = $entrada_default;
+        $saida_almoco = $saida_almoco_default;
+        $volta_almoco = $volta_almoco_default;
+        $saida = $saida_default;
+
+        $matutino_class = "";
+        $vespertino_class = "";
+        $editable = "contenteditable='true'";
+        $classe_dia = ""; // dia normal = sem cinza
     }
 
-
-    if ($is_dia_especial) {
-        $assinatura_matutino = "<td class='$td_class'><b>$assinatura_servidor</b></td>";
-        $assinatura_vespertino = "<td class='$td_class'><b>$assinatura_servidor</b></td>";
-    } else {
-        // data-assinatura marca para seu JS
-        $assinatura_matutino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
-        $assinatura_vespertino = "<td class='$td_class' onclick='mostrarSelect(this)' data-assinatura><b>$assinatura_servidor</b></td>";
-    }
-
+    // -------------------- RENDERIZAÇÃO --------------------
     echo "<tr>";
-    echo "<td class='$td_class' style='height: 12px'><b>$numero_dia</b></td>";
-    echo $assinatura_matutino;
-    echo "<td class='horario $td_class' $editable data-tipo='entrada' data-horario='$entrada'><b>$entrada</b></td>";
-    echo "<td class='horario $td_class' $editable data-tipo='saida_almoco' data-horario='$saida_almoco'><b>$saida_almoco</b></td>";
-    echo $assinatura_vespertino;
-    echo "<td class='horario $td_class' $editable data-tipo='volta_almoco' data-horario='$volta_almoco'><b>$volta_almoco</b></td>";
-    echo "<td class='horario $td_class' $editable data-tipo='saida' data-horario='$saida'><b>$saida</b></td>";
-    echo "<td class='$td_class codigo'></td>";
+
+    // Número do dia
+    echo "<td class='$td_class $classe_dia'><b>$numero_dia</b></td>";
+
+    // Assinatura matutina
+    echo "<td class='$td_class' $editable_matutino><b>";
+    if ($assinatura_servidor !== "PONTO FACULTATIVO") {
+        echo $assinatura_servidor;
+    }
+    echo "</b></td>";
+
+    // Horário matutino (sem select!)
+    echo "<td class='horario $matutino_class' $editable  data-tipo='entrada' data-horario='$entrada'><b>$entrada</b></td>";
+    echo "<td class='horario $matutino_class'  $editable data-tipo='saida_almoco' data-horario='$saida_almoco'><b>$saida_almoco</b></td>";
+
+    // Assinatura vespertina
+    if ($assinatura_servidor === "PONTO FACULTATIVO") {
+        echo "<td class='final_semana'><b>PONTO FACULTATIVO</b></td>"; // vespertino bloqueado
+    } else {
+        echo "<td class='$td_class' $editable_vespertino><b>$assinatura_servidor</b></td>";
+    }
+
+    // Horários vespertinos (sem select!)
+    echo "<td class='horario $vespertino_class'  $editable  data-tipo='volta_almoco' data-horario='$volta_almoco'><b>$volta_almoco</b></td>";
+    echo "<td class='horario $vespertino_class'  $editable  data-tipo='saida' data-horario='$saida'><b>$saida</b></td>";
+
+    echo "<td class='codigo'></td>";
     echo "</tr>";
 
     $data->modify('+1 day');
 }
 
 ?>
-
 <script>
     const opcoesAssinatura = {
         "1": "-------||LIMPAR||-------",
@@ -185,8 +253,6 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         return select;
     }
 
-
-
     // Atualiza todas as células de assinatura da linha
     function atualizarAssinaturas(tr, valor, tdClicada = null) {
         const celulasAssinatura = tr.querySelectorAll("td[data-assinatura]");
@@ -225,7 +291,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
                     const valorOriginal = tdHorario.getAttribute("data-horario") || "";
                     tdHorario.innerHTML = `<b>${valorOriginal}</b>`;
                     break;
-                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO"):
+                case (valor === "ATESTADO - COMPARECIMENTO" || valor === "TREINAMENTO/CURSO" || valor === "TREINAMENTO/CURSO"):
                     // Para casos especiais, mostra traço
                     tdHorario.innerHTML = "<b>-----</b>";
                     break;
@@ -293,5 +359,15 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
             });
         });
     });
+    document.addEventListener('click', function (ev) {
+        const td = ev.target.closest && ev.target.closest('td[data-assinatura]');
+        if (!td) return;
+
+        if (td.querySelector('select')) return;
+        if (td.classList.contains('bloqueado')) return;
+
+        mostrarSelect(td);
+    });
+
 
 </script>
