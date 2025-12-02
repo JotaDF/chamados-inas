@@ -400,7 +400,7 @@ include_once('./verifica_login.php');
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Telefone</div>
                                     <div class="font-weight-bold"><?= $dados->telefone ?></div>
-                                    ]<input type="hidden" name="telefone" id="telefone" value="<?= $dados->telefone ?>">
+                                    <input type="hidden" name="telefone" id="telefone" value="<?= $dados->telefone ?>">
                                 </div>
                             </div>
 
