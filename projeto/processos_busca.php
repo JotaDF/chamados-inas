@@ -63,7 +63,7 @@ and open the template in the editor.
                      var instancias = [];
                      var classes_judiciais = [];
                      var orgaos_origem = [];
-                     var ano_autoacao = ['2021','2022','2023','2024','2025','2026']; 
+                     var ano_autuacao = ['2021','2022','2023','2024','2025','2026']; 
 <?php
 include_once('./actions/ManterAssunto.php');
 include_once('./actions/ManterSubAssunto.php');
@@ -175,8 +175,8 @@ foreach ($listaO as $obj) {
             }
             function carregaAnoAtuoacao(id_atual) {
                 var html = '<option value="">Selecione </option>';
-                for (var i = 0; i < ano_autoacao.length; i++) {
-                    var option = ano_autoacao[i];
+                for (var i = 0; i < ano_autuacao.length; i++) {
+                    var option = ano_autuacao[i];
                     var selected = "";
                     if (id_atual > 0) {
                         if (option == id_atual) {
@@ -187,7 +187,7 @@ foreach ($listaO as $obj) {
                     }
                     html += '<option value="' + option + '" ' + selected + '>' + option + '</option>';
                 }
-                $('#ano_autoacao').html(html);
+                $('#ano_autuacao').html(html);
             }
             function carregaAssuntos(id_atual) {
                 var html = '<option value="">Selecione </option>';

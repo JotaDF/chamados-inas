@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="senha">Ano Autuação </label>
-                    <select id="ano_autoacao" name="ano_autoacao" class="form-control form-control-sm">
+                    <select id="ano_autuacao" name="ano_autuacao" class="form-control form-control-sm">
                         <option value="">Selecione</option>
                     </select>
                 </div>
