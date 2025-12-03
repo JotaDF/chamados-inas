@@ -24,7 +24,7 @@ try {
         if (!$manterBeneficiario->existeCpf($obj2['cpf_cnpj'])) {
             $b = new Beneficiario();
             $b->cpf = $obj2['cpf_cnpj'];
-            $b->nome = $obj2['nome'];
+            $b->nome = str_replace("'", "", $obj2['nome']);
             $b->carteirinha = $obj2['numero_cartao'];
             $b->telefone = '';
             $b->email = '';
@@ -50,7 +50,7 @@ try {
             $f->id_guia = $obj['id'];
             $f->autorizacao = $obj['autorizacao'];
             $f->data_solicitacao = $obj['data_solicitacao'];
-            $f->justificativa = $obj['justificativa'];
+            $f->justificativa = str_replace("'", "", $obj['justificativa']);
             $f->situacao = $obj['situacao'];
             $f->cpf = $obj2['cpf_cnpj'];
             $f->descricao = '';
@@ -59,7 +59,7 @@ try {
                 if($f->descricao != '') {
                     $f->descricao .= "; ";
                 }
-                $f->descricao .= $item['codigo'] . " - " . $item['descricao'];
+                $f->descricao .= $item['codigo'] . " - " . str_replace("'", "", $item['descricao']);
             }
             $manterFilaPericiaEco->salvar($f);
         }
