@@ -63,6 +63,7 @@ and open the template in the editor.
                      var instancias = [];
                      var classes_judiciais = [];
                      var orgaos_origem = [];
+                     var ano_autoacao = ['2021','2022','2023','2024','2025','2026']; 
 <?php
 include_once('./actions/ManterAssunto.php');
 include_once('./actions/ManterSubAssunto.php');
@@ -150,6 +151,7 @@ foreach ($listaO as $obj) {
                 carregaInstancias(<?= isset($busca['instancia']) ? $busca['instancia'] : 0 ?>);
                 carregaClassesJudiciais(<?= isset($busca['classe_judicial']) ? $busca['classe_judicial'] : 0 ?>);
                 carregaOrgaosOrigem(<?= isset($busca['orgao_origem']) ? $busca['orgao_origem'] : 0 ?>);
+                carregaAnoAtuoacao(<?= isset($busca['ano_autuacao']) ? $busca['ano_autuacao'] : 0 ?>);
                 <?php
                 if(isset($busca['arquivado']) && $busca['arquivado'] == 1){
                     echo "$('#arquivado_sim').prop('checked', true);";
@@ -170,6 +172,22 @@ foreach ($listaO as $obj) {
             });
             function selectByText(select, text) {
                 $(select).find('option:contains("' + text + '")').prop('selected', true);
+            }
+            function carregaAnoAtuoacao(id_atual) {
+                var html = '<option value="">Selecione </option>';
+                for (var i = 0; i < ano_autoacao.length; i++) {
+                    var option = ano_autoacao[i];
+                    var selected = "";
+                    if (id_atual > 0) {
+                        if (option == id_atual) {
+                            selected = "selected";
+                        } else {
+                            selected = "";
+                        }
+                    }
+                    html += '<option value="' + option + '" ' + selected + '>' + option + '</option>';
+                }
+                $('#ano_autoacao').html(html);
             }
             function carregaAssuntos(id_atual) {
                 var html = '<option value="">Selecione </option>';

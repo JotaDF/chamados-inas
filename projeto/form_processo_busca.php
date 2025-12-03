@@ -21,12 +21,18 @@
                     <input type="radio" id="inas_parte_sim" name="inas_parte" value="1"> Sim
                     <input type="radio" id="inas_parte_nao" name="inas_parte" value="0"> Não
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="pediu_danos">Pediu Danos Morais </label><br/>
                     <input type="radio" id="pediu_danos_sim" name="pediu_danos" value="1"> Sim
                     <input type="radio" id="pediu_danos_nao" name="pediu_danos" value="0"> Não 
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-2">
+                    <label for="senha">Ano Autuação </label>
+                    <select id="ano_autoacao" name="ano_autoacao" class="form-control form-control-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
                     <label for="senha">Instância </label>
                     <select id="instancia" name="instancia" class="form-control form-control-sm">
                         <option value="">Selecione</option>

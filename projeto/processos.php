@@ -56,6 +56,9 @@ if(isset($_POST['nova_busca']) && $_POST['nova_busca'] == 1){
     if(isset($_POST['situacao']) && $_POST['situacao'] != ""){
         $filtro .= " AND p.id_situacao_processual = '".$_POST['situacao']."' ";
     }
+    if(isset($_POST['ano_autuacao']) && $_POST['ano_autuacao'] != ""){
+        $filtro .= " AND YEAR(FROM_UNIXTIME(autuacao)) = '".$_POST['ano_autuacao']."' ";
+    }
     $_SESSION["busca_processo"] = $filtro;
     $_SESSION['post_busca'] = $_POST;
 } else if (isset($_SESSION["busca_processo"])) {
