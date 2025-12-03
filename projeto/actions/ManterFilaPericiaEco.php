@@ -163,8 +163,7 @@ class ManterFilaPericiaEco extends Model
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-
-    function listaHorarioAgendados($data)
+    function listaHorarioAgendadosPorData($data)
     {
         $sql = "SELECT hora_agendada FROM atendimento_pericia WHERE data_agendada = '" . $data . "'";
         $resultado = $this->db->Execute($sql);
@@ -198,7 +197,7 @@ class ManterFilaPericiaEco extends Model
     }
     function getPeriodo(DateTime $inicio)
     {
-        $inicio = new DateTime();
+        $inicio = new DateTime("-1 day");
         $fim = new DateTime("+30 days");
         $diario = new DateInterval("P1D");
         $periodo = new DatePeriod($inicio, $diario, $fim);
@@ -218,13 +217,24 @@ class ManterFilaPericiaEco extends Model
         return $datasValidas;
     }
 
-    function getHorarios()
+    function getHorariosMatutino()
     {
-        $inicio = new DateTime("08:00");
-        $fim = new DateTime("19:00");
-        $intervalo = new DateInterval("PT30M");
+        $inicio = new DateTime("08:30");
+        $fim = new DateTime("11:45");
+        $intervalo = new DateInterval("PT15M");
         $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
-        return $periodoHoras;
+        return iterator_to_array($periodoHoras);
+    }
+    function getHorariosVespertino()
+    {
+        $inicio = new DateTime("14:00");
+        $fim = new DateTime("16:45");
+        $intervalo = new DateInterval("PT15M");
+        $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
+        return iterator_to_array($periodoHoras);
+    }
+    function getHorarios() {
+        return array_merge($this->getHorariosMatutino(), $this->getHorariosVespertino());
     }
 
     function criaAgenda($periodoDatas, $periodoHoras)
