@@ -163,8 +163,7 @@ class ManterFilaPericiaEco extends Model
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
-
-    function listaHorarioAgendados($data)
+    function listaHorarioAgendadosPorData($data)
     {
         $sql = "SELECT hora_agendada FROM atendimento_pericia WHERE data_agendada = '" . $data . "'";
         $resultado = $this->db->Execute($sql);
@@ -198,7 +197,7 @@ class ManterFilaPericiaEco extends Model
     }
     function getPeriodo(DateTime $inicio)
     {
-        $inicio = new DateTime();
+        $inicio = new DateTime("-1 day");
         $fim = new DateTime("+30 days");
         $diario = new DateInterval("P1D");
         $periodo = new DatePeriod($inicio, $diario, $fim);
