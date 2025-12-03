@@ -49,23 +49,42 @@ include_once('./verifica_login.php');
                 data: { data: data },
                 dataType: "json",
                 success: function (dados) {
+                    preencherAgenda(dados);
                     console.log(dados);
-                    const proximoFormatado = formatarDataISO(dados.proximo);
-                    $("#dataProximo").text(proximoFormatado);
-                    atualizarBotoes(dados);
-                    atualizarDiaAtual(dados);
                     const dataKey = dados.data_atual;
                     const agendados = dados.horarios_agendados[dataKey] || [];
+                    const proximoFormatado = formatarDataISO(dados.proximo);
+                    $("#dataProximo").text(proximoFormatado);
+                    $("#dataAgendada").val(dados.data_atual);
+                    atualizarBotoes(dados);
+                    atualizarDiaAtual(dados);
                     atualizaDiaSemana(dados)
                     atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis);
                 },
-                error: function () {
-                    alert("Erro ao carregar dados.");
+                error: function (xhr, status, error) {
+                    console.log("AJAX ERROR:", status, error);
+                    console.log("RESPONSE TEXT:", xhr.responseText);
+                    alert("Erro ao carregar dados (ver console).");
                 }
+
             });
         }
+        function preencherAgenda(dados) {
+            const agenda = $("#agenda");
+            agenda.empty();
+
+            dados.agenda.forEach(function (data) {
+                agenda.append(`
+            <a class="dropdown-item" href="#" onclick="proximoDia('${data}')">
+                ${formatarDataISO(data)}
+            </a>
+        `);
+            });
+        }
+
         function agendar(hora) {
-            $("#horaSelecionada").text(hora); // coloca a hora dentro do modal
+            $("#horaSelecionada").text(hora); // coloca a hora dentro do modal 
+            $("#horaAgendada").val(hora);
             $('#confirm').modal('show');
         }
         function atualizarBotoes(dados) {
@@ -206,9 +225,10 @@ include_once('./verifica_login.php');
                 <div class="container mt-4">
                     <div>
                         <div class="card shadow-sm mt-3 border border-primary">
+                            <div class="card-header bg-gradient-primary">
+                                <h5 class="card-title text-white">Detalhes da Fila</h5>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title text-primary">Detalhes da Fila</h5>
-                                <hr>
                                 <div class="row g-4">
                                     <div class="col-4">
                                         <div class="text-uppercase small text-muted fw-bold">Nome</div>
@@ -259,7 +279,7 @@ include_once('./verifica_login.php');
                             </div>
                         </div>
 
-                        <div class="card shadow-sm mt-4 border border-primary">
+                        <div class="card shadow-sm mt-4 mb-3 border border-primary">
                             <div class="card-body">
                                 <div class="container-fluid">
 
@@ -314,18 +334,7 @@ include_once('./verifica_login.php');
                                                     Selecionar data
                                                 </button>
 
-                                                <div class="dropdown-menu dropdown-scroll">
-
-                                                    <?php foreach ($soDatas as $data) {
-                                                        $dataISO = DateTime::createFromFormat('d/m/Y', $data)->format('Y-m-d');
-                                                        ?>
-                                                        <a class="dropdown-item small" href="#"
-                                                            onclick="proximoDia('<?= $dataISO ?>')">
-                                                            <?= $data ?>
-                                                        </a>
-                                                    <?php } ?>
-
-                                                </div>
+                                                <div class="dropdown-menu dropdown-scroll" id="agenda"></div>
                                             </div>
                                         </div>
 
@@ -368,17 +377,20 @@ include_once('./verifica_login.php');
 
                     <!-- Frase principal -->
                     <div class="alert alert-info text-center">
-                        <strong>Deseja agendar o horário:</strong>
-                        <span class="text-primary font-weight-bold" id="horaSelecionada"></span>?
+                        <h6><b>Deseja agendar o horário: </b><span class="text-primary font-weight-bold"
+                                id="horaSelecionada"></span>?</h6>
+
                     </div>
                     <hr>
-
                     <!-- Dados do paciente em mini-cards -->
                     <h6 class="text-secondary mb-3">
                         <i class="fa fa-user mr-1"></i> Dados do Beneficiário
                     </h6>
 
                     <form action="save_agendamento_pericia.php" method="POST">
+                        <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
+                        <input type="hidden" name="data_agendada" id="dataAgendada">
+                        <input type="hidden" name="hora_agendada" id="horaAgendada">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
@@ -408,7 +420,8 @@ include_once('./verifica_login.php');
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Autorização</div>
                                     <div class="font-weight-bold"><?= $dados->autorizacao ?></div>
-                                    <input type="hidden" name="autorizacao" id="autorizacao" value="<?= $dados->autorizacao ?>">
+                                    <input type="hidden" name="autorizacao" id="autorizacao"
+                                        value="<?= $dados->autorizacao ?>">
                                 </div>
                             </div>
 
@@ -416,7 +429,8 @@ include_once('./verifica_login.php');
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Solicitação</div>
                                     <div class="font-weight-bold"><?= $data_solicitacao_formatada ?></div>
-                                    <input type="hidden" name="solicitacao" id="solicitacao" value="<?= $dados->solicitacao ?>">
+                                    <input type="hidden" name="solicitacao" id="solicitacao"
+                                        value="<?= $dados->solicitacao ?>">
                                 </div>
                             </div>
 
@@ -432,7 +446,8 @@ include_once('./verifica_login.php');
                                 <div class="border rounded p-2 bg-white">
                                     <div class="small text-muted text-uppercase">Justificativa</div>
                                     <div><?= $dados->justificativa ?></div>
-                                    <input type="hidden" name="justificativa" id="justificativa" value="<?= $dados->justificativa ?>">
+                                    <input type="hidden" name="justificativa" id="justificativa"
+                                        value="<?= $dados->justificativa ?>">
                                 </div>
                             </div>
 
@@ -457,7 +472,7 @@ include_once('./verifica_login.php');
                         <i class="fa fa-times mr-1"></i> Cancelar
                     </button>
 
-                    <button type='submit' class="btn btn-primary btn-sm">
+                    <button type='submit' class="btn btn-success btn-sm">
                         <i class="fa fa-check mr-1"></i> Confirmar
                     </button>
                 </div>
