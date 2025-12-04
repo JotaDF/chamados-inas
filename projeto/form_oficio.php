@@ -58,24 +58,6 @@
                     <input type="text" name="destino" class="form-control form-control-sm" id="destino" required>
                 </div>
             </div>
-
-
-            <div class="form-group row">
-                <div class="col-sm-2">Atendido</div>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" name="atendido" type="radio" id="atendido_sim" value="1">
-                        <label class="form-check-label" for="atendido">
-                            Sim
-                        </label>
-                        <input class="form-check-input" name="atendido" type="radio" id="atendido_nao" value="0" checked>
-                        <label class="form-check-label" for="atendido">
-                            Não
-                        </label>
-                    </div>
-                </div>
-            </div>
-
             <div class="form-group row float-right">
                 <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_oficio" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

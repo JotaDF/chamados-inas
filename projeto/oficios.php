@@ -107,7 +107,7 @@ and open the template in the editor.
                                     <i class="fa fa-th-large fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Prestadores</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Ofícios</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_oficio" aria-expanded="false" aria-controls="form_oficio">
