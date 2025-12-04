@@ -28,6 +28,7 @@ $processo->observacao               = addslashes($_POST['observacoes']);
 $processo->usuario                  = $_POST['usuario'];
 $processo->autor_inas               = isset($_POST['autor_inas']) ? $_POST['autor_inas'] : 0;
 
+$processo->observacao = str_replace("'","",$processo->observacao);
 
 //print_r($processo);
 $db_processo->salvar($processo);
