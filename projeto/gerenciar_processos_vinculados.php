@@ -414,7 +414,6 @@ foreach ($listaCJ as $obj) {
                         $filtro = " WHERE processo_principal='" . $processo->numero . "'";
                         
                         $processos_vinvculados = $manterProcesso->listar($filtro);
-                        $editar = false;
                         
                         ?>
                         <div class="container-fluid">
