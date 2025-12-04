@@ -32,6 +32,8 @@ $processo->inas_parte               = isset($_POST['inas_parte']) ? $_POST['inas
 $processo->pediu_danos              = isset($_POST['pediu_danos']) ? $_POST['pediu_danos'] : 0;
 
 //print_r($processo);
+$processo->beneficiario = $db_processo->removerAcentos($processo->beneficiario);
+$processo->observacao = str_replace("'","",$processo->observacao);
 $db_processo->salvar($processo); 
 
 header('Location: processos.php');
