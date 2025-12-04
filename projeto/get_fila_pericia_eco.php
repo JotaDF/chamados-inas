@@ -5,7 +5,7 @@ $fila_pericia_eco = $manterFilaPericiaEco->listaFilaPericiaSemAtendimento();
 $hoje = date('Y-m-d');
 foreach ($fila_pericia_eco as $obj) {
 
-    $btn_atender = "<a href='agendamento_pericia.php?id=" . $obj->id . "&data=$hoje' class='btn btn-warning btn-sm'><i class='fa fa-stethoscope'></i></a>";
+    $btn_atender = "<a href='agendamento_pericia.php?id_fila=" . $obj->id . "&data=$hoje' class='btn btn-warning btn-sm'><i class='fa fa-stethoscope'></i></a>";
     
     $data_solicitacao = explode(" ", $obj->data_solicitacao);
     $data_solicitacao_formatada = date('d/m/Y', strtotime($data_solicitacao[0]));

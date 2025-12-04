@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 require_once('Model.php');
 //require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Fila.php');
 require_once('dto/FilaPericiaEco.php');
-
+include('actions/ManterFeriadoAno.php');
 class ManterFilaPericiaEco extends Model
 {
 
@@ -163,6 +163,25 @@ class ManterFilaPericiaEco extends Model
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
+    function getDiaAtual($data_atual, $agenda)
+    {
+        $datas = array_keys($agenda);
+
+        
+        if (empty($datas)) {
+            return $data_atual;
+        }
+
+        // Se não existe data atual ou se não está dentro da agenda
+        if (!$data_atual || !in_array($data_atual, $datas)) {
+
+            // Verifica se existe índice 1; se não, retorna índice 0
+            return $datas[1] ?? $datas[0];
+        }
+
+        return $data_atual;
+    }
+
     function listaHorarioAgendadosPorData($data)
     {
         $sql = "SELECT hora_agendada FROM atendimento_pericia WHERE data_agendada = '" . $data . "'";
@@ -174,7 +193,15 @@ class ManterFilaPericiaEco extends Model
         }
         return $agendados;
     }
+    function listaFeriados(array $feriados)
+    {
+        $data_feriados = [];
+        foreach ($feriados as $f) {
+            $data_feriados[] = $f->data;
+        }
 
+        return $data_feriados;
+    }
     function listaHorariosDisponiveisPorData($agenda, $horarios_agendados, $data_atual)
     {
         foreach ($agenda as $data => $horariosPossiveis) {
@@ -195,7 +222,7 @@ class ManterFilaPericiaEco extends Model
         return $disponiveis_para_data_atual;
 
     }
-    function getPeriodo(DateTime $inicio)
+    function getPeriodoDatas(DateTime $inicio)
     {
         $inicio = new DateTime("-1 day");
         $fim = new DateTime("+30 days");
@@ -217,6 +244,26 @@ class ManterFilaPericiaEco extends Model
         return $datasValidas;
     }
 
+    function removeFeriados($datas, $datas_feriado)
+    {
+        $datas_sem_feriados = [];
+        foreach ($datas as $d) {
+            if (!in_array($d, $datas_feriado)) {
+                $datas_sem_feriados[] = $d;
+            }
+        }
+        return $datas_sem_feriados;
+    }
+
+    function calcularAnteriorEProximo($data_atual, $datas_sem_feriados)
+    {
+        $index = array_search($data_atual, $datas_sem_feriados);
+        return [
+            'anterior' => $datas_sem_feriados[$index - 1] ?? null,
+            'proximo' => $datas_sem_feriados[$index + 1] ?? null
+        ];
+    }
+
     function getHorariosMatutino()
     {
         $inicio = new DateTime("08:30");
@@ -233,7 +280,8 @@ class ManterFilaPericiaEco extends Model
         $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
         return iterator_to_array($periodoHoras);
     }
-    function getHorarios() {
+    function getHorarios()
+    {
         return array_merge($this->getHorariosMatutino(), $this->getHorariosVespertino());
     }
 
@@ -251,6 +299,50 @@ class ManterFilaPericiaEco extends Model
         }
 
         return $agenda;
+    }
+    function gerarAgenda()
+    {
+        return $this->criaAgenda($this->getPeriodoDatas(new DateTime()), $this->getHorarios());
+    }
+
+    function geraListaFeriados()
+    {
+        $feriados = new ManterFeriadoAno();
+        return $this->listaFeriados($feriados->lista());
+    }
+
+    function processarData($data_atual, $agenda, $lista_data_feriados)
+    {
+        $agenda_filtrada = $this->removeFeriados(array_keys($agenda), $lista_data_feriados);
+        $horarios_agendados = $this->listaHorarioAgendadosPorData($data_atual);
+        if (!is_array($horarios_agendados)) {
+            $horarios_agendados = [];
+        }
+        $disponiveis = $this->listaHorariosDisponiveisPorData(
+            $agenda,
+            $horarios_agendados,
+            $data_atual
+        );
+        $vizinhos = $this->calcularAnteriorEProximo($data_atual, $agenda_filtrada);
+        return [
+            "agenda" => $agenda_filtrada,
+            "horarios_agendados" => $horarios_agendados,
+            "disponiveis" => $disponiveis,
+            "vizinhos" => $vizinhos
+        ];
+    }
+    function criaResposta($data_atual, $resultado)
+    {
+        $dia_semana = date('l', strtotime($data_atual));
+        return [
+            "horarios_disponiveis" => $resultado['disponiveis'],
+            "horarios_agendados" => $resultado['horarios_agendados'],
+            "agenda" => $resultado['agenda'],
+            "dia_semana" => $dia_semana,
+            "data_atual" => $data_atual,
+            "anterior" => $resultado['vizinhos']['anterior'],
+            "proximo" => $resultado['vizinhos']['proximo']
+        ];
     }
 }
 

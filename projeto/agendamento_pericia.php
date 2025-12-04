@@ -165,7 +165,10 @@ include_once('./verifica_login.php');
             }
         }
 
-
+        function getUrlParam(nome) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(nome);
+        }
 
         function formatarDataISO(dataISO) {
             if (!dataISO) return "";
@@ -203,7 +206,7 @@ include_once('./verifica_login.php');
                 $hoje = date('d/m/Y');
                 $datas_formatada = explode(" ", $datas_formatada);
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
-                $id_fila = $_GET['id'];
+                $id_fila = $_GET['id_fila'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
                 $periodoDatas = $manterFilaPericiaEco->getPeriodo(new DateTime());
                 $periodoHoras = $manterFilaPericiaEco->getHorarios();
@@ -215,12 +218,19 @@ include_once('./verifica_login.php');
                     return $dt->format('d/m/Y');
                 }, $dias_para_agendamento);
                 $descricoes = explode(";", $dados->descricao);
-
                 ?>
                 <script>
                     window.onload = function () {
+                        const dataUrl = getUrlParam("data");
+
+                        if (dataUrl) {
+                            proximoDia(dataUrl);
+                            atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
+                        }
                         proximoDia("<?= $hoje ?>");
+                        atualizaDiaSemana("<?= $hoje ?>");
                     };
+
                 </script>
                 <div class="container mt-4">
                     <div>
@@ -391,6 +401,7 @@ include_once('./verifica_login.php');
                         <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
                         <input type="hidden" name="data_agendada" id="dataAgendada">
                         <input type="hidden" name="hora_agendada" id="horaAgendada">
+                        <input type="hidden" name="id_fila" value="<?= $id_fila ?>">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
