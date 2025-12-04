@@ -54,7 +54,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="tipos_liminar.php">
                     <i class="fa fa-gavel"></i>
-                    <span>Tipos de liminar</span>
+                    <span>Tipos de Decisão</span>
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->

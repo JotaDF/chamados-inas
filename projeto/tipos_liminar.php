@@ -17,7 +17,7 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Tipos de Liminar - INAS</title>
+        <title>Tipos de Decisão - INAS</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -88,7 +88,7 @@ and open the template in the editor.
                                     <i class="fa fa-gavel fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Tipos de Liminar</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Tipos de Decisão</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_liminar" aria-expanded="false" aria-controls="form_liminar">
@@ -102,7 +102,7 @@ and open the template in the editor.
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Tipo de liminar</th>
+                                            <th scope="col">Tipo de Decisão</th>
                                             <th scope="col" style="width:30px;">Opções</th>
                                         </tr>
                                     </thead>

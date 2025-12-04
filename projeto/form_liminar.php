@@ -4,7 +4,7 @@
 <div class="card mb-4 collapse hide border-primary" id="form_liminar" style="max-width:900px">
     <!-- Card Header - Accordion -->
     <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
-        <span class="h6 m-0 font-weight text-white">Cadastro de tipos de liminares</span>
+        <span class="h6 m-0 font-weight text-white">Cadastro de tipo de decisão</span>
     </div>                  
     <!-- Card Content - Collapse -->
     <div class="card-body">
