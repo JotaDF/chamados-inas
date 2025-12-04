@@ -26,6 +26,28 @@ Class Model{
 		$this->db->debug = false; 
 		$this->db->Connect($servidor,$usuario,$senha,$db);
 	}
+	//metodo para remover acentos de uma string
+	function removerAcentos($string) {
+		return preg_replace(
+			array(
+				'/[áàãâä]/u', '/[ÁÀÃÂÄ]/u',
+				'/[éèêë]/u', '/[ÉÈÊË]/u',
+				'/[íìîï]/u', '/[ÍÌÎÏ]/u',
+				'/[óòõôö]/u', '/[ÓÒÕÔÖ]/u',
+				'/[úùûü]/u', '/[ÚÙÛÜ]/u',
+				'/[ç]/u',     '/[Ç]/u'
+			),
+			array(
+				'a','A',
+				'e','E',
+				'i','I',
+				'o','O',
+				'u','U',
+				'c','C'
+			),
+			$string
+		);
+	}
 	//metodo formatar o campo data para inserção no bando de dados
 	function formataDataDB($data){
 		list ($dia, $mes, $ano) = split ('[/.-]', $data);
