@@ -203,7 +203,8 @@ class ManterNotaPagamento extends Model {
                 AND p.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
                 AND np.data_atesto is not null
-                AND np.data_pagamento is null";
+                AND np.data_pagamento is null
+                AND np.status='Atestado'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -235,7 +236,8 @@ class ManterNotaPagamento extends Model {
                 AND p.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
                 AND np.data_executado is not null
-                AND np.data_atesto is null";
+                AND np.data_atesto is null
+                AND np.status='Executado'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -266,7 +268,8 @@ class ManterNotaPagamento extends Model {
                 WHERE np.id_pagamento=p.id 
                 AND p.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
-                AND np.data_executado is null";
+                AND np.data_executado is null
+                AND np.status='Em análise'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {

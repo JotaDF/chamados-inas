@@ -231,7 +231,8 @@ AND cr.exercicio = '".$exercicio."' " . $filtro;
                 AND crg.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador."
                 AND cr.data_atesto is not null
-                AND cr.data_pagamento is null";
+                AND cr.data_pagamento is null
+                AND cr.status='Atestado'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
@@ -263,7 +264,8 @@ AND cr.exercicio = '".$exercicio."' " . $filtro;
                 AND crg.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador." 
                 AND cr.data_executado is not null
-                AND cr.data_atesto is null";
+                AND cr.data_atesto is null
+                AND cr.status='Executado'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
@@ -294,7 +296,8 @@ AND cr.exercicio = '".$exercicio."' " . $filtro;
                 AND ng.id_recurso_glosa=crg.id 
                 AND crg.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador." 
-                AND cr.data_executado is null";
+                AND cr.data_executado is null
+                ANSD cr.status='Em análise'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {
