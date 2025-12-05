@@ -48,10 +48,10 @@ and open the template in the editor.
     }
 
   #sidebar {
-    width: 300px;
+    width: 330px;
     height: 100vh;
-    background: #212529;
-    color: #fff;
+    background: #f3f3f4ff;
+    color: #000000ff;
     transition: width 0.3s;
   }
   #sidebar.min {
@@ -174,14 +174,6 @@ and open the template in the editor.
                         }
         ?>
                     </div>
-                    <div class="col">
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
-                            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
-                            <div class="row no-gutters align-items-center">
-                                <?php include './get_aniversariantes.php'; ?>
-                            </div>
-                        </div>
-                    </div> <!-- div col-->
                     </div> <!-- div row-->
                     </div> <!-- div container-->
 
