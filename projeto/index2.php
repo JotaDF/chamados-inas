@@ -79,7 +79,7 @@ and open the template in the editor.
 <body class="d-flex flex-row-reverse" id="page-top">
 
 <div id="sidebar" class="position-relative p-1 min">
-    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button>
+    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮ Mostrar</button>
     <br/> <img src="img/aniversario.svg" width="30" class="mt-4">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
     <div class="textos mt-n3">
@@ -366,7 +366,7 @@ and open the template in the editor.
     $(function(){
         $("#btn-toggle").click(function(){
             $("#sidebar").toggleClass("min");
-            $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
+            $(this).text($("#sidebar").hasClass("min") ? "❮ Mostrar" : "Ocultar ❯");
         });
     });
 </script>
