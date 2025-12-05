@@ -84,7 +84,7 @@ and open the template in the editor.
     <div class="text-center py-3 d-md-none d-sm-block"></div>
     <div class="textos mt-n3">
         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
-            <span class="text-right"> <b>Aniversariantes do mês:</b></span> 
+            <span class="text-right ml-4"> <b>Aniversariantes do mês:</b></span> 
             <div class="row no-gutters align-items-center">
                 <?php include './get_aniversariantes.php'; ?>
             </div>
@@ -366,7 +366,7 @@ and open the template in the editor.
     $(function(){
         $("#btn-toggle").click(function(){
             $("#sidebar").toggleClass("min");
-            $(this).text($("#sidebar").hasClass("min") ? "❯" : "❮");
+            $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
         });
     });
 </script>
