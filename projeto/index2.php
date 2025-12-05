@@ -84,16 +84,16 @@ and open the template in the editor.
     <div class="text-center py-3 d-md-none d-sm-block"></div>
 
     <div class="textos mt-4">
-        <h4>Menu</h4>
-        <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link text-white" href="#">Item 1</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Item 2</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Item 3</a></li>
-        </ul>
+        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
+            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
+            <div class="row no-gutters align-items-center">
+                <?php include './get_aniversariantes.php'; ?>
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="content" class="flex-grow-1 p-4">
+<div id="content" class="flex-grow-1 p-0">
 <!-- Page Wrapper -->
         <div id="wrapper">
         <?php include './menu.php'; ?>
@@ -104,7 +104,7 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     <div class="container">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="w-100">
                             <!-- Links sistemas -->
                             <div class="card-group">
                             <?php
