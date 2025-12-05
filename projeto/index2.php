@@ -39,61 +39,62 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        <style>
-            /* Define o estilo base da Sidebar */
-            body { 
-                overflow-x: hidden; 
-                font-size: small;
-            }
 
-            #sidebar {
-                width: 300px;
-                height: 100vh;
-                background: #212529;
-                color: #fff;
-                transition: width 0.3s;
-            }
-            #sidebar.min {
-                width: 80px;
-            }
 
-            #sidebar .textos {
-                transition: opacity .3s;
-            }
-            #sidebar.min .textos {
-                opacity: 0;
-            }
+<style>
+  body { 
+    overflow-x: hidden; 
+    font-size: small;
+    }
 
-            #btn-toggle {
-                position: absolute;
-                left: -15px;
-                top: 20px;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-        </style>
-        <script type="text/javascript" class="init">
-            <?php
-	   //print_r($usuario_logado);
-            //if (isset($usuario_logado->cargo) && $usuario_logado->cargo != "Assessor Especial" && $usuario_logado->cargo != "Assessor" && $usuario_logado->cargo != "Analista em Políticas Públicas e Gestão Governamental" && $usuario_logado->cargo != "Estagiária" && $usuario_logado->cargo != "Estagiário") {
-                ?>
-            $(document).ready(function () {
-                $("#evento").modal('show');
-                $("#enquete").modal('show');
-            });
+  #sidebar {
+    width: 300px;
+    height: 100vh;
+    background: #212529;
+    color: #fff;
+    transition: width 0.3s;
+  }
+  #sidebar.min {
+    width: 80px;
+  }
 
-            
-            <?php
-            //}
-            ?>
-        </script>
-    </head>
+  #sidebar .textos {
+    transition: opacity .3s;
+  }
+  #sidebar.min .textos {
+    opacity: 0;
+  }
 
-    <body id="page-top">
+  #btn-toggle {
+    position: absolute;
+    left: -15px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body class="d-flex flex-row-reverse" id="page-top">
 
-        <!-- Page Wrapper -->
+<div id="sidebar" class="position-relative p-3">
+    <button id="btn-toggle" class="btn btn-dark d-flex align-items-center justify-content-center">❮</button>
+
+    <div class="text-center py-3 d-md-none d-sm-block"></div>
+
+    <div class="textos mt-4">
+        <h4>Menu</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link text-white" href="#">Item 1</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Item 2</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Item 3</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="content" class="flex-grow-1 p-4">
+<!-- Page Wrapper -->
         <div id="wrapper">
         <?php include './menu.php'; ?>
             <!-- Content Wrapper -->
@@ -173,25 +174,15 @@ and open the template in the editor.
                         }
         ?>
                     </div>
-                    </div> <!-- div col-->
-                    </div> <!-- div row-->
                     <div class="col">
-                        <!-- div teste aniversariantes retrátil-->
-                        <div id="sidebar" class="position-relative p-3">
-                            <button id="btn-toggle" class="btn btn-dark d-flex align-items-center justify-content-center">❮</button>
-
-                            <div class="text-center py-3 d-md-none d-sm-block"></div>
-
-                            <div class="textos mt-4">
-                                <h4>Menu</h4>
-                                <ul class="nav flex-column">
-                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 1</a></li>
-                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 2</a></li>
-                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 3</a></li>
-                                </ul>
+                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
+                            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
+                            <div class="row no-gutters align-items-center">
+                                <?php include './get_aniversariantes.php'; ?>
                             </div>
                         </div>
-                    
+                    </div> <!-- div col-->
+                    </div> <!-- div row-->
                     </div> <!-- div container-->
 
                     <!-- End of publicidade
@@ -374,14 +365,20 @@ and open the template in the editor.
         <?php
             }
         ?>
-<script>
-$(function(){
-    $("#btn-toggle").click(function(){
-        $("#sidebar").toggleClass("min");
-        $(this).text($("#sidebar").hasClass("min") ? "❯" : "❮");
-    });
-});
-</script>
-</body>
+</div>
 
+<script>
+    $(document).ready(function () {
+                $("#evento").modal('show');
+                $("#enquete").modal('show');
+            });
+    $(function(){
+        $("#btn-toggle").click(function(){
+            $("#sidebar").toggleClass("min");
+            $(this).text($("#sidebar").hasClass("min") ? "❯" : "❮");
+        });
+    });
+</script>
+
+</body>
 </html>
