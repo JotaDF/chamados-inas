@@ -173,7 +173,8 @@ and open the template in the editor.
                         }
         ?>
                     </div>
-
+                    </div> <!-- div col-->
+                    </div> <!-- div row-->
                     <div class="col">
                         <!-- div teste aniversariantes retrátil-->
                         <div id="sidebar" class="position-relative p-3">
@@ -190,8 +191,7 @@ and open the template in the editor.
                                 </ul>
                             </div>
                         </div>
-                    </div> <!-- div col-->
-                    </div> <!-- div row-->
+                    
                     </div> <!-- div container-->
 
                     <!-- End of publicidade
