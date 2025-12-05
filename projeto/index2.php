@@ -67,7 +67,7 @@ and open the template in the editor.
 
   #btn-toggle {
     position: absolute;
-    left: -15px;
+    left: 1px;
     top: 20px;
     width: 30px;
     height: 30px;
@@ -78,14 +78,13 @@ and open the template in the editor.
 </head>
 <body class="d-flex flex-row-reverse" id="page-top">
 
-<div id="sidebar" class="position-relative p-3">
-    <button id="btn-toggle" class="btn btn-dark d-flex align-items-center justify-content-center">❮</button>
-
+<div id="sidebar" class="position-relative p-1">
+    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button>
+    <br/> <img src="img/aniversario.svg" width="30" class="mt-4">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
-
-    <div class="textos mt-4">
+    <div class="textos mt-n3">
         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
-            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
+            <span class="text-right"> <b>Aniversariantes do mês:</b></span> 
             <div class="row no-gutters align-items-center">
                 <?php include './get_aniversariantes.php'; ?>
             </div>
