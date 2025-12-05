@@ -41,49 +41,37 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <style>
             /* Define o estilo base da Sidebar */
-            #right-sidebar {
-                position: fixed; /* Fixa a coluna na tela */
-                top: 0;
-                right: 0; /* Alinha à direita */
-                width: 280px; /* Largura padrão (expandida) */
-                height: 100%; /* Ocupa a altura total da viewport */
-                z-index: 1030; /* Garante que fique acima do conteúdo */
-                background-color: #f8f9fa; /* Cor de fundo Bootstrap 'light' */
-                border-left: 1px solid #dee2e6;
-                transition: width 0.3s ease-in-out; /* TRANSITION: Adiciona transição suave para a largura */
-                padding: 15px;
-                overflow-x: hidden;
-            }
-
-            /* Classe para o estado retraído */
-            .sidebar-collapsed {
-                width: 60px !important; /* Largura reduzida para 60px */
-            }
-
-            /* Ajuste no conteúdo principal (body) para não ser coberto pela sidebar */
-            body {
-                padding-right: 280px; /* Padding padrão para compensar a sidebar expandida */
-                transition: padding-right 0.3s ease-in-out; /* Transição suave para o padding */
+            body { 
+                overflow-x: hidden; 
                 font-size: small;
             }
 
-            /* Padding ajustado quando a sidebar está retraída */
-            .sidebar-collapsed-body {
-                padding-right: 60px !important; 
+            #sidebar {
+                width: 300px;
+                height: 100vh;
+                background: #212529;
+                color: #fff;
+                transition: width 0.3s;
+            }
+            #sidebar.min {
+                width: 80px;
             }
 
-            /* Estilo do botão de toggle */
-            #sidebar-toggle-btn {
+            #sidebar .textos {
+                transition: opacity .3s;
+            }
+            #sidebar.min .textos {
+                opacity: 0;
+            }
+
+            #btn-toggle {
                 position: absolute;
-                left: -35px; /* Posiciona o botão fora da barra */
-                top: 15px;
-                z-index: 1031;
+                left: -15px;
+                top: 20px;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
                 cursor: pointer;
-            }
-
-            /* Oculta o conteúdo da sidebar quando retraída */
-            .sidebar-collapsed #sidebar-content {
-                display: none;
             }
         </style>
         <script type="text/javascript" class="init">
@@ -185,30 +173,21 @@ and open the template in the editor.
                         }
         ?>
                     </div>
-                        <div id="right-sidebar" class="shadow-lg">
-                            <button id="sidebar-toggle-btn" class="btn btn-primary btn-sm">
-                                <span class="fas fa-chevron-left" id="toggle-icon"></span>
-                            </button>
 
-                            <h5>Barra Lateral</h5>
-                            <hr>
-
-                            <div id="sidebar-content">
-                                <p>
-                                    Conteúdo interno da barra lateral.
-                                </p>
-                                <ul class="nav flex-column">
-                                    <li class="nav-item"><a class="nav-link active" href="#">Link 1</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Link 2</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Link 3</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     <div class="col">
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
-                            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
-                            <div class="row no-gutters align-items-center">
-                                <?php include './get_aniversariantes.php'; ?>
+                        <!-- div teste aniversariantes retrátil-->
+                        <div id="sidebar" class="position-relative p-3">
+                            <button id="btn-toggle" class="btn btn-dark d-flex align-items-center justify-content-center">❮</button>
+
+                            <div class="text-center py-3 d-md-none d-sm-block"></div>
+
+                            <div class="textos mt-4">
+                                <h4>Menu</h4>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 1</a></li>
+                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 2</a></li>
+                                    <li class="nav-item"><a class="nav-link text-white" href="#">Item 3</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div> <!-- div col-->
@@ -395,7 +374,14 @@ and open the template in the editor.
         <?php
             }
         ?>
-
+<script>
+$(function(){
+    $("#btn-toggle").click(function(){
+        $("#sidebar").toggleClass("min");
+        $(this).text($("#sidebar").hasClass("min") ? "❯" : "❮");
+    });
+});
+</script>
 </body>
 
 </html>
