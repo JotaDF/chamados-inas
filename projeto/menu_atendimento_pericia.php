@@ -23,7 +23,7 @@
             Atendimento Perícia
         </div>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="agendamento_pericia.php">
+                <a class="nav-link collapsed" href="agendamentos.php">
                     <i class="fa fa-calendar"></i>
                     <span>Agendamento</span>
                 </a>

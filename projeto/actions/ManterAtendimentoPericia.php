@@ -32,8 +32,31 @@ class ManterAtendimentoPericia extends Model {
         return $array_dados;
     }
 
+    function getAtendimentoPorDataEHora($data_agendada, $hora_agendada) {
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, fpe.justificativa, fpe.situacao, fpe.descricao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '".$data_agendada."' AND hora_agendada= '".$hora_agendada."'";
+        $resultado = $this->db->Execute($sql);
+        if($registro = $resultado->fetchRow()) {
+            $dados = new AtendimentoPericia();
+            $dados->excluir     = true;
+            $dados->id                  = $registro['id'];
+            $dados->id_medico_perito    = $registro['id_medico_perito'];
+            $dados->cpf                 = $registro['cpf'];
+            $dados->guia                = $registro['guia'];
+            $dados->nome                = $registro['nome'];
+            $dados->cpf                 = $registro['cpf'];
+            $dados->telefone            = $registro['telefone'];
+            $dados->procedimento        = $registro['procedimento'];
+            $dados->data_agendada       = $registro['data_agendada'];
+            $dados->hora_agendada       = $registro['hora_agendada'];
+            $dados->situacao            = $registro['situacao'];
+            $dados->usuario             = $registro['id_usuario'];
+            $dados->descricao           = $registro['descricao'];
+            $dados->justificativa       = $registro['justificativa'];
+        }
+        return $dados;
+    }
     function getAtendimentoPorBeneficiario($cpf) {
-        $sql = "SELECT ap.id, ap.id_medico_perito, fpe.cpf, fpe.autorizacao, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado FROM atendimento_pericia as ap WHERE ap.cpf = '".$cpf."' ORDER BY ap.situacao";
+        $sql = "SELECT ap.id, ap.id_medico_perito, fpe.cpf, fpe.autorizacao, ap.procedimento, ap.data_agendada, ap.hora_agendada, ap.situacao, ap.id_usuario, ap.atualizado, ap.resultado FROM atendimento_pericia as ap, fila_pericia_eco as fpe WHERE fpe.cpf = '".$cpf."' ORDER BY ap.situacao";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -87,16 +110,17 @@ class ManterAtendimentoPericia extends Model {
     }
 
     function salvar(AtendimentoPericia $dados) {
-        $sql = "INSERT INTO atendimento_pericia (id_medico_perito, cpf, guia, procedimento, data_agendada, hora_agendada, situacao, id_usuario, atualizado, resultado) 
-        VALUES('". $dados->id_medico_perito ."','". $dados->cpf ."','". $dados->guia ."','". $dados->procedimento ."','". $dados->data_agendada ."','". $dados->hora_agendada ."','". $dados->situacao ."','". $dados->usuario ."','". $dados->atualizado ."','". $dados->resultado ."')";
+        $sql = "INSERT INTO atendimento_pericia (procedimento, data_agendada, hora_agendada, situacao, id_usuario, id_fila) 
+        VALUES('". $dados->procedimento ."','". $dados->data_agendada ."','". $dados->hora_agendada ."','". $dados->situacao ."','". $dados->usuario ."','". $dados->fila ."' )";
         if($dados->id > 0) {
-            $sql = "UPDATE atendimento_pericia SET id_medico_perito='". $dados->id_medico_perito ."', cpf=,'". $dados->cpf ."', guia=,'". $dados->guia ."', procedimento='". $dados->procedimento ."', data_agendada='". $dados->data_agendada ."', hora_agendada='". $dados->hora_agendada ."',
+            $sql = "UPDATE atendimento_pericia SET id_medico_perito='". $dados->id_medico_perito ."', procedimento='". $dados->procedimento ."', data_agendada='". $dados->data_agendada ."', hora_agendada='". $dados->hora_agendada ."',
             situacao='". $dados->situacao ."', id_usuario='". $dados->usuario ."', atualizado='". $dados->atualizado ."', resultado='". $dados->resultado ."' WHERE cpf='". $dados->cpf ."'";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);
             $dados->id = $this->db->insert_Id();
         }
+        
         return $resultado;
     }
 
