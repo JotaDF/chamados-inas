@@ -26,8 +26,8 @@
     <div class="card-body">
         <form id="form_cadastro" action="save_oficio.php" method="post">
             <input type="hidden" id="id" name="id"/>
-            <input type="hidden" id="origem" name="origem" value="<?=$origem ?>?>"/>
-            <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>?>"/>
+            <input type="hidden" id="setor" name="setor" value="<?=$origem ?>"/>
+            <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$usuario_logado->id ?>"/>
             <div class="form-group row">
                 <label for="processo" class="col-sm-2 col-form-label">Processo SEI:</label>
                 <div class="col-sm-10">
@@ -52,7 +52,13 @@
                     <input type="telefone" name="assunto" class="form-control form-control-sm" id="assunto" required>
                 </div>
             </div>
-             <div class="form-group row">
+            <div class="form-group row">
+                <label for="origem" class="col-sm-2 col-form-label">Origem:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="origem" class="form-control form-control-sm" id="origem" required>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="destino" class="col-sm-2 col-form-label">Destinatário:</label>
                 <div class="col-sm-10">
                     <input type="text" name="destino" class="form-control form-control-sm" id="destino" required>
