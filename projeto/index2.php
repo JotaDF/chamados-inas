@@ -82,7 +82,7 @@ and open the template in the editor.
     <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button><br/>
     <img id="baloes" src="img/aniversario.svg" width="30" class="ml-0">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
-    <div class="textos mt-n3">
+    <div class="textos mt-3">
         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
             <span class="text-right ml-4"><img src="img/aniversario.svg" width="30"> <b>Aniversariantes do mês:</b></span> 
             <div class="row no-gutters align-items-center">
