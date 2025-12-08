@@ -8,7 +8,7 @@ require_once('./verifica_login.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Médico Perícia</title>
+    <title>Atendimentos Beneficiário</title>
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -68,12 +68,10 @@ require_once('./verifica_login.php');
                 <div class="container-fluid">
                     <div class="card mb-4 border-0 shadow-sm rounded-3 bg-gradient-primary">
                         <div class="card-body text-white py-4">
-
                             <h4 class="fw-bold mb-0 d-flex align-items-center">
                                 <i class="bi bi-person-lines-fill me-2"></i>
                                 Beneficiário: <?= $beneficiario->nome ?>
                             </h4>
-
                         </div>
                     </div>
                     <div class="container-fluid">
@@ -117,6 +115,7 @@ require_once('./verifica_login.php');
                                     <?php foreach ($atendimentos as $atendimento) {
                                         $data_agendada = date('d/m/Y', strtotime($atendimento->data_agendada));
                                         $data_hora_agendada = $data_agendada . " " . $atendimento->hora_agendada;
+                                        
                                         ?>
                                         <div class="card shadow-sm border-0 rounded-3 mb-3">
                                             <div class="card-header bg-gradient-primary text-white py-2">
@@ -181,6 +180,7 @@ require_once('./verifica_login.php');
                                     <?php foreach ($fila_beneficario as $fila) {
                                         $data = explode(' ', $fila->data_solicitacao)[0] ?? '';
                                         $data_solicitacao = date('d/m/Y', strtotime($data));
+                                        $descricao = explode(";", $fila->descricao);
                                         ?>
 
                                         <div class="card shadow-sm border-0 rounded-3 mb-3">
@@ -205,7 +205,11 @@ require_once('./verifica_login.php');
                                                     </div>
                                                     <div class="col-6 mb-3">
                                                         <div class="text-uppercase text-dark mb-1">Descrição</div>
-                                                        <div class="fw-semibold"><b><?= $fila->descricao ?></b></div>
+                                                        <div class="fw-semibold"><b><?php
+                                                        foreach($descricao as $desc) {
+                                                            echo $desc . "<br>";
+                                                        }
+                                                        ?></b></div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="text-uppercase text-dark mb-1">Situação</div>

@@ -19,5 +19,5 @@ $a->situacao = "CONFIRMADO";
 
 $resultado = $db_agendamento_pericia->salvar($a);
 if ($resultado) {
-    header('Location: agendamento_pericia.php');
+    header('Location: agendamentos.php?data=' . $data_agendada);
 }

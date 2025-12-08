@@ -41,7 +41,6 @@ include_once('./verifica_login.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
-
         function proximoDia(data) {
             $.ajax({
                 url: "obter_fila_pericia_eco.php",
@@ -59,7 +58,7 @@ include_once('./verifica_login.php');
                     atualizarBotoes(dados);
                     atualizarDiaAtual(dados);
                     atualizaDiaSemana(dados)
-                    atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis);
+                    atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis, dados.data_atual);
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX ERROR:", status, error);
@@ -83,10 +82,15 @@ include_once('./verifica_login.php');
         }
 
         function agendar(hora) {
-            $("#horaSelecionada").text(hora); // coloca a hora dentro do modal 
+            limpaModalAgendado();
+            mostraInfoBeneficiario(); // <-- ESSENCIAL
+            $("#texto_modal").html("<b>Deseja agendar o horário: " + hora + " ?</b>");
+            $("#horaSelecionada").text(hora);
             $("#horaAgendada").val(hora);
+
             $('#confirm').modal('show');
         }
+
         function atualizarBotoes(dados) {
             $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
             $("#btnProximo").attr("onclick", "proximoDia('" + dados.proximo + "')");
@@ -96,6 +100,7 @@ include_once('./verifica_login.php');
             const proximoFormatado = formatarDataISO(dados.data_atual);
             $("#diaAtual").text("Dia atual: " + proximoFormatado);
         }
+
         function atualizaDiaSemana(dados) {
             const dias = {
                 Monday: "Segunda-feira",
@@ -110,28 +115,31 @@ include_once('./verifica_login.php');
             document.getElementById("diaSemana").textContent = dias[dados.dia_semana];
         }
 
-        function atualizarHorariosDisponiveis(horarios_agendados, horarios_disponiveis) {
+        function atualizarHorariosDisponiveis(horarios_agendados, horarios_disponiveis, data) {
             const container = $("#lista_disponiveis");
             container.empty();
-
-            // Mescla os horários e ordena
-            horarios_agendados.forEach(h => {
-                if (!horarios_disponiveis.includes(h)) {
-                    horarios_disponiveis.push(h);
-                }
-            });
-            horarios_disponiveis.sort();
+            const todosHorarios = Array.from(
+                new Set([...horarios_disponiveis, ...horarios_agendados])
+            ).sort();
 
             const agendadosSet = new Set(horarios_agendados);
 
-            horarios_disponiveis.forEach(function (hora) {
+            todosHorarios.forEach((hora) => {
                 const isAgendado = agendadosSet.has(hora);
+
+                const onclick = isAgendado
+                    ? `getDadosAgendados('${data}','${hora}')`
+                    : `agendar('${hora}')`;
+
+                const class_btn = isAgendado
+                    ? 'btn-danger border border-dark'
+                    : 'btn-light border-dark';
 
                 container.append(`
             <div class="col-6 col-md-3 mb-2">
                 <button
-                    class="btn ${isAgendado ? 'btn-danger border border-dark' : 'btn-light border-dark'}  w-100 py-2 font-weight-bold"
-                    onclick="agendar('${hora}')">
+                    class="btn ${class_btn} w-100 py-2 font-weight-bold"
+                    onclick="${onclick}">
                     ${hora}
                 </button>
             </div>
@@ -176,6 +184,70 @@ include_once('./verifica_login.php');
             return `${dia}/${mes}/${ano}`;
         }
 
+        function getDadosAgendados(data, hora) {
+            $.ajax({
+                url: "obter_dados_beneficiario.php",
+                type: "GET",
+                data: { data_agendada: data, hora_agendada: hora },
+                dataType: "json",
+                success: function (dados) {
+                    geraModalAgendado(dados);
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX ERROR:", status, error);
+                    console.log("RESPONSE TEXT:", xhr.responseText);
+                    alert("Erro ao carregar dados (ver console).");
+                }
+
+            });
+        }
+
+        function geraModalAgendado(dados) {
+            console.log(dados)
+            $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
+            ocultaInfoBeneficiario()
+            $('#nome_agendado').html(dados.nome);
+            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
+            $('#cpf_agendado').html("OIIIIII" + dados.cpf);
+            $('#situacao_agendado').html(dados.situacao);
+            $('#descricao_agendado').html(dados.descricao);
+            $('#justificativa_agendado').html(dados.justificativa);
+            $('#telefone_agendado').html(dados.telefone);
+            $('#horaSelecionada').text(dados.hora_agendada);
+            $('#btn_confirma').addClass('d-none');
+            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
+            $('#confirm').modal('show');
+        }
+
+        function ocultaInfoBeneficiario() {
+            $('#nome_beneficiario').addClass('d-none');
+            $('#cpf_beneficiario').addClass('d-none');
+            $('#situacao_beneficiario').addClass('d-none');
+            $('#descricao_beneficiario').addClass('d-none');
+            $('#justificativa_beneficiario').addClass('d-none');
+            $('#telefone_beneficiario').addClass('d-none');
+        }
+        function mostraInfoBeneficiario() {
+            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
+            $('#nome_beneficiario').removeClass('d-none');
+            $('#cpf_beneficiario').removeClass('d-none');
+            $('#situacao_beneficiario').removeClass('d-none');
+            $('#descricao_beneficiario').removeClass('d-none');
+            $('#justificativa_beneficiario').removeClass('d-none');
+            $('#telefone_beneficiario').removeClass('d-none');
+        }
+
+        function limpaModalAgendado() {
+            $("#texto_modal").html("");
+            $('#nome_agendado').html("");
+            $('#cpf_agendado').html("");
+            $('#situacao_agendado').html("");
+            $('#descricao_agendado').html("");
+            $('#justificativa_agendado').html("");
+            $('#telefone_agendado').html("");
+            $('#horaSelecionada').text("");
+        }
+
     </script>
     <style>
         body {
@@ -208,12 +280,12 @@ include_once('./verifica_login.php');
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
                 $id_fila = $_GET['id_fila'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
-                $periodoDatas = $manterFilaPericiaEco->getPeriodo(new DateTime());
+                $periodoDatas = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $periodoHoras = $manterFilaPericiaEco->getHorarios();
                 $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
                 $datas = date("Y-m-d", strtotime($data));
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
-                $dias_para_agendamento = $manterFilaPericiaEco->getPeriodo(new DateTime());
+                $dias_para_agendamento = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $soDatas = array_map(function ($dt) {
                     return $dt->format('d/m/Y');
                 }, $dias_para_agendamento);
@@ -222,7 +294,6 @@ include_once('./verifica_login.php');
                 <script>
                     window.onload = function () {
                         const dataUrl = getUrlParam("data");
-
                         if (dataUrl) {
                             proximoDia(dataUrl);
                             atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
@@ -375,9 +446,8 @@ include_once('./verifica_login.php');
 
                 <!-- HEADER -->
                 <div class="modal-header text-dark">
-                    <h5 class="modal-title">
-                        <i class="fa fa-calendar-check mr-2"></i>
-                        Confirmar Agendamento
+                    <h5 class="modal-title" id="titulo_modal">
+                        
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                 </div>
@@ -387,8 +457,8 @@ include_once('./verifica_login.php');
 
                     <!-- Frase principal -->
                     <div class="alert alert-info text-center">
-                        <h6><b>Deseja agendar o horário: </b><span class="text-primary font-weight-bold"
-                                id="horaSelecionada"></span>?</h6>
+                        <h6 id="texto_modal"><b>Deseja agendar o horário: </b><span
+                                class="text-primary font-weight-bold" id="horaSelecionada"></span>?</h6>
 
                     </div>
                     <hr>
@@ -406,31 +476,42 @@ include_once('./verifica_login.php');
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Nome</div>
-                                    <div class="font-weight-bold"><?= $dados->nome ?></div>
-                                    <input type="hidden" name="nome" id="nome" value="<?= $dados->nome ?>">
+                                    <div class="font-weight-bold" id="nome_beneficiario"><?= $dados->nome ?></div>
+                                    <div class="font-weight-bold" id="nome_agendado"></div>
+                                    <input type="hidden" name="nome" value="<?= $dados->nome ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">CPF</div>
-                                    <div class="font-weight-bold"><?= $dados->cpf ?></div>
-                                    <input type="hidden" name="cpf" id="cpf" value="<?= $dados->cpf ?>">
+                                    <div class="font-weight-bold" id="cpf_beneficiario"><?= $dados->cpf ?></div>
+                                    <div class="font-weight-bold" id="cpf_agendado"></div>
+                                    <input type="hidden" name="cpf" value="<?= $dados->cpf ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Telefone</div>
-                                    <div class="font-weight-bold"><?= $dados->telefone ?></div>
+                                    <div class="font-weight-bold" id="telefone_beneficiario"><?= $dados->telefone ?>
+                                    </div>
+                                    <div class="font-weight-bold" id="telefone_agendado"></div>
                                     <input type="hidden" name="telefone" id="telefone" value="<?= $dados->telefone ?>">
                                 </div>
                             </div>
-
+                        </div>
+                        <h6 class="text-secondary mb-3">
+                            <i class="fa fa-user-md mr-1"></i> Dados da Fila
+                        </h6>
+                        <div class="row">
+                            <hr>
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Autorização</div>
-                                    <div class="font-weight-bold"><?= $dados->autorizacao ?></div>
+                                    <div class="font-weight-bold" id="autorizacao_beneficiario">
+                                        <?= $dados->autorizacao ?>
+                                    </div>
                                     <input type="hidden" name="autorizacao" id="autorizacao"
                                         value="<?= $dados->autorizacao ?>">
                                 </div>
@@ -439,7 +520,9 @@ include_once('./verifica_login.php');
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Solicitação</div>
-                                    <div class="font-weight-bold"><?= $data_solicitacao_formatada ?></div>
+                                    <div class="font-weight-bold" id="solicitacao"><?= $data_solicitacao_formatada ?>
+                                    </div>
+                                    <div class="font-weight-bold" id="solicitacao_beneficiario"></div>
                                     <input type="hidden" name="solicitacao" id="solicitacao"
                                         value="<?= $dados->solicitacao ?>">
                                 </div>
@@ -448,22 +531,23 @@ include_once('./verifica_login.php');
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Situação</div>
-                                    <div class="font-weight-bold"><?= $dados->situacao ?></div>
+                                    <div class="font-weight-bold" id="situacao_beneficiario"><?= $dados->situacao ?>
+                                    </div>
                                     <input type="hidden" name="situacao" id="situacao" value="<?= $dados->situacao ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <div class="border rounded p-2 bg-white">
+                                <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Justificativa</div>
-                                    <div><?= $dados->justificativa ?></div>
+                                    <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
                                     <input type="hidden" name="justificativa" id="justificativa"
                                         value="<?= $dados->justificativa ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div class="border rounded p-2 bg-white">
+                                <div class="border rounded p-2 bg-light">
                                     <div class="small text-muted text-uppercase">Descrição</div>
                                     <div>
                                         <?php foreach ($descricoes as $descricao) {
@@ -479,11 +563,11 @@ include_once('./verifica_login.php');
 
                 <!-- FOOTER -->
                 <div class="modal-footer">
-                    <button class="btn btn-secondary btn-sm" data-dismiss="modal">
+                    <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
                         <i class="fa fa-times mr-1"></i> Cancelar
                     </button>
 
-                    <button type='submit' class="btn btn-success btn-sm">
+                    <button type='submit' class="btn btn-success btn-sm" id="btn_confirma">
                         <i class="fa fa-check mr-1"></i> Confirmar
                     </button>
                 </div>
