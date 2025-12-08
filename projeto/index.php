@@ -39,29 +39,61 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-        <style>
-            body{
-                font-size: small;
-            }
-        </style>
-        <script type="text/javascript" class="init">
-            <?php
-	   //print_r($usuario_logado);
-            //if (isset($usuario_logado->cargo) && $usuario_logado->cargo != "Assessor Especial" && $usuario_logado->cargo != "Assessor" && $usuario_logado->cargo != "Analista em Políticas Públicas e Gestão Governamental" && $usuario_logado->cargo != "Estagiária" && $usuario_logado->cargo != "Estagiário") {
-                ?>
-            $(document).ready(function () {
-                $("#evento").modal('show');
-                $("#enquete").modal('show');
-            });
-            <?php
-            //}
-            ?>
-        </script>
-    </head>
 
-    <body id="page-top">
 
-        <!-- Page Wrapper -->
+<style>
+  body { 
+    overflow-x: hidden; 
+    font-size: small;
+    }
+
+  #sidebar {
+    width: 330px;
+    height: 100%;
+    background: #e7e7e7;
+    color: #000000ff;
+    transition: width 0.3s;
+  }
+  #sidebar.min {
+    width: 35px;
+  }
+
+  #sidebar .textos {
+    transition: opacity .3s;
+  }
+  #sidebar.min .textos {
+    opacity: 0;
+  }
+
+  #btn-toggle {
+    position: absolute;
+    left: 3px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body class="d-flex flex-row-reverse" id="page-top">
+
+<div id="sidebar" class="position-relative p-0 min">
+    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button><br/>
+    <img id="baloes" src="img/baloes.png" class="ml-0 mt-5" width="100%">
+    <div class="text-center py-3 d-md-none d-sm-block"></div>
+    <div class="textos mt-3">
+        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
+            <span class="text-right ml-4"><img src="img/aniversario.svg" width="30"> <b>Aniversariantes do mês:</b></span> 
+            <div class="row no-gutters align-items-center">
+                <?php include './get_aniversariantes.php'; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content" class="flex-grow-1 p-0">
+<!-- Page Wrapper -->
         <div id="wrapper">
         <?php include './menu.php'; ?>
             <!-- Content Wrapper -->
@@ -71,7 +103,7 @@ and open the template in the editor.
                     <?php include './top_bar.php'; ?>
                     <div class="container">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="w-100">
                             <!-- Links sistemas -->
                             <div class="card-group">
                             <?php
@@ -141,14 +173,6 @@ and open the template in the editor.
                         }
         ?>
                     </div>
-                    <div class="col">
-                        <div class="col-xl-3 col-md-2 mb-4" style="max-width: 480px;">
-                            <span class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/aniversario.svg" width="30" /> &nbsp;&nbsp;&nbsp;<b>Aniversariantes do mês:</b></span> 
-                            <div class="row no-gutters align-items-center">
-                                <?php include './get_aniversariantes.php'; ?>
-                            </div>
-                        </div>
-                    </div> <!-- div col-->
                     </div> <!-- div row-->
                     </div> <!-- div container-->
 
@@ -332,7 +356,28 @@ and open the template in the editor.
         <?php
             }
         ?>
+</div>
+
+<script>
+    $(document).ready(function () {
+                $("#evento").modal('show');
+                $("#enquete").modal('show');
+            });
+    $(function(){
+        $("#btn-toggle").click(function(){
+            $("#sidebar").toggleClass("min");
+            $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
+            $("#baloes").toggleClass("d-none");
+        });
+    });
+    $(function(){
+        $("#baloes").click(function(){
+            $("#sidebar").toggleClass("min");
+            $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
+            $("#baloes").toggleClass("d-none");
+        });
+    });
+</script>
 
 </body>
-
 </html>
