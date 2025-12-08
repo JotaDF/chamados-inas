@@ -59,7 +59,7 @@ class ManterOficio extends Model {
     }
 
     function salvar(Oficio $dados) {
-        $sql = "insert into oficio (processo, link_sei, numero, assunto, destino, origem, enviado, atendido, setor, arquivo, id_usuario) values ('" . $dados->processo . "','" . $dados->link_sei . "','" . $dados->numero . "','" . $dados->assunto . "','" . $dados->destino . "','" . $dados->origem . "','" . $dados->enviado . "',0,'" . $dados->setor . "','" . $dados->arquivo . "','" . $dados->usuario . "')";
+        $sql = "insert into oficio (processo, link_sei, numero, assunto, destino, origem, enviado, setor, arquivo, id_usuario) values ('" . $dados->processo . "','" . $dados->link_sei . "','" . $dados->numero . "','" . $dados->assunto . "','" . $dados->destino . "','" . $dados->origem . "','" . $dados->enviado . "','" . $dados->setor . "','" . $dados->arquivo . "','" . $dados->usuario . "')";
         //echo $sql . "<BR/>";
         if ($dados->id > 0) {
             $sql = "update oficio set processo=" . $dados->processo . ",link_sei='" . $dados->link_sei . "',numero='" . $dados->numero . "',assunto='" . $dados->assunto . "',destino='" . $dados->destino . "',origem='" . $dados->origem . "'',origem='" . $dados->origem . "'',enviado='" . $dados->enviado . "'',atendido='" . $dados->atendido . "'',setor='" . $dados->setor . "',arquivo='" . $dados->arquivo . "',id_usuario='" . $dados->usuario . "' where id=$dados->id";
