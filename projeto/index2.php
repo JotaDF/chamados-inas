@@ -55,7 +55,7 @@ and open the template in the editor.
     transition: width 0.3s;
   }
   #sidebar.min {
-    width: 40px;
+    width: 35px;
   }
 
   #sidebar .textos {
@@ -365,6 +365,13 @@ and open the template in the editor.
             });
     $(function(){
         $("#btn-toggle").click(function(){
+            $("#sidebar").toggleClass("min");
+            $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
+            $("#baloes").toggleClass("d-none");
+        });
+    });
+    $(function(){
+        $("#baloes").click(function(){
             $("#sidebar").toggleClass("min");
             $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
             $("#baloes").toggleClass("d-none");
