@@ -12,6 +12,7 @@ $o->usuario = $_POST['id_usuario'];
 $o->processo = $_POST['processo'];
 $o->link_sei = $_POST['link_sei'];
 $o->numero = $_POST['numero'];
+$o->enviado = $_POST['enviado'];
 $o->assunto = $_POST['assunto'];
 $o->origem = $_POST['origem'];
 $o->destino = $_POST['destino'];    

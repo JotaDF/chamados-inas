@@ -42,8 +42,12 @@
             </div>
             <div class="form-group row">
                 <label for="numero" class="col-sm-2 col-form-label">Número:</label>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                     <input type="text" name="numero" class="form-control form-control-sm" id="numero" required>
+                </div>
+                <label for="enviado" class="col-sm-2 col-form-label">Enviado em:</label>
+                <div class="col-sm-5">
+                    <input type="date" name="enviado" class="form-control form-control-sm" id="enviado" required>
                 </div>
             </div>
             <div class="form-group row">
