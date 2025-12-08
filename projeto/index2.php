@@ -80,7 +80,7 @@ and open the template in the editor.
 
 <div id="sidebar" class="position-relative p-1 min">
     <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button><br/>
-    <img id="baloes" src="img/aniversario.svg" width="30" class="ml-0">
+    <img id="baloes" src="img/baloes.png" class="ml-0 mt-5" width="100%">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
     <div class="textos mt-3">
         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
