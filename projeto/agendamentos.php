@@ -78,6 +78,17 @@ include('./verifica_login.php');
         `);
             });
         }
+
+        function agendar(hora) {
+            limpaModalAgendado();
+            mostraInfoBeneficiario(); // <-- ESSENCIAL
+            $("#texto_modal").html("<b>Deseja agendar o horário: " + hora + " ?</b>");
+            $("#horaSelecionada").text(hora);
+            $("#horaAgendada").val(hora);
+
+            $('#confirm').modal('show');
+        }
+
         function atualizarBotoes(dados) {
             $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
             $("#btnProximo").attr("onclick", "proximoDia('" + dados.proximo + "')");
@@ -122,10 +133,14 @@ include('./verifica_login.php');
                     ? 'btn-danger border border-dark'
                     : 'btn-light border-dark';
 
+                const disabled = isAgendado
+                ? ''
+                : 'disabled'; 
                 container.append(`
             <div class="col-6 col-md-3 mb-2">
                 <button
                     class="btn ${class_btn} w-100 py-2 font-weight-bold"
+                    ${disabled}
                     onclick="${onclick}">
                     ${hora}
                 </button>
@@ -165,20 +180,85 @@ include('./verifica_login.php');
             return params.get(nome);
         }
 
-        function formatarDataISO(dataISO) {
-            if (!dataISO) return "";
-            const [ano, mes, dia] = dataISO.split("-");
-            return `${dia}/${mes}/${ano}`;
+        function formatarDataISO(data) {
+            if (!data) return "";
+
+            // "2025-11-18 14:42:55"
+            let [dataParte] = data.split(" "); // pega só "2025-11-18"
+
+            let [ano, mes, dia] = dataParte.split("-");
+
+            return `${dia}/${mes}/${ano}`; // "18/11/2025"
         }
-        window.onload = function () {
-            const dataUrl = getUrlParam("data");
-            if (dataUrl) {
-                proximoDia(dataUrl);
-                atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
-            }
-            proximoDia("<?= $hoje ?>");
-            atualizaDiaSemana("<?= $hoje ?>");
-        };
+
+
+
+        function getDadosAgendados(data, hora) {
+            $.ajax({
+                url: "obter_dados_beneficiario.php",
+                type: "GET",
+                data: { data_agendada: data, hora_agendada: hora },
+                dataType: "json",
+                success: function (dados) {
+                    geraModalAgendado(dados);
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX ERROR:", status, error);
+                    console.log("RESPONSE TEXT:", xhr.responseText);
+                    alert("Erro ao carregar dados (ver console).");
+                }
+
+            });
+        }
+
+        function geraModalAgendado(dados) {
+            console.log(dados)
+            $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
+            ocultaInfoBeneficiario()
+            $('#nome_agendado').html(dados.nome);
+            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
+            $('#cpf_agendado').html(dados.cpf);
+            $('#situacao_agendado').html(dados.situacao);
+            $('#solicitacao_agendado').html(formatarDataISO(dados.data_solicitacao));
+            $('#descricao_agendado').html(dados.descricao);
+            $('#justificativa_agendado').html(dados.justificativa);
+            $('#autorizacao_agendado').html(dados.autorizacao);
+            $('#telefone_agendado').html(dados.telefone);
+            $('#horaSelecionada').text(dados.hora_agendada);
+            $('#btn_confirma').addClass('d-none');
+            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
+            $('#confirm').modal('show');
+        }
+
+        function ocultaInfoBeneficiario() {
+            $('#nome_beneficiario').addClass('d-none');
+            $('#cpf_beneficiario').addClass('d-none');
+            $('#situacao_beneficiario').addClass('d-none');
+            $('#descricao_beneficiario').addClass('d-none');
+            $('#justificativa_beneficiario').addClass('d-none');
+            $('#telefone_beneficiario').addClass('d-none');
+        }
+
+        function mostraInfoBeneficiario() {
+            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
+            $('#nome_beneficiario').removeClass('d-none');
+            $('#cpf_beneficiario').removeClass('d-none');
+            $('#situacao_beneficiario').removeClass('d-none');
+            $('#descricao_beneficiario').removeClass('d-none');
+            $('#justificativa_beneficiario').removeClass('d-none');
+            $('#telefone_beneficiario').removeClass('d-none');
+        }
+
+        function limpaModalAgendado() {
+            $("#texto_modal").html("");
+            $('#nome_agendado').html("");
+            $('#cpf_agendado').html("");
+            $('#situacao_agendado').html("");
+            $('#descricao_agendado').html("");
+            $('#justificativa_agendado').html("");
+            $('#telefone_agendado').html("");
+            $('#horaSelecionada').text("");
+        }
 
     </script>
     <style>
@@ -201,9 +281,20 @@ include('./verifica_login.php');
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <?php include './top_bar.php'; ?>
+                <?php
+                $descricoes = explode(";", $dados->descricao);
+                ?>
                 <div>
                     <div class="container-fluid">
                         <div class="card shadow-sm mt-4 mb-3 border border-primary">
+                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                                <div class="col-sm ml-0" style="max-width:50px;">
+                                    <i class="fa fa-calendar fa-2x text-white"></i>
+                                </div>
+                                <div class="col mb-0">
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Agendamentos</span>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="container-fluid">
                                     <div class="row g-2 align-items-center">
@@ -214,6 +305,17 @@ include('./verifica_login.php');
                                                 <i class="fa fa-chevron-left mr-2"></i> Anterior
                                             </button>
                                         </div>
+                                        <script>
+                                            window.onload = function () {
+                                                const dataUrl = getUrlParam("data");
+                                                if (dataUrl) {
+                                                    proximoDia(dataUrl);
+                                                    atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
+                                                }
+                                                proximoDia("<?= $hoje ?>");
+                                                atualizaDiaSemana("<?= $hoje ?>");
+                                            };
+                                        </script>
                                         <div class="col-md text-center">
                                             <div class="px-4 py-2 bg-light rounded shadow-sm d-inline-block">
                                                 <h5 class="mb-0 text-primary fw-bold">
@@ -260,6 +362,143 @@ include('./verifica_login.php');
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirm" tabindex="-1">
+            <div class="modal-dialog modal-lg"> <!-- modal maior para caber os dados -->
+                <div class="modal-content">
+
+                    <!-- HEADER -->
+                    <div class="modal-header text-dark">
+                        <h5 class="modal-title" id="titulo_modal">
+
+                        </h5>
+                        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="modal-body">
+
+                        <!-- Frase principal -->
+                        <div class="alert alert-info text-center">
+                            <h6 id="texto_modal"><b>Deseja agendar o horário: </b><span
+                                    class="text-primary font-weight-bold" id="horaSelecionada"></span>?</h6>
+
+                        </div>
+                        <hr>
+                        <!-- Dados do paciente em mini-cards -->
+                        <h6 class="text-secondary mb-3">
+                            <i class="fa fa-user mr-1"></i> Dados do Beneficiário
+                        </h6>
+
+                        <form action="save_agendamento_pericia.php" method="POST">
+                            <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
+                            <input type="hidden" name="data_agendada" id="dataAgendada">
+                            <input type="hidden" name="hora_agendada" id="horaAgendada">
+                            <input type="hidden" name="id_fila" value="<?= $id_fila ?>">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Nome</div>
+                                        <div id="nome_beneficiario"><?= $dados->nome ?></div>
+                                        <div id="nome_agendado"></div>
+                                        <input type="hidden" name="nome" value="<?= $dados->nome ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">CPF</div>
+                                        <div id="cpf_beneficiario"><?= $dados->cpf ?></div>
+                                        <div id="cpf_agendado"></div>
+                                        <input type="hidden" name="cpf" value="<?= $dados->cpf ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Telefone</div>
+                                        <div id="telefone_beneficiario"><?= $dados->telefone ?></div>
+                                        <div id="telefone_agendado"></div>
+                                        <input type="hidden" name="telefone" id="telefone"
+                                            value="<?= $dados->telefone ?>">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="text-dark mb-3">
+                                <i class="fa fa-user-md mr-1"></i> Dados da Fila
+                            </h6>
+
+                            <div class="row">
+                                <hr>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Autorização</div>
+                                        <div id="autorizacao_beneficiario"><?= $dados->autorizacao ?></div>
+                                        <div id="autorizacao_agendado"></div>
+                                        <input type="hidden" name="autorizacao" id="autorizacao"
+                                            value="<?= $dados->autorizacao ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Solicitação</div>
+                                        <div id="solicitacao_beneficiario"><?= $data_solicitacao_formatada ?></div>
+                                        <div id="solicitacao_agendado"></div>
+                                        <input type="hidden" name="solicitacao" id="solicitacao"
+                                            value="<?= $dados->solicitacao ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
+                                        <div id="situacao_beneficiario"><?= $dados->situacao ?></div>
+                                        <div id="situacao_agendado"></div>
+                                        <input type="hidden" name="situacao" id="situacao"
+                                            value="<?= $dados->situacao ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Justificativa</div>
+                                        <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
+                                        <div id="justificativa_agendado"></div>
+                                        <input type="hidden" name="justificativa" id="justificativa"
+                                            value="<?= $dados->justificativa ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
+                                        <div>
+                                            <?php foreach ($descricoes as $descricao) {
+                                                echo $descricao . "<br>";
+                                            } ?>
+                                        </div>
+                                        <input type="hidden" name="descricao" id="descricao" value="<?= $descricao ?>">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
+                            <i class="fa fa-times mr-1"></i> Cancelar
+                        </button>
+
+                        <button type='submit' class="btn btn-success btn-sm" id="btn_confirma">
+                            <i class="fa fa-check mr-1"></i> Confirmar
+                        </button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
