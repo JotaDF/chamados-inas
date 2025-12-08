@@ -50,7 +50,7 @@ and open the template in the editor.
   #sidebar {
     width: 330px;
     height: 100vh;
-    background: #f3f3f4ff;
+    background: #e7e7e7;
     color: #000000ff;
     transition: width 0.3s;
   }
@@ -78,7 +78,7 @@ and open the template in the editor.
 </head>
 <body class="d-flex flex-row-reverse" id="page-top">
 
-<div id="sidebar" class="position-relative p-1 min">
+<div id="sidebar" class="position-relative p-0 min">
     <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button><br/>
     <img id="baloes" src="img/baloes.png" class="ml-0 mt-5" width="100%">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
