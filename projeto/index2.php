@@ -55,7 +55,7 @@ and open the template in the editor.
     transition: width 0.3s;
   }
   #sidebar.min {
-    width: 80px;
+    width: 40px;
   }
 
   #sidebar .textos {
@@ -67,7 +67,7 @@ and open the template in the editor.
 
   #btn-toggle {
     position: absolute;
-    left: 1px;
+    left: 3px;
     top: 20px;
     width: 30px;
     height: 30px;
@@ -79,12 +79,12 @@ and open the template in the editor.
 <body class="d-flex flex-row-reverse" id="page-top">
 
 <div id="sidebar" class="position-relative p-1 min">
-    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button>
-    <br/> <img src="img/aniversario.svg" width="30" class="mt-4">
+    <button id="btn-toggle" class="btn btn-primary d-flex align-items-center justify-content-center">❮</button><br/>
+    <img id="baloes" src="img/aniversario.svg" width="30" class="ml-0">
     <div class="text-center py-3 d-md-none d-sm-block"></div>
     <div class="textos mt-n3">
         <div class="col-xl-3 col-md-2 mb-4" style="max-width: 380px;">
-            <span class="text-right ml-4"> <b>Aniversariantes do mês:</b></span> 
+            <span class="text-right ml-4"><img src="img/aniversario.svg" width="30"> <b>Aniversariantes do mês:</b></span> 
             <div class="row no-gutters align-items-center">
                 <?php include './get_aniversariantes.php'; ?>
             </div>
@@ -367,6 +367,7 @@ and open the template in the editor.
         $("#btn-toggle").click(function(){
             $("#sidebar").toggleClass("min");
             $(this).text($("#sidebar").hasClass("min") ? "❮" : "❯");
+            $("#baloes").toggleClass("d-none");
         });
     });
 </script>
