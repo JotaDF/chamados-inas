@@ -49,7 +49,7 @@ and open the template in the editor.
 
   #sidebar {
     width: 330px;
-    height: 100vh;
+    height: 100%;
     background: #e7e7e7;
     color: #000000ff;
     transition: width 0.3s;
