@@ -56,7 +56,7 @@ include_once('./verifica_login.php');
                     $("#dataProximo").text(proximoFormatado);
                     $("#dataAgendada").val(dados.data_atual);
                     atualizarBotoes(dados);
-                    atualizarDiaAtual(dados);
+                    atualizaDiaAtual(dados);
                     atualizaDiaSemana(dados)
                     atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis, dados.data_atual);
                 },
@@ -96,7 +96,7 @@ include_once('./verifica_login.php');
             $("#btnProximo").attr("onclick", "proximoDia('" + dados.proximo + "')");
         }
 
-        function atualizarDiaAtual(dados) {
+        function atualizaDiaAtual(dados) {
             const proximoFormatado = formatarDataISO(dados.data_atual);
             $("#diaAtual").text("Dia atual: " + proximoFormatado);
         }
@@ -208,9 +208,10 @@ include_once('./verifica_login.php');
             ocultaInfoBeneficiario()
             $('#nome_agendado').html(dados.nome);
             $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
-            $('#cpf_agendado').html("OIIIIII" + dados.cpf);
+            $('#cpf_agendado').html(dados.cpf);
             $('#situacao_agendado').html(dados.situacao);
             $('#descricao_agendado').html(dados.descricao);
+            $('#autorizacao_agendado').html(dados.autorizacao);
             $('#justificativa_agendado').html(dados.justificativa);
             $('#telefone_agendado').html(dados.telefone);
             $('#horaSelecionada').text(dados.hora_agendada);
@@ -306,9 +307,14 @@ include_once('./verifica_login.php');
                 <div class="container mt-4">
                     <div>
                         <div class="card shadow-sm mt-3 border border-primary">
-                            <div class="card-header bg-gradient-primary">
-                                <h5 class="card-title text-white">Detalhes da Fila</h5>
+                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                            <div class="col-sm ml-0" style="max-width:50px;">
+                                <i class="fa fa-info-circle fa-2x text-white"></i>
                             </div>
+                            <div class="col mb-0">
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Detalhes da Fila</span>
+                            </div>
+                        </div>
                             <div class="card-body">
                                 <div class="row g-4">
                                     <div class="col-4">
@@ -447,7 +453,7 @@ include_once('./verifica_login.php');
                 <!-- HEADER -->
                 <div class="modal-header text-dark">
                     <h5 class="modal-title" id="titulo_modal">
-                        
+
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                 </div>
@@ -475,43 +481,44 @@ include_once('./verifica_login.php');
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Nome</div>
-                                    <div class="font-weight-bold" id="nome_beneficiario"><?= $dados->nome ?></div>
-                                    <div class="font-weight-bold" id="nome_agendado"></div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Nome</div>
+                                    <div id="nome_beneficiario"><?= $dados->nome ?></div>
+                                    <div id="nome_agendado"></div>
                                     <input type="hidden" name="nome" value="<?= $dados->nome ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">CPF</div>
-                                    <div class="font-weight-bold" id="cpf_beneficiario"><?= $dados->cpf ?></div>
-                                    <div class="font-weight-bold" id="cpf_agendado"></div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">CPF</div>
+                                    <div id="cpf_beneficiario"><?= $dados->cpf ?></div>
+                                    <div id="cpf_agendado"></div>
                                     <input type="hidden" name="cpf" value="<?= $dados->cpf ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Telefone</div>
-                                    <div class="font-weight-bold" id="telefone_beneficiario"><?= $dados->telefone ?>
-                                    </div>
-                                    <div class="font-weight-bold" id="telefone_agendado"></div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Telefone</div>
+                                    <div id="telefone_beneficiario"><?= $dados->telefone ?></div>
+                                    <div id="telefone_agendado"></div>
                                     <input type="hidden" name="telefone" id="telefone" value="<?= $dados->telefone ?>">
                                 </div>
                             </div>
                         </div>
-                        <h6 class="text-secondary mb-3">
+
+                        <h6 class="text-dark mb-3">
                             <i class="fa fa-user-md mr-1"></i> Dados da Fila
                         </h6>
+
                         <div class="row">
                             <hr>
+
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Autorização</div>
-                                    <div class="font-weight-bold" id="autorizacao_beneficiario">
-                                        <?= $dados->autorizacao ?>
-                                    </div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Autorização</div>
+                                    <div id="autorizacao_beneficiario"><?= $dados->autorizacao ?></div>
+                                    <div id="autorizacao_agendado"></div>
                                     <input type="hidden" name="autorizacao" id="autorizacao"
                                         value="<?= $dados->autorizacao ?>">
                                 </div>
@@ -519,10 +526,9 @@ include_once('./verifica_login.php');
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Solicitação</div>
-                                    <div class="font-weight-bold" id="solicitacao"><?= $data_solicitacao_formatada ?>
-                                    </div>
-                                    <div class="font-weight-bold" id="solicitacao_beneficiario"></div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Solicitação</div>
+                                    <div id="solicitacao_beneficiario"><?= $data_solicitacao_formatada ?></div>
+                                    <div id="solicitacao_agendado"></div>
                                     <input type="hidden" name="solicitacao" id="solicitacao"
                                         value="<?= $dados->solicitacao ?>">
                                 </div>
@@ -530,17 +536,18 @@ include_once('./verifica_login.php');
 
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Situação</div>
-                                    <div class="font-weight-bold" id="situacao_beneficiario"><?= $dados->situacao ?>
-                                    </div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
+                                    <div id="situacao_beneficiario"><?= $dados->situacao ?></div>
+                                    <div id="situacao_agendado"></div>
                                     <input type="hidden" name="situacao" id="situacao" value="<?= $dados->situacao ?>">
                                 </div>
                             </div>
 
                             <div class="col-md-12 mb-3">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Justificativa</div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Justificativa</div>
                                     <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
+                                    <div id="justificativa_agendado"></div>
                                     <input type="hidden" name="justificativa" id="justificativa"
                                         value="<?= $dados->justificativa ?>">
                                 </div>
@@ -548,7 +555,7 @@ include_once('./verifica_login.php');
 
                             <div class="col-md-12">
                                 <div class="border rounded p-2 bg-light">
-                                    <div class="small text-muted text-uppercase">Descrição</div>
+                                    <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
                                     <div>
                                         <?php foreach ($descricoes as $descricao) {
                                             echo $descricao . "<br>";
@@ -558,6 +565,8 @@ include_once('./verifica_login.php');
                                 </div>
                             </div>
                         </div>
+
+
 
                 </div>
 

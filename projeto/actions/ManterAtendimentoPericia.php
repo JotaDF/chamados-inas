@@ -33,7 +33,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
     function getAtendimentoPorDataEHora($data_agendada, $hora_agendada) {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, fpe.justificativa, fpe.situacao, fpe.descricao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '".$data_agendada."' AND hora_agendada= '".$hora_agendada."'";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '".$data_agendada."' AND hora_agendada= '".$hora_agendada."'";
         $resultado = $this->db->Execute($sql);
         if($registro = $resultado->fetchRow()) {
             $dados = new AtendimentoPericia();
@@ -45,7 +45,9 @@ class ManterAtendimentoPericia extends Model {
             $dados->nome                = $registro['nome'];
             $dados->cpf                 = $registro['cpf'];
             $dados->telefone            = $registro['telefone'];
+            $dados->autorizacao         = $registro['autorizacao'];
             $dados->procedimento        = $registro['procedimento'];
+            $dados->data_solicitacao       = $registro['data_solicitacao'];
             $dados->data_agendada       = $registro['data_agendada'];
             $dados->hora_agendada       = $registro['hora_agendada'];
             $dados->situacao            = $registro['situacao'];
