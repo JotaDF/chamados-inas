@@ -58,7 +58,7 @@ include_once('./verifica_login.php');
                     atualizarBotoes(dados);
                     atualizaDiaAtual(dados);
                     atualizaDiaSemana(dados)
-                    atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis, dados.data_atual);
+                    atualizarHorariosDisponiveis(dados);
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX ERROR:", status, error);
@@ -115,37 +115,48 @@ include_once('./verifica_login.php');
             document.getElementById("diaSemana").textContent = dias[dados.dia_semana];
         }
 
-        function atualizarHorariosDisponiveis(horarios_agendados, horarios_disponiveis, data) {
+        function atualizarHorariosDisponiveis(dados) {
             const container = $("#lista_disponiveis");
             container.empty();
+
+            const dataKey = dados.data_atual;
+
+            // Agora horários agendados é um OBJETO
+            const agendadosObj = dados.horarios_agendados[dataKey] || {};
+
+            // Pegamos só as horas (chaves)
+            const horasAgendadas = Object.keys(agendadosObj);
+
+            // Junta disponíveis + agendados
             const todosHorarios = Array.from(
-                new Set([...horarios_disponiveis, ...horarios_agendados])
+                new Set([...dados.horarios_disponiveis, ...horasAgendadas])
             ).sort();
 
-            const agendadosSet = new Set(horarios_agendados);
-
+            // Percorrer e montar botões
             todosHorarios.forEach((hora) => {
-                const isAgendado = agendadosSet.has(hora);
+                const isAgendado = agendadosObj.hasOwnProperty(hora);
+                const nome = isAgendado ? agendadosObj[hora].nome : "";
 
                 const onclick = isAgendado
-                    ? `getDadosAgendados('${data}','${hora}')`
+                    ? `getDadosAgendados('${dataKey}','${hora}')`
                     : `agendar('${hora}')`;
 
                 const class_btn = isAgendado
-                    ? 'btn-danger border border-dark'
-                    : 'btn-light border-dark';
+                    ? "btn-danger border border-dark"
+                    : "btn-light border-dark";
 
                 container.append(`
             <div class="col-6 col-md-3 mb-2">
                 <button
                     class="btn ${class_btn} w-100 py-2 font-weight-bold"
                     onclick="${onclick}">
-                    ${hora}
+                    ${hora} 
                 </button>
             </div>
         `);
             });
         }
+
 
         function atualizarHorariosAgendados(horariosAgendados, dataAtual) {
             const container = $("#lista_agendados");
@@ -279,7 +290,6 @@ include_once('./verifica_login.php');
                 $hoje = date('d/m/Y');
                 $datas_formatada = explode(" ", $datas_formatada);
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
-                $id_fila = $_GET['id_fila'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
                 $periodoDatas = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $periodoHoras = $manterFilaPericiaEco->getHorarios();
@@ -307,14 +317,15 @@ include_once('./verifica_login.php');
                 <div class="container mt-4">
                     <div>
                         <div class="card shadow-sm mt-3 border border-primary">
-                        <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                            <div class="col-sm ml-0" style="max-width:50px;">
-                                <i class="fa fa-info-circle fa-2x text-white"></i>
+                            <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
+                                <div class="col-sm ml-0" style="max-width:50px;">
+                                    <i class="fa fa-info-circle fa-2x text-white"></i>
+                                </div>
+                                <div class="col mb-0">
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Detalhes da
+                                        Fila</span>
+                                </div>
                             </div>
-                            <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Detalhes da Fila</span>
-                            </div>
-                        </div>
                             <div class="card-body">
                                 <div class="row g-4">
                                     <div class="col-4">
@@ -476,8 +487,7 @@ include_once('./verifica_login.php');
                     <form action="save_agendamento_pericia.php" method="POST">
                         <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
                         <input type="hidden" name="data_agendada" id="dataAgendada">
-                        <input type="hidden" name="hora_agendada" id="horaAgendada">
-                        <input type="hidden" name="id_fila" value="<?= $id_fila ?>">
+                        <input type="hidden" name="id_fila" id="id_fila">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">

@@ -40,6 +40,7 @@ class ManterAtendimentoPericia extends Model {
             $dados->excluir     = true;
             $dados->id                  = $registro['id'];
             $dados->id_medico_perito    = $registro['id_medico_perito'];
+            $dados->fila                = $registro['id_fila'];
             $dados->cpf                 = $registro['cpf'];
             $dados->guia                = $registro['guia'];
             $dados->nome                = $registro['nome'];
@@ -47,7 +48,7 @@ class ManterAtendimentoPericia extends Model {
             $dados->telefone            = $registro['telefone'];
             $dados->autorizacao         = $registro['autorizacao'];
             $dados->procedimento        = $registro['procedimento'];
-            $dados->data_solicitacao       = $registro['data_solicitacao'];
+            $dados->data_solicitacao    = $registro['data_solicitacao'];
             $dados->data_agendada       = $registro['data_agendada'];
             $dados->hora_agendada       = $registro['hora_agendada'];
             $dados->situacao            = $registro['situacao'];
@@ -115,8 +116,7 @@ class ManterAtendimentoPericia extends Model {
         $sql = "INSERT INTO atendimento_pericia (procedimento, data_agendada, hora_agendada, situacao, id_usuario, id_fila) 
         VALUES('". $dados->procedimento ."','". $dados->data_agendada ."','". $dados->hora_agendada ."','". $dados->situacao ."','". $dados->usuario ."','". $dados->fila ."' )";
         if($dados->id > 0) {
-            $sql = "UPDATE atendimento_pericia SET id_medico_perito='". $dados->id_medico_perito ."', procedimento='". $dados->procedimento ."', data_agendada='". $dados->data_agendada ."', hora_agendada='". $dados->hora_agendada ."',
-            situacao='". $dados->situacao ."', id_usuario='". $dados->usuario ."', atualizado='". $dados->atualizado ."', resultado='". $dados->resultado ."' WHERE cpf='". $dados->cpf ."'";
+            $sql = "UPDATE atendimento_pericia SET id_medico_perito='". $dados->id_medico_perito ."',situacao='". $dados->situacao ."',atualizado='". $dados->atualizado ."', resultado='". $dados->resultado ."' WHERE id='". $dados->id ."'";
             $resultado = $this->db->Execute($sql);
         } else {
             $resultado = $this->db->Execute($sql);

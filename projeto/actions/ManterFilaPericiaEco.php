@@ -167,29 +167,28 @@ class ManterFilaPericiaEco extends Model
     {
         $datas = array_keys($agenda);
 
-        
+
         if (empty($datas)) {
             return $data_atual;
         }
 
-        // Se não existe data atual ou se não está dentro da agenda
         if (!$data_atual || !in_array($data_atual, $datas)) {
-
-            // Verifica se existe índice 1; se não, retorna índice 0
-            return $datas[1] ?? $datas[0];
+            return $datas[0];
         }
-
         return $data_atual;
     }
 
-    function listaHorarioAgendadosPorData($data)
+    function listaAgendadosPorData($data)
     {
-        $sql = "SELECT hora_agendada FROM atendimento_pericia WHERE data_agendada = '" . $data . "'";
+        $sql = "SELECT ap.hora_agendada, b.nome, ap.id as id_fila FROM atendimento_pericia as ap, fila_pericia_eco as fpe, beneficiario as b WHERE ap.id_fila = fpe.id AND fpe.cpf = b.cpf AND data_agendada = '" . $data . "'";
         $resultado = $this->db->Execute($sql);
         $agendados = [];
         $agendados[$data] = [];
         while ($registro = $resultado->fetchRow()) {
-            $agendados[$data][] = $registro['hora_agendada'];
+            $hora = $registro['hora_agendada'];
+            $nome = $registro['nome'];
+            $id_fila = $registro['id_fila'];
+            $agendados[$data][$hora] = ["nome" => $nome, "id_fila" => $id_fila];
         }
         return $agendados;
     }
@@ -206,13 +205,14 @@ class ManterFilaPericiaEco extends Model
     {
         foreach ($agenda as $data => $horariosPossiveis) {
             $agendadosParaData = [];
-
             if (!empty($horarios_agendados[$data])) {
-                foreach ($horarios_agendados[$data] as $hora) {
-                    $hora = trim($hora);
-                    $agendadosParaData[] = substr($hora, 0, 5);
+                foreach ($horarios_agendados[$data] as $horaStr => $info) {
+                    // $horaStr: "08:45"
+                    // $info: ["nome" => "Fulano"]
+                    $agendadosParaData[] = $horaStr;
                 }
             }
+
             $livres = array_values(array_diff($horariosPossiveis, $agendadosParaData));
             sort($livres);
 
@@ -314,7 +314,7 @@ class ManterFilaPericiaEco extends Model
     function processarData($data_atual, $agenda, $lista_data_feriados)
     {
         $agenda_filtrada = $this->removeFeriados(array_keys($agenda), $lista_data_feriados);
-        $horarios_agendados = $this->listaHorarioAgendadosPorData($data_atual);
+        $horarios_agendados = $this->listaAgendadosPorData($data_atual);
         if (!is_array($horarios_agendados)) {
             $horarios_agendados = [];
         }
@@ -334,13 +334,15 @@ class ManterFilaPericiaEco extends Model
     function criaResposta($data_atual, $resultado)
     {
         $dia_semana = date('l', strtotime($data_atual));
+        $ontem = date('Y-m-d', strtotime('-1 day'));
+        $hoje = date('Y-m-d');
         return [
             "horarios_disponiveis" => $resultado['disponiveis'],
             "horarios_agendados" => $resultado['horarios_agendados'],
             "agenda" => $resultado['agenda'],
             "dia_semana" => $dia_semana,
             "data_atual" => $data_atual,
-            "anterior" => $resultado['vizinhos']['anterior'],
+            "anterior" => $data_atual == $hoje ? $ontem : $resultado['vizinhos']['anterior'],
             "proximo" => $resultado['vizinhos']['proximo']
         ];
     }

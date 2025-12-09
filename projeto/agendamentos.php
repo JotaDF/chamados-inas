@@ -39,6 +39,18 @@ include('./verifica_login.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
+        var medico = [];
+        <?php
+        include("./actions/ManterMedicoPerito.php");
+        $manterMedicoPerito = new ManterMedicoPerito();
+        $listaMedico = $manterMedicoPerito->listar();
+        foreach ($listaMedico as $obj) {
+            ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>" };
+            medico.push(item);
+            <?php
+        }
+        ?>
+
         function proximoDia(data) {
             $.ajax({
                 url: "obter_fila_pericia_eco.php",
@@ -55,8 +67,9 @@ include('./verifica_login.php');
                     $("#dataAgendada").val(dados.data_atual);
                     atualizarBotoes(dados);
                     atualizarDiaAtual(dados);
-                    atualizaDiaSemana(dados)
-                    atualizarHorariosDisponiveis(agendados, dados.horarios_disponiveis, dados.data_atual);
+                    atualizaDiaSemana(dados);
+                    atualizarHorariosDisponiveis(dados);
+                    carregaMedico(0);
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX ERROR:", status, error);
@@ -113,67 +126,68 @@ include('./verifica_login.php');
             document.getElementById("diaSemana").textContent = dias[dados.dia_semana];
         }
 
-        function atualizarHorariosDisponiveis(horarios_agendados, horarios_disponiveis, data) {
+        function atualizarHorariosDisponiveis(dados) {
             const container = $("#lista_disponiveis");
             container.empty();
+
+            const dataKey = dados.data_atual;
+
+            // Agora horários agendados é um OBJETO
+            const agendadosObj = dados.horarios_agendados[dataKey] || {};
+
+            // Pegamos só as horas (chaves)
+            const horasAgendadas = Object.keys(agendadosObj);
+
+            // Junta disponíveis + agendados
             const todosHorarios = Array.from(
-                new Set([...horarios_disponiveis, ...horarios_agendados])
+                new Set([...dados.horarios_disponiveis, ...horasAgendadas])
             ).sort();
 
-            const agendadosSet = new Set(horarios_agendados);
-
+            // Percorrer e montar botões
             todosHorarios.forEach((hora) => {
-                const isAgendado = agendadosSet.has(hora);
+                const isAgendado = agendadosObj.hasOwnProperty(hora);
+                const nome = isAgendado ? agendadosObj[hora].nome : "";
 
                 const onclick = isAgendado
-                    ? `getDadosAgendados('${data}','${hora}')`
+                    ? `getDadosAgendados('${dataKey}','${hora}')`
                     : `agendar('${hora}')`;
 
                 const class_btn = isAgendado
-                    ? 'btn-danger border border-dark'
-                    : 'btn-light border-dark';
+                    ? "btn-danger border border-dark"
+                    : "btn-light border-dark";
 
                 const disabled = isAgendado
-                ? ''
-                : 'disabled'; 
+                    ? ""
+                    : "disabled"
+
                 container.append(`
             <div class="col-6 col-md-3 mb-2">
                 <button
                     class="btn ${class_btn} w-100 py-2 font-weight-bold"
                     ${disabled}
                     onclick="${onclick}">
-                    ${hora}
+                    ${hora}  ${isAgendado ? " | " + formatarNome(nome) : " | DISPONÍVEL"}
                 </button>
             </div>
         `);
             });
         }
+        const nomeCompleto = isAgendado ? agendadosObj[hora].nome : "";
 
-        function atualizarHorariosAgendados(horariosAgendados, dataAtual) {
-            const container = $("#lista_agendados");
-            container.empty();
+        function formatarNome(nome) {
+            if (!nome) return "";
+            const partes = nome.trim().split(/\s+/); // divide por qualquer quantidade de espaços
 
-            const lista = horariosAgendados[dataAtual];
-
-            if (lista && lista.length > 0) {
-                lista.forEach(function (hora) {
-                    container.append(`
-                <div class="col-6 col-md-3 mb-2">
-                    <button 
-                        class="btn btn-danger w-100 py-2 font-weight-bold"
-                        onclick="agendar('${hora}')">
-                        ${hora}
-                    </button>
-                </div>
-            `);
-                });
-
-            } else {
-                container.html(`
-            <div class="col-12 text-muted">Nenhum horário agendado.</div>
-        `);
+            if (partes.length >= 2) {
+                return `${partes[0]} ${partes[1]}`;
             }
+
+            // se só tiver um nome, retorna como está
+            return partes[0];
         }
+
+        const nome = formatarNome(nomeCompleto);
+
 
         function getUrlParam(nome) {
             const params = new URLSearchParams(window.location.search);
@@ -191,7 +205,22 @@ include('./verifica_login.php');
             return `${dia}/${mes}/${ano}`; // "18/11/2025"
         }
 
-
+        function carregaMedico(id_atual) {
+            var html = '<option value="0"> Selecione um médico </option>';
+            for (var i = 0; i < medico.length; i++) {
+                var option = medico[i];
+                var selected = "";
+                if (id_atual > 0) {
+                    if (option.id == id_atual) {
+                        selected = "selected";
+                    } else {
+                        selected = "";
+                    }
+                }
+                html += '<option value="' + option.id + '" ' + selected + '>' + option.nome + '</option>';
+            }
+            $('#medico_perito').html(html);
+        }
 
         function getDadosAgendados(data, hora) {
             $.ajax({
@@ -200,7 +229,7 @@ include('./verifica_login.php');
                 data: { data_agendada: data, hora_agendada: hora },
                 dataType: "json",
                 success: function (dados) {
-                    geraModalAgendado(dados);
+                    geraModalAgendado(dados, data, hora);
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX ERROR:", status, error);
@@ -209,14 +238,20 @@ include('./verifica_login.php');
                 }
 
             });
+
         }
 
-        function geraModalAgendado(dados) {
-            console.log(dados)
+        function mostraNomeBeneficiario() {
+
+        }
+
+        function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
-            ocultaInfoBeneficiario()
+            ocultaInfoBeneficiario();
+            $('#id_fila').val(dados.fila);
+            $('#id').val(dados.id);
+            $('#id_agendamento').val(dados.id);
             $('#nome_agendado').html(dados.nome);
-            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
             $('#cpf_agendado').html(dados.cpf);
             $('#situacao_agendado').html(dados.situacao);
             $('#solicitacao_agendado').html(formatarDataISO(dados.data_solicitacao));
@@ -224,9 +259,15 @@ include('./verifica_login.php');
             $('#justificativa_agendado').html(dados.justificativa);
             $('#autorizacao_agendado').html(dados.autorizacao);
             $('#telefone_agendado').html(dados.telefone);
+
             $('#horaSelecionada').text(dados.hora_agendada);
-            $('#btn_confirma').addClass('d-none');
+
+            $('#titulo_modal')
+                .removeClass('d-none')
+                .html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
+
             $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
+
             $('#confirm').modal('show');
         }
 
@@ -308,6 +349,7 @@ include('./verifica_login.php');
                                         <script>
                                             window.onload = function () {
                                                 const dataUrl = getUrlParam("data");
+
                                                 if (dataUrl) {
                                                     proximoDia(dataUrl);
                                                     atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
@@ -392,11 +434,14 @@ include('./verifica_login.php');
                             <i class="fa fa-user mr-1"></i> Dados do Beneficiário
                         </h6>
 
-                        <form action="save_agendamento_pericia.php" method="POST">
+                        <form action="executar_atendimento_pericia.php" method="POST">
                             <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
                             <input type="hidden" name="data_agendada" id="dataAgendada">
                             <input type="hidden" name="hora_agendada" id="horaAgendada">
-                            <input type="hidden" name="id_fila" value="<?= $id_fila ?>">
+                            <input type="hidden" name="id_fila" id="id_fila">
+                            <input type="hidden" name="id" id="id" >
+
+                            <!-- DADOS DO BENEFICIÁRIO -->
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <div class="border rounded p-2 bg-light">
@@ -432,8 +477,6 @@ include('./verifica_login.php');
                             </h6>
 
                             <div class="row">
-                                <hr>
-
                                 <div class="col-md-4 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Autorização</div>
@@ -459,8 +502,7 @@ include('./verifica_login.php');
                                         <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
                                         <div id="situacao_beneficiario"><?= $dados->situacao ?></div>
                                         <div id="situacao_agendado"></div>
-                                        <input type="hidden" name="situacao" id="situacao"
-                                            value="<?= $dados->situacao ?>">
+                                        <input type="hidden" name="situacao_original" value="<?= $dados->situacao ?>">
                                     </div>
                                 </div>
 
@@ -469,12 +511,11 @@ include('./verifica_login.php');
                                         <div class="small text-dark text-uppercase font-weight-bold">Justificativa</div>
                                         <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
                                         <div id="justificativa_agendado"></div>
-                                        <input type="hidden" name="justificativa" id="justificativa"
-                                            value="<?= $dados->justificativa ?>">
+                                        <input type="hidden" name="justificativa" value="<?= $dados->justificativa ?>">
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
                                         <div>
@@ -486,22 +527,58 @@ include('./verifica_login.php');
                                     </div>
                                 </div>
                             </div>
-                    </div>
 
-                    <!-- FOOTER -->
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
-                            <i class="fa fa-times mr-1"></i> Cancelar
-                        </button>
+                            <h6 class="text-dark mb-3 mt-2">
+                                <i class="fa fa-user-md mr-1"></i> Dados do Atendimento
+                            </h6>
 
-                        <button type='submit' class="btn btn-success btn-sm" id="btn_confirma">
-                            <i class="fa fa-check mr-1"></i> Confirmar
-                        </button>
+                            <!-- ATENDIMENTO -->
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Médico Perito</div>
+                                        <select id="medico_perito" name="medico_perito"
+                                            class="form-control form-control-sm" required>
+                                            <option value="">Selecione</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
+                                        <select id="situacao_atendimento" name="situacao_atendimento"
+                                            class="form-control form-control-sm" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">Resultado</div>
+                                        <textarea class="form-control" name="resultado" id="resultado"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- FOOTER -->
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
+                                    <i class="fa fa-times mr-1"></i> Cancelar
+                                </button>
+
+                                <button type="submit" class="btn btn-success btn-sm" id="btn_confirma">
+                                    <i class="fa fa-check mr-1"></i> Confirmar
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
-                    </form>
                 </div>
             </div>
-        </div>
 </body>
 
 </html>
