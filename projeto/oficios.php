@@ -2,6 +2,14 @@
 //Contratos
 $mod = 23;
 require_once('./verifica_login.php');
+
+$editar = false;
+$disable = "disabled";
+if ($usuario_logado->perfil <= 3) {
+    $editar = true;
+    $disable = "";
+}
+
 ?>  
 <!DOCTYPE html>
 <!--
@@ -31,6 +39,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
             
@@ -40,18 +49,36 @@ and open the template in the editor.
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script type="text/javascript" class="init">
-
-
 
         $(document).ready(function () {
             $('#oficios').DataTable({
                 order: [2, 'asc']
             });
             $('#id').val(0);
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+
+            // Instanciar o Quill para o editor de TAP
+            quillEditor = new Quill('#editor', quillOpcoes);
+            document.getElementById('form_oficio').addEventListener('submit', function () {
+                const quillEditorHTML = quillEditor.root.innerHTML;
+                document.querySelector('input[name="assunto"]').value = quillEditorHTML;
+            });
         });
         function novo() {
             $('#id').val(0);
+            quillEditor.root.innerHTML = '';
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
         }
@@ -61,17 +88,18 @@ and open the template in the editor.
             $('#confirm').modal({show: true});
         }
         
-        function alterar(id,rocesso,link_sei,numero,assunto,destino,origem,enviado,atendido,setor,usuario) {
+        function alterar(id,processo,link_sei,numero,assunto,destino,origem,enviado,atendido,setor,usuario) {
             $('#id').val(id);
             $('#processo').val(processo);
             $('#link_sei').val(link_sei);
             $('#numero').val(numero);
-            $('#assunto').val(assunto);
             $('#destino').val(destino);
             $('#origem').val(origem);
             $('#enviado').val(enviado);
             $('#atendido').val(atendido);
             $('#setor').val(setor);
+            let conteudo = document.getElementById(id + '_assunto').value;
+                quillEditor.root.innerHTML = conteudo;
 
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
