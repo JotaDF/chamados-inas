@@ -29,7 +29,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="oficios.php">
-                    <i class="fa fa-id-badge"></i>
+                    <i class="fa fa-th-large"></i>
                     <span>Gerenciar Ofícios</span>
                 </a>
             </li>
@@ -39,7 +39,7 @@
               <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="gerenciar_acessos_oficio.php">
-                    <i class="fa fa-laptop"></i>
+                    <i class="fa fa-users"></i>
                     <span>Gerenciar Acessos</span>
                 </a>
             </li>
