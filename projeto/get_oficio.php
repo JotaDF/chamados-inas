@@ -10,7 +10,8 @@
             echo "<tr>";
             echo "  <td>".$obj->processo."</td>";
             echo "  <td>".$obj->link_sei."</td>";
-            echo "  <td>".$obj->assunto ."</td>";            
+            echo "  <td>".$obj->assunto ."</td>";  
+            echo "  <td>".$obj->origem."</td>";          
             echo "  <td>".$obj->destino."</td>";
             echo "  <td>".$obj->enviado."</td>";
             echo "  <td>".$obj->setor ."</td>";

@@ -60,20 +60,19 @@ and open the template in the editor.
             $('#nome_excluir').text(nome);
             $('#confirm').modal({show: true});
         }
-        function alterar(id, cnpj, razao_social, nome_fantasia,credenciado, telefone,ativo,id_tipo_oficio) {
-            $('#op').val(1);
+        
+        function alterar(id,rocesso,link_sei,numero,assunto,destino,origem,enviado,atendido,setor,usuario) {
             $('#id').val(id);
-            $('#cnpj').val(cnpj);
-            $('#razao_social').val(razao_social);
-            $('#nome_fantasia').val(nome_fantasia);
-            $('#telefone').val(telefone);
-            $('#credenciado').val(credenciado);
-            if (credenciado == 1) {
-                $('#credenciado').prop('checked', true);
-            } else {
-                $('#credenciado').prop('checked', false);
-            }
-            carregaTipoPrestadores(id_tipo_oficio);
+            $('#processo').val(processo);
+            $('#link_sei').val(link_sei);
+            $('#numero').val(numero);
+            $('#assunto').val(assunto);
+            $('#destino').val(destino);
+            $('#origem').val(origem);
+            $('#enviado').val(enviado);
+            $('#atendido').val(atendido);
+            $('#setor').val(setor);
+
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
         }
@@ -101,7 +100,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                         <?php include './form_oficio.php'; ?>
                         <!-- Project Card Example -->
-                        <div class="card mb-4 border-primary" style="max-width:1000px">
+                        <div class="card mb-4 border-primary" style="max-width:1200px">
                             <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
                                 <div class="col-sm ml-0" style="max-width:50px;">
                                     <i class="fa fa-th-large fa-2x text-white"></i> 
@@ -119,9 +118,10 @@ and open the template in the editor.
                                 <table id="oficios" class="table-sm table-striped table-bordered dt-responsive wrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:5%;">Processo</th>
-                                            <th scope="col" style="width:20%;">Link SEI</th>
+                                            <th scope="col" style="width:20%;">Processo</th>
+                                            <th scope="col" style="width:10%;">Link SEI</th>
                                             <th scope="col" style="width:35%;">Assunto</th>
+                                            <th scope="col">Origem</th>
                                             <th scope="col">Destino</th>
                                             <th scope="col">Enviado</th>
                                             <th scope="col">Setor</th>
