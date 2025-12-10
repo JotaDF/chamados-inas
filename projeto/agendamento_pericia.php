@@ -202,6 +202,7 @@ include_once('./verifica_login.php');
                 data: { data_agendada: data, hora_agendada: hora },
                 dataType: "json",
                 success: function (dados) {
+
                     geraModalAgendado(dados);
                 },
                 error: function (xhr, status, error) {
@@ -287,7 +288,7 @@ include_once('./verifica_login.php');
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $datas = $manterFilaPericiaEco->getDataAgendamento();
-                $hoje = date('d/m/Y');
+                $hoje = $_GET['data'] ?? date('Y-m-d');
                 $datas_formatada = explode(" ", $datas_formatada);
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
                 $id_fila = $_GET['id_fila'];
