@@ -96,6 +96,8 @@ and open the template in the editor.
         });
         function novo(setor = '<?= $origem ?>') {
             $('#id').val(0);
+            $('#setor').val(setor);
+            $('#id_usuario').val('<?= $usuario_logado->id ?>');
             $('#processo').prop('disabled', false);
             $('#link_sei').prop('disabled', false);
             $('#numero').prop('disabled', false);
