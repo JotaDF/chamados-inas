@@ -319,6 +319,7 @@ include('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 $descricoes = explode(";", $dados->descricao);
+                $hoje = $_GET['data'] ?? date('Y-m-d');
                 ?>
                 <div>
                     <div class="container-fluid">
