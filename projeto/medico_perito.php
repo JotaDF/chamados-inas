@@ -54,6 +54,9 @@ require_once('./verifica_login.php');
             $('#form_medico_perito').collapse("show");
             $('#nome').focus();
         }
+        function limpaFormulario() {
+            $('#id').val('');
+        }   
     </script>
     <style>
         body {
