@@ -148,12 +148,12 @@ and open the template in the editor.
                                         <tr>
                                             <th scope="col" style="width:20%;">Processo</th>
                                             <th scope="col" style="width:10%;">Link SEI</th>
-                                            <th scope="col" style="width:30%;">Assunto</th>
+                                            <th scope="col" style="width:35%;">Assunto</th>
                                             <th scope="col">Origem</th>
                                             <th scope="col">Destino</th>
-                                            <th scope="col" style="width:10%;">Enviado</th>
+                                            <th scope="col" style="width:8%;">Enviado</th>
                                             <th scope="col">Setor</th>
-                                            <th scope="col" class="align-middle nowrap" style="width:18%;">Opções</th>
+                                            <th scope="col" class="align-middle nowrap" style="width:15%;">Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>

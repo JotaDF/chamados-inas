@@ -2,6 +2,8 @@
   class AcessoOficio{
 	    public $id;
       public $usuario;
+      public $nome;
+      public $matricula;
       public $setor;
       public $editor;
       public $ativo;
