@@ -206,7 +206,7 @@ include('./verifica_login.php');
         }
 
         function carregaMedico(id_atual) {
-            var html = '<option value="0"> Selecione um médico </option>';
+            var html = '<option value=""> Selecione um médico </option>';
             for (var i = 0; i < medico.length; i++) {
                 var option = medico[i];
                 var selected = "";
@@ -247,6 +247,7 @@ include('./verifica_login.php');
 
         function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
+            let descricoes = dados.descricao.split(";");
             ocultaInfoBeneficiario();
             $('#id_fila').val(dados.fila);
             $('#id').val(dados.id);
@@ -255,19 +256,13 @@ include('./verifica_login.php');
             $('#cpf_agendado').html(dados.cpf);
             $('#situacao_agendado').html(dados.situacao);
             $('#solicitacao_agendado').html(formatarDataISO(dados.data_solicitacao));
-            $('#descricao_agendado').html(dados.descricao);
+            $('#descricao_agendado').html(descricoes.join('<br>'));
             $('#justificativa_agendado').html(dados.justificativa);
             $('#autorizacao_agendado').html(dados.autorizacao);
             $('#telefone_agendado').html(dados.telefone);
-
             $('#horaSelecionada').text(dados.hora_agendada);
-
-            $('#titulo_modal')
-                .removeClass('d-none')
-                .html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
-
+            $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
             $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
-
             $('#confirm').modal('show');
         }
 
@@ -434,12 +429,12 @@ include('./verifica_login.php');
                             <i class="fa fa-user mr-1"></i> Dados do Beneficiário
                         </h6>
 
-                        <form action="executar_atendimento_pericia.php" method="POST">
+                        <form action="executar_atendimento_pericia.php" method="POST" id="form_atendimento">
                             <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
                             <input type="hidden" name="data_agendada" id="dataAgendada">
                             <input type="hidden" name="hora_agendada" id="horaAgendada">
                             <input type="hidden" name="id_fila" id="id_fila">
-                            <input type="hidden" name="id" id="id" >
+                            <input type="hidden" name="id" id="id">
 
                             <!-- DADOS DO BENEFICIÁRIO -->
                             <div class="row">
@@ -518,12 +513,9 @@ include('./verifica_login.php');
                                 <div class="col-md-12 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
-                                        <div>
-                                            <?php foreach ($descricoes as $descricao) {
-                                                echo $descricao . "<br>";
-                                            } ?>
-                                        </div>
-                                        <input type="hidden" name="descricao" id="descricao" value="<?= $descricao ?>">
+                                        <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
+                                        <div id="descricao_agendado"></div>
+                                        <input type="hidden" name="justificativa" value="<?= $dados->justificativa ?>">
                                     </div>
                                 </div>
                             </div>
@@ -546,19 +538,40 @@ include('./verifica_login.php');
 
                                 <div class="col-md-6 mb-3">
                                     <div class="border rounded p-2 bg-light">
-                                        <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
-                                        <select id="situacao_atendimento" name="situacao_atendimento"
-                                            class="form-control form-control-sm" required>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                        <div class="small text-dark text-uppercase font-weight-bold">CONFIRMAÇÃO DO
+                                            BENEFICIÁRIO</div>
+                                        <select class="form-control form-control-sm" name="situacao_atendimento"
+                                            id="situacao_atendimento" required>
+                                            <option value="">Selecione</option>
+                                            <option value="REANÁLISE">REANÁLISE</option>
+                                            <option value="SISTEMA">SISTEMA</option>
+                                            <option value="CONFIRMADO">CONFIRMADO</option>
+                                            <option value="DESMARCADO">DESMARCADO</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="border rounded p-2 bg-light">
+                                        <div class="small text-dark text-uppercase font-weight-bold">PRESENÇA</div>
+                                        <select class="form-control form-control-sm" name="atualizado" id="atualizado"
+                                            required>
+                                            <option value="">Selecione</option>
+                                            <option value="ANALISE VIA SISTEMA">ANALISE VIA SISTEMA</option>
+                                            <option value="COMPARECEU">COMPARECEU</option>
+                                            <option value="NÃO COMPARECEU">NÃO COMPARECEU</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Resultado</div>
-                                        <textarea class="form-control" name="resultado" id="resultado"></textarea>
+                                        <select id="resultado" name="resultado" class="form-control form-control-sm"
+                                            required>
+                                            <option value="">Selecione</option>
+                                            <option value="AUTORIZADA">AUTORIZADA</option>
+                                            <option value="PARCIALMENTE AUTORIZADA">PARCIALMENTE AUTORIZADA</option>
+                                            <option value="NÃO AUTORIZADA">NÃO AUTORIZADA</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

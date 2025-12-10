@@ -42,7 +42,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="fila_pericia_eco.php">
-                    <i class="fa fa-user"></i>
+                    <i class="fa fa-tasks"></i>
                     <span>Fila Perícia Eco</span>
                 </a>
             </li>

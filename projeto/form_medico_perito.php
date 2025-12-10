@@ -18,7 +18,7 @@
             </div>
 
             <div class="form-group row float-right">
-                <button type="reset" onclick="$('#btn_cadastrar').show();" data-toggle="collapse" data-target="#form_medico_perito" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
+                <button type="reset" onclick="$('#btn_cadastrar').show(); limpaFormulario()" data-toggle="collapse" data-target="#form_medico_perito" class="btn btn-danger btn-sm"><i class="fa fa-minus-square"></i> Cancelar</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Salvar</button>
                 &nbsp;&nbsp;&nbsp;

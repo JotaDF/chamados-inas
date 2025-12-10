@@ -290,6 +290,7 @@ include_once('./verifica_login.php');
                 $hoje = date('d/m/Y');
                 $datas_formatada = explode(" ", $datas_formatada);
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
+                $id_fila = $_GET['id_fila'];
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
                 $periodoDatas = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $periodoHoras = $manterFilaPericiaEco->getHorarios();
@@ -476,7 +477,6 @@ include_once('./verifica_login.php');
                     <div class="alert alert-info text-center">
                         <h6 id="texto_modal"><b>Deseja agendar o horário: </b><span
                                 class="text-primary font-weight-bold" id="horaSelecionada"></span>?</h6>
-
                     </div>
                     <hr>
                     <!-- Dados do paciente em mini-cards -->
@@ -487,7 +487,8 @@ include_once('./verifica_login.php');
                     <form action="save_agendamento_pericia.php" method="POST">
                         <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
                         <input type="hidden" name="data_agendada" id="dataAgendada">
-                        <input type="hidden" name="id_fila" id="id_fila">
+                        <input type="hidden" name="hora_agendada" id="horaAgendada">
+                        <input type="hidden" name="id_fila" id="id_fila" value="<?= $id_fila ?>">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
