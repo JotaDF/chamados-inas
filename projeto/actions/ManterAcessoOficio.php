@@ -66,7 +66,21 @@ class ManterAcessoOficio extends Model {
         //echo $sql . "<BR/>";
         return $resultado;
     }
-    
+    function getAcessoOficioPorUsuario($id_usuario) {
+        $sql = "SELECT a.id, a.id_usuario, a.setor, a.editor, a.ativo FROM acesso_oficio as a WHERE  a.id_usuario=" . $id_usuario;        
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new AcessoOficio();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->id      = $registro["id"];
+            $dados->setor   = $registro["setor"];
+            $dados->editor  = $registro["editor"];
+            $dados->ativo   = $registro["ativo"];
+            $dados->usuario = $registro["id_usuario"];
+        }
+        return $dados;
+    }
+
     function desativar($id) {
         $sql = "update acesso_oficio set ativo=0 where id=" . $id;
         $resultado = $this->db->Execute($sql);

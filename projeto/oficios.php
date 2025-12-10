@@ -3,12 +3,17 @@
 $mod = 23;
 require_once('./verifica_login.php');
 
+include_once('actions/ManterAcessoOficio.php');   
+        
+$manterAcessoOficio = new ManterAcessoOficio();
+$acessoUsuario = $manterAcessoOficio->getAcessoOficioPorUsuario($usuario_logado->id);
 $editar = false;
 $disable = "disabled";
-if ($usuario_logado->perfil < 3) {
+if ($usuario_logado->perfil < 3 or $acessoUsuario->editor == 1) {
     $editar = true;
     $disable = "";
-}
+} 
+
 
 require_once('./actions/ManterSetor.php');
     $db_setor = new ManterSetor();
@@ -102,7 +107,7 @@ and open the template in the editor.
             $('#confirm').modal({show: true});
         }
         
-        function alterar(id,processo,link_sei,numero,assunto,destino,origem,enviado,atendido,setor,usuario) {
+        function alterar(id,processo,link_sei,numero,assunto,destino,origem,enviado,atendido,setor,usuario, editor) {
             $('#id').val(id);
             $('#processo').val(processo);
             $('#link_sei').val(link_sei);
@@ -114,7 +119,23 @@ and open the template in the editor.
             $('#setor').val(setor);
             let conteudo = document.getElementById(id + '_assunto').value;
                 quillEditor.root.innerHTML = conteudo;
-
+            if(editor == 1){
+                $('#processo').prop('disabled', false);
+                $('#link_sei').prop('disabled', false);
+                $('#numero').prop('disabled', false);
+                $('#destino').prop('disabled', false);
+                $('#origem').prop('disabled', false);
+                $('#enviado').prop('disabled', false);
+                $('#btn_salvar').prop('disabled', false);
+            } else {
+                $('#processo').prop('disabled', true);
+                $('#link_sei').prop('disabled', true);
+                $('#numero').prop('disabled', true);
+                $('#destino').prop('disabled', true);
+                $('#origem').prop('disabled', true);
+                $('#enviado').prop('disabled', true);
+                $('#btn_salvar').prop('disabled', true);
+            }
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
         }
