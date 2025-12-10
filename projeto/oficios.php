@@ -172,9 +172,15 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Ofícios</span>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
+                                    <?php
+                                    if($editar){
+                                    ?>
                                     <button id="btn_cadastrar" onclick="novo()" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_oficio" aria-expanded="false" aria-controls="form_oficio">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                             <div class="card-body">
