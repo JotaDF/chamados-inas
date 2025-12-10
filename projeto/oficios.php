@@ -94,7 +94,7 @@ and open the template in the editor.
                 document.querySelector('input[name="assunto"]').value = quillEditorHTML;
             });
         });
-        function novo() {
+        function novo(setor = '<?= $origem ?>') {
             $('#id').val(0);
             $('#processo').prop('disabled', false);
             $('#link_sei').prop('disabled', false);
@@ -103,7 +103,7 @@ and open the template in the editor.
             $('#origem').prop('disabled', false);
             $('#enviado').prop('disabled', false);
             $('#btn_salvar').prop('disabled', false);
-            
+
             quillEditor.root.innerHTML = '';
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
