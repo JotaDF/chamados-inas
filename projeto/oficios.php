@@ -94,9 +94,9 @@ and open the template in the editor.
                 document.querySelector('input[name="assunto"]').value = quillEditorHTML;
             });
         });
-        function novo(setor = '<?= $origem ?>') {
+        function novo() {
             $('#id').val(0);
-            $('#setor').val(setor);
+            $('#setor').val('<?= $origem ?>');
             $('#id_usuario').val('<?= $usuario_logado->id ?>');
             $('#processo').prop('disabled', false);
             $('#link_sei').prop('disabled', false);
