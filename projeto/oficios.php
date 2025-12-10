@@ -12,8 +12,7 @@ $disable = "disabled";
 if ($usuario_logado->perfil < 3 or $acessoUsuario->editor == 1) {
     $editar = true;
     $disable = "";
-} 
-
+}
 
 require_once('./actions/ManterSetor.php');
     $db_setor = new ManterSetor();
