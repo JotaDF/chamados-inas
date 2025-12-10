@@ -54,7 +54,6 @@ class ManterAcessoOficio extends Model {
         if($dados->editor == ''){
             $dados->editor = 0;
         }
-
         $sql = "insert into acesso_oficio (id_usuario, setor, editor, ativo) values (" . $dados->usuario . ",'" . $dados->setor . "','" . $dados->editor . "',1)";
         //echo $sql . "<BR/>";
         if ($dados->id > 0) {
@@ -120,6 +119,16 @@ class ManterAcessoOficio extends Model {
             $array_dados[]  = $dados;
         }
         return $array_dados;
+    }
+    function possuiAcessoModuloOficio($id_usuario) {
+        $sql = "SELECT COUNT(*) as total FROM acesso WHERE id_usuario = " . $id_usuario . " AND id_modulo = 23";        
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $total = 0;
+        while ($registro = $resultado->fetchRow()) {
+            $total = $registro["total"];
+        }
+        return ($total > 0);
     }
 
 }

@@ -41,7 +41,7 @@ and open the template in the editor.
             $(document).ready(function () {
             });
             function excluir(id, nome) {
-                $('#delete').attr('href', 'save_acesso_ofício.php?op=2&id=' + id);
+                $('#delete').attr('href', 'save_acesso_oficio.php?op=2&id=' + id);
                 $('#nome_excluir').text(nome);
                 $('#confirm').modal({show: true});              
             }
@@ -95,7 +95,7 @@ and open the template in the editor.
                                 <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
                                     <div class="row">
                                         <div class="col c2 ml-2">
-                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de acesso aos ofícios da <?= $origem ?>?></div>
+                                            <div class="h5 mb-0 text-white font-weight-bold">Gerenciamento de acesso aos ofícios da <?= $origem ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa fa fa-users fa-3x text-white"></i>
@@ -108,7 +108,7 @@ and open the template in the editor.
                                      ?>
                                     <p class=" ml-2 card-text">
                                     <span class="mt-3 ml-2 h6 card-title">Novo acesso</span>
-                                    <form id="form_cadastro" action="save_acesso_ofício.php" method="post">
+                                    <form id="form_cadastro" action="save_acesso_oficio.php" method="post">
                                         <input type="hidden" id="op" name="op" value="1"/>
                                         <input type="hidden" id="setor" name="setor" value="<?=$origem ?>"/>
                                         <div class="form-group row">
@@ -118,9 +118,11 @@ and open the template in the editor.
                                                 <option value="">Selecione</option>   
                                                 <?php
                                                 foreach ($usuariosSemAcessoOficio as $usuario) {
+                                                    if(!$db_acesso_oficio->possuiAcessoModuloOficio($usuario->id)){                                                    
                                                 ?> 
                                                     <option value="<?=$usuario->id ?>"><?=$usuario->nome ?></option> 
                                                 <?php
+                                                    }
                                                 }
                                                 ?>
                                             </select>
@@ -156,7 +158,7 @@ and open the template in the editor.
                                     <i class="fas fa-users fa-2x text-white"></i> 
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Executores do prestador</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Acessos concedidos</span>
                                 </div>
                             </div>                            
 
