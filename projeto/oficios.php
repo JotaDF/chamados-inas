@@ -96,6 +96,14 @@ and open the template in the editor.
         });
         function novo() {
             $('#id').val(0);
+            $('#processo').prop('disabled', false);
+            $('#link_sei').prop('disabled', false);
+            $('#numero').prop('disabled', false);
+            $('#destino').prop('disabled', false);
+            $('#origem').prop('disabled', false);
+            $('#enviado').prop('disabled', false);
+            $('#btn_salvar').prop('disabled', false);
+            
             quillEditor.root.innerHTML = '';
             $('#form_oficio').collapse("show");
             $('#btn_cadastrar').hide();
