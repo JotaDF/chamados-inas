@@ -7,22 +7,6 @@
         <span class="h6 m-0 font-weight text-white">Cadastro de Ofícios</span>
     </div>  
     <!-- Card Content - Collapse -->
-     <?php
-     require_once('./actions/ManterSetor.php');
-     $db_setor = new ManterSetor();
-     $setor = $db_setor->getSetorPorId($usuario_logado->setor);
-     $array_setor = explode("/", $setor->sigla);
-     $origem  = "";
-     if (count($array_setor) > 1) {
-        if($array_setor[1] == "DIPLAS" or $array_setor[1] == "DIAD" or $array_setor[1] == "DIJUR" or $array_setor[1] == "DIFIN" ){
-            $origem = trim($array_setor[0] . "/" . $array_setor[1]);
-        } else {
-            $origem = trim($array_setor[0]);
-        }
-     } else {
-         $origem = trim($array_setor[0]);
-     }
-     ?>
     <div class="card-body">
         <form id="form_cadastro" action="save_oficio.php" method="post">
             <input type="hidden" id="id" name="id"/>

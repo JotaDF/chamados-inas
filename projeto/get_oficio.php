@@ -3,7 +3,8 @@
         
 	$manterOficio = new ManterOficio();
 
-	$lista = $manterOficio->listar();
+    $filtro = " AND o.setor = '".$origem."' ";
+	$lista = $manterOficio->listar($filtro);
         
         foreach ($lista as $obj) {
             

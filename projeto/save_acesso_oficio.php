@@ -19,7 +19,7 @@ $acessoOficio->editor = $editor;
 
 if ($op == 1) {
     $manterAcessoOficio->salvar($acessoOficio);
-    $manterUsuario->permitirAcesso(23,$id_usuario,3); //perfil usuário (3) módulo ofício (23)
+    $manterUsuario->permitirAcesso(23,$id_usuario,3); //módulo ofício (23) perfil usuário (3)
 } else {
     $manterAcessoOficio->excluir($id);
     $manterUsuario->removerAcesso(23,$id_usuario);
