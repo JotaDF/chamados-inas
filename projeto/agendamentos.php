@@ -247,6 +247,7 @@ include('./verifica_login.php');
 
         function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
+            let descricoes = dados.descricao.split(";");
             ocultaInfoBeneficiario();
             $('#id_fila').val(dados.fila);
             $('#id').val(dados.id);
@@ -255,7 +256,7 @@ include('./verifica_login.php');
             $('#cpf_agendado').html(dados.cpf);
             $('#situacao_agendado').html(dados.situacao);
             $('#solicitacao_agendado').html(formatarDataISO(dados.data_solicitacao));
-            $('#descricao_agendado').html(dados.descricao);
+            $('#descricao_agendado').html(descricoes.join('<br>'));
             $('#justificativa_agendado').html(dados.justificativa);
             $('#autorizacao_agendado').html(dados.autorizacao);
             $('#telefone_agendado').html(dados.telefone);
@@ -512,12 +513,9 @@ include('./verifica_login.php');
                                 <div class="col-md-12 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
-                                        <div>
-                                            <?php foreach ($descricoes as $descricao) {
-                                                echo $descricao . "<br>";
-                                            } ?>
-                                        </div>
-                                        <input type="hidden" name="descricao" id="descricao" value="<?= $descricao ?>">
+                                        <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
+                                        <div id="descricao_agendado"></div>
+                                        <input type="hidden" name="justificativa" value="<?= $dados->justificativa ?>">
                                     </div>
                                 </div>
                             </div>
