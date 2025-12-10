@@ -13,7 +13,7 @@
             echo "  <td>".($obj->editor==1 ? "SIM" : "NÃO")."</td>";
             echo "  <td>".($obj->ativo==1 ? "ATIVO" : "INATIVO")."</td>";
             if($obj->excluir){
-                echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",\"".$obj->nome."\")'><i class='far fa-trash-alt'></i></button></td>";
+                echo "  <td align='center'><button class='btn btn-danger btn-sm' type='button' onclick='excluir(".$obj->id.",".$obj->usuario.",\"".$obj->nome."\")'><i class='far fa-trash-alt'></i></button></td>";
             } else {
                 echo "  <td align='center'> - </td>";                
             }

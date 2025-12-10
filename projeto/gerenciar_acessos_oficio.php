@@ -40,8 +40,8 @@ and open the template in the editor.
         <script type="text/javascript" class="init">
             $(document).ready(function () {
             });
-            function excluir(id, nome) {
-                $('#delete').attr('href', 'save_acesso_oficio.php?op=2&id=' + id);
+            function excluir(id, id_usuario, nome) {
+                $('#delete').attr('href', 'save_acesso_oficio.php?op=2&id_usuario='+id_usuario+'&id=' + id);
                 $('#nome_excluir').text(nome);
                 $('#confirm').modal({show: true});              
             }
