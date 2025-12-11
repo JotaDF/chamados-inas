@@ -530,7 +530,7 @@ and open the template in the editor.
                 li.querySelectorAll('span')[1].style.width = percent_complete + '%';
             };
             data.append('id', '<?=$id ?>');
-            http.open('POST', 'save_arquivo_evento.php', true);
+            http.open('POST', 'save_arquivo_oficio.php', true);
             http.send(data);
             atualizar();
         }

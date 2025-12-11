@@ -17,6 +17,17 @@ $o->assunto = $_POST['assunto'];
 $o->origem = $_POST['origem'];
 $o->destino = $_POST['destino'];    
 
+$criar_pasta = false;
+
+if($id == 0 || $id==""){
+    $criar_pasta = true;
+}
+
 $db_oficio->salvar($o);
+if ($criar_pasta) {
+    $caminho = __DIR__.'/oficios/arquivo_'. $o->id .'/';
+    $db_oficio->addPasta($caminho);
+}
+
 header('Location: oficios.php');
 
