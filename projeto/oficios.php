@@ -15,19 +15,19 @@ if ($usuario_logado->perfil < 3 or $acessoUsuario->editor == 1) {
 }
 
 require_once('./actions/ManterSetor.php');
-    $db_setor = new ManterSetor();
-    $setor = $db_setor->getSetorPorId($usuario_logado->setor);
-    $array_setor = explode("/", $setor->sigla);
-    $origem  = "";
-    if (count($array_setor) > 1) {
-    if($array_setor[1] == "DIPLAS" or $array_setor[1] == "DIAD" or $array_setor[1] == "DIJUR" or $array_setor[1] == "DIFIN" ){
-        $origem = trim($array_setor[0] . "/" . $array_setor[1]);
-    } else {
-        $origem = trim($array_setor[0]);
-    }
-    } else {
-        $origem = trim($array_setor[0]);
-    }
+$db_setor = new ManterSetor();
+$setor = $db_setor->getSetorPorId($usuario_logado->setor);
+$array_setor = explode("/", $setor->sigla);
+$origem  = "";
+if (count($array_setor) > 1) {
+if($array_setor[1] == "DIPLAS" or $array_setor[1] == "DIAD" or $array_setor[1] == "DIJUR" or $array_setor[1] == "DIFIN" ){
+    $origem = trim($array_setor[0] . "/" . $array_setor[1]);
+} else {
+    $origem = trim($array_setor[0]);
+}
+} else {
+    $origem = trim($array_setor[0]);
+}
 ?>  
 <!DOCTYPE html>
 <!--
