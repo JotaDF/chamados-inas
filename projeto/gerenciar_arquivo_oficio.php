@@ -98,7 +98,7 @@ and open the template in the editor.
             function atualizar(){
                 // Fazendo requisição AJAX
                 $.ajax({
-                    url: 'get_arquivo_oficio.php?id=<?=$id ?>',
+                    url: 'get_arquivo_oficio.php?id=<?=$id ?>&editar=<?=$editar ? 1 : 0 ?>',
                     dataType: 'html',
                     success: function (html) {
                         $('#arquivo_oficio').html(html);
@@ -307,7 +307,7 @@ and open the template in the editor.
                         $uploadDir = 'oficios/arquivo_';
                         $uploadDir .= $id;
                         $uploadDir .= '/';
-                        
+
                         if($editar && $origem == $oficio->setor){
                         ?>
                         
@@ -390,7 +390,13 @@ and open the template in the editor.
                                     foreach ($files as $file) { ?>
                                         <div id='file-<?=$file ?>' class='col-xl-3 col-md-2 mb-4' style='max-width: 280px; max-height: 100px;'>
                                                 <a href="<?=$uploadDir . $file ?>" target="_blank"><img src="img/pdf_icon.svg" width="50" height="50" /></a> <?=str_replace(".pdf","",$file) ?> 
+                                                <?php
+                                                if($editar && $origem == $oficio->setor){
+                                                    ?>
                                                 <a  href="javascript:void(0);" onclick="excluir('<?=$file ?>')"><i class='far fa-trash-alt text-danger'></i></a>
+                                                <?php
+                                                }
+                                                ?>
                                         </div>
                                    <?php
                                     }
