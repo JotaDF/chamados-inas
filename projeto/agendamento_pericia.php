@@ -259,7 +259,28 @@ include_once('./verifica_login.php');
             $('#justificativa_agendado').html("");
             $('#telefone_agendado').html("");
             $('#horaSelecionada').text("");
+            $('#btn_confirma').removeClass('d-none');
+            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i> Cancelar");
         }
+
+        function resetModal() {
+            // mostra campos de beneficiário
+            mostraInfoBeneficiario();
+
+            // limpa título
+            $('#titulo_modal').removeClass('d-none').html("");
+
+            // limpa textos
+            $("#texto_modal").html("");
+
+            // limpa dados agendados
+            $('#nome_agendado, #cpf_agendado, #situacao_agendado, #descricao_agendado, #autorizacao_agendado, #justificativa_agendado, #telefone_agendado').html("");
+
+            // restaura botões
+            $('#btn_confirma').removeClass('d-none');
+            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i> Cancelar");
+        }
+
 
     </script>
     <style>
