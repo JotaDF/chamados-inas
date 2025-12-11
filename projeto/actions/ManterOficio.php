@@ -69,7 +69,7 @@ class ManterOficio extends Model {
             $dados->id = $this->db->insert_Id();
         }
         //echo $sql . "<BR/>";
-        return $resultado;
+        return $dados;
     }
 
     function atender($id, $atendido) {
@@ -83,5 +83,21 @@ class ManterOficio extends Model {
         $resultado = $this->db->Execute($sql); // exclui a oficio
         return $resultado;
     }
-
+    public static function delPasta($dir) {
+        if(is_dir($dir)){
+            $files = array_diff(scandir($dir), array('.','..'));
+            foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? delPasta("$dir/$file") : unlink("$dir/$file");
+            }
+            return rmdir($dir);
+        }
+        return false;
+    }
+    public static function addPasta($dir) {
+        if(!is_dir($dir)){
+            mkdir($dir, 0777, true);
+            return true;
+        }
+        return false;
+    }
 }
