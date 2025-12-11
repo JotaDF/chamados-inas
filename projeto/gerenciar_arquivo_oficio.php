@@ -304,11 +304,11 @@ and open the template in the editor.
                     </div>
 
                         <?php
-                        if($editar && $origem == $oficio->setor){
-
                         $uploadDir = 'oficios/arquivo_';
                         $uploadDir .= $id;
                         $uploadDir .= '/';
+                        
+                        if($editar && $origem == $oficio->setor){
                         ?>
                         
                         <!-- Collapsable Form -->
