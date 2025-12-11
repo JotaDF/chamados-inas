@@ -267,7 +267,7 @@ and open the template in the editor.
                     <div class="container-fluid">
                     <div style="max-width:900px" class="row float-none">
                         <div class="ml-3 mb-2">
-                            <a href="eventos.php" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
+                            <a href="oficios.php" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
                         </div>
                     </div>
                         <?php
@@ -278,7 +278,7 @@ and open the template in the editor.
                         ?>
                         
                         <!-- Collapsable Form -->
-                        <div class="card mb-4 collapse hide border-primary" id="form_arquivo_oficio" style="max-width:900px">
+                        <div class="card mb-4 collapse border-primary" id="form_arquivo_oficio" style="max-width:900px">
                             <!-- Card Header - Accordion -->
                             <div class="card-header py-2 card-body bg-gradient-primary align-middle" style="min-height: 2.5rem;">               
                                 <span class="h6 m-0 font-weight text-white">Enviar arquivo do ofício (<?='arquivo_' . $id ?>)</span>
