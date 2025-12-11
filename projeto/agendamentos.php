@@ -248,6 +248,7 @@ include('./verifica_login.php');
         function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
             let descricoes = dados.descricao.split(";");
+            let telefones = dados.telefone.split(';').map(t => mascaraTelefone(t.trim())).join(' / ');
             ocultaInfoBeneficiario();
             $('#id_fila').val(dados.fila);
             $('#id').val(dados.id);
@@ -259,7 +260,7 @@ include('./verifica_login.php');
             $('#descricao_agendado').html(descricoes.join('<br>'));
             $('#justificativa_agendado').html(dados.justificativa);
             $('#autorizacao_agendado').html(dados.autorizacao);
-            $('#telefone_agendado').html(dados.telefone);
+            $('#telefone_agendado').html(telefones);
             $('#horaSelecionada').text(dados.hora_agendada);
             $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
             $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
@@ -295,7 +296,14 @@ include('./verifica_login.php');
             $('#telefone_agendado').html("");
             $('#horaSelecionada').text("");
         }
-
+        function mascaraTelefone(tel) {
+            tel = tel.replace(/\D/g, "");
+            if (tel.length <= 10) {
+                return tel.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+            } else {
+                return tel.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+            }
+        }
     </script>
     <style>
         body {
@@ -529,7 +537,7 @@ include('./verifica_login.php');
                             <div class="row">
                                 <div class="col-md-6 mb-1">
                                     <div class="border rounded p-2 bg-light">
-                                        <div class="small text-dark text-uppercase font-weight-bold">Médico Perito</div>
+                                        <div class="small text-dark text-uppercase font-weight-bold">MÉDICO PERITO</div>
                                         <select id="medico_perito" name="medico_perito"
                                             class="form-control form-control-sm" required>
                                             <option value="">Selecione</option>
@@ -542,7 +550,7 @@ include('./verifica_login.php');
                                         <div class="small text-dark text-uppercase font-weight-bold">CONFIRMAÇÃO DO
                                             BENEFICIÁRIO</div>
                                         <select class="form-control form-control-sm" name="situacao_atendimento"
-                                            id="situacao_atendimento" required>
+                                            id="situacao_atendimento">
                                             <option value="">Selecione</option>
                                             <option value="REANÁLISE">REANÁLISE</option>
                                             <option value="SISTEMA">SISTEMA</option>
@@ -554,8 +562,7 @@ include('./verifica_login.php');
                                 <div class="col-md-6 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">PRESENÇA</div>
-                                        <select class="form-control form-control-sm" name="atualizado" id="atualizado"
-                                            required>
+                                        <select class="form-control form-control-sm" name="atualizado" id="atualizado">
                                             <option value="">Selecione</option>
                                             <option value="ANALISE VIA SISTEMA">ANALISE VIA SISTEMA</option>
                                             <option value="COMPARECEU">COMPARECEU</option>
@@ -566,8 +573,7 @@ include('./verifica_login.php');
                                 <div class="col-md-6 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">Resultado</div>
-                                        <select id="resultado" name="resultado" class="form-control form-control-sm"
-                                            required>
+                                        <select id="resultado" name="resultado" class="form-control form-control-sm">
                                             <option value="">Selecione</option>
                                             <option value="AUTORIZADA">AUTORIZADA</option>
                                             <option value="PARCIALMENTE AUTORIZADA">PARCIALMENTE AUTORIZADA</option>
