@@ -13,13 +13,29 @@ if (isset($_REQUEST['id'])) {
     $oficio    = $manterOficio->getOficioPorId($_REQUEST['id']);
 }        
 $manterAcessoOficio = new ManterAcessoOficio();
-$acessoUsuario = $manterAcessoOficio->getAcessoOficioPorUsuario($usuario_logado->id, $oficio->setor);
+$acessoUsuario = $manterAcessoOficio->getAcessoOficioPorUsuario($usuario_logado->id);
 $editar = false;
 $disable = "disabled";
 if ($usuario_logado->perfil < 3 or $acessoUsuario->editor == 1) {
     $editar = true;
     $disable = "";
 }
+
+require_once('./actions/ManterSetor.php');
+$db_setor = new ManterSetor();
+$setor = $db_setor->getSetorPorId($usuario_logado->setor);
+$array_setor = explode("/", $setor->sigla);
+$origem  = "";
+if (count($array_setor) > 1) {
+if($array_setor[1] == "DIPLAS" or $array_setor[1] == "DIAD" or $array_setor[1] == "DIJUR" or $array_setor[1] == "DIFIN" ){
+    $origem = trim($array_setor[0] . "/" . $array_setor[1]);
+} else {
+    $origem = trim($array_setor[0]);
+}
+} else {
+    $origem = trim($array_setor[0]);
+}
+
 
 ?> 
 <!DOCTYPE html>
@@ -288,7 +304,7 @@ and open the template in the editor.
                     </div>
 
                         <?php
-                        if($editar){
+                        if($editar && $origem == $oficio->setor){
 
                         $uploadDir = 'oficios/arquivo_';
                         $uploadDir .= $id;
@@ -355,7 +371,7 @@ and open the template in the editor.
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
                                     <?php
-                                    if($editar){
+                                    if($editar && $origem == $oficio->setor){
                                     ?>
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivo_oficio" aria-expanded="false" aria-controls="form_arquivo_oficio">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
