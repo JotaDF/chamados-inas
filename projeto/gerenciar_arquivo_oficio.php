@@ -5,6 +5,22 @@ require_once('./verifica_login.php');
 
 $id = $_REQUEST['id'];
 
+include_once('actions/ManterAcessoOficio.php');   
+include_once('actions/ManterOficio.php');
+
+$manterOficio = new ManterOficio();
+if (isset($_REQUEST['id'])) {
+    $oficio    = $manterOficio->getOficioPorId($_REQUEST['id']);
+}        
+$manterAcessoOficio = new ManterAcessoOficio();
+$acessoUsuario = $manterAcessoOficio->getAcessoOficioPorUsuario($usuario_logado->id, $oficio->setor);
+$editar = false;
+$disable = "disabled";
+if ($usuario_logado->perfil < 3 or $acessoUsuario->editor == 1) {
+    $editar = true;
+    $disable = "";
+}
+
 ?> 
 <!DOCTYPE html>
 <!--
@@ -270,7 +286,9 @@ and open the template in the editor.
                             <a href="oficios.php" class="btn btn-success btn-sm"><i class="fa fa-arrow-left text-white"></i> Voltar</a>
                         </div>
                     </div>
+
                         <?php
+                        if($editar){
 
                         $uploadDir = 'oficios/arquivo_';
                         $uploadDir .= $id;
@@ -298,15 +316,9 @@ and open the template in the editor.
                             </div>
                         </div>
                         </div>
-
                         <?php
-                            include_once('actions/ManterOficio.php');
-        
-                            $manterOficio = new ManterOficio();
-                            if (isset($_REQUEST['id'])) {
-                                $oficio    = $manterOficio->getOficioPorId($_REQUEST['id']);
-                            }
-                            ?>
+                        }
+                        ?>
                         <!-- Exibe dados da  tarefa -->
                         <div class="card mb-3 border-primary" style="max-width: 900px;">
                             <div class="card-body bg-gradient-primary" style="min-height: 5.0rem;">
@@ -342,9 +354,15 @@ and open the template in the editor.
                                     <span style="align:left;" class="h5 m-0 font-weight text-white">Arquivo do Ofício </span> <button class='btn btn-outline-light btn-sm' type='button' title="Atualizar lista!" onclick="atualizar()"><i class="fa fa-spinner text-white" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col text-right" style="max-width:20%">
+                                    <?php
+                                    if($editar){
+                                    ?>
                                     <button id="btn_cadastrar" class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#form_arquivo_oficio" aria-expanded="false" aria-controls="form_arquivo_oficio">
                                         <i class="fa fa-plus-circle text-white" aria-hidden="true"></i>
                                     </button>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>                            
                             <div class="card-body">
