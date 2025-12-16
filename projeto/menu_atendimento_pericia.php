@@ -48,7 +48,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="atendimentos_realizados.php">
-                    <i class="fa fa-tasks"></i>
+                    <i class="fa fa-check-square"></i>
                     <span>Atendimentos Realizados</span>
                 </a>
             </li>
