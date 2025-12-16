@@ -82,7 +82,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
         function listaFilaPorCpf($cpf) {
-        $sql = "SELECT fpe.id, fpe.id_guia, fpe.autorizacao, fpe.data_solicitacao, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.cpf FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id NOT IN ( SELECT ap.id_fila FROM atendimento_pericia AS ap)";
+        $sql = "SELECT fpe.id, fpe.id_guiSELECT id, id_medico_perito, procedimento, data_agendada, hora_agendada, situacao, id_usuario, atualizado, resultado, id_fila FROM atendimento_pericia WHEREa, fpe.autorizacao, fpe.data_solicitacao, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.cpf FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '". $cpf ."' AND fpe.id NOT IN ( SELECT ap.id_fila FROM atendimento_pericia AS ap)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -93,6 +93,25 @@ class ManterAtendimentoPericia extends Model {
             $dados->data_solicitacao = $registro['data_solicitacao'];
             $dados->justificativa = $registro['justificativa'];
             $dados->situacao = $registro['situacao'];
+            $dados->descricao = $registro['descricao'];
+            $dados->cpf = $registro['cpf'];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
+
+    function listaAtendimentosRealizados() {
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and AP.resultado = 'AUTORIZADA'";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new FilaPericiaEco(); 
+            $dados->id = $registro['id'];
+            $dados->nome  = $registro['nome'];
+            $dados->telefone = $registro['telefone'];
+            $dados->data_agendada = $registro['data_agendada'];
+            $dados->hora_agendada = $registro['hora_agendada'];
+            $dados->resultado = $registro['resultado'];
             $dados->descricao = $registro['descricao'];
             $dados->cpf = $registro['cpf'];
             $array_dados[] = $dados;

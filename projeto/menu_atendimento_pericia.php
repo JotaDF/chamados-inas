@@ -46,6 +46,12 @@
                     <span>Fila Perícia Eco</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="atendimentos_realizados.php">
+                    <i class="fa fa-tasks"></i>
+                    <span>Atendimentos Realizados</span>
+                </a>
+            </li>
         <?php
     ?>
 <!-- Divider -->
