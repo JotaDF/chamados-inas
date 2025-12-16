@@ -100,7 +100,7 @@ class ManterAtendimentoPericia extends Model {
         return $array_dados;
     }
     function listaAtendimentosRealizados() {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and AP.resultado = 'AUTORIZADA'";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado = 'AUTORIZADA'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
