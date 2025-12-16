@@ -79,11 +79,11 @@ and open the template in the editor.
             <div id="containerLicitacao" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="color: #4d78bb;">Licitações</h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="text-white" style="background-color: #4d78bb;">
-                            <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CERTAME </th>
-                            <th class="header c1 text-nowrap text-center" scope="col" style="width:30%"> MODALIDADE </th>
-                            <th class="header c2 text-nowrap text-center" scope="col" style="width:15%;"> OBJETO </th>
-                            <th class="header c3 text-nowrap text-center" scope="col" style="width:15%;"> ANO </th>
-                            <th class="header c4 text-nowrap text-center" scope="col" style="width:40%"> ARQUIVOS </th>
+                            <th class="header c0 text-nowrap text-center" scope="col" style="width:10%;"> CERTAME </th>
+                            <th class="header c1 text-nowrap text-center" scope="col" style="width:15%"> MODALIDADE </th>
+                            <th class="header c2 text-nowrap text-center" scope="col" style="width:35%;"> OBJETO </th>
+                            <th class="header c3 text-nowrap text-center" scope="col" style="width:5%;"> ANO </th>
+                            <th class="header c4 text-nowrap text-center" scope="col" style="width:50%"> ARQUIVOS </th>
                         </tr>
                         <?php
                         foreach ($contratos as $obj) {
