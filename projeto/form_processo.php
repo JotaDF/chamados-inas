@@ -31,7 +31,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="sei_t">SEI</label>
-                    <input type="text" class="form-control form-control-sm" name="sei_t" id="sei_t" placeholder="0000" <?=$disable ?>>
+                    <input type="text" class="form-control form-control-sm" name="sei_t" id="sei_t" placeholder="0000" required <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-1 mt-4">
                     <a class="btn btn-warning btn-sm" onclick="addSei()" href="#">+</a>
@@ -44,15 +44,15 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
-                    <label for="orgao_origem">Órgão de Origem</label>
-                    <select id="orgao_origem" name="orgao_origem" class="form-control form-control-sm" <?=$disable ?>>
+                    <label for="orgao_origem">Órgão de Origem <span class="text-danger font-weight-bold">*</span></label>
+                    <select id="orgao_origem" name="orgao_origem" class="form-control form-control-sm" required <?=$disable ?>>
                         <option value="">Selecione</option>
                     </select>
                 </div>
                 <div class="form-group col-md-7">
-                    <label for="classe_judicial">Classe Processual</label>
+                    <label for="classe_judicial">Classe Processual <span class="text-danger font-weight-bold">*</span></label>
                     <select id="classe_judicial" name="classe_judicial" class="form-control form-control-sm"
-                        onChange="verificaClasse(this.options[this.selectedIndex].value)" <?=$disable ?>>
+                        onChange="verificaClasse(this.options[this.selectedIndex].value)" required <?=$disable ?>>
                         <option value="">Selecione</option>
                     </select>
                 </div>
@@ -69,12 +69,12 @@
                         onchange="habilitaCNPJ()" <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="inas_parte">INAS é parte </label><br/>
+                    <label for="inas_parte">INAS é parte <span class="text-danger font-weight-bold">*</span></label><br/>
                     <input type="radio" id="inas_parte_sim" name="inas_parte" value="1" checked> Sim
                     <input type="radio" id="inas_parte_nao" name="inas_parte" value="0"> Não 
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="pediu_danos">Pediu Danos Morais </label><br/>
+                    <label for="pediu_danos">Pediu Danos Morais <span class="text-danger font-weight-bold">*</span></label><br/>
                     <input type="radio" id="pediu_danos_sim" name="pediu_danos" value="1" checked> Sim
                     <input type="radio" id="pediu_danos_nao" name="pediu_danos" value="0"> Não 
                 </div>                
@@ -100,8 +100,8 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="sub_assunto">Sub Assunto </label>
-                    <select id="sub_assunto" name="sub_assunto" class="form-control form-control-sm" <?=$disable ?>>
+                    <label for="sub_assunto">Sub Assunto <span class="text-danger font-weight-bold">*</span></label>
+                    <select id="sub_assunto" name="sub_assunto" class="form-control form-control-sm" required <?=$disable ?>>
                         <option value="">Selecione</option>
                     </select>
                 </div>
@@ -110,20 +110,20 @@
                 <div class="form-group col-md-2.5">
                     <label for="valor_causa">Valor da Causa</label>
                     <input type="text" class="form-control form-control-sm" onInput="mascaraMoeda(event);"
-                        name="valor_causa" id="valor_causa" placeholder="R$ 0,00" <?=$disable ?>>
+                        name="valor_causa" id="valor_causa" placeholder="R$ 0,00" required <?=$disable ?>>
                 </div>
                 <div class="form-group col-md-7.5">
-                    <label for="sub_assunto">Motivo </label>
-                    <select id="motivo" name="motivo" class="form-control form-control-sm" <?=$disable ?>>
+                    <label for="sub_assunto">Motivo <span class="text-danger font-weight-bold">*</span></label>
+                    <select id="motivo" name="motivo" class="form-control form-control-sm" required <?=$disable ?>>
                         <option value="">Selecione</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="liminar">Decisão</label>
+                    <label for="liminar">Decisão <span class="text-danger font-weight-bold">*</span></label>
                     <select id="liminar" name="liminar" class="form-control form-control-sm"
-                        onChange="verificaLiminar(this.options[this.selectedIndex].value)" <?=$disable ?>>
+                        onChange="verificaLiminar(this.options[this.selectedIndex].value)" required <?=$disable ?>>
                         <option value="">Selecione</option>
                     </select>
                 </div>
