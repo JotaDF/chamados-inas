@@ -196,8 +196,9 @@ and open the template in the editor.
                                 <table id="oficios" class="table-sm table-striped table-bordered dt-responsive wrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:20%;">Processo</th>
-                                            <th scope="col" style="width:10%;">Link SEI</th>
+                                            <th scope="col" style="width:15%;">Processo</th>
+                                            <th scope="col" style="width:8;">Link SEI</th>
+                                            <th scope="col" style="width:10%;">Ofício Nº</th>
                                             <th scope="col" style="width:35%;">Assunto</th>
                                             <th scope="col">Origem</th>
                                             <th scope="col">Destino</th>
