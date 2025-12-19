@@ -2,9 +2,13 @@
     function carregarGrafico(ano, campo = 'grafico_assunto') {
         $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
-            if (window[campo] instanceof Chart) {
-                window[campo].destroy();
+            const canvas = document.getElementById(campo);
+            // pega o gráfico existente associado ao canvas
+            const chartExistente = Chart.getChart(canvas);
+            if (chartExistente) {
+                chartExistente.destroy();
             }
+
             const labels = [];
             const valores = [];
             dados.forEach(item => {
