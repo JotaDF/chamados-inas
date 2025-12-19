@@ -178,7 +178,7 @@ $anos = $p->getAnos();
                                         <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
                                         <!-- Ajustei o padding-right do label -->
                                         <div class="col-sm-4 pl-0">
-                                            <select class="form-control form-control-sm" id="ano" name="[]">
+                                            <select class="form-control form-control-sm" id="ano_assunto" name="[]">
                                                 <?php foreach ($anos as $ano): ?>
                                                     <option value="<?= $ano ?>"><?= $ano ?></option>
                                                 <?php endforeach; ?>
