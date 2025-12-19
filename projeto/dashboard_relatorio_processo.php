@@ -45,15 +45,10 @@
         });
     }
     $(document).ready(function () {
-        carregarGrafico('<?= $ano ?>', '<?= $tipo ?>');
+        carregarGrafico('<?= $ano ?>', '<?= $tipo ?>', 3);
     });
     function atualizarGraficoAssunto() {
-        var arquivado = 3;
-        if($('#arquivado_sim').is(':checked')) {
-           arquivado = 1;
-        } else if($('#arquivado_nao').is(':checked')) {
-           arquivado = 0;
-        }
+        var arquivado = $('#arquivado').val();
         var ano = $('#ano_assunto').val();
         carregarGrafico(ano, 'grafico_assunto', arquivado);
     }

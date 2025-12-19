@@ -174,13 +174,16 @@ $anos = $p->getAnos();
                                     </div>
                                 </div>
                                 <form id="form_assunto">
-                                    <div class="form-group row col-sm-20">
-                                        <div class="form-group col-md-4">
-                                            <label for="arquivado">Arquivado </label><br/>
-                                            <input type="radio" id="arquivado_sim" name="arquivado" value="1"> Sim
-                                            <input type="radio"id="arquivado_nao" name="arquivado" value="0"> Não  
+                                    <div class="form-group row col-sm-15">
+                                        <div class="form-group col-md-5">
+                                            <label for="arquivado">Arquivado </label>
+                                            <select class="form-control form-control-sm" id="arquivado" name="arquivado">
+                                                <option value="3" selected>Todos</option>
+                                                <option value="1">Sim</option>
+                                                <option value="0">Não</option>
+                                            </select> 
                                         </div>
-                                        <div class="form-group col-md-10">
+                                        <div class="form-group col-md-5">
                                             <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div class="col-sm-4 pl-0">
@@ -190,16 +193,16 @@ $anos = $p->getAnos();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-sm-2 pl-0">
-                                                <button type="button" id="gerar_assunto" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button>
-                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button type="button" id="gerar_assunto" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button> 
                                         </div>
                                         
                                     </div>
                                 </form>
-                                <div class="card-body " style="width: 95%;">
-                                    <div style="width: 100%; height: 500px;">
+                                <div class="card-body " style="width: 80%;">
+                                    <div style="width: 80%; height: 800px;">
                                         <canvas id="grafico_assunto" class="grafico" ></canvas>
                                         <?php
                                         $ano = date('Y');
