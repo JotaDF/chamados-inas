@@ -11,9 +11,6 @@
             label: 'Quantidade',
             data: valores
         }];
-        
-        // dinamismo para a geração de gráfico
-        let rgb = window.crypto.getRandomValues(new Uint8Array(3)).reduce((acc, val) => acc + val.toString(16), "#"); // gera um hexadecimal aleatório
     
         // instanciação do gráfico de carregando de dados e condicionais
         const ctx = document.getElementById('grafico_<?= $tipo ?>').getContext('2d');

@@ -160,7 +160,7 @@ $anos = $p->getAnos();
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">
-                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
+                            <div class="card mb-3 border-primary" style="max-width: 99%;">
                                 <div class="p-3">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <!-- Pergunta -->
@@ -169,8 +169,8 @@ $anos = $p->getAnos();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body " style="width: 80%;">
-                                    <div style="width: 100%; max-width: 100px height: 200px; margin: 0 auto;">
+                                <div class="card-body " style="width: 95%;">
+                                    <div style="width: 100%; height: 500px;">
                                         <canvas id="grafico_assunto"></canvas>
                                         <?php
                                         $ano = date('Y');
