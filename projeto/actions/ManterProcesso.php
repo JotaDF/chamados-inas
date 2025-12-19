@@ -317,7 +317,7 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = null){
+    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3){
         if ($ano == '0') {
             $ano = date('Y');
         }

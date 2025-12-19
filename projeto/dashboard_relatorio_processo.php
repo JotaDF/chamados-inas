@@ -11,7 +11,7 @@
 
             const labels = [];
             const valores = [];
-            const somaTotal = 0;
+            var somaTotal = 0;
             dados.forEach(item => {
                 labels.push(item.label);   // 👈 só texto
                 valores.push(item.total);  // 👈 só número
@@ -47,9 +47,11 @@
         carregarGrafico('<?= $ano ?>', '<?= $tipo ?>');
     });
     function atualizarGraficoAssunto() {
-        var arquivado = 0;
+        var arquivado = 3;
         if($('#arquivado_sim').is(':checked')) {
            arquivado = 1;
+        } else if($('#arquivado_nao').is(':checked')) {
+           arquivado = 0;
         }
         var ano = $('#ano_assunto').val();
         carregarGrafico(ano, 'grafico_assunto', arquivado);
