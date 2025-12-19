@@ -186,7 +186,7 @@ $anos = $p->getAnos();
                                         </div>
                                         <div class="col-sm-2 pl-0">
                                             <button type="button" id="gerar_assunto" name="enviar"
-                                                class="btn btn-primary btn-sm w-100" onclick="atualizarGrafico()">Gerar</button>
+                                                class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button>
                                         </div>
                                     </div>
                                 </form>
