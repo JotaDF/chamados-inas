@@ -1,6 +1,6 @@
 <script>
-    function carregarGrafico(ano, campo = 'grafico_assunto') {
-        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
+    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 0) {
+        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
             const canvas = document.getElementById(campo);
             // pega o gráfico existente associado ao canvas
@@ -45,8 +45,12 @@
         carregarGrafico('<?= $ano ?>', '<?= $tipo ?>');
     });
     function atualizarGraficoAssunto() {
+        var arquivado = 0;
+        if($('#arquivado_sim').is(':checked')) {
+           arquivado = 1;
+        }
         var ano = $('#ano_assunto').val();
-        carregarGrafico(ano, 'grafico_assunto');
+        carregarGrafico(ano, 'grafico_assunto', arquivado);
     }
 
 

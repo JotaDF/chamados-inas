@@ -317,9 +317,13 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    function getRelatorioTotalAssuntosPorAno($ano = '0'){
+    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 0){
         if ($ano == '0') {
             $ano = date('Y');
+        }
+        $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
+        if($arquivado == 1){
+            $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0  ";
         }
         $sql = "SELECT 
                     a.assunto,
@@ -330,8 +334,7 @@ class ManterProcesso extends Model
                 JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
                 JOIN motivo m         ON p.id_motivo = m.id
                 WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
-                AND p.data_cumprimento_liminar IS NOT NULL
-                AND p.data_cumprimento_liminar <> 0
+                ".$filtro_arquivado."
                 GROUP BY 
                     a.assunto,
                     sa.sub_assunto

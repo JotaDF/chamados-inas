@@ -175,19 +175,27 @@ $anos = $p->getAnos();
                                 </div>
                                 <form id="form_assunto">
                                     <div class="form-group row col-sm-6">
-                                        <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
-                                        <!-- Ajustei o padding-right do label -->
-                                        <div class="col-sm-4 pl-0">
-                                            <select class="form-control form-control-sm" id="ano_assunto" name="[]">
-                                                <?php foreach ($anos as $ano): ?>
-                                                    <option value="<?= $ano ?>"><?= $ano ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                        <div class="form-group col-md-2">
+                                            <label for="arquivado">Arquivado </label><br/>
+                                            <input type="radio" id="arquivado_sim" name="arquivado" value="1"> Sim
+                                            <input type="radio"id="arquivado_nao" name="arquivado" value="0"> Não  
                                         </div>
-                                        <div class="col-sm-2 pl-0">
-                                            <button type="button" id="gerar_assunto" name="enviar"
-                                                class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button>
+                                        <div class="form-group col-md-6">
+                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
+                                            <!-- Ajustei o padding-right do label -->
+                                            <div class="col-sm-4 pl-0">
+                                                <select class="form-control form-control-sm" id="ano_assunto" name="[]">
+                                                    <?php foreach ($anos as $ano): ?>
+                                                        <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2 pl-0">
+                                                <button type="button" id="gerar_assunto" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button>
+                                            </div>
                                         </div>
+                                        
                                     </div>
                                 </form>
                                 <div class="card-body " style="width: 95%;">
