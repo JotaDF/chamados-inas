@@ -174,8 +174,8 @@ $anos = $p->getAnos();
                                     </div>
                                 </div>
                                 <form id="form_assunto">
-                                    <div class="form-group row col-sm-15">
-                                        <div class="form-group col-md-5">
+                                    <div class="form-group row col-sm-10">
+                                        <div class="col-md-2">
                                             <label for="arquivado">Arquivado </label>
                                             <select class="form-control form-control-sm" id="arquivado" name="arquivado">
                                                 <option value="3" selected>Todos</option>
@@ -183,10 +183,10 @@ $anos = $p->getAnos();
                                                 <option value="0">Não</option>
                                             </select> 
                                         </div>
-                                        <div class="form-group col-md-5">
-                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
+                                        <div class="col-md-2">
+                                            <label for="ano">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
-                                            <div class="col-sm-4 pl-0">
+                                            <div>
                                                 <select class="form-control form-control-sm" id="ano_assunto" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
@@ -194,7 +194,7 @@ $anos = $p->getAnos();
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <div class="col-md-2">
                                             <button type="button" id="gerar_assunto" name="enviar"
                                                     class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button> 
                                         </div>
