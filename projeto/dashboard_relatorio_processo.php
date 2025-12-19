@@ -11,12 +11,14 @@
 
             const labels = [];
             const valores = [];
+            const somaTotal = 0;
             dados.forEach(item => {
                 labels.push(item.label);   // 👈 só texto
                 valores.push(item.total);  // 👈 só número
+                somaTotal += item.total;
             });
             datasets = [{
-                label: 'Quantidade de processos por Assunto - Sub_assunto (' + ano + ')',
+                label: 'Quantidade de processos por Assunto - Sub_assunto (' + ano + ') - Total: ' + somaTotal + ' ',
                 data: valores,
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',
