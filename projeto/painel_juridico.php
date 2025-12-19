@@ -246,7 +246,7 @@ $anos = $p->getAnos();
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" id="gerar_motigo" name="enviar"
+                                            <button type="button" id="gerar_motivo" name="enviar"
                                                     class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoMotivo()">Gerar</button> 
                                         </div>
                                         
@@ -254,7 +254,7 @@ $anos = $p->getAnos();
                                 </form>
                                 <div class="card-body " style="width: 80%;">
                                     <div style="width: 80%; height: 800px;">
-                                        <canvas id="grafico_motigo" class="grafico" ></canvas>
+                                        <canvas id="grafico_motivo" class="grafico" ></canvas>
                                     </div>
                                     <br />
                                     </p>
