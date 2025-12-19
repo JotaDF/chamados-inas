@@ -1,7 +1,10 @@
 <script>
     function carregarGrafico(ano, tipo = 'assunto') {
         $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: tipo}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
-            
+            // Se o gráfico já existe, destrói usando o nome dinâmico
+            if (window['grafico_'+ tipo] instanceof Chart) {
+                window['grafico_'+ tipo].destroy();
+            }
             const labels = [];
             const valores = [];
             dados.forEach(item => {
@@ -16,7 +19,7 @@
             }];
         
             // instanciação do gráfico de carregando de dados e condicionais
-            const ctx = document.getElementById('grafico_<?= $tipo ?>').getContext('2d');
+            const ctx = document.getElementById('grafico_'+ tipo).getContext('2d');
             const dashboard = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -36,13 +39,11 @@
     }
     $(document).ready(function () {
         carregarGrafico('<?= $ano ?>', '<?= $tipo ?>');
-
-        $('#gerar_assunto').on('click', function (e) {
-            e.preventDefault(); // Evita o recarregamento da página
-            var ano = $('#ano').val();
-            carregarGrafico(ano, 'assunto');
-        });
     });
+    function atualizarGrafico() {
+        var ano = $('#ano').val();
+        carregarGrafico(ano, 'assunto');
+    }
 
 
 </script>

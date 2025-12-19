@@ -174,10 +174,10 @@ $anos = $p->getAnos();
                                     </div>
                                 </div>
                                 <form id="form_assunto">
-                                    <div class="form-group row">
+                                    <div class="form-group row col-sm-6">
                                         <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
                                         <!-- Ajustei o padding-right do label -->
-                                        <div class="col-sm-8 pl-0">
+                                        <div class="col-sm-4 pl-0">
                                             <select class="form-control form-control-sm" id="ano" name="[]">
                                                 <?php foreach ($anos as $ano): ?>
                                                     <option value="<?= $ano ?>"><?= $ano ?></option>
@@ -186,7 +186,7 @@ $anos = $p->getAnos();
                                         </div>
                                         <div class="col-sm-2 pl-0">
                                             <button type="button" id="gerar_assunto" name="enviar"
-                                                class="btn btn-primary btn-sm w-100">Gerar</button>
+                                                class="btn btn-primary btn-sm w-100" onclick="atualizarGrafico()">Gerar</button>
                                         </div>
                                     </div>
                                 </form>
