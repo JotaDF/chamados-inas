@@ -35,8 +35,8 @@ $anos = $p->getAnos();
     </script>
     <style>
         .grafico {
-            width: 800px;
-            height: 400px;
+            width: 400px;
+            height: 700px;
         }
         #bar {
             width: 100%;

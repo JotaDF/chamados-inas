@@ -35,6 +35,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                     indexAxis: 'y',
                     scales: {
                         y: { beginAtZero: true }
                     }
