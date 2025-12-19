@@ -37,10 +37,9 @@
     $(document).ready(function () {
         carregarGrafico('<?= $ano ?>', '<?= $tipo ?>');
 
-        $('#form_painel').on('submit', function (e) {
+        $('#gerar_assunto').on('click', function (e) {
             e.preventDefault(); // Evita o recarregamento da página
             var ano = $('#ano').val();
-
             carregarGrafico(ano, 'assunto');
         });
     });

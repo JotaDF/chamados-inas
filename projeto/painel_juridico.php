@@ -163,24 +163,7 @@ $anos = $p->getAnos();
                     <!-- Segunda Linha de graficos -->
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="w-100">
-                            <form id="form_assunto">
-                                <div class="form-group row">
-                                    <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
-                                    <!-- Ajustei o padding-right do label -->
-                                    <div class="col-sm-8 pl-0">
-                                        <select class="form-control form-control-sm" id="ano" name="[]">
-                                            <?php foreach ($anos as $ano): ?>
-                                                <option value="<?= $ano ?>"><?= $ano ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2 pl-0">
-                                        <button type="submit" name="enviar"
-                                            class="btn btn-primary btn-sm w-100">Gerar</button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
                                 <div class="p-3">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -190,6 +173,23 @@ $anos = $p->getAnos();
                                         </div>
                                     </div>
                                 </div>
+                                <form id="form_assunto">
+                                    <div class="form-group row">
+                                        <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
+                                        <!-- Ajustei o padding-right do label -->
+                                        <div class="col-sm-8 pl-0">
+                                            <select class="form-control form-control-sm" id="ano" name="[]">
+                                                <?php foreach ($anos as $ano): ?>
+                                                    <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2 pl-0">
+                                            <button type="button" id="gerar_assunto" name="enviar"
+                                                class="btn btn-primary btn-sm w-100">Gerar</button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="card-body " style="width: 95%;">
                                     <div style="width: 100%; height: 500px;">
                                         <canvas id="grafico_assunto" class="grafico" ></canvas>
