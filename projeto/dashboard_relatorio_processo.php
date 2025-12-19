@@ -8,7 +8,7 @@
             valores.push(item.total);  // 👈 só número
         });
         datasets = [{
-            label: 'Quantidade',
+            label: 'Quantidade de processos por Assunto - Sub_assunto',
             data: valores,
             backgroundColor: 'rgba(54, 162, 235, 0.5)',
             borderColor: 'rgba(54, 162, 235, 1)',
