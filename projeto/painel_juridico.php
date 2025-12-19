@@ -164,7 +164,7 @@ $anos = $p->getAnos();
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
-                            <div class="card mb-3 border-primary" style="max-width: 99%;">
+                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="p-3">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <!-- Pergunta -->
@@ -201,8 +201,8 @@ $anos = $p->getAnos();
                                         
                                     </div>
                                 </form>
-                                <div class="card-body " style="width: 80%;">
-                                    <div style="width: 80%; height: 800px;">
+                                <div class="card-body " style="width: 100%;">
+                                    <div style="width: 95%; height: 800px;">
                                         <canvas id="grafico_assunto" class="grafico" ></canvas>  
                                     </div>
                                     <br />
@@ -215,7 +215,7 @@ $anos = $p->getAnos();
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
-                            <div class="card mb-3 border-primary" style="max-width: 99%;">
+                            <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="p-3">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <!-- Pergunta -->
@@ -252,8 +252,8 @@ $anos = $p->getAnos();
                                         
                                     </div>
                                 </form>
-                                <div class="card-body " style="width: 80%;">
-                                    <div style="width: 80%; height: 800px;">
+                                <div class="card-body " style="width: 100%;">
+                                    <div style="width: 95%; height: 800px;">
                                         <canvas id="grafico_motivo" class="grafico" ></canvas>
                                     </div>
                                     <br />
