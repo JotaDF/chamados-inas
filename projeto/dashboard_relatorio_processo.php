@@ -17,8 +17,14 @@
                 valores.push(item.total);  // 👈 só número
                 somaTotal += item.total;
             });
+            var titulo = 'Quantidade';
+            if(campo == 'grafico_motivo'){
+                titulo = 'Quantidade de processos por Motivo (' + ano + ') - Total: ' + somaTotal + ' ';
+            } else if(campo == 'grafico_assunto'){
+                titulo = 'Quantidade de processos por Assunto - Sub_assunto (' + ano + ') - Total: ' + somaTotal + ' ';
+            }
             datasets = [{
-                label: 'Quantidade de processos por Assunto - Sub_assunto (' + ano + ') - Total: ' + somaTotal + ' ',
+                label: titulo,
                 data: valores,
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -45,13 +51,18 @@
         });
     }
     $(document).ready(function () {
-        carregarGrafico('<?= $ano ?>', '<?= $tipo ?>', 3);
+        carregarGrafico('<?= $ano ?>', 'grafico_assunto', 3);
+        carregarGrafico('<?= $ano ?>', 'grafico_motivo', 3);
     });
     function atualizarGraficoAssunto() {
-        var arquivado = $('#arquivado').val();
+        var arquivado = $('#arquivado_assunto').val();
         var ano = $('#ano_assunto').val();
         carregarGrafico(ano, 'grafico_assunto', arquivado);
     }
-
+    function atualizarGraficoMotivo() {
+        var arquivado = $('#arquivado_motivo').val();
+        var ano = $('#ano_motivo').val();
+        carregarGrafico(ano, 'grafico_motivo', arquivado);
+    }
 
 </script>

@@ -5,6 +5,11 @@ $ano = $_GET['ano'];
 $tipo= $_GET['tipo'];
 $arquivado= $_GET['arquivado'];
 $manterProcesso = new ManterProcesso();
-$dados = $manterProcesso->getRelatorioTotalAssuntosPorAno($ano, $arquivado);
+if($tipo == 'grafico_motivo')
+    $dados = $manterProcesso->getRelatorioTotalMotivosPorAno($ano, $arquivado);
+else if($tipo == 'grafico_assunto'){
+    $dados = $manterProcesso->getRelatorioTotalAssuntosPorAno($ano, $arquivado);
+} 
+
 echo json_encode($dados);
 

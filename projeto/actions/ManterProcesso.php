@@ -334,7 +334,6 @@ class ManterProcesso extends Model
                 FROM processo p
                 JOIN assunto a        ON p.id_assunto = a.id
                 JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
-                JOIN motivo m         ON p.id_motivo = m.id
                 WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
                 ".$filtro_arquivado."
                 GROUP BY 
@@ -353,5 +352,35 @@ class ManterProcesso extends Model
         }
         return $assuntos;
     }
-
+function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3){
+        if ($ano == '0') {
+            $ano = date('Y');
+        }
+        $filtro_arquivado = " ";
+        if($arquivado == 1){
+            $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
+        } else if($arquivado == 0){
+            $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0)  ";
+        }
+        $sql = "SELECT 
+                    m.motivo,
+                    COUNT(p.id) AS total
+                FROM processo p
+                JOIN motivo m         ON p.id_motivo = m.id
+                WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
+                ".$filtro_arquivado."
+                GROUP BY 
+                    m.motivo
+                ORDER BY 
+                    m.motivo;";
+        $resultado = $this->db->Execute($sql);
+        $assuntos = [];
+        while ($registro = $resultado->fetchRow()) {
+            $assuntos[] = [
+                'label' => $registro['motivo'],
+                'total' => (int)$registro['total']
+            ];
+        }
+        return $assuntos;
+    }
 }

@@ -177,7 +177,7 @@ $anos = $p->getAnos();
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
                                             <label for="arquivado">Arquivado </label>
-                                            <select class="form-control form-control-sm" id="arquivado" name="arquivado">
+                                            <select class="form-control form-control-sm" id="arquivado_assunto" name="arquivado">
                                                 <option value="3" selected>Todos</option>
                                                 <option value="1">Sim</option>
                                                 <option value="0">Não</option>
@@ -207,6 +207,63 @@ $anos = $p->getAnos();
                                         <?php
                                         $ano = date('Y');
                                         $tipo = 'grafico_assunto'; // 1 para gráfico de barras
+                                        require('dashboard_relatorio_processo.php') 
+                                        
+                                        ?>
+                                    </div>
+                                    <br />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- terceito Linha de graficos Motivos -->
+                    <div class="row">
+                        <!-- Primeiro Card (Gráfico de Barras) -->
+                        <div class="w-100">                            
+                            <div class="card mb-3 border-primary" style="max-width: 99%;">
+                                <div class="p-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <!-- Pergunta -->
+                                        <div class="mb-0" style="font-size: 16px;">
+                                            Quantidade de processos por motivo
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="form_motivo">
+                                    <div class="form-group row col-sm-10">
+                                        <div class="col-md-2">
+                                            <label for="arquivado">Arquivado </label>
+                                            <select class="form-control form-control-sm" id="arquivado_motivo" name="arquivado">
+                                                <option value="3" selected>Todos</option>
+                                                <option value="1">Sim</option>
+                                                <option value="0">Não</option>
+                                            </select> 
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="ano">Ano</label>
+                                            <!-- Ajustei o padding-right do label -->
+                                            <div>
+                                                <select class="form-control form-control-sm" id="ano_motivo" name="[]">
+                                                    <?php foreach ($anos as $ano): ?>
+                                                        <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" id="gerar_motigo" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoMotivo()">Gerar</button> 
+                                        </div>
+                                        
+                                    </div>
+                                </form>
+                                <div class="card-body " style="width: 80%;">
+                                    <div style="width: 80%; height: 800px;">
+                                        <canvas id="grafico_motigo" class="grafico" ></canvas>
+                                        <?php
+                                        $ano = date('Y');
+                                        $tipo = 'grafico_motivo'; // 1 para gráfico de barras
                                         require('dashboard_relatorio_processo.php') 
                                         
                                         ?>
