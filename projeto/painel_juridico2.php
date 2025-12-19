@@ -34,6 +34,10 @@ $anos = $p->getAnos();
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0">
     </script>
     <style>
+        .grafico {
+            width: 800px;
+            height: 400px;
+        }
         #bar {
             width: 100%;
             max-width: 650px;
@@ -171,7 +175,7 @@ $anos = $p->getAnos();
                                 </div>
                                 <div class="card-body " style="width: 95%;">
                                     <div style="width: 100%; height: 500px;">
-                                        <canvas id="grafico_assunto"></canvas>
+                                        <canvas id="grafico_assunto" class="grafico" ></canvas>
                                         <?php
                                         $ano = date('Y');
                                         $tipo = 'assunto'; // 1 para gráfico de barras
