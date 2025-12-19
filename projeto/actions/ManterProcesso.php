@@ -323,9 +323,9 @@ class ManterProcesso extends Model
         }
         $filtro_arquivado = " ";
         if($arquivado == 1){
-            $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0)  ";
-        } else if($arquivado == 0){
             $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
+        } else if($arquivado == 0){
+            $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0)  ";
         }
         $sql = "SELECT 
                     a.assunto,
