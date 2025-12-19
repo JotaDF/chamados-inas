@@ -195,7 +195,7 @@ $anos = $p->getAnos();
                                         <canvas id="grafico_assunto" class="grafico" ></canvas>
                                         <?php
                                         $ano = date('Y');
-                                        $tipo = 'assunto'; // 1 para gráfico de barras
+                                        $tipo = 'grafico_assunto'; // 1 para gráfico de barras
                                         require('dashboard_relatorio_processo.php') 
                                         
                                         ?>
