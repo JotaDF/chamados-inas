@@ -317,5 +317,36 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
+    function getRelatorioTotalAssuntosPorAno($ano = '0'){
+        if ($ano == '0') {
+            $ano = date('Y');
+        }
+        $sql = "SELECT 
+                    a.assunto,
+                    sa.sub_assunto,
+                    COUNT(p.id) AS total
+                FROM processo p
+                JOIN assunto a        ON p.id_assunto = a.id
+                JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
+                JOIN motivo m         ON p.id_motivo = m.id
+                WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
+                AND p.data_cumprimento_liminar IS NOT NULL
+                AND p.data_cumprimento_liminar <> 0
+                GROUP BY 
+                    a.assunto,
+                    sa.sub_assunto
+                ORDER BY 
+                    a.assunto,
+                    sa.sub_assunto;";
+        $resultado = $this->db->Execute($sql);
+        $assuntos = [];
+        while ($registro = $resultado->fetchRow()) {
+            $assuntos[] = [
+                'label' => $registro['assunto'] . ' - ' . $registro['sub_assunto'],
+                'total' => (int)$registro['total']
+            ];
+        }
+        return $assuntos;
+    }
 
 }
