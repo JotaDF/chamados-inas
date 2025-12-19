@@ -203,13 +203,7 @@ $anos = $p->getAnos();
                                 </form>
                                 <div class="card-body " style="width: 80%;">
                                     <div style="width: 80%; height: 800px;">
-                                        <canvas id="grafico_assunto" class="grafico" ></canvas>
-                                        <?php
-                                        $ano = date('Y');
-                                        $tipo = 'grafico_assunto'; // 1 para gráfico de barras
-                                        require('dashboard_relatorio_processo.php') 
-                                        
-                                        ?>
+                                        <canvas id="grafico_assunto" class="grafico" ></canvas>  
                                     </div>
                                     <br />
                                     </p>
@@ -261,12 +255,6 @@ $anos = $p->getAnos();
                                 <div class="card-body " style="width: 80%;">
                                     <div style="width: 80%; height: 800px;">
                                         <canvas id="grafico_motigo" class="grafico" ></canvas>
-                                        <?php
-                                        $ano = date('Y');
-                                        $tipo = 'grafico_motivo'; // 1 para gráfico de barras
-                                        require('dashboard_relatorio_processo.php') 
-                                        
-                                        ?>
                                     </div>
                                     <br />
                                     </p>
@@ -288,6 +276,7 @@ $anos = $p->getAnos();
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <?php require('dashboard_relatorio_processo.php') ?>
 </body>
 
 </html>

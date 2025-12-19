@@ -1,5 +1,5 @@
 <script>
-    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 0) {
+    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3) {
         $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
             const canvas = document.getElementById(campo);
@@ -51,8 +51,8 @@
         });
     }
     $(document).ready(function () {
-        carregarGrafico('<?= $ano ?>', 'grafico_assunto', 3);
-        carregarGrafico('<?= $ano ?>', 'grafico_motivo', 3);
+        carregarGrafico('2025', 'grafico_assunto', 3);
+        carregarGrafico('2025', 'grafico_motivo', 3);
     });
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
