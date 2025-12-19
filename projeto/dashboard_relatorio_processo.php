@@ -1,5 +1,5 @@
 <script>
-    $.getJSON("obter_relatorio_processo.php", { ano: <?= $ano ?>, tipo: <?= $tipo ?> }, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
+    $.getJSON("obter_relatorio_processo.php", { ano: <?= $ano ?>, tipo: '<?= $tipo ?>' }, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
         
         const labels = [];
         const valores = [];
@@ -16,7 +16,7 @@
         let rgb = window.crypto.getRandomValues(new Uint8Array(3)).reduce((acc, val) => acc + val.toString(16), "#"); // gera um hexadecimal aleatório
     
         // instanciação do gráfico de carregando de dados e condicionais
-        const ctx = document.getElementById('grafico_'+<?= $tipo ?>).getContext('2d');
+        const ctx = document.getElementById('grafico_<?= $tipo ?>').getContext('2d');
         const dashboard = new Chart(ctx, {
             type: 'bar',
             data: {

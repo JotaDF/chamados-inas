@@ -159,7 +159,7 @@ $anos = $p->getAnos();
                     <!-- Segunda Linha de graficos -->
                     <div class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="col-md-6 mb-4">
+                        <div class="w-100">
                             <div class="card mb-3 border-primary" style="max-width: 1000px;">
                                 <div class="p-3">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -182,13 +182,6 @@ $anos = $p->getAnos();
                                     <br />
                                     </p>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Segundo Card (Gráfico de Pizza) -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card border-primary" id="pie">
-                                xxx
                             </div>
                         </div>
                     </div>
