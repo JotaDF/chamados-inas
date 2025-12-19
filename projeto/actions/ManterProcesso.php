@@ -317,13 +317,15 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 0){
+    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = null){
         if ($ano == '0') {
             $ano = date('Y');
         }
-        $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
+        $filtro_arquivado = " ";
         if($arquivado == 1){
             $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0  ";
+        } else if($arquivado == 0){
+            $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
         }
         $sql = "SELECT 
                     a.assunto,

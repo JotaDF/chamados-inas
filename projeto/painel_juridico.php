@@ -174,13 +174,13 @@ $anos = $p->getAnos();
                                     </div>
                                 </div>
                                 <form id="form_assunto">
-                                    <div class="form-group row col-sm-6">
-                                        <div class="form-group col-md-2">
+                                    <div class="form-group row col-sm-20">
+                                        <div class="form-group col-md-4">
                                             <label for="arquivado">Arquivado </label><br/>
                                             <input type="radio" id="arquivado_sim" name="arquivado" value="1"> Sim
                                             <input type="radio"id="arquivado_nao" name="arquivado" value="0"> Não  
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-10">
                                             <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div class="col-sm-4 pl-0">
