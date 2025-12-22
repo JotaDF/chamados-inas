@@ -345,9 +345,7 @@ class ManterProcesso extends Model
                 GROUP BY 
                     a.assunto,
                     sa.sub_assunto
-                ORDER BY 
-                    a.assunto,
-                    sa.sub_assunto;";
+                ORDER BY " .  $order;
         $resultado = $this->db->Execute($sql);
         $assuntos = [];
         while ($registro = $resultado->fetchRow()) {
