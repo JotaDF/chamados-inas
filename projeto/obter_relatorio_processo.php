@@ -20,25 +20,9 @@ else if($tipo == 'grafico_assunto'){
     else
     $dados = $manterProcesso->getRelatorioTotalAssuntosPorAno($ano, $arquivado, 'a.assunto, sa.sub_assunto');
 } else if($tipo == 'grafico_ano'){
-    $dados = [];
-    // Retorna todos os dados se 'ano' for 'todos'
-    $resposta = $manterProcesso->relatoriosPorAno();
-    if ($resposta) {
-        $dados['dados'] = $resposta; // Dados encontrados
-    } else {
-        $dados['error'] = 'Sem dados para o ano selecionado';
-    }
+    $dados = $manterProcesso->relatoriosPorAno();
 } else if($tipo == 'grafico_ano_mes'){
-    $dados = [];
-    $resposta = $manterProcesso->relatorioTotaisPorMes($ano);
-    if ($resposta) {
-        $dados['dados_ano'] = array_values($resposta);
-    } else {
-        $dados['dados_ano'] = ['error' => 'Nenhum dado encontrado para o ano selecionado.'];
-    }
-
+    $dados = $manterProcesso->relatorioTotaisPorMes($ano);
 } 
-
-
 echo json_encode($dados);
 

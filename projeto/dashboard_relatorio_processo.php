@@ -42,7 +42,12 @@
 	    const qtdLabels = labels.length;
         const alturaPorLabel = 16; // px (use 28–35 conforme fonte)
         const alturaTotal = qtdLabels * alturaPorLabel;
-	    document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
+        if(campo == 'grafico_ano_mes' || campo == 'grafico_ano'){
+            document.getElementById('box_'+campo).style.height = '400px';
+        } else {
+            document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
+        }
+	    
 
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');

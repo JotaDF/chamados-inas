@@ -272,7 +272,6 @@ class ManterProcesso extends Model
                 ORDER BY mes";
 
         $resultado = $this->db->Execute($sql);
-        $meses = array_fill(1, 12, 0); // Inicializa um array com 12 zeros (para os meses)
         while ($registro = $resultado->fetchRow()) {
             $meses[] = [
                 'label' => $registro['mes'],
