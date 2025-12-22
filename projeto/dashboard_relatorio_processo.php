@@ -32,11 +32,6 @@
         
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
-            
-            // largura proporcional à quantidade de barras
-            const largura = labels.length * 35;
-            ctx.parentNode.style.width = largura + 'px';
-
             const dashboard = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -46,19 +41,9 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                     indexAxis: 'y',
                     scales: {
-                        x: {
-                            offset: true,
-                            ticks: {
-                                autoSkip: false,
-                                maxRotation: 90,
-                                minRotation: 90,
-                                align: 'center'
-                            }
-                        },
-                        y: {
-                            beginAtZero: true
-                        }
+                        y: { beginAtZero: true }
                     }
                 }
 
