@@ -123,7 +123,7 @@ $anos = $p->getAnos();
                                 <div class="card-body">
                                     <form id="form_painel">
                                         <div class="form-group row">
-                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1 samll">Ano</label>
+                                            <label for="ano" class="mt-1 pr-1 small">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div class="col-sm-2 pl-0">
                                                 <select class="form-control form-control-xs" id="ano" name="[]">
@@ -171,8 +171,8 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="card-header ml-1 p-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="row ml-0 card-header py-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
                                             Quantidade de processos por assunto
@@ -230,8 +230,8 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="card-header ml-1 p-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="row ml-0 card-header py-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
                                             Quantidade de processos por motivo
