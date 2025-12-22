@@ -21,7 +21,7 @@
             if(campo == 'grafico_motivo'){
                 titulo = 'Quantidade de processos por Motivo (' + ano + ') - Total: ' + somaTotal + ' ';
             } else if(campo == 'grafico_assunto'){
-                titulo = 'Quantidade de processos por Assunto - Sub_assunto (' + ano + ') - Total: ' + somaTotal + ' ';
+                titulo = 'Quantidade de processos por Assunto - Sub assunto (' + ano + ') - Total: ' + somaTotal + ' ';
             }
             datasets = [{
                 label: titulo,
@@ -41,12 +41,21 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                     indexAxis: 'y',
+                    indexAxis: 'y',
                     scales: {
-                        y: { beginAtZero: true }
+                        y: { beginAtZero: true,
+                            ticks: {
+                                font: {
+                                    size: 10
+                                },
+                                autoSpkip: false,
+                                maxRotation: 0,    
+                                minRotation: 0,
+                                align: 'center'
+                            }
+                        }
                     }
                 }
-
             })
         });
     }
