@@ -202,6 +202,7 @@ $anos = $p->getAnos();
                                             </select> 
                                         </div>
                                         <div class="col-md-2">
+                                            <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_assunto" name="enviar"
                                                     class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button> 
                                         </div>
@@ -260,6 +261,7 @@ $anos = $p->getAnos();
                                             </select> 
                                         </div>
                                         <div class="col-md-2">
+                                            <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_motivo" name="enviar"
                                                     class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoMotivo()">Gerar</button> 
                                         </div>
