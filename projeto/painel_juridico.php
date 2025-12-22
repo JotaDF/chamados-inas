@@ -275,7 +275,7 @@ $anos = $p->getAnos();
                                     </div>
                                 </form>
                                 <div class="card-body " style="width: 100%;">
-                                    <div id="box_grafico_motivo" style="width: 95%; min-height: 800px;">
+                                    <div id="box_grafico_motivo" style="width: 95%; min-height: 600px;">
                                         <canvas id="grafico_motivo" class="grafico" ></canvas>
                                     </div>
                                     <br />

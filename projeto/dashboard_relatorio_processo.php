@@ -27,7 +27,7 @@
             const alturaPorLabel = 30; // px (use 28–35 conforme fonte)
             const alturaTotal = qtdLabels * alturaPorLabel;
 
-            document.getElementById('box_'+campo).style.height = alturaTotal + 'px'
+            document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
 
             datasets = [{
                 label: titulo,
