@@ -136,7 +136,7 @@ $anos = $p->getAnos();
                                 </div>
                                 <div class="container-fluid">
                                     <canvas id="dashboardpie" width="100%">
-                                        <?php //include('dashboard_pie.php'); ?>
+                                        <?php include('dashboard_pie.php'); ?>
                                     </canvas>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@ $anos = $p->getAnos();
 
 
                                     <canvas id="barra" width="100%"></canvas>
-                                    <?php //include('dashboard_bar.php'); ?>
+                                    <?php include('dashboard_bar.php'); ?>
 
                                 </div>
                             </div>
