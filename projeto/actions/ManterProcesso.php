@@ -14,7 +14,7 @@ class ManterProcesso extends Model
     function listar($filtro = "")
     {
         $sql = "SELECT id, numero, sei, autuacao, cpf, beneficiario, guia, senha, valor_causa, observacao, id_assunto, id_sub_assunto, id_motivo, id_classe_judicial, id_orgao_origem, id_situacao_processual, id_liminar, 
-        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, criacao, processo_principal, autor_inas, pessoa_fisica, inas_parte, pediu_danos FROM processo $filtro ORDER BY autuacao";
+        data_cumprimento_liminar, id_instancia, id_usuario, atualizacao, criacao, processo_principal, autor_inas, pessoa_fisica, inas_parte, pediu_danos FROM processo as p $filtro ORDER BY autuacao";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -238,8 +238,11 @@ class ManterProcesso extends Model
     
     function getAnos()
     {
-        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano FROM processo AS p 
-                WHERE p.id_liminar IN (1, 2) GROUP BY ano ORDER BY ano desc";
+        $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano 
+                FROM processo AS p 
+                JOIN assunto a        ON p.id_assunto = a.id
+                JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
+                GROUP BY ano ORDER BY ano desc";
 
         $resultado = $this->db->Execute($sql);
         if ($resultado) {
@@ -262,7 +265,9 @@ class ManterProcesso extends Model
                 MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
                 COUNT(*) AS total
                 FROM processo AS p
-                WHERE p.id_liminar IN (1, 2) " . $filtro . "
+                JOIN assunto a        ON p.id_assunto = a.id
+                JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
+                WHERE 1=1 " . $filtro . "
                 GROUP BY mes
                 ORDER BY mes";
 
@@ -284,7 +289,8 @@ class ManterProcesso extends Model
                    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes, 
                    COUNT(*) AS total_processos 
                    FROM processo AS p 
-                   WHERE p.id_liminar IN (1, 2) 
+                   JOIN assunto a        ON p.id_assunto = a.id
+                   JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
                    AND YEAR(FROM_UNIXTIME(p.autuacao)) IN ($anos) 
                    GROUP BY ano, mes 
                    ORDER BY ano, mes";
@@ -304,7 +310,7 @@ class ManterProcesso extends Model
     function relatoriosPorAno()
     {
         $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano, COUNT(*) AS total 
-                FROM processo AS p WHERE p.id_liminar IN (1, 2) 
+                FROM processo AS p  
                 GROUP BY YEAR(FROM_UNIXTIME(p.autuacao)) 
                 ORDER BY ano";
         $resultado = $this->db->Execute($sql);
