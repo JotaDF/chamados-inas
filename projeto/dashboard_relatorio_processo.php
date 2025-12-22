@@ -70,7 +70,7 @@
     $(document).ready(function () {
         carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
         carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
-        motraGrafico('tab_inicio');
+        motraGrafico('inicio');
     });
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
@@ -95,7 +95,7 @@
         $('link_tab_motivo').removeClass('active');
         // Mostra a tab selecionada
         $('#tab_' + tabId).style.display = 'block';
-        $('#link_' + tabId).addClass('active');
+        $('#link_tab_' + tabId).addClass('active');
     }
 
 </script>

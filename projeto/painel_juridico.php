@@ -111,13 +111,13 @@ $anos = $p->getAnos();
                 <div class="container-fluid">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a id="link_tab_inicio" class="nav-link active" href="#" onclick="motraGrafico('tab_inicio')">Início</a>
+                            <a id="link_tab_inicio" class="nav-link active" href="#" onclick="motraGrafico('inicio')">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('tab_assunto')">Total por Assunto</a>
+                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('assunto')">Total por Assunto</a>
                         </li>
                         <li class="nav-item">
-                            <a id="link_tab_motivo" class="nav-link" href="#" onclick="motraGrafico('tab_motivo')">Total por Motivo</a>
+                            <a id="link_tab_motivo" class="nav-link" href="#" onclick="motraGrafico('motivo')">Total por Motivo</a>
                         </li>
                     </ul>
                     <!-- Linha para organizar os cards lado a lado -->
