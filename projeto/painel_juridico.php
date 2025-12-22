@@ -38,6 +38,20 @@ $anos = $p->getAnos();
             width: 400px;
             height: 700px;
         }
+         /* CSS Personalizado */
+        .form-control-xs {
+            height: 24px;                    /* Altura fixa bem pequena */
+            padding: 0 0.5rem;               /* Remove padding vertical, mantém horizontal */
+            font-size: 0.75rem;              /* Fonte pequena */
+            line-height: 24px;               /* Mesma altura do campo para centralizar o texto */
+            min-height: auto;                /* Remove restrições de altura do Bootstrap */
+        }
+
+        /* Garante que o texto dentro de selects também alinhe */
+        select.form-control-xs {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         #bar {
             width: 100%;
             max-width: 650px;
@@ -100,23 +114,19 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="col-md-6 mb-4">
                             <div class="card border-primary" id="bar">
-                                <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                    <div class="col-sm ml-0" style="max-width:50px;">
-                                        <i class="fi fi-rs-chart-pie-alt"></i>
-                                    </div>
+                                <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
-                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de
-                                            Barras</span>
+                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Processos por ano/mês</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
                                 <div class="card-body">
                                     <form id="form_painel">
                                         <div class="form-group row">
-                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1">Ano</label>
+                                            <label for="ano" class="col-sm-2 col-form-label mb-0 pr-1 samll">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
-                                            <div class="col-sm-8 pl-0">
-                                                <select class="form-control form-control-sm" id="ano" name="[]">
+                                            <div class="col-sm-2 pl-0">
+                                                <select class="form-control form-control-xs" id="ano" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
                                                     <?php endforeach; ?>
@@ -125,7 +135,7 @@ $anos = $p->getAnos();
                                             </div>
                                             <div class="col-sm-2 pl-0">
                                                 <button type="submit" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100">Gerar</button>
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs">Gerar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -141,13 +151,9 @@ $anos = $p->getAnos();
                         <!-- Segundo Card (Gráfico de Pizza) -->
                         <div class="col-md-6 mb-4">
                             <div class="card border-primary" id="pie">
-                                <div class="row ml-0 card-header py-2 bg-gradient-primary" style="width:100%">
-                                    <div class="col-sm ml-0" style="max-width:50px;">
-                                        <i class="fi fi-rs-chart-pie-alt"></i>
-                                    </div>
+                                <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
-                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Gráfico de
-                                            Pizza</span>
+                                        <span style="align:left;" class="h5 m-0 font-weight text-white">Processos por ano</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
@@ -165,7 +171,7 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="p-3">
+                                <div class="card-header ml-1 p-2">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
@@ -176,18 +182,18 @@ $anos = $p->getAnos();
                                 <form id="form_assunto">
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
-                                            <label for="arquivado">Arquivado </label>
-                                            <select class="form-control form-control-sm" id="arquivado_assunto" name="arquivado">
+                                            <label for="arquivado" class="small">Arquivado </label>
+                                            <select class="form-control form-control-xs" id="arquivado_assunto" name="arquivado">
                                                 <option value="3" selected>Todos</option>
                                                 <option value="1">Sim</option>
                                                 <option value="0">Não</option>
                                             </select> 
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="ano">Ano</label>
+                                            <label for="ano" class="small">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div>
-                                                <select class="form-control form-control-sm" id="ano_assunto" name="[]">
+                                                <select class="form-control form-control-xs" id="ano_assunto" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
                                                     <?php endforeach; ?>
@@ -195,8 +201,8 @@ $anos = $p->getAnos();
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="ordem">Ordenar por </label>
-                                            <select class="form-control form-control-sm" id="ordem_assunto" name="ordem">
+                                            <label for="ordem" class="small">Ordenar por </label>
+                                            <select class="form-control form-control-xs" id="ordem_assunto" name="ordem">
                                                 <option value="a.assunto, sa.sub_assunto">Assunto</option>
                                                 <option value="total DESC">Maior total</option>
                                             </select> 
@@ -204,7 +210,7 @@ $anos = $p->getAnos();
                                         <div class="col-md-2">
                                             <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_assunto" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button> 
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoAssunto()">Gerar</button> 
                                         </div>
                                         
                                     </div>
@@ -224,7 +230,7 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="p-3">
+                                <div class="card-header ml-1 p-2">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
@@ -235,18 +241,18 @@ $anos = $p->getAnos();
                                 <form id="form_motivo">
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
-                                            <label for="arquivado">Arquivado </label>
-                                            <select class="form-control form-control-sm" id="arquivado_motivo" name="arquivado">
+                                            <label for="arquivado" class="small">Arquivado </label>
+                                            <select class="form-control form-control-xs" id="arquivado_motivo" name="arquivado">
                                                 <option value="3" selected>Todos</option>
                                                 <option value="1">Sim</option>
                                                 <option value="0">Não</option>
                                             </select> 
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="ano">Ano</label>
+                                            <label for="ano" class="small">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div>
-                                                <select class="form-control form-control-sm" id="ano_motivo" name="[]">
+                                                <select class="form-control form-control-xs" id="ano_motivo" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
                                                     <?php endforeach; ?>
@@ -254,8 +260,8 @@ $anos = $p->getAnos();
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="ordem">Ordenar por </label>
-                                            <select class="form-control form-control-sm" id="ordem_motivo" name="ordem">
+                                            <label for="ordem" class="small">Ordenar por </label>
+                                            <select class="form-control form-control-xs" id="ordem_motivo" name="ordem">
                                                 <option value="m.motivo">motivo</option>
                                                 <option value="total DESC">Maior total</option>
                                             </select> 
@@ -263,7 +269,7 @@ $anos = $p->getAnos();
                                         <div class="col-md-2">
                                             <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_motivo" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoMotivo()">Gerar</button> 
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoMotivo()">Gerar</button> 
                                         </div>
                                         
                                     </div>
