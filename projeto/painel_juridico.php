@@ -111,7 +111,10 @@ $anos = $p->getAnos();
                 <div class="container-fluid">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a id="link_tab_inicio" class="nav-link active" href="#" onclick="motraGrafico('inicio')">Início</a>
+                            <a id="link_tab_ano" class="nav-link active" href="#" onclick="motraGrafico('ano')">Total por ano</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link_tab_ano_mes" class="nav-link active" href="#" onclick="motraGrafico('ano_mes')">Total por ano/mês</a>
                         </li>
                         <li class="nav-item">
                             <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('assunto')">Total por Assunto</a>
@@ -121,9 +124,27 @@ $anos = $p->getAnos();
                         </li>
                     </ul>
                     <!-- Linha para organizar os cards lado a lado -->
-                    <div id="tab_inicio" class="row">
+                    <div id="tab_ano" class="row">             
+                        <!-- Segundo Card (Gráfico de Pizza) -->
+                        <div class="mb-4">
+                            <div class="card border-primary" id="pie">
+                                <div class="row ml-0 card-header py-2" style="width:100%">
+                                    <div class="col mb-0">
+                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
+                                    </div>
+                                    <div class="col text-right" style="max-width:20%"></div>
+                                </div>
+                                <div class="container-fluid">
+                                    <canvas id="dashboardpie" width="550" height="370">
+                                        <?php include('dashboard_pie.php'); ?>
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab_ano_mes" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="col-md-6 mb-4">
+                        <div class="mb-4">
                             <div class="card border-primary" id="bar">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
@@ -155,24 +176,6 @@ $anos = $p->getAnos();
                                     <canvas id="barra" width="500" height="250"></canvas>
                                     <?php include('dashboard_bar.php'); ?>
 
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Segundo Card (Gráfico de Pizza) -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card border-primary" id="pie">
-                                <div class="row ml-0 card-header py-2" style="width:100%">
-                                    <div class="col mb-0">
-                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
-                                    </div>
-                                    <div class="col text-right" style="max-width:20%"></div>
-                                </div>
-                                <div class="container-fluid">
-
-                                    <canvas id="dashboardpie" width="550" height="370">
-                                        <?php include('dashboard_pie.php'); ?>
-                                    </canvas>
                                 </div>
                             </div>
                         </div>

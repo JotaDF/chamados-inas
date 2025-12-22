@@ -86,15 +86,17 @@
     }
     function motraGrafico(tabId) {
         // Esconde todas as tabs
-        $('#tab_inicio').style.display = 'none';
-        $('#tab_assunto').style.display = 'none';
-        $('#tab_motivo').style.display = 'none';
-
-        $('link_tab_inicio').removeClass('active');
-        $('link_tab_assunto').removeClass('active');
-        $('link_tab_motivo').removeClass('active');
+        $('#tab_ano').hide();
+        $('#tab_ano_mes').hide();
+        $('#tab_assunto').hide();
+        $('#tab_motivo').hide();
+        // Remove a classe active de todos os links
+        $('#link_tab_ano').removeClass('active');
+        $('#link_tab_ano_mes').removeClass('active');
+        $('#link_tab_assunto').removeClass('active');
+        $('#link_tab_motivo').removeClass('active');
         // Mostra a tab selecionada
-        $('#tab_' + tabId).style.display = 'block';
+        $('#tab_' + tabId).show()
         $('#link_tab_' + tabId).addClass('active');
     }
 
