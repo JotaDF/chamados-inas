@@ -32,6 +32,7 @@
         
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
+            ctx.style.height = (qtd * 25) + 'px'; // 25px por label
             const dashboard = new Chart(ctx, {
                 type: 'bar',
                 data: {
