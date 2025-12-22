@@ -23,6 +23,12 @@
             } else if(campo == 'grafico_assunto'){
                 titulo = 'Quantidade de processos por Assunto - Sub assunto (' + ano + ') - Total: ' + somaTotal + ' ';
             }
+            const qtdLabels = labels.length;
+            const alturaPorLabel = 30; // px (use 28–35 conforme fonte)
+            const alturaTotal = qtdLabels * alturaPorLabel;
+
+            document.getElementById('box_'+campo).style.height = alturaTotal + 'px'
+
             datasets = [{
                 label: titulo,
                 data: valores,
@@ -30,9 +36,6 @@
                 borderColor: 'rgba(54, 162, 235, 1)',
             }];
         
-            // instanciação do gráfico de carregando de dados e condicionais
-            const ctx = document.getElementById(campo).getContext('2d');
-            ctx.style.height = (qtd * 25) + 'px'; // 25px por label
             const dashboard = new Chart(ctx, {
                 type: 'bar',
                 data: {
