@@ -323,7 +323,7 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3){
+    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3, $order = 'a.assunto, sa.sub_assunto'){
         if ($ano == '0') {
             $ano = date('Y');
         }
@@ -358,7 +358,7 @@ class ManterProcesso extends Model
         }
         return $assuntos;
     }
-function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3){
+function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3, $order = 'm.motivo'){
         if ($ano == '0') {
             $ano = date('Y');
         }
@@ -377,8 +377,7 @@ function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3){
                 ".$filtro_arquivado."
                 GROUP BY 
                     m.motivo
-                ORDER BY 
-                    m.motivo;";
+                ORDER BY ". $order;
         $resultado = $this->db->Execute($sql);
         $assuntos = [];
         while ($registro = $resultado->fetchRow()) {

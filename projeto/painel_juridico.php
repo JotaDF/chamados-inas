@@ -195,6 +195,13 @@ $anos = $p->getAnos();
                                             </div>
                                         </div>
                                         <div class="col-md-2">
+                                            <label for="ordem">Ordenar por </label>
+                                            <select class="form-control form-control-sm" id="ordem_assunto" name="ordem">
+                                                <option value="a.assunto, sa.sub_assunto">Assunto</option>
+                                                <option value="total DESC">Maior total</option>
+                                            </select> 
+                                        </div>
+                                        <div class="col-md-2">
                                             <button type="button" id="gerar_assunto" name="enviar"
                                                     class="btn btn-primary btn-sm w-100" onclick="atualizarGraficoAssunto()">Gerar</button> 
                                         </div>
@@ -244,6 +251,13 @@ $anos = $p->getAnos();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="ordem">Ordenar por </label>
+                                            <select class="form-control form-control-sm" id="ordem_motivo" name="ordem">
+                                                <option value="m.motivo">motivo</option>
+                                                <option value="total DESC">Maior total</option>
+                                            </select> 
                                         </div>
                                         <div class="col-md-2">
                                             <button type="button" id="gerar_motivo" name="enviar"

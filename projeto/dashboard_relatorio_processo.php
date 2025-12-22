@@ -1,6 +1,6 @@
 <script>
-    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3) {
-        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
+    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3, ordem) {
+        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado, ordem: ordem}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
             const canvas = document.getElementById(campo);
             // pega o gráfico existente associado ao canvas
@@ -51,18 +51,20 @@
         });
     }
     $(document).ready(function () {
-        carregarGrafico('2025', 'grafico_assunto', 3);
-        carregarGrafico('2025', 'grafico_motivo', 3);
+        carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
+        carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
     });
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
         var ano = $('#ano_assunto').val();
-        carregarGrafico(ano, 'grafico_assunto', arquivado);
+        var ordem = $('#ordem_assunto').val();
+        carregarGrafico(ano, 'grafico_assunto', arquivado, ordem);
     }
     function atualizarGraficoMotivo() {
         var arquivado = $('#arquivado_motivo').val();
         var ano = $('#ano_motivo').val();
-        carregarGrafico(ano, 'grafico_motivo', arquivado);
+        var ordem = $('#ordem_motivo').val();
+        carregarGrafico(ano, 'grafico_motivo', arquivado, ordem);
     }
 
 </script>
