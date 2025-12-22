@@ -1,5 +1,5 @@
 <script>
-    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3, ordem) {
+    function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3, ordem = '') {
         $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado, ordem: ordem}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
             const canvas = document.getElementById(campo);
@@ -13,6 +13,8 @@
             const labels = [];
             const valores = [];
             var somaTotal = 0;
+            var tipo_grafico = 'bar';
+            var posicao = 'y';
             dados.forEach(item => {
                 labels.push(item.label);   // 👈 só texto
                 valores.push(item.total);  // 👈 só número
@@ -23,6 +25,12 @@
                 titulo = 'Quantidade de processos por Motivo (' + ano + ') - Total: ' + somaTotal + ' ';
             } else if(campo == 'grafico_assunto'){
                 titulo = 'Quantidade de processos por Assunto - Sub assunto (' + ano + ') - Total: ' + somaTotal + ' ';
+            } else if(campo == 'grafico_ano'){
+                titulo = 'Quantidade de processos por Ano';
+                tipo_grafico = 'pie';
+                posicao = 'x';
+            } else if(campo == 'grafico_ano_mes'){
+                titulo = 'Quantidade de processos por Mês no ano de ' + ano + ' - Total: ' + somaTotal + ' ';
             }
             datasets = [{
                 label: titulo,
@@ -40,7 +48,7 @@
             const ctx = document.getElementById(campo).getContext('2d');
             //ctx.style.height = (qtd * 25) + 'px'; // 25px por label
             const dashboard = new Chart(ctx, {
-                type: 'bar',
+                type: tipo_grafico,
                 data: {
                     labels: labels,     // "Assunto - Sub_assunto"
                     datasets: datasets  // [12, 8, ...]
@@ -48,7 +56,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y',
+                    indexAxis: posicao,
                     scales: {
                         y: { beginAtZero: true,
                             ticks: {
@@ -69,6 +77,8 @@
     $(document).ready(function () {
         carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
         carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
+        carregarGrafico('', 'grafico_ano', 3, '');
+        carregarGrafico('2025', 'grafico_ano_mes', 3, '');
         motraGrafico('ano');
     });
     function atualizarGraficoAssunto() {

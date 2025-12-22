@@ -134,10 +134,8 @@ $anos = $p->getAnos();
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
-                                <div class="container-fluid">
-                                    <canvas id="dashboardpie" width="100%">
-                                        <?php include('dashboard_pie.php'); ?>
-                                    </canvas>
+                                <div id="box_grafico_ano" style="width: 95%; height: 300px;"> 
+                                    <canvas id="grafico_ano" width="100%"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -172,10 +170,9 @@ $anos = $p->getAnos();
                                         </div>
                                     </form>
 
-
-                                    <canvas id="barra" width="100%"></canvas>
-                                    <?php include('dashboard_bar.php'); ?>
-
+                                    <div id="box_grafico_ano_mes" style="width: 95%; height: 300px;"> 
+                                        <canvas id="grafico_ano_mes" width="100%"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>

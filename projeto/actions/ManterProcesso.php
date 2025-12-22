@@ -272,11 +272,14 @@ class ManterProcesso extends Model
                 ORDER BY mes";
 
         $resultado = $this->db->Execute($sql);
-        $dados = array_fill(1, 12, 0); // Inicializa um array com 12 zeros (para os meses)
+        $meses = array_fill(1, 12, 0); // Inicializa um array com 12 zeros (para os meses)
         while ($registro = $resultado->fetchRow()) {
-            $dados[(int) $registro['mes']] = $registro['total'];
+            $meses[] = [
+                'label' => $registro['mes'],
+                'total' => (int)$registro['total']
+            ];
         }
-        return $dados;
+        return $meses;
     }
 
 
@@ -314,14 +317,13 @@ class ManterProcesso extends Model
                 GROUP BY YEAR(FROM_UNIXTIME(p.autuacao)) 
                 ORDER BY ano";
         $resultado = $this->db->Execute($sql);
-        $dados = [];
         while ($registro = $resultado->fetchRow()) {
-            $dado = new stdClass;
-            $dado->ano = $registro['ano'];
-            $dado->total = $registro['total'];
-            $dados[] = $dado;
+            $anos[] = [
+                'label' => $registro['ano'],
+                'total' => (int)$registro['total']
+            ];
         }
-        return $dados;
+        return $anos;
     }
     function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3, $order = 'a.assunto, sa.sub_assunto'){
         if ($ano == '0') {
