@@ -70,7 +70,7 @@
     $(document).ready(function () {
         carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
         carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
-        mostrarTab('inicio');
+        motraGrafico('inicio');
     });
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
@@ -84,13 +84,18 @@
         var ordem = $('#ordem_motivo').val();
         carregarGrafico(ano, 'grafico_motivo', arquivado, ordem);
     }
-    function mostrarTab(tabId) {
+    function motraGrafico(tabId) {
         // Esconde todas as tabs
         $('#tab_inicio').addClass('hide');
         $('#tab_assunto').addClass('hide');
         $('#tab_motivo').addClass('hide');
+
+        $('link_tab_inicio').classList.remove('active');
+        $('link_tab_assunto').classList.remove('active');
+        $('link_tab_motivo').classList.remove('active');
         // Mostra a tab selecionada
         $('#' + tabId).removeClass('hide');
+        $('#link_' + tabId).addClass('active');
     }
 
 </script>
