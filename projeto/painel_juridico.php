@@ -178,7 +178,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- Segunda Linha de graficos -->
-                    <div id="tab_assunto" class="row hide">
+                    <div id="tab_assunto" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
@@ -237,7 +237,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- terceito Linha de graficos Motivos -->
-                    <div id="tab_motivo" class="row hide">
+                    <div id="tab_motivo" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
