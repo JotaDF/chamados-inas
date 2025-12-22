@@ -116,7 +116,7 @@ $anos = $p->getAnos();
                             <div class="card border-primary" id="bar">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
-                                        <span style="align:left;" class="h5 m-0 font-weight">Processos por ano/mês</span>
+                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por ano/mês</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
@@ -153,7 +153,7 @@ $anos = $p->getAnos();
                             <div class="card border-primary" id="pie">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
-                                        <span style="align:left;" class="h5 m-0 font-weight">Processos por ano</span>
+                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
