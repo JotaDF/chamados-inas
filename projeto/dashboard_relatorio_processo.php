@@ -70,7 +70,7 @@
     $(document).ready(function () {
         carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
         carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
-        motraGrafico('inicio');
+        motraGrafico('tab_inicio');
     });
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
@@ -90,11 +90,11 @@
         $('#tab_assunto').addClass('hide');
         $('#tab_motivo').addClass('hide');
 
-        $('link_tab_inicio').classList.remove('active');
-        $('link_tab_assunto').classList.remove('active');
-        $('link_tab_motivo').classList.remove('active');
+        $('link_tab_inicio').removeClass('active');
+        $('link_tab_assunto').removeClass('active');
+        $('link_tab_motivo').removeClass('active');
         // Mostra a tab selecionada
-        $('#' + tabId).removeClass('hide');
+        $('#tab_' + tabId).removeClass('hide');
         $('#link_' + tabId).addClass('active');
     }
 
