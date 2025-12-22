@@ -135,8 +135,8 @@ $anos = $p->getAnos();
                                     <div class="col text-right" style="max-width:20%"></div>
                                 </div>
                                 <div class="container-fluid">
-                                    <canvas id="dashboardpie" width="550" height="370">
-                                        <?php include('dashboard_pie.php'); ?>
+                                    <canvas id="dashboardpie" width="100%">
+                                        <?php //include('dashboard_pie.php'); ?>
                                     </canvas>
                                 </div>
                             </div>
@@ -173,8 +173,8 @@ $anos = $p->getAnos();
                                     </form>
 
 
-                                    <canvas id="barra" width="500" height="250"></canvas>
-                                    <?php include('dashboard_bar.php'); ?>
+                                    <canvas id="barra" width="100%"></canvas>
+                                    <?php //include('dashboard_bar.php'); ?>
 
                                 </div>
                             </div>
