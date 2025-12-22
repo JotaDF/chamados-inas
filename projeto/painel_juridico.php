@@ -109,8 +109,19 @@ $anos = $p->getAnos();
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <div class="container-fluid">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a id="link_tab_inicio" class="nav-link active" href="#" onclick="motraGrafico('tab_inicio')">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('tab_assunto')">Total por Assunto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link_tab_motivo" class="nav-link" href="#" onclick="motraGrafico('tab_motivo')">Total por Motivo</a>
+                        </li>
+                    </ul>
                     <!-- Linha para organizar os cards lado a lado -->
-                    <div class="row">
+                    <div id="tab_inicio" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="col-md-6 mb-4">
                             <div class="card border-primary" id="bar">
@@ -167,7 +178,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- Segunda Linha de graficos -->
-                    <div class="row">
+                    <div id="tab_assunto" class="row hide">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
@@ -226,7 +237,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- terceito Linha de graficos Motivos -->
-                    <div class="row">
+                    <div id="tab_motivo" class="row hide">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
@@ -275,7 +286,7 @@ $anos = $p->getAnos();
                                     </div>
                                 </form>
                                 <div class="card-body " style="width: 100%;">
-                                    <div id="box_grafico_motivo" style="width: 95%; min-height: 600px;">
+                                    <div id="box_grafico_motivo" style="width: 95%; min-height: 350px;">
                                         <canvas id="grafico_motivo" class="grafico" ></canvas>
                                     </div>
                                     <br />
