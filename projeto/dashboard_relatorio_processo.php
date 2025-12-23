@@ -67,11 +67,13 @@
                 }];
             }
         // Ajusta a altura do contêiner com base na quantidade de labels
-	    const qtdLabels = labels.length;
-        const alturaPorLabel = 16; // px (use 28–35 conforme fonte)
-        const alturaTotal = qtdLabels * alturaPorLabel;
+	    let qtdLabels = labels.length;
+        let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
+        let alturaTotal = qtdLabels * alturaPorLabel;
         if(campo == 'grafico_ano'){
-            document.getElementById('box_'+campo).style.height = '500px';
+            document.getElementById('box_'+campo).style.height = '700px';
+        } else if(campo == 'grafico_ano_mes'){
+            document.getElementById('box_'+campo).style.height = '700px';
         } else {
             document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
         }
