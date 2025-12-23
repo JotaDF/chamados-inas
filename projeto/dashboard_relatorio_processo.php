@@ -118,8 +118,23 @@
             alert('Gráfico não encontrado');
             return;
         }
+        let cabecalho = 'Item;Valor\n';
+        let nome_arquivo = 'relatorio.csv';
+        if(idGrafico == 'grafico_ano'){
+            cabecalho = 'Ano;Quantidade\n';
+            nome_arquivo = 'relatorio_ano.csv';
+        } else if(idGrafico == 'grafico_ano_mes'){
+            cabecalho = 'Mês;Quantidade\n';
+            nome_arquivo = 'relatorio_ano_mes.csv';
+        } else if(idGrafico == 'grafico_motivo'){
+            cabecalho = 'Motivo;Quantidade\n';
+            nome_arquivo = 'relatorio_motivo.csv';
+        } else if(idGrafico == 'grafico_assunto'){
+            cabecalho = 'Assunto - Sub_assunto;Quantidade\n';
+            nome_arquivo = 'relatorio_assunto.csv';
+        }
 
-        let csv = 'Label;Valor\n';
+        let csv = cabecalho;
 
         chart.data.labels.forEach((label, i) => {
             const valor = chart.data.datasets[0].data[i];
@@ -131,7 +146,7 @@
 
         const a = document.createElement('a');
         a.href = url;
-        a.download = idGrafico + '.csv';
+        a.download = nome_arquivo;
         a.click();
 
         URL.revokeObjectURL(url);
