@@ -10,17 +10,17 @@
                 chartExistente.destroy();
             }
 
-            const labels = [];
-            const valores = [];
-            var somaTotal = 0;
-            var tipo_grafico = 'bar';
-            var posicao = 'y';
+            let  labels = [];
+            let  valores = [];
+            let  somaTotal = 0;
+            let  tipo_grafico = 'bar';
+            let  posicao = 'y';
             dados.forEach(item => {
                 labels.push(item.label);   // 👈 só texto
-                valores.push(item.total);  // 👈 só número
-                somaTotal += item.total;
+                valores.push(parseInt(item.total));  // 👈 só número
+                somaTotal += parseInt(item.total);
             });
-            var titulo = 'Quantidade';
+            let  titulo = 'Quantidade';
             if(campo == 'grafico_motivo'){
                 titulo = 'Quantidade de processos por Motivo (' + ano + ') - Total: ' + somaTotal + ' ';
             } else if(campo == 'grafico_assunto'){
@@ -32,33 +32,40 @@
             } else if(campo == 'grafico_ano_mes'){
                 titulo = 'Quantidade de processos por Mês no ano de ' + ano + ' - Total: ' + somaTotal + ' ';
             }
-            // Extraindo os anos e totais dos dados
-            var anos = dados.map(function (item) {
-                return item.ano; // Extrai os anos
-            });
-
-            var totais = dados.map(function (item) {
-                return parseInt(item.total); // Extrai os totais, convertendo-os para números
-            });
-            // Definindo as cores para os anos
+            /* ================================
+                CORES FIXAS POR ANO (PIE)
+            ================================== */
             const coresPorAno = {
-                '2021': { backgroundColor: 'rgba(60, 120, 216, 0.3)', borderColor: 'rgba(60, 120, 216, 1)' },
-                '2022': { backgroundColor: 'rgba(0, 204, 153, 0.3)', borderColor: 'rgba(0, 204, 153, 1)' },
-                '2023': { backgroundColor: 'rgba(255, 133, 27, 0.3)', borderColor: 'rgba(255, 133, 27, 1)' },
-                '2024': { backgroundColor: 'rgba(156, 89, 210, 0.3)', borderColor: 'rgba(156, 89, 210, 1)' },
-                '2025': { backgroundColor: 'rgba(128, 0, 128, 0.3)', borderColor: 'rgba(128, 0, 128, 1)' },
+                '2021': 'rgba(60, 120, 216, 0.7)',
+                '2022': 'rgba(0, 204, 153, 0.7)',
+                '2023': 'rgba(255, 133, 27, 0.7)',
+                '2024': 'rgba(156, 89, 210, 0.7)',
+                '2025': 'rgba(128, 0, 128, 0.7)'
             };
-            datasets = [{
+             /* ================================
+                DATASET
+            ================================== */
+            let datasets;
+
+            if (tipo_grafico === 'pie') {
+                datasets = [{
                 label: titulo,
                 data: valores,
-                backgroundColor: anos.map(function (ano) {
-                    return coresPorAno[ano] ? coresPorAno[ano].backgroundColor : 'rgba(200, 200, 200, 0.3)';
-                }),
-                borderColor: anos.map(function (ano) {
-                    return coresPorAno[ano] ? coresPorAno[ano].borderColor : 'rgba(200, 200, 200, 1)';
-                }),
+                backgroundColor: labels.map(label =>
+                    coresPorAno[label] || 'rgba(200,200,200,0.6)'
+                ),
+                borderColor: '#fff',
                 borderWidth: 1
-            }];
+                }];
+            } else {
+                datasets = [{
+                label: titulo,
+                data: valores,
+                backgroundColor: 'rgba(60, 120, 216, 0.4)',
+                borderColor: 'rgba(60, 120, 216, 1)',
+                borderWidth: 1
+                }];
+            }
         // Ajusta a altura do contêiner com base na quantidade de labels
 	    const qtdLabels = labels.length;
         const alturaPorLabel = 16; // px (use 28–35 conforme fonte)
