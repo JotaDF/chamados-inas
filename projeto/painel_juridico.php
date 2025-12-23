@@ -100,7 +100,11 @@ $anos = $p->getAnos();
                                     <div class="col mb-0">
                                         <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
                                     </div>
-                                    <div class="col text-right" style="max-width:20%"></div>
+                                    <div class="col text-right" style="max-width:20%">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano')" class="btn btn-outline-success">
+                                                <i class="fa fa-file-excel"></i> Exportar
+                                            </a>
+                                        </div>
                                 </div>
                                 <div id="box_grafico_ano" style="width: 95%; height: 300px;"> 
                                     <canvas id="grafico_ano" width="100%"></canvas>
@@ -116,7 +120,11 @@ $anos = $p->getAnos();
                                     <div class="col mb-0">
                                         <span style="align:left;" class="h6 m-0 font-weight">Processos por ano/mês</span>
                                     </div>
-                                    <div class="col text-right" style="max-width:20%"></div>
+                                    <div class="col text-right" style="max-width:20%">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano_mes')" class="btn btn-outline-success">
+                                                <i class="fa fa-file-excel"></i> Exportar
+                                            </a>
+                                        </div>
                                 </div>
                                 <div class="card-body">
                                     <form id="form_painel">
@@ -155,6 +163,11 @@ $anos = $p->getAnos();
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
                                             Quantidade de processos por assunto
+                                        </div>
+                                        <div class="col text-right" style="max-width:20%">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_assunto')" class="btn btn-outline-success">
+                                                <i class="fa fa-file-excel"></i> Exportar
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +230,7 @@ $anos = $p->getAnos();
                                         </div>
                                         <div class="col text-right" style="max-width:20%">
                                             <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_motivo')" class="btn btn-outline-success">
-                                                <i class="fa fa-file-excel"></i> Exportar dados
+                                                <i class="fa fa-file-excel"></i> Exportar
                                             </a>
                                         </div>
                                     </div>
