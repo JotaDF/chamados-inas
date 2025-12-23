@@ -126,7 +126,7 @@ $anos = $p->getAnos();
                     <!-- Linha para organizar os cards lado a lado -->
                     <div id="tab_ano" class="row">             
                         <!-- Segundo Card (Gráfico de Pizza) -->
-                        <div class="mb-4">
+                        <div class="mb-4 w-100">
                             <div class="card border-primary" id="pie">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
@@ -142,7 +142,7 @@ $anos = $p->getAnos();
                     </div>
                     <div id="tab_ano_mes" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="mb-4">
+                        <div class="mb-4 w-100">
                             <div class="card border-primary" id="bar">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
