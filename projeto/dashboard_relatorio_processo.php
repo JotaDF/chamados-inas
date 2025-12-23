@@ -73,7 +73,7 @@
         if(campo == 'grafico_ano'){
             document.getElementById('box_'+campo).style.height = '700px';
         } else if(campo == 'grafico_ano_mes'){
-            document.getElementById('box_'+campo).style.height = '700px';
+            document.getElementById('box_'+campo).style.height = '600px';
         } else {
             document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
         }

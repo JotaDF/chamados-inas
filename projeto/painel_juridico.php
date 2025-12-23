@@ -52,38 +52,6 @@ $anos = $p->getAnos();
             padding-top: 0;
             padding-bottom: 0;
         }
-        #bar {
-            width: 100%;
-            max-width: 650px;
-            /* Limitar a largura do card-body */
-            height: 400px;
-            /* Limitar a largura do card-body */
-            margin: 0 auto;
-            /* Limitar a largura do card-body */
-        }
-
-        #pie {
-            width: 100%;
-            max-width: 650px;
-            /* Limitar a largura do gráfico de pizza */
-            height: 420px;
-            /* Limitar a largura do gráfico de pizza */
-            margin: 0 auto;
-            /* Limitar a largura do gráfico de pizza */
-        }
-
-
-        #barra {
-            width: 100%;
-            max-width: 500px;
-            /* Largura ajustada para o gráfico de barras */
-            height: 250px;
-            /* Altura ajustada para o gráfico de barras */
-            display: block;
-            /* Certificar que o gráfico de barras é um bloco */
-            margin: 0 auto;
-            /* Centralizar o gráfico de barras horizontalmente */
-        }
 
         #dashboardpie {
             width: 100%;
@@ -127,7 +95,7 @@ $anos = $p->getAnos();
                     <div id="tab_ano" class="row">             
                         <!-- Segundo Card (Gráfico de Pizza) -->
                         <div class="mb-4 w-100">
-                            <div class="card border-primary" id="pie">
+                            <div class="card border-primary">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
                                         <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
@@ -143,7 +111,7 @@ $anos = $p->getAnos();
                     <div id="tab_ano_mes" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="mb-4 w-100">
-                            <div class="card border-primary" id="bar">
+                            <div class="card border-primary">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
                                         <span style="align:left;" class="h6 m-0 font-weight">Processos por ano/mês</span>
