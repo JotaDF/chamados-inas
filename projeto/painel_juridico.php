@@ -215,6 +215,11 @@ $anos = $p->getAnos();
                                         <div class="mb-0" style="font-size: 16px;">
                                             Quantidade de processos por motivo
                                         </div>
+                                        <div class="col text-right" style="max-width:20%">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_motivo')" class="btn btn-outline-success">
+                                                <i class="fa fa-file-excel"></i> Exportar dados
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <form id="form_motivo">

@@ -111,6 +111,32 @@
             })
         });
     }
+
+    function exportarCSV(idGrafico) {
+        const chart = Chart.getChart(idGrafico);
+        if (!chart) {
+            alert('Gráfico não encontrado');
+            return;
+        }
+
+        let csv = 'Label;Valor\n';
+
+        chart.data.labels.forEach((label, i) => {
+            const valor = chart.data.datasets[0].data[i];
+            csv += `"${label}";"${valor}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = idGrafico + '.csv';
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
+
     $(document).ready(function () {
         carregarGrafico('2025', 'grafico_assunto', 3, 'a.assunto, sa.sub_assunto');
         carregarGrafico('2025', 'grafico_motivo', 3, 'm.motivo');
