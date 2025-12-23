@@ -115,6 +115,28 @@ class ManterFilaPericiaEco extends Model
         }
         return $array_dados;
     }
+    function listaFilaPericiaAtendimentoNaoConcluido()
+    {
+        $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, ap.resultado, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, atendimento_pericia as ap, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id = ap.id_fila AND ap.resultado <> 'AUTORIZADA' or ap.resultado is null";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $dados = new FilaPericiaEco;
+            $dados->excluir = true;
+            $dados->id = $registro["id"];
+            $dados->id_guia = $registro["id_guia"];
+            $dados->autorizacao = $registro["autorizacao"];
+            $dados->data_solicitacao = $registro["data_solicitacao"];
+            $dados->justificativa = $registro["justificativa"];
+            $dados->situacao = $registro["situacao"];
+            $dados->descricao = $registro["descricao"];
+            $dados->cpf = $registro["cpf"];
+            $dados->nome = $registro["nome"];
+            $dados->telefone = $registro["telefone"];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function getFilaPorId($id_fila)
     {
         $sql = "SELECT fp.id, fp.id_guia, fp.autorizacao, fp.data_solicitacao, fp.justificativa, fp.situacao, fp.descricao, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco as fp, beneficiario as b WHERE b.cpf = fp.cpf AND fp.id ='" . $id_fila . "'";
