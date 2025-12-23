@@ -134,7 +134,8 @@
             nome_arquivo = 'relatorio_assunto.csv';
         }
 
-        let csv = cabecalho;
+        let csv = '\uFEFF'; // BOM UTF-8
+        csv += cabecalho;
 
         chart.data.labels.forEach((label, i) => {
             const valor = chart.data.datasets[0].data[i];
