@@ -1,7 +1,7 @@
 <?php
 require_once('actions/ManterFilaPericiaEco.php');
 $manterFilaPericiaEco = new ManterFilaPericiaEco();
-$fila_pericia_eco = $manterFilaPericiaEco->listaFilaPericiaSemAtendimento();
+$fila_pericia_eco = $manterFilaPericiaEco->listaFilaPericiaAtendimentoNaoConcluido();
 $hoje = date('Y-m-d');
 foreach ($fila_pericia_eco as $obj) {
 
