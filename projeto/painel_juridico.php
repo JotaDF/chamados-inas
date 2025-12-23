@@ -124,7 +124,7 @@ $anos = $p->getAnos();
                                             <label for="ano" class="mt-1 pr-1 small">Ano</label>
                                             <!-- Ajustei o padding-right do label -->
                                             <div class="col-sm-2 pl-0">
-                                                <select class="form-control form-control-xs" id="ano" name="[]">
+                                                <select class="form-control form-control-xs" id="ano_mes" name="[]">
                                                     <?php foreach ($anos as $ano): ?>
                                                         <option value="<?= $ano ?>"><?= $ano ?></option>
                                                     <?php endforeach; ?>
@@ -132,8 +132,8 @@ $anos = $p->getAnos();
                                                 </select>
                                             </div>
                                             <div class="col-sm-2 pl-0">
-                                                <button type="submit" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100 form-control-xs">Gerar</button>
+                                                <button type="button" id="gerar_ano_mes" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoAnoMes()">Gerar</button> 
                                             </div>
                                         </div>
                                     </form>
@@ -149,8 +149,8 @@ $anos = $p->getAnos();
                     <div id="tab_assunto" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
-                            <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="row ml-0 card-header py-2">
+                            <div class="card mb-3 border-primary" style="max-width: 90%;">
+                                <div class="ml-0 card-header py-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">
@@ -209,7 +209,7 @@ $anos = $p->getAnos();
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="row ml-0 card-header py-2">
+                                <div class="ml-0 card-header py-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <!-- Pergunta -->
                                         <div class="mb-0" style="font-size: 16px;">

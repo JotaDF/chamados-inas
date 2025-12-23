@@ -116,6 +116,10 @@
         carregarGrafico('2025', 'grafico_ano_mes', 3, '');
         motraGrafico('ano');
     });
+    function atualizarGraficoAnoMes() {
+        var ano = $('#ano_mes').val();
+        carregarGrafico(ano, 'grafico_ano_mes', 3, '');
+    }
     function atualizarGraficoAssunto() {
         var arquivado = $('#arquivado_assunto').val();
         var ano = $('#ano_assunto').val();
