@@ -273,18 +273,18 @@ class ManterProcesso extends Model
 
         $resultado = $this->db->Execute($sql);
         $nome_mes = [
-            1 => 'Janeiro',
-            2 => 'Fevereiro',
-            3 => 'Março',
-            4 => 'Abril',
-            5 => 'Maio',
-            6 => 'Junho',
-            7 => 'Julho',
-            8 => 'Agosto',
-            9 => 'Setembro',
-            10 => 'Outubro',
-            11 => 'Novembro',
-            12 => 'Dezembro'
+            1 => 'JANEIRO',
+            2 => 'FEREREIRO',
+            3 => 'MARÇO',
+            4 => 'ABRIL',
+            5 => 'MAIO',
+            6 => 'JUNHO',
+            7 => 'JULHO',
+            8 => 'AGOSTO',
+            9 => 'SETEMBRO',
+            10 => 'OUTUBRO',
+            11 => 'NOVEMBRO',
+            12 => 'DEZEMBRO'
         ];
         while ($registro = $resultado->fetchRow()) {
 

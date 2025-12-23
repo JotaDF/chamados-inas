@@ -92,7 +92,7 @@ $anos = $p->getAnos();
                         </li>
                     </ul>
                     <!-- Linha para organizar os cards lado a lado -->
-                    <div id="tab_ano" class="row">             
+                    <div id="tab_ano" class="d-flex justify-content-center">             
                         <!-- Segundo Card (Gráfico de Pizza) -->
                         <div class="ml-4 mr-4" style="width: 90%;">
                             <div class="card border-primary">
@@ -108,7 +108,7 @@ $anos = $p->getAnos();
                             </div>
                         </div>
                     </div>
-                    <div id="tab_ano_mes" class="row">
+                    <div id="tab_ano_mes" class="d-flex justify-content-center">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="ml-4 mr-4" style="width: 90%;">
                             <div class="card border-primary">
@@ -146,7 +146,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- Segunda Linha de graficos -->
-                    <div id="tab_assunto" class="row">
+                    <div id="tab_assunto" class="d-flex justify-content-center">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 90%;">
@@ -205,7 +205,7 @@ $anos = $p->getAnos();
                         </div>
                     </div>
                     <!-- terceito Linha de graficos Motivos -->
-                    <div id="tab_motivo" class="row">
+                    <div id="tab_motivo" class="d-flex justify-content-center">
                         <!-- Primeiro Card (Gráfico de Barras) -->
                         <div class="w-100">                            
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
