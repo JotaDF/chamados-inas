@@ -275,6 +275,9 @@ and open the template in the editor.
                                 ?>
                             </div>
                         </div>
+
+
+
                         <!-- Call to Action-->
                         <?php
                         if ($usuario->id === $usuario_logado->id) {
@@ -310,7 +313,20 @@ and open the template in the editor.
                                 </div>
 
                             </div>
-                            <div class="row">
+                            <div class="card shadow-sm mb-3" style="max-width: 300px;">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-3">📅 Folha de Dezembro / 2025</h5>
+
+                                    <a class="btn btn-danger btn-sm d-inline-flex align-items-center gap-1" target="_blank"
+                                        href="./folha_ponto.php?id=<?= $usuario_logado->id ?>&ano=2025&numero_mes=12&nome_mes=Dezembro"
+                                        title="Abrir folha de ponto de Dezembro">
+                                        <i class="fa fa-clock text-white"></i>
+                                        <span>Abrir</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
                                 <?php
 
                                 include_once('actions/ManterTarefa.php');
