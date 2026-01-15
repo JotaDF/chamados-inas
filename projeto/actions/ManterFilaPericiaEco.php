@@ -117,7 +117,7 @@ class ManterFilaPericiaEco extends Model
     }
     function listaFilaPericiaAtendimentoNaoConcluido()
     {
-        $sql = "SELECT DISTINCTfp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, ap.resultado, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco fp
+        $sql = "SELECT DISTINCT fp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, ap.resultado, fp.cpf, b.nome, b.telefone FROM fila_pericia_eco fp
                 LEFT JOIN atendimento_pericia ap ON ap.id_fila = fp.id INNER JOIN beneficiario b ON b.cpf = fp.cpf WHERE (ap.resultado <> 'AUTORIZADA' OR ap.resultado IS NULL)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
