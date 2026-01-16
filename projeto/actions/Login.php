@@ -14,23 +14,23 @@ class Login extends Model {
         //echo 'SQL:'.$sql;
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
-            $server = '10.194.250.111';
-            $domain = '@governo.gdfnet.df';
-            $port = 389;
+        //     $server = '10.194.250.111';
+        //     $domain = '@governo.gdfnet.df';
+        //     $port = 389;
 
-            $connection = ldap_connect($server, $port);
-            if (!$connection) {
-                return false;
-            }
+        //     $connection = ldap_connect($server, $port);
+        //     if (!$connection) {
+        //         return false;
+        //     }
 
-            // Help talking to AD
-            ldap_set_option($connection , LDAP_OPT_PROTOCOL_VERSION, 3);
-            ldap_set_option($connection , LDAP_OPT_REFERRALS, 0);
+        //     // Help talking to AD
+        //     ldap_set_option($connection , LDAP_OPT_PROTOCOL_VERSION, 3);
+        //     ldap_set_option($connection , LDAP_OPT_REFERRALS, 0);
 
-            $bind = @ldap_bind($connection, $login.$domain, $senha);
-            if (!$bind) {
-                return false;
-            }
+        //     $bind = @ldap_bind($connection, $login.$domain, $senha);
+        //     if (!$bind) {
+        //         return false;
+        //     }
             $dados = new Usuario();
             $dados->id          = $registro["id"];
             $dados->nome        = $registro["nome"];
@@ -44,7 +44,7 @@ class Login extends Model {
             $dados->perfil      = $registro["id_perfil"];
             $dados->agenda      = $registro["agenda"];
 
-            ldap_close($connection );
+            // ldap_close($connection );
             return $dados;
         }
         return false;

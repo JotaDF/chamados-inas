@@ -240,11 +240,6 @@ include('./verifica_login.php');
             });
 
         }
-
-        function mostraNomeBeneficiario() {
-
-        }
-
         function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
             let descricoes = dados.descricao.split(";");

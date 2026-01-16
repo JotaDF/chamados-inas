@@ -4,6 +4,7 @@
         const escalas = <?= json_encode($escala) ?>;
         const parametro_resposta = <?= json_encode($parametros_resposta) ?>;
         const total_respostas_parametro = <?= json_encode($total_respostas_parametro) ?>;
+        
         // pegando valores e chaves
         const numeros_respostas = Object.values(total_respostas_parametro);
         const nome_parametros = Object.keys(total_respostas_parametro);
