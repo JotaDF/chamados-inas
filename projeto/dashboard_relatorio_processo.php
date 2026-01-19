@@ -1,6 +1,6 @@
 <script>
     function carregarGrafico(ano, campo = 'grafico_assunto', arquivado = 3, ordem = '') {
-        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado, ordem: ordem}, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
+        $.getJSON("obter_relatorio_processo.php", { ano: ano, tipo: campo, arquivado: arquivado, ordem: ordem }, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
             // Se o gráfico já existe, destrói usando o nome dinâmico
             const canvas = document.getElementById(campo);
 
@@ -10,26 +10,26 @@
                 chartExistente.destroy();
             }
 
-            let  labels = [];
-            let  valores = [];
-            let  somaTotal = 0;
-            let  tipo_grafico = 'bar';
-            let  posicao = 'y';
+            let labels = [];
+            let valores = [];
+            let somaTotal = 0;
+            let tipo_grafico = 'bar';
+            let posicao = 'y';
             dados.forEach(item => {
                 labels.push(item.label);   // 👈 só texto
                 valores.push(parseInt(item.total));  // 👈 só número
                 somaTotal += parseInt(item.total);
             });
-            let  titulo = 'Quantidade';
-            if(campo == 'grafico_motivo'){
+            let titulo = 'Quantidade';
+            if (campo == 'grafico_motivo') {
                 titulo = 'Quantidade de processos por Motivo (' + ano + ') - Total: ' + somaTotal + ' ';
-            } else if(campo == 'grafico_assunto'){
+            } else if (campo == 'grafico_assunto') {
                 titulo = 'Quantidade de processos por Assunto - Sub assunto (' + ano + ') - Total: ' + somaTotal + ' ';
-            } else if(campo == 'grafico_ano'){
+            } else if (campo == 'grafico_ano') {
                 titulo = 'Quantidade de processos por Ano';
                 tipo_grafico = 'pie';
                 posicao = 'x';
-            } else if(campo == 'grafico_ano_mes'){
+            } else if (campo == 'grafico_ano_mes') {
                 titulo = 'Quantidade de processos por Mês no ano de ' + ano + ' - Total: ' + somaTotal + ' ';
             }
             /* ================================
@@ -44,42 +44,42 @@
                 '2024': 'rgba(169, 144, 190, 0.7)',
                 '2025': 'rgba(184, 81, 184, 0.7)'
             };
-             /* ================================
-                DATASET
-            ================================== */
+            /* ================================
+               DATASET
+           ================================== */
             let datasets;
 
             if (tipo_grafico === 'pie') {
                 datasets = [{
-                label: titulo,
-                data: valores,
-                backgroundColor: labels.map(label =>
-                    coresPorAno[label] || 'rgba(200,200,200,0.6)'
-                ),
-                borderColor: '#fff',
-                borderWidth: 1
+                    label: titulo,
+                    data: valores,
+                    backgroundColor: labels.map(label =>
+                        coresPorAno[label] || 'rgba(200,200,200,0.6)'
+                    ),
+                    borderColor: '#fff',
+                    borderWidth: 1
                 }];
             } else {
                 datasets = [{
-                label: titulo,
-                data: valores,
-                backgroundColor: 'rgba(60, 120, 216, 0.4)',
-                borderColor: 'rgba(60, 120, 216, 1)',
-                borderWidth: 1
+                    label: titulo,
+                    data: valores,
+                    backgroundColor: 'rgba(60, 120, 216, 0.4)',
+                    borderColor: 'rgba(60, 120, 216, 1)',
+                    borderWidth: 1
                 }];
             }
-        // Ajusta a altura do contêiner com base na quantidade de labels
-	    let qtdLabels = labels.length;
-        let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
-        let alturaTotal = qtdLabels * alturaPorLabel;
-        if(campo == 'grafico_ano'){
-            document.getElementById('box_'+campo).style.height = '500px';
-        } else if(campo == 'grafico_ano_mes'){
-            document.getElementById('box_'+campo).style.height = '500px';
-        } else {
-            document.getElementById('box_'+campo).style.height = alturaTotal + 'px';
-        }
-	    
+            // Ajusta a altura do contêiner com base na quantidade de labels
+            let qtdLabels = labels.length;
+            let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
+            let alturaTotal = qtdLabels * alturaPorLabel;
+            if (campo == 'grafico_ano') {
+                document.getElementById('box_' + campo).style.height = '500px';
+            } else if (campo == 'grafico_ano_mes') {
+                document.getElementById('box_' + campo).style.height = '500px';
+            } else {
+                document.getElementById('box_' + campo).style.height = alturaTotal + 'px';
+            }
+
 
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
@@ -95,7 +95,8 @@
                     maintainAspectRatio: false,
                     indexAxis: posicao,
                     scales: {
-                        y: { beginAtZero: true,
+                        y: {
+                            beginAtZero: true,
                             ticks: {
                                 font: {
                                     size: 10
@@ -118,22 +119,22 @@
             alert('Gráfico não encontrado');
             return;
         }
-        let cabecalho = 'Item;Valor\n';
-        let nome_arquivo = 'relatorio.csv';
-        if(idGrafico == 'grafico_ano'){
-            cabecalho = 'Ano;Quantidade\n';
-            nome_arquivo = 'relatorio_ano.csv';
-        } else if(idGrafico == 'grafico_ano_mes'){
-            cabecalho = 'Mês;Quantidade\n';
-            nome_arquivo = 'relatorio_ano_mes.csv';
-        } else if(idGrafico == 'grafico_motivo'){
-            cabecalho = 'Motivo;Quantidade\n';
-            nome_arquivo = 'relatorio_motivo.csv';
-        } else if(idGrafico == 'grafico_assunto'){
-            cabecalho = 'Assunto - Sub_assunto;Quantidade\n';
-            nome_arquivo = 'relatorio_assunto.csv';
-        }
+        const exportStrategies = {
+            grafico_ano: () => ({
+                cabecalho: 'Ano;Quantidade\n',
+                arquivo: 'relatorio_ano.csv'
+            }),
+            grafico_ano_mes: () => ({
+                cabecalho: 'Mês;Quantidade\n',
+                arquivo: 'relatorio_ano_mes.csv'
+            })
+        };
 
+        const strategy = exportStrategies[idGrafico];
+
+        const { cabecalho, arquivo } = strategy
+            ? strategy()
+            : { cabecalho: 'Item;Valor\n', arquivo: 'relatorio.csv' };
         let csv = '\uFEFF'; // BOM UTF-8
         csv += cabecalho;
 
