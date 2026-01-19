@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
 require_once('Model.php');
 require_once('dto/SlaRegulacao.php');
 class ManterSlaRegulacao extends Model
@@ -440,15 +441,14 @@ class ManterSlaRegulacao extends Model
                     $fila = $data[3];
                     $encaminhamento_manual = $data[4];
                     $carater = $data[5];
-                    $data_solicitacao_t = $data[6];
-                    $data_solicitacao_d = $data[6];
+                    $data_solicitacao = $data[6];
+                    // Normaliza espaços (remove duplicados)
+                    $dataString = preg_replace('/\s+/', ' ', trim($data_solicitacao));
                     // Converter a data solicitacão para timestamp
-                    $date_t = DateTime::createFromFormat('d/m/Y H:i', $data_solicitacao_t); // Formato completo com hora e minuto
-                    $data_solicitacao_convertida = $date_t ? $date_t->getTimestamp() : null; // Verifica se a data foi convertida corretamente
-
+                    $date = DateTime::createFromFormat('d/m/Y H:i:s', $dataString); // Formato completo com hora e minuto
+                    $data_solicitacao_convertida = $date ? $date->getTimestamp() : null; // Verifica se a data foi convertida corretamente
                     // Converter a data solicitacão para Datetime
-                    $date_d = DateTime::createFromFormat('d/m/Y H:i', $data_solicitacao_d);
-                    $data_solicitacao_d = $date_d->format('Y-m-d H:i:s');
+                    $data_solicitacao_d = $date->format('Y-m-d H:i:s');
                     $atraso = 0;
                     // Converter o valor "SIM" para 1 e "NAO" para 0
                     $encaminhamento_manual_convertido = ($encaminhamento_manual == "SIM") ? 1 : 0;
