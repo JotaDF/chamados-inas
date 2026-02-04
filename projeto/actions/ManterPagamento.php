@@ -95,6 +95,25 @@ class ManterPagamento extends Model {
         }
         return $array_dados;
     }
+    function getAnosCompetencia() {
+        $sql = "SELECT DISTINCT RIGHT(TRIM(competencia), 4) AS ano FROM pagamento WHERE competencia REGEXP '[0-9]{4}$' ORDER BY ano DESC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[]  = $registro['ano'];
+        }
+        return $array_dados;
+    }
+
+    function getCompetenciasPorAno($ano = '') {
+        $sql = "SELECT DISTINCT REPLACE(competencia, ' ', '') AS competencia FROM pagamento WHERE competencia LIKE '%$ano'  ORDER BY competencia ASC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[] = $registro['competencia'];
+        }
+        return $array_dados;
+    }
     function salvar(Pagamento $dados) {
         $sql = "insert into pagamento (informativo,competencia,id_fiscal_prestador) values ('" . $dados->informativo . "','" . $dados->competencia . "','" . $dados->fiscal_prestador . "')";
         if ($dados->id > 0) {

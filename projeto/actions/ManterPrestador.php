@@ -189,6 +189,52 @@ class ManterPrestador extends Model {
         }
         return $array_dados;
     }
+
+    function getPrestadoresMaioresValoresPorCompetencia($competencia = "", $limit = 5) {
+        $sql = "SELECT DISTINCT p.razao_social, np.valor FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np 
+        WHERE p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia = '". $competencia ."'
+        ORDER BY CAST( REPLACE( REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2)) DESC LIMIT $limit";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()){
+            $dados = new stdClass();
+            $dados->razao_social  = $registro["razao_social"];
+            $dados->valor         = $registro["valor"];
+            $dados->competencia   = $registro["competencia"];
+            $array_dados[]        = $dados;
+        }
+        return $array_dados;
+    }
+    function getMaioresValoresPorCompetencia($ano = "2024") {
+        $sql = "SELECT  pg.competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS total_numerico,
+        CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 2), '.', '#'), ',', '.'), '#', ',')) AS total_formatado
+        FROM pagamento pg, nota_pagamento np WHERE pg.competencia REGEXP '[0-9]{4}$'  AND pg.id = np.id_pagamento AND pg.competencia LIKE '%" . $ano . "' 
+        GROUP BY pg.competencia ORDER BY total_numerico DESC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new stdClass();
+            $dados->valor = $registro['total_formatado'];
+            $dados->competencia = $registro['competencia'];
+            $array_dados[]  = $dados;
+        }
+        return $array_dados;
+    }
+    function getMaioresPrestadoresPorCompetencia($ano = "2024") {
+        $sql = "SELECT razao_social, valor_original, competencia FROM (SELECT p.razao_social, np.valor AS valor_original, pg.competencia, ROW_NUMBER() OVER(PARTITION BY pg.competencia ORDER BY CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2)) DESC) AS ranking 
+        FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np WHERE p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia LIKE '%" . $ano . "') AS ranking_mensal 
+        WHERE ranking = 1 ORDER BY RIGHT(competencia, 4)ASC, LEFT(competencia, 2) ASC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new stdClass();
+            $dados->razao_social = $registro['razao_social'];
+            $dados->valor = $registro['valor_original'];
+            $dados->competencia = $registro['competencia'];
+            $array_dados[] = $dados;
+        }
+        return $array_dados;
+    }
     function getContratosPrestadores($id = 0) {
         //$sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
         $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id ORDER BY p.cnpj";
