@@ -1,17 +1,17 @@
 <script>
     function carregarGrafico(campo = 'grafico_prestador', competencia, quantidade_exibicao = 5, ano_competencia = "2026") {
         $.getJSON("obter_relatorio_execucao.php", { competencia: competencia, quantidade_exibicao: quantidade_exibicao, ano_competencia: ano_competencia }, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
-           
-        const canvas = document.getElementById(campo);
-        // pega o gráfico existente associado ao canvas
-        
-        // Se o gráfico já existe, destrói usando o nome dinâmico
+
+            const canvas = document.getElementById(campo);
+            // pega o gráfico existente associado ao canvas
+
+            // Se o gráfico já existe, destrói usando o nome dinâmico
             const chartExistente = Chart.getChart(canvas);
             if (chartExistente) {
                 chartExistente.destroy();
             }
 
-            
+
             const formatador = new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
@@ -20,19 +20,27 @@
             let labels = [];
             let valores = [];
             let valoresNormalizados = [];
-            let somaTotal = 0;
             let tipo_grafico = 'bar';
             let posicao = 'y';
 
-            dados.forEach(item => {
-                labels.push(item.razao_social);
-                valores.push(item.valor);
-                valorNumerico = parseFloat(item.valor.replace(/[^0-9,]/g, '').replace(',', '.'));
-                valoresNormalizados.push(valorNumerico);
-                somaTotal += valorNumerico;
-            });
 
-            // 3. Formata apenas DEPOIS que o loop terminar
+           let somaTotal = parseFloat(dados['total'] || 0);
+
+            if (dados['dados'] && Array.isArray(dados['dados'])) {
+                dados['dados'].forEach(item => {
+                    // 2. Decide o que exibir no rótulo: 
+                    // Se tiver razao_social (Ranking), usa ela. Se não, usa a competencia (Evolução Mensal).
+                    let labelExibicao = item.razao_social ? item.razao_social : item.competencia;
+                    labels.push(labelExibicao);
+
+                    // 3. Guarda o valor original formatado (opcional, para tooltips)
+                    valores.push(item.valor);
+
+                    // 4. Converte o valor para número puro (essencial para o Chart.js)
+                    let valorNumerico = parseFloat(item.valor.replace(/[^0-9,]/g, '').replace(',', '.'));
+                    valoresNormalizados.push(valorNumerico);
+                });
+            }
             const somaTotalFormatada = formatador.format(somaTotal);
             let qtdLabels = labels.length;
             let qtdExibida = $('#quantidade_exibida').text(qtdLabels);
@@ -49,8 +57,8 @@
             }];
 
             if (competencia == 'todas') {
-                labels = dados.map(d => d.competencia),
-                //posicao = 'x';
+                labels = dados['dados'].map(d => d.competencia),
+                    //posicao = 'x';
                     datasets = [{
                         label: titulo,
                         data: valoresNormalizados,
@@ -63,7 +71,7 @@
             let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
             let alturaTotal = qtdLabels * alturaPorLabel;
             document.getElementById('box_' + campo).style.height = '500px';
-            
+
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
             const dashboard = new Chart(ctx, {
@@ -109,9 +117,9 @@
         }
         const exportStrategies = {
             todas: () => ({
-                cabecalho: 'Competencia;Valor\n', 
+                cabecalho: 'Competencia;Valor\n',
                 arquivo: 'relatorio_competencia_valores.csv'
-                
+
             }),
         };
 
@@ -119,7 +127,7 @@
 
         const { cabecalho, arquivo } = strategy
             ? strategy()
-            : {cabecalho: 'Prestador;Valor\n', arquivo: 'relatorio_prestador_valores.csv' };
+            : { cabecalho: 'Prestador;Valor\n', arquivo: 'relatorio_prestador_valores.csv' };
         let csv = '\uFEFF'; // BOM UTF-8
         csv += cabecalho;
 

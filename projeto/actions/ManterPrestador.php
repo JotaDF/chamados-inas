@@ -191,8 +191,7 @@ class ManterPrestador extends Model {
     }
 
     function getPrestadoresMaioresValoresPorCompetencia($competencia = "", $limit = 5) {
-        $sql = "SELECT DISTINCT p.razao_social, np.valor FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np 
-        WHERE p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia = '". $competencia ."'
+        $sql = "SELECT p.razao_social, np.valor FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np, tipo_prestador as tp WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia = '". $competencia ."'
         ORDER BY CAST( REPLACE( REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2)) DESC LIMIT $limit";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -205,16 +204,26 @@ class ManterPrestador extends Model {
         }
         return $array_dados;
     }
+
+    function getValorTotalPorCompetencia($competencia) {
+    $sql = "SELECT SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) as valor_total_competencia FROM nota_pagamento as np, pagamento as p WHERE np.id_pagamento = p.id AND p.competencia = '". $competencia ."'";
+    $resultado = $this->db->Execute($sql);
+    if($resultado) {
+        $registro = $resultado->fetchRow();
+        $valor_total_competencia = $registro['valor_total_competencia'];
+    }
+    return $valor_total_competencia;
+    }
+
     function getMaioresValoresPorCompetencia($ano = "2024") {
-        $sql = "SELECT  pg.competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS total_numerico,
-        CONCAT('R$ ', REPLACE(REPLACE(REPLACE(FORMAT(SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 2), '.', '#'), ',', '.'), '#', ',')) AS total_formatado
-        FROM pagamento pg, nota_pagamento np WHERE pg.competencia REGEXP '[0-9]{4}$'  AND pg.id = np.id_pagamento AND pg.competencia LIKE '%" . $ano . "' 
-        GROUP BY pg.competencia ORDER BY total_numerico DESC";
+        $sql = "SELECT TRIM(pg.competencia) AS competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS valor_real, ROUND(SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 0) AS valor_para_dashboard 
+        FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np, tipo_prestador as tp WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia AND TRIM(pg.competencia) LIKE '%". $ano ."'
+        GROUP BY pg.competencia ORDER BY valor_real DESC";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados = new stdClass();
-            $dados->valor = $registro['total_formatado'];
+            $dados->valor = $registro['valor_para_dashboard'];
             $dados->competencia = $registro['competencia'];
             $array_dados[]  = $dados;
         }

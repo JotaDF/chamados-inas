@@ -105,8 +105,19 @@ class ManterPagamento extends Model {
         return $array_dados;
     }
 
-    function getCompetenciasPorAno($ano = '') {
+    function getCompetenciasPorAno($ano = '2025') {
         $sql = "SELECT DISTINCT REPLACE(competencia, ' ', '') AS competencia FROM pagamento WHERE competencia LIKE '%$ano'  ORDER BY competencia ASC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[] = $registro['competencia'];
+        }
+        return $array_dados;
+    }
+
+        function getCompetenciasNaoAdministrativasPorAno($ano = '2025') {
+        $sql = "SELECT DISTINCT REPLACE(pg.competencia, ' ', '') AS competencia FROM tipo_prestador as tp, prestador as p, fiscal_prestador as fp, pagamento as pg 
+        WHERE tp.id = p.id_tipo_prestador AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.competencia LIKE '%$ano' AND tp.id <> '12'  ORDER BY competencia";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {

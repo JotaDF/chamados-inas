@@ -5,5 +5,5 @@ header('Content-Type: application/json;');
 $manterPagamento = new ManterPagamento();
 $ano = $_POST['ano'];
 
-echo json_encode($manterPagamento->getCompetenciasPorAno($ano));
+echo json_encode($manterPagamento->getCompetenciasNaoAdministrativasPorAno($ano));
 
