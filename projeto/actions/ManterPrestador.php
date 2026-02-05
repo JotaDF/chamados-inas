@@ -197,7 +197,7 @@ class ManterPrestador extends Model {
         $array_dados = array();
         while($registro = $resultado->fetchRow()){
             $dados = new stdClass();
-            $dados->razao_social  = $registro["razao_social"];
+            $dados->razao_social  = strtoupper($registro["razao_social"]);
             $dados->valor         = $registro["valor"];
             $dados->competencia   = $registro["competencia"];
             $array_dados[]        = $dados;
