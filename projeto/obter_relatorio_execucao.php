@@ -17,7 +17,7 @@ if ($competencia == "todas") {
         $lista_final[] = [
             'valor' => $p->valor,
             'competencia' => $p->competencia,
-            'razao_social' => strtoupper($p->razao_social) // Importante para o gráfico
+            'razao_social' => $p->razao_social // Importante para o gráfico
         ];
         // Se o seu objeto já traz o total do mês, podemos usar para o total anual
         $soma_anual += (float)$p->valor; 
@@ -36,7 +36,7 @@ if ($competencia != "todas") {
     $quantidade_exibicao = $_GET['quantidade_exibicao'];
     $dados = [
         'dados' => $manterPrestador->getPrestadoresMaioresValoresPorCompetencia($competencia, $quantidade_exibicao),
-        'total' => $manterPrestador->getValorTotalPorCompetencia($competencia)
+        'total' => $manterPrestador->getMaioresValoresPorCompetencia($competencia)
     ];
     echo json_encode($dados);
 
