@@ -24,7 +24,7 @@
             let posicao = 'y';
 
 
-           let somaTotal = parseFloat(dados['total'] || 0);
+            let somaTotal = parseFloat(dados['total'] || 0);
 
             if (dados['dados'] && Array.isArray(dados['dados'])) {
                 dados['dados'].forEach(item => {
@@ -32,7 +32,6 @@
                     // Se tiver razao_social (Ranking), usa ela. Se não, usa a competencia (Evolução Mensal).
                     let labelExibicao = item.razao_social ? item.razao_social : item.competencia;
                     labels.push(labelExibicao);
-
                     // 3. Guarda o valor original formatado (opcional, para tooltips)
                     valores.push(item.valor);
 
@@ -46,6 +45,7 @@
             let qtdExibida = $('#quantidade_exibida').text(qtdLabels);
             let titulo = 'Valores por Competência ' + competencia + ' - Total: ' + somaTotalFormatada + ' ';
             let titulo_todas = 'Prestadores por Competência ' + labels + ' - Total: ' + somaTotalFormatada + ' ';
+
 
             let datasets;
             datasets = [{
@@ -67,11 +67,13 @@
                         borderWidth: 1
                     }]
             }
+
             // Ajusta a altura do contêiner com base na quantidade de labels
-            let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
+
+            let alturaPorLabel = 20; // px (use 28–35 conforme fonte)
             let alturaTotal = qtdLabels * alturaPorLabel;
             document.getElementById('box_' + campo).style.height = '500px';
-
+            document.getElementById('box_' + campo).style.height = alturaTotal + 'px';
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
             const dashboard = new Chart(ctx, {
