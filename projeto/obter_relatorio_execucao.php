@@ -34,9 +34,10 @@ if ($competencia == "todas") {
 
 if ($competencia != "todas") {
     $quantidade_exibicao = $_GET['quantidade_exibicao'];
+    $total = $manterPrestador->getMaioresValoresPorCompetencia($competencia)[0]->valor_real;
     $dados = [
         'dados' => $manterPrestador->getPrestadoresMaioresValoresPorCompetencia($competencia, $quantidade_exibicao),
-        'total' => $manterPrestador->getMaioresValoresPorCompetencia($competencia)['valor_real']
+        'total' => $total
     ];
     echo json_encode($dados);
 
