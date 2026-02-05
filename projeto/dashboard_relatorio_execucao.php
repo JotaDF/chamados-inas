@@ -70,7 +70,7 @@
 
             // Ajusta a altura do contêiner com base na quantidade de labels
 
-            let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
+            let alturaPorLabel = 20; // px (use 28–35 conforme fonte)
             let alturaTotal = qtdLabels * alturaPorLabel;
             //document.getElementById('box_grafico_prestador').style.height = '500px';
             document.getElementById('box_grafico_prestador').style.height = alturaTotal + 'px';
