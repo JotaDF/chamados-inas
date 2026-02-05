@@ -70,10 +70,10 @@
 
             // Ajusta a altura do contêiner com base na quantidade de labels
 
-            let alturaPorLabel = 20; // px (use 28–35 conforme fonte)
+            let alturaPorLabel = 16; // px (use 28–35 conforme fonte)
             let alturaTotal = qtdLabels * alturaPorLabel;
-            document.getElementById('box_' + campo).style.height = '500px';
-            document.getElementById('box_' + campo).style.height = alturaTotal + 'px';
+            //document.getElementById('box_grafico_prestador').style.height = '500px';
+            document.getElementById('box_grafico_prestador').style.height = alturaTotal + 'px';
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
             const dashboard = new Chart(ctx, {

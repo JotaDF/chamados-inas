@@ -374,6 +374,7 @@ require_once('./verifica_login.php');
             <?php include './rodape.php'; ?>
         </div>
     </div>
+    
     <!-- End of Main Content -->
     </div>
     <!-- End of Content Wrapper -->
