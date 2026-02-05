@@ -216,9 +216,9 @@ class ManterPrestador extends Model {
     }
 
     function getMaioresValoresPorCompetencia($ano = "2024") {
-        $sql = "SELECT TRIM(pg.competencia) AS competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS valor_real, ROUND(SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 0) AS valor_para_dashboard 
-        FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np, tipo_prestador as tp WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND pg.competencia AND TRIM(pg.competencia) LIKE '%". $ano ."'
-        GROUP BY pg.competencia ORDER BY valor_real DESC";
+        $sql = "SELECT DISTINCT pg.competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS valor_real, ROUND(SUM(CAST(REPLACE(REGEXP_REPLACE(np.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 0) AS valor_para_dashboard 
+        FROM prestador p, fiscal_prestador fp, pagamento pg, nota_pagamento np, tipo_prestador as tp WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.id = np.id_pagamento AND np.data_pagamento IS NOT NULL AND TRIM(pg.competencia) LIKE '%" . $ano . "'
+        GROUP BY pg.competencia ORDER BY competencia  ASC";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
