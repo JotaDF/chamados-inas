@@ -34,7 +34,7 @@
                     valores.push(item.valor);
 
                     // 4. Converte o valor para número puro (essencial para o Chart.js)
-                    let valorNumerico = parseFloat(item.valor);
+                    let valorNumerico = parseInt(item.valor.replace(/[^0-9,]/g, '').replace(',', '.'));
                     valoresNormalizados.push(valorNumerico);
                 });
             }
