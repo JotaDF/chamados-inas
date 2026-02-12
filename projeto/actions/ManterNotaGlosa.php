@@ -231,4 +231,63 @@ Class ManterNotaGlosa extends Model {
         }
         return $array_dados;
     }
+    function getMaioresValoresNotaGlosaPorCompetencia($ano) {
+        $sql = "SELECT cr.competencia, SUM(CAST(REPLACE(REGEXP_REPLACE(ng.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))) AS valor_real, ROUND(SUM(CAST(REPLACE(REGEXP_REPLACE(ng.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2))), 0) AS valor_para_dashboard 
+        FROM prestador p, fiscal_prestador fp, nota_glosa as ng, carta_recursada_glosa as crg, carta_recurso as cr, tipo_prestador as tp WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = crg.id_fiscal_prestador AND crg.id = ng.id_recurso_glosa AND ng.id = cr.id_nota_glosa AND cr.data_pagamento IS NOT NULL AND TRIM(cr.competencia) LIKE '%".$ano."' GROUP BY cr.competencia";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $dados = new stdClass();
+            $dados->valor = $registro['valor_para_dashboard'];
+            $dados->valor_real = $registro['valor_real'];
+            $dados->competencia = $registro['competencia'];
+            $array_dados[]  = $dados;
+        }
+        return $array_dados;
+    }
+    function getNotaGlosaTodasCompetencias($anos_competencia) {
+        $prestadores = $this->getMaioresValoresNotaGlosaPorCompetencia($anos_competencia);
+        $lista_final = [];
+        $soma_anual = 0;
+
+        foreach ($prestadores as $p) {
+            // Acumulamos os dados em um array
+            $lista_final[] = [
+                'valor' => $p->valor,
+                'competencia' => $p->competencia,
+                'razao_social' => $p->razao_social // Importante para o gráfico
+            ];
+            // Se o seu objeto já traz o total do mês, podemos usar para o total anual
+            $soma_anual += (float) $p->valor;
+        }
+
+        $dados = [
+            'dados' => $lista_final,
+            'total' => $soma_anual
+        ];
+        return $dados;
+    }
+    function getPrestadoresMaioresValoresPorCompetencia($competencia = "", $limit = 5) {
+        $sql = "SELECT p.razao_social, ng.valor, cr.competencia FROM prestador p, fiscal_prestador fp, nota_glosa as ng, tipo_prestador as tp, carta_recursada_glosa as crg, carta_recurso as cr 
+        WHERE p.id_tipo_prestador = tp.id AND tp.id != '12' AND p.id = fp.id_prestador AND fp.id = crg.id_fiscal_prestador AND crg.id = ng.id_recurso_glosa AND ng.id = cr.id_nota_glosa AND cr.competencia = '".$competencia."' ORDER BY CAST( REPLACE( REGEXP_REPLACE(ng.valor, '[^0-9,]', ''), ',', '.') AS DECIMAL(15,2)) DESC LIMIT $limit";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()){
+            $dados = new stdClass();
+            $dados->razao_social  = strtoupper($registro["razao_social"]);
+            $dados->valor         = $registro["valor"];
+            $dados->competencia   = $registro["competencia"];
+            $array_dados[]        = $dados;
+        }
+        return $array_dados;
+    }
+
+    function getDadosPrestadoresNotaGlosa($quantidade_exibicao, $competencia){
+        $total = $this->getMaioresValoresNotaGlosaPorCompetencia($competencia)[0]->valor_real;
+        $dados = [
+            'dados' => $this->getPrestadoresMaioresValoresPorCompetencia($competencia, $quantidade_exibicao),
+            'total' => $total
+        ];
+        return $dados;
+    }
 }
