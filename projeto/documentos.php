@@ -149,7 +149,7 @@ and open the template in the editor.
                             </a>
                         </div> 
                         <div class="ml-3 mb-2" style="max-width:  600px; max-height: 100px;">
-                            <a class="text-decoration-none" target="_blank" href="documentos/portaria_de_substituicoes_13-10-2025.pdf">
+                            <a class="text-decoration-none" target="_blank" href="documentos/portaria_de_substituicoes_10-02-2026.pdf">
                             <div class="card border-left-primary h-100 shadow">
                                 <div class="card-body p-3">
                                     <div class="row no-gutters align-items-center">
