@@ -1,6 +1,6 @@
 <script>
-    function carregarGrafico(campo = 'grafico_notas_pagamento', competencia, quantidade_exibicao = 5, ano_competencia = "2026") {
-        $.getJSON("obter_relatorio_execucao.php", { competencia: competencia, quantidade_exibicao: quantidade_exibicao, ano_competencia: ano_competencia, campo: campo }, function (dados) {
+    function carregarGrafico(campo = 'grafico_notas_pagamento', competencia, quantidade_exibicao = 5, ano_competencia = "2026", adm = new URLSearchParams(window.location.search).get('adm')) {
+        $.getJSON("obter_relatorio_execucao.php", { competencia: competencia, quantidade_exibicao: quantidade_exibicao, ano_competencia: ano_competencia, campo: campo, adm: adm }, function (dados) {
             const canvas = document.getElementById(campo);
             // pega o gráfico existente associado ao canvas
 
@@ -111,7 +111,7 @@
         });
     }
 
-    function exportarCSV(campo, competencia) {
+    function exportarCSV(campo, competencia, adm) {
         const canvas = document.getElementById(campo);
         const chart = Chart.getChart(canvas);
         if (!chart) {
@@ -142,8 +142,32 @@
                 })
             }
         };
+        const exportStrategiesAdm = {
+            grafico_nota_pagamento: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_adm_competencia_valores_pagamento.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_adm_competencia_${competencia.replace('/', '-')}_valores_pagamento.csv`
+                })
+            },
 
-        const estrategiaGrafico = exportStrategies[campo];
+            grafico_nota_glosa: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_competencia_valores_glosa.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_competencia_${competencia.replace('/', '-')}_valores_glosa.csv`
+                })
+            }
+        };
+
+
+        const estrategiaGrafico = adm == "1" ? exportStrategies[campo] : exportStrategiesAdm[campo];
 
         const { cabecalho, arquivo } =
             competencia === 'todas'

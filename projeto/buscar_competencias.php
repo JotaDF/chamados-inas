@@ -7,12 +7,22 @@ $manterPagamento = new ManterPagamento();
 $manterCartaRecurso = new ManterCartaRecurso();
 $ano = $_POST['ano'];
 $tipo = $_POST['tipo'];
+$adm = $_POST['adm'];
 $dados = [];
-if ($tipo == 'pagamento') {
-    $dados = $manterPagamento->getCompetenciasNaoAdministrativasPorAno($ano);
+
+if ($adm != '1') {
+    $dados = $tipo == 'pagamento' 
+    ? $manterPagamento->getCompetenciasNaoAdministrativasPorAno($ano)
+    : $manterCartaRecurso->getCompetenciasNaoAdministrativasPorAno($ano);
 }
-if ($tipo == 'glosa') {
-    $dados = $manterCartaRecurso->getCompetenciasNaoAdministrativasPorAno($ano);
+
+if ($adm == '1') {
+    $dados = $tipo == 'pagamento' 
+    ? $manterPagamento->getCompetenciasAdministrativasPorAno($ano)
+    : $manterCartaRecurso->getCompetenciasAdministrativasPorAno($ano);
 }
+
+
+
 echo json_encode($dados);
 

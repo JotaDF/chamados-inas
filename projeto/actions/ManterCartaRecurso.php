@@ -166,8 +166,27 @@ AND cr.exercicio = '".$exercicio."' " . $filtro;
         }
         return $array_dados;
         }
+    function getCompetenciasAdministrativasPorAno($ano = "2025") {
+        $sql = "SELECT DISTINCT REPLACE(cr.competencia, ' ', '') AS competencia FROM tipo_prestador as tp, prestador as p, fiscal_prestador as fp, carta_recursada_glosa as crg, nota_glosa as ng, carta_recurso as cr WHERE tp.id = p.id_tipo_prestador AND p.id = fp.id_prestador AND fp.id = crg.id_fiscal_prestador AND crg.id = ng.id_recurso_glosa AND ng.id = cr.id_nota_glosa AND cr.competencia LIKE '%". $ano ."' AND tp.id = '12'  ORDER BY competencia";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[] = $registro['competencia'];
+        }
+        return $array_dados;
+        }
     function getAnosCompetencia() {
         $sql = "SELECT DISTINCT RIGHT(TRIM(competencia), 4) AS ano FROM carta_recurso WHERE competencia REGEXP '[0-9]{4}$' ORDER BY ano DESC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[]  = $registro['ano'];
+        }
+        return $array_dados;
+    }
+    function getAnosCompetenciaAdm() {
+        $sql = "SELECT DISTINCT RIGHT(TRIM(cr.competencia), 4) AS ano FROM carta_recurso as cr, fiscal_prestador as fp, prestador as pr, tipo_prestador as tp, carta_recursada_glosa as crg, nota_glosa as ng 
+        WHERE tp.id = 12 AND tp.id = pr.id_tipo_prestador AND pr.id = fp.id_prestador AND fp.id = crg.id_fiscal_prestador AND crg.id = ng.id_recurso_glosa AND ng.id = cr.id_nota_glosa AND cr.competencia REGEXP '[0-9]{4}$' ORDER BY ano DESC";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -314,7 +333,7 @@ AND cr.exercicio = '".$exercicio."' " . $filtro;
                 AND crg.id_fiscal_prestador = fp.id
                 AND fp.id_prestador = ".$id_prestador." 
                 AND cr.data_executado is null
-                ANSD cr.status='Em análise'";
+                AND cr.status='Em análise'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchrow()) {

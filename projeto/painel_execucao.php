@@ -1,6 +1,11 @@
 <?php
 $mod = 10;
 require_once('./verifica_login.php');
+$origem = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0;
+$menu = "menu_execucao.php";
+if ($origem == 1) {
+    $menu = "menu_execucao_adm.php";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +46,7 @@ require_once('./verifica_login.php');
             $.ajax({
                 url: 'buscar_competencias.php',
                 type: 'POST',
-                data: { ano: ano, tipo: 'pagamento' },
+                data: { ano: ano, tipo: 'pagamento', adm: <?= $origem ?> },
                 dataType: 'json',
                 success: function (dados) {
                     montaSelectCompetenciasPagamento(dados);
@@ -57,7 +62,7 @@ require_once('./verifica_login.php');
             $.ajax({
                 url: 'buscar_competencias.php',
                 type: 'POST',
-                data: { ano: ano, tipo: 'glosa' },
+                data: { ano: ano, tipo: 'glosa', adm: <?= $origem ?> },
                 dataType: 'json',
                 success: function (dados) {
                     montaSelectCompetenciasGlosa(dados);
@@ -157,7 +162,7 @@ require_once('./verifica_login.php');
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <?php include './menu_execucao.php'; ?>
+        <?php include './' . $menu ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -165,25 +170,38 @@ require_once('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 include 'actions/ManterPagamento.php';
-                include 'actions/ManterPrestador.php';
                 include 'actions/ManterCartaRecurso.php';
+
                 $manterPagamento = new ManterPagamento();
-                $manterPrestador = new ManterPrestador();
                 $manterCartaRecurso = new ManterCartaRecurso();
+
                 $anos_competencia_pagamento = $manterPagamento->getAnosCompetencia();
                 $anos_competencia_glosa = $manterCartaRecurso->getAnosCompetencia();
+
+                $anos_competencia_pagamento_adm = $manterPagamento->getAnosCompetenciaAdm();
+                $anos_competencia_glosa_adm = $manterCartaRecurso->getAnosCompetenciaAdm();
+
+                $competencias_pagamento = $adm != "1" ? $anos_competencia_pagamento : $anos_competencia_pagamento_adm;
+                $competencias_glosa = $adm != "1" ? $anos_competencia_glosa : $anos_competencia_glosa_adm;
+
                 ?>
+
                 <div class="container-fluid">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a id="link_tab_grafico_nota_pagamento" class="nav-link" href="#"
-                                onclick="mostraGrafico('grafico_nota_pagamento')">Notas Pagamento</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="link_tab_grafico_nota_glosa" class="nav-link " href="#"
-                                onclick="mostraGrafico('grafico_nota_glosa')">Notas Glosa</a>
-                        </li>
-                    </ul>
+                    <?php if ($origem == "0") {
+                        ?>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a id="link_tab_grafico_nota_pagamento" class="nav-link" href="#"
+                                    onclick="mostraGrafico('grafico_nota_pagamento')">Notas Pagamento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="link_tab_grafico_nota_glosa" class="nav-link " href="#"
+                                    onclick="mostraGrafico('grafico_nota_glosa')">Notas Glosa</a>
+                            </li>
+                        </ul>
+                        <?php
+                    }
+                    ?>
                     <!-- Segunda Linha de graficos -->
                     <div id="tab_grafico_nota_glosa" class="row">
                         <div id="grafico_notas_glosa" class="container-fluid">
@@ -217,7 +235,7 @@ require_once('./verifica_login.php');
                                                 <option value="">
                                                     Selecione um Exercício
                                                 </option>
-                                                <?php foreach ($anos_competencia_glosa as $ano) { ?>
+                                                <?php foreach ($competencias_glosa as $ano) { ?>
                                                     <option value="<?= $ano ?>">
                                                         <?= $ano ?>
                                                     </option>
@@ -301,7 +319,7 @@ require_once('./verifica_login.php');
                                                         <option value="">
                                                             Selecione um Exercício
                                                         </option>
-                                                        <?php foreach ($anos_competencia_pagamento as $ano) { ?>
+                                                        <?php foreach ($competencias_pagamento as $ano) { ?>
                                                             <option value="<?= $ano ?>"><?= $ano ?></option>
                                                         <?php } ?>
                                                     </select>
@@ -342,6 +360,7 @@ require_once('./verifica_login.php');
                                         <br />
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

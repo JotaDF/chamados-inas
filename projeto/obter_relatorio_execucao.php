@@ -6,30 +6,45 @@ $manterPrestador = new ManterPrestador();
 $manterNotaGlosa = new ManterNotaGlosa();
 $competencia = $_GET['competencia'];
 $campo = $_GET['campo'];
+$adm = $_GET['adm'];
+if ($adm != "1") {
+    if ($campo == 'grafico_nota_pagamento') {
+        if ($competencia == 'todas') {
+            $anos_competencia = $_GET['ano_competencia'];
+            $dados = $manterPrestador->getNotaPagamentoTodasCompetencias($anos_competencia);
+        }
 
-if ($campo == 'grafico_nota_pagamento') {
-    if ($competencia == 'todas') {
-        $anos_competencia = $_GET['ano_competencia'];
-        $dados = $manterPrestador->getNotaPagamentoTodasCompetencias($anos_competencia);
+        if ($competencia != "todas") {
+            $quantidade_exibicao = $_GET['quantidade_exibicao'];
+            $dados = $manterPrestador->getDadosPrestadoresNotaPagamento($quantidade_exibicao, $competencia);
+        }
     }
 
-    if ($competencia != "todas") {
-        $quantidade_exibicao = $_GET['quantidade_exibicao'];
-        $dados = $manterPrestador->getDadosPrestadoresNotaPagamento($quantidade_exibicao, $competencia);
+    if ($campo == 'grafico_nota_glosa') {
+        if ($competencia == 'todas') {
+            $anos_competencia = $_GET['ano_competencia'];
+            $dados = $manterNotaGlosa->getNotaGlosaTodasCompetencias($anos_competencia);
+        }
+
+        if ($competencia != "todas") {
+            $quantidade_exibicao = $_GET['quantidade_exibicao'];
+            $dados = $manterNotaGlosa->getDadosPrestadoresNotaGlosa($quantidade_exibicao, $competencia);
+        }
     }
 }
 
-if ($campo == 'grafico_nota_glosa') {
-    if ($competencia == 'todas') {
-        $anos_competencia = $_GET['ano_competencia'];
-        $dados = $manterNotaGlosa->getNotaGlosaTodasCompetencias($anos_competencia);
-    }
-
-    if ($competencia != "todas") {
-        $quantidade_exibicao = $_GET['quantidade_exibicao'];
-        $dados = $manterNotaGlosa->getDadosPrestadoresNotaGlosa($quantidade_exibicao, $competencia);
+if ($adm == "1") {
+       if ($campo == 'grafico_nota_pagamento') {
+        if ($competencia == 'todas') {
+            $anos_competencia = $_GET['ano_competencia'];
+            $dados = $manterPrestador->getNotaPagamentoTodasCompetenciasAdm($anos_competencia);
+        }
+ 
+        if ($competencia != "todas") {
+            $quantidade_exibicao = $_GET['quantidade_exibicao'];
+            $dados = $manterPrestador->getDadosPrestadoresNotaPagamentoAdm($quantidade_exibicao, $competencia);
+        }
     }
 }
-
 echo json_encode($dados);
 
