@@ -11,7 +11,7 @@ class ManterFilaPericiaPg extends ModelPg {
     function listar() {
         $sql = "SELECT g.id, g.autorizacao, g.data_solicitacao, g.id_beneficiario, g.justificativa, g.situacao 
                 FROM  guia g
-                WHERE g.situacao <> 'CANCELADA'
+                WHERE (g.situacao = 'EM_ANALISE' OR g.situacao = 'EM_REANALISE' OR g.situacao = 'DOCUMENTACAO_EM_ANALISE') 
                 AND g.id in (select guia_id from pericia_medica pm where pm.status ='AGUARDANDO_AGENDAMENTO' or pm.status = 'AGENDADA' or pm.status = 'AGUARDANDO_REGULACAO')
                 AND (g.fila_id =18 or g.id_fila =18 or g.fila_id =33 or g.id_fila =33)
                 ORDER BY g.data_solicitacao";
