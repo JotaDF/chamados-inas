@@ -1,7 +1,6 @@
 <script>
-    function carregarGrafico(campo = 'grafico_prestador', competencia, quantidade_exibicao = 5, ano_competencia = "2026") {
-        $.getJSON("obter_relatorio_execucao.php", { competencia: competencia, quantidade_exibicao: quantidade_exibicao, ano_competencia: ano_competencia }, function (dados) { // chamada ajax para buscar os dados de acordo com id da pergunta
-
+    function carregarGrafico(campo = 'grafico_notas_pagamento', competencia, quantidade_exibicao = 5, ano_competencia = "2026", adm = new URLSearchParams(window.location.search).get('adm')) {
+        $.getJSON("obter_relatorio_execucao.php", { competencia: competencia, quantidade_exibicao: quantidade_exibicao, ano_competencia: ano_competencia, campo: campo, adm: adm }, function (dados) {
             const canvas = document.getElementById(campo);
             // pega o gráfico existente associado ao canvas
 
@@ -10,7 +9,6 @@
             if (chartExistente) {
                 chartExistente.destroy();
             }
-
 
             const formatador = new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
@@ -40,9 +38,11 @@
                     valoresNormalizados.push(valorNumerico);
                 });
             }
+
             const somaTotalFormatada = formatador.format(somaTotal);
             let qtdLabels = labels.length;
-            let qtdExibida = $('#quantidade_exibida').text(qtdLabels);
+            let qtdExibidaPagamento = $('#quantidade_exibida_nota_pagamento').text(qtdLabels);
+            let qtdExibidaGlosa = $('#quantidade_exibida_glosa').text(qtdLabels);
             let titulo = 'Valores por Competência ' + competencia + ' - Total: ' + somaTotalFormatada + ' ';
             let titulo_todas = 'Prestadores por Competência ' + labels + ' - Total: ' + somaTotalFormatada + ' ';
 
@@ -72,8 +72,8 @@
 
             let alturaPorLabel = 20; // px (use 28–35 conforme fonte)
             let alturaTotal = qtdLabels * alturaPorLabel;
-            //document.getElementById('box_grafico_prestador').style.height = '500px';
-            document.getElementById('box_grafico_prestador').style.height = alturaTotal + 'px';
+            document.getElementById('box_' + campo).style.height = '500px';
+            document.getElementById('box_' + campo).style.height = alturaTotal + 'px';
             // instanciação do gráfico de carregando de dados e condicionais
             const ctx = document.getElementById(campo).getContext('2d');
             const dashboard = new Chart(ctx, {
@@ -111,31 +111,75 @@
         });
     }
 
-    function exportarCSV(campo, competencia) {
-        const chart = Chart.getChart(campo);
+    function exportarCSV(campo, competencia, adm) {
+        const canvas = document.getElementById(campo);
+        const chart = Chart.getChart(canvas);
         if (!chart) {
             alert('Gráfico não encontrado');
             return;
         }
-        const exportStrategies = {
-            todas: () => ({
-                cabecalho: 'Competencia;Valor\n',
-                arquivo: 'relatorio_competencia_valores.csv'
 
-            }),
+        const exportStrategies = {
+            grafico_nota_pagamento: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_competencia_valores_pagamento.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_competencia_${competencia.replace('/', '-')}_valores_pagamento.csv`
+                })
+            },
+
+            grafico_nota_glosa: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_competencia_valores_glosa.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_competencia_${competencia.replace('/', '-')}_valores_glosa.csv`
+                })
+            }
+        };
+        const exportStrategiesAdm = {
+            grafico_nota_pagamento: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_adm_competencia_valores_pagamento.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_adm_competencia_${competencia.replace('/', '-')}_valores_pagamento.csv`
+                })
+            },
+
+            grafico_nota_glosa: {
+                todas: () => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: 'relatorio_competencia_valores_glosa.csv'
+                }),
+                especifica: (competencia) => ({
+                    cabecalho: 'Competencia;Valor\n',
+                    arquivo: `relatorio_competencia_${competencia.replace('/', '-')}_valores_glosa.csv`
+                })
+            }
         };
 
-        const strategy = exportStrategies[competencia];
 
-        const { cabecalho, arquivo } = strategy
-            ? strategy()
-            : { cabecalho: 'Prestador;Valor\n', arquivo: 'relatorio_prestador_valores.csv' };
+        const estrategiaGrafico = adm == "1" ? exportStrategies[campo] : exportStrategiesAdm[campo];
+
+        const { cabecalho, arquivo } =
+            competencia === 'todas'
+                ? estrategiaGrafico.todas()
+                : estrategiaGrafico.especifica(competencia);
+
         let csv = '\uFEFF'; // BOM UTF-8
         csv += cabecalho;
 
         chart.data.labels.forEach((label, i) => {
 
-            const valor = parseInt(chart.data.datasets[0].data[i]);
+            const valor = parseFloat(chart.data.datasets[0].data[i]);
             csv += `"${label}";"${valor}"\n`;
         });
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -150,19 +194,42 @@
     }
 
     $(document).ready(function () {
-        carregarGrafico('grafico_prestador', '11/2025', 5);
+        carregarGrafico('grafico_nota_pagamento', '11/2025', 5);
+        carregarGrafico('grafico_nota_glosa', '11/2025', 5);
+        mostraGrafico('grafico_nota_pagamento');
     });
 
-    function atualizarGraficoPrestador() {
-        var competencia = $('#competencia').val();
-        var quantidade_exibicao = $('#quantidade_exibicao').val();
-        var ano = $('#ano_competencia').val();
-
-        carregarGrafico('grafico_prestador', competencia, quantidade_exibicao, ano);
+    function atualizarGraficoPagamento() {
+        var competencia = $('#competencia_pagamento').val();
+        var quantidade_exibicao = $('#quantidade_exibicao_pagamento').val();
+        var ano = $('#ano_competencia_pagamento').val();
+        carregarGrafico('grafico_nota_pagamento', competencia, quantidade_exibicao, ano);
+    }
+    function atualizarGraficoGlosa() {
+        var competencia = $('#competencia_glosa').val();
+        var quantidade_exibicao = $('#quantidade_exibicao_glosa').val();
+        var ano = $('#ano_competencia_glosa').val();
+        carregarGrafico('grafico_nota_glosa', competencia, quantidade_exibicao, ano);
     }
 
     function mostraGrafico(tabId) {
-        $('#tab_' + tabId).show()
-        $('#link_tab_' + tabId).addClass('active');
+        // Percorre todas as tabs
+        $('[id^="tab_"]').each(function () {
+            // Obtém o identificador da tab atual
+            const idAtual = this.id.replace('tab_', '');
+            // Esconde as tabs que não são a selecionada
+            if (idAtual !== tabId) {
+                $(this).hide();
+                $('#link_tab_' + idAtual).removeClass('active');
+            }
+            // Mostra apenas a tab selecionada
+            if (idAtual === tabId) {
+                $(this).show();
+                $('#link_tab_' + idAtual).addClass('active');
+            }
+        });
     }
+
+
+
 </script>

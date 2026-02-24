@@ -104,6 +104,15 @@ class ManterPagamento extends Model {
         }
         return $array_dados;
     }
+    function getAnosCompetenciaAdm() {
+        $sql = "SELECT DISTINCT RIGHT(TRIM(cr.competencia), 4) AS ano FROM carta_recurso, fiscal_prestador as fp, prestador as pr, tipo_prestador as tp, carta_recursada_glosa as crg, nota_glosa as ng, carta_recurso as cr WHERE tp.id = 12 AND tp.id = pr.id_tipo_prestador AND pr.id = fp.id_prestador AND fp.id = crg.id_fiscal_prestador AND crg.id = ng.id_recurso_glosa AND ng.id = cr.id_nota_glosa AND cr.competencia REGEXP '[0-9]{4}$' ORDER BY ano DESC";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[]  = $registro['ano'];
+        }
+        return $array_dados;
+    }
 
     function getCompetenciasPorAno($ano = '2025') {
         $sql = "SELECT DISTINCT REPLACE(competencia, ' ', '') AS competencia FROM pagamento WHERE competencia LIKE '%$ano'  ORDER BY competencia ASC";
@@ -115,9 +124,19 @@ class ManterPagamento extends Model {
         return $array_dados;
     }
 
-        function getCompetenciasNaoAdministrativasPorAno($ano = '2025') {
+    function getCompetenciasNaoAdministrativasPorAno($ano = '2025') {
         $sql = "SELECT DISTINCT REPLACE(pg.competencia, ' ', '') AS competencia FROM tipo_prestador as tp, prestador as p, fiscal_prestador as fp, pagamento as pg 
         WHERE tp.id = p.id_tipo_prestador AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.competencia LIKE '%$ano' AND tp.id <> '12'  ORDER BY competencia";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while($registro = $resultado->fetchRow()) {
+            $array_dados[] = $registro['competencia'];
+        }
+        return $array_dados;
+    }
+    function getCompetenciasAdministrativasPorAno($ano = '2025') {
+        $sql = "SELECT DISTINCT REPLACE(pg.competencia, ' ', '') AS competencia FROM tipo_prestador as tp, prestador as p, fiscal_prestador as fp, pagamento as pg 
+        WHERE tp.id = p.id_tipo_prestador AND p.id = fp.id_prestador AND fp.id = pg.id_fiscal_prestador AND pg.competencia LIKE '%$ano' AND tp.id = '12'  ORDER BY competencia";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {

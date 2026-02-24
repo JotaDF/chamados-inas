@@ -1,6 +1,11 @@
 <?php
 $mod = 10;
 require_once('./verifica_login.php');
+$origem = isset($_REQUEST['adm']) ? $_REQUEST['adm'] : 0;
+$menu = "menu_execucao.php";
+if ($origem == 1) {
+    $menu = "menu_execucao_adm.php";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +37,23 @@ require_once('./verifica_login.php');
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0">
     </script>
     <script>
-        function buscarCompetenciasPorAno(ano) {
+        function buscarCompetenciasNotaPagamentoPorAno(ano) {
+            if (ano == "") {
+                $('#competencias').html('<option value="">Selecione...</option>');
+                return;
+            }
+            $('#competencias').html('<option value="">Carregando...</option>');
+            $.ajax({
+                url: 'buscar_competencias.php',
+                type: 'POST',
+                data: { ano: ano, tipo: 'pagamento', adm: <?= $origem ?> },
+                dataType: 'json',
+                success: function (dados) {
+                    montaSelectCompetenciasPagamento(dados);
+                }
+            });
+        }
+        function buscarCompetenciasNotaGlosaPorAno(ano) {
             if (ano == "") {
                 $('#competencia').html('<option value="">Selecione...</option>');
                 return;
@@ -41,24 +62,41 @@ require_once('./verifica_login.php');
             $.ajax({
                 url: 'buscar_competencias.php',
                 type: 'POST',
-                data: { ano: ano },
+                data: { ano: ano, tipo: 'glosa', adm: <?= $origem ?> },
                 dataType: 'json',
                 success: function (dados) {
-                    montaSelectCompetencias(dados);
+                    montaSelectCompetenciasGlosa(dados);
                 }
             });
         }
 
-        function montaSelectCompetencias(dados) {
+        function montaSelectCompetenciasPagamento(dados) {
             var options = '<option value="todas">Todas as competencias</option>';
             $.each(dados, function (index, valor) {
                 options += '<option value="' + valor + '">' + valor + '</option>';
             });
-            $('#competencia').html(options);
+            $('#competencia_pagamento').html(options);
+        }
+        function montaSelectCompetenciasGlosa(dados) {
+            var options = '<option value="todas">Todas as competencias</option>';
+            $.each(dados, function (index, valor) {
+                options += '<option value="' + valor + '">' + valor + '</option>';
+            });
+            $('#competencia_glosa').html(options);
         }
 
-        function validarFormulario() {
-            const select = document.getElementById('ano_competencia');
+        function validarFormularioPagamento() {
+            const select = document.getElementById('ano_competencia_pagamento');
+            if (!select.checkValidity()) {
+                select.reportValidity(); // mostra mensagem padrão do navegador
+                return;
+            }
+
+            // só chega aqui se estiver válido
+            atualizarGraficoPagamento();
+        }
+        function validarFormularioGlosa() {
+            const select = document.getElementById('ano_competencia_glosa');
 
             if (!select.checkValidity()) {
                 select.reportValidity(); // mostra mensagem padrão do navegador
@@ -66,13 +104,14 @@ require_once('./verifica_login.php');
             }
 
             // só chega aqui se estiver válido
-            atualizarGraficoPrestador();
+            atualizarGraficoGlosa();
         }
-        function exportarDadosCsv() {
-            let competencia = $('#competencia').val();
-            let campo = "grafico_prestador";
+        function exportarDadosCsv(campo) {
+            let grafico = campo.replace('grafico_nota_', '');
+            let competencia = $('#competencia_' + grafico).val();
             exportarCSV(campo, competencia);
         }
+
 
     </script>
     <style>
@@ -123,7 +162,7 @@ require_once('./verifica_login.php');
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <?php include './menu_execucao.php'; ?>
+        <?php include './' . $menu ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -131,215 +170,90 @@ require_once('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 include 'actions/ManterPagamento.php';
-                include 'actions/ManterPrestador.php';
+                include 'actions/ManterCartaRecurso.php';
+
                 $manterPagamento = new ManterPagamento();
-                $manterPrestador = new ManterPrestador();
-                $anos_competencia = $manterPagamento->getAnosCompetencia();
+                $manterCartaRecurso = new ManterCartaRecurso();
+
+                $anos_competencia_pagamento = $manterPagamento->getAnosCompetencia();
+                $anos_competencia_glosa = $manterCartaRecurso->getAnosCompetencia();
+
+                $anos_competencia_pagamento_adm = $manterPagamento->getAnosCompetenciaAdm();
+                $anos_competencia_glosa_adm = $manterCartaRecurso->getAnosCompetenciaAdm();
+
+                $competencias_pagamento = $adm != "1" ? $anos_competencia_pagamento : $anos_competencia_pagamento_adm;
+                $competencias_glosa = $adm != "1" ? $anos_competencia_glosa : $anos_competencia_glosa_adm;
+
                 ?>
+
                 <div class="container-fluid">
-                    <!-- <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a id="link_tab_ano" class="nav-link active" href="#" onclick="motraGrafico('ano')">Total
-                                prestador</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="link_tab_ano_mes" class="nav-link active" href="#"
-                                onclick="motraGrafico('ano_mes')">Por competencia</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('assunto')">Total
-                                por Assunto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="link_tab_prestador" class="nav-link active" href="#"
-                                onclick="mostraGrafico('motivo')">Total por
-                                Motivo</a>
-                        </li>
-                    </ul> -->
-                    <!-- Linha para organizar os cards lado a lado -->
-                    <!-- <div id="tab_ano" class="row"> -->
-                    <!-- Segundo Card (Gráfico de Pizza) -->
-                    <!-- <div class="ml-4 mr-4" style="width: 90%;">
-                        <div class="card border-primary">
-                            <div class="row ml-0 card-header py-2" style="width:100%">
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano')"
-                                        class="btn btn-outline-success">
-                                        <i class="fa fa-file-excel"></i> Exportar
-                                    </a>
-                                </div>
-                            </div>
-                            <div id="box_grafico_ano" style="width: 95%; height: 300px;">
-                                <canvas id="grafico_ano" width="100%"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                    <!-- <div id="tab_ano_mes" class="row"> -->
-                    <!-- Primeiro Card (Gráfico de Barras) -->
-                    <!-- <div class="ml-4 mr-4" style="width: 90%;">
-                        <div class="card border-primary">
-                            <div class="row ml-0 card-header py-2" style="width:100%">
-                                <div class="col mb-0">
-                                    <span style="align:left;" class="h6 m-0 font-weight">Processos por
-                                        ano/mês</span>
-                                </div>
-                                <div class="col text-right" style="max-width:20%">
-                                    <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano_mes')"
-                                        class="btn btn-outline-success">
-                                        <i class="fa fa-file-excel"></i> Exportar
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form id="form_painel">
-                                    <div class="form-group row">
-                                        <label for="ano" class="mt-1 pr-1 small">Ano</label>
-                                        Ajustei o padding-right do label -->
-                    <!-- <div class="col-sm-2 pl-0">
-                                            <select class="form-control form-control-xs" id="ano_mes" name="[]">
-                                                <?php foreach ($anos as $ano): ?>
-                                                    <option value="<?= $ano ?>"><?= $ano ?></option>
-                                                <?php endforeach; ?>
-                                                <option value="todos">Todos</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-2 pl-0">
-                                            <button type="button" id="gerar_ano_mes" name="enviar"
-                                                class="btn btn-primary btn-sm w-100 form-control-xs"
-                                                onclick="atualizarGraficoAnoMes()">Gerar</button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                <div id="box_grafico_ano_mes" style="width: 95%; height: 300px;">
-                                    <canvas id="grafico_ano_mes" width="100%"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --->
+                    <?php if ($origem == "0") {
+                        ?>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a id="link_tab_grafico_nota_pagamento" class="nav-link" href="#"
+                                    onclick="mostraGrafico('grafico_nota_pagamento')">Notas Pagamento</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="link_tab_grafico_nota_glosa" class="nav-link " href="#"
+                                    onclick="mostraGrafico('grafico_nota_glosa')">Notas Glosa</a>
+                            </li>
+                        </ul>
+                        <?php
+                    }
+                    ?>
                     <!-- Segunda Linha de graficos -->
-                    <!-- <div id="tab_assunto" class="row"> -->
-                    <!-- Primeiro Card (Gráfico de Barras) -->
-                    <!-- <div class="w-100">
-                        <div class="card mb-3 border-primary" style="max-width: 90%;">
-                            <div class="ml-0 card-header py-2">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                   Pergunta
-                    <div class="mb-0" style="font-size: 16px;">
-                        Quantidade de processos por assunto
-                    </div>
-                    <div class="col text-right" style="max-width:20%">
-                        <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_assunto')"
-                            class="btn btn-outline-success">
-                            <i class="fa fa-file-excel"></i> Exportar
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <form id="form_assunto">
-                <div class="form-group row col-sm-10">
-                    <div class="col-md-2">
-                        <label for="arquivado" class="small">Arquivado </label>
-                        <select class="form-control form-control-xs" id="arquivado_assunto" name="arquivado">
-                            <option value="3" selected>Todos</option>
-                            <option value="1">Sim</option>
-                            <option value="0">Não</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="ano" class="small">Ano</label>
-                        Ajustei o padding-right do label 
-                        <div>
-                            <select class="form-control form-control-xs" id="ano_assunto" name="[]">
-                                <?php foreach ($anos as $ano): ?>
-                                    <option value="<?= $ano ?>"><?= $ano ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="ordem" class="small">Ordenar por </label>
-                        <select class="form-control form-control-xs" id="ordem_assunto" name="ordem">
-                            <option value="a.assunto, sa.sub_assunto">Assunto</option>
-                            <option value="total DESC">Maior total</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                        <button type="button" id="gerar_assunto" name="enviar"
-                            class="btn btn-primary btn-sm w-100 form-control-xs"
-                            onclick="atualizarGraficoAssunto()">Gerar</button>
-                    </div>
-
-                </div>
-            </form>
-            <div class="card-body " style="width: 100%;">
-                <div id="box_grafico_assunto" style="width: 95%; height: 800px;">
-                    <canvas id="grafico_assunto" class="grafico"></canvas>
-                </div>
-                <br />
-                </p>
-            </div>
-        </div>
-    </div>
-    </div> -->
-                    <!-- terceito Linha de graficos Motivos -->
-
-                    <div id="grafico_prestadores" class="container-fluid">
-                        <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="w-100">
-                            <div class="card mb-3 border-primary" style="max-width: 99%;">
-                                <div class="ml-0 card-header py-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <!-- Pergunta -->
-                                        <div class="mb-2" style="font-size: 16px; font-weight: 500;">
-                                            Prestadores por valor de contrato
-                                            <small class="text-muted ml-1">
-                                                (Exibindo <span id="quantidade_exibida"
-                                                    class="font-weight-bold">0</span> registros)
-                                            </small>
-                                        </div>
-                                        <div class="col text-right" style="max-width:20%">
-                                            <a id="exporta_motivo" href="#" onclick="exportarDadosCsv()"
-                                                class="btn btn-outline-success">
-                                                <i class="fa fa-file-excel"></i> Exportar
-                                            </a>
+                    <div id="tab_grafico_nota_glosa" class="row">
+                        <div id="grafico_notas_glosa" class="container-fluid">
+                            <div class="w-100">
+                                <div class="card mb-3 border-primary" style="max-width: 90%;">
+                                    <div class="ml-0 card-header py-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <!-- Pergunta -->
+                                            <div class="mb-2" style="font-size: 16px; font-weight: 500;">
+                                                Prestadores por valor de glosa
+                                                <small class="text-muted ml-1">
+                                                    (Exibindo <span id="quantidade_exibida_glosa"
+                                                        class="font-weight-bold">0</span> registros)
+                                                </small>
+                                            </div>
+                                            <div class="col text-right" style="max-width:20%">
+                                                <a id="exporta_motivo" href="#"
+                                                    onclick="exportarDadosCsv('grafico_nota_glosa')"
+                                                    class="btn btn-outline-success">
+                                                    <i class="fa fa-file-excel"></i> Exportar
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <form id="form_motivo">
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
-                                            <label for="ano" class="small">Ano</label>
-                                            <!-- Ajustei o padding-right do label -->
-                                            <div>
-                                                <select class="form-control form-control-xs" id="ano_competencia"
-                                                    name="ano_competencia"
-                                                    onchange="buscarCompetenciasPorAno(this.value)" required>
-                                                    <option value="">
-                                                        Selecione um Exercício
+                                            <label for="ano_competencia_pagamento" class="small">Execício </label>
+                                            <select class="form-control form-control-xs" id="ano_competencia_glosa"
+                                                name="ano_competencia_glosa"
+                                                onchange="buscarCompetenciasNotaGlosaPorAno(this.value)" required>
+                                                <option value="">
+                                                    Selecione um Exercício
+                                                </option>
+                                                <?php foreach ($competencias_glosa as $ano) { ?>
+                                                    <option value="<?= $ano ?>">
+                                                        <?= $ano ?>
                                                     </option>
-                                                    <?php foreach ($anos_competencia as $ano) { ?>
-                                                        <option value="<?= $ano ?>"><?= $ano ?></option>
-                                                    <?php } ?>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="ano" class="small">Competência</label>
+                                            <div>
+                                                <select class="form-control form-control-xs" id="competencia_glosa"
+                                                    name="competencia_glosa" required>
+                                                    <option value="todas">Selecione um Exercício</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="competencia" class="small">Competências</label>
-                                            <select class="form-control form-control-xs" id="competencia" name=""
-                                                required>
-                                                <option value=>Selecione um Exercício</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
                                             <label for="ordem" class="small">Exibir</label>
-                                            <select class="form-control form-control-xs" id="quantidade_exibicao"
+                                            <select class="form-control form-control-xs" id="quantidade_exibicao_glosa"
                                                 name="ordem">
                                                 <option value="5">Selecione uma Quantidade</option>
                                                 <option value="5">5</option>
@@ -351,31 +265,112 @@ require_once('./verifica_login.php');
                                         </div>
                                         <div class="col-md-2">
                                             <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                                            <button type="button" id="gerar_motivo" name="enviar"
+                                            <button type="button" id="gerar_assunto" name="enviar"
                                                 class="btn btn-primary btn-sm w-100 form-control-xs"
-                                                onclick="validarFormulario()">Gerar</button>
+                                                onclick="validarFormularioGlosa()">Gerar</button>
                                         </div>
 
                                     </div>
-                                </form>
-                                <div class="card-body " style="width: 100%;">
-                                    <div id="box_grafico_prestador" style="width: 95%; min-height: 350px;">
-                                        <canvas id="grafico_prestador" class="grafico"></canvas>
+                                    </form>
+                                    <div class="card-body" style="width: 100%;">
+                                        <div id="box_grafico_nota_glosa" style="width: 95%; min-height: 350px;">
+                                            <canvas id="grafico_nota_glosa" class="grafico"></canvas>
+                                        </div>
+                                        <br />
+                                        </p>
                                     </div>
-                                    <br />
-                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div id="tab_grafico_nota_pagamento" class="row">
+                        <div id="grafico_notas_pagamento" class="container-fluid">
+                            <!-- Primeiro Card (Gráfico de Barras) -->
+                            <div class="w-100">
+                                <div class="card mb-3 border-primary" style="max-width: 99%;">
+                                    <div class="ml-0 card-header py-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <!-- Pergunta -->
+                                            <div class="mb-2" style="font-size: 16px; font-weight: 500;">
+                                                Prestadores por valor de contrato
+                                                <small class="text-muted ml-1">
+                                                    (Exibindo <span id="quantidade_exibida_nota_pagamento"
+                                                        class="font-weight-bold">0</span> registros)
+                                                </small>
+                                            </div>
+                                            <div class="col text-right" style="max-width:20%">
+                                                <a id="exporta_motivo" href="#"
+                                                    onclick="exportarDadosCsv('grafico_nota_pagamento')"
+                                                    class="btn btn-outline-success">
+                                                    <i class="fa fa-file-excel"></i> Exportar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form id="form_motivo">
+                                        <div class="form-group row col-sm-10">
+                                            <div class="col-md-2">
+                                                <label for="ano" class="small">Ano</label>
+                                                <div>
+                                                    <select class="form-control form-control-xs"
+                                                        id="ano_competencia_pagamento" name="ano_competencia_pagamento"
+                                                        onchange="buscarCompetenciasNotaPagamentoPorAno(this.value)"
+                                                        required>
+                                                        <option value="">
+                                                            Selecione um Exercício
+                                                        </option>
+                                                        <?php foreach ($competencias_pagamento as $ano) { ?>
+                                                            <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="competencia" class="small">Competências</label>
+                                                <select class="form-control form-control-xs" id="competencia_pagamento"
+                                                    name="competencia_pagamento" required>
+                                                    <option value=>Selecione um Exercício</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="ordem" class="small">Exibir</label>
+                                                <select class="form-control form-control-xs"
+                                                    id="quantidade_exibicao_pagamento" name="ordem">
+                                                    <option value="5">Selecione uma Quantidade</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                                                <button type="button" id="gerar_motivo" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs"
+                                                    onclick="validarFormularioPagamento()">Gerar</button>
+                                            </div>
 
+                                        </div>
+                                    </form>
+                                    <div class="card-body " style="width: 100%;">
+                                        <div id="box_grafico_nota_pagamento" style="width: 95%; min-height: 350px;">
+                                            <canvas id="grafico_nota_pagamento" class="grafico"></canvas>
+                                        </div>
+                                        <br />
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <?php include './rodape.php'; ?>
         </div>
-    </div>
-    
-    <!-- End of Main Content -->
+        <!-- End of Main Content -->
     </div>
     <!-- End of Content Wrapper -->
     <!-- End of Page Wrapper -->
