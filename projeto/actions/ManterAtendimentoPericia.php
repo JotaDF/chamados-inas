@@ -32,13 +32,20 @@ class ManterAtendimentoPericia extends Model {
         return $array_dados;
     }
 
+    function desmarcaAgendamento($id) {
+        $sql = "UPDATE atendimento_pericia SET data_agendada = null, hora_agendada = null where id = " . $id;
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+
+    }
+
     function getAtendimentoPorDataEHora($data_agendada, $hora_agendada) {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '".$data_agendada."' AND hora_agendada= '".$hora_agendada."'";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, ap.atualizado, ap.situacao as situacao_atendimento, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id as id_atendimento_pericia, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, mp.id as medico_perito FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe, medico_perito as mp WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '".$data_agendada."' AND hora_agendada= '".$hora_agendada."'";
         $resultado = $this->db->Execute($sql);
         if($registro = $resultado->fetchRow()) {
             $dados = new AtendimentoPericia();
             $dados->excluir     = true;
-            $dados->id                  = $registro['id'];
+            $dados->id                  = $registro['id_atendimento_pericia'];
             $dados->id_medico_perito    = $registro['id_medico_perito'];
             $dados->fila                = $registro['id_fila'];
             $dados->cpf                 = $registro['cpf'];
@@ -51,7 +58,11 @@ class ManterAtendimentoPericia extends Model {
             $dados->data_solicitacao    = $registro['data_solicitacao'];
             $dados->data_agendada       = $registro['data_agendada'];
             $dados->hora_agendada       = $registro['hora_agendada'];
+            $dados->resultado           = $registro['resultado'];
             $dados->situacao            = $registro['situacao'];
+            $dados->atualizado            = $registro['atualizado'];
+            $dados->situacao_atendimento  = $registro['situacao_atendimento'];
+            $dados->medico_perito  = $registro['medico_perito'];
             $dados->usuario             = $registro['id_usuario'];
             $dados->descricao           = $registro['descricao'];
             $dados->justificativa       = $registro['justificativa'];
@@ -100,12 +111,13 @@ class ManterAtendimentoPericia extends Model {
         return $array_dados;
     }
     function listaAtendimentosRealizados() {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado = 'AUTORIZADA' order by ap.data_agendada DESC";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado is not null AND ap.resultado <> 'NAO COMPARECEU' order by ap.data_agendada DESC, ap.hora_agendada DESC";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco(); 
             $dados->id = $registro['id'];
+            $dados->id_fila = $registro['id_fila'];
             $dados->nome  = $registro['nome'];
             $dados->telefone = $registro['telefone'];
             $dados->data_agendada = $registro['data_agendada'];
@@ -118,8 +130,8 @@ class ManterAtendimentoPericia extends Model {
         }
         return $array_dados;
     }
-        function listaAtendimentoRealizadoPorId($id_fila) {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, mp.nome as medico_perito FROM medico_perito as mp,atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE mp.id = ap.id_medico_perito AND fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado = 'AUTORIZADA' AND ap.id ='". $id_fila ."'";
+        function listaAtendimentoRealizadoPorId($id) {
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, mp.nome as medico_perito FROM medico_perito as mp,atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE mp.id = ap.id_medico_perito AND fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND ap.id ='". $id ."'";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while($registro = $resultado->fetchRow()) {
@@ -141,6 +153,7 @@ class ManterAtendimentoPericia extends Model {
         }
         return $array_dados;
     }
+
     function getTotalFilaBeneficiario($cpf) {
         $sql = "SELECT COUNT(*) AS total FROM fila_pericia_eco AS fpe WHERE fpe.cpf = '".$cpf."' AND fpe.id NOT IN (SELECT id_fila FROM atendimento_pericia)";
         $resultado = $this->db->getRow($sql);
@@ -168,6 +181,11 @@ class ManterAtendimentoPericia extends Model {
         return $resultado;
     }
 
+    function reagendar($id_atendimento, $data_agendada, $hora_agendada) {
+        $sql = "UPDATE atendimento_pericia SET data_agendada ='".$data_agendada."', hora_agendada = '".$hora_agendada."' WHERE id = '".$id_atendimento."'";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
+    }
     function excluir($cpf) {
         $sql = "DELETE FROM atendimento_pericia WHERE cpf = '".$cpf."'";
         $resultado = $this->db->Execute($sql);

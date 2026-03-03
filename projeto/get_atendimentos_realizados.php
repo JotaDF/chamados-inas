@@ -6,8 +6,12 @@ $atendimento_pericia = $manterAtendimentoPericia->listaAtendimentosRealizados();
 foreach ($atendimento_pericia as $obj) {
     $data_agendada_formatada = date('d/m/Y', strtotime($obj->data_agendada));
     $descricao = explode(";", $obj->descricao);
+    if (strlen($obj->descricao) > 50) {
+        $descricao = [mb_substr($obj->descricao, 0, 50, 'UTF-8') . "..."];
+    } 
     $telefone = explode(";", $obj->telefone);
-    $btn_info = "<button class='btn btn-primary btn-sm' onclick='getDadosAtendimentoRealizado(\"{$obj->id}\")'><i class='fa fa-info-circle'></i></button>";
+    $btn_info = "<button class='btn btn-primary btn-sm'  title='Vizualizar informações do atendimento' onclick='getDadosAtendimentoRealizado($obj->id)'><i class='fa fa-info-circle'></i></button>";
+
     echo "<tr>";
     echo "<td>" . $obj->nome . "</td>";
     echo "<td>" . implode("<br>", $telefone) . "</td>";

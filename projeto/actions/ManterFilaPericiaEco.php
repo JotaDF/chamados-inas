@@ -117,9 +117,8 @@ class ManterFilaPericiaEco extends Model
     }
     function listaFilaPericiaAtendimentoNaoConcluido()
     {
-        $sql = "SELECT DISTINCT fp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, b.nome, b.telefone 
-        FROM fila_pericia_eco fp, beneficiario b
-        WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE situacao <> 'SISTEMA' AND resultado <> NULL)";
+        $sql = "SELECT DISTINCT fp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, fp.pendencia, b.nome, b.telefone 
+        FROM fila_pericia_eco fp, beneficiario b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE situacao <> 'SISTEMA' and resultado is not null)";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -135,9 +134,27 @@ class ManterFilaPericiaEco extends Model
             $dados->cpf = $registro["cpf"];
             $dados->nome = $registro["nome"];
             $dados->telefone = $registro["telefone"];
+            $dados->pendencia = $registro["pendencia"];
             $array_dados[] = $dados;
         }
         return $array_dados;
+    }
+
+    function verificaAtendimentoExiste($id_fila)
+    {
+        $sql = "SELECT id_fila, data_agendada, hora_agendada FROM atendimento_pericia WHERE id_fila = '" . $id_fila . "' AND data_agendada is not null";
+        $resultado = $this->db->Execute($sql);
+        if ($resultado && !$resultado->EOF) {
+            return [
+                'agendado' => true,
+                'data_agendada' => $resultado->fields['data_agendada'],
+                'hora_agendada' => $resultado->fields['hora_agendada']
+            ];
+        }
+        return [
+            'agendado' => false,
+            'data_agendada' => null
+        ];
     }
     function getFilaPorId($id_fila)
     {
@@ -200,6 +217,13 @@ class ManterFilaPericiaEco extends Model
             return $datas[0];
         }
         return $data_atual;
+    }
+
+    function registraPendencia($id_fila = 0, $pendencia = "")
+    {
+        $sql = "UPDATE fila_pericia_eco SET pendencia = '" . $pendencia . "' where id= '" . $id_fila . "'";
+        $resultado = $this->db->Execute($sql);
+        return $resultado;
     }
 
     function listaAgendadosPorData($data)
@@ -355,6 +379,27 @@ class ManterFilaPericiaEco extends Model
             "vizinhos" => $vizinhos
         ];
     }
+    function horariosAtendimentosRealizados($data_atual)
+    {
+        $sql = "SELECT data_agendada, hora_agendada, resultado FROM atendimento_pericia WHERE resultado is not null and data_agendada = '" . $data_atual . "'";
+        $resultado = $this->db->Execute($sql);
+
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $array_dados[$registro['hora_agendada']] = $registro['resultado'];
+        }
+        return $array_dados;
+    }
+    function horariosNaoComparecidos($data_atual)
+    {
+        $sql = "SELECT data_agendada, hora_agendada, resultado FROM atendimento_pericia WHERE resultado = 'NAO COMPARECEU' and data_agendada = '" . $data_atual . "'";
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+            $array_dados[] = $registro['hora_agendada'];
+        }
+        return $array_dados;
+    }
     function criaResposta($data_atual, $resultado)
     {
         $dia_semana = date('l', strtotime($data_atual));
@@ -363,6 +408,7 @@ class ManterFilaPericiaEco extends Model
         return [
             "horarios_disponiveis" => $resultado['disponiveis'],
             "horarios_agendados" => $resultado['horarios_agendados'],
+            "horarios_realizados" => $this->horariosAtendimentosRealizados($data_atual),
             "agenda" => $resultado['agenda'],
             "dia_semana" => $dia_semana,
             "data_atual" => $data_atual,
