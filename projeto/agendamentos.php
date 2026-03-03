@@ -59,7 +59,6 @@ include('./verifica_login.php');
                 dataType: "json",
                 success: function (dados) {
                     preencherAgenda(dados);
-                    console.log(dados);
                     const dataKey = dados.data_atual;
                     const agendados = dados.horarios_agendados[dataKey] || [];
                     const proximoFormatado = formatarDataISO(dados.proximo);
@@ -91,18 +90,8 @@ include('./verifica_login.php');
         `);
             });
         }
-
-        function agendar(hora) {
-            limpaModalAgendado();
-            mostraInfoBeneficiario(); // <-- ESSENCIAL
-            $("#texto_modal").html("<b>Deseja agendar o horário: " + hora + " ?</b>");
-            $("#horaSelecionada").text(hora);
-            $("#horaAgendada").val(hora);
-
-            $('#confirm').modal('show');
-        }
-
         function atualizarBotoes(dados) {
+            $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
             $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
             $("#btnProximo").attr("onclick", "proximoDia('" + dados.proximo + "')");
         }
@@ -126,6 +115,7 @@ include('./verifica_login.php');
             document.getElementById("diaSemana").textContent = dias[dados.dia_semana];
         }
 
+
         function atualizarHorariosDisponiveis(dados) {
             const container = $("#lista_disponiveis");
             container.empty();
@@ -137,40 +127,60 @@ include('./verifica_login.php');
 
             // Pegamos só as horas (chaves)
             const horasAgendadas = Object.keys(agendadosObj);
-
+            const realizados = dados.horarios_realizados || {};
+            const resultado_realizados = dados.horarios_realizados['resultado'];
             // Junta disponíveis + agendados
             const todosHorarios = Array.from(
                 new Set([...dados.horarios_disponiveis, ...horasAgendadas])
             ).sort();
+            const icon = dados.resultado == "NAO COMPARECEU"
+                ? "fa fa-check mr-1"
+                : "fa fa-ban mr-1"
 
             // Percorrer e montar botões
             todosHorarios.forEach((hora) => {
+
                 const isAgendado = agendadosObj.hasOwnProperty(hora);
                 const nome = isAgendado ? agendadosObj[hora].nome : "";
+
+                const resultado = realizados[hora];
+                const foiRealizado = resultado !== undefined && resultado !== "null";
 
                 const onclick = isAgendado
                     ? `getDadosAgendados('${dataKey}','${hora}')`
                     : `agendar('${hora}')`;
 
-                const class_btn = isAgendado
-                    ? "btn-danger border border-dark"
-                    : "btn-light border-dark";
+                let class_btn = "btn-light border border-dark";
 
-                const disabled = isAgendado
-                    ? ""
-                    : "disabled"
+                // 🔴 Fica vermelho apenas se estiver agendado e NÃO realizado
+                if (isAgendado && !foiRealizado) {
+                    class_btn = "btn-danger border border-dark";
+                }
+
+                const disabled = isAgendado ? "" : "disabled";
+
+                let icon = "";
+
+                if (foiRealizado) {
+                    icon = (resultado === "NAO COMPARECEU")
+                        ? "fa fa-ban text-danger mr-1"
+                        : "fa fa-check text-success mr-1";
+                }
 
                 container.append(`
-            <div class="col-6 col-md-3 mb-2">
-                <button
-                    class="btn ${class_btn} w-100 py-2 font-weight-bold"
-                    ${disabled}
-                    onclick="${onclick}">
-                    ${hora}  ${isAgendado ? " | " + formatarNome(nome) : " | DISPONÍVEL"}
-                </button>
-            </div>
-        `);
+        <div class="col-6 col-md-3 mb-2">
+            <button
+                class="btn ${class_btn} w-100 py-2 font-weight-bold"
+                ${disabled}
+                onclick="${onclick}">
+                <i class="${icon}"></i>
+                ${hora} ${isAgendado ? " | " + formatarNome(nome) : " | DISPONÍVEL"}
+            </button>
+        </div>
+    `);
+
             });
+
         }
         const nomeCompleto = isAgendado ? agendadosObj[hora].nome : "";
 
@@ -230,6 +240,7 @@ include('./verifica_login.php');
                 dataType: "json",
                 success: function (dados) {
                     geraModalAgendado(dados, data, hora);
+                    $("#desmarcar").text(dados.nome);
                 },
                 error: function (xhr, status, error) {
                     console.log("AJAX ERROR:", status, error);
@@ -238,16 +249,24 @@ include('./verifica_login.php');
                 }
 
             });
-
         }
+        function escondeResultado(valor) {
+            if (valor != "NAO COMPARECEU") {
+                $('#resultado_container').removeClass('d-none')
+            }
+            if (valor == "NAO COMPARECEU") {
+                $('#resultado_container').addClass('d-none')
+            }
+        }
+
         function geraModalAgendado(dados, data, hora) {
             $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
             let descricoes = dados.descricao.split(";");
             let telefones = dados.telefone.split(';').map(t => mascaraTelefone(t.trim())).join(' / ');
             ocultaInfoBeneficiario();
+            limpaInfoPericia()
             $('#id_fila').val(dados.fila);
-            $('#id').val(dados.id);
-            $('#id_agendamento').val(dados.id);
+            $('#id_atendimento').val(dados.id);
             $('#nome_agendado').html(dados.nome);
             $('#cpf_agendado').html(dados.cpf);
             $('#situacao_agendado').html(dados.situacao);
@@ -257,8 +276,25 @@ include('./verifica_login.php');
             $('#autorizacao_agendado').html(dados.autorizacao);
             $('#telefone_agendado').html(telefones);
             $('#horaSelecionada').text(dados.hora_agendada);
+            $('#btn_desmarca').removeClass('d-none');
+            $('#btn_reagendar').removeClass('d-none');
+            $('#btn_confirmar').removeClass('d-none');
+            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar").addClass('mr-auto');
+
+            if (dados.resultado !== null) {
+                $('#btn_desmarca').addClass('d-none');
+                $('#btn_reagendar').addClass('d-none');
+                $('#btn_confirmar').addClass('d-none');
+                $('#btn_cancela').removeClass('d-none');
+                $('#medico_perito').val(dados.medico_perito)
+                $('#situacao_atendimento').val(dados.situacao_atendimento)
+                $('#atualizado').val(dados.atualizado)
+                $('#resultado_container').removeClass('d-none')
+                $('#resultado').val(dados.resultado)
+            }
+
             $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
-            $('#btn_cancela').html("<i class='fa fa-times mr-1'></i>Fechar");
+
             $('#confirm').modal('show');
         }
 
@@ -271,6 +307,13 @@ include('./verifica_login.php');
             $('#telefone_beneficiario').addClass('d-none');
         }
 
+        function limpaInfoPericia() {
+            $('#medico_perito').val("")
+            $('#situacao_atendimento').val("")
+            $('#atualizado').val("")
+            $('#resultado_container').val("")
+        }
+
         function mostraInfoBeneficiario() {
             $('#titulo_modal').removeClass('d-none').html("<i class='fa fa-calendar-check mr-2'></i>Dados do Agendamento");
             $('#nome_beneficiario').removeClass('d-none');
@@ -281,16 +324,6 @@ include('./verifica_login.php');
             $('#telefone_beneficiario').removeClass('d-none');
         }
 
-        function limpaModalAgendado() {
-            $("#texto_modal").html("");
-            $('#nome_agendado').html("");
-            $('#cpf_agendado').html("");
-            $('#situacao_agendado').html("");
-            $('#descricao_agendado').html("");
-            $('#justificativa_agendado').html("");
-            $('#telefone_agendado').html("");
-            $('#horaSelecionada').text("");
-        }
         function mascaraTelefone(tel) {
             tel = tel.replace(/\D/g, "");
             if (tel.length <= 10) {
@@ -299,6 +332,40 @@ include('./verifica_login.php');
                 return tel.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
             }
         }
+        function desmarcaAgendamento() {
+            let id_atendimento = $('#id_atendimento').val();
+            $.ajax({
+                url: "desmarcar_atendimento.php",
+                type: "POST",
+                data: { id_atendimento: id_atendimento },
+                success: function (response) {
+                    location.reload();
+
+                },
+                error: function () {
+                    alert('Erro ao desmarcar o agendamento');
+                }
+            });
+        }
+        function chamaModalDescarmar(nome) {
+            $('#confirm').modal('hide');
+
+            // espera o modal fechar de verdade
+            $('#confirm').on('hidden.bs.modal', function () {
+                $('#confirm_desmarca').modal('show');
+
+                // remove o evento para não duplicar
+                $(this).off('hidden.bs.modal');
+            });
+        }
+        function reagendar(data) {
+            let id_fila = $('#id_fila').val();
+            let id_atendimento = $('#id_atendimento').val();
+            window.location.href =
+                "agendamento_pericia.php?id_fila=" + id_fila +
+                "&data=" + data +
+                "&id_atendimento=" + id_atendimento;
+        };
     </script>
     <style>
         body {
@@ -318,6 +385,8 @@ include('./verifica_login.php');
     <div id="wrapper">
         <?php include './menu_atendimento_pericia.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
+
+
             <div id="content">
                 <?php include './top_bar.php'; ?>
                 <?php
@@ -348,14 +417,19 @@ include('./verifica_login.php');
                                         <script>
                                             window.onload = function () {
                                                 const dataUrl = getUrlParam("data");
+                                                const horaUrl = getUrlParam("hora");
+                                                const agendado = getUrlParam("agendado");
 
-                                                if (dataUrl) {
-                                                    proximoDia(dataUrl);
-                                                    atualizaDiaSemana({ dia_semana: new Date(dataUrl).toLocaleDateString("en-US", { weekday: 'long' }) });
+                                                const dataFinal = dataUrl ? dataUrl : "<?= $hoje ?>";
+
+                                                proximoDia(dataFinal);
+                                                atualizaDiaSemana(dataFinal);
+
+                                                if (agendado && dataUrl && horaUrl) {
+                                                    getDadosAgendados(dataUrl, horaUrl);
                                                 }
-                                                proximoDia("<?= $hoje ?>");
-                                                atualizaDiaSemana("<?= $hoje ?>");
                                             };
+
                                         </script>
                                         <div class="col-md text-center">
                                             <div class="px-4 py-2 bg-light rounded shadow-sm d-inline-block">
@@ -409,7 +483,7 @@ include('./verifica_login.php');
         <div class="modal fade" id="confirm" tabindex="-1">
             <div class="modal-dialog modal-lg"> <!-- modal maior para caber os dados -->
                 <div class="modal-content">
-
+                    <p id="mensagem" class="alert alert-success mt-2 d-none" role="alert"></p>
                     <!-- HEADER -->
                     <div class="modal-header text-dark">
                         <h5 class="modal-title" id="titulo_modal">
@@ -438,7 +512,7 @@ include('./verifica_login.php');
                             <input type="hidden" name="data_agendada" id="dataAgendada">
                             <input type="hidden" name="hora_agendada" id="horaAgendada">
                             <input type="hidden" name="id_fila" id="id_fila">
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="id_atendimento" id="id_atendimento">
 
                             <!-- DADOS DO BENEFICIÁRIO -->
                             <div class="row">
@@ -557,22 +631,23 @@ include('./verifica_login.php');
                                 <div class="col-md-6 mb-3">
                                     <div class="border rounded p-2 bg-light">
                                         <div class="small text-dark text-uppercase font-weight-bold">PRESENÇA</div>
-                                        <select class="form-control form-control-sm" name="atualizado" id="atualizado">
+                                        <select class="form-control form-control-sm" name="atualizado" id="atualizado"
+                                            onchange="escondeResultado(this.value)">
                                             <option value="">Selecione</option>
                                             <option value="ANALISE VIA SISTEMA">ANALISE VIA SISTEMA</option>
                                             <option value="COMPARECEU">COMPARECEU</option>
-                                            <option value="NÃO COMPARECEU">NÃO COMPARECEU</option>
+                                            <option value="NAO COMPARECEU">NÃO COMPARECEU</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <div class="border rounded p-2 bg-light">
+                                    <div class="border rounded p-2 bg-light d-none" id="resultado_container">
                                         <div class="small text-dark text-uppercase font-weight-bold">Resultado</div>
                                         <select id="resultado" name="resultado" class="form-control form-control-sm">
-                                            <option value="">Selecione</option>
+                                            <option value="NAO COMPARECEU">Selecione</option>
                                             <option value="AUTORIZADA">AUTORIZADA</option>
                                             <option value="PARCIALMENTE AUTORIZADA">PARCIALMENTE AUTORIZADA</option>
-                                            <option value="NÃO AUTORIZADA">NÃO AUTORIZADA</option>
+                                            <option value="NAO AUTORIZADA">NÃO AUTORIZADA</option>
                                         </select>
                                     </div>
                                 </div>
@@ -580,20 +655,55 @@ include('./verifica_login.php');
 
 
                             <!-- FOOTER -->
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
+                            <div class="modal-footer  d-flex">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"
+                                    id="btn_cancela">
                                     <i class="fa fa-times mr-1"></i> Cancelar
                                 </button>
 
-                                <button type="submit" class="btn btn-success btn-sm" id="btn_confirma">
+                                <button type="button" class="btn btn-danger btn-sm" id="btn_desmarca"
+                                    onclick="chamaModalDescarmar()">
+                                    <i class="fa fa-calendar-times mr-1"></i> Desmarcar
+                                </button>
+
+                                <button type="button" class="btn btn-warning btn-sm" id="btn_reagendar"
+                                    onclick="reagendar('<?= $hoje ?>')">
+                                    <i class="fa fa-calendar mr-1"></i> Reagendar
+                                </button>
+
+                                <button type="submit" class="btn btn-success btn-sm" id="btn_confirmar">
                                     <i class="fa fa-check mr-1"></i> Confirmar
                                 </button>
                             </div>
+
                         </form>
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="modal fade" id="confirm_desmarca" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmação</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Deseja desmarcar <strong>"<span id="desmarcar"></span>"</strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="delete"
+                            onclick="desmarcaAgendamento()">Desmarcar</a>
+                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 </body>
 
 </html>

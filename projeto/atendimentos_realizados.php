@@ -49,7 +49,7 @@ require_once('./verifica_login.php');
             $.ajax({
                 url: "obter_dados_agendamento_realizado.php",
                 type: "GET",
-                data: { id_fila: id },
+                data: { id: id },
                 dataType: "json",
                 success: function (dados) {
                     mostraModal(dados[0]);
@@ -65,8 +65,7 @@ require_once('./verifica_login.php');
         }
 
         function mostraModal(dados) {
-            let descricoes = (dados.descricao || "").split(";");
-            console.log(dados);
+            let descricoes = dados.descricao.split(";");
             $('#id_fila').val(dados.fila);
             $('#id').val(dados.id);
             $('#id_agendamento').val(dados.id);
@@ -124,7 +123,7 @@ require_once('./verifica_login.php');
                                 <i class="fa fa-check-square fa-2x text-white"></i>
                             </div>
                             <div class="col mb-0">
-                                <span style="align:left;" class="h5 m-0 font-weight text-white">Atendmentos
+                                <span style="align:left;" class="h5 m-0 font-weight text-white">Atendimentos
                                     Realizados</span>
                             </div>
                             <button id="exportButton" class="btn btn-sm text-white border" type="button">Exportar para
@@ -180,7 +179,7 @@ require_once('./verifica_login.php');
 
                 <!-- BODY -->
                 <div class="modal-body">
-                 
+
                     <!-- Dados do paciente em mini-cards -->
                     <h6 class="text-secondary mb-3">
                         <i class="fa fa-user mr-1"></i> Dados do Beneficiário
@@ -286,7 +285,7 @@ require_once('./verifica_login.php');
                     </div>
                     <div class="modal-footer mt-2">
                         <button type="submit" class="btn btn-success btn-sm" data-dismiss="modal" id="btn_cancela">
-                            <i class="fa fa-check mr-1"></i> Fecjar
+                            <i class="fa fa-check mr-1"></i> Fechar
                         </button>
                     </div>
                 </div>

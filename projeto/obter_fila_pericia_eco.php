@@ -12,3 +12,4 @@ $response = $manterFilaPericiaEco->criaResposta($data_atual, $resultado);
 
 echo json_encode($response);
 exit;
+    

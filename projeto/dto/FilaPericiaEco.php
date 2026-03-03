@@ -7,6 +7,7 @@
       public $justificativa;
       public $situacao;
       public $descricao;
+      public $pendencia;
       public $cpf;
 
       //variaveis de manipulação

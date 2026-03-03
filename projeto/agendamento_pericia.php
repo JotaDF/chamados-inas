@@ -81,10 +81,13 @@ include_once('./verifica_login.php');
             });
         }
 
-        function agendar(hora) {
+        function agendar(hora, id_atendimento) {
             limpaModalAgendado();
-            mostraInfoBeneficiario(); // <-- ESSENCIAL
+            mostraInfoBeneficiario();
             $("#texto_modal").html("<b>Deseja agendar o horário: " + hora + " ?</b>");
+            if (id_atendimento != "") {
+                $("#texto_modal").html("<b>Deseja reagendar para o horário: " + hora + " ?</b>");
+            }
             $("#horaSelecionada").text(hora);
             $("#horaAgendada").val(hora);
 
@@ -115,8 +118,12 @@ include_once('./verifica_login.php');
             document.getElementById("diaSemana").textContent = dias[dados.dia_semana];
         }
 
+        function verificaAtendimento() {
+
+        }
         function atualizarHorariosDisponiveis(dados) {
             const container = $("#lista_disponiveis");
+
             container.empty();
 
             const dataKey = dados.data_atual;
@@ -131,15 +138,18 @@ include_once('./verifica_login.php');
             const todosHorarios = Array.from(
                 new Set([...dados.horarios_disponiveis, ...horasAgendadas])
             ).sort();
-
+            let id_atendimento = $('#id_atendimento').val();
             // Percorrer e montar botões
             todosHorarios.forEach((hora) => {
                 const isAgendado = agendadosObj.hasOwnProperty(hora);
                 const nome = isAgendado ? agendadosObj[hora].nome : "";
 
+                const icon = dados.resultado != null
+                    ? "fa-check"
+                    : ""
                 const onclick = isAgendado
                     ? `getDadosAgendados('${dataKey}','${hora}')`
-                    : `agendar('${hora}')`;
+                    : `agendar('${hora}', '${id_atendimento}')`;
 
                 const class_btn = isAgendado
                     ? "btn-danger border border-dark"
@@ -308,22 +318,22 @@ include_once('./verifica_login.php');
                 include_once('actions/ManterFilaPericiaEco.php');
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
-                $datas = $manterFilaPericiaEco->getDataAgendamento();
                 $hoje = $_GET['data'] ?? date('Y-m-d');
                 $datas_formatada = explode(" ", $datas_formatada);
                 $data_atual = $_GET['data'] ?? date('Y-m-d');
                 $id_fila = $_GET['id_fila'];
+                $id_atendimento = $_GET['id_atendimento'] ?? null;
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
                 $periodoDatas = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $periodoHoras = $manterFilaPericiaEco->getHorarios();
                 $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
-                $datas = date("Y-m-d", strtotime($data));
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
                 $dias_para_agendamento = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
                 $soDatas = array_map(function ($dt) {
                     return $dt->format('d/m/Y');
                 }, $dias_para_agendamento);
                 $descricoes = explode(";", $dados->descricao);
+                $texto_agendamento = $id_atendimento !== null ? "reagendar" : "agendar";
                 ?>
                 <script>
                     window.onload = function () {
@@ -345,8 +355,8 @@ include_once('./verifica_login.php');
                                     <i class="fa fa-info-circle fa-2x text-white"></i>
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white">Detalhes da
-                                        Fila</span>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white" ><p id="detalhes_fila">Detalhes da
+                                        Fila</pp>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -445,7 +455,6 @@ include_once('./verifica_login.php');
                                                 <i class="fa fa-undo mr-2"></i> Hoje
                                             </button>
                                         </div>
-
                                         <!-- Dropdown -->
                                         <div class="col-auto">
                                             <div class="dropdown">
@@ -497,7 +506,7 @@ include_once('./verifica_login.php');
 
                     <!-- Frase principal -->
                     <div class="alert alert-info text-center">
-                        <h6 id="texto_modal"><b>Deseja agendar o horário: </b><span
+                        <h6 id="texto_modal"><b>Deseja <?php echo $texto_agendamento ?> o horário: </b><span
                                 class="text-primary font-weight-bold" id="horaSelecionada"></span>?</h6>
                     </div>
                     <hr>
@@ -511,6 +520,7 @@ include_once('./verifica_login.php');
                         <input type="hidden" name="data_agendada" id="dataAgendada">
                         <input type="hidden" name="hora_agendada" id="horaAgendada">
                         <input type="hidden" name="id_fila" id="id_fila" value="<?= $id_fila ?>">
+                        <input type="hidden" name="id_atendimento" id="id_atendimento" value="<?= $id_atendimento ?>">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="border rounded p-2 bg-light">
