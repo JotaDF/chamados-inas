@@ -33,7 +33,7 @@ class ManterAtendimentoPericia extends Model {
     }
 
     function desmarcaAgendamento($id) {
-        $sql = "UPDATE atendimento_pericia SET data_agendada = null, hora_agendada = null where id = " . $id;
+        $sql = "UPDATE atendimento_pericia SET situacao = 'DESMARCADO' where id = " . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;
 

@@ -228,7 +228,7 @@ class ManterFilaPericiaEco extends Model
 
     function listaAgendadosPorData($data)
     {
-        $sql = "SELECT ap.hora_agendada, b.nome, ap.id as id_fila FROM atendimento_pericia as ap, fila_pericia_eco as fpe, beneficiario as b WHERE ap.id_fila = fpe.id AND fpe.cpf = b.cpf AND data_agendada = '" . $data . "'";
+        $sql = "SELECT ap.hora_agendada, b.nome, ap.id as id_fila FROM atendimento_pericia as ap, fila_pericia_eco as fpe, beneficiario as b WHERE ap.id_fila = fpe.id AND fpe.cpf = b.cpf AND ap.situacao <> 'DESMARCADO' AND data_agendada = '" . $data . "'";
         $resultado = $this->db->Execute($sql);
         $agendados = [];
         $agendados[$data] = [];
