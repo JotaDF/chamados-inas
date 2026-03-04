@@ -24,6 +24,7 @@ include_once('./verifica_login.php');
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -38,16 +39,33 @@ include_once('./verifica_login.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
     <script type="text/javascript" class="init">
         $(document).ready(function () {
             $('#fila_atendimentos').DataTable();
+            const quillOpcoes = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        [{ 'align': [] }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    ],
+                },
+                theme: 'snow',
+            };
+
+            // Instanciar o Quill para o editor de texto
+            quillPendencia = new Quill('#editor', quillOpcoes);
+            document.getElementById('form_pendencia').addEventListener('submit', function () {
+                let quillEditorHTML = quillPendencia.root.innerHTML;
+                document.querySelector('input[name="pendencia"]').value = quillEditorHTML;
+            });
         });
-        function modalPendencia(id_fila, pendencia = "") {
+        function modalPendencia(id_fila) {
             $('#id_fila').val(id_fila);
-            $('#pendencia').val("");
-            if (pendencia != null) {
-                $('#pendencia').val(pendencia);
-            }
+            quillPendencia.root.innerHTML = $('#' + id_fila + '_pendencia').val();
             $('#modal_pendencia').modal('show');
         }
         function geraModalAgendado(id_fila) {
@@ -122,9 +140,9 @@ include_once('./verifica_login.php');
         </div>
     </div>
     <div class="modal fade" id="modal_pendencia" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog" style="max-width: 35%; height: 200px;">
             <div class="modal-content">
-                <form action="registrar_pendencia_fila.php" method="POST">
+                <form action="registrar_pendencia_fila.php" method="POST" id="form_pendencia">
                     <input type="hidden" name="id_fila" id="id_fila">
                     <div class="modal-header">
                         <h5 class="modal-title">Registrar pendência</h5>
@@ -133,7 +151,8 @@ include_once('./verifica_login.php');
                         </button>
                     </div>
                     <div class="modal-body">
-                        <textarea class="form-control" name="pendencia" id="pendencia"></textarea>
+                        <div id="editor" style="height: 180px;"></div>
+                        <input type="hidden" name="pendencia" id="pendencia">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger" id="confirmar">Confirmar</button>
@@ -141,7 +160,6 @@ include_once('./verifica_login.php');
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
     <div class="modal fade" id="confirm" tabindex="-1">
