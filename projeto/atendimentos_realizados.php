@@ -42,7 +42,50 @@ require_once('./verifica_login.php');
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script type="text/javascript" class="init">
         $(document).ready(function () {
-            $('#atendimentos_realizados').DataTable();
+
+            const tabela = $('#atendimentos_realizados').DataTable();
+
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+
+                const dataInicio = $('#data_inicio').val();
+                const dataFim = $('#data_fim').val();
+
+                const dataTabela = data[2];
+                if (!dataTabela) return true;
+
+                // DATA DA TABELA (dd/mm/yyyy)
+                const partesTabela = dataTabela.split('/');
+                const dataLinha = new Date(partesTabela[2], partesTabela[1] - 1, partesTabela[0]);
+
+                let inicio = null;
+                let fim = null;
+
+                // DATA INICIO (yyyy-mm-dd)
+                if (dataInicio) {
+                    const partesInicio = dataInicio.split('-');
+                    inicio = new Date(partesInicio[0], partesInicio[1] - 1, partesInicio[2]);
+                }
+
+                // DATA FIM (yyyy-mm-dd)
+                if (dataFim) {
+                    const partesFim = dataFim.split('-');
+                    fim = new Date(partesFim[0], partesFim[1] - 1, partesFim[2]);
+                }
+
+                if (
+                    (!inicio || dataLinha >= inicio) &&
+                    (!fim || dataLinha <= fim)
+                ) {
+                    return true;
+                }
+
+                return false;
+            });
+
+            $('#data_inicio, #data_fim').on('change', function () {
+                tabela.draw();
+            });
+
         });
 
         function getDadosAtendimentoRealizado(id) {
@@ -125,12 +168,26 @@ require_once('./verifica_login.php');
                             <div class="col mb-0">
                                 <span style="align:left;" class="h5 m-0 font-weight text-white">Atendimentos
                                     Realizados</span>
+
                             </div>
                             <button id="exportButton" class="btn btn-sm text-white border" type="button">Exportar para
                                 Excel</button>
                         </div>
 
                         <div class="card-body">
+                            <div class="row mb-3 justify-content-center align-items-end">
+
+                                <div class="col-md-3">
+                                    <label for="data_inicio" class="mb-1">De:</label>
+                                    <input type="date" id="data_inicio" class="form-control form-control-sm">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="data_fim" class="mb-1">Até:</label>
+                                    <input type="date" id="data_fim" class="form-control form-control-sm">
+                                </div>
+
+                            </div>
                             <table id="atendimentos_realizados"
                                 class="table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                 <thead>
@@ -292,9 +349,23 @@ require_once('./verifica_login.php');
                 <!-- Modal excluir -->
                 <script>
                     document.getElementById('exportButton').addEventListener('click', function () {
-                        var wb = XLSX.utils.table_to_book(document.getElementById('atendimentos_realizados'), { sheet: "Sheet 1" });
+
+                        // clona a tabela para não alterar a original
+                        const tabelaOriginal = document.getElementById('atendimentos_realizados');
+                        const tabelaClone = tabelaOriginal.cloneNode(true);
+
+                        // percorre todos os td que possuem data-export
+                        tabelaClone.querySelectorAll('td[data-export]').forEach(td => {
+                            td.innerText = td.getAttribute('data-export');
+                        });
+
+                        // exporta usando a tabela clonada
+                        var wb = XLSX.utils.table_to_book(tabelaClone, { sheet: "Sheet 1" });
                         XLSX.writeFile(wb, "atendimentos_realizados.xlsx");
                     });
+
+
+
                 </script>
 </body>
 
