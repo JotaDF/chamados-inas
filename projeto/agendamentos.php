@@ -152,7 +152,7 @@ include('./verifica_login.php');
 
                 let class_btn = "btn-light border border-dark";
 
-                // 🔴 Fica vermelho apenas se estiver agendado e NÃO realizado
+                // Fica vermelho apenas se estiver agendado e NÃO realizado
                 if (isAgendado && !foiRealizado) {
                     class_btn = "btn-danger border border-dark";
                 }
@@ -284,7 +284,6 @@ include('./verifica_login.php');
             if (dados.resultado !== null) {
                 $('#btn_desmarca').addClass('d-none');
                 $('#btn_reagendar').addClass('d-none');
-                $('#btn_confirmar').addClass('d-none');
                 $('#btn_cancela').removeClass('d-none');
                 $('#medico_perito').val(dados.medico_perito)
                 $('#situacao_atendimento').val(dados.situacao_atendimento)
@@ -339,8 +338,7 @@ include('./verifica_login.php');
                 type: "POST",
                 data: { id_atendimento: id_atendimento },
                 success: function (response) {
-                    location.reload();
-
+                    //location.reload();
                 },
                 error: function () {
                     alert('Erro ao desmarcar o agendamento');
@@ -391,7 +389,7 @@ include('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 $descricoes = explode(";", $dados->descricao);
-                $hoje = $_GET['data'] ?? date('Y-m-d');
+                $hoje = $_GET['data'] ?? date( 'Y-m-d');
                 ?>
                 <div>
                     <div class="container-fluid">
@@ -674,6 +672,7 @@ include('./verifica_login.php');
                                 <button type="submit" class="btn btn-success btn-sm" id="btn_confirmar">
                                     <i class="fa fa-check mr-1"></i> Confirmar
                                 </button>
+
                             </div>
 
                         </form>
