@@ -249,6 +249,21 @@ class ManterFilaPericiaEco extends Model
 
         return $data_feriados;
     }
+
+    function getProximoDiaUtil()
+    {
+        $feriados = $this->geraListaFeriados();
+
+        $data = new DateTime();
+        $data->modify('+1 day');
+
+        while ($data->format('N') >= 6 || // 6 = sábado, 7 = domingo 
+        in_array($data->format('Y-m-d'), $feriados)) {
+            $data->modify('+1 day');
+        }
+        return $data->format('Y-m-d');
+    }
+
     function listaHorariosDisponiveisPorData($agenda, $horarios_agendados, $data_atual)
     {
         foreach ($agenda as $data => $horariosPossiveis) {

@@ -389,7 +389,7 @@ include('./verifica_login.php');
                 <?php include './top_bar.php'; ?>
                 <?php
                 $descricoes = explode(";", $dados->descricao);
-                $hoje = $_GET['data'] ?? date( 'Y-m-d');
+                $hoje = $_GET['data'] ?? date('Y-m-d');
                 ?>
                 <div>
                     <div class="container-fluid">
@@ -619,11 +619,12 @@ include('./verifica_login.php');
                                         <select class="form-control form-control-sm" name="situacao_atendimento"
                                             id="situacao_atendimento">
                                             <option value="">Selecione</option>
-                                            <option value="REANÁLISE">REANÁLISE</option>
-                                            <option value="SISTEMA">SISTEMA</option>
                                             <option value="CONFIRMADO">CONFIRMADO</option>
                                             <option value="DESMARCADO">DESMARCADO</option>
+                                            <option value="REANÁLISE">REANÁLISE</option>
+                                            <option value="SISTEMA">SISTEMA</option>
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
