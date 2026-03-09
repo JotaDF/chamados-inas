@@ -52,6 +52,7 @@ and open the template in the editor.
     <script type="text/javascript" class="init">
 
         var setores = [];
+        var sexos = ['Masculino', 'Feminino', 'Não informado'];
         <?php
         include_once('./actions/ManterSetor.php');
 
@@ -64,7 +65,7 @@ and open the template in the editor.
             setores.push(item);
             <?php
         }
-
+ 
         ?>
 
         function carregaSetores(id_atual) {
@@ -83,19 +84,33 @@ and open the template in the editor.
             }
             $('#setor').html(html);
         }
+        function carregaSexos(atual) {
+            var html = '<option value="">Selecione </option>';
+            for (var i = 0; i < sexos.length; i++) {
+                var selected = "";
+                if (sexos[i] == atual) {
+                    selected = "selected";
+                } else {
+                    selected = "";
+                }
+                html += '<option value="' + sexos[i] + '" ' + selected + '>' + sexos[i] + '</option>';
+            }
+            $('#sexo').html(html);
+        }
         $(document).ready(function () {
             $('#usuarios').DataTable({
                 order: [2, 'asc']
             });
             $('#id').val(0);
             carregaSetores(0);
+            carregaSexos("");
         });
         function excluir(id, nome) {
             $('#delete').attr('href', 'del_usuario.php?id=' + id);
             $('#nome_excluir').text(nome);
             $('#confirm').modal({ show: true });
         }
-        function alterar(id, login, nome, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, id_perfil, codigo_lotacao, descricao_lotacao, cargo_efetivo, simbolo_cargo, cpf) {
+        function alterar(id, login, nome, sexo, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, id_perfil, codigo_lotacao, descricao_lotacao, cargo_efetivo, simbolo_cargo, cpf) {
             $('#id').val(id);
             $('#login').val(login);
             $('#nome').val(nome);
@@ -110,6 +125,7 @@ and open the template in the editor.
             $('#nascimento').val(nascimento);
             $('#whatsapp').val(whatsapp);
             $('#linkedin').val(linkedin);
+            carregaSexos(sexo);
             carregaSetores(id_setor);
             $('#form_usuario').collapse("show");
             $('#btn_cadastrar').hide();

@@ -22,10 +22,9 @@
                         class="form-control form-control-sm" placeholder="Login da rede" required>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="matricula">Matrícula</label>
-                    <input type="text" name="matricula" id="matricula"
-                        oninput="this.value = this.value.replace(/\./g, '')" maxlength="8"
-                        class="form-control form-control-sm" placeholder="Matrícula" required>
+                    <label for="matricula">Sexo</label>
+                    <select id="sexo" name="sexo" class="form-control form-control-sm" required>
+                    </select>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="nascimento">Nascimento</label>
@@ -83,6 +82,12 @@
                     <label for="simbolo_cargo">Símbolo do Cargo</label>
                     <input type="text" name="simbolo_cargo" id="simbolo_cargo" class="form-control form-control-sm"
                         required="">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="matricula">Matrícula</label>
+                    <input type="text" name="matricula" id="matricula"
+                        oninput="this.value = this.value.replace(/\./g, '')" maxlength="8"
+                        class="form-control form-control-sm" placeholder="Matrícula" required>
                 </div>
             </div>
             <div class="form-group row float-right">

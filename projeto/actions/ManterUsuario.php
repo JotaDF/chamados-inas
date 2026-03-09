@@ -14,7 +14,7 @@ class ManterUsuario extends Model {
     }
 
     function listar($filtro = "") {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.agenda,u.id_setor,u.aniversariantes, 
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.agenda,u.id_setor,u.aniversariantes, 
         u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo, u.cpf, u.horario, (select count(*) from acesso as a where a.id_usuario=u.id) as dep FROM usuario as u ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -26,6 +26,7 @@ class ManterUsuario extends Model {
             }
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -49,7 +50,7 @@ class ManterUsuario extends Model {
     }
 
     function getUsuarioPorId($id) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.cpf, u.horario, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.cpf, u.horario, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
          FROM usuario as u WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -57,6 +58,7 @@ class ManterUsuario extends Model {
         while ($registro = $resultado->fetchRow()) {
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -78,7 +80,7 @@ class ManterUsuario extends Model {
         return $dados;
     }
     function getUsuarioPorLogin($login) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.cpf, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.cpf, u.linkedin,u.agenda,u.ativo,u.id_setor,u.aniversariantes, u.codigo_lotacao, u.descricao_lotacao, u.simbolo_cargo, u.cargo_efetivo
         FROM usuario as u WHERE login='$login'";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -86,6 +88,7 @@ class ManterUsuario extends Model {
         while ($registro = $resultado->fetchRow()) {
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -106,12 +109,12 @@ class ManterUsuario extends Model {
         return $dados;
     }
     function salvar(Usuario $dados) { 
-        $sql = "insert into usuario (nome, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, descricao_lotacao, codigo_lotacao, simbolo_cargo, cargo_efetivo, cpf, horario) values ('" . $dados->nome . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "'
+        $sql = "insert into usuario (nome, sexo, login, matricula, cargo, email, nascimento, whatsapp, linkedin, ativo, id_setor, descricao_lotacao, codigo_lotacao, simbolo_cargo, cargo_efetivo, cpf, horario) values ('" . $dados->nome . "','" . $dados->sexo . "','" . $dados->login . "','" . $dados->matricula . "','" . $dados->cargo . "','" . $dados->email . "','" . $dados->nascimento . "','" . $dados->whatsapp . "','" . $dados->linkedin . "',1,'" . $dados->setor . "'
         ,'" . $dados->descricao_lotacao . "','" . $dados->codigo_lotacao . "','" . $dados->simbolo_cargo  . "','" . $dados->cargo_efetivo . "','" . $dados->cpf . "', '08:00;12:00;13:00;17:00')";
 //        echo $sql . "<BR/>";
 //        exit;
         if ($dados->id > 0) {
-            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "'
+            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),sexo='" . $dados->sexo . "',login='" . $dados->login . "',matricula='" + $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "'
             ,id_setor='" . $dados->setor . "', cargo_efetivo='" . $dados->cargo_efetivo . "', simbolo_cargo='" . $dados->simbolo_cargo . "', codigo_lotacao='" . $dados->codigo_lotacao . "', descricao_lotacao='" . $dados->descricao_lotacao . "', cpf='" . $dados->cpf . "' where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         } else {
@@ -149,7 +152,7 @@ class ManterUsuario extends Model {
         return $resultado;
     }
     function getEditoresPorTarefa($id_tarefa) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.id_setor FROM usuario as u, editor as e WHERE e.id_usuario=u.id AND e.id_tarefa=".$id_tarefa." order by u.nome";
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.id_setor FROM usuario as u, editor as e WHERE e.id_usuario=u.id AND e.id_tarefa=".$id_tarefa." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -160,6 +163,7 @@ class ManterUsuario extends Model {
             }
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -174,7 +178,7 @@ class ManterUsuario extends Model {
         return $array_dados;
     }
     function getNaoEditoresPorTarefa($id_tarefa) {
-        $sql = "SELECT DISTINCT u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, 
+        $sql = "SELECT DISTINCT u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, 
         u.linkedin,u.ativo,u.id_setor 
                 FROM usuario as u, equipe_usuario equ, tarefa as tt
                 WHERE tt.id=".$id_tarefa." AND u.id=equ.id_usuario AND equ.id_equipe=tt.id_equipe 
@@ -190,6 +194,7 @@ class ManterUsuario extends Model {
             $dados->excluir = true;
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -204,7 +209,7 @@ class ManterUsuario extends Model {
         return $array_dados;
     }
     function getUsuariosEquipePorTarefa($id_tarefa) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.id_setor FROM usuario as u, equipe_usuario eu, tarefa as t WHERE t.id=$id_tarefa AND eu.id_equipe=t.id_equipe AND u.id=eu.id_usuario order by u.nome";
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin,u.ativo,u.id_setor FROM usuario as u, equipe_usuario eu, tarefa as t WHERE t.id=$id_tarefa AND eu.id_equipe=t.id_equipe AND u.id=eu.id_usuario order by u.nome";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -216,6 +221,7 @@ class ManterUsuario extends Model {
             }
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -225,12 +231,13 @@ class ManterUsuario extends Model {
             $dados->linkedin = $registro["linkedin"];
             $dados->ativo = $registro["ativo"];
             $dados->setor = $registro["id_setor"];
+            $dados->equipes = $this->getEquipesUsuarioParticipante($registro["id"]);
             $array_dados[] = $dados;
         }
         return $array_dados;
     }
     function getUsuariosPorEquipe($id_equipe) { 
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin, u.ativo,eu.id_equipe,u.id_setor,u.id_perfil FROM usuario as u, equipe_usuario as eu WHERE eu.id_usuario=u.id AND eu.id_equipe=$id_equipe order by u.nome";
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.email,u.nascimento, u.whatsapp, u.linkedin, u.ativo,eu.id_equipe,u.id_setor,u.id_perfil FROM usuario as u, equipe_usuario as eu WHERE eu.id_usuario=u.id AND eu.id_equipe=$id_equipe order by u.nome";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
@@ -242,6 +249,7 @@ class ManterUsuario extends Model {
             }
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->login = $registro["login"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
@@ -476,7 +484,7 @@ class ManterUsuario extends Model {
         return $array_dados;
     }
     function buscar($filtro = "") {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla FROM usuario as u, setor as s WHERE u.id_setor=s.id ".$filtro." order by u.nome";
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla FROM usuario as u, setor as s WHERE u.id_setor=s.id ".$filtro." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -484,6 +492,7 @@ class ManterUsuario extends Model {
 
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
             $dados->email = $registro["email"];
@@ -505,7 +514,7 @@ class ManterUsuario extends Model {
         return $resultado;
     }
     function getInscritosEvento($id_evento) {
-        $sql = "select u.id,u.nome,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla, i.registro FROM usuario as u, setor as s, inscricao as i WHERE u.id_setor=s.id AND u.id=i.id_usuario AND i.id_evento = ".$id_evento." order by u.nome";
+        $sql = "select u.id,u.nome, u.sexo,u.login,u.matricula,u.cargo,u.ativo,u.id_setor, s.sigla, i.registro FROM usuario as u, setor as s, inscricao as i WHERE u.id_setor=s.id AND u.id=i.id_usuario AND i.id_evento = ".$id_evento." order by u.nome";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -513,6 +522,7 @@ class ManterUsuario extends Model {
 
             $dados->id = $registro["id"];
             $dados->nome = $registro["nome"];
+            $dados->sexo = $registro["sexo"];
             $dados->matricula = $registro["matricula"];
             $dados->cargo = $registro["cargo"];
             $dados->email = $registro["email"];

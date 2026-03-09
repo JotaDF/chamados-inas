@@ -10,6 +10,7 @@ $usuario = new Usuario();
 $usuario->id                = isset($_POST['id']) ? $_POST['id'] : 0;
 $usuario->login             = addslashes($_POST['login']);
 $usuario->nome              = addslashes($_POST['nome']);
+$usuario->sexo              = $_POST['sexo'];
 $usuario->matricula         = $_POST['matricula'];
 $usuario->cargo             = isset($_POST['cargo']) ? $_POST['cargo'] : '';
 $usuario->email             = $_POST['email'];

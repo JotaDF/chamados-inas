@@ -2,6 +2,7 @@
   class Usuario{
 	    public $id;
       public $nome;
+      public $sexo;
       public $login;
       public $matricula;
       public $cargo;
