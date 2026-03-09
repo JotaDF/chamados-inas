@@ -338,7 +338,7 @@ class ManterFilaPericiaEco extends Model
     function getHorariosVespertino()
     {
         $inicio = new DateTime("14:00");
-        $fim = new DateTime("16:55");
+        $fim = new DateTime("19:05");
         $intervalo = new DateInterval("PT15M");
         $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
         return iterator_to_array($periodoHoras);

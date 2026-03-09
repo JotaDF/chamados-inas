@@ -168,7 +168,7 @@ include('./verifica_login.php');
                 }
 
                 container.append(`
-        <div class="col-6 col-md-3 mb-2">
+        <div class="col-6 col-md-2 mb-2">
             <button
                 class="btn ${class_btn} w-100 py-2 font-weight-bold"
                 ${disabled}
