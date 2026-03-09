@@ -152,7 +152,7 @@ include('./verifica_login.php');
 
                 let class_btn = "btn-light border border-dark";
 
-                // 🔴 Fica vermelho apenas se estiver agendado e NÃO realizado
+                // Fica vermelho apenas se estiver agendado e NÃO realizado
                 if (isAgendado && !foiRealizado) {
                     class_btn = "btn-danger border border-dark";
                 }
@@ -168,13 +168,13 @@ include('./verifica_login.php');
                 }
 
                 container.append(`
-        <div class="col-6 col-md-3 mb-2">
+        <div class="col-5 col-md-3 mb-1">
             <button
                 class="btn ${class_btn} w-100 py-2 font-weight-bold"
                 ${disabled}
                 onclick="${onclick}">
                 <i class="${icon}"></i>
-                ${hora} ${isAgendado ? " | " + formatarNome(nome) : " | DISPONÍVEL"}
+                <span style="font-size: 14px">${hora} ${isAgendado ? " | " + formatarNome(nome) : " | DISPONÍVEL"}</span>
             </button>
         </div>
     `);
@@ -284,7 +284,6 @@ include('./verifica_login.php');
             if (dados.resultado !== null) {
                 $('#btn_desmarca').addClass('d-none');
                 $('#btn_reagendar').addClass('d-none');
-                $('#btn_confirmar').addClass('d-none');
                 $('#btn_cancela').removeClass('d-none');
                 $('#medico_perito').val(dados.medico_perito)
                 $('#situacao_atendimento').val(dados.situacao_atendimento)
@@ -339,8 +338,7 @@ include('./verifica_login.php');
                 type: "POST",
                 data: { id_atendimento: id_atendimento },
                 success: function (response) {
-                    location.reload();
-
+                    //location.reload();
                 },
                 error: function () {
                     alert('Erro ao desmarcar o agendamento');
@@ -621,11 +619,12 @@ include('./verifica_login.php');
                                         <select class="form-control form-control-sm" name="situacao_atendimento"
                                             id="situacao_atendimento">
                                             <option value="">Selecione</option>
-                                            <option value="REANÁLISE">REANÁLISE</option>
-                                            <option value="SISTEMA">SISTEMA</option>
                                             <option value="CONFIRMADO">CONFIRMADO</option>
                                             <option value="DESMARCADO">DESMARCADO</option>
+                                            <option value="REANÁLISE">REANÁLISE</option>
+                                            <option value="SISTEMA">SISTEMA</option>
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -674,6 +673,7 @@ include('./verifica_login.php');
                                 <button type="submit" class="btn btn-success btn-sm" id="btn_confirmar">
                                     <i class="fa fa-check mr-1"></i> Confirmar
                                 </button>
+
                             </div>
 
                         </form>
