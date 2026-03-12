@@ -78,6 +78,7 @@ include('./verifica_login.php');
 
             });
         }
+
         function preencherAgenda(dados) {
             const agenda = $("#agenda");
             agenda.empty();
@@ -90,6 +91,7 @@ include('./verifica_login.php');
         `);
             });
         }
+
         function atualizarBotoes(dados) {
             $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
             $("#btnAnterior").attr("onclick", "proximoDia('" + dados.anterior + "')");
@@ -331,20 +333,30 @@ include('./verifica_login.php');
                 return tel.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
             }
         }
+        
         function desmarcaAgendamento() {
             let id_atendimento = $('#id_atendimento').val();
+
             $.ajax({
                 url: "desmarcar_atendimento.php",
                 type: "POST",
                 data: { id_atendimento: id_atendimento },
+                dataType: "json",
                 success: function (response) {
-                    //location.reload();
+
+                    if (response.status === "success") {
+                        location.reload();
+                    } else {
+                        alert(response.msg);
+                    }
+
                 },
                 error: function () {
                     alert('Erro ao desmarcar o agendamento');
                 }
             });
         }
+
         function chamaModalDescarmar(nome) {
             $('#confirm').modal('hide');
 
