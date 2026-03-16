@@ -142,7 +142,7 @@ class ManterFilaPericiaEco extends Model
 
     function verificaAtendimentoExiste($id_fila)
     {
-        $sql = "SELECT id_fila, data_agendada, hora_agendada FROM atendimento_pericia WHERE id_fila = '" . $id_fila . "' AND data_agendada is not null";
+        $sql = "SELECT id_fila, data_agendada, hora_agendada FROM atendimento_pericia WHERE id_fila = '" . $id_fila . "' AND situacao <> 'DESMARCADO'";
         $resultado = $this->db->Execute($sql);
         if ($resultado && !$resultado->EOF) {
             return [
