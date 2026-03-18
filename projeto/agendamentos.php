@@ -262,7 +262,15 @@ include('./verifica_login.php');
         }
 
         function geraModalAgendado(dados, data, hora) {
-            $("#texto_modal").html("<b>Horário agendado às: " + dados.hora_agendada + "</b>");
+            const data_agendada = new Date(dados.data_agendada);
+            const dataFormatada = data_agendada.toLocaleDateString('pt-BR');
+            console.log(dataFormatada); // 17/03/2026
+
+            $("#texto_modal").html(
+                "<b>Horário agendado:</b> " + dados.hora_agendada + "<br>" +
+                "<b>Data:</b> " + dataFormatada
+            );
+
             let descricoes = dados.descricao.split(";");
             let telefones = dados.telefone.split(';').map(t => mascaraTelefone(t.trim())).join(' / ');
             ocultaInfoBeneficiario();
@@ -333,7 +341,7 @@ include('./verifica_login.php');
                 return tel.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
             }
         }
-        
+
         function desmarcaAgendamento() {
             let id_atendimento = $('#id_atendimento').val();
 
