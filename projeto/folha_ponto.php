@@ -334,6 +334,7 @@ $manterSlaRegulacao = new ManterSlaRegulacao();
         <div class="row text-start">
             <div class="col-12"><b>118 - Exame Médico Preventivo ou Periódico</b></div>
             <div class="col-12"><b>119 - Falta injustificada </b></div>
+            <div class="col-12"><b>171 - Abono Aniversário </b></div>
             <div class="col-12"><b>205 - Licença motivo doença família (efetivo)</b></div>
             <div class="col-12"><b>207 - Licença maternidade </b></div>
             <div class="col-12"><b>211 - Licença adoção (07) dias consecutivos inclusive o dia do acontecimento</b>
