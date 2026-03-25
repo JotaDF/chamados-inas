@@ -174,7 +174,7 @@ for ($i = 1; $i <= $ultimo_dia; $i++) {
         "207": "L. MATERNIDADE",
         "205": "L. MOTIVO DOENÇA FAMILIA",
         "339": "P. PARTERNIDADE (23) Dias",
-        "171": "ABONO ANIVERSÁRIO",
+        "717": "ABONO ANIVERSÁRIO",
         "258": "RECESSO"
     };
 
