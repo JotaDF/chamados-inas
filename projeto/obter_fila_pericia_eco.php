@@ -1,9 +1,14 @@
 <?php
 header('Content-Type: application/json');
 include('actions/ManterFilaPericiaEco.php');
-$manterFilaPericiaEco = new ManterFilaPericiaEco();
+include('actions/ManterConfigAgendaPericia.php');
 
-$agenda = $manterFilaPericiaEco->gerarAgenda(); 
+$manterFilaPericiaEco = new ManterFilaPericiaEco();
+$manterConfigAgendaPericia = new ManterConfigAgendaPericia();
+
+$horarios = $manterConfigAgendaPericia->getConfiguracaoAtiva();
+$agenda = $manterFilaPericiaEco->gerarAgenda($horarios);
+ 
 $data_atual = $manterFilaPericiaEco->getDiaAtual($_GET['data'] ?? null, $agenda); 
 $lista_data_feriados = $manterFilaPericiaEco->geraListaFeriados(); 
 

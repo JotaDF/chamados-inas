@@ -317,23 +317,19 @@ include_once('./verifica_login.php');
                 include_once('actions/ManterFilaPericiaEco.php');
                 include_once('actions/ManterFilaPericiaEco.php');
                 $manterFilaPericiaEco = new ManterFilaPericiaEco();
-                $manterFilaPericiaEco = new ManterFilaPericiaEco();
+
                 $hoje = $_GET['data'] ?? date('Y-m-d');
-                $datas_formatada = explode(" ", $datas_formatada);
-                $data_atual = $_GET['data'] ?? date('Y-m-d');
                 $id_fila = $_GET['id_fila'];
                 $id_atendimento = $_GET['id_atendimento'] ?? null;
+                
                 $dados = $manterFilaPericiaEco->getFilaPorId($id_fila);
                 $periodoDatas = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
-                $periodoHoras = $manterFilaPericiaEco->getHorarios();
                 $agenda = $manterFilaPericiaEco->criaAgenda($periodoDatas, $periodoHoras);
+
                 $data_solicitacao_formatada = date('d/m/Y', strtotime($dados->data_solicitacao));
-                $dias_para_agendamento = $manterFilaPericiaEco->getPeriodoDatas(new DateTime());
-                $soDatas = array_map(function ($dt) {
-                    return $dt->format('d/m/Y');
-                }, $dias_para_agendamento);
                 $descricoes = explode(";", $dados->descricao);
                 $texto_agendamento = $id_atendimento !== null ? "reagendar" : "agendar";
+
                 ?>
                 <script>
                     window.onload = function () {
@@ -355,8 +351,9 @@ include_once('./verifica_login.php');
                                     <i class="fa fa-info-circle fa-2x text-white"></i>
                                 </div>
                                 <div class="col mb-0">
-                                    <span style="align:left;" class="h5 m-0 font-weight text-white" ><p id="detalhes_fila">Detalhes da
-                                        Fila</pp>
+                                    <span style="align:left;" class="h5 m-0 font-weight text-white">
+                                        <p id="detalhes_fila">Detalhes da
+                                            Fila</pp>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -417,61 +414,14 @@ include_once('./verifica_login.php');
                                     <div class="row g-2 align-items-center">
 
                                         <!-- Botão Anterior -->
-                                        <div class="col-auto">
-                                            <button
-                                                class="btn btn-outline-primary btn-sm d-flex align-items-center px-3"
-                                                id="btnAnterior" onclick="proximoDia('<?= $hoje ?>')">
-                                                <i class="fa fa-chevron-left mr-2"></i> Anterior
-                                            </button>
-                                        </div>
+
 
                                         <!-- Centro: Data atual -->
-                                        <div class="col-md text-center">
-                                            <div class="px-4 py-2 bg-light rounded shadow-sm d-inline-block">
-                                                <h5 class="mb-0 text-primary fw-bold">
-                                                    <i class="fa fa-calendar-day mr-1"></i>
-                                                    <span id="diaAtual"></span>
-                                                </h5>
-                                                <small class="text-muted d-block" id="diaSemana">
-                                                </small>
-                                            </div>
-                                        </div>
-
-                                        <!-- Botão Próximo -->
-                                        <div class="col-auto">
-                                            <button
-                                                class="btn btn-outline-primary btn-sm d-flex align-items-center px-3"
-                                                id="btnProximo" onclick="proximoDia()">
-                                                Próximo <i class="fa fa-chevron-right ml-2"></i>
-                                                <span id="dataProximo" class="badge badge-primary ml-2"></span>
-                                            </button>
-                                        </div>
-
-                                        <!-- Botão Voltar hoje -->
-                                        <div class="col-auto">
-                                            <button
-                                                class="btn btn-outline-success btn-sm d-flex align-items-center px-3"
-                                                onclick="proximoDia('<?= $hoje ?>')">
-                                                <i class="fa fa-undo mr-2"></i> Hoje
-                                            </button>
-                                        </div>
-                                        <!-- Dropdown -->
-                                        <div class="col-auto">
-                                            <div class="dropdown">
-                                                <button class="btn btn-outline-primary btn-sm dropdown-toggle px-3"
-                                                    id="dropdownDatas" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    Selecionar data
-                                                </button>
-
-                                                <div class="dropdown-menu dropdown-scroll" id="agenda"></div>
-                                            </div>
-                                        </div>
+                                        <?php include('./agenda_navegacao.php') ?>
 
                                     </div>
 
                                 </div>
-
                                 <hr>
 
                                 <!-- Horários Disponíveis -->
@@ -481,8 +431,6 @@ include_once('./verifica_login.php');
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -491,140 +439,7 @@ include_once('./verifica_login.php');
     </div>
     <div class="modal fade" id="confirm" tabindex="-1">
         <div class="modal-dialog modal-lg"> <!-- modal maior para caber os dados -->
-            <div class="modal-content">
-
-                <!-- HEADER -->
-                <div class="modal-header text-dark">
-                    <h5 class="modal-title" id="titulo_modal">
-
-                    </h5>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- BODY -->
-                <div class="modal-body">
-
-                    <!-- Frase principal -->
-                    <div class="alert alert-info text-center">
-                        <h6 id="texto_modal"><b>Deseja <?php echo $texto_agendamento ?> o horário: </b><span
-                                class="text-primary font-weight-bold" id="horaSelecionada"></span>?</h6>
-                    </div>
-                    <hr>
-                    <!-- Dados do paciente em mini-cards -->
-                    <h6 class="text-secondary mb-3">
-                        <i class="fa fa-user mr-1"></i> Dados do Beneficiário
-                    </h6>
-
-                    <form action="save_agendamento_pericia.php" method="POST">
-                        <input type="hidden" name="id_usuario" value="<?= $usuario_logado->id ?>">
-                        <input type="hidden" name="data_agendada" id="dataAgendada">
-                        <input type="hidden" name="hora_agendada" id="horaAgendada">
-                        <input type="hidden" name="id_fila" id="id_fila" value="<?= $id_fila ?>">
-                        <input type="hidden" name="id_atendimento" id="id_atendimento" value="<?= $id_atendimento ?>">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Nome</div>
-                                    <div id="nome_beneficiario"><?= $dados->nome ?></div>
-                                    <div id="nome_agendado"></div>
-                                    <input type="hidden" name="nome" value="<?= $dados->nome ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">CPF</div>
-                                    <div id="cpf_beneficiario"><?= $dados->cpf ?></div>
-                                    <div id="cpf_agendado"></div>
-                                    <input type="hidden" name="cpf" value="<?= $dados->cpf ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Telefone</div>
-                                    <div id="telefone_beneficiario"><?= $dados->telefone ?></div>
-                                    <div id="telefone_agendado"></div>
-                                    <input type="hidden" name="telefone" id="telefone" value="<?= $dados->telefone ?>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <h6 class="text-dark mb-3">
-                            <i class="fa fa-user-md mr-1"></i> Dados da Fila
-                        </h6>
-
-                        <div class="row">
-                            <hr>
-
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Autorização</div>
-                                    <div id="autorizacao_beneficiario"><?= $dados->autorizacao ?></div>
-                                    <div id="autorizacao_agendado"></div>
-                                    <input type="hidden" name="autorizacao" id="autorizacao"
-                                        value="<?= $dados->autorizacao ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Solicitação</div>
-                                    <div id="solicitacao_beneficiario"><?= $data_solicitacao_formatada ?></div>
-                                    <div id="solicitacao_agendado"></div>
-                                    <input type="hidden" name="solicitacao" id="solicitacao"
-                                        value="<?= $dados->solicitacao ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Situação</div>
-                                    <div id="situacao_beneficiario"><?= $dados->situacao ?></div>
-                                    <div id="situacao_agendado"></div>
-                                    <input type="hidden" name="situacao" id="situacao" value="<?= $dados->situacao ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 mb-3">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Justificativa</div>
-                                    <div id="justificativa_beneficiario"><?= $dados->justificativa ?></div>
-                                    <div id="justificativa_agendado"></div>
-                                    <input type="hidden" name="justificativa" id="justificativa"
-                                        value="<?= $dados->justificativa ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="border rounded p-2 bg-light">
-                                    <div class="small text-dark text-uppercase font-weight-bold">Descrição</div>
-                                    <div>
-                                        <?php foreach ($descricoes as $descricao) {
-                                            echo $descricao . "<br>";
-                                        } ?>
-                                    </div>
-                                    <input type="hidden" name="descricao" id="descricao" value="<?= $descricao ?>">
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                </div>
-
-                <!-- FOOTER -->
-                <div class="modal-footer">
-                    <button class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn_cancela">
-                        <i class="fa fa-times mr-1"></i> Cancelar
-                    </button>
-
-                    <button type='submit' class="btn btn-success btn-sm" id="btn_confirma">
-                        <i class="fa fa-check mr-1"></i> Confirmar
-                    </button>
-                </div>
-                </form>
-            </div>
+            <?php include('./form_agendamento_pericia.php') ?>
         </div>
     </div>
 

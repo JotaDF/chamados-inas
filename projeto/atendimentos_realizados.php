@@ -43,7 +43,12 @@ require_once('./verifica_login.php');
     <script type="text/javascript" class="init">
         $(document).ready(function () {
 
-            const tabela = $('#atendimentos_realizados').DataTable();
+            const tabela = $('#atendimentos_realizados').DataTable({
+                lengthMenu: [
+                    [10, 25, 50, 100, 200, -1],
+                    [10, 25, 50, 100, 200, 500, "Todos"]
+                ]
+            });
 
             $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
 

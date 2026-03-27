@@ -5,6 +5,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 require_once('Model.php');
 //require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'/samj/dto/Fila.php');
 require_once('dto/FilaPericiaEco.php');
+require_once('dto/ConfigAgendaPericia.php');
 include('actions/ManterFeriadoAno.php');
 class ManterFilaPericiaEco extends Model
 {
@@ -115,6 +116,9 @@ class ManterFilaPericiaEco extends Model
         }
         return $array_dados;
     }
+
+
+
     function listaFilaPericiaAtendimentoNaoConcluido()
     {
         $sql = "SELECT DISTINCT fp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, fp.pendencia, b.nome, b.telefone 
@@ -257,8 +261,10 @@ class ManterFilaPericiaEco extends Model
         $data = new DateTime();
         $data->modify('+1 day');
 
-        while ($data->format('N') >= 6 || // 6 = sábado, 7 = domingo 
-        in_array($data->format('Y-m-d'), $feriados)) {
+        while (
+            $data->format('N') >= 6 || // 6 = sábado, 7 = domingo 
+            in_array($data->format('Y-m-d'), $feriados)
+        ) {
             $data->modify('+1 day');
         }
         return $data->format('Y-m-d');
@@ -327,46 +333,78 @@ class ManterFilaPericiaEco extends Model
         ];
     }
 
-    function getHorariosMatutino()
+    function getHorarios($horarios)
     {
-        $inicio = new DateTime("08:00");
-        $fim = new DateTime("12:00");
-        $intervalo = new DateInterval("PT10M");
-        $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
-        return iterator_to_array($periodoHoras);
-    }
-    function getHorariosVespertino()
-    {
-        $inicio = new DateTime("14:00");
-        $fim = new DateTime("19:10");
-        $intervalo = new DateInterval("PT10M");
-        $periodoHoras = new DatePeriod($inicio, $intervalo, $fim);
-        return iterator_to_array($periodoHoras);
-    }
-    function getHorarios()
-    {
-        return array_merge($this->getHorariosMatutino(), $this->getHorariosVespertino());
+
+        $horarios = $horarios[0];
+        return array_merge(
+            $this->getHorariosMatutino($horarios),
+            $this->getHorariosVespertino($horarios)
+        );
     }
 
-    function criaAgenda($periodoDatas, $periodoHoras)
+
+
+    function getHorariosVespertino($horarios)
+    {
+
+        if (!$horarios->vespertino_inicio || !$horarios->vespertino_intervalo) {
+            return [];
+        }
+
+        return $this->gerarHorarios(
+            $horarios->vespertino_inicio,
+            $horarios->vespertino_fim,
+            $horarios->vespertino_intervalo
+        );
+
+    }
+
+
+    function getHorariosMatutino($horarios)
+    {
+        // if (!$horarios->matutino_inicio || !$horarios->matutino_intervalo) {
+        //     return [];
+        // }
+        return $this->gerarHorarios(
+            $horarios->matutino_inicio,
+            $horarios->matutino_fim,
+            $horarios->matutino_intervalo
+        );
+    }
+
+    private function gerarHorarios($inicio, $fim, $intervalo)
+    {
+        // echo $inicio;
+        $inicio = new DateTime($inicio);
+        $fim = new DateTime($fim);
+        $intervalo = new DateInterval("PT{$intervalo}M");
+
+        $periodo = new DatePeriod($inicio, $intervalo, $fim);
+        return array_map(function ($dt) {
+            return $dt->format('H:i');
+        }, iterator_to_array($periodo));
+    }
+    function criaAgenda($periodoDatas, $horarios)
     {
         $agenda = [];
+
         foreach ($periodoDatas as $data) {
             if ($data->format("N") <= 5) {
-                $horarios = [];
-                foreach ($periodoHoras as $hora) {
-                    $horarios[] = $hora->format("H:i");
-                }
                 $agenda[$data->format("Y-m-d")] = $horarios;
             }
         }
 
         return $agenda;
     }
-    function gerarAgenda()
+
+    function gerarAgenda($horarios)
     {
-        return $this->criaAgenda($this->getPeriodoDatas(new DateTime()), $this->getHorarios());
+        $periodoDatas = $this->getPeriodoDatas(new DateTime());
+        $periodoHoras = $this->getHorarios($horarios);
+        return $this->criaAgenda($periodoDatas, $periodoHoras);
     }
+
 
     function geraListaFeriados()
     {
