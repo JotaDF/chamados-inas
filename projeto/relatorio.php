@@ -105,8 +105,6 @@ and open the template in the editor.
         $tipo = isset($_REQUEST['tipo']) ? $_REQUEST['tipo'] : '';
         $responsavel = isset($_REQUEST['responsavel']) ? $_REQUEST['responsavel'] : 0;
         $equipe = isset($_REQUEST['equipe']) ? $_REQUEST['equipe'] : 0;
-        $inicio_insc = isset($_REQUEST['inicio_insc']) ? $_REQUEST['inicio_insc'] : 0;
-        $termino_insc = isset($_REQUEST['termino_insc']) ? $_REQUEST['termino_insc'] : 0;
         $inicio = isset($_REQUEST['inicio']) ? $_REQUEST['inicio'] : 0;
         $termino = isset($_REQUEST['termino']) ? $_REQUEST['termino'] : 0;
 
@@ -140,20 +138,6 @@ and open the template in the editor.
             $where .= " t.id_equipe= " . $equipe;
             $cont_param++;
         }
-        if ($inicio_insc != 0) {
-            if ($cont_param > 0) {
-                $where .= " AND ";
-            }
-            $where .= " t.inicio_inscricao >=" . strtotime($inicio_insc);
-            $cont_param++;
-        }
-        if ($termino_insc != 0) {
-            if ($cont_param > 0) {
-                $where .= " AND ";
-            }
-            $where .= " t.fim_inscricao <=" . strtotime($termino_insc);
-            $cont_param++;
-        }
         if ($inicio != 0) {
             if ($cont_param > 0) {
                 $where .= " AND ";
@@ -165,7 +149,7 @@ and open the template in the editor.
             if ($cont_param > 0) {
                 $where .= " AND ";
             }
-            $where .= " t.termino <=" . strtotime($termino);
+            $where .= " t.fim <=" . strtotime($termino);
             $cont_param++;
         }
 

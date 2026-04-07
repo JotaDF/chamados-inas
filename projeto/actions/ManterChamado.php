@@ -40,7 +40,10 @@ class ManterChamado extends Model {
         return $array_dados;
     }
     function listaRelatorio($filtro = "") {
-        $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente, TIMESTAMPDIFF(MINUTE, data_abertura,  data_atendido) as tempo, (select count(*) from interacao as i where i.id_chamado=c.id) as dep FROM chamado as c " . $filtro . " ORDER BY id DESC";
+        $sql = "SELECT iid,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente,
+    TIMESTAMPDIFF(MINUTE, data_abertura, data_atendido) AS tempo,
+    (SELECT COUNT(*) FROM interacao AS i WHERE i.id_chamado = c.id) AS dep FROM chamado AS c
+    " . $filtro . " ORDER BY id DESC";
         //echo 'SQL: ' . $sql;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();

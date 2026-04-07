@@ -109,7 +109,7 @@ and open the template in the editor.
             if ($cont_param > 0) {
                 $where .= " AND ";
             }
-            $where .= " data_abertura <='" . $termino . " 24:00'";
+            $where .= " data_abertura <='" . $termino . " 23:59'";
             $cont_param++;
         }
 
@@ -143,7 +143,13 @@ and open the template in the editor.
                         <?php
                         foreach ($chamados as $obj) {
                             $usuario = $mUsuario->getUsuarioPorId($obj->usuario);
-                            $atendente = $mUsuario->getUsuarioPorId($obj->atendente);
+                            $atentente_nome = "-";
+                            if($obj->status != 3){
+                                $atendente = $mUsuario->getUsuarioPorId($obj->atendente);
+                                $atentente_nome = $atendente->nome;
+                            }
+
+                            
 
                             ?>
                             <tr class="">
@@ -154,7 +160,7 @@ and open the template in the editor.
                                 <td class="cell c4 text-dark " style=""><?= date('d/m/Y h:i', strtotime($obj->data_abertura)) ?></td>
                                 <td class="cell c5 text-dark " style=""><?= $obj->data_atendido != 0 ? date('d/m/Y h:i', strtotime($obj->data_atendido)) : "-" ?></td>
                                 <td class="cell c6 text-dark " style=""> <?= $obj->tempo ?> minutos</td>                                
-                                <td class="cell c7 text-dark " style=""><?= $atendente->nome ?></td>                                
+                                <td class="cell c7 text-dark " style=""><?= $atentente_nome ?></td>                                
                             </tr>   
                             <?php
                         }
