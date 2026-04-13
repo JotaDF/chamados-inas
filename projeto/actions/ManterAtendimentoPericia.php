@@ -46,7 +46,7 @@ class ManterAtendimentoPericia extends Model
 
     function getAtendimentoPorDataEHora($data_agendada, $hora_agendada)
     {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, ap.atualizado, ap.situacao as situacao_atendimento, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id as id_atendimento_pericia, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, mp.id as medico_perito FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe, medico_perito as mp WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '" . $data_agendada . "' AND hora_agendada= '" . $hora_agendada . "' AND ap.situacao <> 'DESMARCADA' ";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, ap.atualizado, ap.situacao as situacao_atendimento, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id as id_atendimento_pericia, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, mp.id as medico_perito FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe, medico_perito as mp WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf AND data_agendada = '" . $data_agendada . "' AND hora_agendada= '" . $hora_agendada . "' AND ap.situacao <> 'DESMARCADO' ";
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             $dados = new AtendimentoPericia();
