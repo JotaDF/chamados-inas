@@ -201,6 +201,7 @@ require_once('./verifica_login.php');
                                         <th scope="col">Telefone</th>
                                         <th scope="col">Data Agendada</th>
                                         <th scope="col">Hora Agendada</th>
+                                        <th scope="col">Autorização</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Resultado</th>
                                         <th scope="col">Opções</th>
