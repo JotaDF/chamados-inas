@@ -121,14 +121,14 @@ class ManterFilaPericiaEco extends Model
 
     function listaFilaPericiaAtendimentoNaoConcluido()
     {
-        $sql = "SELECT DISTINCT fp.id, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, fp.pendencia, b.nome, b.telefone 
-        FROM fila_pericia_eco fp, beneficiario b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE situacao <> 'SISTEMA' and resultado is not null)";
+        $sql = "SELECT DISTINCT fp.id as id_fila, fp.id_guia, fp.autorizacao,fp.data_solicitacao, fp.justificativa, fp.descricao, fp.situacao, fp.cpf, fp.pendencia, b.nome, b.telefone 
+        FROM fila_pericia_eco fp, beneficiario b WHERE b.cpf = fp.cpf AND fp.id NOT IN (SELECT id_fila FROM atendimento_pericia WHERE situacao <> 'SISTEMA' and resultado = 'AUTORIZADA')";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new FilaPericiaEco;
             $dados->excluir = true;
-            $dados->id = $registro["id"];
+            $dados->id = $registro["id_fila"];
             $dados->id_guia = $registro["id_guia"];
             $dados->autorizacao = $registro["autorizacao"];
             $dados->data_solicitacao = $registro["data_solicitacao"];

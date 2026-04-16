@@ -120,7 +120,7 @@ class ManterAtendimentoPericia extends Model
     }
     function listaAtendimentosRealizados()
     {
-        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado is not null AND ap.resultado <> 'NAO COMPARECEU' order by ap.data_agendada DESC, ap.hora_agendada DESC";
+        $sql = "SELECT b.nome, b.cpf, b.telefone, ap.data_agendada, ap.hora_agendada, fpe.autorizacao, ap.situacao, ap.id_usuario, ap.id_fila, ap.id, ap.resultado, fpe.justificativa, fpe.situacao, fpe.descricao, fpe.data_solicitacao, fpe.autorizacao FROM atendimento_pericia as ap, beneficiario as b, fila_pericia_eco as fpe WHERE fpe.id = ap.id_fila AND fpe.cpf = b.cpf and ap.resultado is not null AND ap.resultado <> 'NAO COMPARECEU' order by ap.data_agendada DESC, ap.hora_agendada DESC";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
@@ -132,6 +132,7 @@ class ManterAtendimentoPericia extends Model
             $dados->data_agendada = $registro['data_agendada'];
             $dados->hora_agendada = $registro['hora_agendada'];
             $dados->hora_agendada = $registro['hora_agendada'];
+            $dados->autorizacao = $registro['autorizacao'];
             $dados->resultado = $registro['resultado'];
             $dados->descricao = $registro['descricao'];
             $dados->cpf = $registro['cpf'];

@@ -22,6 +22,7 @@ foreach ($atendimento_pericia as $obj) {
     echo "<td>" . implode("<br>", $telefone) . "</td>";
     echo "<td align='center'>" . $data_agendada_formatada . "</td>";
     echo "<td align='center'>" . $obj->hora_agendada . "</td>";
+    echo "<td align='center'>" . $obj->autorizacao . "</td>";
     echo "<td data-export='" . htmlspecialchars($obj->descricao, ENT_QUOTES, 'UTF-8') . "'>". implode("<br>", $descricao). $span_descricao ."</td>";
     echo "<td>" . $obj->resultado . "</td>";
     echo "<td align='center'>" . $btn_info . "</td>";
