@@ -146,19 +146,35 @@ class ManterFilaPericiaEco extends Model
 
     function verificaAtendimentoExiste($id_fila)
     {
-        $sql = "SELECT id_fila, data_agendada, hora_agendada FROM atendimento_pericia WHERE id_fila = '" . $id_fila . "' AND situacao <> 'DESMARCADO'";
+        $sql = "SELECT id_fila, data_agendada, hora_agendada, resultado, situacao FROM atendimento_pericia  WHERE id_fila = '" . $id_fila . "' AND situacao <> 'DESMARCADO' ORDER BY resultado IS NULL DESC, id DESC
+        LIMIT 1";
         $resultado = $this->db->Execute($sql);
+        $agendado = $this->verificaSeEstaEmAtendimento($resultado->fields['resultado'], $resultado->fields['situacao']);
         if ($resultado && !$resultado->EOF) {
             return [
-                'agendado' => true,
+                'agendado' => $agendado,
                 'data_agendada' => $resultado->fields['data_agendada'],
-                'hora_agendada' => $resultado->fields['hora_agendada']
+                'hora_agendada' => $resultado->fields['hora_agendada'],
+                'resultado' => $resultado->fields['resultado'],
+                'situacao' => $resultado->fields['situacao']
             ];
         }
         return [
-            'agendado' => false,
-            'data_agendada' => null
+            'agendado' => $agendado,
+            'data_agendada' => null,
+            'resultado' => $resultado->fields['resultado'],
+            'situacao' => $resultado->fields['situacao']
         ];
+    }
+
+
+    function verificaSeEstaEmAtendimento($resultado, $situacao)
+    {
+        if ($resultado == "NAO AUTORIZADA") {
+            return false;
+        }
+        if ($situacao == "SISTEMA")
+            return true;
     }
     function getFilaPorId($id_fila)
     {
