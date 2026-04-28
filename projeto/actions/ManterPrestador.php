@@ -279,14 +279,14 @@ class ManterPrestador extends Model {
         }
         return $array_dados;
     }
-    function getContratosPrestadores($id = 0, $ano = "") {
+    function getContratosPrestadoresTodos($id = 0, $ano = "") {
         //$sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
         $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id ORDER BY p.cnpj";
         if($id > 0){
-            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id=". $id . " ORDER BY p.cnpj";
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND  p.id=". $id . " ORDER BY p.cnpj";
         }
         if($ano != ""){
-            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND c.ano='". $ano . "' ORDER BY p.cnpj";
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND  c.ano='". $ano . "' ORDER BY p.cnpj";
         }
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -305,7 +305,58 @@ class ManterPrestador extends Model {
         }
         return $array_dados;
     }
+    function getContratosPrestadores($id = 0, $ano = "") {
+        //$sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
+        $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador <> 12 ORDER BY p.cnpj";
+        if($id > 0){
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador <> 12 AND p.id=". $id . " ORDER BY p.cnpj";
+        }
+        if($ano != ""){
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador <> 12 AND c.ano='". $ano . "' ORDER BY p.cnpj";
+        }
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+	    $dados = new stdClass();
+            $dados->id                = $registro["id"];
+            $dados->cnpj              = $registro["cnpj"];
+            $dados->razao_social      = $registro["razao_social"];
+            $dados->id_contrato       = $registro["id_contrato"];
+            $dados->numero            = $registro["numero"];
+            $dados->ano               = $registro["ano"];
+            $dados->vigente           = $registro["vigente"];
 
+            $array_dados[]      = $dados;
+        }
+        return $array_dados;
+    }
+    function getContratosPrestadoresADM($id = 0, $ano = "") {
+        //$sql = "select p.id,p.cnpj,p.razao_social,p.nome_fantasia,p.credenciado,p.telefone,p.ativo,p.processo_sei,p.id_tipo_prestador, (select count(*) from fiscal_prestador as fp where fp.id_prestador=p.id) as dep FROM prestador as p order by p.razao_social";
+        $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador = 12 ORDER BY p.cnpj";
+        if($id > 0){
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador = 12 AND p.id=". $id . " ORDER BY p.cnpj";
+        }
+        if($ano != ""){
+            $sql = "SELECT p.id, p.cnpj, p.razao_social, c.id as id_contrato, c.numero, c.ano, c.vigente FROM prestador as p, contrato as c WHERE c.id_prestador = p.id AND p.id_tipo_prestador = 12 AND c.ano='". $ano . "' ORDER BY p.cnpj";
+        }
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $array_dados = array();
+        while ($registro = $resultado->fetchRow()) {
+	    $dados = new stdClass();
+            $dados->id                = $registro["id"];
+            $dados->cnpj              = $registro["cnpj"];
+            $dados->razao_social      = $registro["razao_social"];
+            $dados->id_contrato       = $registro["id_contrato"];
+            $dados->numero            = $registro["numero"];
+            $dados->ano               = $registro["ano"];
+            $dados->vigente           = $registro["vigente"];
+
+            $array_dados[]      = $dados;
+        }
+        return $array_dados;
+    }
     function getNotaPagamentoTodasCompetencias($anos_competencia){
         $prestadores = $this->getMaioresValoresNotaPagamentoPorCompetencia($anos_competencia);
         $lista_final = [];

@@ -56,7 +56,16 @@ and open the template in the editor.
 
         $id_prestador = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
         $ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : '';
-        $contratos = $mPrestador->getContratosPrestadores($id_prestador, $ano);
+        $tipo = isset($_REQUEST['tipo']) ? $_REQUEST['tipo'] : '';
+        
+        $contratos = array();
+        if($tipo == ""){           
+            $contratos = $mPrestador->getContratosPrestadoresTodos($id_prestador, $ano);
+        }else if($tipo == "adm"){
+            $contratos = $mPrestador->getContratosPrestadoresADM($id_prestador, $ano);
+        } else {
+            $contratos = $mPrestador->getContratosPrestadores($id_prestador, $ano);
+        }
 
         ?>
         <!-- Begin Page Content -->
