@@ -48,7 +48,6 @@ and open the template in the editor.
         </style>
 
     </head>
-
     <body id="page-top">
 
         <?php
@@ -56,7 +55,8 @@ and open the template in the editor.
         $mPrestador = new ManterPrestador();
 
         $id_prestador = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
-        $contratos = $mPrestador->getContratosPrestadores($id_prestador);
+        $ano = isset($_REQUEST['ano']) ? $_REQUEST['ano'] : 0;
+        $contratos = $mPrestador->getContratosPrestadores($id_prestador, $ano);
 
         ?>
         <!-- Begin Page Content -->
