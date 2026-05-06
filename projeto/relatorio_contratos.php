@@ -59,11 +59,20 @@ and open the template in the editor.
         $tipo = isset($_REQUEST['tipo']) ? $_REQUEST['tipo'] : '';
         
         $contratos = array();
+        $titulo = "Termos de Credenciamento / Instrumentos Congêneres";
+        $txt_ano = "";
+
         if($tipo == ""){           
             $contratos = $mPrestador->getContratosPrestadoresTodos($id_prestador, $ano);
         }else if($tipo == "adm"){
+            $titulo = "Contratos Administrativos";
             $contratos = $mPrestador->getContratosPrestadoresADM($id_prestador, $ano);
         } else {
+            $titulo = "Termos de Credenciamento / Instrumentos Congêneres";
+             if($ano != ""){
+                $titulo = "Instrumentos Congêneres";
+                $txt_ano = " - Ano: " . $ano;
+            }                      
             $contratos = $mPrestador->getContratosPrestadores($id_prestador, $ano);
         }
 
@@ -86,7 +95,7 @@ and open the template in the editor.
                     <img src="img/logogdfsaude.png" width="150">
                 </div>
             </div>
-            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="color: #4d78bb;">Contratos e Termos de Credenciamento</h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
+            <div id="containerPrestador" role="main" class="align-items-center" style="width:100%"><h4 class="text-center " style="color: #4d78bb;"><?= $titulo . $txt_ano ?></h4><!--img src="img/iconexcel.png" width="30" height="30" class="d-print-none" id="btnExport" /-->
                     <table class="table table-striped" id="contratos">
                         <tr class="text-white" style="background-color: #4d78bb;">
                             <th class="header c0 text-nowrap text-center" scope="col" style="width:15%;"> CNPJ </th>
