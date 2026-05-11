@@ -35,7 +35,8 @@ if($prevista > 0){
      $res =  $db_acao->removeCheckAcao($id, $usuario_logado->id,$prevista);
  }
 if ($red==0) {
-    $percentual = round($db_tarefa->getPercentualTarefaPorId($tarefa), 1);
+    $percente_tarefa = $manterTarefa->getPercentualTarefaPorId($tarefa);
+    $percentual = round($percente_tarefa['percentual'], 1);
     echo $percentual;
 }else{
     $tarefa = $db_etapa->getEtapaPorId($acao->etapa)->tarefa;
