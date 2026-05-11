@@ -48,7 +48,7 @@ foreach ($lista as $obj) {
          $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
          $pecentual_etapa = round($percente['percentual'], 1);
          $cor_txt = '';
-         if($pecentual_etapa <= 25) {
+         if($pecentual_etapa <= 10) {
              $cor_txt = 'text-dark';
          }
         ?>
