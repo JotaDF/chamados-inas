@@ -435,13 +435,23 @@ class ManterSlaRegulacao extends Model
                 // Ler o arquivo CSV linha por linha
                 while (($data = fgetcsv($handle, 1000, ',')) !== false) {
                     // Atribuir os valores do CSV às variáveis
+                    //$autorizacao = $data[0];
+                    //$tipo_guia = $data[1];
+                    //$area = $data[2];
+                    //$fila = $data[3];
+                    //$encaminhamento_manual = $data[4];
+                    //$carater = $data[5];
+                    //$data_solicitacao = $data[6];
+
                     $autorizacao = $data[0];
-                    $tipo_guia = $data[1];
-                    $area = $data[2];
-                    $fila = $data[3];
-                    $encaminhamento_manual = $data[4];
-                    $carater = $data[5];
-                    $data_solicitacao = $data[6];
+                    $status_guia = $data[1];
+                    $tipo_guia = $data[2];
+                    $area = $data[3];
+                    $fila = $data[4];
+                    $encaminhamento_manual = $data[5];
+                    $carater = $data[6];
+                    $data_solicitacao = $data[7];
+
                     // Normaliza espaços (remove duplicados)
                     $dataString = preg_replace('/\s+/', ' ', trim($data_solicitacao));
                     // Converter a data solicitacão para timestamp
