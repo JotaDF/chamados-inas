@@ -156,7 +156,30 @@ GROUP BY total, concluido";
         }
         return 0;
     }
+    function getPercentualEtapaPorId($id) {
+        $sql = "SELECT
+(SELECT count(*) FROM acao as a, etapa as e WHERE a.tipo=1 AND a.id_etapa=e.id AND a.id_etapa=$id) as total,
+(SELECT count(*) FROM acao as a, etapa as e WHERE a.tipo=1 AND a.id_etapa=e.id AND a.id_etapa=$id AND a.data_check > 0) as concluido
+FROM etapa 
+GROUP BY total, concluido";
+        //echo $sql;
+        $array_dados = array();
+        $resultado = $this->db->Execute($sql);
+        if ($registro = $resultado->fetchRow()) {
 
+            $total = $registro["total"];
+            $concluido = $registro["concluido"];
+            $array_dados["total"] = $total;
+            $array_dados["concluido"] = $concluido;
+            if ($total > 0 && $concluido > 0) {
+                $percentual = ($concluido * 100) / $total;
+                $array_dados["percentual"] = $percentual;
+            } else {
+                $array_dados["percentual"] = 0;
+            }
+        }
+        return $array_dados;
+    }
     function getPainelTarefa(Usuario $user) {
         //Busca id de equipes participantes e criador
         $manterUsuario = new ManterUsuario();

@@ -345,7 +345,6 @@ and open the template in the editor.
                         }
                         ?>
 
-
                         <!-- ETAPAS -->
                         <?php include './get_etapa.php'; ?>
                         <!-- FIM ETAPAS -->

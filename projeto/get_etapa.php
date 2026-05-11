@@ -5,6 +5,8 @@ $manterEtapa = new ManterEtapa();
 
 $lista = $manterEtapa->listar($id_tarefa);
 $total_etapas = count($lista);
+
+
 ?>
 <div class="editar mb-4" style="max-width:100%">
     <div class="card border-left-primary shadow pb-0 py-0">
@@ -31,7 +33,6 @@ $total_etapas = count($lista);
                             </div>
                         </form>   
                     </div>
-
                 </div>
             </div>
         </div>
@@ -89,7 +90,12 @@ foreach ($lista as $obj) {
         if($obj->mostrar == 0) {
             $txt_mostrar = 'hide';
         }
+         $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
         ?>
+        <div class="mt-2 progress">
+            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-success" role="progressbar" style="width: <?= $percente['percentual'] ?>%;" aria-valuenow="<?= $percente['percentual'] ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentual ?>%</div>
+        </div>
+        
         <div id="collapse<?= $obj->ordem ?>" class="collapse <?=$txt_mostrar ?>" aria-labelledby="etapa<?= $obj->ordem ?>">
             <div class="card-body border-info">
                 <!-- ETAPAS -->
