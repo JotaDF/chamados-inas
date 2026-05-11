@@ -400,7 +400,9 @@ and open the template in the editor.
                                                     <?php
                                                     $contx = 0;
                                                     foreach ($tarefas_responsavel as $obj) {
-                                                        $percentual = round($mTarefa->getPercentualTarefaPorId($obj->id), 1);
+                                                        //$percentual = round($mTarefa->getPercentualTarefaPorId($obj->id), 1);
+                                                        $percente_tarefa = $mTarefa->getPercentualTarefaPorId($obj->id);
+                                                        $percentual = round($percente_tarefa['percentual'], 1);
                                                         $islistar = true;
                                                         switch ($listar) {
                                                             case 'pendentes':

@@ -13,7 +13,9 @@ $manterEquipe = new ManterEquipe();
 $lista = $manterTarefa->listar($filtro);
 
 foreach ($lista as $obj) {
-    $percentual = round($manterTarefa->getPercentualTarefaPorId($obj->id), 1);
+    //$percentual = round($manterTarefa->getPercentualTarefaPorId($obj->id), 1);
+    $percente_tarefa = $manterTarefa->getPercentualTarefaPorId($obj->id);
+    $percentual = round($percente_tarefa['percentual'], 1);
     echo "<tr>";
     //            echo "  <td>".$obj->id."</td>";
     echo "  <td>" . $obj->categoria . "</td>";

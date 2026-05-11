@@ -136,7 +136,9 @@ and open the template in the editor.
                 if (isset($_REQUEST['tarefa'])) {
                     $id_tarefa = $_REQUEST['tarefa'];
                     $tarefa = $manterTarefa->getTarefaPorId($id_tarefa);
-                    $percentual = round($manterTarefa->getPercentualTarefaPorId($id_tarefa), 1);
+                    //$percentual = round($manterTarefa->getPercentualTarefaPorId($id_tarefa), 1);
+                    $percente_tarefa = $manterTarefa->getPercentualTarefaPorId($id_tarefa);
+                    $percentual = round($percente_tarefa['percentual'], 1);
                     //Usada para somar a quantidade de dias e calcular a data prevista das açoes
                     $data_base = $manterAcao->subitrair_dias_uteis($tarefa->inicio, $tarefa->total_dias);
                     $editar = false;

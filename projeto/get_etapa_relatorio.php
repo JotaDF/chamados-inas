@@ -45,7 +45,16 @@ foreach ($lista as $obj) {
         if($obj->mostrar == 0) {
             $txt_mostrar = 'hide';
         }
+         $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
+         $pecentual_etapa = round($percente['percentual'], 1);
+         $cor_txt = '';
+         if($pecentual_etapa <= 25) {
+             $cor_txt = 'text-dark';
+         }
         ?>
+        <div class="mt-0 progress h6">
+            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-info <?= $cor_txt ?>" role="progressbar" style="width: <?= $pecentual_etapa ?>%;" aria-valuenow="<?= $pecentual_etapa ?>" aria-valuemin="0" aria-valuemax="100"><?= $pecentual_etapa ?>% (<?= $percente['concluido'] ." concluídas de ". $percente['total'] ?>)</div>
+        </div>
         <div id="collapse<?= $obj->ordem ?>" class="collapse <?=$txt_mostrar ?>" aria-labelledby="etapa<?= $obj->ordem ?>">
             <div class="card-body border-info">
                 <!-- ETAPAS -->
