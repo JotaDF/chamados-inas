@@ -91,9 +91,10 @@ foreach ($lista as $obj) {
             $txt_mostrar = 'hide';
         }
          $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
+         $pecentual_etapa = round($percente['percentual'], 1);
         ?>
-        <div class="mt-2 progress">
-            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-success" role="progressbar" style="width: <?= $percente['percentual'] ?>%;" aria-valuenow="<?= $percente['percentual'] ?>" aria-valuemin="0" aria-valuemax="100"><?= $percente['percentual']?>%</div>
+        <div class="mt-0 progress">
+            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-info" role="progressbar" style="width: <?= $pecentual_etapa ?>%;" aria-valuenow="<?= $pecentual_etapa ?>" aria-valuemin="0" aria-valuemax="100"><?= $pecentual_etapa ?>% (<?= $percente['concluido'] / $percente['total'] ?>)</div>
         </div>
         
         <div id="collapse<?= $obj->ordem ?>" class="collapse <?=$txt_mostrar ?>" aria-labelledby="etapa<?= $obj->ordem ?>">

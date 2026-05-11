@@ -143,18 +143,21 @@ class ManterTarefa extends Model {
 FROM etapa 
 GROUP BY total, concluido";
         //echo $sql;
+        $array_dados = array();
         $resultado = $this->db->Execute($sql);
         if ($registro = $resultado->fetchRow()) {
             $total = $registro["total"];
             $concluido = $registro["concluido"];
+            $array_dados["total"] = $total;
+            $array_dados["concluido"] = $concluido;
             if ($total > 0 && $concluido > 0) {
                 $percentual = ($concluido * 100) / $total;
-                return $percentual;
+                $array_dados["percentual"] = $percentual;
             } else {
-                return 0;
+                $array_dados["percentual"] = 0;
             }
         }
-        return 0;
+        return $array_dados;
     }
     function getPercentualEtapaPorId($id) {
         $sql = "SELECT
