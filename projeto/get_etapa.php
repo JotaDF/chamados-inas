@@ -94,7 +94,7 @@ foreach ($lista as $obj) {
          $pecentual_etapa = round($percente['percentual'], 1);
         ?>
         <div class="mt-0 progress">
-            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-info" role="progressbar" style="width: <?= $pecentual_etapa ?>%;" aria-valuenow="<?= $pecentual_etapa ?>" aria-valuemin="0" aria-valuemax="100"><?= $pecentual_etapa ?>% (<?= $percente['concluido'] / $percente['total'] ?>)</div>
+            <div id="progressbar_etapa<?= $obj->id ?>" class="progress-bar bg-info" role="progressbar" style="width: <?= $pecentual_etapa ?>%;" aria-valuenow="<?= $pecentual_etapa ?>" aria-valuemin="0" aria-valuemax="100"><?= $pecentual_etapa ?>% (<?= $percente['concluido'] ." / ". $percente['total'] ?>)</div>
         </div>
         
         <div id="collapse<?= $obj->ordem ?>" class="collapse <?=$txt_mostrar ?>" aria-labelledby="etapa<?= $obj->ordem ?>">
