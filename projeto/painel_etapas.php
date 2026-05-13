@@ -21,7 +21,6 @@ and open the template in the editor.
     <title>Dashboard tarefa</title>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fc; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 1200px; margin: auto; }
@@ -171,13 +170,13 @@ if (isset($_REQUEST['tarefa'])) {
                         color: '#000',
                         font: {
                             weight: 'bold',
-                            size: 14
+                            size: 12
                         },
                         anchor: 'end',
                         align: 'end',
-                        offset: 8,
+                        offset: 5,
                         formatter: function(value) {
-                            return value.toFixed(1) + '%';
+                            return value + '%';
                         }
                     }
                 }
