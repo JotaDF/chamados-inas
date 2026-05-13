@@ -35,7 +35,7 @@ and open the template in the editor.
     </style>
 </head>
 
-<body id="page-top">
+<body>
 <div class="container">
 <?php
 include_once('actions/ManterEquipe.php');
@@ -133,12 +133,12 @@ if (isset($_REQUEST['tarefa'])) {
                     {
                         label: 'Previsto',
                         data: rawData.map(d => d.total),
-                        backgroundColor: '#eaecf4'
+                        backgroundColor: '#adaeb1'
                     },
                     {
                         label: 'Concluído',
                         data: rawData.map(d => d.completed),
-                        backgroundColor: '#4e73df'
+                        backgroundColor: '#11c900'
                     }
                 ]
             },
@@ -172,12 +172,6 @@ if (isset($_REQUEST['tarefa'])) {
 <?php
 }
 ?>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-
 </body>
 
 </html>
