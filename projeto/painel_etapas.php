@@ -124,7 +124,38 @@ if (isset($_REQUEST['tarefa'])) {
         // Sorting for ranking chart (highest % first)
         const sortedData = [...rawData].sort((a, b) => (b.percente) - (a.percente));
 
-        // Main Comparison Chart
+        // ============================================================
+        // PLUGIN CUSTOMIZADO PARA EXIBIR RÓTULOS NAS BARRAS
+        // ============================================================
+        const labelPlugin = {
+            id: 'customLabels',
+            afterDatasetsDraw(chart) {
+                const { ctx, data, chartArea: { left, top, width, height } } = chart;
+                
+                chart.data.datasets.forEach((dataset, datasetIndex) => {
+                    chart.getDatasetMeta(datasetIndex).data.forEach((datapoint, index) => {
+                        const { x, y } = datapoint.tooltipPosition();
+                        
+                        // Configurar estilo do texto
+                        ctx.fillStyle = '#000';
+                        ctx.font = 'bold 12px Arial';
+                        ctx.textAlign = 'end';
+                        ctx.textBaseline = 'middle';
+                        
+                        // Obter o valor
+                        const value = dataset.data[index];
+                        const label = value.toFixed(1) + '%';
+                        
+                        // Desenhar o texto
+                        ctx.fillText(label, x + 5, y);
+                    });
+                });
+            }
+        };
+
+        // ============================================================
+        // GRÁFICO 1: COMPARATIVO COMPLETO (PREVISTO VS CONCLUÍDO)
+        // ============================================================
         new Chart(document.getElementById('mainChart'), {
             type: 'bar',
             data: {
@@ -145,11 +176,22 @@ if (isset($_REQUEST['tarefa'])) {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true } }
-            }
+                scales: { 
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    legend: { 
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            },
+            plugins: [labelPlugin]
         });
 
-        // Ranking Chart (%)
+        // ============================================================
+        // GRÁFICO 2: RANKING DE CONCLUSÃO POR PERCENTUAL (%)
+        // ============================================================
         new Chart(document.getElementById('rankingChart'), {
             type: 'bar',
             data: {
@@ -163,24 +205,14 @@ if (isset($_REQUEST['tarefa'])) {
             },
             options: {
                 indexAxis: 'y',
-                scales: { x: { max: 100 } },
+                scales: { 
+                    x: { max: 100 }
+                },
                 plugins: { 
-                    legend: { display: false },
-                    datalabels: {
-                        color: '#000',
-                        font: {
-                            weight: 'bold',
-                            size: 12
-                        },
-                        anchor: 'end',
-                        align: 'end',
-                        offset: 5,
-                        formatter: function(value) {
-                            return value + '%';
-                        }
-                    }
+                    legend: { display: false }
                 }
-            }
+            },
+            plugins: [labelPlugin]
         });
     </script>
 <!-- fim da exibição -->
