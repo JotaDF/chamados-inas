@@ -104,11 +104,11 @@ if (isset($_REQUEST['tarefa'])) {
             }
             $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
             $pecentual_etapa = round($percente['percentual'], 1);
-            $cor = "#0aa30a"; // Verde para etapas concluídas
+            $cor = "#74e074"; // Verde para etapas concluídas
             if ($pecentual_etapa < 50) {
-                $cor = "#f0271d"; // Vermelho para etapas não concluídas
+                $cor = "#f1574e"; // Vermelho para etapas não concluídas
             } elseif ($pecentual_etapa < 100 && $pecentual_etapa >= 50) {
-                $cor = "#ffbc04"; //    Laranja para etapas em andamento
+                $cor = "#ffcf4b"; //    Laranja para etapas em andamento
             }
             $array_etapas[] = [
                 'label' => $obj->nome,
@@ -133,12 +133,12 @@ if (isset($_REQUEST['tarefa'])) {
                     {
                         label: 'Previsto',
                         data: rawData.map(d => d.total),
-                        backgroundColor: '#adaeb1'
+                        backgroundColor: '#b3b3b3'
                     },
                     {
                         label: 'Concluído',
                         data: rawData.map(d => d.completed),
-                        backgroundColor: '#0aa30a'
+                        backgroundColor: '#74e074'
                     }
                 ]
             },
