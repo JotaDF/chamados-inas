@@ -146,35 +146,47 @@ class ManterFilaPericiaEco extends Model
 
     function verificaAtendimentoExiste($id_fila)
     {
-        $sql = "SELECT id_fila, data_agendada, hora_agendada, resultado, situacao FROM atendimento_pericia  WHERE id_fila = '" . $id_fila . "' AND situacao <> 'DESMARCADO' ORDER BY resultado IS NULL DESC, id DESC
-        LIMIT 1";
+        $sql = "SELECT id_fila, data_agendada, hora_agendada, resultado, situacao 
+            FROM atendimento_pericia  
+            WHERE id_fila = '" . $id_fila . "' 
+            AND situacao <> 'DESMARCADO' 
+            ORDER BY resultado IS NULL DESC, id DESC
+            LIMIT 1";
+
         $resultado = $this->db->Execute($sql);
-        $agendado = $this->verificaSeEstaEmAtendimento($resultado->fields['resultado'], $resultado->fields['situacao']);
-        if ($resultado && !$resultado->EOF) {
+
+        if (!$resultado || $resultado->EOF) {
             return [
-                'agendado' => $agendado,
-                'data_agendada' => $resultado->fields['data_agendada'],
-                'hora_agendada' => $resultado->fields['hora_agendada'],
-                'resultado' => $resultado->fields['resultado'],
-                'situacao' => $resultado->fields['situacao']
+                'agendado' => false,
+                'data_agendada' => null,
+                'hora_agendada' => null,
+                'resultado' => null,
+                'situacao' => null
             ];
         }
+
+        $dados = $resultado->fields;
+
         return [
-            'agendado' => $agendado,
-            'data_agendada' => null,
-            'resultado' => $resultado->fields['resultado'],
-            'situacao' => $resultado->fields['situacao']
+            'agendado' => $this->verificaSeEstaEmAtendimento(
+                $dados['resultado'],
+                $dados['situacao']
+            ),
+            'data_agendada' => $dados['data_agendada'],
+            'hora_agendada' => $dados['hora_agendada'],
+            'resultado' => $dados['resultado'],
+            'situacao' => $dados['situacao']
         ];
     }
 
 
     function verificaSeEstaEmAtendimento($resultado, $situacao)
     {
-        if ($resultado == "NAO AUTORIZADA") {
+        if ($situacao === "DESMARCADO") {
             return false;
         }
-        if ($situacao == "SISTEMA")
-            return true;
+
+        return $situacao === "SISTEMA" && $resultado === null;
     }
     function getFilaPorId($id_fila)
     {
