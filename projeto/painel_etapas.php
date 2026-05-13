@@ -62,28 +62,7 @@ if (isset($_REQUEST['tarefa'])) {
     ?>
         <div class="header">
             <h1>Painel de acompanhamento</h1>
-            <p><strong>[<small><?= $tarefa->id ?></small>] <?= $tarefa->nome ?></strong></p>
-        </div>
-        
-        <div class="row">                           
-            <div class="c1 ml-4">
-                <div class="text-xs font-weight-bold text-uppercase mb-1">Início</div>
-                <div class="mb-0"><?= date('d/m/Y', strtotime($tarefa->inicio)) ?></div>
-            </div>
-            <div class="c2 ml-4">
-                <div class="text-xs font-weight-bold text-uppercase mb-1">Fim</div>
-                <div class="mb-0"><?= date('d/m/Y', strtotime($tarefa->fim)) ?></div>
-            </div> 
-            <?php
-            if ($editar) {
-                echo '<input type="hidden" id="editor" value="1"/><input type="hidden" id="op" value="1"/>';
-                ?>
-                <div class="c3 ml-4 text-right" >
-                    <i id="btn_editar" onclick="editar(); save_editar();" value="<?= $_SESSION['editar'] ?>" class="fa fa-unlock"></i>
-                </div> 
-                <?php
-            }
-            ?>
+            <h3><strong>[<small><?= $tarefa->id ?></small>] <?= $tarefa->nome ?></strong></h3>
         </div>
         <div class="stats-grid">
             <div class="stat-box" style="border-left-color: #4e73df;">
