@@ -61,18 +61,38 @@ if (isset($_REQUEST['tarefa'])) {
     $total_etapas = count($etapas);
     ?>
         <div class="header">
-            <h1>Relatório Consolidado MAIDA ECO - V3</h1>
-            <p>Visão Integral de Todos os Módulos do Contrato</p>
+            <h1>Painel de acompanhamento</h1>
+            <p><strong>[<small><?= $tarefa->id ?></small>] <?= $tarefa->nome ?></strong></p>
         </div>
-
+        
+        <div class="row">                           
+            <div class="c1 ml-4">
+                <div class="text-xs font-weight-bold text-uppercase mb-1">Início</div>
+                <div class="mb-0"><?= date('d/m/Y', strtotime($tarefa->inicio)) ?></div>
+            </div>
+            <div class="c2 ml-4">
+                <div class="text-xs font-weight-bold text-uppercase mb-1">Fim</div>
+                <div class="mb-0"><?= date('d/m/Y', strtotime($tarefa->fim)) ?></div>
+            </div> 
+            <?php
+            if ($editar) {
+                echo '<input type="hidden" id="editor" value="1"/><input type="hidden" id="op" value="1"/>';
+                ?>
+                <div class="c3 ml-4 text-right" >
+                    <i id="btn_editar" onclick="editar(); save_editar();" value="<?= $_SESSION['editar'] ?>" class="fa fa-unlock"></i>
+                </div> 
+                <?php
+            }
+            ?>
+        </div>
         <div class="stats-grid">
             <div class="stat-box" style="border-left-color: #4e73df;">
                 <div class="stat-label">Progresso</div>
-                <div class="stat-value"><?=  $percentual ?>?>%</div>
+                <div class="stat-value"><?=  $percentual ?>%</div>
             </div>
             <div class="stat-box" style="border-left-color: #1cc88a;">
                 <div class="stat-label">Total Concluído</div>
-                <div class="stat-value"><?= $percente_tarefa['concluido'] ?>?> Itens</div>
+                <div class="stat-value"><?= $percente_tarefa['concluido'] ?> Itens</div>
             </div>
             <div class="stat-box" style="border-left-color: #f6c23e;">
                 <div class="stat-label">Total Previsto</div>
@@ -110,6 +130,7 @@ if (isset($_REQUEST['tarefa'])) {
                 'label' => $obj->nome,
                 'total' => $percente['total'],
                 'completed' => $percente['concluido'],
+                'percente' => $pecentual_etapa,
                 'color' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)) // Cor aleatória para cada etapa
             ];
         }
@@ -117,7 +138,7 @@ if (isset($_REQUEST['tarefa'])) {
         //const rawData = [{"label": "8.1.11.1 - Cadastro e Portal", "total": 12, "completed": 11, "color": "#4e73df"}, {"label": "8.1.11.2 - Central Atendimento", "total": 15, "completed": 10, "color": "#1cc88a"}, {"label": "8.1.11.3 - Credenciamento", "total": 10, "completed": 7, "color": "#36b9cc"}, {"label": "8.1.11.4 - Regula\u00e7\u00e3o", "total": 18, "completed": 9, "color": "#f6c23e"}, {"label": "8.1.11.5 - Cota\u00e7\u00e3o e Aquisi\u00e7\u00e3o", "total": 10, "completed": 5, "color": "#e74a3b"}, {"label": "8.1.11.6 - Auditoria Concorrente", "total": 10, "completed": 6, "color": "#4e73df"}, {"label": "8.1.11.7 - Auditoria Retrospectiva", "total": 9, "completed": 5, "color": "#1cc88a"}, {"label": "8.1.11.8 - Faturamento", "total": 12, "completed": 8, "color": "#36b9cc"}, {"label": "8.1.11.9 - Financeiro", "total": 9, "completed": 6, "color": "#f6c23e"}, {"label": "8.1.11.10 - Relat\u00f3rios", "total": 5, "completed": 3, "color": "#e74a3b"}, {"label": "8.1.11.11 - BI (Business Intelligence)", "total": 12, "completed": 2, "color": "#858796"}, {"label": "8.1.11.12 - Aplicativo Mobile", "total": 11, "completed": 9, "color": "#5a5c69"}];
         const rawData = <?= json_encode($array_etapas) ?>;
         // Sorting for ranking chart (highest % first)
-        const sortedData = [...rawData].sort((a, b) => (b.completed/b.total) - (a.completed/a.total));
+        const sortedData = [...rawData].sort((a, b) => (b.percente) - (a.percente));
 
         // Main Comparison Chart
         new Chart(document.getElementById('mainChart'), {
@@ -151,7 +172,7 @@ if (isset($_REQUEST['tarefa'])) {
                 labels: sortedData.map(d => d.label),
                 datasets: [{
                     label: '% Concluído',
-                    data: sortedData.map(d => Math.round((d.completed / d.total) * 100)),
+                    data: sortedData.map(d => d.percente),
                     backgroundColor: sortedData.map(d => d.color),
                     borderRadius: 4
                 }]
