@@ -106,9 +106,9 @@ if (isset($_REQUEST['tarefa'])) {
             $pecentual_etapa = round($percente['percentual'], 1);
             $cor = "#0aa30a"; // Verde para etapas concluídas
             if ($pecentual_etapa < 50) {
-                $cor = "#C11007"; // Vermelho para etapas não concluídas
+                $cor = "#f0271d"; // Vermelho para etapas não concluídas
             } elseif ($pecentual_etapa < 100 && $pecentual_etapa >= 50) {
-                $cor = "#ffbb00"; //    Laranja para etapas em andamento
+                $cor = "#ffbc04"; //    Laranja para etapas em andamento
             }
             $array_etapas[] = [
                 'label' => $obj->nome,
