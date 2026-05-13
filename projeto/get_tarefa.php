@@ -38,7 +38,7 @@ foreach ($lista as $obj) {
     }
     $hidden_descricao = "<input type='hidden' id='" . $obj->id . "_descricao' value='". $obj->descricao ."'>";
     echo "  <td align='center'>";
-    echo "<a href='painel_etapas.php?tarefa=" . $obj->id . "' class='btn btn-dark btn-sm' title='Painel de Etapas' target='_blank'><i class='fa fa-signal'></i></a>&nbsp;&nbsp;";
+    echo "<a href='painel_etapas.php?tarefa=" . $obj->id . "' class='btn btn-success btn-sm' title='Painel de Etapas' target='_blank'><i class='fa fa-signal'></i></a>&nbsp;&nbsp;";
     echo "<a href='relatorio_etapas.php?tarefa=" . $obj->id . " 'class='btn btn-dark btn-sm'  title='Relatório' target='_blank'><i class='fa fa-file-pdf'></i></a>&nbsp;&nbsp;";
     if ($obj->excluir) {
         echo "<a href='gerenciar_etapas.php?tarefa=" . $obj->id . "' class='btn btn-warning btn-sm' title='Gerenciar etapas'><i class='fa fa-bars'></i></a>";
