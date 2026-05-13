@@ -230,6 +230,7 @@ and open the template in the editor.
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
+                    <?php include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterEquipe.php');
                     include_once('actions/ManterUsuario.php');
