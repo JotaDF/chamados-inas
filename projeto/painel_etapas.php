@@ -188,8 +188,8 @@ if (isset($_REQUEST['tarefa'])) {
         });
     </script>
 <!-- fim da exibição -->
-<div style="align-content: center;">
-<div class="card1" style="max-width: 900px;">
+<div class="row justify-content-center">
+<div class="card1 w-75 mx-auto">
     <h5 class="mt-3 ml-2 card-title">Progresso por Etapa</h5>
 <?php
     foreach ($etapas as $obj) {
@@ -207,7 +207,7 @@ if (isset($_REQUEST['tarefa'])) {
             </div> 
             <div class="c3 ml-5">
             </div>                  
-            <div class="col-auto ml-5">
+            <div class="col-auto ml-auto">
                 <div class="text-xs font-weight-bold text-uppercase mb-1"><small class="text-muted"><?= $percentual ?>% </small></div>
             </div>                    
         </div>
@@ -224,7 +224,7 @@ if (isset($_REQUEST['tarefa'])) {
             </div> 
             <div class="c3 ml-5">
             </div>                  
-            <div class="col-auto ml-5">
+            <div class="col-auto ml-auto">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['total'] ?> total</small></div>
             </div>                    
         </div>
