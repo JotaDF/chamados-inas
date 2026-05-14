@@ -186,8 +186,8 @@ if (isset($_REQUEST['tarefa'])) {
     </script>
 <!-- fim da exibição -->
 <div class="row justify-content-center">
-<div class="card1 w-75 mx-auto">
-    <h5 class="mt-3 ml-0 card-title h3">Progresso por Etapa</h5>
+<div class="card1 w-100 mx-auto" style="max-width: 1175px;">
+    <h5 class="mt-3 ml-0 mb-2 card-title h3">Progresso por Etapa</h5>
 <?php
     foreach ($etapas as $obj) {
         $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
