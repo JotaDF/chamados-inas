@@ -189,8 +189,7 @@ if (isset($_REQUEST['tarefa'])) {
     </script>
 <!-- fim da exibição -->
 
-<div class="card1 mb-3 border-primary">
-    <div class="card-body">
+    <div class="card">
         <h5 class="mt-3 ml-2 card-title">Progresso por Etapa</h5>
 <?php
     foreach ($etapas as $obj) {
@@ -232,7 +231,6 @@ if (isset($_REQUEST['tarefa'])) {
     <?php
     }
     ?>
-        </div>
 </div>
 <?php
 }
