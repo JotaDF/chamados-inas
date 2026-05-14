@@ -202,13 +202,13 @@ if (isset($_REQUEST['tarefa'])) {
             $cor = "bg-primary"; //    Azul para etapas em andamento
         }
     ?>
-        <p class=" mt-3 mb-0 ml-0 card-text h6"><?= $obj->nome ?></p>
+        <p class=" mt-3 mb-0 ml-0 card-text h5"><?= $obj->nome ?></p>
         <div class="row">
             <div class="c0 ml-3 mr-2">
-                <div class="text-xs font-weight-bold mb-1"><small class="text-muted">Conclusão: <?= $percente['concluido'] ?>/<?= $percente['total'] ?></small></div>
+                <div class="text-xs font-weight-bold mb-1"><small class="text-muted font-weight-bold">Conclusão: <?= $percente['concluido'] ?>/<?= $percente['total'] ?></small></div>
             </div>                                      
             <div class="col-auto ml-auto">
-                <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $pecentual_etapa ?>% </small></div>
+                <div class="text-xs font-weight-bold mb-1"><small class="text-muted font-weight-bold"><?= $pecentual_etapa ?>% </small></div>
             </div>                    
         </div>
         <div class="mt-0 progress">
