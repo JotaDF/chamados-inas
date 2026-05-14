@@ -190,7 +190,7 @@ if (isset($_REQUEST['tarefa'])) {
 <!-- fim da exibição -->
 <div class="row justify-content-center">
 <div class="card1 w-75 mx-auto">
-    <h5 class="mt-3 ml-0 card-title">Progresso por Etapa</h5>
+    <h5 class="mt-3 ml-0 card-title h3">Progresso por Etapa</h5>
 <?php
     foreach ($etapas as $obj) {
         $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
@@ -199,7 +199,7 @@ if (isset($_REQUEST['tarefa'])) {
         if ($pecentual_etapa < 50) {
             $cor = "bg-danger"; // Vermelho para etapas não concluídas
         } elseif ($pecentual_etapa < 100 && $pecentual_etapa >= 50) {
-            $cor = "bg-warning"; //    Laranja para etapas em andamento
+            $cor = "bg-primary"; //    Azul para etapas em andamento
         }
     ?>
         <p class=" mt-3 mb-0 ml-0 card-text h6"><?= $obj->nome ?></p>
