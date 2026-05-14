@@ -29,7 +29,7 @@ and open the template in the editor.
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fc; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 1200px; margin: auto; }
         .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e3e6f0; padding-bottom: 10px; }
-        .card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 25px; }
+        .card1 { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 25px; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-box { background: #fff; padding: 15px; border-left: 4px solid #4e73df; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .stat-label { font-size: 0.75rem; text-transform: uppercase; color: #858796; font-weight: bold; }
@@ -87,12 +87,12 @@ if (isset($_REQUEST['tarefa'])) {
             </div>
         </div>
 
-        <div class="card">
+        <div class="card1">
             <h3>Comparativo Completo: Previsto vs. Concluído</h3>
             <canvas id="mainChart"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card1">
             <h3>Ranking de Conclusão por Percentual (%)</h3>
             <canvas id="rankingChart"></canvas>
         </div>
@@ -189,7 +189,7 @@ if (isset($_REQUEST['tarefa'])) {
     </script>
 <!-- fim da exibição -->
 
-<div class="card mb-3 border-primary" style="max-width: 100%;">
+<div class="card1 mb-3 border-primary">
     <div class="card-body">
         <h5 class="mt-3 ml-2 card-title">Progresso por Etapa</h5>
 <?php
@@ -208,7 +208,7 @@ if (isset($_REQUEST['tarefa'])) {
             </div> 
             <div class="c3 ml-5">
             </div>                  
-            <div class="c4 ml-5">
+            <div class="col-auto ml-5">
                 <div class="text-xs font-weight-bold text-uppercase mb-1"><small class="text-muted"><?= $percentual ?>% </small></div>
             </div>                    
         </div>
@@ -225,7 +225,7 @@ if (isset($_REQUEST['tarefa'])) {
             </div> 
             <div class="c3 ml-5">
             </div>                  
-            <div class="c4 ml-5">
+            <div class="col-auto ml-5">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['total'] ?> total</small></div>
             </div>                    
         </div>
