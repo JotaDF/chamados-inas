@@ -202,34 +202,22 @@ if (isset($_REQUEST['tarefa'])) {
             $cor = "bg-warning"; //    Laranja para etapas em andamento
         }
     ?>
-        <p class=" ml-2 card-text"><?= $obj->nome ?></p>
+        <p class=" mt-2 ml-1 card-text"><?= $obj->nome ?></p>
         <div class="row">
             <div class="c0 ml-4 mr-2">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted">Conclusão: <?= $percente['concluido'] ?>/<?= $percente['total'] ?></small></div>
-            </div>                    
-            <div class="c1 ml-5">
-            </div>                    
-            <div class="c2 ml-5">
-            </div> 
-            <div class="c3 ml-5">
-            </div>                  
+            </div>                                      
             <div class="col-auto ml-auto">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $pecentual_etapa ?>% </small></div>
             </div>                    
         </div>
-        <div class="mt-2 progress">
+        <div class="mt-0 progress">
             <div id="progressbar" class="progress-bar <?= $cor ?>" role="progressbar" style="width: <?= $pecentual_etapa ?>%;" aria-valuenow="<?= $pecentual_etapa ?>" aria-valuemin="0" aria-valuemax="100"> </div>
         </div>
         <div class="row">
             <div class="c0 ml-4 mr-2">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['concluido'] ?> concluído</small></div>
-            </div>   
-                                <div class="c1 ml-5">
-            </div>                    
-            <div class="c2 ml-5">
-            </div> 
-            <div class="c3 ml-5">
-            </div>                  
+            </div>                   
             <div class="col-auto ml-auto">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['total'] ?> total</small></div>
             </div>                    
