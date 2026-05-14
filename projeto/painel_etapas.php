@@ -20,6 +20,10 @@ and open the template in the editor.
 
     <title>Dashboard tarefa</title>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fc; margin: 0; padding: 20px; color: #333; }
@@ -184,6 +188,52 @@ if (isset($_REQUEST['tarefa'])) {
         });
     </script>
 <!-- fim da exibição -->
+
+<div class="card mb-3 border-primary" style="max-width: 100%;">
+    <div class="card-body">
+        <h5 class="mt-3 ml-2 card-title">Progresso por Etapa</h5>
+<?php
+    foreach ($etapas as $obj) {
+        $percente = $manterTarefa->getPercentualEtapaPorId($obj->id);
+        $pecentual_etapa = round($percente['percentual'], 1);
+    ?>
+        <p class=" ml-2 card-text"><?= $obj->nome ?></p>
+        <div class="row">
+            <div class="c0 ml-4 mr-2">
+                <div class="text-xs font-weight-bold text-uppercase mb-1"><small class="text-muted">Conclusão: <?= $percente['concluido'] ?>/<?= $percente['total'] ?></small></div>
+            </div>                    
+            <div class="c1 ml-5">
+            </div>                    
+            <div class="c2 ml-5">
+            </div> 
+            <div class="c3 ml-5">
+            </div>                  
+            <div class="c4 ml-5">
+                <div class="text-xs font-weight-bold text-uppercase mb-1"><small class="text-muted"><?= $percentual ?>% </small></div>
+            </div>                    
+        </div>
+        <div class="mt-2 progress">
+            <div id="progressbar" class="progress-bar bg-success" role="progressbar" style="width: <?= $percentual ?>%;" aria-valuenow="<?= $percentual ?>" aria-valuemin="0" aria-valuemax="100"> </div>
+        </div>
+        <div class="row">
+            <div class="c0 ml-4 mr-2">
+                <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['concluido'] ?> concluído</small></div>
+            </div>   
+                                <div class="c1 ml-5">
+            </div>                    
+            <div class="c2 ml-5">
+            </div> 
+            <div class="c3 ml-5">
+            </div>                  
+            <div class="c4 ml-5">
+                <div class="text-xs font-weight-bold mb-1"><small class="text-muted"><?= $percente['total'] ?> total</small></div>
+            </div>                    
+        </div>
+    <?php
+    }
+    ?>
+        </div>
+</div>
 <?php
 }
 ?>
