@@ -198,8 +198,9 @@ if (isset($_REQUEST['tarefa'])) {
         } elseif ($pecentual_etapa < 100 && $pecentual_etapa >= 50) {
             $cor = "bg-primary"; //    Azul para etapas em andamento
         }
+        $check = $pecentual_etapa == 100 ? "<i class='fa fa-check text-success'></i>" : ""; // Marca de verificação para etapas concluídas
     ?>
-        <p class=" mt-3 mb-0 ml-0 card-text h6"><?= $obj->nome ?></p>
+        <p class=" mt-3 mb-0 ml-0 card-text h6"><?= $obj->nome ?> <?= $check ?></p>
         <div class="row">
             <div class="c0 ml-3 mr-2">
                 <div class="text-xs font-weight-bold mb-1"><small class="text-muted font-weight-bold">Conclusão: <?= $percente['concluido'] ?>/<?= $percente['total'] ?></small></div>
