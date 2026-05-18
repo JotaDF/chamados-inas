@@ -226,7 +226,7 @@ and open the template in the editor.
                                 <div class="mt-2 progress">
                                     <div id="progressbar" class="progress-bar bg-success" role="progressbar"
                                         style="width: <?= $percentual ?>%;" aria-valuenow="<?= $percentual ?>"
-                                        aria-valuemin="0" aria-valuemax="100"><?= $percentual ?>%</div>
+                                        aria-valuemin="0" aria-valuemax="100"><?= $percentual ?>% (<?= $percente_tarefa['concluido'] ." concluídas de ". $percente_tarefa['total'] ?>)</div>
                                 </div>
                             </div>
                         </div>

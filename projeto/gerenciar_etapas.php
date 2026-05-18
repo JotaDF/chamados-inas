@@ -230,6 +230,7 @@ and open the template in the editor.
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
+                    <?php include './top_bar.php'; ?>
                     <?php
                     include_once('actions/ManterEquipe.php');
                     include_once('actions/ManterUsuario.php');
@@ -337,7 +338,7 @@ and open the template in the editor.
                                         </div>                    
                                     </div>
                                     <div class="mt-2 progress">
-                                        <div id="progressbar" class="progress-bar bg-success" role="progressbar" style="width: <?= $percentual ?>%;" aria-valuenow="<?= $percentual ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentual ?>%</div>
+                                        <div id="progressbar" class="progress-bar bg-success" role="progressbar" style="width: <?= $percentual ?>%;" aria-valuenow="<?= $percentual ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentual ?>%  (<?= $percente_tarefa['concluido'] ." concluídas de ". $percente_tarefa['total'] ?>)</div>
                                     </div>
                                 </div>
                             </div>
