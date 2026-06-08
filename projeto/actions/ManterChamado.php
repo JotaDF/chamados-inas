@@ -6,13 +6,16 @@ require_once('Model.php');
 require_once('dto/Chamado.php');
 require_once('dto/Usuario.php');
 
-class ManterChamado extends Model {
+class ManterChamado extends Model
+{
 
-    function __construct() { //metodo construtor
+    function __construct()
+    { //metodo construtor
         parent::__construct();
     }
 
-    function listar($filtro = "") {
+    function listar($filtro = "")
+    {
         $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente, (select count(*) from interacao as i where i.id_chamado=c.id) as dep FROM chamado as c " . $filtro . " ORDER BY id DESC";
         //echo 'SQL: ' . $sql;
         $resultado = $this->db->Execute($sql);
@@ -26,9 +29,12 @@ class ManterChamado extends Model {
             $dados->id = $registro["id"];
             $dados->descricao = $registro["descricao"];
             $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0;
-            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;;
-            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;;
-            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;;
+            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;
+            ;
+            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;
+            ;
+            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;
+            ;
             $dados->status = $registro["status"];
             $dados->categoria = $registro["id_categoria"];
             $dados->usuario = $registro["id_usuario"];
@@ -39,7 +45,8 @@ class ManterChamado extends Model {
         }
         return $array_dados;
     }
-    function listaRelatorio($filtro = "") {
+    function listaRelatorio($filtro = "")
+    {
         $sql = "SELECT iid,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente,
     TIMESTAMPDIFF(MINUTE, data_abertura, data_atendido) AS tempo,
     (SELECT COUNT(*) FROM interacao AS i WHERE i.id_chamado = c.id) AS dep FROM chamado AS c
@@ -56,9 +63,12 @@ class ManterChamado extends Model {
             $dados->id = $registro["id"];
             $dados->descricao = $registro["descricao"];
             $dados->data_abertura = isset($registro["data_abertura"]) ? $registro["data_abertura"] : 0;
-            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;;
-            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;;
-            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;;
+            $dados->data_atendido = isset($registro["data_atendido"]) ? $registro["data_atendido"] : 0;
+            ;
+            $dados->data_atendimento = isset($registro["data_atendimento"]) ? $registro["data_atendimento"] : 0;
+            ;
+            $dados->data_cancelado = isset($registro["data_cancelado"]) ? $registro["data_cancelado"] : 0;
+            ;
             $dados->status = $registro["status"];
             $dados->categoria = $registro["id_categoria"];
             $dados->usuario = $registro["id_usuario"];
@@ -69,7 +79,8 @@ class ManterChamado extends Model {
         }
         return $array_dados;
     }
-    function getChamadoPorId($id) {
+    function getChamadoPorId($id)
+    {
         $sql = "select id,descricao,data_abertura, data_atendido,data_atendimento,data_cancelado,status,id_categoria,id_usuario,id_atendente FROM chamado as c WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -89,7 +100,8 @@ class ManterChamado extends Model {
         return $dados;
     }
 
-    function salvar(Chamado $dados) {
+    function salvar(Chamado $dados)
+    {
         $sql = "insert into chamado (descricao,data_abertura,id_usuario,id_categoria) values ('" . $dados->descricao . "',now()," . $dados->usuario . ",1)";
         //echo $sql . "<BR/>";
         if ($dados->id > 0) {
@@ -101,35 +113,47 @@ class ManterChamado extends Model {
         }
         return $dados;
     }
-    function atender(Chamado $dados) {
+    function atender(Chamado $dados)
+    {
         if ($dados->id > 0) {
             $sql = "update chamado set id_categoria='" . $dados->categoria . "', id_atendente='" . $dados->atendente . "', status=1, data_atendimento=now() where id=$dados->id";
             $resultado = $this->db->Execute($sql);
         }
         return $resultado;
     }
-    function concluir($id) {
+    function concluir($id)
+    {
         if ($id > 0) {
             $sql = "update chamado set status=2, data_atendido=now() where id=$id";
             $resultado = $this->db->Execute($sql);
         }
         return $resultado;
     }
-    function cancelar($id) {
+    function cancelar($id)
+    {
         if ($id > 0) {
             $sql = "update chamado set status=3, data_cancelado=now() where id=$id";
             $resultado = $this->db->Execute($sql);
         }
         return $resultado;
     }
-    function reabrir($id) {
-        if ($id > 0) {
-            $sql = "update chamado set status=4, data_reaberto=now() where id=$id";
-            $resultado = $this->db->Execute($sql);
+    function reabrir($id): bool
+    {
+        if ($id <= 0) {
+            return false;
         }
-        return $resultado;
+
+        $sql = "update chamado set status=4, data_reaberto=now() where id=$id";
+        $resultado = $this->db->Execute($sql);
+
+        return $resultado !== false;
     }
-    function excluir($id) {
+
+    // function registraInteracaoReabertura($motivo_reabertura) {
+
+    // }
+    function excluir($id)
+    {
         $sql = "delete from chamado where id=" . $id;
         $resultado = $this->db->Execute($sql);
         return $resultado;

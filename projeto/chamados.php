@@ -121,21 +121,35 @@ and open the template in the editor.
             $('#confirm').modal({ show: true });
         }
         function reabrir(id, usuario, descricao, categoria, id_usuario_logado) {
-            $('#acao').attr('href', 'reabrir_chamado.php?id=' + id + '&id_usuario=' + id_usuario_logado);
-            $('#acao_texto').text("Confimação de reabertura do chamado:");
+            $('#acao').attr('href', 'reabrir_chamado.php?id_chamado_reabertura=' + id + '&usuario_logado_chamado=' + id_usuario_logado);
+            $('#acao_texto').text("Confimação de reasbertura do chamado:");
             $('#acao_usuario').text(usuario);
             $('#acao_descricao').html(descricao);
             $('#confirm').modal({ show: true });
         }
 
 
-        function atender(id, usuario, descricao, categoria) {
+        function atender(id, usuario, descricao, status, motivo = null, categoria) {
             $('#atender_id').val(id);
             $('#atender_usuario').text(usuario);
             $('#atender_descricao').html(descricao);
+            $('#motivo').html("").desabled;
+            $('#motivo_texto').text("");
+            $('#reabertura_chamado').hide();
+            if (status == 4) {
+                mostraMotivoReabertura(motivo);
+            }
             carregaCategorias(categoria);
             $('#atender').modal({ show: true });
         }
+
+        function mostraMotivoReabertura(motivo) {
+            $('#reabertura_chamado').show();
+            $('#motivo').html();
+            $('#texto_reabertura').text('Motivo de reabertura do chamado');
+            $('#motivo_texto').html(motivo);
+        }
+
         function alterar(id, nome, descricao) {
             $('#id').val(id);
             $('#nome').val(nome);
@@ -305,10 +319,18 @@ and open the template in the editor.
                         </button>
                     </div>
                     <div class="modal-body">
+
                         <p>
                             <span id="atender_usuario"></span><br />
                             <strong><span id="atender_descricao"></span></strong>
                         </p>
+
+                        <div id="reabertura_chamado">
+                            <hr>
+                            <span id="texto_reabertura"></span>
+                            <strong> <span id="motivo_texto"></span><br /></strong>
+                            <br />
+                        </div>
                         <div class="form-group row">
                             <label for="categoria" class="col-sm-2 col-form-label">Categoria:</label>
                             <div class="col-sm-10">
