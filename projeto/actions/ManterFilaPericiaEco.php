@@ -321,7 +321,7 @@ class ManterFilaPericiaEco extends Model
     }
     function getPeriodoDatas(DateTime $inicio)
     {
-        $inicio = new DateTime("-1 day");
+        $inicio = new DateTime("-30 day");
         $fim = new DateTime("+30 days");
         $diario = new DateInterval("P1D");
         $periodo = new DatePeriod($inicio, $diario, $fim);

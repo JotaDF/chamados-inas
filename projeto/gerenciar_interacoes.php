@@ -64,9 +64,14 @@ and open the template in the editor.
 
             // Instanciar o Quill para o editor de TAP
             quillEditor = new Quill('#editor', quillOpcoes);
+            quillEditorMotivo = new Quill('#editor_motivo', quillOpcoes);
             document.getElementById('nova').addEventListener('submit', function () {
                 const quillEditorHTML = quillEditor.root.innerHTML;
                 document.querySelector('input[name="texto"]').value = quillEditorHTML;
+            });
+            document.getElementById('form_reabertura').addEventListener('submit', function () {
+                const quillEditorHTMLMotivo = quillEditorMotivo.root.innerHTML;
+                document.querySelector('input[name="motivo_reabertura"]').value = quillEditorHTMLMotivo;
             });
         });
         function interacao() {
@@ -75,8 +80,10 @@ and open the template in the editor.
         function reabrir(id, usuario, descricao, id_usuario) {
             $('#acao').attr('href', 'reabrir_chamado.php?id=' + id + '&id_usuario=' + id_usuario);
             $('#acao_texto').text("Confimação de reabertura do chamado:");
+            $('#acao_motivo').text("Motivo de reabertura do chamado:");
             $('#acao_usuario').text(usuario);
             $('#acao_descricao').html(descricao);
+            $('id_chamado_reabertura').val(id);
             $('#confirm').modal({ show: true });
         }
     </script>
@@ -84,7 +91,6 @@ and open the template in the editor.
         body {
             font-size: small;
         }
-
     </style>
 </head>
 
@@ -243,6 +249,7 @@ and open the template in the editor.
                         <div style="width: 100%; height: 95px;" id="editor"></div>
                         <input type='hidden' id="texto" name="texto">
                     </div>
+
                     <div class="modal-footer">
                         <?php
                         if ($usuario_logado->id != $chamado->usuario && ($usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9)) {
@@ -262,7 +269,7 @@ and open the template in the editor.
     </div>
     <!-- Modal reabrir -->
     <div class="modal fade" id="confirm" role="dialog">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lm">
 
             <div class="modal-content">
                 <div class="modal-header">
@@ -275,14 +282,20 @@ and open the template in the editor.
                     <p><span id="acao_texto"></span><br />
                         <span id="acao_usuario"></span><br />
                         <strong>"<span id="acao_descricao"></span>"</strong>
-                    </p>
+                    <form action="reabrir_chamado.php" id="form_reabertura" method="POST">
+                        <p><span id="acao_motivo"></span><br />
+                        <div style="width: 100%; height: 95px;" id="editor_motivo"></div>
+                        <input type='hidden' id="motivo_reabertura" name="motivo_reabertura">
+                        <input type="hidden" id="usuario_logado_chamado" name="usuario_logado_chamado"
+                            value="<?= $usuario_logado->id ?>">
+                        <input type='hidden' id="id_chamado_reabertura" name="id_chamado_reabertura" value="<?= $chamado->id?>">
                 </div>
                 <div class="modal-footer">
-                    <a href="#" type="button" class="btn btn-danger" id="acao">Confirmar</a>
+                    <button type="submit" class="btn btn-danger" id="acao">Confirmar</button>
                     <button type="button" data-dismiss="modal" class="btn btn-secondary">Desistir</button>
                 </div>
+                </form>
             </div>
-
         </div>
     </div>
 </body>
