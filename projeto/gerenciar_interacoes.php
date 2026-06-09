@@ -69,9 +69,35 @@ and open the template in the editor.
                 const quillEditorHTML = quillEditor.root.innerHTML;
                 document.querySelector('input[name="texto"]').value = quillEditorHTML;
             });
-            document.getElementById('form_reabertura').addEventListener('submit', function () {
+            document.getElementById('form_reabertura').addEventListener('submit', function (e) {
+
+                const id_perfil = <?= $usuario_logado->perfil ?>;
+                let atendente = id_perfil <= 2 || id_perfil == 9;
                 const quillEditorHTMLMotivo = quillEditorMotivo.root.innerHTML;
-                document.querySelector('input[name="motivo_reabertura"]').value = quillEditorHTMLMotivo;
+                const textoLimpo = quillEditorMotivo.getText().trim();
+                if (textoLimpo === '' && atendente === false) {
+
+                    e.preventDefault();
+
+                    $('#editor_motivo .ql-container').addClass('campo-obrigatorio');
+                    $('#erro_motivo').show();
+
+                    quillEditorMotivo.focus();
+
+                    return false;
+                }
+
+                document.getElementById('motivo_reabertura').value =
+                    quillEditorHTMLMotivo;
+            });
+            quillEditorMotivo.on('text-change', function () {
+
+                const texto = quillEditorMotivo.getText().trim();
+
+                if (texto !== '') {
+                    $('#editor_motivo .ql-container').removeClass('campo-obrigatorio');
+                    $('#erro_motivo').hide();
+                }
             });
         });
         function interacao() {
@@ -83,13 +109,48 @@ and open the template in the editor.
             $('#acao_motivo').text("Motivo de reabertura do chamado:");
             $('#acao_usuario').text(usuario);
             $('#acao_descricao').html(descricao);
-            $('id_chamado_reabertura').val(id);
+            $('#id_chamado_reabertura').val(id);
             $('#confirm').modal({ show: true });
         }
     </script>
     <style>
         body {
             font-size: small;
+        }
+
+        .campo-obrigatorio {
+            border: 2px solid #dc3545 !important;
+            border-radius: 4px;
+            animation: piscarCampo 0.3s ease-in-out 3;
+        }
+
+        @keyframes piscarCampo {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            50% {
+                transform: translateX(4px);
+            }
+
+            75% {
+                transform: translateX(-4px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .mensagem-erro {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -285,10 +346,14 @@ and open the template in the editor.
                     <form action="reabrir_chamado.php" id="form_reabertura" method="POST">
                         <p><span id="acao_motivo"></span><br />
                         <div style="width: 100%; height: 95px;" id="editor_motivo"></div>
-                        <input type='hidden' id="motivo_reabertura" name="motivo_reabertura">
+                        <div id="erro_motivo" class="mensagem-erro">
+                            Informe o motivo da reabertura.
+                        </div>
+                        <input type='hidden' id="motivo_reabertura" class="mensagem-erro" name="motivo_reabertura">
                         <input type="hidden" id="usuario_logado_chamado" name="usuario_logado_chamado"
                             value="<?= $usuario_logado->id ?>">
-                        <input type='hidden' id="id_chamado_reabertura" name="id_chamado_reabertura" value="<?= $chamado->id?>">
+                        <input type='hidden' id="id_chamado_reabertura" name="id_chamado_reabertura"
+                            value="<?= $chamado->id ?>">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger" id="acao">Confirmar</button>

@@ -15,8 +15,10 @@ $db_chamado = new ManterChamado();
 $c = new Chamado();
 $id = isset($_REQUEST['id_chamado_reabertura']) ? $_REQUEST['id_chamado_reabertura'] : 0;
 $id_usuario = isset($_REQUEST['usuario_logado_chamado']) ? $_REQUEST['usuario_logado_chamado'] : 0;
-$motivo_reabertura = $_REQUEST['motivo_reabertura']
-    ?? "Este chamado foi reaberto pela equipe da UTIC";
+
+$motivo_reabertura = trim(strip_tags($_REQUEST['motivo_reabertura']))
+    ?: 'Este chamado foi reaberto pela equipe da UTIC';
+
 
 $mensagem = "Chamado reaberto!<br/><br/>" . $motivo_reabertura;
 if ($db_chamado->reabrir($id)) {
@@ -26,6 +28,7 @@ if ($db_chamado->reabrir($id)) {
     $i->texto = $mensagem;
     $i->chamado = $id;
     $i->usuario = $id_usuario;
+
     $db_interacao->salvar($i);
 }
 

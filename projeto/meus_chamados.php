@@ -89,26 +89,46 @@ and open the template in the editor.
                 const quillEditorHTML = quillEditor.root.innerHTML;
                 document.querySelector('input[name="descricao"]').value = quillEditorHTML;
             });
-            document.getElementById('form_reabertura').addEventListener('submit', function () {
+            document.getElementById('form_acao').addEventListener('submit', function () {
                 const quillEditorHTMLMotivo = quillEditorMotivo.root.innerHTML;
                 document.querySelector('input[name="motivo_reabertura"]').value = quillEditorHTMLMotivo;
             });
         });
         function cancelar(id, usuario, descricao, usuario_logado) {
-            $('#acao').attr('href', 'cancelar_chamado.php?id=' + id + "&id_usuario=" + usuario_logado);
-            $('#acao_texto').text("Confimação de cancelamento do chamado:");
+            $('#container_reabertura').hide();
+
+            $('#form_acao').attr(
+                'action',
+                'cancelar_chamado.php?id_usuario=' + usuario_logado
+            );
+
+            $('#id').val(id);
+            $('#id_chamado_reabertura').val('');
+
+            $('#acao_texto').text('Confirmação de cancelamento do chamado:');
             $('#acao_usuario').text(usuario);
             $('#acao_descricao').html(descricao);
-            $('#confirm').modal({ show: true });
+
+            $('#confirm').modal('show');
         }
 
         function reabrir(id, usuario, descricao, status, categoria, usuario_logado) {
-            $('#acao_texto').text("Confimação de reabertura do chamado:");
-            $('#acao_motivo').text("Motivo de reabertura do chamado:");
+            $('#container_reabertura').show();
+
+            $('#form_acao').attr(
+                'action',
+                'reabrir_chamado.php'
+            );
+
+            $('#id_chamado_reabertura').val(id);
+            $('#id_chamado').val('');
+
+            $('#acao_texto').text('Confirmação de reabertura do chamado:');
+            $('#acao_motivo').text('Motivo de reabertura do chamado:');
             $('#acao_usuario').text(usuario);
             $('#acao_descricao').html(descricao);
-            $('#id_chamado_reabertura').val(id);
-            $('#confirm').modal({ show: true });
+
+            $('#confirm').modal('show');
         }
         // function confirmarReabertura() {
         //     let modal = $('#confirm');
@@ -237,37 +257,62 @@ and open the template in the editor.
     <!-- Modal excluir -->
     <div class="modal fade" id="confirm" role="dialog">
         <div class="modal-dialog modal-lm">
-
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h5 class="modal-title">Confirmação</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p><span id="acao_texto"></span><br />
-                        <br />
-                        <span id="acao_usuario"></span><br />
-                        <br />
-                        <strong>"<span id="acao_descricao"></span>"</strong>
-                    </p>
-                    <form action="reabrir_chamado.php" id="form_reabertura" method="POST">
-                        <input type='hidden' id="id_chamado_reabertura" name="id_chamado_reabertura">
-                        <p><span id="acao_motivo"></span><br />
-                        <div style="width: 100%; height: 95px;" id="editor_motivo"></div>
-                        <input type='hidden' id="motivo_reabertura" name="motivo_reabertura">
+
+                <form id="form_acao" method="POST">
+
+                    <div class="modal-body">
+
+                        <p>
+                            <span id="acao_texto"></span>
+                            <br><br>
+
+                            <span id="acao_usuario"></span>
+                            <br><br>
+
+                            <strong>"<span id="acao_descricao"></span>"</strong>
+                        </p>
+
+                        <input type="hidden" id="id" name="id">
+                        <input type="hidden" id="id_chamado_reabertura" name="id_chamado_reabertura">
+
                         <input type="hidden" id="usuario_logado_chamado" name="usuario_logado_chamado"
                             value="<?= $usuario_logado->id ?>">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" id="acao">Confirmar</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Desistir</button>
-                </div>
-                </form>
-            </div>
+                        <div id="container_reabertura">
 
+                            <p>
+                                <span id="acao_motivo"></span>
+                            </p>
+
+                            <div style="width:100%; height:95px;" id="editor_motivo"></div>
+
+                            <input type="hidden" id="motivo_reabertura" name="motivo_reabertura">
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">
+                            Confirmar
+                        </button>
+
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">
+                            Desistir
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
         </div>
     </div>
     <!-- Modal atendimento -->
