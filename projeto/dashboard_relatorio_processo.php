@@ -231,7 +231,7 @@
             { ano: '2025', tipo: 'grafico_motivo', arquivado: 3, ordem: 'm.motivo' },
             { ano: '', tipo: 'grafico_ano', arquivado: 3, ordem: '' },
             { ano: '2025', tipo: 'grafico_ano_mes', arquivado: 3, ordem: '' },
-            { ano: '2025', tipo: 'grafico_tipo_valor', tipo_valor: 2, ordem: '', },
+            { ano: '2026', tipo: 'grafico_tipo_valor', tipo_valor: 'todos', ordem: '', },
         ];
 
         graficos.forEach(carregarGrafico);
