@@ -3,8 +3,7 @@
 $mod = 6;
 require_once('./verifica_login.php');
 include('actions/ManterProcesso.php');
-$p = new ManterProcesso();
-$anos = $p->getAnos();
+require_once('actions/ManterTipoValor.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,13 +37,19 @@ $anos = $p->getAnos();
             width: 400px;
             height: 700px;
         }
-         /* CSS Personalizado */
+
+        /* CSS Personalizado */
         .form-control-xs {
-            height: 24px;                    /* Altura fixa bem pequena */
-            padding: 0 0.5rem;               /* Remove padding vertical, mantém horizontal */
-            font-size: 0.75rem;              /* Fonte pequena */
-            line-height: 24px;               /* Mesma altura do campo para centralizar o texto */
-            min-height: auto;                /* Remove restrições de altura do Bootstrap */
+            height: 24px;
+            /* Altura fixa bem pequena */
+            padding: 0 0.5rem;
+            /* Remove padding vertical, mantém horizontal */
+            font-size: 0.75rem;
+            /* Fonte pequena */
+            line-height: 24px;
+            /* Mesma altura do campo para centralizar o texto */
+            min-height: auto;
+            /* Remove restrições de altura do Bootstrap */
         }
 
         /* Garante que o texto dentro de selects também alinhe */
@@ -71,6 +76,12 @@ $anos = $p->getAnos();
     <!-- Page Wrapper -->
     <div id="wrapper">
         <?php include './menu_juridico.php'; ?>
+        <?php
+        $p = new ManterProcesso();
+        $tp = new ManterTipoValor();
+        $anos = $p->getAnos();
+        $tipo_valores = $tp->listar();
+        ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
@@ -79,20 +90,28 @@ $anos = $p->getAnos();
                 <div class="container-fluid">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a id="link_tab_ano" class="nav-link active" href="#" onclick="motraGrafico('ano')">Total por ano</a>
+                            <a id="link_tab_ano" class="nav-link active" href="#" onclick="motraGrafico('ano')">Total
+                                por ano</a>
                         </li>
                         <li class="nav-item">
-                            <a id="link_tab_ano_mes" class="nav-link active" href="#" onclick="motraGrafico('ano_mes')">Total por ano/mês</a>
+                            <a id="link_tab_ano_mes" class="nav-link active" href="#"
+                                onclick="motraGrafico('ano_mes')">Total por ano/mês</a>
                         </li>
                         <li class="nav-item">
-                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('assunto')">Total por Assunto</a>
+                            <a id="link_tab_assunto" class="nav-link" href="#" onclick="motraGrafico('assunto')">Total
+                                por Assunto</a>
                         </li>
                         <li class="nav-item">
-                            <a id="link_tab_motivo" class="nav-link" href="#" onclick="motraGrafico('motivo')">Total por Motivo</a>
+                            <a id="link_tab_motivo" class="nav-link" href="#" onclick="motraGrafico('motivo')">Total por
+                                Motivo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link_tab_tipo_valor" class="nav-link" href="#"
+                                onclick="motraGrafico('tipo_valor')">Total por Tipo Valor</a>
                         </li>
                     </ul>
                     <!-- Linha para organizar os cards lado a lado -->
-                    <div id="tab_ano" class="row">             
+                    <div id="tab_ano" class="row">
                         <!-- Segundo Card (Gráfico de Pizza) -->
                         <div class="ml-4 mr-4" style="width: 90%;">
                             <div class="card border-primary">
@@ -101,12 +120,13 @@ $anos = $p->getAnos();
                                         <span style="align:left;" class="h6 m-0 font-weight">Processos por ano</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%">
-                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano')" class="btn btn-outline-success">
-                                                <i class="fa fa-file-excel"></i> Exportar
-                                            </a>
-                                        </div>
+                                        <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano')"
+                                            class="btn btn-outline-success">
+                                            <i class="fa fa-file-excel"></i> Exportar
+                                        </a>
+                                    </div>
                                 </div>
-                                <div id="box_grafico_ano" style="width: 95%; height: 300px;"> 
+                                <div id="box_grafico_ano" style="width: 95%; height: 300px;">
                                     <canvas id="grafico_ano" width="100%"></canvas>
                                 </div>
                             </div>
@@ -118,13 +138,15 @@ $anos = $p->getAnos();
                             <div class="card border-primary">
                                 <div class="row ml-0 card-header py-2" style="width:100%">
                                     <div class="col mb-0">
-                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por ano/mês</span>
+                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por
+                                            ano/mês</span>
                                     </div>
                                     <div class="col text-right" style="max-width:20%">
-                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano_mes')" class="btn btn-outline-success">
-                                                <i class="fa fa-file-excel"></i> Exportar
-                                            </a>
-                                        </div>
+                                        <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_ano_mes')"
+                                            class="btn btn-outline-success">
+                                            <i class="fa fa-file-excel"></i> Exportar
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <form id="form_painel">
@@ -141,13 +163,69 @@ $anos = $p->getAnos();
                                             </div>
                                             <div class="col-sm-2 pl-0">
                                                 <button type="button" id="gerar_ano_mes" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoAnoMes()">Gerar</button> 
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs"
+                                                    onclick="atualizarGraficoAnoMes()">Gerar</button>
                                             </div>
                                         </div>
                                     </form>
 
-                                    <div id="box_grafico_ano_mes" style="width: 95%; height: 300px;"> 
+                                    <div id="box_grafico_ano_mes" style="width: 95%; height: 300px;">
                                         <canvas id="grafico_ano_mes" width="100%"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab_tipo_valor" class="row">
+                        <div class="ml-4 mr-4" style="width: 90%;">
+                            <div class="card border-primary">
+                                <div class="row ml-0 card-header py-2" style="width:100%">
+                                    <div class="col mb-0">
+                                        <span style="align:left;" class="h6 m-0 font-weight">Processos por Tipo
+                                            Valor</span>
+                                    </div>
+                                    <div class="col text-right" style="max-width:20%">
+                                        <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_tipo_valor')"
+                                            class="btn btn-outline-success">
+                                            <i class="fa fa-file-excel"></i> Exportar
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <form id="form_painel">
+                                        <div class="form-group row">
+                                            <label for="ano" class="mt-1 pr-1 small">Ano</label>
+                                            <!-- Ajustei o padding-right do label -->
+                                            <div class="col-sm-2 pl-0">
+                                                <select class="form-control form-control-xs" id="ano_tipo_valor"
+                                                    name="[]">
+                                                    <?php foreach ($anos as $ano): ?>
+                                                        <option value="<?= $ano ?>"><?= $ano ?></option>
+                                                    <?php endforeach; ?>
+                                                    <option value="todos">Todos</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2 pl-0">
+                                                <select class="form-control form-control-xs" id="tipo_valor" name="[]">
+                                                    <?php foreach ($tipo_valores as $tipoValor): ?>
+                                                        <option value="<?= $tipoValor->id ?>">
+                                                            <?= htmlspecialchars($tipoValor->tipo) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+
+                                                    <option value="todos">Todos</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2 pl-0">
+                                                <button type="button" id="gerar_tipo_valor" name="enviar"
+                                                    class="btn btn-primary btn-sm w-100 form-control-xs"
+                                                    onclick="atualizarGraficoTipoValor()">Gerar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div id="box_grafico_tipo_valor" style="width: 95%; height: 300px;">
+                                        <canvas id="grafico_tipo_valor" width="100%"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +234,7 @@ $anos = $p->getAnos();
                     <!-- Segunda Linha de graficos -->
                     <div id="tab_assunto" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="w-100">                            
+                        <div class="w-100">
                             <div class="card mb-3 border-primary" style="max-width: 90%;">
                                 <div class="ml-0 card-header py-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -165,7 +243,8 @@ $anos = $p->getAnos();
                                             Quantidade de processos por assunto
                                         </div>
                                         <div class="col text-right" style="max-width:20%">
-                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_assunto')" class="btn btn-outline-success">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_assunto')"
+                                                class="btn btn-outline-success">
                                                 <i class="fa fa-file-excel"></i> Exportar
                                             </a>
                                         </div>
@@ -175,11 +254,12 @@ $anos = $p->getAnos();
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
                                             <label for="arquivado" class="small">Arquivado </label>
-                                            <select class="form-control form-control-xs" id="arquivado_assunto" name="arquivado">
+                                            <select class="form-control form-control-xs" id="arquivado_assunto"
+                                                name="arquivado">
                                                 <option value="3" selected>Todos</option>
                                                 <option value="1">Sim</option>
                                                 <option value="0">Não</option>
-                                            </select> 
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="ano" class="small">Ano</label>
@@ -194,22 +274,24 @@ $anos = $p->getAnos();
                                         </div>
                                         <div class="col-md-2">
                                             <label for="ordem" class="small">Ordenar por </label>
-                                            <select class="form-control form-control-xs" id="ordem_assunto" name="ordem">
+                                            <select class="form-control form-control-xs" id="ordem_assunto"
+                                                name="ordem">
                                                 <option value="a.assunto, sa.sub_assunto">Assunto</option>
                                                 <option value="total DESC">Maior total</option>
-                                            </select> 
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_assunto" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoAssunto()">Gerar</button> 
+                                                class="btn btn-primary btn-sm w-100 form-control-xs"
+                                                onclick="atualizarGraficoAssunto()">Gerar</button>
                                         </div>
-                                        
+
                                     </div>
                                 </form>
                                 <div class="card-body " style="width: 100%;">
                                     <div id="box_grafico_assunto" style="width: 95%; height: 800px;">
-                                        <canvas id="grafico_assunto" class="grafico" ></canvas>  
+                                        <canvas id="grafico_assunto" class="grafico"></canvas>
                                     </div>
                                     <br />
                                     </p>
@@ -220,7 +302,7 @@ $anos = $p->getAnos();
                     <!-- terceito Linha de graficos Motivos -->
                     <div id="tab_motivo" class="row">
                         <!-- Primeiro Card (Gráfico de Barras) -->
-                        <div class="w-100">                            
+                        <div class="w-100">
                             <div class="card mb-3 border-primary" style="max-width: 99%;">
                                 <div class="ml-0 card-header py-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
@@ -229,7 +311,8 @@ $anos = $p->getAnos();
                                             Quantidade de processos por motivo
                                         </div>
                                         <div class="col text-right" style="max-width:20%">
-                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_motivo')" class="btn btn-outline-success">
+                                            <a id="exporta_motivo" href="#" onclick="exportarCSV('grafico_motivo')"
+                                                class="btn btn-outline-success">
                                                 <i class="fa fa-file-excel"></i> Exportar
                                             </a>
                                         </div>
@@ -239,11 +322,12 @@ $anos = $p->getAnos();
                                     <div class="form-group row col-sm-10">
                                         <div class="col-md-2">
                                             <label for="arquivado" class="small">Arquivado </label>
-                                            <select class="form-control form-control-xs" id="arquivado_motivo" name="arquivado">
+                                            <select class="form-control form-control-xs" id="arquivado_motivo"
+                                                name="arquivado">
                                                 <option value="3" selected>Todos</option>
                                                 <option value="1">Sim</option>
                                                 <option value="0">Não</option>
-                                            </select> 
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="ano" class="small">Ano</label>
@@ -261,19 +345,20 @@ $anos = $p->getAnos();
                                             <select class="form-control form-control-xs" id="ordem_motivo" name="ordem">
                                                 <option value="m.motivo">motivo</option>
                                                 <option value="total DESC">Maior total</option>
-                                            </select> 
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="enviar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
                                             <button type="button" id="gerar_motivo" name="enviar"
-                                                    class="btn btn-primary btn-sm w-100 form-control-xs" onclick="atualizarGraficoMotivo()">Gerar</button> 
+                                                class="btn btn-primary btn-sm w-100 form-control-xs"
+                                                onclick="atualizarGraficoMotivo()">Gerar</button>
                                         </div>
-                                        
+
                                     </div>
                                 </form>
                                 <div class="card-body " style="width: 100%;">
                                     <div id="box_grafico_motivo" style="width: 95%; min-height: 350px;">
-                                        <canvas id="grafico_motivo" class="grafico" ></canvas>
+                                        <canvas id="grafico_motivo" class="grafico"></canvas>
                                     </div>
                                     <br />
                                     </p>

@@ -2,10 +2,24 @@
 
 require_once('Model.php');
 require_once('dto/Processo.php');
-
+require_once('ManterTipoValor.php');
 class ManterProcesso extends Model
 {
 
+    private const MESES_ANO = [
+        1 => 'JANEIRO',
+        2 => 'FEREREIRO',
+        3 => 'MARÇO',
+        4 => 'ABRIL',
+        5 => 'MAIO',
+        6 => 'JUNHO',
+        7 => 'JULHO',
+        8 => 'AGOSTO',
+        9 => 'SETEMBRO',
+        10 => 'OUTUBRO',
+        11 => 'NOVEMBRO',
+        12 => 'DEZEMBRO'
+    ];
     function __construct()
     { //metodo construtor
         parent::__construct();
@@ -203,7 +217,7 @@ class ManterProcesso extends Model
                 $dados->id = $registro["id"];
                 $dados->assunto = $registro["assunto"];
                 $dados->total = $registro["total"];
-                
+
                 $array_dados[] = $dados;
             }
         }
@@ -223,7 +237,7 @@ class ManterProcesso extends Model
                 (SELECT COUNT(*) FROM processo as p WHERE p.id > 0 " . $filtro . ") as total_processos
                 FROM processo 
                 LIMIT 1";
-                //echo $sql;
+        //echo $sql;
         $resultado = $this->db->Execute($sql);
         $dados = new stdClass();
         if ($registro = $resultado->fetchRow()) {
@@ -235,7 +249,7 @@ class ManterProcesso extends Model
         }
         return $dados;
     }
-    
+
     function getAnos()
     {
         $sql = "SELECT YEAR(FROM_UNIXTIME(p.autuacao)) AS ano 
@@ -253,6 +267,119 @@ class ManterProcesso extends Model
         }
         return $anos;
 
+    }
+
+    function obterRelatorioTipoValor($ano, $tipo_valor)
+    {
+        if ($tipo_valor == "x") {
+            return $this->relatorioTodosTiposValorPorAno($ano, $tipo_valor);
+        }
+        if ($tipo_valor == "todos") {
+            return $this->relatorioTotalTodosMesesPorAno($ano);
+        }
+        return $this->relatorioValorTipoPorAno($ano, $tipo_valor);
+    }
+
+    function relatorioTodosTiposValorPorAno($ano, $tipo_valor)
+    {
+
+        $filtro = " ";
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
+        }
+        $sql = "SELECT
+    tv.tipo AS label,
+    SUM(
+        CAST(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(vp.valor, UNHEX('C2A0'), ''),
+                        'R$',
+                        ''
+                    ),
+                    '.',
+                    ''
+                ),
+                ',',
+                '.'
+            ) AS DECIMAL(15,2)
+        )
+    ) AS valor_total
+FROM tipo_valor AS tv,
+     valor_processo AS vp,
+     processo AS p
+WHERE tv.id = vp.id_tipo_valor
+  AND vp.id_processo = p.id
+  $filtro
+GROUP BY tv.id, tv.tipo
+ORDER BY tv.tipo ASC;";
+        $tv = new ManterTipoValor();
+        $retorno = [];
+
+        foreach ($tv->listar() as $tipo) {
+            $retorno[$tipo->tipo] = [
+                'label' => $tipo->tipo,
+                'total' => 0,
+            ];
+        }
+        $resultado = $this->db->Execute($sql);
+
+        while ($registro = $resultado->fetchRow()) {
+            $retorno[$registro['label']] = [
+                'label' => $registro['label'],
+                'total' => (float) $registro['valor_total'],
+            ];
+        }
+        return array_values($retorno);
+    }
+
+    function relatorioTotalTodosMesesPorAno($ano = 0)
+    {
+        $filtro = " ";
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
+        }
+        $sql = "SELECT
+    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
+    SUM(
+        CAST(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(vp.valor, UNHEX('C2A0'), ''),
+                        'R$',
+                        ''
+                    ),
+                    '.',
+                    ''
+                ),
+                ',',
+                '.'
+            ) AS DECIMAL(15,2)
+        )
+    ) AS valor_total
+FROM processo AS p,
+     valor_processo AS vp
+WHERE vp.id_processo = p.id
+  $filtro
+GROUP BY mes
+ORDER BY mes";
+
+        $resultado = $this->db->Execute($sql);
+        $meses = [];
+        foreach (self::MESES_ANO as $numero => $nome) {
+            $meses[$numero] = [
+                'label' => $nome,
+                'valor_total' => 0
+            ];
+        }
+        while ($registro = $resultado->fetchrow()) {
+            $mes = (int) $registro['mes'];
+            $meses[$mes]['valor_total'] = $registro['valor_total'];
+        }
+
+        return array_values($meses);
     }
     function relatorioTotaisPorMes($ano = '0')
     {
@@ -272,28 +399,82 @@ class ManterProcesso extends Model
                 ORDER BY mes";
 
         $resultado = $this->db->Execute($sql);
-        $nome_mes = [
-            1 => 'JANEIRO',
-            2 => 'FEREREIRO',
-            3 => 'MARÇO',
-            4 => 'ABRIL',
-            5 => 'MAIO',
-            6 => 'JUNHO',
-            7 => 'JULHO',
-            8 => 'AGOSTO',
-            9 => 'SETEMBRO',
-            10 => 'OUTUBRO',
-            11 => 'NOVEMBRO',
-            12 => 'DEZEMBRO'
-        ];
-        while ($registro = $resultado->fetchRow()) {
-
-            $meses[] = [
-                'label' =>  $nome_mes[$registro['mes']],
-                'total' => (int)$registro['total']
+        $meses = [];
+        foreach (self::MESES_ANO as $numero => $nome) {
+            $meses[$numero] = [
+                'label' => $nome,
+                'total' => 0,
+                'valor_total' => 0
             ];
         }
-        return $meses;
+
+        while ($registro = $resultado->fetchRow()) {
+            $mes = (int) $registro['mes'];
+
+            $meses[$mes]['total'] = (int) $registro['total'];
+            $meses[$mes]['valor_total'] = (float) $registro['valor_total'];
+        }
+        return array_values($meses);
+    }
+    public function relatorioValorTipoPorAno($ano = '0', $id_tipo_valor = 2)
+    {
+        $filtro = '';
+
+        if ($ano != '0') {
+            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y') = '" . $ano . "'";
+        }
+
+        $sql = "SELECT
+    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
+    SUM(
+        CAST(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(vp.valor, UNHEX('C2A0'), ''),
+                        'R$',
+                        ''
+                    ),
+                    '.',
+                    ''
+                ),
+                ',',
+                '.'
+            ) AS DECIMAL(15,2)
+        )
+    ) AS valor_total,
+    COUNT(DISTINCT p.id) AS total
+FROM processo AS p,
+     valor_processo AS vp,
+     tipo_valor AS tp
+WHERE 1 = 1
+  $filtro
+  AND vp.data_pagamento IS NOT NULL
+  AND vp.id_processo = p.id
+  AND tp.id = vp.id_tipo_valor
+  AND vp.id_tipo_valor = $id_tipo_valor
+GROUP BY mes
+ORDER BY mes";
+
+        $resultado = $this->db->Execute($sql);
+
+        $meses = [];
+        foreach (self::MESES_ANO as $numero => $nome) {
+            $meses[$numero] = [
+                'label' => $nome,
+                'total' => 0,
+                'valor_total' => 0
+            ];
+        }
+
+        while ($registro = $resultado->fetchRow()) {
+            $mes = (int) $registro['mes'];
+
+            $meses[$mes]['total'] = (int) $registro['total'];
+            $meses[$mes]['valor_total'] = (float) $registro['valor_total'];
+        }
+
+        return array_values($meses);
     }
 
 
@@ -334,19 +515,20 @@ class ManterProcesso extends Model
         while ($registro = $resultado->fetchRow()) {
             $anos[] = [
                 'label' => $registro['ano'],
-                'total' => (int)$registro['total']
+                'total' => (int) $registro['total']
             ];
         }
         return $anos;
     }
-    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3, $order = 'a.assunto, sa.sub_assunto'){
+    function getRelatorioTotalAssuntosPorAno($ano = '0', $arquivado = 3, $order = 'a.assunto, sa.sub_assunto')
+    {
         if ($ano == '0') {
             $ano = date('Y');
         }
         $filtro_arquivado = " ";
-        if($arquivado == 1){
+        if ($arquivado == 1) {
             $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
-        } else if($arquivado == 0){
+        } else if ($arquivado == 0) {
             $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0)  ";
         }
         $sql = "SELECT 
@@ -357,29 +539,30 @@ class ManterProcesso extends Model
                 JOIN assunto a        ON p.id_assunto = a.id
                 JOIN sub_assunto sa   ON p.id_sub_assunto = sa.id
                 WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
-                ".$filtro_arquivado."
+                " . $filtro_arquivado . "
                 GROUP BY 
                     a.assunto,
                     sa.sub_assunto
-                ORDER BY " .  $order;
+                ORDER BY " . $order;
         $resultado = $this->db->Execute($sql);
         $assuntos = [];
         while ($registro = $resultado->fetchRow()) {
             $assuntos[] = [
                 'label' => $registro['assunto'] . ' - ' . $registro['sub_assunto'],
-                'total' => (int)$registro['total']
+                'total' => (int) $registro['total']
             ];
         }
         return $assuntos;
     }
-function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3, $order = 'm.motivo'){
+    function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3, $order = 'm.motivo')
+    {
         if ($ano == '0') {
             $ano = date('Y');
         }
         $filtro_arquivado = " ";
-        if($arquivado == 1){
+        if ($arquivado == 1) {
             $filtro_arquivado = " AND p.data_cumprimento_liminar IS NOT NULL AND p.data_cumprimento_liminar <> 0  ";
-        } else if($arquivado == 0){
+        } else if ($arquivado == 0) {
             $filtro_arquivado = " AND (p.data_cumprimento_liminar IS NULL OR p.data_cumprimento_liminar = 0)  ";
         }
         $sql = "SELECT 
@@ -388,16 +571,16 @@ function getRelatorioTotalMotivosPorAno($ano = '0', $arquivado = 3, $order = 'm.
                 FROM processo p
                 JOIN motivo m         ON p.id_motivo = m.id
                 WHERE YEAR(FROM_UNIXTIME(p.autuacao)) = '$ano'
-                ".$filtro_arquivado."
+                " . $filtro_arquivado . "
                 GROUP BY 
                     m.motivo
-                ORDER BY ". $order;
+                ORDER BY " . $order;
         $resultado = $this->db->Execute($sql);
         $assuntos = [];
         while ($registro = $resultado->fetchRow()) {
             $assuntos[] = [
                 'label' => $registro['motivo'],
-                'total' => (int)$registro['total']
+                'total' => (int) $registro['total']
             ];
         }
         return $assuntos;
