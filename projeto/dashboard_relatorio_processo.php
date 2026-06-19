@@ -244,7 +244,7 @@
             ano: $('#ano_' + sufixoAno).val(),
             tipo: tipo,
             arquivado: $('#arquivado_' + sufixoFiltros).val(),
-            ordem: $('#ordem_' + sufixoFiltros).val()
+            ordem: $('#ordem_' + sufixoFiltros).val() 
         };
 
         if (tipo === 'grafico_tipo_valor') {
