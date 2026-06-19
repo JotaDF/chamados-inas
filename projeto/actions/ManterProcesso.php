@@ -269,10 +269,10 @@ class ManterProcesso extends Model
 
     }
 
-    function obterRelatorioTipoValor($ano, $tipo_valor)
+    function obterRelatorioTipoValor($ano = '2026', $tipo_valor = '2')
     {
-        if ($tipo_valor == "x") {
-            return $this->relatorioTodosTiposValorPorAno($ano, $tipo_valor);
+        if ($tipo_valor == "todos_tipos") {
+            return $this->relatorioTodosTiposValorPorAno($ano);
         }
         if ($tipo_valor == "todos") {
             return $this->relatorioTotalTodosMesesPorAno($ano);
@@ -280,7 +280,7 @@ class ManterProcesso extends Model
         return $this->relatorioValorTipoPorAno($ano, $tipo_valor);
     }
 
-    function relatorioTodosTiposValorPorAno($ano, $tipo_valor)
+    function relatorioTodosTiposValorPorAno($ano)
     {
 
         $filtro = " ";
@@ -334,14 +334,14 @@ ORDER BY tv.tipo ASC;";
         return array_values($retorno);
     }
 
-    function relatorioTotalTodosMesesPorAno($ano = 0)
+    function relatorioTotalTodosMesesPorAno($ano = "2026")
     {
         $filtro = " ";
         if ($ano != '0') {
-            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y')='" . $ano . "'";
+            $filtro = " AND FROM_UNIXTIME(vp.data_pagamento, '%Y')='" . $ano . "'";
         }
         $sql = "SELECT
-    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
+    MONTH(FROM_UNIXTIME(vp.data_pagamento)) AS mes,
     SUM(
         CAST(
             REPLACE(
@@ -421,11 +421,11 @@ ORDER BY mes";
         $filtro = '';
 
         if ($ano != '0') {
-            $filtro = " AND FROM_UNIXTIME(p.autuacao, '%Y') = '" . $ano . "'";
+            $filtro = " AND FROM_UNIXTIME(vp.data_pagamento, '%Y') = '" . $ano . "'";
         }
 
         $sql = "SELECT
-    MONTH(FROM_UNIXTIME(p.autuacao)) AS mes,
+    MONTH(FROM_UNIXTIME(vp.data_pagamento)) AS mes,
     SUM(
         CAST(
             REPLACE(
