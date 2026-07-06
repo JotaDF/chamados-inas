@@ -41,7 +41,7 @@ $titulo = true;
 foreach ($lista as $tipo => $obj) {
     $usuario = $manterUsuario->getUsuarioPorId($obj->usuario);
 
-    $interacao = $manterInteracao->getInteracaoPorId(76);
+    $interacao = $manterInteracaoSolicitacao->getInteracaoPorId($obj->id); 
     
     $podeExcluir =
         $usuario_logado->id == $interacao->usuario ||

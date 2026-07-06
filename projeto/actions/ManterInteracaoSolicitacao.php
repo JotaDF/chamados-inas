@@ -45,6 +45,22 @@ class ManterInteracaoSolicitacao extends Model
         return $array_dados;
     }
 
+    function getInteracaoPorId($id)
+    {
+        $sql = "select i.id, i.texto, i.data, i.id_chamado, i.id_usuario FROM interacao_solicitacao as i WHERE i.id=$id";
+        //echo $sql;
+        $resultado = $this->db->Execute($sql);
+        $dados = new Interacao();
+        while ($registro = $resultado->fetchRow()) {
+            $dados->id = $registro["id"];
+            $dados->texto = $registro["texto"];
+            $dados->data = isset($registro["data"]) ? $registro["data"] : 0;
+            $dados->chamado = $registro["id_chamado"];
+            $dados->usuario = $registro["id_usuario"];
+        }
+        return $dados;
+    }
+
     function salvar(InteracaoSolicitacao $dados)
     {
         $sql = "INSERT INTO interacao_solicitacao (texto, data, anexos, id_solicitacao, id_usuario) 

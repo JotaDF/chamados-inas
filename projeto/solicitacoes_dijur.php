@@ -73,7 +73,6 @@ and open the template in the editor.
         include_once('actions/ManterProcesso.php');
         $manterProcesso = new ManterProcesso();
 
-
         include_once('./actions/ManterSetor.php');
 
         $manterSetor = new ManterSetor();
