@@ -3,14 +3,18 @@
 date_default_timezone_set('America/Sao_Paulo');
 require_once('Model.php');
 require_once('dto/Notificacao.php');
+require_once('actions/ManterUsuario.php');
 
-class ManterNotificacao extends Model {
+class ManterNotificacao extends Model
+{
 
-    function __construct() { //metodo construtor
+    function __construct()
+    { //metodo construtor
         parent::__construct();
     }
 
-    function listar($lida = 2) {
+    function listar($lida = 2)
+    {
 
         $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n order by n.data";
         if ($lida < 2) {
@@ -34,12 +38,13 @@ class ManterNotificacao extends Model {
         }
         return $array_dados;
     }
-    
-    function listarPorUsuario($id_usuario, $lida = 2) {
 
-        $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n WHERE id_usuario= ".$id_usuario." AND lida=0 order by n.data";
+    function listarPorUsuario($id_usuario, $lida = 2)
+    {
+
+        $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n WHERE id_usuario= " . $id_usuario . " AND lida=0 order by n.data";
         if ($lida < 2) {
-            $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n WHERE id_usuario= ".$id_usuario." AND lida=" . $lida . " order by n.data";
+            $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n WHERE id_usuario= " . $id_usuario . " AND lida=" . $lida . " order by n.data";
         }
 
         $resultado = $this->db->Execute($sql);
@@ -60,7 +65,8 @@ class ManterNotificacao extends Model {
         return $array_dados;
     }
 
-    function getNotificacaoPorId($id) {
+    function getNotificacaoPorId($id)
+    {
         $sql = "select n.id,n.texto,n.link,n.tipo,n.data,n.lida,n.id_usuario FROM notificacao as n WHERE id=$id";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -76,7 +82,8 @@ class ManterNotificacao extends Model {
         }
         return $dados;
     }
-    function getTotalNotificacaoUsuario($id) {
+    function getTotalNotificacaoUsuario($id)
+    {
         $sql = "select count(*) total FROM notificacao as n WHERE n.id_usuario=$id AND lida=0";
         //echo $sql;
         $resultado = $this->db->Execute($sql);
@@ -86,20 +93,82 @@ class ManterNotificacao extends Model {
         }
         return $total;
     }
-    function salvar(Notificacao $dados) {
-	//print_r($dados);
+    function salvar(Notificacao $dados)
+    {
+        //print_r($dados);
         $sql = "insert into notificacao (texto, link, tipo,id_usuario,data) values ('" . $dados->texto . "','" . $dados->link . "','" . $dados->tipo . "','" . $dados->usuario . "',now())";
         //echo $sql . "<BR/>";
         $resultado = $this->db->Execute($sql);
         return $resultado;
     }
 
-    function ler($id) {
-        $sql= "update notificacao set lida=1 where id=" . $id;
+    function ler($id)
+    {
+        $sql = "update notificacao set lida=1 where id=" . $id;
         $resultado = $this->db->Execute($sql);
         //echo $sql . "<BR/>";
-	//exit();
+        //exit();
         return $resultado;
     }
 
+    function notificarNovaSolicitacao(int $id_setor)
+    {
+
+        $manterUsuario = new ManterUsuario();
+
+        $usuarios = $manterUsuario->getUsuariosPorIdSetor($id_setor);
+
+        $notificacao = new Notificacao();
+
+        $notificacao->texto = "Uma nova solicitação foi aberta!";
+        $notificacao->link = "solicitacoes_dijur.php?s=0&setor=dijur";
+        $notificacao->tipo = "solicitacao";
+
+        foreach ($usuarios as $usuario) {
+
+            $notificacao->usuario = $usuario->id;
+
+            $this->salvar($notificacao);
+        }
+    }
+
+    function notificarConclusaoSolicitacao(int $id_usuario, int $id_solicitacao, int $id_setor)
+    {
+        $notificacao = new Notificacao();
+
+        $manterUsuario = new ManterUsuario();
+
+        $usuarios = $manterUsuario->getUsuariosPorIdSetor($id_setor);
+
+        $notificacao->usuario = $id_usuario;
+        $notificacao->texto = "Sua solicitação foi concluída!";
+        $notificacao->link = 'gerenciar_interacoes_solicitacao.php?id=' . $id_solicitacao;
+        $notificacao->tipo = 'interacao';
+
+        foreach ($usuarios as $usuario) {
+
+            $notificacao->usuario = $usuario->id;
+
+            $this->salvar($notificacao);
+        }
+        return true;
+    }
+
+    function notificarUsuario(string $texto, string $link, string $tipo)
+    {
+        $notificacao = new Notificacao();
+        $notificacao->texto = $texto;
+        $notificacao->link = $link;
+        $notificacao->tipo = $tipo;
+        return $this->salvar($notificacao);
+    }
+    function notificarCancelamentoSolicitacao(string $texto, string $link, string $tipo, int $id_usuario)
+    {
+        $notificacao = new Notificacao();
+        $notificacao->texto = $texto;
+        $notificacao->link = $link;
+        $notificacao->tipo = $tipo;
+        $notificacao->usuario = $id_usuario;
+        return $this->salvar($notificacao);
+    }
 }
