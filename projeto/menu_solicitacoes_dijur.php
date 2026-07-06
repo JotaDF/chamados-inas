@@ -26,25 +26,6 @@
         <div class="sidebar-heading">
             Solicitações <?= $setor == "dijur" ? "DIJUR" : "" ?>
         </div>
-        <?php
-        if ($usuario_logado->perfil == 1) {
-            ?>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="categorias.php">
-                    <i class="fa fa-address-book"></i>
-                    <span>Categorias</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="gerar_relatorio_chamados.php">
-                    <i class="fa fa-user"></i>
-                    <span>Relatório</span>
-                </a>
-            </li>
-            <?php
-        }
-        ?>
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="formulario_solicitacoes_dijur.php?<?= $parametro ?>">
