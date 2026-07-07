@@ -1,6 +1,6 @@
 <?php
 //Chamados
-$mod = 6;
+$mod = 26;
 require_once('./verifica_login.php');
 
 $tipo = isset($_REQUEST['s']) ? $_REQUEST['s'] : 0;
