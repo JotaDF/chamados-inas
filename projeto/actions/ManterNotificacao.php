@@ -154,12 +154,13 @@ class ManterNotificacao extends Model
         return true;
     }
 
-    function notificarUsuario(string $texto, string $link, string $tipo)
+    function notificarUsuario(string $texto, string $link, string $tipo, int $id_usuario)
     {
         $notificacao = new Notificacao();
         $notificacao->texto = $texto;
         $notificacao->link = $link;
         $notificacao->tipo = $tipo;
+        $notificacao->usuario = $id_usuario;
         return $this->salvar($notificacao);
     }
     function notificarCancelamentoSolicitacao(string $texto, string $link, string $tipo, int $id_usuario)

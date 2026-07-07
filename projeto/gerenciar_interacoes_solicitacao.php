@@ -141,7 +141,7 @@ and open the template in the editor.
             $('#confirm').modal({ show: true });
         }
 
-        function mostraAnexos(id_solicitacao, pasta, 'solicitacao', id_interacao) {
+        function mostraAnexos(id_solicitacao, pasta, solicitacao, id_interacao) {
 
             $('#lista_arquivos').html(
                 '<p class="text-center text-muted">Carregando arquivos...</p>'
@@ -326,7 +326,7 @@ and open the template in the editor.
                     $usuario = $manterUsuario->getUsuarioPorId($solicitacao->solicitante);
                     $editar = false;
 
-                    if ($chamado->status == 1 || $chamado->status == 4) {
+                    if ($solicitacao->status == 1 || $solicitacao->status == 4) {
                         $editar = true;
                     }
 
@@ -431,7 +431,7 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="c1 ml-4" style="width: 80%">
                                         <?php
-                                        if ($usuario_logado->id == $chamado->usuario || $usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9) {
+                                        if ($usuario_logado->id == $solicitacao->usuario || $usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9) {
                                             if ($solicitacao->status == 2) {
                                                 ?>
                                                 <p class="text-success font-weight-bold mb-0">
@@ -545,7 +545,7 @@ and open the template in the editor.
 
                     <div class="modal-footer">
                         <?php
-                        if ($usuario_logado->id != $chamado->usuario && ($usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9)) {
+                        if ($usuario_logado->id != $solicitacao->usuario && ($usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9)) {
                             ?>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" value="1" name="finalizar" id="finalizar">
@@ -586,7 +586,7 @@ and open the template in the editor.
                         <input type="hidden" id="usuario_logado_chamado" name="usuario_logado_chamado"
                             value="<?= $usuario_logado->id ?>">
                         <input type='hidden' id="id_chamado_reabertura" name="id_chamado_reabertura"
-                            value="<?= $chamado->id ?>">
+                            value="<?= $solicitacao->id ?>">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger" id="acao">Confirmar</button>

@@ -59,14 +59,12 @@ and open the template in the editor.
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
     <script type="text/javascript" class="init">
-        var categorias = [];
+        var processos = [];
         var usuarios = [];
         var setores = [];
         var quillEditor;
         <?php
-        include_once('actions/ManterCategoria.php');
-        $mCategoria = new ManterCategoria();
-
+  
         include_once('actions/ManterUsuario.php');
         $manterUsuario = new ManterUsuario();
 
@@ -79,16 +77,10 @@ and open the template in the editor.
         $listaS = $manterSetor->listar();
 
         if ($usuario_logado->perfil <= 2 || $usuario_logado->perfil == 9) {
-            $listaCategorias = $mCategoria->listar();
-            foreach ($listaCategorias as $obj) {
-                ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>" };
-                categorias.push(item);
-                <?php
-            }
             $listaUsuarios = $manterUsuario->listar();
             foreach ($listaUsuarios as $obj) {
-                ?>item2 = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>" };
-                usuarios.push(item2);
+                ?>item = { id: '<?= $obj->id ?>', nome: '<?= $obj->nome ?>' };
+                usuarios.push(item);
                 <?php
             }
 
@@ -98,12 +90,12 @@ and open the template in the editor.
 
         $listaProcessos = $manterProcesso->listar();
         foreach ($listaProcessos as $obj) {
-            ?>item2 = { id: "<?= $obj->id ?>", numero: "<?= $obj->numero ?>" };
-            usuarios.push(item2);
+            ?>item2 = { id: '<?= $obj->id ?>', numero: '<?= $obj->numero ?>' };
+            processos.push(item2);
             <?php
         }
         foreach ($listaS as $obj) {
-            ?>item3 = { id: "<?= $obj->id ?>", setor: "<?= $obj->sigla ?>" };
+            ?>item3 = { id: '<?= $obj->id ?>', setor: '<?= $obj->sigla ?>' };
             setores.push(item3);
             <?php
         }
@@ -111,7 +103,6 @@ and open the template in the editor.
 
         $(document).ready(function () {
             $('#chamados').DataTable();
-            carregaCategorias(0);
             carregaSetores(0);
             bsCustomFileInput.init();
             const quillOpcoes = {
