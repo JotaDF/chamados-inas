@@ -164,8 +164,64 @@ and open the template in the editor.
                 }
             });
         }
+        function montarListaArquivos(id_solicitacao, pasta, itens) {
 
-        function montarListaArquivos(id_solicitacao, pasta, arquivos) {
+            let html = '';
+
+            itens.forEach(function(item) {
+
+                // Se for um diretório
+                if (item.tipo === 'diretorio') {
+
+                    html += `
+                        <div class="list-group-item bg-light font-weight-bold">
+                            <i class="fa fa-folder text-warning mr-2"></i>
+                            ${item.nome}
+                        </div>
+                    `;
+
+                    return;
+                }
+
+                // Se for um arquivo
+                const link = `${pasta}/${item.caminho.replace(/^.*?\//, '')}`;
+
+                html += `
+                    <div class="list-group-item d-flex justify-content-between align-items-center mb-2">
+
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-file mr-2"></i>
+                            <span>${item.nome}</span>
+                        </div>
+
+                        <div>
+
+                            <a href="${link}"
+                            class="btn btn-primary btn-sm mr-1"
+                            title="Baixar arquivo"
+                            download>
+                                <i class="fa fa-download"></i>
+                            </a>
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                title="Excluir arquivo"
+                                onclick="excluirArquivo('${id_solicitacao}','${pasta}','${item.caminho}')">
+
+                                <i class="fa fa-times"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+        function montarListaArquivos2(id_solicitacao, pasta, arquivos) {
 
             let html = '';
 
