@@ -10,7 +10,7 @@ class ManterSolicitacao extends Model
         parent::__construct();
     }
 
-    function listar($filtro)
+    function listar($filtro = "")
     {
         $sql = "SELECT id, chave, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao " . $filtro . "";
         $resultado = $this->db->Execute($sql);
@@ -213,8 +213,7 @@ class ManterSolicitacao extends Model
     }
 
 
-    function criarDiretorioPorSolicitacao(int $id_solicitacao)
-    {
+    function criarDiretorioPorSolicitacao(int $id_solicitacao) {
         $caminho = self::CAMINHO_DIRETORIO_SOLICITACAO
             . DIRECTORY_SEPARATOR
             . $id_solicitacao . "_solicitacao";
@@ -222,17 +221,14 @@ class ManterSolicitacao extends Model
         return $this->criarDiretorio($caminho);
     }
 
-    function criarDiretorioDeInteracoes(string $diretorio)
-    {
+    function criarDiretorioDeInteracoes(string $diretorio) {
         return $this->criarDiretorio($diretorio . DIRECTORY_SEPARATOR . "interacoes");
     }
 
-    function criarDiretorioDeArquivosPorInteracao(string $diretorio, int $id_interacao)
-    {
+    function criarDiretorioDeArquivosPorInteracao(string $diretorio, int $id_interacao) {
         return $this->criarDiretorio($diretorio . DIRECTORY_SEPARATOR . $id_interacao);
     }
-    function moverArquivos(array $arquivos, string $diretorio)
-    {
+    function moverArquivos(array $arquivos, string $diretorio) {
         foreach ($arquivos as $arquivo) {
             $caminho = $diretorio . DIRECTORY_SEPARATOR . $arquivo['nome'];
             if (!move_uploaded_file($arquivo['tmpName'], $caminho)) {
@@ -242,8 +238,7 @@ class ManterSolicitacao extends Model
         return true;
     }
 
-    function armazenaAnexos(array $arquivos, string $diretorio)
-    {
+    function armazenaAnexos(array $arquivos, string $diretorio) {
         if (!is_dir($diretorio)) {
             return false;
         }
@@ -251,8 +246,7 @@ class ManterSolicitacao extends Model
         return $this->moverArquivos($arquivos, $diretorio);
     }
 
-    function armazenaAnexosPorInteracao(array $arquivos, string $diretorio, int $id_interacao)
-    {
+    function armazenaAnexosPorInteracao(array $arquivos, string $diretorio, int $id_interacao) {
         $caminho_interacao = $this->criarDiretorioDeArquivosPorInteracao($diretorio, $id_interacao);
 
         if (!$caminho_interacao) {

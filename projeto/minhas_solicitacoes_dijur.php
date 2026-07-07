@@ -51,28 +51,10 @@ and open the template in the editor.
         src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script type="text/javascript" class="init">
-        var categorias = [];
-        var usuarios = [];
-
-        <?php
-        include_once('actions/ManterCategoria.php');
-        $mCategoria = new ManterCategoria();
-
-        $listaCategorias = $mCategoria->listar();
-        foreach ($listaCategorias as $obj) {
-            ?>item = { id: "<?= $obj->id ?>", nome: "<?= $obj->nome ?>" };
-            categorias.push(item);
-            <?php
-        }
-
-
-
-        ?>
-
+  
         $(document).ready(function () {
             $('#chamados').DataTable();
-            carregaCategorias(0);
-            const quillOpcoes = {
+              const quillOpcoes = {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline'],
@@ -202,6 +184,7 @@ and open the template in the editor.
         function selectByText(select, text) {
             $(select).find('option:contains("' + text + '")').prop('selected', true);
         }
+        /*
         function carregaCategorias(id_atual) {
             var html = '<option value="">Selecione </option>';
             for (var i = 0; i < categorias.length; i++) {
@@ -218,7 +201,7 @@ and open the template in the editor.
             }
             $('#categoria').html(html);
         }
-
+*/
     </script>
     <style>
         body {

@@ -15,7 +15,7 @@ $manterInteracaoSolicitacao = new ManterInteracaoSolicitacao();
 
 
 
-$lista = $manterSolicitacao->listar($filtro);
+$lista = $manterSolicitacao->listar();
 
 
 /****************** Status legend *****************

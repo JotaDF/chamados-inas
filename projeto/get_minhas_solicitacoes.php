@@ -35,38 +35,32 @@ foreach ($lista as $obj) {
 
     $btn_interacoes = "<a class='btn btn-primary btn-sm' type='button' href='gerenciar_interacoes_solicitacao.php?id=" . $obj->id . "' title='Interações solicitação'><i class='fa fa-bars'></i></a>";
 
-    $btn_atender = "<button class='btn btn-primary btn-sm' type='button' onclick='atender(" . $obj->id . ",\"" . $txt_usuario . "\",\"" . htmlspecialchars($obj->descricao, ENT_QUOTES) . "\"," . $usuario_logado->id . ")'  title='Atender solicitação'><i class='fa fa-clock text-white'></i></button>";
+    //$btn_atender = "<button class='btn btn-primary btn-sm' type='button' onclick='atender(" . $obj->id . ",\"" . $txt_usuario . "\",\"" . htmlspecialchars($obj->descricao, ENT_QUOTES) . "\"," . $usuario_logado->id . ")'  title='Atender solicitação'><i class='fa fa-clock text-white'></i></button>";
 
-    $link_atender = $obj->solicitante != $usuario_logado->id ? $btn_atender : "";
+    //$link_atender = $obj->solicitante != $usuario_logado->id ? $btn_atender : "";
 
     switch ($status) {
 
         case 0: // Aberto
             $icone_atendimento = "<i class='fa fa-inbox fa-2x text-primary' title='Nova Solicitação'></i>";
             $link_interacoes = "";
-            $link_atender = $solicitacao->solicitante != $usuario_logado->id
-                ? $btn_atender
-                : "";
             break;
 
         case 1: // Em atendimento
             $icone_atendimento = "<i class='fa fa-hourglass-start fa-2x text-warning' title='Solicitação em Atendimento'></i>";
             $link_interacoes = $btn_interacoes;
-            $link_atender = "";
             break;
 
         case 2: // Concluído
             $icone_atendimento = "<i class='fa fa-check-circle fa-2x text-success' title='Solicitação Concluída'></i>";
             $link_interacoes = $btn_interacoes;
             $link_cancelar = "";
-            $link_atender = "";
             break;
 
         case 3: // Cancelado
             $icone_atendimento = "<i class='fa fa-ban fa-2x text-danger' title='Solicitação Cancelada'></i>";
             $link_interacoes = $btn_interacoes;
             $link_cancelar = "";
-            $link_atender = "";
             break;
     }
 
