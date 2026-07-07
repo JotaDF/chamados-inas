@@ -17,7 +17,7 @@ and open the template in the editor.
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Chamado - Gerenciador de interações</title>
+    <title>Solicitações - Gerenciador de interações</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

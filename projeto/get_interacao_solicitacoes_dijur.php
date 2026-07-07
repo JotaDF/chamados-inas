@@ -45,13 +45,13 @@ foreach ($lista as $tipo => $obj) {
     
     $podeExcluir =
         $usuario_logado->id == $interacao->usuario ||
-        $usuario_logado->id == $obj->solicitante;
+        $usuario_logado->id == $obj->usuario;
 
     $class_color = "border-left-primary";
     //if ($tipo == 'solicitante') {
     //    $class_color = "border-left-warning ml-4";
     //}
-    if($interacao->usuario != $solicitante){
+    if($interacao->usuario != $solicitacao->solicitante){
         $class_color = "border-left-warning ml-4";
     }
 
