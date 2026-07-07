@@ -183,14 +183,6 @@ and open the template in the editor.
 
                 // Se for um diretório
                 if (item.tipo === 'diretorio') {
-
-                    html += `
-                        <div class="list-group-item bg-light font-weight-bold">
-                            <i class="fa fa-folder text-warning mr-2"></i>
-                            ${item.nome}
-                        </div>
-                    `;
-
                     return;
                 }
 
