@@ -139,7 +139,7 @@ and open the template in the editor.
         }
 
 
-        function atender(id, usuario, descricao, status, motivo = null, categoria) {
+        function atender(id, usuario, descricao, status, motivo = null) {
             $('#atender_id').val(id);
             $('#atender_usuario').text(usuario);
             $('#atender_descricao').html(descricao);
@@ -149,7 +149,6 @@ and open the template in the editor.
             // if (status == 4) {
             //     mostraMotivoReabertura(motivo);
             // }
-            carregaCategorias(categoria);
             $('#atender').modal({ show: true });
         }
 
