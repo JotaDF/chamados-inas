@@ -48,9 +48,12 @@ foreach ($lista as $tipo => $obj) {
         $usuario_logado->id == $obj->solicitante;
 
     $class_color = "border-left-primary";
-    if ($tipo == 'solicitante') {
-        $class_color = "border-left-warning ml-4";
-    }
+    //if ($tipo == 'solicitante') {
+    //    $class_color = "border-left-warning ml-4";
+    //}
+    if($obj->usuario != $solicitante){
+            $class_color = "border-left-warning ml-4";
+        }
 
     if ($titulo) {
         ?>
