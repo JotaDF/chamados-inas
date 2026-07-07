@@ -31,7 +31,7 @@ foreach ($lista as $tipo => $obj) {
     }
 
 
-    $pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/" . $obj->id;
+    $pasta_interacao = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/" . $obj->id;
 
     $link_arquivo = "#";
     $onclick = "";
@@ -41,9 +41,9 @@ foreach ($lista as $tipo => $obj) {
 
     $arquivos = [];
 
-    if (is_dir($pasta)) {
+    if (is_dir($pasta_interacao)) {
         $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($pasta, RecursiveDirectoryIterator::SKIP_DOTS)
+            new RecursiveDirectoryIterator($pasta_interacao, RecursiveDirectoryIterator::SKIP_DOTS)
         );
 
         foreach ($iterator as $arquivo) {
@@ -58,7 +58,7 @@ foreach ($lista as $tipo => $obj) {
             $link_arquivo = $arquivos[0];
             $possui_arquivo =  "<a href='$link_arquivo' target='_blank' title='Baixar anexo' class='d-inline-block'><i class='fa fa-file fa-2x text-info'></i></a>";
         } elseif ($totalArquivos > 1) {
-            $onclick = "onclick=\"mostraAnexos($obj->id, '$pasta'); return false;\"";
+            $onclick = "onclick=\"mostraAnexos($obj->id, '$pasta_interacao'); return false;\"";
             $possui_arquivo =  "<a href='#' target='_blank' title='Visualizar anexos' class='d-inline-block' $onclick><i class='fa fa-folder-open fa-2x text-info'></i></a>";
         }
     }
