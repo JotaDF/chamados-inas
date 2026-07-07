@@ -11,32 +11,7 @@ $lista = $manterInteracaoSolicitacao->listarInteracoesPorSolicitacao($id_solicit
 //     'solicitante' => ['texto' => 'Realizo essa solicitação por...', 'data' => '21/05/2026', 'usuario' => 'José Wilson da Costa']
 // ];
 
-$pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao";
-
-$link_arquivo = "";
-$totalArquivos = 0;
-$link_arquivo = "#";
-$onclick = "";
-$titulo = "";
-
-if (is_dir($pasta)) {
-
-    $arquivos = array_values(array_diff(scandir($pasta), ['.', '..']));
-
-    $totalArquivos = count($arquivos);
-
-    if ($totalArquivos === 1) {
-        $link_arquivo = $pasta . '/' . $arquivos[0];
-        $titulo = 'Baixar anexo';
-        $icone_arquivo = "fa fa-file fa-2x text-info";
-    } else {
-        $onclick = "onclick=\"mostraAnexos($solicitacao->id, '$pasta'); return false;\"";
-        $titulo = 'Visualizar anexos';
-        $icone_arquivo = "fa fa-folder-open fa-2x text-info";
-    }
-}
-
-
+$possui_arquivo = "";
 $titulo = true;
 foreach ($lista as $tipo => $obj) {
     $usuario = $manterUsuario->getUsuarioPorId($obj->usuario);
