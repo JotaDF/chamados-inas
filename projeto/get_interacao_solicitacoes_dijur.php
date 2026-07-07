@@ -56,7 +56,7 @@ foreach ($lista as $tipo => $obj) {
     }
 
 
-$pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/" . $obj->id;
+    $pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/" . $obj->id;
 
     $link_arquivo = "#";
     $onclick = "";
@@ -110,9 +110,14 @@ $pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/"
                         <div><code class="highlighter-rouge"><i><?= date('d/m/Y H:i', strtotime($obj->data)) ?></i></code>.
                         </div>
                     </div>
-                    <div class="col text-right" style="max-width:20%">
-                        <?= $possui_arquivo ?>
-                    </div>
+                    <?php
+                    if ($possui_arquivo != "") { ?>
+                        <div class="col text-right" style="max-width:20%">
+                            <?= $possui_arquivo ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </div>
