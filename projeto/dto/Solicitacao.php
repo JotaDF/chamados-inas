@@ -3,6 +3,7 @@
 class Solicitacao {
     public $id;
     public $chave;
+    public $assunto;
     public $setor;
     public $responsavel;
     public $descricao;

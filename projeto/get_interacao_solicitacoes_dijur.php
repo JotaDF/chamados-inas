@@ -55,6 +55,46 @@ foreach ($lista as $tipo => $obj) {
         $class_color = "border-left-warning ml-4";
     }
 
+
+$pasta = './anexos_solicitacao/' . $solicitacao->id . "_solicitacao/interacoes/" . $obj->id;
+
+    $link_arquivo = "#";
+    $onclick = "";
+    $titulo = "";
+    $icone_arquivo = "";
+    $totalArquivos = 0;
+    $possui_arquivo = "";
+
+    $arquivos = [];
+
+    if (is_dir($pasta)) {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($pasta, RecursiveDirectoryIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $arquivo) {
+            if ($arquivo->isFile()) {
+                $arquivos[] = $arquivo->getPathname();
+            }
+        }
+
+        $totalArquivos = count($arquivos);
+
+        if ($totalArquivos === 1) {
+            $link_arquivo = $arquivos[0];
+            $titulo = 'Baixar anexo';
+            $icone_arquivo = "fa fa-file fa-2x text-info";
+            $possui_arquivo =  "<a href='$link_arquivo' target='_blank' title='$titulo' class='d-inline-block'><i class='$icone_arquivo'></i></a>";
+        } elseif ($totalArquivos > 1) {
+            $onclick = "onclick=\"mostraAnexos($obj->id, '$pasta'); return false;\"";
+            $titulo = 'Visualizar anexos';
+            $icone_arquivo = "fa fa-folder-open fa-2x text-info";
+            $possui_arquivo =  "<a href='#' target='_blank' title='$titulo' class='d-inline-block' $onclick><i class='$icone_arquivo'></i></a>";
+        }
+    }
+
+    
+
     if ($titulo) {
         ?>
         <div class="col-xl-3 col-md-6 mb-2" style="max-width: 750px;">
@@ -64,7 +104,6 @@ foreach ($lista as $tipo => $obj) {
         $titulo = false;
     }
     ?>
-
     <div class="col-xl-3 col-md-6 mb-2" style="max-width: 750px;">
         <div class="card <?= $class_color ?> shadow py-0">
             <div class="card-body">
@@ -75,6 +114,9 @@ foreach ($lista as $tipo => $obj) {
                         <div><?= $obj->texto ?></div>
                         <div><code class="highlighter-rouge"><i><?= date('d/m/Y H:i', strtotime($obj->data)) ?></i></code>.
                         </div>
+                    </div>
+                    <div class="col text-right" style="max-width:20%">
+                        <?= $possui_arquivo ?>
                     </div>
                 </div>
             </div>

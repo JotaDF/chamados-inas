@@ -16,6 +16,7 @@ $possuiAnexos = in_array(UPLOAD_ERR_OK, $_FILES['anexos']['error'], true); // ve
 $s = new Solicitacao();
 
 $s->chave = $_POST['chave'];
+$s->assunto = isset($_POST['assunto']) ? $_POST['assunto'] : '';
 $s->setor = $_POST['setor'];
 $s->responsavel = $responsavel;
 $s->descricao = $_POST['descricao'];

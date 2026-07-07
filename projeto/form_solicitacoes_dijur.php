@@ -22,14 +22,20 @@
                 </div>
             <?php } ?> -->
             <div class="form-group row">
-                <label for="processo" class="col-sm-2 col-form-label">Processo:</label>
+                <label for="processo" class="col-sm-2 col-form-label">Processo: <span class="text-danger">*</span></label>
                 <div class="col-sm-10">
                     <input type="text" id="chave" name="chave" class="form-control form-control-sm"
-                        placeholder="Número do processo" required>
+                        placeholder="Número do processo" required> 
                 </div>
             </div>
             <div class="form-group row">
-                <label for="descricao" class="col-sm-2 col-form-label">Descrição da solicitação:</label>
+                <label for="assunto" class="col-sm-2 col-form-label">Parte autora:</label>
+                <div class="col-sm-10">
+                    <input type="text" id="assunto" name="assunto" class="form-control form-control-sm">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="descricao" class="col-sm-2 col-form-label">Descrição da solicitação: <span class="text-danger">*</span></label>
                 <div class="col-sm-10 mb-5">
                     <div id="editor"></div>
                     <input type="hidden" name="descricao" id="descricao">

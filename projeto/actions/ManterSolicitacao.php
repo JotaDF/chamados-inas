@@ -12,13 +12,14 @@ class ManterSolicitacao extends Model
 
     function listar($filtro = "")
     {
-        $sql = "SELECT id, chave, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao " . $filtro . "";
+        $sql = "SELECT id, chave, assunto, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao " . $filtro . "";
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new Solicitacao();
             $dados->id = $registro['id'];
             $dados->chave = $registro['chave'];
+            $dados->assunto = $registro['assunto'];
             $dados->setor = $registro['setor'];
             $dados->responsavel = $registro['responsavel'];
             $dados->descricao = $registro['descricao'];
@@ -37,13 +38,14 @@ class ManterSolicitacao extends Model
 
     function getSolicitacoesPorIdUsuario(int $id_usuario)
     {
-        $sql = "SELECT id, chave, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao where solicitante =" . $id_usuario;
+        $sql = "SELECT id, chave, assunto, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao where solicitante =" . $id_usuario;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new Solicitacao();
             $dados->id = $registro['id'];
             $dados->chave = $registro['chave'];
+            $dados->assunto = $registro['assunto'];
             $dados->setor = $registro['setor'];
             $dados->responsavel = $registro['responsavel'];
             $dados->descricao = $registro['descricao'];
@@ -62,13 +64,14 @@ class ManterSolicitacao extends Model
 
     function getSolicitacaoPorId(int $id_solicitacao)
     {
-        $sql = "SELECT id, chave, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao WHERE id =" . $id_solicitacao;
+        $sql = "SELECT id, chave, assunto, setor, responsavel, descricao, data_abertura, data_atendimento, data_concluido, data_cancelado, anexos, status, solicitante FROM solicitacao WHERE id =" . $id_solicitacao;
         $resultado = $this->db->Execute($sql);
         $array_dados = array();
         while ($registro = $resultado->fetchRow()) {
             $dados = new Solicitacao();
             $dados->id = $registro['id'];
             $dados->chave = $registro['chave'];
+            $dados->assunto = $registro['assunto'];
             $dados->setor = $registro['setor'];
             $dados->responsavel = $registro['responsavel'];
             $dados->descricao = $registro['descricao'];
@@ -93,8 +96,8 @@ class ManterSolicitacao extends Model
     }
     function salvar(Solicitacao $dados)
     {
-        $sql = "INSERT INTO solicitacao (chave, setor, responsavel, descricao, data_abertura, anexos, status, solicitante)
-    values('" . $dados->chave . "', '" . $dados->setor . "', '" . $dados->responsavel . "', '" . $dados->descricao . "',now(), $dados->anexos , 0 , '" . $dados->solicitante . "')";
+        $sql = "INSERT INTO solicitacao (chave, assunto, setor, responsavel, descricao, data_abertura, anexos, status, solicitante)
+    values('" . $dados->chave . "', '" . $dados->assunto . "', '" . $dados->setor . "', '" . $dados->responsavel . "', '" . $dados->descricao . "',now(), $dados->anexos , 0 , '" . $dados->solicitante . "')";
         $this->db->Execute($sql);
         return $this->db->Insert_ID();
     }

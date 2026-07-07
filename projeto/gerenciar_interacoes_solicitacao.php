@@ -472,6 +472,13 @@ and open the template in the editor.
                                 </div>
                                 <h6 class="mt-3 ml-2 card-title">Aberto por:</h6>
                                 <p class=" ml-2 card-text"><?= $usuario->nome ?></p>
+                                <h6 class="mt-3 ml-2 card-title">Processo</h6>
+                                <p class=" ml-2 card-text"><?= $solicitacao->chave ?></p>
+                                <?php
+                                if (!empty($solicitacao->assunto)) { ?>
+                                    <h6 class="mt-3 ml-2 card-title">Parte autora</h6>
+                                    <p class=" ml-2 card-text"><?= $solicitacao->assunto ?></p>
+                                <?php } ?>
                                 <h6 class="mt-3 ml-2 card-title">Descrição da solicitação</h6>
                                 <p class=" ml-2 card-text"><?= $solicitacao->descricao ?></p>
 
