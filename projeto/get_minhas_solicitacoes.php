@@ -101,7 +101,7 @@ foreach ($lista as $obj) {
     }
 
     $possui_arquivo = $obj->anexos
-        ? "<a href='$link_arquivo' title='$titulo' class='d-inline-block' $onclick><i class='$icone_arquivo'></i></a>"
+        ? "<a href='$link_arquivo' target='_blank' title='$titulo' class='d-inline-block' $onclick><i class='$icone_arquivo'></i></a>"
         : "---";
 
 

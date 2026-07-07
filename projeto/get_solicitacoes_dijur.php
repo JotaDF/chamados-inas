@@ -15,7 +15,7 @@ $manterInteracaoSolicitacao = new ManterInteracaoSolicitacao();
 
 
 
-$lista = $manterSolicitacao->listar();
+$lista = $manterSolicitacao->listar($filtro);
 
 
 /****************** Status legend *****************
@@ -108,7 +108,7 @@ foreach ($lista as $solicitacao) {
     }
 
     $possui_arquivo = $solicitacao->anexos
-        ? "<a href='$link_arquivo' title='$titulo' class='d-inline-block' $onclick><i class='$icone_arquivo'></i></a>"
+        ? "<a href='$link_arquivo' target='_blank' title='$titulo' class='d-inline-block' $onclick><i class='$icone_arquivo'></i></a>"
         : "---";
 
     $solicitante = $manterSolicitacao->getSolicitantePorIdUsuario($solicitacao->solicitante);
