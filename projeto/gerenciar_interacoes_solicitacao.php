@@ -188,23 +188,12 @@ and open the template in the editor.
 
                         <div>
 
-                            <a href="${link}"
+                            <a href="${link}" target="_blank" 
                             class="btn btn-primary btn-sm mr-1"
                             title="Baixar arquivo"
                             download>
                                 <i class="fa fa-download"></i>
                             </a>
-
-                            <button
-                                type="button"
-                                class="btn btn-danger btn-sm"
-                                title="Excluir arquivo"
-                                onclick="excluirArquivo('${id_solicitacao}','${pasta}','${item.caminho}')">
-
-                                <i class="fa fa-times"></i>
-
-                            </button>
-
                         </div>
 
                     </div>

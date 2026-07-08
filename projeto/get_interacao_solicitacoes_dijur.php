@@ -61,7 +61,7 @@ foreach ($lista as $tipo => $obj) {
             $onclick = "onclick=\"mostraAnexos($obj->id, '$pasta_interacao'); return false;\"";
             $possui_arquivo =  "<a href='#' target='_blank' title='Visualizar anexos' class='d-inline-block' $onclick><i class='fa fa-folder-open fa-2x text-info'></i></a>";
         }
-        if ($podeExcluir) {
+        if ($podeExcluir && $totalArquivos > 0) {
             $possui_arquivo .= "&nbsp;&nbsp;";
             $possui_arquivo .= "<button type='button' class='btn btn-danger btn-sm' title='Excluir arquivo' onclick=\"excluirArquivo('$solicitacao->id','$pasta_interacao','$link_arquivo')\"><i class='fa fa-times'></i></button>";
         }
