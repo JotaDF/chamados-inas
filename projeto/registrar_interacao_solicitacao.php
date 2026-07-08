@@ -68,7 +68,7 @@ if ($finalizar) {
 if (!$notificado) {
     // Registrando notificação
     $db_notificacao->notificarUsuario(
-        "Nova interação no chamado!",
+        "Nova interação na solicitação!",
         "gerenciar_interacoes_solicitacao.php?id=" . $id_solicitacao,
         "interacao",
         $id_usuario
