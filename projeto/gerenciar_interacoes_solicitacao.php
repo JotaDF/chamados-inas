@@ -237,17 +237,6 @@ and open the template in the editor.
                        download>
                         <i class="fa fa-download"></i>
                     </a>
-
-                    <button
-                        type="button"
-                        class="btn btn-danger btn-sm"
-                        title="Excluir arquivo"
-                        onclick="excluirArquivo('${id_solicitacao}','${pasta}', '${arquivo}')">
-
-                        <i class="fa fa-times"></i>
-
-                    </button>
-
                 </div>
 
             </div>
