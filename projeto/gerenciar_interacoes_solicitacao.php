@@ -484,12 +484,13 @@ and open the template in the editor.
                                         <p class=" ml-2 card-text"><?= $solicitacao->chave ?></p>
                                     </div>
                                     <?php
-                                if (!empty($solicitacao->assunto)) { ?>
+                                    if (!empty($solicitacao->assunto)) { ?>
                                     <div class="c2 ml-4">
                                         <h6 class="mt-3 ml-2 card-title">Parte autora</h6>
                                     <p class=" ml-2 card-text"><?= $solicitacao->assunto ?></p>
                                     </div>                                                                    
-                                <?php } ?>
+                                    <?php } ?>
+                                </div>
                                 <h6 class="mt-3 ml-2 card-title">Descrição da solicitação</h6>
                                 <p class=" ml-2 card-text"><?= $solicitacao->descricao ?></p>
 
