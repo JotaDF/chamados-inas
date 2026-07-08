@@ -480,8 +480,8 @@ and open the template in the editor.
                                 </div>
                                 <div class="row">
                                     <div class="c1 ml-4">                                        
-                                        <h6 class="mt-3 ml-2 card-title">Processo</h6>
-                                        <p class=" ml-2 card-text"><?= $solicitacao->chave ?></p>
+                                        <h6 class="mt-3 card-title">Processo</h6>
+                                        <p class="card-text"><?= $solicitacao->chave ?></p>
                                     </div>
                                     <?php
                                     if (!empty($solicitacao->assunto)) { ?>
@@ -491,9 +491,12 @@ and open the template in the editor.
                                     </div>                                                                    
                                     <?php } ?>
                                 </div>
-                                <h6 class="mt-3 ml-2 card-title">Descrição da solicitação</h6>
-                                <p class=" ml-2 card-text"><?= $solicitacao->descricao ?></p>
-
+                                <div class="row">
+                                    <div class="c1 ml-4"> 
+                                        <h6 class="mt-3 card-title">Descrição da solicitação</h6>
+                                        <p class="card-text"><?= $solicitacao->descricao ?></p>
+                                    </div>
+                                </div>                                
                                 <br />
                                 <div class="row">
                                     <div class="c1 ml-4" style="width: 80%">
