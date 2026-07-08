@@ -56,7 +56,7 @@ foreach ($lista as $tipo => $obj) {
 
         if ($totalArquivos === 1) {
             $link_arquivo = $arquivos[0];
-            $possui_arquivo =  "<a href='$link_arquivo' target='_blank' title='Baixar anexo' class='d-inline-block'><i class='fa fa-file fa-2x text-info'></i></a>";
+            $possui_arquivo =  "<a href='$link_arquivo' target='_blank' title='Baixar anexo' class='btn btn-info btn-sm d-inline-block'><i class='fa fa-file fa-2x text-white'></i></a>";
         } elseif ($totalArquivos > 1) {
             $onclick = "onclick=\"mostraAnexos($solicitacao->id, '$pasta_interacao','',$obj->id,true); return false;\"";
             $possui_arquivo =  "<a href='#' target='_blank' title='Visualizar anexos' class='d-inline-block' $onclick><i class='fa fa-folder-open fa-2x text-info'></i></a>";
