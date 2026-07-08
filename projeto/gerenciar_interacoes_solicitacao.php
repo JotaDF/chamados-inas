@@ -141,7 +141,7 @@ and open the template in the editor.
             $('#confirm').modal({ show: true });
         }
 
-        function mostraAnexos(id_solicitacao, pasta, solicitacao, id_interacao) {
+        function mostraAnexos(id_solicitacao, pasta, solicitacao, id_interacao,exclur=false) {
 
             $('#lista_arquivos').html(
                 '<p class="text-center text-muted">Carregando arquivos...</p>'
@@ -157,14 +157,14 @@ and open the template in the editor.
                 success: function (arquivos) {
 
                     $('#lista_arquivos').html(
-                        montarListaArquivos(id_solicitacao, pasta, arquivos)
+                        montarListaArquivos(id_solicitacao, pasta, arquivos, exclur)
                     );
 
                     $('#modalArquivos').modal('show');
                 }
             });
         }
-        function montarListaArquivos(id_solicitacao, pasta, itens) {
+        function montarListaArquivos(id_solicitacao, pasta, itens, exclur) {
 
             let html = '';
 
@@ -178,7 +178,8 @@ and open the template in the editor.
                 // Se for um arquivo
                 const link = `${pasta}/${item.caminho.replace(/^.*?\//, '')}`;
 
-                html += `
+                if (exclur) {
+                    html += `
                     <div class="list-group-item d-flex justify-content-between align-items-center mb-2">
 
                         <div class="d-flex align-items-center">
@@ -194,10 +195,34 @@ and open the template in the editor.
                             download>
                                 <i class="fa fa-download"></i>
                             </a>
+
+                            <button type='button' class='btn btn-danger btn-sm' title='Excluir arquivo' onclick="excluirArquivo('${id_solicitacao}','${pasta}','${link}')"><i class='fa fa-times'></i></button>
+
+                        </div>
+                    </div>`;
+                } else {
+                    html += `
+                    <div class="list-group-item d-flex justify-content-between align-items-center mb-2">
+
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-file mr-2"></i>
+                            <span>${item.nome}</span>
+                        </div>
+
+                        <div>
+
+                            <a href="${link}" target="_blank" 
+                            class="btn btn-primary btn-sm mr-1"
+                            title="Baixar arquivo"
+                            download>
+                                <i class="fa fa-download"></i>
+                            </a>
+
                         </div>
 
                     </div>
                 `;
+                }
             });
 
             return html;
