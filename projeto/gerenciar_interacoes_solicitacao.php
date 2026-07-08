@@ -116,7 +116,6 @@ and open the template in the editor.
                 },
                 success: function (retorno) {
 
-
                     if (retorno.sucesso) {
 
                         $('#mensagem_exclusao_arquivo').text(
@@ -448,6 +447,12 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <div class="c2 ml-4">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Aberto por:</div>
+                                        <div class="mb-0">
+                                            <?= $usuario->nome ?>
+                                        </div>
+                                    </div>
+                                    <div class="c3 ml-4">
                                         <!-- <?php
                                         $txt_status = '<img src="img/chamado_aberto.svg" title="Novo" width="40" />';
                                         switch ($solicitacao->status) {
@@ -468,19 +473,22 @@ and open the template in the editor.
                                         <div class="text-xs font-weight-bold text-uppercase mb-1">Status</div>
                                         <div class="mb-0"><?= $txt_status ?></div>
                                     </div>
-                                    <div class="c2 ml-4">
+                                    <div class="c4 ml-4">
                                         <div class="text-xs font-weight-bold text-uppercase mb-1">Anexo</div>
                                         <div class="mb-0"><?= $possui_arquivo ?></div>
                                     </div>
                                 </div>
-                                <h6 class="mt-3 ml-2 card-title">Aberto por:</h6>
-                                <p class=" ml-2 card-text"><?= $usuario->nome ?></p>
-                                <h6 class="mt-3 ml-2 card-title">Processo</h6>
-                                <p class=" ml-2 card-text"><?= $solicitacao->chave ?></p>
-                                <?php
+                                <div class="row">
+                                    <div class="c1 ml-4">                                        
+                                        <h6 class="mt-3 ml-2 card-title">Processo</h6>
+                                        <p class=" ml-2 card-text"><?= $solicitacao->chave ?></p>
+                                    </div>
+                                    <?php
                                 if (!empty($solicitacao->assunto)) { ?>
-                                    <h6 class="mt-3 ml-2 card-title">Parte autora</h6>
+                                    <div class="c2 ml-4">
+                                        <h6 class="mt-3 ml-2 card-title">Parte autora</h6>
                                     <p class=" ml-2 card-text"><?= $solicitacao->assunto ?></p>
+                                    </div>                                                                    
                                 <?php } ?>
                                 <h6 class="mt-3 ml-2 card-title">Descrição da solicitação</h6>
                                 <p class=" ml-2 card-text"><?= $solicitacao->descricao ?></p>
