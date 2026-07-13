@@ -91,6 +91,9 @@ foreach ($acessos as $acesso) {
             case 22:
                 $icon_css = "fa fa-user-md";
                 break;
+            case 23:
+                $icon_css = "fa fa-envelope";
+                break;                
             case 26:
                 $icon_css = "fa fa-window-restore";
                 break;                                                            
