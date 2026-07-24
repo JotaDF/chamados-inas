@@ -120,11 +120,13 @@ class ManterUsuario extends Model
         //        echo $sql . "<BR/>";
 //        exit;
         if ($dados->id > 0) {
-            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),sexo='" . $dados->sexo . "',login='" . $dados->login . "',matricula='" + $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "'
+            $sql = "update usuario set nome=UPPER('" . $dados->nome . "'),sexo='" . $dados->sexo . "',login='" . $dados->login . "',matricula='" . $dados->matricula . "',cargo='" . $dados->cargo . "',email='" . $dados->email . "',nascimento='" . $dados->nascimento . "',whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "'
             ,id_setor='" . $dados->setor . "', cargo_efetivo='" . $dados->cargo_efetivo . "', simbolo_cargo='" . $dados->simbolo_cargo . "', codigo_lotacao='" . $dados->codigo_lotacao . "', descricao_lotacao='" . $dados->descricao_lotacao . "', cpf='" . $dados->cpf . "' where id=$dados->id";
-            $resultado = $this->db->Execute($sql);
+            $array_auditoria = ['acao' => 'update', 'tabela' => 'usuario', 'identificador' => ['id' => $dados->id]];
+            $resultado = $this->executeComAuditoria($sql, $array_auditoria, $dados);
         } else {
-            $resultado = $this->db->Execute($sql);
+            $array_auditoria = ['acao' => 'insert', 'tabela' => 'usuario'];
+            $resultado = $this->executeComAuditoria($sql, $array_auditoria, $dados);
             $dados->id = $this->db->insert_Id();
         }
         //echo $sql . "<BR/>";
@@ -137,28 +139,32 @@ class ManterUsuario extends Model
     function salvarPerfil(Usuario $dados)
     {
         $sql = "update usuario set whatsapp='" . $dados->whatsapp . "',linkedin='" . $dados->linkedin . "',aniversariantes='" . $dados->aniversariantes . "', horario='" . $dados->horario . "' where id=$dados->id";
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'update', 'tabela' => 'usuario', 'identificador' => ['id' => $dados->id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria, $dados);
         //echo $sql . "<BR/>";
         return $resultado;
     }
     function desativar($id)
     {
         $sql = "update usuario set ativo=0 where id=$id";
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'update', 'tabela' => 'usuario', 'identificador' => ['id' => $id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         //echo $sql . "<BR/>";
         return $resultado;
     }
     function ativar($id)
     {
         $sql = "update usuario set ativo=1 where id=$id";
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'update', 'tabela' => 'usuario', 'identificador' => ['id' => $id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         //echo $sql . "<BR/>";
         return $resultado;
     }
     function excluir($id)
     {
         $sql = "delete from usuario where id=" . $id;
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'delete', 'tabela' => 'usuario', 'identificador' => ['id' => $id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         return $resultado;
     }
     function getEditoresPorTarefa($id_tarefa)
@@ -436,20 +442,25 @@ class ManterUsuario extends Model
         //exit;
         if ($op != "add") {
             $sql = "DELETE FROM editor WHERE id_usuario=" . $id . " AND id_tarefa=" . $tarefa;
+            $array_auditoria = ['acao' => 'DELETE', 'tabela' => 'editor', 'identificador' => ['id' . $id]];
+            $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         }
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'insert', 'tabela' => 'editor'];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria, ['id_usuario' => $id, 'tarefa' => $tarefa]);
         return $resultado;
     }
     function permitirAcesso($id_modulo, $id_usuario, $id_perfil)
     {
         $sql = "insert into acesso (id_modulo,id_usuario,id_perfil) values ('" . $id_modulo . "','" . $id_usuario . "','" . $id_perfil . "')";
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'insert', 'tabela' => 'acesso', 'identificador' => ['id_usuario' => $id_usuario, 'id_modulo' => $id_modulo, 'id_perfil' => $id_perfil]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria, ['id_usuario' => $id_usuario, 'id_modulo' => $id_modulo, 'id_perfil' => $id_perfil]);
         return $resultado;
     }
     function removerAcesso($id_modulo, $id_usuario)
     {
         $sql = "DELETE FROM acesso WHERE id_usuario=" . $id_usuario . " AND id_modulo=" . $id_modulo;
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'DELETE', 'tabela' => 'acesso', 'identificador' => ['id_usuario' => $id_usuario, 'id_modulo' => $id_modulo]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         return $resultado;
     }
     function listarAniversariantes($mes = "")
@@ -534,13 +545,15 @@ class ManterUsuario extends Model
     function permitirAgenda($id)
     {
         $sql = "UPDATE usuario SET agenda=1 WHERE id=" . $id;
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'UPDATE', 'tabela' => 'usuario', 'identificador' => ['id' => $id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         return $resultado;
     }
     function removerAgenda($id)
     {
         $sql = "UPDATE usuario SET agenda=0 WHERE id=" . $id;
-        $resultado = $this->db->Execute($sql);
+        $array_auditoria = ['acao' => 'UPDATE', 'tabela' => 'usuario', 'identificador' => ['id' => $id]];
+        $resultado = $this->executeComAuditoria($sql, $array_auditoria);
         return $resultado;
     }
     function getInscritosEvento($id_evento)

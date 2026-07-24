@@ -5,11 +5,23 @@
 //Local
 require('adodb/adodb.inc.php'); //biblioteca necessaria para trabalhar com adodb
 
+require_once('dto/Usuario.php');
+
 class Model
 {
 	protected $db;
+	protected $id_usuario = 0;
 	function __construct()
 	{
+		if (session_status() !== PHP_SESSION_ACTIVE) {
+			session_start();
+		}
+
+		if (isset($_SESSION['usuario'])) {
+			$usuario = unserialize($_SESSION['usuario']);
+			$this->id_usuario = $usuario->id;
+		}
+
 		$tipo_banco = "mysqli";
 		/*local 
 		$servidor      = "db";
@@ -147,8 +159,194 @@ class Model
 				substr($cnpj, 12, 2);
 			return $cnpj;
 		} else {
-			return cnpj;
+			return $cnpj;
 		}
+	}
+
+	function executeComAuditoria(string $sql = "", array $auditoria = [], $dados = null)
+	{
+		$acao = strtoupper($auditoria['acao']);
+
+		switch ($acao) {
+
+			case 'SELECT':
+				return $this->db->Execute($sql);
+
+			case 'UPDATE':
+				return $this->auditarAtualizacao($sql, $auditoria);
+
+			case 'DELETE':
+				return $this->auditarExclusao($sql, $auditoria);
+
+			case 'INSERT':
+				return $this->auditarInsercao($sql, $auditoria, $dados);
+
+			default:
+				throw new InvalidArgumentException("Ação '{$acao}' não suportada.");
+		}
+	}
+
+	function auditarAtualizacao($sql, $auditoria)
+	{
+		if (empty($auditoria['identificador'])) {
+			throw new InvalidArgumentException(
+				'Identificador não informado para auditoria de atualização.'
+			);
+		}
+
+		// Estado antes da atualização
+		$valores_antigos = $this->buscaRegistro($auditoria);
+
+		// Executa o UPDATE
+		$resultado = $this->db->Execute($sql);
+
+		if ($resultado === false) {
+			return false;
+		}
+
+		// Estado após a atualização
+		$valores_novos = $this->buscaRegistro($auditoria);
+
+		// Obtém apenas os campos alterados
+		$diferenca = $this->getValoresModificados(
+			$valores_antigos,
+			$valores_novos
+		);
+
+		// Se nada mudou, não registra auditoria
+		if (empty($diferenca['valores_antigos'])) {
+			return $resultado;
+		}
+
+		$ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+		$sql_auditoria = "INSERT INTO auditoria_intranet (id_usuario, acao, tabela_afetada, identificador, valores_anteriores, valores_novos, ip, data_hora)
+    VALUES ('" . $this->id_usuario . "', 'UPDATE', '" . $auditoria['tabela'] . "', '" . json_encode($auditoria['identificador']) . "', '" . json_encode($diferenca['valores_antigos']) . "', '" . json_encode($diferenca['valores_novos']) . "', '" . $ip . "', NOW())";
+
+		$this->db->Execute($sql_auditoria);
+
+		return $resultado;
+	}
+
+	function auditarInsercao($sql, $auditoria, $dados)
+	{
+		$resultado = $this->db->Execute($sql);
+
+		if ($resultado === false) {
+			return false;
+		}
+
+		if (empty($auditoria['identificador'])) {
+
+			$identificador = [
+				'id' => $this->db->insert_Id()
+			];
+
+		} else {
+			$identificador = $auditoria['identificador'];
+		}
+
+		$valores_novos = json_encode($this->normalizarDados($dados));
+
+		$ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+		$sql_auditoria = "INSERT INTO auditoria_intranet (id_usuario, acao, tabela_afetada, id_registro, valores_anteriores, valores_novos, ip, data_hora) 
+		VALUES ('" . $this->id_usuario . "', 'INSERT', '" . $auditoria['tabela'] . "', '" . json_encode($identificador) . "', NULL, '" . $valores_novos . "', '" . $ip . "', NOW())";
+
+		$this->db->Execute($sql_auditoria);
+
+		return $resultado;
+	}
+
+	function auditarExclusao($sql, $auditoria)
+	{
+		// O identificador é obrigatório para DELETE
+		if (empty($auditoria['identificador'])) {
+			throw new InvalidArgumentException(
+				'Identificador não informado para auditoria de exclusão.'
+			);
+		}
+		// Busca os dados antes da exclusão
+		$valores_antigos = json_encode($this->buscaRegistro($auditoria));
+
+		// Executa o DELETE
+		$resultado = $this->db->Execute($sql);
+
+		if ($resultado === false) {
+			return false;
+		}
+
+		$ip = $_SERVER['REMOTE_ADDR'] ?? '';
+
+		$sql_auditoria = "INSERT INTO auditoria_intranet (id_usuario, acao, tabela_afetada, id_registro, valores_anteriores, valores_novos, ip, data_hora) 
+		VALUES ('" . $this->id_usuario . "', 'DELETE', '" . $auditoria['tabela'] . "', '" . json_encode($auditoria['identificador']) . "', '" . $valores_antigos . "', NULL, '" . $ip . "', NOW())";
+		$this->db->Execute($sql_auditoria);
+		return $resultado;
+	}
+
+	function buscaRegistro($auditoria)
+	{
+		$where = [];
+
+		foreach ($auditoria['identificador'] as $campo => $valor) {
+			$where[] = "{$campo} = '" . addslashes($valor) . "'";
+		}
+
+		$sql = "SELECT * FROM " . $auditoria['tabela'] . " WHERE " . implode(' AND ', $where);
+		// echo $sql;
+
+		$this->db->SetFetchMode(ADODB_FETCH_ASSOC);
+
+		$resultado = $this->db->Execute($sql);
+
+		if ($resultado === false) {
+			throw new Exception($this->db->ErrorMsg());
+		}
+
+		return $resultado->fetchRow();
+	}
+
+	function getValoresModificados(array $antigos, array $novos): array
+	{
+		$retorno = [
+			'valores_antigos' => [],
+			'valores_novos' => [],
+		];
+
+		$chaves = array_unique(array_merge(
+			array_keys($antigos),
+			array_keys($novos)
+		));
+
+		foreach ($chaves as $chave) {
+
+			$valorAntigo = $antigos[$chave] ?? null;
+			$valorNovo = $novos[$chave] ?? null;
+
+			if ((string) $valorAntigo !== (string) $valorNovo) {
+				$retorno['valores_antigos'][$chave] = $valorAntigo;
+				$retorno['valores_novos'][$chave] = $valorNovo;
+			}
+		}
+
+		return $retorno;
+	}
+
+	function normalizarDados($dados)
+	{
+		if (is_null($dados)) {
+			return [];
+		}
+
+		if (is_array($dados)) {
+			return $dados;
+		}
+
+		if (is_object($dados)) {
+			return get_object_vars($dados);
+		}
+
+		return ['valor' => $dados];
 	}
 	//metodo que retorna o valor por extenso de um numero
 	function valorPorExtenso($valor = 0)
